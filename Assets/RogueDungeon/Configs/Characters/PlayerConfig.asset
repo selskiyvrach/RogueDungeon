@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07aa3dbe96d84821bef04b6d2c74a97a, type: 3}
+  m_Name: PlayerConfig
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: Player
+  <Stats>k__BackingField:
+  - <Id>k__BackingField: Hp
+    <Value>k__BackingField: 100
+  ActionConfigs:
+  - <Name>k__BackingField: DodgeLeft
+    <AnimationName>k__BackingField: DodgeLeft
+    <Frames>k__BackingField: 30
+    <Keyframes>k__BackingField:
+    - <Frame>k__BackingField: 1
+      <Name>k__BackingField: DodgeStarted
+    - <Frame>k__BackingField: 30
+      <Name>k__BackingField: DodgeFinished
+  - <Name>k__BackingField: DodgeRight
+    <AnimationName>k__BackingField: DodgeRight
+    <Frames>k__BackingField: 30
+    <Keyframes>k__BackingField:
+    - <Frame>k__BackingField: 1
+      <Name>k__BackingField: DodgeStarted
+    - <Frame>k__BackingField: 30
+      <Name>k__BackingField: DodgeFinished
+  <UnarmedBlock>k__BackingField:
+    <Stats>k__BackingField:
+    - <Id>k__BackingField: PhysicalDamageResistFlat
+      <Value>k__BackingField: 5
+    - <Id>k__BackingField: BluntDamageResistPercent
+      <Value>k__BackingField: 50
+    <BlockActionConfig>k__BackingField:
+      <Name>k__BackingField: Block
+      <AnimationName>k__BackingField: HandsBlock
+      <Frames>k__BackingField: 7
+      <Keyframes>k__BackingField:
+      - <Frame>k__BackingField: 5
+        <Name>k__BackingField: BlockRaised
+  <UnarmedAttack>k__BackingField:
+    <Damage>k__BackingField: 15
+    <DamageType>k__BackingField: BluntDamage
+    <AttackActionConfig>k__BackingField:
+      <Name>k__BackingField: Attack
+      <AnimationName>k__BackingField: HandsAttack
+      <Frames>k__BackingField: 25
+      <Keyframes>k__BackingField:
+      - <Frame>k__BackingField: 15
+        <Name>k__BackingField: Hit
+  <AttackCenter>k__BackingField:
+    <Damage>k__BackingField: 0
+    <DamageType>k__BackingField: 
+    <AttackActionConfig>k__BackingField:
+      <Name>k__BackingField: 
+      <AnimationName>k__BackingField: 
+      <Frames>k__BackingField: 0
+      <Keyframes>k__BackingField: []
+  <AttackLeft>k__BackingField:
+    <Damage>k__BackingField: 0
+    <DamageType>k__BackingField: 
+    <AttackActionConfig>k__BackingField:
+      <Name>k__BackingField: 
+      <AnimationName>k__BackingField: 
+      <Frames>k__BackingField: 0
+      <Keyframes>k__BackingField: []
+  <AttackRight>k__BackingField:
+    <Damage>k__BackingField: 0
+    <DamageType>k__BackingField: 
+    <AttackActionConfig>k__BackingField:
+      <Name>k__BackingField: 
+      <AnimationName>k__BackingField: 
+      <Frames>k__BackingField: 0
+      <Keyframes>k__BackingField: []
