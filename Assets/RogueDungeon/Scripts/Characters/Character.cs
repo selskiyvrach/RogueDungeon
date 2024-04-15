@@ -47,7 +47,10 @@ namespace RogueDungeon.Characters
             _animator.SetState(null);
         }
 
-        public void OnCommand(string command)
+        /// <summary>
+        /// Returns false if command has not been executed 
+        /// </summary>
+        public bool OnCommand(string command)
         {
             switch (command)
             {
@@ -55,29 +58,27 @@ namespace RogueDungeon.Characters
                     if (CurrentAction is BlockAction block1)
                     {
                         block1.OnRaiseBlockCommand();
-                        return;
+                        return true;
                     }
                     command = "Block";
                     break;
                 case "LowerBlock":
-                    if (CurrentAction is BlockAction block)
-                    {
-                        block.OnLowerBlockCommand();
-                        return;
-                    }
-                    command = "Block";
-                    break;
+                    if (CurrentAction is not BlockAction block) 
+                        return false;
+                    block.OnLowerBlockCommand();
+                    return true;
             }
             
             if (CurrentAction?.IsFinished ?? false)
                 CurrentAction = null;
 
             if(CurrentAction != null)
-                return;
+                return false;
             CurrentAction = Actions[command];
             CurrentAction.Start();
             _animator.SetState(CurrentAction.AnimationName);
             _animator.UpdateState(0);
+            return true;
             // Debug.Log(command + " started");
         }
     }

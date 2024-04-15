@@ -5,6 +5,8 @@ namespace RogueDungeon.Characters
     public class KeyboardCharacterController
     {
         private readonly Character _character;
+        private string _coyoteTimeCommand;
+        private int _coyoteTimeFrames;
 
         public KeyboardCharacterController(Character character) => 
             _character = character;
@@ -12,17 +14,37 @@ namespace RogueDungeon.Characters
         public void Tick()
         {
             if(Input.GetKeyDown(KeyCode.A))
-                _character.OnCommand("DodgeLeft");
+                HandleInputCommand("DodgeLeft");
             if(Input.GetKeyDown(KeyCode.D))
-                _character.OnCommand("DodgeRight");
+                HandleInputCommand("DodgeRight");
             if(Input.GetKeyDown(KeyCode.Mouse1))
-                _character.OnCommand("RaiseBlock");
+                HandleInputCommand("RaiseBlock");
             if(Input.GetKeyUp(KeyCode.Mouse1))
-                _character.OnCommand("LowerBlock");
+                HandleInputCommand("LowerBlock");
             if(Input.GetKeyDown(KeyCode.Mouse0))
-                _character.OnCommand("Attack");
+                HandleInputCommand("Attack");
             
             _character.Tick();
+            
+            if(_coyoteTimeCommand == null)
+                return;
+            
+            if (_character.CurrentAction == null && _character.OnCommand(_coyoteTimeCommand))
+            {
+                _coyoteTimeCommand = null;
+                return;
+            }
+
+            if (_coyoteTimeFrames-- == 0)
+                _coyoteTimeCommand = null;
+        }
+
+        private void HandleInputCommand(string command)
+        {
+            if (_character.OnCommand(command)) 
+                return;
+            _coyoteTimeCommand = command;
+            _coyoteTimeFrames = 15;
         }
     }
 }
