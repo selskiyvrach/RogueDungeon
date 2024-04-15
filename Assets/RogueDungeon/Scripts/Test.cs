@@ -28,7 +28,7 @@ namespace RogueDungeon
             enemyCharacter.Actions.Add("AttackCenter", new AttackAction(enemyCharacter, enemyCharacter.Config.AttackCenter, DodgeState.NotDodging));            
             enemyCharacter.Actions.Add("AttackLeft", new AttackAction(enemyCharacter, enemyCharacter.Config.AttackLeft, DodgeState.DodgingRight));
             enemyCharacter.Actions.Add("AttackRight", new AttackAction(enemyCharacter, enemyCharacter.Config.AttackRight, DodgeState.DodgingLeft));
-            _enemy = new PatternCharacterController(enemyCharacter, 120, new []{"AttackLeft", "AttackRight", "AttackCenter"});
+            _enemy = new PatternCharacterController(enemyCharacter, 45, new []{"AttackLeft", "AttackRight", "AttackCenter"});
 
             playerCharacter.CombatState.Enemy = enemyCharacter;
             enemyCharacter.CombatState.Enemy = playerCharacter;
