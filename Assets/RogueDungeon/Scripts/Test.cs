@@ -18,7 +18,7 @@ namespace RogueDungeon
         {
             var playerCharacter = new Character(_playerConfig, _playerAnimator);
             playerCharacter.Actions.Add("Attack", new AttackAction(playerCharacter, playerCharacter.Config.UnarmedAttack, DodgeState.NotDodging));
-            playerCharacter.Actions.Add("Block", new BlockAction(playerCharacter, playerCharacter.Config.UnarmedBlock));
+            playerCharacter.Actions.Add("RaiseBlock", new BlockAction(playerCharacter, playerCharacter.Config.UnarmedBlock));
             playerCharacter.Actions.Add("DodgeLeft", new DodgeAction(playerCharacter, DodgeState.DodgingLeft, playerCharacter.Config.GetActionConfig("DodgeLeft")));
             playerCharacter.Actions.Add("DodgeRight", new DodgeAction(playerCharacter, DodgeState.DodgingRight, playerCharacter.Config.GetActionConfig("DodgeRight")));
             _player = new KeyboardCharacterController(playerCharacter);

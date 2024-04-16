@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using RogueDungeon.Actions;
 using RogueDungeon.Animations;
 using RogueDungeon.Health;
@@ -48,33 +47,26 @@ namespace RogueDungeon.Characters
         }
 
         /// <summary>
-        /// Returns false if command has not been executed 
+        /// Returns false if command could not execute at the moment 
         /// </summary>
         public bool OnCommand(string command)
         {
-            switch (command)
-            {
-                case "RaiseBlock":
-                    if (CurrentAction is BlockAction block1)
-                    {
-                        block1.OnRaiseBlockCommand();
-                        return true;
-                    }
-                    command = "Block";
-                    break;
-                case "LowerBlock":
-                    if (CurrentAction is not BlockAction block) 
-                        return false;
-                    block.OnLowerBlockCommand();
-                    return true;
-            }
-            
             if (CurrentAction?.IsFinished ?? false)
                 CurrentAction = null;
 
-            if(CurrentAction != null)
+            if (CurrentAction != null)
+            {
+                // TODO: find out if this behaviour is ok or should it also be a boolean 
+                // for now it returns false no matter the action's ability to handle the command
+                // so the command will become a coyote time command in any case
+                CurrentAction.OnCommand(command);
                 return false;
-            CurrentAction = Actions[command];
+            }
+
+            if (!Actions.TryGetValue(command, out var action))
+                return true;
+
+            CurrentAction = action;
             CurrentAction.Start();
             _animator.SetState(CurrentAction.AnimationName);
             _animator.UpdateState(0);

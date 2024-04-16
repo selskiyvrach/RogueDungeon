@@ -29,8 +29,16 @@ namespace RogueDungeon.Characters
             if(_coyoteTimeCommand == null)
                 return;
             
-            if (_character.CurrentAction == null && _character.OnCommand(_coyoteTimeCommand))
+            if (_character.CurrentAction == null)
             {
+                if (_coyoteTimeCommand == "RaiseBlockThenLower")
+                {
+                    _character.OnCommand("RaiseBlock");
+                    _character.OnCommand("LowerBlock");
+                }
+                else
+                    _character.OnCommand(_coyoteTimeCommand);
+
                 _coyoteTimeCommand = null;
                 return;
             }
@@ -43,7 +51,10 @@ namespace RogueDungeon.Characters
         {
             if (_character.OnCommand(command)) 
                 return;
-            _coyoteTimeCommand = command;
+            if (_coyoteTimeCommand == "RaiseBlock" && command == "LowerBlock")
+                _coyoteTimeCommand = "RaiseBlockThenLower";
+            else
+                _coyoteTimeCommand = command;
             _coyoteTimeFrames = 15;
         }
     }

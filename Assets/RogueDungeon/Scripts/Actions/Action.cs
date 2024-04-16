@@ -1,4 +1,6 @@
-﻿namespace RogueDungeon.Actions
+﻿using System;
+
+namespace RogueDungeon.Actions
 {
     public abstract class Action
     {
@@ -17,8 +19,8 @@
             get => _isRewinding;
             set
             {
-                TryRaiseCallback();
                 _isRewinding = value;
+                TryRaiseCallback();
             }
         }
 
@@ -30,6 +32,7 @@
             _hasStarted = true;
             _isRewinding = false;
             CurrentFrame = 1;
+            OnStarted();
         }
 
         public void Tick()
@@ -51,13 +54,23 @@
             OnStop();
         }
 
+        public virtual void OnCommand(string command)
+        {
+        }
+
         private void TryRaiseCallback()
         {
             var keyframe = _config.GetKeyframe(CurrentFrame); 
             if(keyframe != null)
                 OnKeyframe(keyframe);
         }
+
         protected abstract void OnKeyframe(string keyframe);
+
+        protected virtual void OnStarted()
+        {
+        }
+
         protected virtual void OnStop()
         {
         }

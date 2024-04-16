@@ -41,6 +41,8 @@ namespace RogueDungeon.Actions
     {
         private readonly Character _character;
         private readonly BlockingWeaponConfig _blockingWeapon;
+        private bool _canLowerIfNotHoldingInput;
+        private bool _lowerBlockCommandReceived;
         public override bool IsFinished => IsRewinding && CurrentFrame == 1;
 
         public BlockAction(Character character, BlockingWeaponConfig blockingWeapon) : base(blockingWeapon.BlockActionConfig)
@@ -49,16 +51,23 @@ namespace RogueDungeon.Actions
             _blockingWeapon = blockingWeapon;
         }
 
-        public void OnRaiseBlockCommand()
+        protected override void OnStarted()
         {
-            if (IsRewinding)
-                IsRewinding = false;
+            _canLowerIfNotHoldingInput = false;
+            _lowerBlockCommandReceived = false;
         }
 
-        public void OnLowerBlockCommand()
+        public override void OnCommand(string command)
         {
-            if (!IsRewinding)
-                IsRewinding = true;
+            switch (command)
+            {
+                case "LowerBlock":
+                if (_canLowerIfNotHoldingInput && !IsRewinding)
+                    IsRewinding = true;
+                else
+                    _lowerBlockCommandReceived = true;
+                break;
+            }
         }
 
         protected override void OnKeyframe(string keyframe)
@@ -71,6 +80,12 @@ namespace RogueDungeon.Actions
                     break;
                 case "BlockRaised" when IsRewinding:
                     LowerBlock(combatState);
+                    break;
+                case "CanLowerIfNotHoldingInput":
+                    if (_lowerBlockCommandReceived && !IsRewinding)
+                        IsRewinding = true;
+                    else
+                        _canLowerIfNotHoldingInput = true;
                     break;
                 default:
                     Debug.LogError("Invalid keyframe in block action: " + keyframe);
