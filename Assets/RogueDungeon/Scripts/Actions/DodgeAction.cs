@@ -19,7 +19,7 @@ namespace RogueDungeon.Actions
             switch (keyframe)
             {
                 case "DodgeStarted":
-                    a_character.CombatState.DodgeState = _dodgeState;
+                    _character.CombatState.DodgeState = _dodgeState;
                     break;
                 case "DodgeFinished":
                     _character.CombatState.DodgeState = DodgeState.NotDodging;
