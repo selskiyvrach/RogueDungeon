@@ -8,19 +8,21 @@ namespace RogueDungeon.Characters
 {
     public class Character : IStatsProvider
     {
-        private readonly Animator _animator;
         public string Id { get; }
         public CharacterConfig Config { get; }
+        public Animator Animator { get; }
         public Dictionary<string, Action> Actions { get; } = new();
-        public Action CurrentAction { get; private set; }
+        public Action CurrentAction { get; set; }
         public Health.Health Health { get; }
         public CombatState CombatState { get; } = new();
+        public CharacterController Controller { get; set; }
 
         public Character(CharacterConfig config, Animator animator)
         {
-            _animator = animator;
+            Animator = animator;
             Config = config;
             Id = Config.Id;
+            
             var hpAmount = GetStat(Constants.HP);
             Health = new Health.Health();
             Health.SetHealth(hpAmount, hpAmount, HealthChangeReason.Recalculated);
@@ -32,46 +34,7 @@ namespace RogueDungeon.Characters
                 ? CombatState.BlockingWeaponStats.GetStat(id) 
                 : 0);
 
-        public void Tick()
-        {
-            if(CurrentAction == null)
-                return;
-            CurrentAction.Tick();
-            _animator.UpdateState((float)CurrentAction.CurrentFrame / CurrentAction.Frames);
-            if (!CurrentAction.IsFinished)
-                return;
-            // Debug.Log(Actions.FirstOrDefault(n => n.Value == CurrentAction).Key + " finished");
-            CurrentAction.Stop();
-            CurrentAction = null;
-            _animator.SetState(null);
-        }
-
-        /// <summary>
-        /// Returns false if command could not execute at the moment 
-        /// </summary>
-        public bool OnCommand(string command)
-        {
-            if (CurrentAction?.IsFinished ?? false)
-                CurrentAction = null;
-
-            if (CurrentAction != null)
-            {
-                // TODO: find out if this behaviour is ok or should it also be a boolean 
-                // for now it returns false no matter the action's ability to handle the command
-                // so the command will become a coyote time command in any case
-                CurrentAction.OnCommand(command);
-                return false;
-            }
-
-            if (!Actions.TryGetValue(command, out var action))
-                return true;
-
-            CurrentAction = action;
-            CurrentAction.Start();
-            _animator.SetState(CurrentAction.AnimationName);
-            _animator.UpdateState(0);
-            return true;
-            // Debug.Log(command + " started");
-        }
+        public void Tick() => 
+            Controller?.Tick();
     }
 }

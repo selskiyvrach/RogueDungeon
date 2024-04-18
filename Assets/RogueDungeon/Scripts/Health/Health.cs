@@ -4,8 +4,6 @@ namespace RogueDungeon.Health
 {
     public class Health
     {
-        private float _current;
-
         public float Current { get; private set; }
 
         public float Max { get; private set; }
@@ -18,7 +16,7 @@ namespace RogueDungeon.Health
         public void SetHealth(float max, float current, HealthChangeReason reason)
         {
             Max = max;
-            Current = Mathf.Clamp(_current + current, 0, Max);
+            Current = Mathf.Clamp(Current + current, 0, Max);
             OnChanged?.Invoke(reason);
         }
     }

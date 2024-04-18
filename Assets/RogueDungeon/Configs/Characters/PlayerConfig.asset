@@ -13,12 +13,16 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: Player
+  <Prefab>k__BackingField: {fileID: 2765455459887452515, guid: 0b1353be74b298141ba99669d9373a88,
+    type: 3}
+  <Controller>k__BackingField: Player
   <Stats>k__BackingField:
   - <Id>k__BackingField: Hp
     <Value>k__BackingField: 100
   ActionConfigs:
   - <Name>k__BackingField: DodgeLeft
     <AnimationName>k__BackingField: DodgeLeft
+    <Command>k__BackingField: DodgeLeft
     <Frames>k__BackingField: 30
     <Keyframes>k__BackingField:
     - <Frame>k__BackingField: 1
@@ -27,58 +31,41 @@ MonoBehaviour:
       <Name>k__BackingField: DodgeFinished
   - <Name>k__BackingField: DodgeRight
     <AnimationName>k__BackingField: DodgeRight
+    <Command>k__BackingField: DodgeRight
     <Frames>k__BackingField: 30
     <Keyframes>k__BackingField:
     - <Frame>k__BackingField: 1
       <Name>k__BackingField: DodgeStarted
     - <Frame>k__BackingField: 30
       <Name>k__BackingField: DodgeFinished
-  <UnarmedBlock>k__BackingField:
-    <Stats>k__BackingField:
-    - <Id>k__BackingField: PhysicalDamageResistFlat
-      <Value>k__BackingField: 5
-    - <Id>k__BackingField: BluntDamageResistPercent
-      <Value>k__BackingField: 50
-    <BlockActionConfig>k__BackingField:
-      <Name>k__BackingField: Block
-      <AnimationName>k__BackingField: HandsBlock
-      <Frames>k__BackingField: 5
-      <Keyframes>k__BackingField:
-      - <Frame>k__BackingField: 2
-        <Name>k__BackingField: BlockRaised
-      - <Frame>k__BackingField: 5
-        <Name>k__BackingField: CanLowerIfNotHoldingInput
-  <UnarmedAttack>k__BackingField:
-    <Damage>k__BackingField: 15
-    <DamageType>k__BackingField: BluntDamage
-    <AttackActionConfig>k__BackingField:
-      <Name>k__BackingField: Attack
-      <AnimationName>k__BackingField: HandsAttack
-      <Frames>k__BackingField: 35
-      <Keyframes>k__BackingField:
-      - <Frame>k__BackingField: 20
-        <Name>k__BackingField: Hit
-  <AttackCenter>k__BackingField:
-    <Damage>k__BackingField: 0
-    <DamageType>k__BackingField: 
-    <AttackActionConfig>k__BackingField:
-      <Name>k__BackingField: 
-      <AnimationName>k__BackingField: 
-      <Frames>k__BackingField: 0
-      <Keyframes>k__BackingField: []
-  <AttackLeft>k__BackingField:
-    <Damage>k__BackingField: 0
-    <DamageType>k__BackingField: 
-    <AttackActionConfig>k__BackingField:
-      <Name>k__BackingField: 
-      <AnimationName>k__BackingField: 
-      <Frames>k__BackingField: 0
-      <Keyframes>k__BackingField: []
-  <AttackRight>k__BackingField:
-    <Damage>k__BackingField: 0
-    <DamageType>k__BackingField: 
-    <AttackActionConfig>k__BackingField:
-      <Name>k__BackingField: 
-      <AnimationName>k__BackingField: 
-      <Frames>k__BackingField: 0
-      <Keyframes>k__BackingField: []
+  <AttackConfigs>k__BackingField:
+  - <Id>k__BackingField: UnarmedAttack
+    <Config>k__BackingField:
+      <Damage>k__BackingField: 15
+      <DamageType>k__BackingField: BluntDamage
+      <AttackActionConfig>k__BackingField:
+        <Name>k__BackingField: Attack
+        <AnimationName>k__BackingField: HandsAttack
+        <Command>k__BackingField: Attack
+        <Frames>k__BackingField: 35
+        <Keyframes>k__BackingField:
+        - <Frame>k__BackingField: 20
+          <Name>k__BackingField: Hit
+  <BlockConfigs>k__BackingField:
+  - <Id>k__BackingField: UnarmedBlock
+    <Config>k__BackingField:
+      <Stats>k__BackingField:
+      - <Id>k__BackingField: PhysicalDamageResistFlat
+        <Value>k__BackingField: 5
+      - <Id>k__BackingField: BluntDamageResistPercent
+        <Value>k__BackingField: 50
+      <BlockActionConfig>k__BackingField:
+        <Name>k__BackingField: Block
+        <AnimationName>k__BackingField: HandsBlock
+        <Command>k__BackingField: RaiseBlock
+        <Frames>k__BackingField: 6
+        <Keyframes>k__BackingField:
+        - <Frame>k__BackingField: 2
+          <Name>k__BackingField: BlockRaised
+        - <Frame>k__BackingField: 6
+          <Name>k__BackingField: CanLowerIfNotHoldingInput

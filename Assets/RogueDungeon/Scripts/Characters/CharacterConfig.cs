@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using RogueDungeon.Actions;
 using RogueDungeon.Items;
 using RogueDungeon.Stats;
@@ -10,19 +11,28 @@ namespace RogueDungeon.Characters
     public class CharacterConfig : ScriptableObject, IStatsProvider
     {
         [field: SerializeField] public string Id { get; private set; }
-        [field: Header("Stats"), SerializeField] public StatConfig[] Stats { get; private set; }
-        [Header("Actions"), SerializeField] public ActionConfig[] ActionConfigs;
-        [field: Header("Unarmed"), SerializeField] public BlockingWeaponConfig UnarmedBlock { get; private set; }
-        [field: SerializeField] public AttackWeaponConfig UnarmedAttack { get; private set; }
-        [field: Header("SidedAttacks"), SerializeField] public AttackWeaponConfig AttackCenter { get; private set; }
-        [field: SerializeField] public AttackWeaponConfig AttackLeft { get; private set; }
-        [field: SerializeField] public AttackWeaponConfig AttackRight { get; private set; }
-
+        [field: SerializeField] public GameObject Prefab { get; private set; }
+        [field: SerializeField] public string Controller { get; private set; }
+        [field: SerializeField] public StatConfig[] Stats { get; private set; }
+        [field: SerializeField] public ActionConfig[] ActionConfigs;
+        [field: SerializeField] public AttackWeaponConfigById[] AttackConfigs { get; private set; }
+        [field: SerializeField] public BlockWeaponConfigById[] BlockConfigs { get; private set; }
 
         public float GetStat(string id) =>
             Stats.FirstOrDefault(n => n.Id == id).Value;
-
-        public ActionConfig GetActionConfig(string key) =>
-            ActionConfigs.FirstOrDefault(n => n.Name == key);
+    }
+    
+    [Serializable]
+    public struct AttackWeaponConfigById
+    {
+        [field: SerializeField] public string Id { get; private set; }
+        [field: SerializeField] public AttackWeaponConfig Config { get; private set; }
+    }
+    
+    [Serializable]
+    public struct BlockWeaponConfigById
+    {
+        [field: SerializeField] public string Id { get; private set; }
+        [field: SerializeField] public BlockingWeaponConfig Config { get; private set; }
     }
 }

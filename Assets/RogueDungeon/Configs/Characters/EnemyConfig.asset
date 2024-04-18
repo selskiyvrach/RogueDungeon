@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: EnemyConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: Enemy
+  <Prefab>k__BackingField: {fileID: 5827096364031987860, guid: 649cd968dc07a4a46a378727040bafc8,
+    type: 3}
+  <Controller>k__BackingField: 
   <Stats>k__BackingField:
   - <Id>k__BackingField: Hp
     <Value>k__BackingField: 100
@@ -21,48 +24,41 @@ MonoBehaviour:
   - <Id>k__BackingField: SlashDamageBonusPercent
     <Value>k__BackingField: 13
   ActionConfigs: []
-  <UnarmedBlock>k__BackingField:
-    <Stats>k__BackingField: []
-    <BlockActionConfig>k__BackingField:
-      <Name>k__BackingField: 
-      <AnimationName>k__BackingField: 
-      <Frames>k__BackingField: 0
-      <Keyframes>k__BackingField: []
-  <UnarmedAttack>k__BackingField:
-    <Damage>k__BackingField: 0
-    <DamageType>k__BackingField: 
-    <AttackActionConfig>k__BackingField:
-      <Name>k__BackingField: 
-      <AnimationName>k__BackingField: 
-      <Frames>k__BackingField: 0
-      <Keyframes>k__BackingField: []
-  <AttackCenter>k__BackingField:
-    <Damage>k__BackingField: 25
-    <DamageType>k__BackingField: BluntDamage
-    <AttackActionConfig>k__BackingField:
-      <Name>k__BackingField: AttackCenter
-      <AnimationName>k__BackingField: AttackCenter
-      <Frames>k__BackingField: 60
-      <Keyframes>k__BackingField:
-      - <Frame>k__BackingField: 40
-        <Name>k__BackingField: Hit
-  <AttackLeft>k__BackingField:
-    <Damage>k__BackingField: 25
-    <DamageType>k__BackingField: SlashDamage
-    <AttackActionConfig>k__BackingField:
-      <Name>k__BackingField: AttackLeft
-      <AnimationName>k__BackingField: AttackLeft
-      <Frames>k__BackingField: 60
-      <Keyframes>k__BackingField:
-      - <Frame>k__BackingField: 40
-        <Name>k__BackingField: Hit
-  <AttackRight>k__BackingField:
-    <Damage>k__BackingField: 25
-    <DamageType>k__BackingField: SlashDamage
-    <AttackActionConfig>k__BackingField:
-      <Name>k__BackingField: AttackRight
-      <AnimationName>k__BackingField: AttackRight
-      <Frames>k__BackingField: 60
-      <Keyframes>k__BackingField:
-      - <Frame>k__BackingField: 40
-        <Name>k__BackingField: Hit
+  <AttackConfigs>k__BackingField:
+  - <Id>k__BackingField: AttackCenter
+    <Config>k__BackingField:
+      <Damage>k__BackingField: 25
+      <DamageType>k__BackingField: BluntDamage
+      <AttackActionConfig>k__BackingField:
+        <Name>k__BackingField: AttackCenter
+        <AnimationName>k__BackingField: AttackCenter
+        <Command>k__BackingField: AttackCenter
+        <Frames>k__BackingField: 60
+        <Keyframes>k__BackingField:
+        - <Frame>k__BackingField: 40
+          <Name>k__BackingField: Hit
+  - <Id>k__BackingField: AttackLeft
+    <Config>k__BackingField:
+      <Damage>k__BackingField: 25
+      <DamageType>k__BackingField: SlashDamage
+      <AttackActionConfig>k__BackingField:
+        <Name>k__BackingField: AttackLeft
+        <AnimationName>k__BackingField: AttackLeft
+        <Command>k__BackingField: AttackLeft
+        <Frames>k__BackingField: 60
+        <Keyframes>k__BackingField:
+        - <Frame>k__BackingField: 40
+          <Name>k__BackingField: Hit
+  - <Id>k__BackingField: AttackRight
+    <Config>k__BackingField:
+      <Damage>k__BackingField: 25
+      <DamageType>k__BackingField: SlashDamage
+      <AttackActionConfig>k__BackingField:
+        <Name>k__BackingField: AttackRight
+        <AnimationName>k__BackingField: AttackRight
+        <Command>k__BackingField: AttackRight
+        <Frames>k__BackingField: 60
+        <Keyframes>k__BackingField:
+        - <Frame>k__BackingField: 40
+          <Name>k__BackingField: Hit
+  <BlockConfigs>k__BackingField: []

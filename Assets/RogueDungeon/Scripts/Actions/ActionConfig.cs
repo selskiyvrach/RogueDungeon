@@ -9,6 +9,7 @@ namespace RogueDungeon.Actions
     {
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string AnimationName { get; private set; }
+        [field: SerializeField] public string Command { get; private set; }
         [field: SerializeField] public int Frames { get; private set; }
         [field: SerializeField] public Keyframe[] Keyframes { get; private set; }
 

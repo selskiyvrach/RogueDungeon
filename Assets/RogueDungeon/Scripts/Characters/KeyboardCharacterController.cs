@@ -2,16 +2,16 @@
 
 namespace RogueDungeon.Characters
 {
-    public class KeyboardCharacterController
+    public class KeyboardCharacterController : CharacterController
     {
         private readonly Character _character;
         private string _coyoteTimeCommand;
         private int _coyoteTimeFrames;
 
-        public KeyboardCharacterController(Character character) => 
+        public KeyboardCharacterController(Character character) : base(character) => 
             _character = character;
 
-        public void Tick()
+        public override void Tick()
         {
             if(Input.GetKeyDown(KeyCode.A))
                 HandleInputCommand("DodgeLeft");
@@ -24,7 +24,7 @@ namespace RogueDungeon.Characters
             if(Input.GetKeyDown(KeyCode.Mouse0))
                 HandleInputCommand("Attack");
             
-            _character.Tick();
+            base.Tick();
             
             if(_coyoteTimeCommand == null)
                 return;
@@ -33,11 +33,11 @@ namespace RogueDungeon.Characters
             {
                 if (_coyoteTimeCommand == "RaiseBlockThenLower")
                 {
-                    _character.OnCommand("RaiseBlock");
-                    _character.OnCommand("LowerBlock");
+                    OnCommand("RaiseBlock");
+                    OnCommand("LowerBlock");
                 }
                 else
-                    _character.OnCommand(_coyoteTimeCommand);
+                    OnCommand(_coyoteTimeCommand);
 
                 _coyoteTimeCommand = null;
                 return;
@@ -49,7 +49,7 @@ namespace RogueDungeon.Characters
 
         private void HandleInputCommand(string command)
         {
-            if (_character.OnCommand(command)) 
+            if (OnCommand(command)) 
                 return;
             if (_coyoteTimeCommand == "RaiseBlock" && command == "LowerBlock")
                 _coyoteTimeCommand = "RaiseBlockThenLower";
