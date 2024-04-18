@@ -36,6 +36,7 @@ namespace RogueDungeon.Actions
             _isRewinding = false;
             CurrentFrame = 1;
             OnStarted();
+            TryRaiseCallback();
         }
 
         public void Tick()

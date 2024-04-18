@@ -56,9 +56,7 @@ MonoBehaviour:
     <Config>k__BackingField:
       <Stats>k__BackingField:
       - <Id>k__BackingField: PhysicalDamageResistFlat
-        <Value>k__BackingField: 5
-      - <Id>k__BackingField: BluntDamageResistPercent
-        <Value>k__BackingField: 50
+        <Value>k__BackingField: 10
       <BlockActionConfig>k__BackingField:
         <Name>k__BackingField: Block
         <AnimationName>k__BackingField: HandsBlock
