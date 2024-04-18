@@ -16,7 +16,7 @@ namespace RogueDungeon.Health
         public void SetHealth(float max, float current, HealthChangeReason reason)
         {
             Max = max;
-            Current = Mathf.Clamp(Current + current, 0, Max);
+            Current = Mathf.Clamp(current, 0, Max);
             OnChanged?.Invoke(reason);
         }
     }

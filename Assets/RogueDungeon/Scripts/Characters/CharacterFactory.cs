@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using RogueDungeon.Actions;
+using RogueDungeon.Health;
 using UnityEngine;
 
 namespace RogueDungeon.Characters
@@ -10,7 +11,8 @@ namespace RogueDungeon.Characters
         {
             var gameObject = Object.Instantiate(config.Prefab, parent);
             var animator = gameObject.GetComponent<RogueDungeon.Animations.Animator>();
-            var character = new Character(config, animator);
+            var healthDisplay = gameObject.GetComponent<HealthDisplay>();
+            var character = new Character(config, animator, healthDisplay);
             
             var attackActions = config.AttackConfigs.Select(n => ActionFactory.Create(character, n.Id));
             var blockActions = config.BlockConfigs.Select(n => ActionFactory.Create(character, n.Id));

@@ -29,7 +29,7 @@ namespace RogueDungeon.Actions
                 return;
             }
 
-            var dodged = (defender.CombatState.DodgeState & _dodgeableBy) != 0;
+            var dodged = defender.CombatState.DodgeState != DodgeState.NotDodging && (defender.CombatState.DodgeState & _dodgeableBy) != 0;
             if(dodged)
                 return;
 
@@ -45,7 +45,6 @@ namespace RogueDungeon.Actions
 
             damage = GetDamageAfterReduction(defender, damage, _weapon.DamageType);
             defender.Health.TakeDamage(damage);
-            Debug.Log($"{defender.Id}'s health is {defender.Health.Current}/{defender.Health.Max}");
         }
 
         private static float GetDamageAfterReduction(IStatsProvider defender, float damage, string damageType)
