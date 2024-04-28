@@ -22,7 +22,10 @@ namespace RogueDungeon.Actions
         protected override void OnKeyframe(string keyframe)
         {
             Assert.AreEqual(keyframe, "Hit");
-            var defender = _character.CombatState.Enemy;
+
+            var defender =
+                _character.CombatState.SurroundingCharacters.GetTargetForPosition(_character.CombatState.Position);
+            
             if (defender == null)
             {
                 Debug.Log("Attack keyframe skipped - no enemy found");

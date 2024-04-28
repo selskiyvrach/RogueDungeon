@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 1177933608}
   - component: {fileID: 1177933609}
   m_Layer: 0
-  m_Name: Test
+  m_Name: GameRunner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -508,8 +508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c7adccd3fa46b2baf8b1de14c1103b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerConfig: {fileID: 11400000, guid: d5102d2d29e24cb41aae66f4456ff73b, type: 2}
-  _enemyConfig: {fileID: 11400000, guid: bfa3ad8aad50afe428fbd3d6c417aa9d, type: 2}
 --- !u!1 &1329535960
 GameObject:
   m_ObjectHideFlags: 0
