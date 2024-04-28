@@ -6,8 +6,8 @@ namespace RogueDungeon
     {
         private readonly CharactersManager _charactersManager;
 
-        public Game(CharacterFactory characterFactory) => 
-            _charactersManager = new CharactersManager(characterFactory);
+        public Game(CharacterFactory characterFactory, CharacterScenePositions scenePositions) => 
+            _charactersManager = new CharactersManager(characterFactory, scenePositions);
 
         public void CreateCharacter(string configName, Position position) => 
             _charactersManager.CreateCharacter(configName, position);

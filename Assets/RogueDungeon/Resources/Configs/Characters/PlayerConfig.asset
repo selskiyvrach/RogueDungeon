@@ -23,20 +23,20 @@ MonoBehaviour:
   - <Name>k__BackingField: DodgeLeft
     <AnimationName>k__BackingField: DodgeLeft
     <Command>k__BackingField: DodgeLeft
-    <Frames>k__BackingField: 30
+    <Frames>k__BackingField: 25
     <Keyframes>k__BackingField:
     - <Frame>k__BackingField: 1
       <Name>k__BackingField: DodgeStarted
-    - <Frame>k__BackingField: 30
+    - <Frame>k__BackingField: 25
       <Name>k__BackingField: DodgeFinished
   - <Name>k__BackingField: DodgeRight
     <AnimationName>k__BackingField: DodgeRight
     <Command>k__BackingField: DodgeRight
-    <Frames>k__BackingField: 30
+    <Frames>k__BackingField: 25
     <Keyframes>k__BackingField:
     - <Frame>k__BackingField: 1
       <Name>k__BackingField: DodgeStarted
-    - <Frame>k__BackingField: 30
+    - <Frame>k__BackingField: 25
       <Name>k__BackingField: DodgeFinished
   <AttackConfigs>k__BackingField:
   - <Id>k__BackingField: UnarmedAttack

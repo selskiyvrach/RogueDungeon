@@ -14,7 +14,7 @@ namespace RogueDungeon.Characters
             _parent = parent;
 
         [CanBeNull]
-        public Character Create(string configName, Position position)
+        public Character Create(string configName)
         {
             var config = Resources.Load<CharacterConfig>("Configs/Characters/" + configName);
             if(config == null)
@@ -25,7 +25,7 @@ namespace RogueDungeon.Characters
             var gameObject = Object.Instantiate(config.Prefab, _parent);
             var animator = gameObject.GetComponent<RogueDungeon.Animations.Animator>();
             var healthDisplay = gameObject.GetComponent<HealthDisplay>();
-            var character = new Character(config, animator, healthDisplay);
+            var character = new Character(config, animator, healthDisplay, gameObject);
             
             var attackActions = config.AttackConfigs.Select(n => ActionFactory.Create(character, n.Id));
             var blockActions = config.BlockConfigs.Select(n => ActionFactory.Create(character, n.Id));
@@ -37,7 +37,6 @@ namespace RogueDungeon.Characters
                 ? new KeyboardCharacterController(character)
                 : new PatternCharacterController(character, 45, new []{"AttackLeft", "AttackRight", "AttackCenter"});
 
-            character.CombatState.Position = position; 
             return character;
         }
     }

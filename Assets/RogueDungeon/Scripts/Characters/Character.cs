@@ -16,13 +16,15 @@ namespace RogueDungeon.Characters
         public Action CurrentAction { get; set; }
         public Health.Health Health { get; }
         public HealthDisplay HealthDisplay { get; }
+        public GameObject GameObject { get; }
         public CombatState CombatState { get; } = new();
         public CharacterController Controller { get; set; }
 
-        public Character(CharacterConfig config, Animator animator, HealthDisplay healthDisplay)
+        public Character(CharacterConfig config, Animator animator, HealthDisplay healthDisplay, GameObject gameObject)
         {
             Animator = animator;
             HealthDisplay = healthDisplay;
+            GameObject = gameObject;
             Config = config;
             Id = Config.Id;
             
@@ -39,7 +41,10 @@ namespace RogueDungeon.Characters
                 ? CombatState.BlockingWeaponStats.GetStat(id) 
                 : 0);
 
-        public void Tick() => 
+        public void Tick()
+        {
             Controller?.Tick();
+            GameObject.transform.position = CombatState.Surroundings.GetWorldCoordinatesForPosition(CombatState.Position);
+        }
     }
 }

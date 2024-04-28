@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RogueDungeon.Characters
 {
-    [CreateAssetMenu(menuName = "Configs/CharacterConfig", fileName = "CharacterConfig", order = 0)]
+    [CreateAssetMenu(menuName = "Configs/Characters/CharacterConfig", fileName = "CharacterConfig", order = 0)]
     public class CharacterConfig : ScriptableObject, IStatsProvider
     {
         [field: SerializeField] public string Id { get; private set; }
