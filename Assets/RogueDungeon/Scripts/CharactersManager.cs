@@ -21,6 +21,12 @@ namespace RogueDungeon
 
         public void CreateCharacter(string configName, Position position)
         {
+            if (HasEnemyInPosition(position, out Character enemy))
+            {
+                Debug.LogError($"'{position}' position is already occupied");
+                return;
+            }
+
             var character = _characterFactory.Create(configName);
             if (character == null)
             {
@@ -33,7 +39,13 @@ namespace RogueDungeon
             character.CombatState.Surroundings = this;
             _characters.Add(character);
         }
-        
+
+        private bool HasEnemyInPosition(Position position, out Character character)
+        {
+            character = AllCharacters.FirstOrDefault(n => n.CombatState.Position == position);
+            return character != null;
+        }
+
         public Character GetTargetForPosition(Position position) =>
             position == Position.Player
                 ? AllCharacters.FirstOrDefault(n => n.CombatState.Position == Position.Frontline)

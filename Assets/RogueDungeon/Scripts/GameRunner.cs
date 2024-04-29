@@ -19,6 +19,8 @@ namespace RogueDungeon
             _game = new Game(factory, positions);
             _game.CreateCharacter("PlayerConfig", Position.Player);
             _game.CreateCharacter("EnemyConfig", Position.Frontline);
+            _game.CreateCharacter("EnemyConfig", Position.BacklineLeft);
+            _game.CreateCharacter("EnemyConfig", Position.BacklineRight);
         }
 
         private void Update() => 
