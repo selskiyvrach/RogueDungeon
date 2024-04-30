@@ -8,45 +8,35 @@ namespace RogueDungeon.Actions
 {
     public class AttackAction : Action
     {
-        private readonly Character _character;
-        private readonly AttackWeaponConfig _weapon;
-        private DodgeState _dodgeableBy;
+        private readonly AttackConfig _attackConfig;
         
-        public AttackAction(Character character, AttackWeaponConfig weapon, DodgeState dodgeableBy) : base(weapon.AttackActionConfig)
-        {
-            _character = character;
-            _weapon = weapon;
-            _dodgeableBy = dodgeableBy;
-        }
+        public AttackAction(AttackConfig attackConfig) : base(attackConfig.AttackActionConfig) => 
+            _attackConfig = attackConfig;
 
         protected override void OnKeyframe(string keyframe)
         {
             Assert.AreEqual(keyframe, "Hit");
 
-            var defender =
-                _character.CombatState.SurroundingCharacters.GetTargetForPosition(_character.CombatState.Position);
-            
+            var defender = Character.CombatState.SurroundingCharacters.GetTargetForPosition(Character.CombatState.positions);
+            // a legal state - an enemy died from another effect since the attack started
             if (defender == null)
-            {
-                Debug.Log("Attack keyframe skipped - no enemy found");
                 return;
-            }
 
-            var dodged = defender.CombatState.DodgeState != DodgeState.NotDodging && (defender.CombatState.DodgeState & _dodgeableBy) != 0;
+            var dodged = defender.CombatState.DodgeState != DodgeState.NotDodging && (defender.CombatState.DodgeState & _attackConfig.DodgeableBy) != 0;
             if(dodged)
                 return;
 
-            var damage = _weapon.Damage;
-            var damageType = _weapon.DamageType;
+            var damage = _attackConfig.Damage;
+            var damageType = _attackConfig.DamageType;
 
             while (damageType != null)
             {
-                damage += _character.GetStat(damageType + Constants.BONUS + Constants.FLAT);
-                damage *= (100 + _character.GetStat(damageType + Constants.BONUS + Constants.PERCENT)) / 100;
+                damage += Character.GetStat(damageType + Constants.BONUS + Constants.FLAT);
+                damage *= (100 + Character.GetStat(damageType + Constants.BONUS + Constants.PERCENT)) / 100;
                 damageType = Constants.DAMAGE_TYPE_PARENTS[damageType];
             }
 
-            damage = GetDamageAfterReduction(defender, damage, _weapon.DamageType);
+            damage = GetDamageAfterReduction(defender, damage, _attackConfig.DamageType);
             defender.Health.TakeDamage(damage);
         }
 

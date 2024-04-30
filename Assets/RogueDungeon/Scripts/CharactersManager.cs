@@ -19,11 +19,11 @@ namespace RogueDungeon
             _worldRelativePositionsConfig = worldRelativePositionsConfig;
         }
 
-        public void CreateCharacter(string configName, Position position)
+        public void CreateCharacter(string configName, Positions positions)
         {
-            if (HasEnemyInPosition(position, out Character enemy))
+            if (HasEnemyInPosition(positions, out Character enemy))
             {
-                Debug.LogError($"'{position}' position is already occupied");
+                Debug.LogError($"'{positions}' position is already occupied");
                 return;
             }
 
@@ -34,22 +34,22 @@ namespace RogueDungeon
                 return;
             }
             
-            character.CombatState.Position = position;
+            character.CombatState.positions = positions;
             character.CombatState.SurroundingCharacters = this;
             character.CombatState.Surroundings = this;
             _characters.Add(character);
         }
 
-        private bool HasEnemyInPosition(Position position, out Character character)
+        private bool HasEnemyInPosition(Positions positions, out Character character)
         {
-            character = AllCharacters.FirstOrDefault(n => n.CombatState.Position == position);
+            character = AllCharacters.FirstOrDefault(n => n.CombatState.positions == positions);
             return character != null;
         }
 
-        public Character GetTargetForPosition(Position position) =>
-            position == Position.Player
-                ? AllCharacters.FirstOrDefault(n => n.CombatState.Position == Position.Frontline)
-                : AllCharacters.FirstOrDefault(n => n.CombatState.Position == Position.Player);
+        public Character GetTargetForPosition(Positions positions) =>
+            positions == Positions.Player
+                ? AllCharacters.FirstOrDefault(n => n.CombatState.positions == Positions.Frontline)
+                : AllCharacters.FirstOrDefault(n => n.CombatState.positions == Positions.Player);
         
         public void Tick()
         {
@@ -57,7 +57,7 @@ namespace RogueDungeon
                 character.Tick();
         }
 
-        public Vector3 GetWorldCoordinatesForPosition(Position position) => 
-            _worldRelativePositionsConfig.GetRelativePosition(position);
+        public Vector3 GetWorldCoordinatesForPosition(Positions positions) => 
+            _worldRelativePositionsConfig.GetRelativePosition(positions);
     }
 }

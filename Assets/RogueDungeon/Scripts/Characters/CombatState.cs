@@ -5,7 +5,7 @@ namespace RogueDungeon.Characters
 {
     public class CombatState
     {
-        public Position Position { get; set; }
+        public Positions positions { get; set; }
         public DodgeState DodgeState { get; set; }
         public bool BlockIsRaised { get; set; }
         public ISurroundingCharactersProvider SurroundingCharacters { get; set; }

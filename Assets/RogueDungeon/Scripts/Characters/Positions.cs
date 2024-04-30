@@ -3,7 +3,7 @@
 namespace RogueDungeon.Characters
 {
     [Flags]
-    public enum Position
+    public enum Positions
     {
         Player = 1,
         Frontline = 2,

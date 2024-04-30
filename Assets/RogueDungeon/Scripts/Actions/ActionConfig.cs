@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using JetBrains.Annotations;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace RogueDungeon.Actions
@@ -7,9 +9,7 @@ namespace RogueDungeon.Actions
     [Serializable]
     public class ActionConfig
     {
-        [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string AnimationName { get; private set; }
-        [field: SerializeField] public string Command { get; private set; }
         [field: SerializeField] public int Frames { get; private set; }
         [field: SerializeField] public Keyframe[] Keyframes { get; private set; }
 

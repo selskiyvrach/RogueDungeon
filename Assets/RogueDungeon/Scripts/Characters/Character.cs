@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using RogueDungeon.Actions;
-using RogueDungeon.Health;
+﻿using RogueDungeon.Health;
 using RogueDungeon.Stats;
 using UnityEngine;
 using Animator = RogueDungeon.Animations.Animator;
@@ -12,13 +10,11 @@ namespace RogueDungeon.Characters
         public string Id { get; }
         public CharacterConfig Config { get; }
         public Animator Animator { get; }
-        public Dictionary<string, Action> Actions { get; } = new();
-        public Action CurrentAction { get; set; }
         public Health.Health Health { get; }
         public HealthDisplay HealthDisplay { get; }
         public GameObject GameObject { get; }
         public CombatState CombatState { get; } = new();
-        public CharacterController Controller { get; set; }
+        public CharacterActionsController ActionsController { get; set; }
 
         public Character(CharacterConfig config, Animator animator, HealthDisplay healthDisplay, GameObject gameObject)
         {
@@ -43,8 +39,30 @@ namespace RogueDungeon.Characters
 
         public void Tick()
         {
-            Controller?.Tick();
-            GameObject.transform.position = CombatState.Surroundings.GetWorldCoordinatesForPosition(CombatState.Position);
+            ActionsController?.Tick();
+            GameObject.transform.position = CombatState.Surroundings.GetWorldCoordinatesForPosition(CombatState.positions);
         }
     }
+    
+    // player behaviour
+        // unarmed attacks
+        // unarmed block
+        // dodge left
+        // dodge right
+        // attack -> current weapon
+        // block -> current weapon
+        
+    // enemy behaviour
+        // attack patterns[]
+        // attack pattern
+            // attack[]
+            // suitable for positions
+            // chill time
+        // attack
+            // left/right/center
+            
+    // action executioner
+    
+    // hivemind
+        // 
 }

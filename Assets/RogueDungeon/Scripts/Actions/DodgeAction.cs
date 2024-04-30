@@ -5,12 +5,10 @@ namespace RogueDungeon.Actions
 {
     public class DodgeAction : Action
     {
-        private readonly Character _character;
         private readonly DodgeState _dodgeState;
 
-        public DodgeAction(Character character, DodgeState dodgeState, ActionConfig config) : base(config)
+        public DodgeAction(ActionConfig config, DodgeState dodgeState) : base(config)
         {
-            _character = character;
             _dodgeState = dodgeState;
         }
 
@@ -19,10 +17,10 @@ namespace RogueDungeon.Actions
             switch (keyframe)
             {
                 case "DodgeStarted":
-                    _character.CombatState.DodgeState = _dodgeState;
+                    Character.CombatState.DodgeState = _dodgeState;
                     break;
                 case "DodgeFinished":
-                    _character.CombatState.DodgeState = DodgeState.NotDodging;
+                    Character.CombatState.DodgeState = DodgeState.NotDodging;
                     break;
                 default:
                     Debug.LogError("Invalid keyframe in dodge action: " + keyframe);
@@ -31,6 +29,6 @@ namespace RogueDungeon.Actions
         }
 
         protected override void OnStop() => 
-            _character.CombatState.DodgeState = DodgeState.NotDodging;
+            Character.CombatState.DodgeState = DodgeState.NotDodging;
     }
 }

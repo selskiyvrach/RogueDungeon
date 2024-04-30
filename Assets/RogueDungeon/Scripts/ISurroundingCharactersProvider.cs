@@ -8,11 +8,11 @@ namespace RogueDungeon
     public interface ISurroundingCharactersProvider
     {
         IReadOnlyList<Character> AllCharacters { get; }
-        [CanBeNull] Character GetTargetForPosition(Position position);
+        [CanBeNull] Character GetTargetForPosition(Positions positions);
     }
 
     public interface ISurroundingsProvider
     {
-        Vector3 GetWorldCoordinatesForPosition(Position position);
+        Vector3 GetWorldCoordinatesForPosition(Positions positions);
     }
 }

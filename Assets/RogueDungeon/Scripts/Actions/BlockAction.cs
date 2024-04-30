@@ -1,22 +1,19 @@
 ﻿using RogueDungeon.Characters;
 using RogueDungeon.Items;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace RogueDungeon.Actions
 {
     public class BlockAction : Action
     {
-        private readonly Character _character;
-        private readonly BlockingWeaponConfig _blockingWeapon;
+        private readonly BlockConfig _block;
         private bool _canLowerIfNotHoldingInput;
         private bool _lowerBlockCommandReceived;
         public override bool IsFinished => IsRewinding && CurrentFrame == 1;
 
-        public BlockAction(Character character, BlockingWeaponConfig blockingWeapon) : base(blockingWeapon.BlockActionConfig)
-        {
-            _character = character;
-            _blockingWeapon = blockingWeapon;
-        }
+        public BlockAction(BlockConfig block) : base(block.BlockActionConfig) => 
+            _block = block;
 
         protected override void OnStarted()
         {
@@ -26,20 +23,19 @@ namespace RogueDungeon.Actions
 
         public override void OnCommand(string command)
         {
-            switch (command)
-            {
-                case "LowerBlock":
-                    if (_canLowerIfNotHoldingInput && !IsRewinding)
-                        IsRewinding = true;
-                    else
-                        _lowerBlockCommandReceived = true;
-                    break;
-            }
+            Assert.IsTrue(command == "LowerBlock");
+            if(command != "LowerBlock")
+                return;
+            
+            if (_canLowerIfNotHoldingInput && !IsRewinding)
+                IsRewinding = true;
+            else
+                _lowerBlockCommandReceived = true;
         }
 
         protected override void OnKeyframe(string keyframe)
         {
-            var combatState = _character.CombatState;
+            var combatState = Character.CombatState;
             switch (keyframe)
             {
                 case "BlockRaised" when !IsRewinding:
@@ -63,7 +59,7 @@ namespace RogueDungeon.Actions
         private void RaiseBlock(CombatState combatState)
         {
             combatState.BlockIsRaised = true;
-            combatState.BlockingWeaponStats = _blockingWeapon;
+            combatState.BlockingWeaponStats = _block;
         }
 
         private static void LowerBlock(CombatState combatState)
@@ -73,6 +69,6 @@ namespace RogueDungeon.Actions
         }
 
         protected override void OnStop() => 
-            LowerBlock(_character.CombatState);
+            LowerBlock(Character.CombatState);
     }
 }
