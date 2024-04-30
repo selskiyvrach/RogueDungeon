@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using RogueDungeon.Utils;
 
 namespace RogueDungeon.Characters
@@ -10,6 +11,7 @@ namespace RogueDungeon.Characters
 
         private int _currentCharacterIndex;
         private AiCharacterController _currentCharacter;
+        private int _chillFrames;
 
         public Hivemind(CharactersManager charactersManager)
         {
@@ -27,16 +29,24 @@ namespace RogueDungeon.Characters
 
             if (_currentCharacterIndex == _characters.Count)
             {
-                RefreshCharactersList();
+                if (_chillFrames-- == 0) 
+                    RefreshCharactersList();
+
                 return;
             }
 
             _currentCharacter = _characters[_currentCharacterIndex++];
             _currentCharacter.StartNewPattern();
+            _chillFrames += _currentCharacter.CurrentPattern.ChillFrames;
+            
+            if (_currentCharacterIndex == _characters.Count)
+                _chillFrames /= _characters.Count;
         }
 
         private void RefreshCharactersList()
         {
+            _characters.Clear();
+            
             foreach (var character in _charactersManager.AllCharacters)
             {
                 if (character.CombatState.Position != Positions.Player)

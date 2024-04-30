@@ -9,7 +9,6 @@ namespace RogueDungeon.Characters
         private readonly AttackPattern[] _patterns;
         
         private AttackAction[] _currentPatternActions;
-        private int _chillFramesLeft;
         private int _currentActionIndex;
         
         public AttackPattern CurrentPattern { get; private set; }
@@ -33,8 +32,7 @@ namespace RogueDungeon.Characters
                 return;
             }
 
-            if (_chillFramesLeft-- == 0) 
-                CurrentPattern = null;
+            CurrentPattern = null;
         }
 
         public void StartNewPattern()
@@ -42,7 +40,6 @@ namespace RogueDungeon.Characters
             CurrentPattern = _patterns.Where(n => (n.SuitableForPositions & Character.CombatState.Position) != 0).ToList().Random();
             _currentPatternActions = CurrentPattern.AttackConfigs.Select(n => new AttackAction(n)).ToArray();
             _currentActionIndex = 0;
-            _chillFramesLeft = CurrentPattern.ChillFrames;
         }
     }
 }
