@@ -13,7 +13,6 @@ namespace RogueDungeon.Characters
 
         public virtual void Tick()
         {
-            Character.GameObject.transform.position = Character.CombatState.Surroundings.GetWorldCoordinatesForPosition(Character.CombatState.Position);
             if(CurrentAction == null)
                 return;
             CurrentAction.Tick();

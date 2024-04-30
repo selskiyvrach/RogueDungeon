@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: test-char_a_attack-pattern_a
   m_EditorClassIdentifier: 
   <SuitableForPositions>k__BackingField: 2
-  <ChillFrames>k__BackingField: 120
+  <ChillFrames>k__BackingField: 60
   <AttackConfigs>k__BackingField:
   - <Damage>k__BackingField: 15
     <DamageType>k__BackingField: SlashDamage

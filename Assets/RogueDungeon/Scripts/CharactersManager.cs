@@ -21,11 +21,11 @@ namespace RogueDungeon
             _hivemind = new Hivemind(this);
         }
 
-        public void CreateCharacter(string configName, Positions positions)
+        public void CreateCharacter(string configName, Positions position)
         {
-            if (HasEnemyInPosition(positions, out Character enemy))
+            if (HasEnemyInPosition(position, out Character enemy))
             {
-                Debug.LogError($"'{positions}' position is already occupied");
+                Debug.LogError($"'{position}' position is already occupied");
                 return;
             }
 
@@ -36,9 +36,10 @@ namespace RogueDungeon
                 return;
             }
             
-            character.CombatState.Position = positions;
+            character.CombatState.Position = position;
             character.CombatState.SurroundingCharacters = this;
             character.CombatState.Surroundings = this;
+            character.GameObject.transform.position = GetWorldCoordinatesForPosition(position);
             _characters.Add(character);
         }
 
