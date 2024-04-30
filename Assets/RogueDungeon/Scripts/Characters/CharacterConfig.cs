@@ -13,6 +13,6 @@ namespace RogueDungeon.Characters
         public float GetStat(string id) =>
             Stats.FirstOrDefault(n => n.Id == id).Value;
 
-        public abstract CharacterActionsController CreateController(Character character);
+        public abstract CharacterController CreateController(Character character);
     }
 }

@@ -17,7 +17,7 @@ namespace RogueDungeon.Actions
         {
             Assert.AreEqual(keyframe, "Hit");
 
-            var defender = Character.CombatState.SurroundingCharacters.GetTargetForPosition(Character.CombatState.positions);
+            var defender = Character.CombatState.SurroundingCharacters.GetTargetForPosition(Character.CombatState.Position);
             // a legal state - an enemy died from another effect since the attack started
             if (defender == null)
                 return;

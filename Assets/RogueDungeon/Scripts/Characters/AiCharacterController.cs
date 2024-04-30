@@ -4,27 +4,30 @@ using RogueDungeon.Utils;
 
 namespace RogueDungeon.Characters
 {
-    public class PatternCharacterActionsController : CharacterActionsController
+    public class AiCharacterController : CharacterController
     {
         private readonly AttackPattern[] _patterns;
-
-        private AttackPattern _currentPattern;
-        private AttackAction[] _currentPatternActions;
         
+        private AttackAction[] _currentPatternActions;
         private int _chillFramesLeft;
         private int _currentActionIndex;
+        
+        public AttackPattern CurrentPattern { get; private set; }
 
-        public PatternCharacterActionsController(Character character, AttackPattern[] patterns) : base(character) => 
+        public AiCharacterController(Character character, AttackPattern[] patterns) : base(character) => 
             _patterns = patterns;
 
         public override void Tick()
         {
             base.Tick();
             
+            if(CurrentPattern == null)
+                return;
+            
             if (CurrentAction != null)
                 return;
             
-            if (_currentPattern == null) 
+            if (CurrentPattern == null) 
                 StartNewPattern();
 
             if (_currentActionIndex < _currentPatternActions.Length)
@@ -34,15 +37,15 @@ namespace RogueDungeon.Characters
             }
 
             if (_chillFramesLeft-- == 0) 
-                _currentPattern = null;
+                CurrentPattern = null;
         }
 
-        private void StartNewPattern()
+        public void StartNewPattern()
         {
-            _currentPattern = _patterns.Random();
-            _currentPatternActions = _currentPattern.AttackConfigs.Select(n => new AttackAction(n)).ToArray();
+            CurrentPattern = _patterns.Where(n => (n.SuitableForPositions & Character.CombatState.Position) != 0).ToList().Random();
+            _currentPatternActions = CurrentPattern.AttackConfigs.Select(n => new AttackAction(n)).ToArray();
             _currentActionIndex = 0;
-            _chillFramesLeft = _currentPattern.ChillFrames;
+            _chillFramesLeft = CurrentPattern.ChillFrames;
         }
     }
 }

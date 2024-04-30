@@ -10,6 +10,7 @@ namespace RogueDungeon
         private readonly CharacterScenePositions _worldRelativePositionsConfig;
         private readonly CharacterFactory _characterFactory;
         private readonly List<Character> _characters = new();
+        private readonly Hivemind _hivemind;
 
         public IReadOnlyList<Character> AllCharacters => _characters;
 
@@ -17,6 +18,7 @@ namespace RogueDungeon
         {
             _characterFactory = characterFactory;
             _worldRelativePositionsConfig = worldRelativePositionsConfig;
+            _hivemind = new Hivemind(this);
         }
 
         public void CreateCharacter(string configName, Positions positions)
@@ -34,7 +36,7 @@ namespace RogueDungeon
                 return;
             }
             
-            character.CombatState.positions = positions;
+            character.CombatState.Position = positions;
             character.CombatState.SurroundingCharacters = this;
             character.CombatState.Surroundings = this;
             _characters.Add(character);
@@ -42,19 +44,19 @@ namespace RogueDungeon
 
         private bool HasEnemyInPosition(Positions positions, out Character character)
         {
-            character = AllCharacters.FirstOrDefault(n => n.CombatState.positions == positions);
+            character = AllCharacters.FirstOrDefault(n => n.CombatState.Position == positions);
             return character != null;
         }
 
         public Character GetTargetForPosition(Positions positions) =>
             positions == Positions.Player
-                ? AllCharacters.FirstOrDefault(n => n.CombatState.positions == Positions.Frontline)
-                : AllCharacters.FirstOrDefault(n => n.CombatState.positions == Positions.Player);
+                ? AllCharacters.FirstOrDefault(n => n.CombatState.Position == Positions.Frontline)
+                : AllCharacters.FirstOrDefault(n => n.CombatState.Position == Positions.Player);
         
         public void Tick()
         {
-            foreach (var character in _characters)
-                character.Tick();
+            _hivemind.Tick();
+            _characters.FirstOrDefault(n => n.CombatState.Position == Positions.Player)?.Controller.Tick();
         }
 
         public Vector3 GetWorldCoordinatesForPosition(Positions positions) => 

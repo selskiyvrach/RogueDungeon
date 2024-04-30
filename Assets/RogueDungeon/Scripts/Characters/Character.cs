@@ -14,7 +14,7 @@ namespace RogueDungeon.Characters
         public HealthDisplay HealthDisplay { get; }
         public GameObject GameObject { get; }
         public CombatState CombatState { get; } = new();
-        public CharacterActionsController ActionsController { get; set; }
+        public CharacterController Controller { get; set; }
 
         public Character(CharacterConfig config, Animator animator, HealthDisplay healthDisplay, GameObject gameObject)
         {
@@ -36,33 +36,5 @@ namespace RogueDungeon.Characters
             (CombatState.BlockIsRaised 
                 ? CombatState.BlockingWeaponStats.GetStat(id) 
                 : 0);
-
-        public void Tick()
-        {
-            ActionsController?.Tick();
-            GameObject.transform.position = CombatState.Surroundings.GetWorldCoordinatesForPosition(CombatState.positions);
-        }
     }
-    
-    // player behaviour
-        // unarmed attacks
-        // unarmed block
-        // dodge left
-        // dodge right
-        // attack -> current weapon
-        // block -> current weapon
-        
-    // enemy behaviour
-        // attack patterns[]
-        // attack pattern
-            // attack[]
-            // suitable for positions
-            // chill time
-        // attack
-            // left/right/center
-            
-    // action executioner
-    
-    // hivemind
-        // 
 }

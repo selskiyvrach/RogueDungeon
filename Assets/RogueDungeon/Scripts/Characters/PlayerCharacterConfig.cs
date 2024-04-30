@@ -12,7 +12,7 @@ namespace RogueDungeon.Characters
         [field: SerializeField] public AttackConfig UnarmedAttack  { get; private set; }
         [field: SerializeField] public BlockConfig UnarmedBlock  { get; private set; }
         
-        public override CharacterActionsController CreateController(Character character) => 
-            new KeyboardCharacterActionsController(character);
+        public override CharacterController CreateController(Character character) => 
+            new KeyboardCharacterController(character);
     }
 }

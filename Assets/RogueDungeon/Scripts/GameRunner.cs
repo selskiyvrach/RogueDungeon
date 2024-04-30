@@ -18,6 +18,7 @@ namespace RogueDungeon
             var positions = Resources.Load<CharacterScenePositions>("Configs/Characters/RelativePositions");
             _game = new Game(factory, positions);
             _game.CreateCharacter("test-char_a", Positions.Frontline);
+            _game.CreateCharacter("test-char_a", Positions.BacklineLeft);
             _game.CreateCharacter("test-player", Positions.Player);
         }
 

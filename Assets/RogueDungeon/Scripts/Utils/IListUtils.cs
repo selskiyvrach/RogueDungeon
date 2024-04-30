@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RogueDungeon.Utils
 {
@@ -16,5 +17,17 @@ namespace RogueDungeon.Utils
 
         public static bool IndexOutOfBounds<T>(this IList<T> source, int index) =>
             index < 0 || index >= source.Count;
+     
+        
+        private static readonly Random random = new Random();
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            var n = list.Count;
+            while (n-- > 1)
+            {
+                var k = random.Next(n + 1);
+                (list[k], list[n]) = (list[n], list[k]);
+            }
+        }
     }
 }

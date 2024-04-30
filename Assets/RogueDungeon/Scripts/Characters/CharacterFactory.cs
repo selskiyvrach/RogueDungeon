@@ -26,7 +26,7 @@ namespace RogueDungeon.Characters
             var healthDisplay = gameObject.GetComponent<HealthDisplay>();
             var character = new Character(config, animator, healthDisplay, gameObject);
 
-            character.ActionsController = config.CreateController(character);
+            character.Controller = config.CreateController(character);
             return character;
         }
     }

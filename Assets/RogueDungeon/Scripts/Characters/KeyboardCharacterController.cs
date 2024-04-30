@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 namespace RogueDungeon.Characters
 {
-    public class KeyboardCharacterActionsController : CharacterActionsController
+    public class KeyboardCharacterController : CharacterController
     {
         private readonly PlayerCharacterConfig _config;
         private readonly Dictionary<string, Action> _actions;
@@ -13,7 +13,7 @@ namespace RogueDungeon.Characters
         private string _pendingCommand;
         private int _coyoteTimeFrames;
 
-        public KeyboardCharacterActionsController(Character character) : base(character)
+        public KeyboardCharacterController(Character character) : base(character)
         {
             _config = character.Config as PlayerCharacterConfig;
             Assert.IsNotNull(_config);

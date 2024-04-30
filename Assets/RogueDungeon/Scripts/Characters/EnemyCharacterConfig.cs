@@ -7,7 +7,7 @@ namespace RogueDungeon.Characters
     {
         [field: SerializeField] public AttackPattern[] AttackPatters { get; private set; }
         
-        public override CharacterActionsController CreateController(Character character) => 
-            new PatternCharacterActionsController(character, AttackPatters);
+        public override CharacterController CreateController(Character character) => 
+            new AiCharacterController(character, AttackPatters);
     }
 }
