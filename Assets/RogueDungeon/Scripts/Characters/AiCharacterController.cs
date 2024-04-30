@@ -26,9 +26,6 @@ namespace RogueDungeon.Characters
             
             if (CurrentAction != null)
                 return;
-            
-            if (CurrentPattern == null) 
-                StartNewPattern();
 
             if (_currentActionIndex < _currentPatternActions.Length)
             {
