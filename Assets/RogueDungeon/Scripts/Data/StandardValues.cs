@@ -1,29 +1,40 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace RogueDungeon.Data
 {
     [CreateAssetMenu(menuName = "Configs/Data/StandardValues", fileName = "StandardValues", order = 0)]
-    public class StandardValues : ScriptableObject
+    public class StandardValues : ScriptableDictionary<StandardValues.Values>
     {
         [Serializable]
         public struct ValuePerValueType
         {
-            public StandardValue ValueType;
+            public RelativeValue _valueRelativeValue;
             public int Value;
         }
 
-        [field: SerializeField] public ValuePerValueType[] AttackDamageValues { get; private set; } = { new() { ValueType = StandardValue.VeryLow}, new() { ValueType = StandardValue.Low},new() { ValueType = StandardValue.Medium},new() { ValueType = StandardValue.High},new() { ValueType = StandardValue.VeryHigh}  };
-        [field: SerializeField] public ValuePerValueType[] AttackActionDurations { get; private set; } = { new() { ValueType = StandardValue.VeryLow}, new() { ValueType = StandardValue.Low},new() { ValueType = StandardValue.Medium},new() { ValueType = StandardValue.High},new() { ValueType = StandardValue.VeryHigh}  };
-        [field: SerializeField] public ValuePerValueType[] AttackActionHitKeyframes { get; private set; } = { new() { ValueType = StandardValue.VeryLow}, new() { ValueType = StandardValue.Low},new() { ValueType = StandardValue.Medium},new() { ValueType = StandardValue.High},new() { ValueType = StandardValue.VeryHigh}  };
+        [Serializable]
+        public class Values
+        {
+            [field: SerializeField] public ValuePerValueType[] Entries { get; private set;} = { new() { _valueRelativeValue = RelativeValue.VeryLow}, new() { _valueRelativeValue = RelativeValue.Low},new() { _valueRelativeValue = RelativeValue.Medium},new() { _valueRelativeValue = RelativeValue.High},new() { _valueRelativeValue = RelativeValue.VeryHigh}  };
+            public int this[RelativeValue relativeValue] => Entries.First(n => n._valueRelativeValue == relativeValue).Value;
+        }
 
-        public float GetValue(ValueConfig config, ValuePerValueType[] source) =>
-            config.Value == StandardValue.Custom 
+        public int GetValue(Key key, ValueConfig config) =>
+            config.Value == RelativeValue.Custom 
                 ? config.CustomValue 
-                : GetValue(config.Value, source);
+                : GetValue(key, config.Value);
 
-        public float GetValue(StandardValue value, ValuePerValueType[] source) => 
-            source.First(n => n.ValueType == value).Value;
+        public int GetValue(Key key, RelativeValue value) =>
+            this[key.ToString()][value];
+
+        public enum Key
+        {
+            AttackDamage = 100,
+            AttackActionDuration = 200,
+            AttackActionKeyframe = 300,
+        }
     }
 }

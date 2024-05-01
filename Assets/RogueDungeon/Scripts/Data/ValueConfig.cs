@@ -7,7 +7,7 @@ namespace RogueDungeon.Data
     [Serializable]
     public class ValueConfig
     {
-        [field: SerializeField] public StandardValue Value { get; private set; } = StandardValue.Medium;
-        [field: ShowIf("@Value == StandardValue.Custom"), SerializeField] public int CustomValue { get; private set; }
+        [field: SerializeField] public RelativeValue Value { get; private set; } = RelativeValue.Medium;
+        [field: ShowIf("@Value == RelativeValue.Custom"), SerializeField] public int CustomValue { get; private set; }
     }
 }

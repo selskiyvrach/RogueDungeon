@@ -12,25 +12,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 388112bdb39641d5bcd4e6c33eeadf26, type: 3}
   m_Name: StandardValues
   m_EditorClassIdentifier: 
-  <AttackDamageValues>k__BackingField:
-  - ValueType: 10
-    Value: 5
-  - ValueType: 20
-    Value: 10
-  - ValueType: 30
-    Value: 15
-  - ValueType: 40
-    Value: 20
-  - ValueType: 50
-    Value: 25
-  <ActionDurationValues>k__BackingField:
-  - ValueType: 10
-    Value: 7
-  - ValueType: 20
-    Value: 15
-  - ValueType: 30
-    Value: 45
-  - ValueType: 40
-    Value: 60
-  - ValueType: 50
-    Value: 80
+  _entries:
+  - <Key>k__BackingField: AttackDamage
+    <Value>k__BackingField:
+      <Entries>k__BackingField:
+      - _valueRelativeValue: 10
+        Value: 5
+      - _valueRelativeValue: 20
+        Value: 10
+      - _valueRelativeValue: 30
+        Value: 15
+      - _valueRelativeValue: 40
+        Value: 20
+      - _valueRelativeValue: 50
+        Value: 25
+  - <Key>k__BackingField: AttackActionDuration
+    <Value>k__BackingField:
+      <Entries>k__BackingField:
+      - _valueRelativeValue: 10
+        Value: 40
+      - _valueRelativeValue: 20
+        Value: 60
+      - _valueRelativeValue: 30
+        Value: 80
+      - _valueRelativeValue: 40
+        Value: 100
+      - _valueRelativeValue: 50
+        Value: 120
+  - <Key>k__BackingField: AttackActionKeyframe
+    <Value>k__BackingField:
+      <Entries>k__BackingField:
+      - _valueRelativeValue: 10
+        Value: 28
+      - _valueRelativeValue: 20
+        Value: 42
+      - _valueRelativeValue: 30
+        Value: 56
+      - _valueRelativeValue: 40
+        Value: 70
+      - _valueRelativeValue: 50
+        Value: 84
+  - <Key>k__BackingField: Hp
+    <Value>k__BackingField:
+      <Entries>k__BackingField:
+      - _valueRelativeValue: 10
+        Value: 30
+      - _valueRelativeValue: 20
+        Value: 60
+      - _valueRelativeValue: 30
+        Value: 100
+      - _valueRelativeValue: 40
+        Value: 150
+      - _valueRelativeValue: 50
+        Value: 200

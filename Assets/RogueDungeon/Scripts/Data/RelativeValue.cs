@@ -1,6 +1,6 @@
 ﻿namespace RogueDungeon.Data
 {
-    public enum StandardValue
+    public enum RelativeValue
     {
         Custom = 0,
         VeryLow = 10,

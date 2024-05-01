@@ -22,7 +22,7 @@ MonoBehaviour:
   - Id: left_hit
     Attack:
       <Damage>k__BackingField:
-        <ValueType>k__BackingField: 30
+        <Value>k__BackingField: 30
         <CustomValue>k__BackingField: 0
       <DamageType>k__BackingField: SlashDamage
       <DodgeableBy>k__BackingField: 1
