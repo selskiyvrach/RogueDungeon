@@ -37,7 +37,7 @@ namespace RogueDungeon.Characters
 
             _currentCharacter = _characters[_currentCharacterIndex++];
             _currentCharacter.StartNewPattern();
-            _chillFrames += _currentCharacter.CurrentPattern.ChillFrames;
+            _chillFrames += (int)_currentCharacter.CurrentPattern.ChillFrames.GetValue();
             
             if (_currentCharacterIndex == _characters.Count)
                 _chillFrames /= _characters.Count;

@@ -26,7 +26,7 @@ namespace RogueDungeon.Actions
             if(dodged)
                 return;
 
-            var damage = (float)StandardValues.GetValue(StandardValues.Key.AttackDamage, _attackConfig.Damage);
+            var damage = _attackConfig.Damage.GetValue();
             var damageType = _attackConfig.DamageType;
 
             while (damageType != null)

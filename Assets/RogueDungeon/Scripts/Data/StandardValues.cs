@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Sirenix.Serialization;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,33 +9,26 @@ namespace RogueDungeon.Data
     [CreateAssetMenu(menuName = "Configs/Data/StandardValues", fileName = "StandardValues", order = 0)]
     public class StandardValues : ScriptableDictionary<StandardValues.Values>
     {
+        private static StandardValues _instance;
+        
         [Serializable]
         public struct ValuePerValueType
         {
-            public RelativeValue _valueRelativeValue;
+            public RelativeValue RelativeValue;
             public int Value;
         }
 
         [Serializable]
         public class Values
         {
-            [field: SerializeField] public ValuePerValueType[] Entries { get; private set;} = { new() { _valueRelativeValue = RelativeValue.VeryLow}, new() { _valueRelativeValue = RelativeValue.Low},new() { _valueRelativeValue = RelativeValue.Medium},new() { _valueRelativeValue = RelativeValue.High},new() { _valueRelativeValue = RelativeValue.VeryHigh}  };
-            public int this[RelativeValue relativeValue] => Entries.First(n => n._valueRelativeValue == relativeValue).Value;
+            [field: SerializeField] public ValuePerValueType[] Entries { get; private set;} = { new() { RelativeValue = RelativeValue.VeryLow}, new() { RelativeValue = RelativeValue.Low},new() { RelativeValue = RelativeValue.Medium},new() { RelativeValue = RelativeValue.High},new() { RelativeValue = RelativeValue.VeryHigh}  };
+            public int this[RelativeValue relativeValue] => Entries.First(n => n.RelativeValue == relativeValue).Value;
         }
 
-        public int GetValue(Key key, ValueConfig config) =>
-            config.Value == RelativeValue.Custom 
-                ? config.CustomValue 
-                : GetValue(key, config.Value);
+        public static bool HasStat(string statId) => 
+            (_instance ??= Resources.Load<StandardValues>("Configs/Data/StandardValues")).TryGetValue(statId, out var _);
 
-        public int GetValue(Key key, RelativeValue value) =>
-            this[key.ToString()][value];
-
-        public enum Key
-        {
-            AttackDamage = 100,
-            AttackActionDuration = 200,
-            AttackActionKeyframe = 300,
-        }
+        public static float GetValue(string statId, RelativeValue value) =>
+            (_instance ??= Resources.Load<StandardValues>("Configs/Data/StandardValues"))[statId][value];
     }
 }

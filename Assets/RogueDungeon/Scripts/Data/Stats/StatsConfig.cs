@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace RogueDungeon.Data.Stats
 {
@@ -8,7 +7,13 @@ namespace RogueDungeon.Data.Stats
     {
         [SerializeField] private StatConfig[] _stats;
 
-        public float GetStat(string id) => 
-            _stats.FirstOrDefault(n => n.Id == id).Value;
+        public float GetStat(string id)
+        {
+            foreach (var statConfig in _stats)
+                if (statConfig.Id == id)
+                    return statConfig.GetValue();
+
+            return 0;
+        }
     }
 }

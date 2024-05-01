@@ -52,7 +52,7 @@ namespace RogueDungeon.Items
     [Serializable]
     public class AttackConfig
     {
-        [field: SerializeField] public ValueConfig Damage { get; private set; }
+        [field: SerializeField] public StatConfig Damage { get; private set; }
         [field: SerializeField] public string DamageType { get; private set; }
         [field: SerializeField] public DodgeState DodgeableBy { get; private set; } = DodgeState.NotDodging;
         [field: SerializeField] public ActionConfig AttackActionConfig { get; private set; }
@@ -68,6 +68,6 @@ namespace RogueDungeon.Items
         [field: SerializeField] public ActionConfig BlockActionConfig { get; private set; }
         
         public float GetStat(string id) => 
-            Stats.FirstOrDefault(n => n.Id == id).Value;
+            Stats.FirstOrDefault(n => n.Id == id)?.GetValue() ?? 0;
     }
 }

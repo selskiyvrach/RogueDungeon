@@ -17,7 +17,11 @@ MonoBehaviour:
     type: 3}
   <Stats>k__BackingField:
   - <Id>k__BackingField: Hp
-    <Value>k__BackingField: 100
+    _relativeValueType: 30
+    _customValue: 0
+  - <Id>k__BackingField: PhysicalDamageResistanceFlat
+    _relativeValueType: 0
+    _customValue: 5
   <DodgeRight>k__BackingField:
     <AnimationName>k__BackingField: DodgeRight
     <Frames>k__BackingField: 20
@@ -35,7 +39,10 @@ MonoBehaviour:
     - <Frame>k__BackingField: 20
       <Name>k__BackingField: DodgeFinished
   <UnarmedAttack>k__BackingField:
-    <Damage>k__BackingField: 15
+    <Damage>k__BackingField:
+      <Id>k__BackingField: 
+      _relativeValueType: 30
+      _customValue: 0
     <DamageType>k__BackingField: SlashDamage
     <DodgeableBy>k__BackingField: 0
     <AttackActionConfig>k__BackingField:
@@ -47,7 +54,8 @@ MonoBehaviour:
   <UnarmedBlock>k__BackingField:
     <Stats>k__BackingField:
     - <Id>k__BackingField: PhysicalDamageResistanceFlat
-      <Value>k__BackingField: 12
+      _relativeValueType: 30
+      _customValue: 0
     <BlockActionConfig>k__BackingField:
       <AnimationName>k__BackingField: HandsBlock
       <Frames>k__BackingField: 7

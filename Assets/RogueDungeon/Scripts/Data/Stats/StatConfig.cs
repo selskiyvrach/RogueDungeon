@@ -1,24 +1,26 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace RogueDungeon.Data.Stats
 {
     [Serializable]
-    public struct StatConfig
+    public class StatConfig
     {
-        [field: SerializeField] public string Id { get; private set; }
-        [field: SerializeField] public float Value { get; private set; }
+        [field: HideLabel, SerializeField]
+        public string Id { get; private set; }
+        
+        [HideLabel, SerializeField, ValidateInput("ValidateStandardValue", "This stat is not present in standard values"), HorizontalGroup] 
+        private RelativeValue _relativeValueType = RelativeValue.Custom;
+        
+        [ShowIf("@_relativeValueType == RelativeValue.Custom"), HideLabel, SerializeField, HorizontalGroup] 
+        private float _customValue;
 
-        public StatConfig(string id, float value)
-        {
-            Id = id;
-            Value = value;
-        }
+        public float GetValue() => 
+            _relativeValueType == RelativeValue.Custom ? _customValue : StandardValues.GetValue(Id, _relativeValueType);
 
-        public static StatConfig operator +(StatConfig a, StatConfig b) => 
-            new(a.Id, a.Value + b.Value);
-
-        public static StatConfig operator -(StatConfig a, StatConfig b) => 
-            new(a.Id, a.Value - b.Value);
+        private bool ValidateStandardValue() => 
+            _relativeValueType == RelativeValue.Custom || StandardValues.HasStat(Id);
     }
 }
