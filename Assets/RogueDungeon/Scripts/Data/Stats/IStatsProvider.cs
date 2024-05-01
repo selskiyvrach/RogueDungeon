@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Stats
+﻿namespace RogueDungeon.Data.Stats
 {
     public interface IStatsProvider
     {

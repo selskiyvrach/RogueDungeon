@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RogueDungeon.Stats
+namespace RogueDungeon.Data.Stats
 {
     [Serializable]
     public struct StatConfig

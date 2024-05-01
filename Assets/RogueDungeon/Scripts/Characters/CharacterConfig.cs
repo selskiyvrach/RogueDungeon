@@ -1,5 +1,6 @@
 ﻿using System.Linq;
-using RogueDungeon.Stats;
+using RogueDungeon.Actions;
+using RogueDungeon.Data.Stats;
 using UnityEngine;
 
 namespace RogueDungeon.Characters
@@ -13,6 +14,6 @@ namespace RogueDungeon.Characters
         public float GetStat(string id) =>
             Stats.FirstOrDefault(n => n.Id == id).Value;
 
-        public abstract CharacterController CreateController(Character character);
+        public abstract CharacterController CreateController(Character character, ActionFactory actionFactory);
     }
 }

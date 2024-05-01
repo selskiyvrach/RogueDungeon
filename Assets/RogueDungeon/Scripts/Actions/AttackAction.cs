@@ -1,6 +1,7 @@
 ﻿using RogueDungeon.Characters;
+using RogueDungeon.Data;
+using RogueDungeon.Data.Stats;
 using RogueDungeon.Items;
-using RogueDungeon.Stats;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -10,7 +11,7 @@ namespace RogueDungeon.Actions
     {
         private readonly AttackConfig _attackConfig;
         
-        public AttackAction(AttackConfig attackConfig) : base(attackConfig.AttackActionConfig) => 
+        public AttackAction(AttackConfig attackConfig, StandardValues standardValues) : base(attackConfig.AttackActionConfig, standardValues) => 
             _attackConfig = attackConfig;
 
         protected override void OnKeyframe(string keyframe)
@@ -18,7 +19,6 @@ namespace RogueDungeon.Actions
             Assert.AreEqual(keyframe, "Hit");
 
             var defender = Character.CombatState.SurroundingCharacters.GetTargetForPosition(Character.CombatState.Position);
-            // a legal state - an enemy died from another effect since the attack started
             if (defender == null)
                 return;
 
@@ -26,7 +26,7 @@ namespace RogueDungeon.Actions
             if(dodged)
                 return;
 
-            var damage = _attackConfig.Damage;
+            var damage = StandardValues.GetValue(_attackConfig.Damage, StandardValues.AttackDamageValues);
             var damageType = _attackConfig.DamageType;
 
             while (damageType != null)

@@ -1,4 +1,5 @@
 ﻿using RogueDungeon.Characters;
+using RogueDungeon.Data;
 using RogueDungeon.Items;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -12,7 +13,7 @@ namespace RogueDungeon.Actions
         private bool _lowerBlockCommandReceived;
         public override bool IsFinished => IsRewinding && CurrentFrame == 1;
 
-        public BlockAction(BlockConfig block) : base(block.BlockActionConfig) => 
+        public BlockAction(BlockConfig block, StandardValues standardValues) : base(block.BlockActionConfig, standardValues) => 
             _block = block;
 
         protected override void OnStarted()

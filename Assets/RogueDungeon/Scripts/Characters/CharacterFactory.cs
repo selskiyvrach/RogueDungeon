@@ -1,4 +1,6 @@
 ﻿using JetBrains.Annotations;
+using RogueDungeon.Actions;
+using RogueDungeon.Data;
 using RogueDungeon.Health;
 using UnityEngine;
 using Animator = RogueDungeon.Animations.Animator;
@@ -8,9 +10,13 @@ namespace RogueDungeon.Characters
     public class CharacterFactory
     {
         private readonly Transform _parent;
+        private readonly ActionFactory _characterFactory;
 
-        public CharacterFactory(Transform parent) => 
+        public CharacterFactory(Transform parent, StandardValues standardValues)
+        {
             _parent = parent;
+            _characterFactory = new ActionFactory(standardValues);
+        }
 
         [CanBeNull]
         public Character Create(string configName)
@@ -26,7 +32,7 @@ namespace RogueDungeon.Characters
             var healthDisplay = gameObject.GetComponent<HealthDisplay>();
             var character = new Character(config, animator, healthDisplay, gameObject);
 
-            character.Controller = config.CreateController(character);
+            character.Controller = config.CreateController(character, _characterFactory);
             return character;
         }
     }

@@ -1,5 +1,5 @@
-﻿using RogueDungeon.Health;
-using RogueDungeon.Stats;
+﻿using RogueDungeon.Data.Stats;
+using RogueDungeon.Health;
 using UnityEngine;
 using Animator = RogueDungeon.Animations.Animator;
 

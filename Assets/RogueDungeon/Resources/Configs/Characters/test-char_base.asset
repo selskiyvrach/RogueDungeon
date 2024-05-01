@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e45a09de463e4ff299a738d0f5129582, type: 3}
-  m_Name: test-char_a
+  m_Name: test-char_base
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: Enemy
-  <Prefab>k__BackingField: {fileID: 5827096364031987860, guid: 649cd968dc07a4a46a378727040bafc8,
-    type: 3}
+  <Id>k__BackingField: 
+  <Prefab>k__BackingField: {fileID: 0}
   <Stats>k__BackingField:
   - <Id>k__BackingField: Hp
     <Value>k__BackingField: 100
@@ -30,9 +29,5 @@ MonoBehaviour:
         <AnimationName>k__BackingField: AttackLeft
         <Frames>k__BackingField: 0
         <Keyframes>k__BackingField: []
-  <Extends>k__BackingField: {fileID: 11400000, guid: 171f9e62a037da04eb021cea894d8883,
-    type: 2}
-  <AttackPatters>k__BackingField:
-  - <SuitableForPositions>k__BackingField: 0
-    <ChillFrames>k__BackingField: 0
-    <Attacks>k__BackingField: []
+  <Extends>k__BackingField: {fileID: 0}
+  <AttackPatters>k__BackingField: []

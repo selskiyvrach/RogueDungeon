@@ -1,5 +1,5 @@
 ﻿using JetBrains.Annotations;
-using RogueDungeon.Stats;
+using RogueDungeon.Data.Stats;
 
 namespace RogueDungeon.Characters
 {

@@ -4,12 +4,15 @@ namespace RogueDungeon.Characters
 {
     public abstract class CharacterController
     {
-        public Character Character { get; private set; }
-
+        public Character Character { get; }
+        public ActionFactory ActionFactory { get; }
         public Action CurrentAction { get; private set; }
 
-        protected CharacterController(Character character) => 
+        protected CharacterController(Character character, ActionFactory actionFactory)
+        {
             Character = character;
+            ActionFactory = actionFactory;
+        }
 
         public virtual void Tick()
         {

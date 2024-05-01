@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RogueDungeon.Stats
+namespace RogueDungeon.Data.Stats
 {
     public static class Constants
     {

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using RogueDungeon.Actions;
 using RogueDungeon.Utils;
 
@@ -6,15 +7,15 @@ namespace RogueDungeon.Characters
 {
     public class AiCharacterController : CharacterController
     {
-        private readonly AttackPattern[] _patterns;
+        private readonly List<AttackPattern> _patterns;
         
         private AttackAction[] _currentPatternActions;
         private int _currentActionIndex;
         
         public AttackPattern CurrentPattern { get; private set; }
 
-        public AiCharacterController(Character character, AttackPattern[] patterns) : base(character) => 
-            _patterns = patterns;
+        public AiCharacterController(Character character, ActionFactory actionFactory, IEnumerable<AttackPattern> patterns) : base(character, actionFactory) => 
+            _patterns = new List<AttackPattern>(patterns);
 
         public override void Tick()
         {
@@ -38,7 +39,7 @@ namespace RogueDungeon.Characters
         public void StartNewPattern()
         {
             CurrentPattern = _patterns.Where(n => (n.SuitableForPositions & Character.CombatState.Position) != 0).ToList().Random();
-            _currentPatternActions = CurrentPattern.AttackConfigs.Select(n => new AttackAction(n)).ToArray();
+            _currentPatternActions = CurrentPattern.Attacks.Select(n => ActionFactory.CreateAttackAction(((EnemyCharacterConfig)Character.Config).GetAttackConfig(n))).ToArray();
             _currentActionIndex = 0;
         }
     }

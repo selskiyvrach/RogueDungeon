@@ -1,4 +1,5 @@
 ﻿using RogueDungeon.Characters;
+using RogueDungeon.Data;
 using UnityEngine;
 
 namespace RogueDungeon.Actions
@@ -7,7 +8,7 @@ namespace RogueDungeon.Actions
     {
         private readonly DodgeState _dodgeState;
 
-        public DodgeAction(ActionConfig config, DodgeState dodgeState) : base(config)
+        public DodgeAction(ActionConfig config, DodgeState dodgeState, StandardValues standardValues) : base(config, standardValues)
         {
             _dodgeState = dodgeState;
         }

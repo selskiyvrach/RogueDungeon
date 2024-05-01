@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using RogueDungeon.Characters;
+using RogueDungeon.Data;
 
 namespace RogueDungeon.Actions
 {
@@ -9,11 +10,7 @@ namespace RogueDungeon.Actions
         private bool _hasStarted;
         private bool _isRewinding;
 
-        public virtual bool IsFinished => _hasStarted && (!IsRewinding && CurrentFrame == _config.Frames || IsRewinding && CurrentFrame == 1);
-
-        public int CurrentFrame { get; private set; }
-        public int Frames => _config.Frames;
-        public string AnimationName => _config.AnimationName;
+        protected StandardValues StandardValues { get; private set; }
 
         protected bool IsRewinding
         {
@@ -25,14 +22,25 @@ namespace RogueDungeon.Actions
             }
         }
 
+        public virtual bool IsFinished => _hasStarted && (!IsRewinding && CurrentFrame == _config.Frames || IsRewinding && CurrentFrame == 1);
+
+        public int CurrentFrame { get; private set; }
+
+        public int Frames => _config.Frames;
+
+        public string AnimationName => _config.AnimationName;
+
         /// <summary>
         /// The character for whom the action is being executed at the moment. Null if the action is not being executed at the moment
         /// </summary>
         [CanBeNull]
         protected Character Character { get; private set; }
 
-        protected Action(ActionConfig config) => 
+        protected Action(ActionConfig config, StandardValues standardValues)
+        {
+            StandardValues = standardValues;
             _config = config;
+        }
 
         public void Start(Character character)
         {
