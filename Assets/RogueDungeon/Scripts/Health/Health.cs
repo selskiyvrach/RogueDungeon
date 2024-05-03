@@ -7,6 +7,7 @@ namespace RogueDungeon.Health
         public float Current { get; private set; }
 
         public float Max { get; private set; }
+        public bool IsDead => Current <= 0;
 
         public event System.Action<HealthChangeReason> OnChanged;
 

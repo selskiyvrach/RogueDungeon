@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using RogueDungeon.Characters;
-using RogueDungeon.Data;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace RogueDungeon.Actions

@@ -122,6 +122,7 @@ Animation:
   - {fileID: 7400000, guid: aa18fec470422fa4c9eaa07a6d780846, type: 2}
   - {fileID: 7400000, guid: 70601dd2c18248440a06d96db614f93a, type: 2}
   - {fileID: 7400000, guid: 54efbb016831ef247ba4b2455102790f, type: 2}
+  - {fileID: 7400000, guid: 6ff0a46e548b7c945a71e32c6369eb22, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -283,6 +284,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: aa18fec470422fa4c9eaa07a6d780846, type: 2}
   - {fileID: 7400000, guid: 70601dd2c18248440a06d96db614f93a, type: 2}
   - {fileID: 7400000, guid: 54efbb016831ef247ba4b2455102790f, type: 2}
+  - {fileID: 7400000, guid: 6ff0a46e548b7c945a71e32c6369eb22, type: 2}
 --- !u!114 &5435529587113712851
 MonoBehaviour:
   m_ObjectHideFlags: 0

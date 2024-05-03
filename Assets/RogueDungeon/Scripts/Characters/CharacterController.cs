@@ -16,19 +16,24 @@ namespace RogueDungeon.Characters
                 return;
             CurrentAction.Tick();
             Character.Animator.UpdateState((float)CurrentAction.CurrentFrame / CurrentAction.Frames);
-            if (!CurrentAction.IsFinished)
-                return;
-            CurrentAction.Stop();
-            CurrentAction = null;
-            Character.Animator.SetState(null);
+            if (CurrentAction.IsFinished)
+                StopCurrentAction();
         }
 
         protected void StartAction(Action action)
         {
+            if(CurrentAction != null)
+                StopCurrentAction();
             CurrentAction = action;
             CurrentAction.Start(Character);
             Character.Animator.SetState(CurrentAction.AnimationName);
-            Character.Animator.UpdateState(0);
+        }
+
+        protected void StopCurrentAction()
+        {
+            CurrentAction?.Stop();
+            CurrentAction = null;
+            Character.Animator.SetState(null);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using RogueDungeon.Utils;
 
 namespace RogueDungeon.Characters
@@ -21,11 +20,19 @@ namespace RogueDungeon.Characters
 
         public void Tick()
         {
+            foreach (var character in _characters) 
+                character.Tick();
+            
+            // check for died characters
+            // compete for the frontline
+                // wait for death animation to finish and for swap animation to finish
+                // start new swap animation
+                    // duration frames
+                    // animator
+                    // add moving forward for normalized attack duration
+                
             if (_currentCharacter is { CurrentPattern: not null })
-            {
-                _currentCharacter.Tick();
                 return;
-            }
 
             if (_currentCharacterIndex == _characters.Count)
             {

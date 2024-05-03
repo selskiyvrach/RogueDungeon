@@ -20,6 +20,7 @@ namespace RogueDungeon.Animations
             }
             _current = _animations.FirstOrDefault(n => n.name == state);
             Assert.IsNotNull(_current, $"Animation '{state}' not found");
+            UpdateState(0);
         }
 
         public void UpdateState(float durationNormalized)

@@ -18,8 +18,8 @@ namespace RogueDungeon
             var factory = new CharacterFactory(transform);
             _game = new Game(factory, positions);
             _game.CreateCharacter("test-skeleton-swordsman", Positions.Frontline);
-            _game.CreateCharacter("test-skeleton-swordsman", Positions.BacklineLeft);
-            _game.CreateCharacter("test-skeleton-swordsman", Positions.BacklineRight);
+            // _game.CreateCharacter("test-skeleton-swordsman", Positions.BacklineLeft);
+            // _game.CreateCharacter("test-skeleton-swordsman", Positions.BacklineRight);
             _game.CreateCharacter("test-player", Positions.Player);
         }
 
