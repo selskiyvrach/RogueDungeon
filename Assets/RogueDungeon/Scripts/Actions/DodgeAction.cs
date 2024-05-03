@@ -8,10 +8,8 @@ namespace RogueDungeon.Actions
     {
         private readonly DodgeState _dodgeState;
 
-        public DodgeAction(ActionConfig config, DodgeState dodgeState, StandardValues standardValues) : base(config, standardValues)
-        {
+        public DodgeAction(ActionConfig config, DodgeState dodgeState) : base(config) => 
             _dodgeState = dodgeState;
-        }
 
         protected override void OnKeyframe(string keyframe)
         {

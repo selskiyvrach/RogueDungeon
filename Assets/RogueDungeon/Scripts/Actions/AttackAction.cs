@@ -1,5 +1,4 @@
 ﻿using RogueDungeon.Characters;
-using RogueDungeon.Data;
 using RogueDungeon.Data.Stats;
 using RogueDungeon.Items;
 using UnityEngine;
@@ -9,9 +8,9 @@ namespace RogueDungeon.Actions
 {
     public class AttackAction : Action
     {
-        private readonly AttackConfig _attackConfig;
+        private readonly IAttackConfig _attackConfig;
         
-        public AttackAction(AttackConfig attackConfig, StandardValues standardValues) : base(attackConfig.AttackActionConfig, standardValues) => 
+        public AttackAction(IAttackConfig attackConfig) : base(attackConfig.AttackActionConfig) => 
             _attackConfig = attackConfig;
 
         protected override void OnKeyframe(string keyframe)
@@ -26,7 +25,7 @@ namespace RogueDungeon.Actions
             if(dodged)
                 return;
 
-            var damage = _attackConfig.Damage.GetValue();
+            var damage = _attackConfig.Damage;
             var damageType = _attackConfig.DamageType;
 
             while (damageType != null)
@@ -45,7 +44,7 @@ namespace RogueDungeon.Actions
             var resistFlat = defender.GetStat(damageType + Constants.RESIST + Constants.FLAT);
             var resistPercent = defender.GetStat(damageType + Constants.RESIST + Constants.PERCENT);
             
-            damage *= (100 - resistPercent) / 100;
+            damage *= 1 - resistPercent;
             damage -= resistFlat;
             damage = Mathf.Clamp(damage, 0, float.MaxValue);
             

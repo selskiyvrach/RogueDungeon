@@ -10,6 +10,7 @@ namespace RogueDungeon.Data
     public class StandardValues : ScriptableDictionary<StandardValues.Values>
     {
         private static StandardValues _instance;
+        private static StandardValues Instance => _instance ??= Resources.Load<StandardValues>("Configs/Data/StandardValues");
         
         [Serializable]
         public struct ValuePerValueType
@@ -26,9 +27,9 @@ namespace RogueDungeon.Data
         }
 
         public static bool HasStat(string statId) => 
-            (_instance ??= Resources.Load<StandardValues>("Configs/Data/StandardValues")).TryGetValue(statId, out var _);
+            Instance.TryGetValue(statId, out var _);
 
         public static float GetValue(string statId, RelativeValue value) =>
-            (_instance ??= Resources.Load<StandardValues>("Configs/Data/StandardValues"))[statId][value];
+            Instance[statId][value];
     }
 }

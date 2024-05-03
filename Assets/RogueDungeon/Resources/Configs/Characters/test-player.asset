@@ -12,55 +12,90 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e05e490590ab433a88fe584db2a5fd77, type: 3}
   m_Name: test-player
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: Player
-  <Prefab>k__BackingField: {fileID: 2765455459887452515, guid: 0b1353be74b298141ba99669d9373a88,
-    type: 3}
-  <Stats>k__BackingField:
-  - <Id>k__BackingField: Hp
-    _relativeValueType: 30
-    _customValue: 0
-  - <Id>k__BackingField: PhysicalDamageResistanceFlat
-    _relativeValueType: 0
-    _customValue: 5
+  _id: Player
+  _prefab: {fileID: 2765455459887452515, guid: 0b1353be74b298141ba99669d9373a88, type: 3}
+  _stats:
+    _stats:
+    - Id: Hp
+      StatConfig:
+        _relativeValueType: 30
+        <Key>k__BackingField: Hp
+        _customValue: 0
   <DodgeRight>k__BackingField:
-    <AnimationName>k__BackingField: DodgeRight
-    <Frames>k__BackingField: 20
-    <Keyframes>k__BackingField:
-    - <Frame>k__BackingField: 1
-      <Name>k__BackingField: DodgeStarted
-    - <Frame>k__BackingField: 20
-      <Name>k__BackingField: DodgeFinished
+    _animationName: DodgeRight
+    _frames:
+      _relativeValueType: 0
+      <Key>k__BackingField: 
+      _customValue: 25
+    _keyframes:
+    - <Name>k__BackingField: DodgeStarted
+      <Frame>k__BackingField:
+        _relativeValueType: 0
+        <Key>k__BackingField: 
+        _customValue: 1
+    - <Name>k__BackingField: DodgeFinished
+      <Frame>k__BackingField:
+        _relativeValueType: 0
+        <Key>k__BackingField: 
+        _customValue: 25
   <DodgeLeft>k__BackingField:
-    <AnimationName>k__BackingField: DodgeLeft
-    <Frames>k__BackingField: 20
-    <Keyframes>k__BackingField:
-    - <Frame>k__BackingField: 1
-      <Name>k__BackingField: DodgeStarted
-    - <Frame>k__BackingField: 20
-      <Name>k__BackingField: DodgeFinished
+    _animationName: DodgeLeft
+    _frames:
+      _relativeValueType: 0
+      <Key>k__BackingField: 
+      _customValue: 25
+    _keyframes:
+    - <Name>k__BackingField: DodgeStarted
+      <Frame>k__BackingField:
+        _relativeValueType: 0
+        <Key>k__BackingField: 
+        _customValue: 1
+    - <Name>k__BackingField: DodgeFinished
+      <Frame>k__BackingField:
+        _relativeValueType: 0
+        <Key>k__BackingField: 
+        _customValue: 25
   <UnarmedAttack>k__BackingField:
-    <Damage>k__BackingField:
-      <Id>k__BackingField: 
-      _relativeValueType: 30
-      _customValue: 0
-    <DamageType>k__BackingField: SlashDamage
+    _damage:
+      _relativeValueType: 0
+      <Key>k__BackingField: 
+      _customValue: 25
+    _attackActionConfig:
+      _animationName: HandsAttack
+      _frames:
+        _relativeValueType: 0
+        <Key>k__BackingField: 
+        _customValue: 45
+      _keyframes:
+      - <Name>k__BackingField: Hit
+        <Frame>k__BackingField:
+          _relativeValueType: 0
+          <Key>k__BackingField: 
+          _customValue: 30
+    <DamageType>k__BackingField: BluntDamage
     <DodgeableBy>k__BackingField: 0
-    <AttackActionConfig>k__BackingField:
-      <AnimationName>k__BackingField: HandsAttack
-      <Frames>k__BackingField: 30
-      <Keyframes>k__BackingField:
-      - <Frame>k__BackingField: 20
-        <Name>k__BackingField: Hit
   <UnarmedBlock>k__BackingField:
     <Stats>k__BackingField:
-    - <Id>k__BackingField: PhysicalDamageResistanceFlat
-      _relativeValueType: 30
-      _customValue: 0
+      _stats:
+      - Id: PhysicalDamageResistPercent
+        StatConfig:
+          _relativeValueType: 0
+          <Key>k__BackingField: 
+          _customValue: 50
     <BlockActionConfig>k__BackingField:
-      <AnimationName>k__BackingField: HandsBlock
-      <Frames>k__BackingField: 7
-      <Keyframes>k__BackingField:
-      - <Frame>k__BackingField: 1
-        <Name>k__BackingField: BlockRaised
-      - <Frame>k__BackingField: 7
-        <Name>k__BackingField: CanLowerIfNotHoldingInput
+      _animationName: HandsBlock
+      _frames:
+        _relativeValueType: 0
+        <Key>k__BackingField: 
+        _customValue: 7
+      _keyframes:
+      - <Name>k__BackingField: BlockRaised
+        <Frame>k__BackingField:
+          _relativeValueType: 0
+          <Key>k__BackingField: 
+          _customValue: 1
+      - <Name>k__BackingField: CanLowerIfNotHoldingInput
+        <Frame>k__BackingField:
+          _relativeValueType: 0
+          <Key>k__BackingField: 
+          _customValue: 7

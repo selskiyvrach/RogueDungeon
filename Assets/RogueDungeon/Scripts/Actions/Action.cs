@@ -1,16 +1,15 @@
 ﻿using JetBrains.Annotations;
 using RogueDungeon.Characters;
 using RogueDungeon.Data;
+using UnityEngine.Assertions;
 
 namespace RogueDungeon.Actions
 {
     public abstract class Action
     {
-        private readonly ActionConfig _config;
+        private readonly IActionConfig _config;
         private bool _hasStarted;
         private bool _isRewinding;
-
-        protected StandardValues StandardValues { get; private set; }
 
         protected bool IsRewinding
         {
@@ -36,9 +35,9 @@ namespace RogueDungeon.Actions
         [CanBeNull]
         protected Character Character { get; private set; }
 
-        protected Action(ActionConfig config, StandardValues standardValues)
+        protected Action(IActionConfig config)
         {
-            StandardValues = standardValues;
+            Assert.IsNotNull(config);
             _config = config;
         }
 

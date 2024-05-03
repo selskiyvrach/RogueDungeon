@@ -3,32 +3,31 @@ using RogueDungeon.Actions;
 using RogueDungeon.Items;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 
 namespace RogueDungeon.Characters
 {
     [CreateAssetMenu(menuName = "Configs/Characters/EnemyCharacter", fileName = "EnemyCharacter", order = 0)]
     public class EnemyCharacterConfig : CharacterConfig
     {
-        [field: SerializeField] public EnemyCharacterConfig Extends { get; private set; }
-        [field: SerializeField] public AttackPattern[] AttackPatterns { get; private set; }
-        [field: SerializeField] public AttackConfigsBank AttackConfigsBank { get; private set; }
+        [SerializeField] private EnemyCharacterConfig _extends;
+        [SerializeField] private HandyActionConfig[] _attackConfigs;
+        [SerializeField] private AttackPattern[] _attackPatterns;
 
-        public AttackConfig GetAttackConfig(string id)
+        public IAttackConfig GetAttackConfig(string id)
         {
-            var attackConfig = AttackConfigsBank.TryGetValue(id, out var attack)
-                ? attack
-                : Extends.GetAttackConfig(id);
+            var attackConfig = _attackConfigs.FirstOrDefault(n => n.Id == id) ?? _extends.GetAttackConfig(id);
             Assert.IsNotNull(attackConfig, $"Attack config with id '{id}' is missing on character config with id'{Id}'");
             return attackConfig;
         }
 
-        public override CharacterController CreateController(Character character, ActionFactory actionFactory)
+        public override CharacterController CreateController(Character character)
         {
-            var patterns = Extends == null 
-                ? AttackPatterns 
-                : Extends.AttackPatterns.Concat(AttackPatterns);
+            var patterns = _extends == null 
+                ? _attackPatterns 
+                : _extends._attackPatterns.Concat(_attackPatterns);
             
-            return new AiCharacterController(character, actionFactory, patterns);
+            return new AiCharacterController(character, patterns);
         }
     }
 }

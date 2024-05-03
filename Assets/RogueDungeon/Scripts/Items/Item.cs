@@ -48,26 +48,37 @@ namespace RogueDungeon.Items
             // overhead smash
             // left hit
             // right hit
-        
-    [Serializable]
-    public class AttackConfig
+
+    public interface IAttackConfig
     {
-        [field: SerializeField] public StatConfig Damage { get; private set; }
+        float Damage { get; }
+        string DamageType { get; }
+        DodgeState DodgeableBy { get; }
+        IActionConfig AttackActionConfig { get; }
+        AttackAction CreateAction();
+    }
+
+    [Serializable]
+    public class AttackConfig : IAttackConfig
+    {
+        [SerializeField] private StatConfig _damage;
+        [SerializeField] private ActionConfig _attackActionConfig;
         [field: SerializeField] public string DamageType { get; private set; }
         [field: SerializeField] public DodgeState DodgeableBy { get; private set; } = DodgeState.NotDodging;
-        [field: SerializeField] public ActionConfig AttackActionConfig { get; private set; }
-
-        public AttackAction CreateAction(StandardValues standardValues) => 
-            new(this, standardValues);
+        
+        public IActionConfig AttackActionConfig => _attackActionConfig;
+        public float Damage => _damage.GetValue();
+        public AttackAction CreateAction() => 
+            new(this);
     }
 
     [Serializable]
     public class BlockConfig : IStatsProvider
     {
-        [field: SerializeField] public StatConfig[] Stats { get; private set; }
+        [field: SerializeField] public StatsConfig Stats { get; private set; }
         [field: SerializeField] public ActionConfig BlockActionConfig { get; private set; }
         
         public float GetStat(string id) => 
-            Stats.FirstOrDefault(n => n.Id == id)?.GetValue() ?? 0;
+            Stats.GetStat(id);
     }
 }

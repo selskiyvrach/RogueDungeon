@@ -15,6 +15,7 @@ namespace RogueDungeon.Data
             [field: SerializeField] public T Value { get; private set; }
         }
 
+        // TODO: add recursive reference check
         [SerializeField] private ScriptableDictionary<T>[] _extensions;
 
         [LabelText("@Label"), SerializeField] private KeyValuePair[] _entries;
@@ -33,7 +34,8 @@ namespace RogueDungeon.Data
                 value = entry.Value;
                 return true;
             }
-            foreach (var extension in _extensions)
+
+            foreach (var extension in _extensions ?? Enumerable.Empty<ScriptableDictionary<T>>())
             {
                 if (!extension.TryGetValue(key, out var valueFromExtension))
                     continue;

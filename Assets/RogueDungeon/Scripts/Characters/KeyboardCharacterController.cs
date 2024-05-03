@@ -14,16 +14,16 @@ namespace RogueDungeon.Characters
         private string _pendingCommand;
         private int _coyoteTimeFrames;
 
-        public KeyboardCharacterController(Character character, ActionFactory factory) : base(character, factory)
+        public KeyboardCharacterController(Character character) : base(character)
         {
             _config = character.Config as PlayerCharacterConfig;
             Assert.IsNotNull(_config);
             _actions = new Dictionary<string, Action>
             {
-                ["RaiseBlock"] = ActionFactory.CreateBlockAction(_config.UnarmedBlock),
-                ["DodgeLeft"] = ActionFactory.CreateDodgeAction(_config.DodgeLeft, DodgeState.DodgingLeft), 
-                ["DodgeRight"] = ActionFactory.CreateDodgeAction(_config.DodgeRight, DodgeState.DodgingRight),
-                ["Attack"] = ActionFactory.CreateAttackAction(_config.UnarmedAttack),
+                ["RaiseBlock"] = new BlockAction(_config.UnarmedBlock),
+                ["DodgeLeft"] = new DodgeAction(_config.DodgeLeft, DodgeState.DodgingLeft), 
+                ["DodgeRight"] = new DodgeAction(_config.DodgeRight, DodgeState.DodgingRight),
+                ["Attack"] = new AttackAction(_config.UnarmedAttack),
             };
         }
 

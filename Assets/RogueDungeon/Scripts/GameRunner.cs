@@ -1,5 +1,4 @@
 ﻿using RogueDungeon.Characters;
-using RogueDungeon.Data;
 using UnityEngine;
 
 namespace RogueDungeon
@@ -16,11 +15,11 @@ namespace RogueDungeon
         private void Start()
         {
             var positions = Resources.Load<CharacterScenePositions>("Configs/Characters/RelativePositions");
-            var standardValues = Resources.Load<StandardValues>("Configs/Data/StandardValues");
-            var factory = new CharacterFactory(transform, standardValues);
+            var factory = new CharacterFactory(transform);
             _game = new Game(factory, positions);
-            _game.CreateCharacter("test-char_a", Positions.Frontline);
-            _game.CreateCharacter("test-char_a", Positions.BacklineLeft);
+            _game.CreateCharacter("test-skeleton-swordsman", Positions.Frontline);
+            _game.CreateCharacter("test-skeleton-swordsman", Positions.BacklineLeft);
+            _game.CreateCharacter("test-skeleton-swordsman", Positions.BacklineRight);
             _game.CreateCharacter("test-player", Positions.Player);
         }
 

@@ -1,19 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Linq;
+using UnityEngine;
 
 namespace RogueDungeon.Data.Stats
 {
-    [CreateAssetMenu(menuName = "Configs/Stats", fileName = "Stats", order = 0)]
-    public class StatsConfig : ScriptableObject, IStatsProvider
+    [Serializable]
+    public class StatsConfig 
     {
-        [SerializeField] private StatConfig[] _stats;
-
-        public float GetStat(string id)
+        [Serializable]
+        private class StatById
         {
-            foreach (var statConfig in _stats)
-                if (statConfig.Id == id)
-                    return statConfig.GetValue();
-
-            return 0;
+            public string Id;
+            public StatConfig StatConfig;
         }
+        
+        [SerializeField] private StatById[] _stats;
+
+        public float GetStat(string id) => 
+            _stats.FirstOrDefault(n => n.Id == id)?.StatConfig.GetValue() ?? 0;
     }
 }
