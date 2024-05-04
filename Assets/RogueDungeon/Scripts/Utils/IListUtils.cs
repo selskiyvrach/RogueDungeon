@@ -20,7 +20,7 @@ namespace RogueDungeon.Utils
      
         
         private static readonly Random random = new Random();
-        public static void Shuffle<T>(this IList<T> list)
+        public static IList<T> Shuffle<T>(this IList<T> list)
         {
             var n = list.Count;
             while (n-- > 1)
@@ -28,6 +28,8 @@ namespace RogueDungeon.Utils
                 var k = random.Next(n + 1);
                 (list[k], list[n]) = (list[n], list[k]);
             }
+
+            return list;
         }
     }
 }

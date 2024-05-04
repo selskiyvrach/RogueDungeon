@@ -23,12 +23,16 @@ namespace RogueDungeon.Characters
         {
             base.Tick();
 
-            if (!_handlingDeath && Character.Health.IsDead)
+            if (Character.Health.IsDead)
             {
+                if (_handlingDeath) 
+                    return;
+                
                 StopCurrentAction();
                 CurrentPattern = null;
                 StartAction(new DeathAction(((EnemyCharacterConfig)Character.Config).DeathActionConfig));
                 _handlingDeath = true;
+                return;
             }
 
             if(CurrentPattern == null)
@@ -58,5 +62,8 @@ namespace RogueDungeon.Characters
             _currentPatternActions = CurrentPattern.Attacks.Select(n => new AttackAction(((EnemyCharacterConfig)Character.Config).GetAttackConfig(n))).ToArray();
             _currentActionIndex = 0;
         }
+
+        public void StopCurrentPattern() => 
+            CurrentPattern = null;
     }
 }

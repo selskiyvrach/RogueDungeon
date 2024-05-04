@@ -43,7 +43,7 @@ namespace RogueDungeon
             _characters.Add(character);
         }
 
-        private bool HasEnemyInPosition(Positions positions, out Character character)
+        public bool HasEnemyInPosition(Positions positions, out Character character)
         {
             character = AllCharacters.FirstOrDefault(n => n.CombatState.Position == positions);
             return character != null;
