@@ -24,6 +24,7 @@ namespace RogueDungeon.Characters
                 ["DodgeLeft"] = new DodgeAction(_config.DodgeLeft, DodgeState.DodgingLeft), 
                 ["DodgeRight"] = new DodgeAction(_config.DodgeRight, DodgeState.DodgingRight),
                 ["Attack"] = new AttackAction(_config.UnarmedAttack),
+                ["Idle"] = new IdleAction(_config.IdleAction),
             };
         }
 
@@ -50,6 +51,10 @@ namespace RogueDungeon.Characters
                 block.OnCommand("LowerBlock");
                 _pendingCommand = null;
             }
+            
+            if (_pendingCommand is "RaiseBlock" or "DodgeLeft" or "DodgeRight")
+                if (CurrentAction is AttackAction) 
+                    StopCurrentAction();
             
             if (CurrentAction == null)
             {

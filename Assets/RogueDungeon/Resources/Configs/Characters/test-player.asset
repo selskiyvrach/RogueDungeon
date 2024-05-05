@@ -21,6 +21,14 @@ MonoBehaviour:
         _relativeValueType: 30
         <Key>k__BackingField: Hp
         _customValue: 0
+  <IdleAction>k__BackingField:
+    _animationName: Idle
+    _frames:
+      _relativeValueType: 0
+      <Key>k__BackingField: 
+      _customValue: 30
+    _cycle: 1
+    _keyframes: []
   <DodgeRight>k__BackingField:
     _animationName: DodgeRight
     _frames:
