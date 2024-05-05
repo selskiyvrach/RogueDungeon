@@ -53,8 +53,12 @@ namespace RogueDungeon.Characters
             }
             
             if (_pendingCommand is "RaiseBlock" or "DodgeLeft" or "DodgeRight")
-                if (CurrentAction is AttackAction) 
+                if (CurrentAction is AttackAction)
+                {
+                    ResetAnimation();
                     StopCurrentAction();
+                }
+
             
             if (CurrentAction == null)
             {
