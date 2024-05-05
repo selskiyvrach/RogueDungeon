@@ -29,6 +29,8 @@ namespace RogueDungeon.Actions
 
         public string AnimationName => _config.AnimationName;
 
+        public bool Cycle => _config.Cycle;
+
         /// <summary>
         /// The character for whom the action is being executed at the moment. Null if the action is not being executed at the moment
         /// </summary>
@@ -62,6 +64,8 @@ namespace RogueDungeon.Actions
 
             CurrentFrame += IsRewinding ? -1 : 1;
             TryRaiseCallback();
+            if (IsFinished && Cycle)
+                CurrentFrame = IsRewinding ? _config.Frames : 0;
         }
 
         public void Stop()

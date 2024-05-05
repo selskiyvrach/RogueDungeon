@@ -13,6 +13,7 @@ namespace RogueDungeon.Actions
     {
         string AnimationName { get; }
         int Frames { get; }
+        bool Cycle { get; }
         string GetKeyframe(int frame);
     }
 
@@ -21,10 +22,12 @@ namespace RogueDungeon.Actions
     {
         [SerializeField] private string _animationName;
         [SerializeField] private StatConfig _frames;
+        [SerializeField] private bool _cycle;
         [SerializeField] private Keyframe[] _keyframes;
-        
+
         public string AnimationName => _animationName;
         public int Frames => _frames.GetIntValue();
+        public bool Cycle => _cycle;
 
         [CanBeNull]
         public string GetKeyframe(int frame)
@@ -72,6 +75,8 @@ namespace RogueDungeon.Actions
         public string DamageType => _damageType.ToString();
         public float Damage => StandardValues.GetValue("AttackDamage", _damage);
         public int Frames => Mathf.RoundToInt(StandardValues.GetValue("AttackActionDuration", _damage));
+        public bool Cycle => false;
+
         public DodgeState DodgeableBy => _hitType switch
         {
             HitType.Left => DodgeState.DodgingRight,
