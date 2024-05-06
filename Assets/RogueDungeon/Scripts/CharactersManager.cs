@@ -2,6 +2,7 @@
 using System.Linq;
 using RogueDungeon.Characters;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace RogueDungeon
 {
@@ -9,10 +10,14 @@ namespace RogueDungeon
     {
         private readonly CharacterScenePositions _worldRelativePositionsConfig;
         private readonly CharacterFactory _characterFactory;
-        private readonly List<Character> _characters = new();
+        
+        private readonly List<Character> _allEnemies = new();
+        private readonly List<Character> _aliveEnemies = new();
         private readonly Hivemind _hivemind;
 
-        public IReadOnlyList<Character> AllCharacters => _characters;
+        public IReadOnlyList<Character> AllEnemies => _allEnemies;
+        public IReadOnlyList<Character> AliveEnemies => _aliveEnemies;
+        public Character Player { get; private set; }
 
         public CharactersManager(CharacterFactory characterFactory, CharacterScenePositions worldRelativePositionsConfig)
         {
@@ -21,11 +26,11 @@ namespace RogueDungeon
             _hivemind = new Hivemind(this);
         }
 
-        public void CreateCharacter(string configName, Positions position)
+        public void CreateCharacter(string configName, Position position)
         {
-            if (HasEnemyInPosition(position, out Character enemy))
+            if (HasCharacterInPosition(position, out Character existingChar))
             {
-                Debug.LogError($"'{position}' position is already occupied");
+                Debug.LogError($"Cannot create character at pos '{position}' - position is already occupied");
                 return;
             }
 
@@ -40,27 +45,60 @@ namespace RogueDungeon
             character.CombatState.SurroundingCharacters = this;
             character.CombatState.Surroundings = this;
             character.GameObject.transform.position = GetWorldCoordinatesForPosition(position);
-            _characters.Add(character);
+            if (position == Position.Player)
+                Player = character;
+            else
+                _allEnemies.Add(character);
         }
 
-        public bool HasEnemyInPosition(Positions positions, out Character character)
+        public bool HasCharacterInPosition(Position position, out Character character)
         {
-            character = AllCharacters.FirstOrDefault(n => n.CombatState.Position == positions);
+            character = position == Position.Player
+                ? Player
+                : _allEnemies.FirstOrDefault(n => n.CombatState.Position == position);
             return character != null;
         }
+        
+        public Character GetCharacterAtPos(Position position) => 
+            position == Position.Player
+                ? Player
+                : HasCharacterInPosition(position, out var character)
+                    ? character
+                    : null;
 
-        public Character GetTargetForPosition(Positions positions) =>
-            positions == Positions.Player
-                ? AllCharacters.FirstOrDefault(n => n.CombatState.Position == Positions.Frontline)
-                : AllCharacters.FirstOrDefault(n => n.CombatState.Position == Positions.Player);
+        public Character GetTargetForPosition(Position position) =>
+            position == Position.Player
+                ? GetCharacterAtPos(Position.Frontline)
+                : Player;
         
         public void Tick()
         {
+            Player.Controller.Tick();
+            
+            // update enemies state after player's actions
+            foreach (var character in AllEnemies) 
+                character.Controller.Tick();
+            
+            // clear dead enemies with post-death actions finished
+            for (var i = _allEnemies.Count - 1; i >= 0; i--)
+                if (_allEnemies[i].Health.IsDead && _allEnemies[i].Controller.CurrentAction is null)
+                    RemoveEnemy(i);
+            
+            // update alive enemies
+            _aliveEnemies.Clear();
+            _aliveEnemies.AddRange(_allEnemies.Where(n => !n.Health.IsDead));
+            
+            // tick hivemind
             _hivemind.Tick();
-            _characters.FirstOrDefault(n => n.CombatState.Position == Positions.Player)?.Controller.Tick();
         }
 
-        public Vector3 GetWorldCoordinatesForPosition(Positions positions) => 
-            _worldRelativePositionsConfig.GetRelativePosition(positions);
+        public Vector3 GetWorldCoordinatesForPosition(Position position) => 
+            _worldRelativePositionsConfig.GetRelativePosition(position);
+
+        private void RemoveEnemy(int index)
+        {
+            Object.Destroy(_allEnemies[index].GameObject);
+            _allEnemies.RemoveAt(index);
+        }
     }
 }

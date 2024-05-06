@@ -18,7 +18,7 @@ namespace RogueDungeon.Characters
         [CanBeNull] private AiCharacterController _characterBeingSwapped;
         private bool _isSwapping;
         private int _swapFrames;
-        private readonly int _swapDuration = 30;
+        private readonly int _swapDuration = 15;
 
         public Hivemind(CharactersManager charactersManager)
         {
@@ -28,26 +28,27 @@ namespace RogueDungeon.Characters
 
         public void Tick()
         {
-            if(_charactersManager.AllCharacters.All(n => n.Health.IsDead))
+            // do not proceed with all dead
+            if(_charactersManager.AliveEnemies.Count == 0)
                 return;
             
-            foreach (var character in _charactersManager.AllCharacters.Where(n => n.CombatState.Position != Positions.Player)) 
-                character.Controller.Tick();
-
+            // do not do anything during swaps
             if (HandleSwapping()) 
                 return;
 
+            // if current char is performing its pattern
             if (_currentCharacter is { CurrentPattern: not null })
                 return;
 
+            // wait for chill time
             if (_currentCharacterIndex == _charactersInMoveOrder.Count)
             {
                 if (_chillFrames-- == 0) 
                     RefreshCharactersList();
-
                 return;
             }
 
+            // pick next character
             _currentCharacter = null;
             while (_currentCharacter == null && _currentCharacterIndex < _charactersInMoveOrder.Count)
             {
@@ -55,11 +56,14 @@ namespace RogueDungeon.Characters
                 if(!nextChar.Character.Health.IsDead)
                     _currentCharacter = nextChar;
             }
+            
             if(_currentCharacter == null)
                 return;
+            
             _currentCharacter.StartNewPattern();
             _chillFrames += (int)_currentCharacter.CurrentPattern.ChillFrames.GetValue();
             
+            // if it's the last char pattern - finalize chill duration 
             if (_currentCharacterIndex == _charactersInMoveOrder.Count)
                 _chillFrames /= _charactersInMoveOrder.Count;
         }
@@ -74,12 +78,12 @@ namespace RogueDungeon.Characters
         {
             _charactersInMoveOrder.Clear();
             
-            foreach (var character in _charactersManager.AllCharacters)
+            foreach (var character in _charactersManager.AllEnemies)
             {
                 if(character.Health.IsDead)
                     continue;
                 
-                if (character.CombatState.Position != Positions.Player)
+                if (character.CombatState.Position != Position.Player)
                     _charactersInMoveOrder.Add((AiCharacterController)character.Controller);
             }
 
@@ -89,51 +93,32 @@ namespace RogueDungeon.Characters
 
         private bool HandleSwapping()
         {
-            if (!_isSwapping && FrontlineNeedsReplacement())
+            switch (_isSwapping)
             {
-                StopCharactersActivity();
-                if(_charactersManager.HasEnemyInPosition(Positions.Frontline, out var oldFrontliner))
-                    oldFrontliner.CombatState.Position = 0;
-
-                if (_charactersManager.AllCharacters.Where(n => n.CombatState.Position != Positions.Player)
-                    .All(n => n.Health.IsDead))
+                // start swap
+                case false when !_charactersManager.HasCharacterInPosition(Position.Frontline, out var frontliner):
+                    StopCharactersActivity();
+                    _characterBeingSwapped = _charactersManager.AliveEnemies.Select(n => n.Controller as AiCharacterController).ToArray().Shuffle()[0];
+                    _swapFrames = _swapDuration;
+                    _isSwapping = true;
+                    return true;
+                case false:
                     return false;
-                
-                _characterBeingSwapped = _charactersInMoveOrder.Where(n => !n.Character.Health.IsDead).ToArray().Shuffle()[0];
-                _swapFrames = _swapDuration;
-                _isSwapping = true;
-                return true;
             }
 
-            if (!_isSwapping) 
-                return false;
-            
             if (_swapFrames-- > 0)
             {
                 var normalizedSwapTime = 1 - (float)_swapFrames / _swapDuration;
                 var prevPos = _charactersManager.GetWorldCoordinatesForPosition(_characterBeingSwapped.Character.CombatState.Position);
-                var targetPos = _charactersManager.GetWorldCoordinatesForPosition(Positions.Frontline);
+                var targetPos = _charactersManager.GetWorldCoordinatesForPosition(Position.Frontline);
                 _characterBeingSwapped.Character.GameObject.transform.position = Vector3.Lerp(prevPos, targetPos, normalizedSwapTime);
                 return true;
             }
 
-            _characterBeingSwapped.Character.CombatState.Position = Positions.Frontline;
+            _characterBeingSwapped.Character.CombatState.Position = Position.Frontline;
             RefreshCharactersList();
             _isSwapping = false;
             return false;
-        }
-
-        private bool FrontlineNeedsReplacement()
-        {
-            if (!_charactersManager.HasEnemyInPosition(Positions.Frontline, out var frontliner))
-                return true;
-            if (frontliner == null)
-                return true;
-            var isDead = frontliner.Health.IsDead;
-            if (!isDead)
-                return false;
-            var hasFinishedDeathAnimation = frontliner.Controller.CurrentAction is null;
-            return hasFinishedDeathAnimation;
         }
     }
 }

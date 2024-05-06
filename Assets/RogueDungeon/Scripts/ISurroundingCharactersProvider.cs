@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using RogueDungeon.Characters;
 using UnityEngine;
 
@@ -7,12 +6,11 @@ namespace RogueDungeon
 {
     public interface ISurroundingCharactersProvider
     {
-        IReadOnlyList<Character> AllCharacters { get; }
-        [CanBeNull] Character GetTargetForPosition(Positions positions);
+        [CanBeNull] Character GetTargetForPosition(Position position);
     }
 
     public interface ISurroundingsProvider
     {
-        Vector3 GetWorldCoordinatesForPosition(Positions positions);
+        Vector3 GetWorldCoordinatesForPosition(Position position);
     }
 }

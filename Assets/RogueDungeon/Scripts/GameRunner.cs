@@ -17,10 +17,10 @@ namespace RogueDungeon
             var positions = Resources.Load<CharacterScenePositions>("Configs/Characters/RelativePositions");
             var factory = new CharacterFactory(transform);
             _game = new Game(factory, positions);
-            _game.CreateCharacter("test-skeleton-swordsman", Positions.Frontline);
-            _game.CreateCharacter("test-skeleton-swordsman", Positions.BacklineLeft);
-            _game.CreateCharacter("test-skeleton-swordsman", Positions.BacklineRight);
-            _game.CreateCharacter("test-player", Positions.Player);
+            _game.CreateCharacter("test-skeleton-swordsman", Position.Frontline);
+            _game.CreateCharacter("test-skeleton-swordsman", Position.BacklineLeft);
+            _game.CreateCharacter("test-skeleton-swordsman", Position.BacklineRight);
+            _game.CreateCharacter("test-player", Position.Player);
         }
 
         private void Update() => 

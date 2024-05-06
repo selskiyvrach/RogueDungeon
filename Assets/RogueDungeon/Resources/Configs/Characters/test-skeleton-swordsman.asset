@@ -34,7 +34,7 @@ MonoBehaviour:
     _hitType: 1
     _duration: 30
   _attackPatterns:
-  - <SuitableForPositions>k__BackingField: 2
+  - <suitableForPosition>k__BackingField: 2
     <ChillFrames>k__BackingField:
       _relativeValueType: 40
       <Key>k__BackingField: AttackPatternChillFrames
@@ -42,7 +42,7 @@ MonoBehaviour:
     <Attacks>k__BackingField:
     - left-hit
     - right-hit
-  - <SuitableForPositions>k__BackingField: 2
+  - <suitableForPosition>k__BackingField: 2
     <ChillFrames>k__BackingField:
       _relativeValueType: 40
       <Key>k__BackingField: AttackPatternChillFrames
@@ -50,14 +50,14 @@ MonoBehaviour:
     <Attacks>k__BackingField:
     - right-hit
     - left-hit
-  - <SuitableForPositions>k__BackingField: 4
+  - <suitableForPosition>k__BackingField: 4
     <ChillFrames>k__BackingField:
       _relativeValueType: 40
       <Key>k__BackingField: AttackPatternChillFrames
       _customValue: 0
     <Attacks>k__BackingField:
     - left-hit
-  - <SuitableForPositions>k__BackingField: 8
+  - <suitableForPosition>k__BackingField: 8
     <ChillFrames>k__BackingField:
       _relativeValueType: 40
       <Key>k__BackingField: AttackPatternChillFrames
@@ -70,4 +70,5 @@ MonoBehaviour:
       _relativeValueType: 20
       <Key>k__BackingField: DeathActionDuration
       _customValue: 0
+    _cycle: 0
     _keyframes: []

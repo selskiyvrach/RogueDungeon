@@ -12,13 +12,13 @@ namespace RogueDungeon
         [Serializable]
         private struct PosTransform
         {
-            [FormerlySerializedAs("Position")] public Positions _positions;
+            [FormerlySerializedAs("_positions")] [FormerlySerializedAs("Position")] public Position _position;
             public Vector3 RelativePos;
         }
 
         [SerializeField] private PosTransform[] _positions;
 
-        public Vector3 GetRelativePosition(Positions positions) => 
-            _positions.First(n => n._positions == positions).RelativePos;
+        public Vector3 GetRelativePosition(Position position) => 
+            _positions.First(n => n._position == position).RelativePos;
     }
 }

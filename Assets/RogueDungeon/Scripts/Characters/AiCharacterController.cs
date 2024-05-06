@@ -58,7 +58,14 @@ namespace RogueDungeon.Characters
                 return;
             }
 
-            CurrentPattern = _patterns.Where(n => (n.SuitableForPositions & Character.CombatState.Position) != 0).ToList().Random();
+            var patterns = _patterns.Where(n => (n.suitableForPosition & Character.CombatState.Position) != 0).ToList();
+            if (patterns.Count == 0)
+            {
+                Debug.LogError("Cannot start a pattern - no suitable patterns for the position");
+                return;
+            }
+
+            CurrentPattern = patterns.Random();
             _currentPatternActions = CurrentPattern.Attacks.Select(n => new AttackAction(((EnemyCharacterConfig)Character.Config).GetAttackConfig(n))).ToArray();
             _currentActionIndex = 0;
         }
