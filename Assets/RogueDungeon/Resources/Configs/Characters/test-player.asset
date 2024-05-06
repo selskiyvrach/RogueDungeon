@@ -69,20 +69,20 @@ MonoBehaviour:
     _damage:
       _relativeValueType: 0
       <Key>k__BackingField: 
-      _customValue: 25
+      _customValue: 10
     _attackActionConfig:
       _animationName: HandsAttack
       _frames:
         _relativeValueType: 0
         <Key>k__BackingField: 
-        _customValue: 45
+        _customValue: 30
       _cycle: 0
       _keyframes:
       - <Name>k__BackingField: Hit
         <Frame>k__BackingField:
           _relativeValueType: 0
           <Key>k__BackingField: 
-          _customValue: 30
+          _customValue: 15
     <DamageType>k__BackingField: BluntDamage
     <DodgeableBy>k__BackingField: 0
   <UnarmedBlock>k__BackingField:

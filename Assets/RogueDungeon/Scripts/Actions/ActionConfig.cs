@@ -74,7 +74,7 @@ namespace RogueDungeon.Actions
         public string Id => _id;
         public string DamageType => _damageType.ToString();
         public float Damage => StandardValues.GetValue("AttackDamage", _damage);
-        public int Frames => Mathf.RoundToInt(StandardValues.GetValue("AttackActionDuration", _damage));
+        public int Frames => Mathf.RoundToInt(StandardValues.GetValue("AttackActionDuration", _duration));
         public bool Cycle => false;
 
         public DodgeState DodgeableBy => _hitType switch
