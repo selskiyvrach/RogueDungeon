@@ -30,46 +30,33 @@ namespace RogueDungeon.Characters
 
         public override void Tick()
         {
-            if(Input.GetKeyDown(KeyCode.A))
+            if(Input.Input.GetUnit(Input.Action.DodgeLeft).Down)
                 RegisterInputCommand("DodgeLeft");
-            if(Input.GetKeyDown(KeyCode.D))
+            if(Input.Input.GetUnit(Input.Action.DodgeRight).Down)
                 RegisterInputCommand("DodgeRight");
-            if(Input.GetKeyDown(KeyCode.Mouse0))
+            if(Input.Input.GetUnit(Input.Action.Attack).Down)
                 RegisterInputCommand("Attack");
-            if(Input.GetKeyDown(KeyCode.Mouse1))
+            if(Input.Input.GetUnit(Input.Action.Block).Held)
                 RegisterInputCommand("RaiseBlock");
-            if(Input.GetKeyUp(KeyCode.Mouse1))
-                RegisterInputCommand("LowerBlock");
             
             base.Tick();
-            
+
+            if (CurrentAction is BlockAction block && _pendingCommand != "RaiseBlock") 
+                block.OnCommand("LowerBlock");
+
             if(_pendingCommand == null)
                 return;
-            
-            if (_pendingCommand == "LowerBlock" && CurrentAction is BlockAction block)
-            {
-                block.OnCommand("LowerBlock");
-                _pendingCommand = null;
-            }
-            
+
             if (_pendingCommand is "RaiseBlock" or "DodgeLeft" or "DodgeRight")
                 if (CurrentAction is AttackAction)
                 {
                     ResetAnimation();
                     StopCurrentAction();
                 }
-
             
             if (CurrentAction == null)
             {
-                if (_pendingCommand == "RaiseBlockThenLower")
-                {
-                    StartAction(_actions["RaiseBlock"]);
-                    CurrentAction.OnCommand("LowerBlock");
-                }
-                else
-                    StartAction(_actions[_pendingCommand]);
-
+                StartAction(_actions[_pendingCommand]);
                 _pendingCommand = null;
                 return;
             }
@@ -80,11 +67,10 @@ namespace RogueDungeon.Characters
 
         private void RegisterInputCommand(string command)
         {
-            if (_pendingCommand == "RaiseBlock" && command == "LowerBlock")
-                _pendingCommand = "RaiseBlockThenLower";
-            else
-                _pendingCommand = command;
+            _pendingCommand = command;
             _coyoteTimeFrames = 15;
+            if (CurrentAction is BlockAction && _pendingCommand == "RaiseBlock")
+                _coyoteTimeFrames = 1;
         }
     }
 }
