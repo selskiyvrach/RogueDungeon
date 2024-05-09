@@ -23,7 +23,7 @@ namespace RogueDungeon.Input
             public UnitConfig[] Units;
         }
 
-        [SerializeField, HideLabel] private ModeUnits[] _modes;
+        [SerializeField] private ModeUnits[] _modes;
 
         public IEnumerable<(Mode mode, UnitConfig unitConfig)> GetUnitsByModes() => 
             from mode in _modes from unit in mode.Units select (mode.Mode, unit);

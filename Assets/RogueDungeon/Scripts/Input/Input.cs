@@ -31,6 +31,7 @@ namespace RogueDungeon.Input
                 var unit = new Unit(unitConfig.KeyCode);
                 _units.Add(unitConfig.Action, unit);
                 _modes.Add(unitConfig.Action, mode);
+                _modeStates.TryAdd(mode, false);
             }
         }
 

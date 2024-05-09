@@ -18,6 +18,7 @@ namespace RogueDungeon
         public IReadOnlyList<Character> AllEnemies => _allEnemies;
         public IReadOnlyList<Character> AliveEnemies => _aliveEnemies;
         public Character Player { get; private set; }
+        public Vector2 WorldPos { get; set; }
 
         public CharactersManager(CharacterFactory characterFactory, CharacterScenePositions worldRelativePositionsConfig)
         {
@@ -44,12 +45,18 @@ namespace RogueDungeon
             character.CombatState.Position = position;
             character.CombatState.SurroundingCharacters = this;
             character.CombatState.Surroundings = this;
-            character.GameObject.transform.position = GetWorldCoordinatesForPosition(position);
+            UpdateCharacterPosition(character);
             if (position == Position.Player)
                 Player = character;
             else
+            {
                 _allEnemies.Add(character);
+                _aliveEnemies.Add(character);
+            }
         }
+
+        private void UpdateCharacterPosition(Character character) => 
+            character.GameObject.transform.position = GetWorldCoordinatesForPosition(character.CombatState.Position);
 
         public bool HasCharacterInPosition(Position position, out Character character)
         {
@@ -74,11 +81,12 @@ namespace RogueDungeon
         public void Tick()
         {
             Player.Controller.Tick();
+            UpdateCharacterPosition(Player);
             
             // update enemies state after player's actions
             foreach (var character in AllEnemies) 
                 character.Controller.Tick();
-            
+
             // clear dead enemies with post-death actions finished
             for (var i = _allEnemies.Count - 1; i >= 0; i--)
                 if (_allEnemies[i].Health.IsDead && _allEnemies[i].Controller.CurrentAction is null)
@@ -93,7 +101,7 @@ namespace RogueDungeon
         }
 
         public Vector3 GetWorldCoordinatesForPosition(Position position) => 
-            _worldRelativePositionsConfig.GetRelativePosition(position);
+            new Vector3(WorldPos.x, 0, WorldPos.y) + _worldRelativePositionsConfig.GetRelativePosition(position);
 
         private void RemoveEnemy(int index)
         {
