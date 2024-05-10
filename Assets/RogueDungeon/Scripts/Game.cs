@@ -8,30 +8,34 @@ namespace RogueDungeon
 {
     public class Game
     {
-        public enum State
+        private enum State
         {
             Exploration,
             Combat,
+            Crossroad,
         }
 
         private readonly CharactersManager _charactersManager;
-        private readonly Maze.Maze _maze;
-        public State CurrentState { get; private set; }
+        private readonly MazeExplorer _mazeExplorer;
+        private State _currentState;
 
         public Game(CharacterFactory characterFactory, CharacterScenePositions scenePositions)
         {
             _charactersManager = new CharactersManager(characterFactory, scenePositions);
-            _maze = new Maze.Maze(this, new []
+            _mazeExplorer = new MazeExplorer(this, new Maze.Maze(new []
             {
                 new Tile(new Vector2Int(0 ,0)), 
                 new Tile(new Vector2Int(0, 1)), 
-                new Tile(new Vector2Int(0, 2), new (string id, Position pos)[]
+                new Tile(new Vector2Int(0, 2)/*, new (string id, Position pos)[]
                 {
                     ("test-skeleton-swordsman", Position.Frontline),
                     ("test-skeleton-swordsman", Position.BacklineRight),
                     ("test-skeleton-swordsman", Position.BacklineLeft),
-                }),
-            });
+                }*/),
+                new Tile(new Vector2Int(1, 2)), 
+                new Tile(new Vector2Int(-1, 2)), 
+                new Tile(new Vector2Int(0, 3)), 
+            }));
             CreateCharacter("test-player", Position.Player);
             SwitchState(State.Exploration);
         }
@@ -44,24 +48,32 @@ namespace RogueDungeon
 
         public void Tick()
         {
-            _maze.Tick();
-            _charactersManager.WorldPos = _maze.WorldPosition;
+            _mazeExplorer.Tick();
+            _charactersManager.WorldPos = _mazeExplorer.WorldPosition;
             _charactersManager.Tick();
+            _charactersManager.Player.GameObject.transform.SetPositionAndRotation(_mazeExplorer.WorldPosition, _mazeExplorer.WorldRotation);
             UpdateGameState();
         }
 
-        public void SwitchState(State state)
+        private void SwitchState(State state)
         {
-            CurrentState = state;
-            switch (CurrentState)
+            _currentState = state;
+            switch (_currentState)
             {
                 case State.Exploration:
                     Input.Input.SetModeState(Mode.Combat, true);
                     Input.Input.SetModeState(Mode.Walking, true);
+                    Input.Input.SetModeState(Mode.Crossroad, false);
                     break;
                 case State.Combat:
                     Input.Input.SetModeState(Mode.Combat, true);
                     Input.Input.SetModeState(Mode.Walking, false);
+                    Input.Input.SetModeState(Mode.Crossroad, false);
+                    break;
+                case State.Crossroad:
+                    Input.Input.SetModeState(Mode.Combat, false);
+                    Input.Input.SetModeState(Mode.Walking, false);
+                    Input.Input.SetModeState(Mode.Crossroad, true);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -70,10 +82,12 @@ namespace RogueDungeon
 
         private void UpdateGameState()
         {
-            if (_charactersManager.AliveEnemies.Count > 0 && CurrentState != State.Combat)
+            if (_charactersManager.AliveEnemies.Count > 0 && _currentState != State.Combat)
                 SwitchState(State.Combat);
-            if (_charactersManager.AliveEnemies.Count == 0 && CurrentState == State.Combat)
+            if (_charactersManager.AliveEnemies.Count == 0 && _currentState == State.Combat)
                 SwitchState(State.Exploration);
+            if(_mazeExplorer.IsOnCrossroad != (_currentState == State.Crossroad))
+                SwitchState(_mazeExplorer.IsOnCrossroad ? State.Crossroad : State.Exploration);
         }
     }
 }

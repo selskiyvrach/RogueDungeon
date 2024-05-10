@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using RogueDungeon.Characters;
-using RogueDungeon.Input;
 using UnityEngine;
 
 namespace RogueDungeon.Maze
@@ -9,70 +8,65 @@ namespace RogueDungeon.Maze
     public class Maze
     {
         private readonly Dictionary<Vector2Int, Tile> _tiles;
-        private readonly Game _game;
-        
-        private Vector2Int _currentCoordinates;
-        private Vector2Int _facingDirection;
-        
-        private readonly int _moveDuration = 30;
-        private int _movedForFrames;
-        private bool _isMoving;
+        private readonly Vector2Int[] _directions = { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left, };
 
-        public Vector2 WorldPosition { get; private set; }
-
-        public Maze(Game game, IEnumerable<Tile> tiles)
-        {
-            _game = game;
+        public Maze(IEnumerable<Tile> tiles) => 
             _tiles = tiles.ToDictionary(n => n.Coordinates, n => n);
-            _facingDirection = Vector2Int.up;
-            MoveTo(Vector2Int.zero);
-        }
 
-        public void Tick()
+        public bool IsCrossroad(Vector2Int pos)
         {
-            if (_isMoving)
+            var count = 0;
+            var firstWay = Vector2Int.zero;
+            
+            foreach (var way in GetWaysFromTile(pos))
             {
-                var distCovered = (float)++_movedForFrames / _moveDuration;
-                WorldPosition = Vector2.Lerp(_currentCoordinates, _currentCoordinates + _facingDirection, distCovered);
-                if (distCovered < 1)
-                    return;
-                _isMoving = false;
-                MoveTo(_currentCoordinates + _facingDirection);
+                if (count++ == 0)
+                    firstWay = way;
+                
+                if (count == 2 && firstWay + way != Vector2Int.zero)
+                    return true;
+                
+                if (count == 3)
+                    return true;
             }
 
-            if(!Input.Input.GetUnit(Action.MoveForward).Held)
-                return;
-            if(!_tiles.ContainsKey(_currentCoordinates + _facingDirection))
-                return;
-            _isMoving = true;
-            _movedForFrames = 0;
+            return false;
         }
 
-        private void MoveTo(Vector2Int coords)
+        public Vector2Int TurnAround(Vector2Int initial) =>
+            initial.x != 0
+                ? new Vector2Int(initial.x * -1, initial.y)
+                : new Vector2Int(initial.x, initial.y * -1);
+        
+        public Vector2Int TurnClockwise(Vector2Int initial)
         {
-            _currentCoordinates = coords;
-            _tiles[coords].OnEntered(_game);
+            for (var i = 0; i < _directions.Length; i++)
+            {
+                if (_directions[i] == initial)
+                    return _directions[(i + 1) % _directions.Length];
+            }
+
+            throw new InvalidOperationException();
         }
-    }
-
-    public class Tile
-    {
-        public (string id, Position pos)[] Enemies { get; }
-        public Vector2Int Coordinates { get; }
-
-        public Tile(Vector2Int coordinates, (string id, Position pos)[] enemies = null)
+        
+        public Vector2Int TurnCounterclockwise(Vector2Int initial)
         {
-            Coordinates = coordinates;
-            Enemies = enemies;
+            for (var i = 0; i < _directions.Length; i++)
+            {
+                if (_directions[i] == initial)
+                    return _directions[i == 0 ? 3 : i - 1];
+            }
+
+            throw new InvalidOperationException();
         }
 
-        public void OnEntered(Game game)
-        {
-            if (Enemies == null) 
-                return;
-            
-            foreach (var enemy in Enemies) 
-                game.CreateCharacter(enemy.id, enemy.pos);
-        }
+        public IEnumerable<Vector2Int> GetWaysFromTile(Vector2Int pos) => 
+            from direction in _directions where HasTile(pos + direction) select direction;
+
+        public bool HasTile(Vector2Int pos) => 
+            _tiles.ContainsKey(pos);
+
+        public Tile GetTile(Vector2Int pos) => 
+            _tiles[pos];
     }
 }

@@ -18,7 +18,7 @@ namespace RogueDungeon
         public IReadOnlyList<Character> AllEnemies => _allEnemies;
         public IReadOnlyList<Character> AliveEnemies => _aliveEnemies;
         public Character Player { get; private set; }
-        public Vector2 WorldPos { get; set; }
+        public Vector3 WorldPos { get; set; }
 
         public CharactersManager(CharacterFactory characterFactory, CharacterScenePositions worldRelativePositionsConfig)
         {
@@ -81,7 +81,6 @@ namespace RogueDungeon
         public void Tick()
         {
             Player.Controller.Tick();
-            UpdateCharacterPosition(Player);
             
             // update enemies state after player's actions
             foreach (var character in AllEnemies) 
@@ -101,7 +100,7 @@ namespace RogueDungeon
         }
 
         public Vector3 GetWorldCoordinatesForPosition(Position position) => 
-            new Vector3(WorldPos.x, 0, WorldPos.y) + _worldRelativePositionsConfig.GetRelativePosition(position);
+            WorldPos + _worldRelativePositionsConfig.GetRelativePosition(position);
 
         private void RemoveEnemy(int index)
         {
