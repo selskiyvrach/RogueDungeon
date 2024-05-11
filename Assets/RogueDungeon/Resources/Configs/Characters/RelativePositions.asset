@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _positions:
   - _position: 1
-    RelativePos: {x: 0, y: 0.2, z: -0.7}
+    RelativePos: {x: 0, y: 0.2, z: -0.5}
   - _position: 2
-    RelativePos: {x: 0, y: 0.15, z: -0.35}
+    RelativePos: {x: 0, y: 0.15, z: -0.2}
   - _position: 4
-    RelativePos: {x: -0.3, y: 0.15, z: 0}
+    RelativePos: {x: -0.35, y: 0.15, z: 0.05}
   - _position: 8
-    RelativePos: {x: 0.3, y: 0.15, z: 0}
+    RelativePos: {x: 0.35, y: 0.15, z: 0.05}
