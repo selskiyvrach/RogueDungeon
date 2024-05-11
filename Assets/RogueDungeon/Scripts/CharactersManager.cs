@@ -14,14 +14,15 @@ namespace RogueDungeon
         private readonly List<Character> _allEnemies = new();
         private readonly List<Character> _aliveEnemies = new();
         private readonly Hivemind _hivemind;
+        private readonly GameObject _charactersRoot = new("Characters");
 
         public IReadOnlyList<Character> AllEnemies => _allEnemies;
         public IReadOnlyList<Character> AliveEnemies => _aliveEnemies;
         public Character Player { get; private set; }
-        public Vector3 WorldPos { get; set; }
 
-        public CharactersManager(CharacterFactory characterFactory, CharacterScenePositions worldRelativePositionsConfig)
+        public CharactersManager(CharacterFactory characterFactory, CharacterScenePositions worldRelativePositionsConfig, GameObject parent)
         {
+            _charactersRoot.transform.SetParent(parent.transform);
             _characterFactory = characterFactory;
             _worldRelativePositionsConfig = worldRelativePositionsConfig;
             _hivemind = new Hivemind(this);
@@ -41,7 +42,7 @@ namespace RogueDungeon
                 Debug.LogError("Character cannot be null");
                 return;
             }
-            
+            character.GameObject.transform.SetParent(_charactersRoot.transform, worldPositionStays: false);
             character.CombatState.Position = position;
             character.CombatState.SurroundingCharacters = this;
             character.CombatState.Surroundings = this;
@@ -56,7 +57,7 @@ namespace RogueDungeon
         }
 
         private void UpdateCharacterPosition(Character character) => 
-            character.GameObject.transform.position = GetWorldCoordinatesForPosition(character.CombatState.Position);
+            character.GameObject.transform.localPosition = GetLocalPosForPosition(character.CombatState.Position);
 
         public bool HasCharacterInPosition(Position position, out Character character)
         {
@@ -81,6 +82,7 @@ namespace RogueDungeon
         public void Tick()
         {
             Player.Controller.Tick();
+            UpdateCharacterPosition(Player);
             
             // update enemies state after player's actions
             foreach (var character in AllEnemies) 
@@ -99,8 +101,8 @@ namespace RogueDungeon
             _hivemind.Tick();
         }
 
-        public Vector3 GetWorldCoordinatesForPosition(Position position) => 
-            WorldPos + _worldRelativePositionsConfig.GetRelativePosition(position);
+        public Vector3 GetLocalPosForPosition(Position position) => 
+            _worldRelativePositionsConfig.GetRelativePosition(position);
 
         private void RemoveEnemy(int index)
         {

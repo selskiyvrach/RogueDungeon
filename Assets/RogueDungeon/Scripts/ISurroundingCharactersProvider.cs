@@ -11,6 +11,6 @@ namespace RogueDungeon
 
     public interface ISurroundingsProvider
     {
-        Vector3 GetWorldCoordinatesForPosition(Position position);
+        Vector3 GetLocalPosForPosition(Position position);
     }
 }

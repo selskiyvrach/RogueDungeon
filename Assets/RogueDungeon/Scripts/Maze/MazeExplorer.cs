@@ -12,21 +12,21 @@ namespace RogueDungeon.Maze
         private Vector2Int _direction;
         private Vector2Int _targetDirection;
         
-        private readonly int _moveDuration = 30;
-        private readonly int _rotationDuration = 30;
+        private readonly int _moveDuration = 15;
+        private readonly int _rotationDuration = 15;
         private int _movedForFrames;
         private int _rotatedForFrames;
         private bool _isMoving;
         private bool _isRotating;
 
-        public Vector3 WorldPosition { get; private set; }
-        public Quaternion WorldRotation { get; private set; }
+        public Transform MazeCursor { get; }
         public bool IsOnCrossroad { get; private set; }
 
-        public MazeExplorer(Game game, Maze maze)
+        public MazeExplorer(Game game, Maze maze, Transform mazeCursor)
         {
             _game = game;
             _maze = maze;
+            MazeCursor = mazeCursor;
             _direction = Vector2Int.up;
             MoveTo(Vector2Int.zero);
         }
@@ -37,7 +37,7 @@ namespace RogueDungeon.Maze
             {
                 var distCovered = (float)++_movedForFrames / _moveDuration;
                 var localPos = Vector2.Lerp(_position, _position + _direction, distCovered);
-                WorldPosition = new Vector3(localPos.x, 0, localPos.y);
+                MazeCursor.position = new Vector3(localPos.x, 0, localPos.y);
                 if (distCovered < 1)
                     return;
                 _isMoving = false;
@@ -49,7 +49,7 @@ namespace RogueDungeon.Maze
                 var progress = (float)++_rotatedForFrames / _rotationDuration;
                 var worldDir = Quaternion.LookRotation(new Vector3(_direction.x, 0, _direction.y));
                 var targetWorldDir = Quaternion.LookRotation(new Vector3(_targetDirection.x, 0, _targetDirection.y));
-                WorldRotation = Quaternion.Lerp(worldDir, targetWorldDir, progress);
+                MazeCursor.rotation = Quaternion.Lerp(worldDir, targetWorldDir, progress);
                 if (progress < 1)
                     return;
                 _isRotating = false;
