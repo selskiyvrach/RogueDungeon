@@ -111,7 +111,7 @@ namespace RogueDungeon.Characters
                 var normalizedSwapTime = 1 - (float)_swapFrames / _swapDuration;
                 var prevPos = _charactersManager.GetLocalPosForPosition(_characterBeingSwapped.Character.CombatState.Position);
                 var targetPos = _charactersManager.GetLocalPosForPosition(Position.Frontline);
-                _characterBeingSwapped.Character.GameObject.transform.position = Vector3.Lerp(prevPos, targetPos, normalizedSwapTime);
+                _characterBeingSwapped.Character.GameObject.transform.localPosition = Vector3.Lerp(prevPos, targetPos, normalizedSwapTime);
                 return true;
             }
 
