@@ -50,6 +50,7 @@ Animation:
   - {fileID: 7400000, guid: 5b2891c56e993c74188982855c62557a, type: 2}
   - {fileID: 7400000, guid: 8875206f76391714ea3be1bab66965f7, type: 2}
   - {fileID: 7400000, guid: 8323b803b601c7849a0c7ec5970a96e7, type: 2}
+  - {fileID: 7400000, guid: b0f68dd43e63f3c4ab95ca0a77eca6de, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -79,7 +80,7 @@ Transform:
   m_GameObject: {fileID: 1851377744814800278}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -245,6 +246,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 8323b803b601c7849a0c7ec5970a96e7, type: 2}
   - {fileID: 7400000, guid: 8875206f76391714ea3be1bab66965f7, type: 2}
   - {fileID: 7400000, guid: 54f1dfc1c86291a46a6353b7bbdc0f73, type: 2}
+  - {fileID: 7400000, guid: b0f68dd43e63f3c4ab95ca0a77eca6de, type: 2}
 --- !u!114 &3913763751843332082
 MonoBehaviour:
   m_ObjectHideFlags: 0

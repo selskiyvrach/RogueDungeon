@@ -3,6 +3,9 @@ using RogueDungeon.Characters;
 using RogueDungeon.Input;
 using RogueDungeon.Maze;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace RogueDungeon
 {
@@ -18,6 +21,7 @@ namespace RogueDungeon
         private readonly CharactersManager _charactersManager;
         private readonly MazeExplorer _mazeExplorer;
         private State _currentState;
+        private bool _playerIsDead;
         
         public GameObject LogicRoot { get; }
 
@@ -53,8 +57,22 @@ namespace RogueDungeon
         {
             _mazeExplorer.Tick();
             _charactersManager.Tick();
+            
+            if(_playerIsDead)
+                return;
+            
             UpdateGameState();
+            
+            if (_charactersManager.Player.Health.IsDead && _charactersManager.Player.Controller.CurrentAction is null)
+            {
+                var deathScreen = Object.Instantiate(Resources.Load<Canvas>("Prefabs/UI/Screens/DeathScreen"));
+                deathScreen.GetComponentInChildren<Button>().onClick.AddListener(Restart);
+                _playerIsDead = true;
+            }
         }
+
+        private void Restart() => 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         private void SwitchState(State state)
         {

@@ -17,7 +17,6 @@ namespace RogueDungeon
             var positions = Resources.Load<CharacterScenePositions>("Configs/Characters/RelativePositions");
             var factory = new CharacterFactory(transform);
             _game = new Game(factory, positions);
-
         }
 
         private void Update() => 

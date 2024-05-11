@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using RogueDungeon.Actions;
-using Unity.VisualScripting;
-using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace RogueDungeon.Characters
@@ -13,6 +11,7 @@ namespace RogueDungeon.Characters
         
         private string _pendingCommand;
         private int _coyoteTimeFrames;
+        private bool _startedHandlingDeath;
 
         public KeyboardCharacterController(Character character) : base(character)
         {
@@ -30,6 +29,21 @@ namespace RogueDungeon.Characters
 
         public override void Tick()
         {
+            if (Character.Health.IsDead && !_startedHandlingDeath)
+            {
+                StartAction(new DeathAction(_config.DeathActionConfig));
+                _startedHandlingDeath = true;
+            }
+
+            if (CurrentAction is DeathAction)
+            {
+                base.Tick();
+                return;
+            }
+            
+            if(_startedHandlingDeath)
+                return;
+
             if(Input.Input.GetUnit(Input.Action.DodgeLeft).Down)
                 RegisterInputCommand("DodgeLeft");
             if(Input.Input.GetUnit(Input.Action.DodgeRight).Down)

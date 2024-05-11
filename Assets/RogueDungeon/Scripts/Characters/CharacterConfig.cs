@@ -1,4 +1,5 @@
-﻿using RogueDungeon.Data.Stats;
+﻿using RogueDungeon.Actions;
+using RogueDungeon.Data.Stats;
 using UnityEngine;
 
 namespace RogueDungeon.Characters
@@ -8,7 +9,9 @@ namespace RogueDungeon.Characters
         [SerializeField] private string _id;
         [SerializeField] private GameObject _prefab;
         [SerializeField] private StatsConfig _stats;
+        [SerializeField] private ActionConfig _deathActionConfig;
 
+        public ActionConfig DeathActionConfig => _deathActionConfig;
         public string Id => _id;
         public GameObject Prefab => _prefab;
         public float GetStat(string id) =>

@@ -21,6 +21,14 @@ MonoBehaviour:
         _relativeValueType: 30
         <Key>k__BackingField: Hp
         _customValue: 0
+  _deathActionConfig:
+    _animationName: PlayerDeath
+    _frames:
+      _relativeValueType: 0
+      <Key>k__BackingField: 
+      _customValue: 30
+    _cycle: 0
+    _keyframes: []
   <IdleAction>k__BackingField:
     _animationName: Idle
     _frames:

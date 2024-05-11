@@ -13,9 +13,7 @@ namespace RogueDungeon.Characters
         [SerializeField] private EnemyCharacterConfig _extends;
         [SerializeField] private HandyActionConfig[] _attackConfigs;
         [SerializeField] private AttackPattern[] _attackPatterns;
-        [SerializeField] private ActionConfig _deathActionConfig;
-
-        public ActionConfig DeathActionConfig => _deathActionConfig;
+        
         public IAttackConfig GetAttackConfig(string id)
         {
             var attackConfig = _attackConfigs.FirstOrDefault(n => n.Id == id) ?? _extends.GetAttackConfig(id);

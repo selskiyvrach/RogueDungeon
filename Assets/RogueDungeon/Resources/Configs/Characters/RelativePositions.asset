@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _positions:
   - _position: 1
-    RelativePos: {x: 0, y: 0.2, z: -0.5}
+    RelativePos: {x: 0, y: 0, z: -0.5}
   - _position: 2
     RelativePos: {x: 0, y: 0.15, z: -0.2}
   - _position: 4
