@@ -1,0 +1,19 @@
+﻿using System.Collections.Generic;
+
+namespace RogueDungeon.WFC
+{
+    public class Cell
+    {
+        public int X { get; }
+        public int Y { get; }
+        public bool Collapsed => Options.Count == 1;
+        public List<Tile> Options { get; }
+
+        public Cell(int x, int y, IEnumerable<Tile> options)
+        {
+            X = x;
+            Y = y;
+            Options = new List<Tile>(options);
+        }
+    }
+}
