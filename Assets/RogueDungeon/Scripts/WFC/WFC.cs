@@ -11,10 +11,12 @@ namespace RogueDungeon.WFC
         private readonly List<Cell> _grid = new();
         
         private Tile[] _tileOptions;
+        private Cell _borderCell;
 
         public List<Cell> CreateGrid(IEnumerable<Tile> tileOptions)
         {
             _tileOptions = tileOptions.ToArray();
+            _borderCell = new Cell(-1, -1, _tileOptions.Where(n => n.Empty()).ToArray());
             
             for (var y = 0; y < _sizeY; y++)
             for (var x = 0; x < _sizeX; x++)
@@ -29,15 +31,16 @@ namespace RogueDungeon.WFC
 
         void CheckEntropy()
         {
-            var tempGrid = _grid.Where(n => !n.Collapsed).ToList();
-            tempGrid.Sort((a, b) => a.Options.Count - b.Options.Count);
-            tempGrid.RemoveAll(n => n.Options.Count > tempGrid[0].Options.Count);
-            CollapseCell(tempGrid);
+            var collapseCandidates = _grid.Where(n => !n.Collapsed).ToList();
+            collapseCandidates.Sort((a, b) => a.Options.Count - b.Options.Count);
+            collapseCandidates.RemoveAll(n => n.Options.Count > collapseCandidates[0].Options.Count);
+            if(collapseCandidates.Count == 0)
+                return;
+            CollapseCell(collapseCandidates.Random());
         }
 
-        void CollapseCell(List<Cell> tempGrid)
+        void CollapseCell(Cell cell)
         {
-            var cell = tempGrid.Random();
             var tile = cell.Options.Random();
             cell.Options.Clear();
             cell.Options.Add(tile);
@@ -55,20 +58,16 @@ namespace RogueDungeon.WFC
 
                 var options = new List<Tile>(_tileOptions);
                 // check up
-                if (y > 0) 
-                    ApplyNeighbour(_grid[x + (y - 1) * _sizeX], options, Edge.Up);
+                ApplyNeighbour(y > 0 ? _grid[x + (y - 1) * _sizeX] : _borderCell, options, Edge.Up);
 
                 // check down
-                if (y < _sizeY - 1) 
-                    ApplyNeighbour(_grid[x + (y + 1) * _sizeX], options, Edge.Down);
+                ApplyNeighbour(y < _sizeY - 1 ? _grid[x + (y + 1) * _sizeX] : _borderCell, options, Edge.Down);
 
                 // check right
-                if (x < _sizeX - 1) 
-                    ApplyNeighbour(_grid[x + 1 + y * _sizeX], options, Edge.Left);
+                ApplyNeighbour(x < _sizeX - 1 ? _grid[x + 1 + y * _sizeX] : _borderCell, options, Edge.Left);
 
                 // check left
-                if (x > 0) 
-                    ApplyNeighbour(_grid[x - 1 + y * _sizeX], options, Edge.Right);
+                ApplyNeighbour(x > 0 ? _grid[x - 1 + y * _sizeX] : _borderCell, options, Edge.Right);
 
                 _grid[i].Options.Clear();
                 _grid[i].Options.AddRange(options);

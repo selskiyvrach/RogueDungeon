@@ -29,5 +29,8 @@ namespace RogueDungeon.WFC
                 Edge.Left => Edge.Right,
                 _ => throw new ArgumentOutOfRangeException(nameof(source), source, null),
             };
+
+        public bool Empty() => 
+            _exitsOnEdges is Edge.None;
     }
 }
