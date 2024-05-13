@@ -8,18 +8,22 @@ namespace RogueDungeon.WFC
     {
         private readonly int _sizeX = 10;
         private readonly int _sizeY = 10;
+        private readonly List<Cell> _grid = new();
         
-        private List<Cell> _grid = new();
         private Tile[] _tileOptions;
-        private Cell _currentCell;
 
         public List<Cell> CreateGrid(IEnumerable<Tile> tileOptions)
         {
             _tileOptions = tileOptions.ToArray();
-            InitGrid();
+            
+            for (var y = 0; y < _sizeY; y++)
+            for (var x = 0; x < _sizeX; x++)
+                _grid.Add(new Cell(x, y, _tileOptions));;
+            
             var size = _sizeX * _sizeY;
             for (var i = 0; i < size; i++)
                 CheckEntropy();
+            
             return _grid;
         }
 
@@ -42,7 +46,6 @@ namespace RogueDungeon.WFC
 
         void UpdateGeneration()
         {
-            var newGrid = new List<Cell>(_grid);
             for (var x = 0; x < _sizeX; x++)
             for (var y = 0; y < _sizeY; y++)
             {
@@ -52,38 +55,24 @@ namespace RogueDungeon.WFC
 
                 var options = new List<Tile>(_tileOptions);
                 // check up
-                if (y > 0)
-                {
-                    var up = _grid[x + (y - 1) * _sizeX];
-                    ApplyNeighbour(up, options, Edge.Up);
-                }
-                
-                // check down
-                if (y < _sizeY - 1)
-                {
-                    var down = _grid[x + (y + 1) * _sizeX];
-                    ApplyNeighbour(down, options, Edge.Down);
-                }
-                
-                // check right
-                if (x < _sizeX - 1)
-                {
-                    var right = _grid[x + 1 + y * _sizeX];
-                    ApplyNeighbour(right, options, Edge.Left);
-                }
-                
-                // check left
-                if (x > 0)
-                {
-                    var left = _grid[x - 1 + y * _sizeX];
-                    ApplyNeighbour(left, options, Edge.Right);
-                }
-                
-                newGrid[i].Options.Clear();
-                newGrid[i].Options.AddRange(options);
-            }
+                if (y > 0) 
+                    ApplyNeighbour(_grid[x + (y - 1) * _sizeX], options, Edge.Up);
 
-            _grid = newGrid;
+                // check down
+                if (y < _sizeY - 1) 
+                    ApplyNeighbour(_grid[x + (y + 1) * _sizeX], options, Edge.Down);
+
+                // check right
+                if (x < _sizeX - 1) 
+                    ApplyNeighbour(_grid[x + 1 + y * _sizeX], options, Edge.Left);
+
+                // check left
+                if (x > 0) 
+                    ApplyNeighbour(_grid[x - 1 + y * _sizeX], options, Edge.Right);
+
+                _grid[i].Options.Clear();
+                _grid[i].Options.AddRange(options);
+            }
         }
 
         private void ApplyNeighbour(Cell neighbour, List<Tile> options, Edge edge)
@@ -92,17 +81,7 @@ namespace RogueDungeon.WFC
             foreach (var option in neighbour.Options)
                 valid.AddRange(_tileOptions.Where(n => option.Matches(n, edge)));
 
-            RemoveInvalidOptions(options, valid);
-        }
-
-        void RemoveInvalidOptions(List<Tile> options, IEnumerable<Tile> validOptions)
-            => options.RemoveAll(n => !validOptions.Contains(n));
-
-        void InitGrid()
-        {
-            for (var x = 0; x < _sizeX; x++)
-            for (var y = 0; y < _sizeY; y++)
-                _grid.Add(new Cell(x, y, _tileOptions));
+            options.RemoveAll(n => !valid.Contains(n));
         }
     }
 }
