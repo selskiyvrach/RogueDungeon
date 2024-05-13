@@ -30,6 +30,15 @@ namespace RogueDungeon.WFC
                 _ => throw new ArgumentOutOfRangeException(nameof(source), source, null),
             };
 
+        public bool IsCorridor() => 
+            IsHorizontalCorridor() || IsVerticalCorridor();
+
+        private bool IsVerticalCorridor() => 
+            _exitsOnEdges == (Edge.Up | Edge.Down);
+
+        public bool IsHorizontalCorridor() => 
+            _exitsOnEdges == (Edge.Left | Edge.Right);
+
         public bool Empty() => 
             _exitsOnEdges is Edge.None;
     }
