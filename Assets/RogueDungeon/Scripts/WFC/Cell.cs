@@ -7,13 +7,13 @@ namespace RogueDungeon.WFC
         public int X { get; }
         public int Y { get; }
         public bool Collapsed { get; set; }
-        public List<Tile> Options { get; }
+        public List<Tile> TileOptions { get; }
 
         public Cell(int x, int y, IEnumerable<Tile> options)
         {
             X = x;
             Y = y;
-            Options = new List<Tile>(options);
+            TileOptions = new List<Tile>(options);
         }
     }
 }

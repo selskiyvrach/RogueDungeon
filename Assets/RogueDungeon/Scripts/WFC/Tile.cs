@@ -33,7 +33,7 @@ namespace RogueDungeon.WFC
         public bool IsCorridor() => 
             IsHorizontalCorridor() || IsVerticalCorridor();
 
-        private bool IsVerticalCorridor() => 
+        public bool IsVerticalCorridor() => 
             _exitsOnEdges == (Edge.Up | Edge.Down);
 
         public bool IsHorizontalCorridor() => 

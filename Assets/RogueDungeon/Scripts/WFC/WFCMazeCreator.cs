@@ -13,25 +13,16 @@ namespace RogueDungeon.WFC
         private WFC _wfc;
         private Cell[,] _grid;
 
-        private void Awake() => 
-            _wfc = new WFC();
-
         [Button]
         public void FetchTilesFromResources() => 
             _tiles = Resources.LoadAll<Tile>("Configs/WFCTiles");
 
         [Button]
-        public void NextStep()
-        {
-            _wfc.NextIteration();
-            RecreateGrid();
-        }
-
-        [Button]
         public void Create()
         {
-            Clear();
+            _wfc = new WFC();
             _grid = _wfc.CreateGrid(_tiles, _x, _y);
+            Clear();
             RecreateGrid();
         }
 
@@ -40,11 +31,11 @@ namespace RogueDungeon.WFC
             var tileObject = Resources.Load<SpriteRenderer>("Prefabs/WFCTiles/WFCTiles_0");
             foreach (var cell in _grid)
             {
-                if (cell.Options.Count > 1)
+                if (cell.TileOptions.Count > 1)
                     continue;
                 var tile = Instantiate(tileObject, transform);
                 tile.transform.position = new Vector3(cell.X, cell.Y);
-                tile.sprite = cell.Options[0].Sprite;
+                tile.sprite = cell.TileOptions[0].Sprite;
             }
         }
 

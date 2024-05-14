@@ -11,10 +11,9 @@ namespace RogueDungeon.WFC
         private Cell[,] _grid;
         
         private Tile[] _tileOptions;
-        private Cell _borderCell;
 
         private readonly Stack<Cell> _cellsToProcess = new ();
-        private readonly HashSet<Cell> _processedCells = new ();
+        private Cell _borderCell;
 
         public Cell[,] CreateGrid(IEnumerable<Tile> tileOptions, int sizeX, int sizeY)
         {
@@ -22,30 +21,29 @@ namespace RogueDungeon.WFC
             _sizeY = sizeY;
             
             _tileOptions = tileOptions.ToArray();
-            _borderCell = new Cell(-1, -1, _tileOptions.Where(n => n.Empty()).ToArray());
 
             _grid = new Cell[_sizeX, _sizeY];
             for (var y = 0; y < _sizeY; y++)
             for (var x = 0; x < _sizeX; x++)
-                _grid[x, y] = new Cell(x, y,  _tileOptions);
+                _grid[x, y] = new Cell(x, y, x == 0 || x == _sizeX -1 || y == 0 || y == _sizeY - 1 ? _tileOptions.Where(n => n.Empty()) : _tileOptions);
 
             var startingCell = _grid[_sizeX / 2, _sizeY / 2]; 
-            startingCell.Options.Clear();            
-            startingCell.Options.AddRange(_tileOptions.Where(n => n.IsHorizontalCorridor()));
+            startingCell.TileOptions.Clear();            
+            startingCell.TileOptions.AddRange(_tileOptions.Where(n => n.IsVerticalCorridor()));
             CollapseCell(startingCell);
             return _grid;
         }
 
         void CollapseCell(Cell cell)
         {
-            var tile = cell.Options.Random();
-            cell.Options.Clear();
-            cell.Options.Add(tile);
+            var tile = cell.TileOptions.Random();
+            cell.TileOptions.Clear();
+            cell.TileOptions.Add(tile);
             cell.Collapsed = true;
             _cellsToProcess.Push(cell);
             while (_cellsToProcess.Any()) 
                 ProcessNeighbors(_cellsToProcess.Pop());
-
+            NextIteration();
         }
 
         public void NextIteration()
@@ -56,10 +54,11 @@ namespace RogueDungeon.WFC
                 if(cell.Collapsed)
                     continue;
 
-                if (minCell == null || cell.Options.Count < minCell.Options.Count)
+                if (minCell == null || cell.TileOptions.Count < minCell.TileOptions.Count)
                     minCell = cell;
             }
-            CollapseCell(minCell);
+            if(minCell != null)
+                CollapseCell(minCell);
         }
 
         private void ProcessNeighbors(Cell cell)
@@ -68,11 +67,11 @@ namespace RogueDungeon.WFC
             {
                 if(neighbour.Collapsed)
                     continue;
-                var oldOptions = new List<Tile>(neighbour.Options);
-                var validOptions = oldOptions.Where(n => cell.Options.Any(m => m.Matches(n, edge)));
-                neighbour.Options.Clear();
-                neighbour.Options.AddRange(validOptions);
-                if(oldOptions.Count > neighbour.Options.Count)
+                var oldOptions = new List<Tile>(neighbour.TileOptions);
+                var validOptions = oldOptions.Where(n => cell.TileOptions.Any(m => m.Matches(n, edge)));
+                neighbour.TileOptions.Clear();
+                neighbour.TileOptions.AddRange(validOptions);
+                if(oldOptions.Count > neighbour.TileOptions.Count)
                     _cellsToProcess.Push(neighbour);
             }
         }
