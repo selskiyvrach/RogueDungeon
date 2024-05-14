@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace RogueDungeon.WFC
 {
-    [ExecuteInEditMode]
     public class WFCMazeCreator : MonoBehaviour
     {
         [SerializeField] private int _x;
