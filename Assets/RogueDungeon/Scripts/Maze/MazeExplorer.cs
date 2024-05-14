@@ -28,7 +28,7 @@ namespace RogueDungeon.Maze
             _maze = maze;
             MazeCursor = mazeCursor;
             _direction = Vector2Int.up;
-            MoveTo(Vector2Int.zero);
+            MoveTo(_maze.StartingPoint);
         }
 
         public void Tick()
@@ -103,6 +103,7 @@ namespace RogueDungeon.Maze
             _position = coords;
             _maze.GetTile(coords).OnEntered(_game);
             IsOnCrossroad = _maze.IsCrossroad(coords);
+            MazeCursor.position = new Vector3(_position.x, 0, _position.y);
         }
     }
 }

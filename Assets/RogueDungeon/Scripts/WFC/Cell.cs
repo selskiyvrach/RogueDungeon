@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace RogueDungeon.WFC
 {
@@ -6,6 +7,7 @@ namespace RogueDungeon.WFC
     {
         public int X { get; }
         public int Y { get; }
+        public Vector2Int Coords => new(X, Y);
         public bool Collapsed { get; set; }
         public List<Tile> TileOptions { get; }
 

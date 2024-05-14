@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace RogueDungeon.Maze
 {
@@ -9,9 +11,31 @@ namespace RogueDungeon.Maze
     {
         private readonly Dictionary<Vector2Int, Tile> _tiles;
         private readonly Vector2Int[] _directions = { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left, };
+        private readonly GameObject _map = new("Map");
+        public Vector2Int StartingPoint { get; private set; }
 
-        public Maze(IEnumerable<Tile> tiles) => 
-            _tiles = tiles.ToDictionary(n => n.Coordinates, n => n);
+        public Maze()
+        {
+            var tiles = Resources.LoadAll<WFC.Tile>("Configs/WFCTiles");
+            var tilePrefab = Resources.Load<GameObject>("Prefabs/Map/Tile");
+            var wfc = new WFC.WFC();
+            var grid = wfc.CreateGrid(tiles, 9, 9);
+            _tiles = new Dictionary<Vector2Int, Tile>();
+            foreach (var cell in grid)
+            {
+                var cellCoord = cell.Coords * 3;
+                var cellTiles = cell.TileOptions[0].As3By3().Where(n => n.state);
+                foreach (var (localCoords, isTile) in cellTiles)
+                {
+                    var tileCoords = cellCoord + localCoords;
+                    var tile = new Tile(tileCoords);
+                    Object.Instantiate(tilePrefab, new Vector3(tileCoords.x, 0, tileCoords.y), quaternion.identity, _map.transform);
+                    _tiles.Add(tileCoords, tile);
+                }
+            }
+
+            StartingPoint = new Vector2Int(grid.GetLength(0) / 2 * 3, grid.GetLength(1) / 2 * 3);
+        }
 
         public bool IsCrossroad(Vector2Int pos)
         {
@@ -48,7 +72,6 @@ namespace RogueDungeon.Maze
 
             throw new InvalidOperationException();
         }
-        
         public Vector2Int TurnCounterclockwise(Vector2Int initial)
         {
             for (var i = 0; i < _directions.Length; i++)

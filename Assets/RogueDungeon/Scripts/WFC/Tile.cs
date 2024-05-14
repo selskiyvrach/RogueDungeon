@@ -45,21 +45,21 @@ namespace RogueDungeon.WFC
 
         public IEnumerable<(Vector2Int localCoords, bool state)> As3By3()
         {
-            var count = 0;
-            while (count++ < 9)
+            for (var i = 0; i < 9; i++)
             {
-                yield return count switch
+                yield return i switch
                 {
                     0 => (new Vector2Int(-1, -1), false),
-                    1 => (new Vector2Int(0, -1), (_exitsOnEdges & Edge.Up) != 0),
+                    1 => (new Vector2Int(0, -1), (_exitsOnEdges & Edge.Down) != 0),
                     2 => (new Vector2Int(1, -1), false),
                     3 => (new Vector2Int(-1, 0), (_exitsOnEdges & Edge.Left) != 0),
                     4 => (new Vector2Int(0, 0), _exitsOnEdges != 0),
                     5 => (new Vector2Int(1, 0), (_exitsOnEdges & Edge.Right) != 0),
                     6 => (new Vector2Int(-1, 1), false),
-                    7 => (new Vector2Int(0, 1), (_exitsOnEdges & Edge.Down) != 0),
+                    7 => (new Vector2Int(0, 1), (_exitsOnEdges & Edge.Up) != 0),
                     8 => (new Vector2Int(1, 1), false),
                 };
+                
             }
         }
     }

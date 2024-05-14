@@ -21,6 +21,14 @@ MonoBehaviour:
         _relativeValueType: 20
         <Key>k__BackingField: Hp
         _customValue: 0
+  _deathActionConfig:
+    _animationName: Death
+    _frames:
+      _relativeValueType: 20
+      <Key>k__BackingField: DeathActionDuration
+      _customValue: 0
+    _cycle: 0
+    _keyframes: []
   _extends: {fileID: 0}
   _attackConfigs:
   - _id: left-hit
@@ -64,11 +72,3 @@ MonoBehaviour:
       _customValue: 0
     <Attacks>k__BackingField:
     - right-hit
-  _deathActionConfig:
-    _animationName: Death
-    _frames:
-      _relativeValueType: 20
-      <Key>k__BackingField: DeathActionDuration
-      _customValue: 0
-    _cycle: 0
-    _keyframes: []

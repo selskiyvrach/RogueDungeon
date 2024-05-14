@@ -29,20 +29,7 @@ namespace RogueDungeon
         {
             LogicRoot = new GameObject("Root");
             _charactersManager = new CharactersManager(characterFactory, scenePositions, LogicRoot);
-            _mazeExplorer = new MazeExplorer(this, new Maze.Maze(new []
-            {
-                new Tile(new Vector2Int(0 ,0)), 
-                new Tile(new Vector2Int(0, 1)), 
-                new Tile(new Vector2Int(0, 2)),
-                new Tile(new Vector2Int(1, 2)), 
-                new Tile(new Vector2Int(-1, 2), new (string id, Position pos)[]
-                {
-                    ("test-skeleton-swordsman", Position.Frontline),
-                    ("test-skeleton-swordsman", Position.BacklineRight),
-                    ("test-skeleton-swordsman", Position.BacklineLeft),
-                }), 
-                new Tile(new Vector2Int(0, 3)), 
-            }), LogicRoot.transform);
+            _mazeExplorer = new MazeExplorer(this, new Maze.Maze(), LogicRoot.transform);
             CreateCharacter("test-player", Position.Player);
             SwitchState(State.Exploration);
         }
