@@ -83,7 +83,7 @@ MonoBehaviour:
       _frames:
         _relativeValueType: 0
         <Key>k__BackingField: 
-        _customValue: 30
+        _customValue: 20
       _cycle: 0
       _keyframes:
       - <Name>k__BackingField: Hit
