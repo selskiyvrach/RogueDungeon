@@ -25,6 +25,10 @@ namespace RogueDungeon.WFC
             RecreateGrid();
         }
 
+        [Button]
+        public void Validate() => 
+            _wfc.IsGridValid();
+
         private void RecreateGrid()
         {
             var tileObject = Resources.Load<SpriteRenderer>("Prefabs/WFCTiles/WFCTiles_0");

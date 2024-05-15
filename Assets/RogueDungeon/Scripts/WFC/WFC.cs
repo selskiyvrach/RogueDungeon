@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using RogueDungeon.Utils;
+using UnityEngine;
 
 namespace RogueDungeon.WFC
 {
@@ -14,6 +15,7 @@ namespace RogueDungeon.WFC
 
         private readonly Stack<Cell> _cellsToProcess = new ();
         private Cell _borderCell;
+        private Vector2Int _startingCell => new(_sizeX / 2, _sizeY / 2); 
 
         public Cell[,] CreateGrid(IEnumerable<Tile> tileOptions, int sizeX, int sizeY)
         {
@@ -22,16 +24,61 @@ namespace RogueDungeon.WFC
             
             _tileOptions = tileOptions.ToArray();
 
+            var gotValidGrid = false;
+            while (!gotValidGrid)
+            {
+                CreateInternal();
+                gotValidGrid = IsGridValid();
+            }
+            
+            return _grid;
+        }
+
+        /// <summary>
+        /// If the walkable area is not too small and fully traversable
+        /// </summary>
+        public bool IsGridValid()
+        {
+            var walkableCount = _grid.Cast<Cell>().Count(cell => !cell.TileOptions[0].IsEmpty());
+            var cellsExceptBorders = _sizeX * _sizeY - _sizeX * 2 - _sizeY * 2 + 4; 
+            if (walkableCount < cellsExceptBorders * 0.75)
+                return false;
+
+            var startingCell = _grid[_startingCell.x, _startingCell.y];
+            var cells = new Stack<Cell>();
+            var connectedCells = new HashSet<Cell>();
+            cells.Push(startingCell);
+            connectedCells.Add(startingCell);
+            while (cells.Any())
+            {
+                var currCell = cells.Pop();
+                foreach (var (edge, neighbour) in Neighbours(currCell))
+                {
+                    if(neighbour.TileOptions[0].IsEmpty())
+                        continue;
+                    if(!currCell.TileOptions[0].ConnectedTo(neighbour.TileOptions[0], edge))
+                        continue;
+                    if(!connectedCells.Add(neighbour))
+                        continue;
+                    cells.Push(neighbour);
+                }
+            }
+
+            return walkableCount == connectedCells.Count;
+        }
+
+        private void CreateInternal()
+        {
             _grid = new Cell[_sizeX, _sizeY];
             for (var y = 0; y < _sizeY; y++)
             for (var x = 0; x < _sizeX; x++)
-                _grid[x, y] = new Cell(x, y, x == 0 || x == _sizeX -1 || y == 0 || y == _sizeY - 1 ? _tileOptions.Where(n => n.Empty()) : _tileOptions);
+                _grid[x, y] = new Cell(x, y,
+                    x == 0 || x == _sizeX - 1 || y == 0 || y == _sizeY - 1 ? _tileOptions.Where(n => n.IsEmpty()) : _tileOptions);
 
-            var startingCell = _grid[_sizeX / 2, _sizeY / 2]; 
-            startingCell.TileOptions.Clear();            
+            var startingCell = _grid[_startingCell.x, _startingCell.y];
+            startingCell.TileOptions.Clear();
             startingCell.TileOptions.AddRange(_tileOptions.Where(n => n.IsVerticalCorridor()));
             CollapseCell(startingCell);
-            return _grid;
         }
 
         void CollapseCell(Cell cell)
@@ -46,7 +93,7 @@ namespace RogueDungeon.WFC
             NextIteration();
         }
 
-        public void NextIteration()
+        private void NextIteration()
         {
             Cell minCell = null;
             foreach (var cell in _grid)

@@ -19,7 +19,7 @@ namespace RogueDungeon.Maze
             var tiles = Resources.LoadAll<WFC.Tile>("Configs/WFCTiles");
             var tilePrefab = Resources.Load<GameObject>("Prefabs/Map/Tile");
             var wfc = new WFC.WFC();
-            var grid = wfc.CreateGrid(tiles, 9, 9);
+            var grid = wfc.CreateGrid(tiles, 8, 8);
             _tiles = new Dictionary<Vector2Int, Tile>();
             foreach (var cell in grid)
             {

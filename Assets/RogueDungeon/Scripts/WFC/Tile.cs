@@ -18,6 +18,9 @@ namespace RogueDungeon.WFC
             return ExitExists(edge) == other.ExitExists(Opposite(edge));
         }
 
+        public bool ConnectedTo(Tile other, Edge edge) => 
+            Matches(other, edge) && ExitExists(edge) && other.ExitExists(Opposite(edge));
+
         public bool ExitExists(Edge edge) => 
             (_exitsOnEdges & edge) != 0;
 
@@ -40,7 +43,7 @@ namespace RogueDungeon.WFC
         public bool IsHorizontalCorridor() => 
             _exitsOnEdges == (Edge.Left | Edge.Right);
 
-        public bool Empty() => 
+        public bool IsEmpty() => 
             _exitsOnEdges is Edge.None;
 
         public IEnumerable<(Vector2Int localCoords, bool state)> As3By3()
