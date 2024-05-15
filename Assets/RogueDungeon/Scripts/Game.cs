@@ -34,7 +34,7 @@ namespace RogueDungeon
             SwitchState(State.Exploration);
         }
 
-        public void CreateCharacter(string configName, Position position)
+        public void CreateCharacter(string configName, Position? position = null)
         {
             _charactersManager.CreateCharacter(configName, position);
             UpdateGameState();
@@ -88,12 +88,16 @@ namespace RogueDungeon
 
         private void UpdateGameState()
         {
-            if (_charactersManager.AliveEnemies.Count > 0 && _currentState != State.Combat)
-                SwitchState(State.Combat);
-            if (_charactersManager.AliveEnemies.Count == 0 && _currentState == State.Combat)
-                SwitchState(State.Exploration);
-            if(_mazeExplorer.IsOnCrossroad != (_currentState == State.Crossroad))
-                SwitchState(_mazeExplorer.IsOnCrossroad ? State.Crossroad : State.Exploration);
+            if (_charactersManager.AliveEnemies.Count > 0)
+            {
+                if(_currentState != State.Combat)
+                    SwitchState(State.Combat);
+                return;
+            }
+
+            var requiredState = _mazeExplorer.IsOnCrossroad ? State.Crossroad : State.Exploration;
+            if(requiredState != _currentState)
+                SwitchState(requiredState);
         }
     }
 }

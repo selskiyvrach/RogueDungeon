@@ -35,6 +35,7 @@ namespace RogueDungeon.Maze
             }
 
             StartingPoint = new Vector2Int(grid.GetLength(0) / 2 * 3, grid.GetLength(1) / 2 * 3);
+            _tiles[StartingPoint].IsStartTile = true;
         }
 
         public bool IsCrossroad(Vector2Int pos)

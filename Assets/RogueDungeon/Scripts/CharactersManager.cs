@@ -28,8 +28,15 @@ namespace RogueDungeon
             _hivemind = new Hivemind(this);
         }
 
-        public void CreateCharacter(string configName, Position position)
+        public void CreateCharacter(string configName, Position? pos = null)
         {
+            pos ??= !HasCharacterInPosition(Position.Frontline, out var _) 
+                ? Position.Frontline 
+                : HasCharacterInPosition(Position.BacklineLeft, out var _) 
+                    ? Position.BacklineRight 
+                    : Position.BacklineLeft;
+            var position = (Position)pos;
+            
             if (HasCharacterInPosition(position, out Character existingChar))
             {
                 Debug.LogError($"Cannot create character at pos '{position}' - position is already occupied");
