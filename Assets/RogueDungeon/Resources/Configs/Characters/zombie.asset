@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e45a09de463e4ff299a738d0f5129582, type: 3}
+  m_Name: zombie
+  m_EditorClassIdentifier: 
+  _id: zombie
+  _prefab: {fileID: 2442164111619046782, guid: c651b93a84ab58a43970c1e0eff1761d, type: 3}
+  _stats:
+    _stats:
+    - Id: Hp
+      StatConfig:
+        _relativeValueType: 10
+        <Key>k__BackingField: Hp
+        _customValue: 0
+  _deathActionConfig:
+    _animationName: Death
+    _frames:
+      _relativeValueType: 10
+      <Key>k__BackingField: DeathActionDuration
+      _customValue: 0
+    _cycle: 0
+    _keyframes: []
+  _extends: {fileID: 0}
+  _attackConfigs:
+  - _id: left-hit
+    _damage: 10
+    _damageType: 1
+    _hitType: 0
+    _duration: 30
+  - _id: right-hit
+    _damage: 10
+    _damageType: 1
+    _hitType: 1
+    _duration: 30
+  _attackPatterns:
+  - <suitableForPosition>k__BackingField: 6
+    <ChillFrames>k__BackingField:
+      _relativeValueType: 40
+      <Key>k__BackingField: AttackPatternChillFrames
+      _customValue: 0
+    <Attacks>k__BackingField:
+    - left-hit
+  - <suitableForPosition>k__BackingField: 10
+    <ChillFrames>k__BackingField:
+      _relativeValueType: 40
+      <Key>k__BackingField: AttackPatternChillFrames
+      _customValue: 0
+    <Attacks>k__BackingField:
+    - right-hit

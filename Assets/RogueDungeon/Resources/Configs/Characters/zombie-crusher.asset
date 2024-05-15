@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e45a09de463e4ff299a738d0f5129582, type: 3}
-  m_Name: test-skeleton-swordsman
+  m_Name: zombie-crusher
   m_EditorClassIdentifier: 
-  _id: Skeleton
-  _prefab: {fileID: 5827096364031987860, guid: 649cd968dc07a4a46a378727040bafc8, type: 3}
+  _id: zombie-crusher
+  _prefab: {fileID: 3864037956472320553, guid: 525ad45139acb6746812c6fe1ca19efa, type: 3}
   _stats:
     _stats:
     - Id: Hp
       StatConfig:
-        _relativeValueType: 20
+        _relativeValueType: 40
         <Key>k__BackingField: Hp
         _customValue: 0
   _deathActionConfig:
     _animationName: Death
     _frames:
-      _relativeValueType: 20
+      _relativeValueType: 10
       <Key>k__BackingField: DeathActionDuration
       _customValue: 0
     _cycle: 0
@@ -32,15 +32,20 @@ MonoBehaviour:
   _extends: {fileID: 0}
   _attackConfigs:
   - _id: left-hit
-    _damage: 20
-    _damageType: 1
+    _damage: 30
+    _damageType: 3
     _hitType: 0
-    _duration: 20
+    _duration: 30
   - _id: right-hit
-    _damage: 20
-    _damageType: 1
+    _damage: 30
+    _damageType: 3
     _hitType: 1
-    _duration: 20
+    _duration: 30
+  - _id: middle-hit
+    _damage: 40
+    _damageType: 3
+    _hitType: 2
+    _duration: 30
   _attackPatterns:
   - <suitableForPosition>k__BackingField: 2
     <ChillFrames>k__BackingField:
@@ -50,6 +55,7 @@ MonoBehaviour:
     <Attacks>k__BackingField:
     - left-hit
     - right-hit
+    - middle-hit
   - <suitableForPosition>k__BackingField: 2
     <ChillFrames>k__BackingField:
       _relativeValueType: 40
@@ -58,6 +64,7 @@ MonoBehaviour:
     <Attacks>k__BackingField:
     - right-hit
     - left-hit
+    - middle-hit
   - <suitableForPosition>k__BackingField: 4
     <ChillFrames>k__BackingField:
       _relativeValueType: 40

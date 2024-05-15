@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RogueDungeon.Characters;
+using UnityEngine;
 
 namespace RogueDungeon.Maze
 {
@@ -26,16 +27,34 @@ namespace RogueDungeon.Maze
             Visited = true;
             if(IsStartTile)
                 return;
-            if(Random.Range(0, 10) < 7)
+            if(Random.Range(0, 10) < 5)
                 return;
-            var enemiesCount = Random.Range(0, 10) switch
+            switch (Random.Range(0, 8))
             {
-                < 4 => 1,
-                < 7 => 2,
-                _ => 3,
-            };
-            for (var i = 0; i < enemiesCount; i++) 
-                game.CreateCharacter("test-skeleton-swordsman");
+                case 7: 
+                    game.CreateCharacter("zombie-crusher");
+                    break;
+                case 6: 
+                    game.CreateCharacter("zombie-warrior", Position.Frontline);
+                    game.CreateCharacter("zombie");
+                    game.CreateCharacter("zombie");
+                    break;
+                case 5:
+                    game.CreateCharacter("zombie-warrior", Position.Frontline);
+                    break;
+                case 4:
+                    game.CreateCharacter("zombie");
+                    game.CreateCharacter("zombie");
+                    game.CreateCharacter("zombie");
+                    break;
+                case 3:
+                    game.CreateCharacter("zombie");
+                    game.CreateCharacter("zombie");
+                    break;
+                default:
+                    game.CreateCharacter("zombie");
+                    break;
+            }
         }
     }
 }

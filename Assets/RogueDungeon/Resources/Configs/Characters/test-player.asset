@@ -100,7 +100,7 @@ MonoBehaviour:
         StatConfig:
           _relativeValueType: 0
           <Key>k__BackingField: 
-          _customValue: 50
+          _customValue: 0.8
     <BlockActionConfig>k__BackingField:
       _animationName: HandsBlock
       _frames:

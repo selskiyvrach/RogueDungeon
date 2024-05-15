@@ -30,6 +30,7 @@ namespace RogueDungeon.Characters
         {
             // do not proceed with all dead
             if(_charactersManager.AliveEnemies.Count == 0)
+                // TODO(add chill frames reset, but it feels ok tbh, that enemies can start attack after some time)
                 return;
             
             // do not do anything during swaps
@@ -56,10 +57,10 @@ namespace RogueDungeon.Characters
                 if(!nextChar.Character.Health.IsDead)
                     _currentCharacter = nextChar;
             }
-            
-            if(_currentCharacter == null)
+
+            if (_currentCharacter == null)
                 return;
-            
+
             _currentCharacter.StartNewPattern();
             _chillFrames += (int)_currentCharacter.CurrentPattern.ChillFrames.GetValue();
             
