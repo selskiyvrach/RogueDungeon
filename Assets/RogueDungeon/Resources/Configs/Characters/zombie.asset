@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: zombie
   m_EditorClassIdentifier: 
   _id: zombie
-  _prefab: {fileID: 2442164111619046782, guid: c651b93a84ab58a43970c1e0eff1761d, type: 3}
+  _prefab: {fileID: 5937941780592204341, guid: c35a215e5b6ab4549b540800f4e4b93a, type: 3}
   _stats:
     _stats:
     - Id: Hp

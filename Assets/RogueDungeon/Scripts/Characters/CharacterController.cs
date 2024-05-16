@@ -1,4 +1,6 @@
 ﻿using RogueDungeon.Actions;
+using RogueDungeon.Data.Stats;
+using RogueDungeon.Health;
 
 namespace RogueDungeon.Characters
 {
@@ -7,11 +9,18 @@ namespace RogueDungeon.Characters
         public Character Character { get; }
         public Action CurrentAction { get; private set; }
 
-        protected CharacterController(Character character) => 
+        protected CharacterController(Character character)
+        {
             Character = character;
+            var hpAmount = Character.GetStat(Constants.HP);
+            Character.Health.SetHealth(hpAmount, hpAmount, HealthChangeReason.Recalculated);
+            Character.Health.OnChanged += reason => Character.HealthDisplay.HandleHealthChanged(Character.Health, reason);
+            Character.HealthDisplay.HandleHealthChanged(Character.Health, HealthChangeReason.Recalculated);
+        }
 
         public virtual void Tick()
         {
+            Character.HealthDisplay.Tick();
             if(CurrentAction == null)
                 return;
             CurrentAction.Tick();

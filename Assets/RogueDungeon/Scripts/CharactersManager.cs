@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using RogueDungeon.Characters;
+using RogueDungeon.UI;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -28,7 +29,7 @@ namespace RogueDungeon
             _hivemind = new Hivemind(this);
         }
 
-        public void CreateCharacter(string configName, Position? pos = null)
+        public void CreateCharacter(string configName, Position? pos = null, IHealthDisplay healthDisplay = null)
         {
             pos ??= !HasCharacterInPosition(Position.Frontline, out var _) 
                 ? Position.Frontline 
@@ -43,7 +44,7 @@ namespace RogueDungeon
                 return;
             }
 
-            var character = _characterFactory.Create(configName);
+            var character = _characterFactory.Create(configName, healthDisplay);
             if (character == null)
             {
                 Debug.LogError("Character cannot be null");

@@ -1,4 +1,5 @@
 ﻿using RogueDungeon.Characters;
+using RogueDungeon.UI;
 using UnityEngine;
 
 namespace RogueDungeon
@@ -16,7 +17,8 @@ namespace RogueDungeon
         {
             var positions = Resources.Load<CharacterScenePositions>("Configs/Characters/RelativePositions");
             var factory = new CharacterFactory(transform);
-            _game = new Game(factory, positions);
+            var gameUi = Instantiate(Resources.Load<GameUI>("Prefabs/UI/GameUI"));
+            _game = new Game(factory, positions, gameUi);
         }
 
         private void Update() => 

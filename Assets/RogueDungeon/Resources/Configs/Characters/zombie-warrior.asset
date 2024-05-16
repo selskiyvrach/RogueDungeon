@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: zombie-warrior
   m_EditorClassIdentifier: 
   _id: zombie-warrior
-  _prefab: {fileID: 5126749280382509884, guid: 310161f1613fb6647b319a72a7b1e26d, type: 3}
+  _prefab: {fileID: 9021890811439978193, guid: adf5161e33483c246a985c6959095874, type: 3}
   _stats:
     _stats:
     - Id: Hp

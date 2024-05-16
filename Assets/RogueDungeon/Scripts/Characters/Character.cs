@@ -1,5 +1,6 @@
 ﻿using RogueDungeon.Data.Stats;
 using RogueDungeon.Health;
+using RogueDungeon.UI;
 using UnityEngine;
 using Animator = RogueDungeon.Animations.Animator;
 
@@ -11,24 +12,19 @@ namespace RogueDungeon.Characters
         public CharacterConfig Config { get; }
         public Animator Animator { get; }
         public Health.Health Health { get; }
-        public HealthDisplay HealthDisplay { get; }
+        public IHealthDisplay HealthDisplay { get; }
         public GameObject GameObject { get; }
         public CombatState CombatState { get; } = new();
         public CharacterController Controller { get; set; }
 
-        public Character(CharacterConfig config, Animator animator, HealthDisplay healthDisplay, GameObject gameObject)
+        public Character(CharacterConfig config, Animator animator, IHealthDisplay healthDisplay, GameObject gameObject)
         {
             Animator = animator;
             HealthDisplay = healthDisplay;
             GameObject = gameObject;
             Config = config;
             Id = Config.Id;
-            
-            var hpAmount = GetStat(Constants.HP);
             Health = new Health.Health();
-            Health.SetHealth(hpAmount, hpAmount, HealthChangeReason.Recalculated);
-            Health.OnChanged += reason => HealthDisplay.HandleHealthChanged(Health, reason);
-            Health.OnChanged += reason => Debug.Log($"{Id} health {Health.Current}/{Health.Max}");
         }
         
         public float GetStat(string id) => 

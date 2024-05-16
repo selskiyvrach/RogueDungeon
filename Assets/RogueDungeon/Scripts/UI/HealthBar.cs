@@ -1,0 +1,40 @@
+﻿using RogueDungeon.Health;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace RogueDungeon.UI
+{
+    public class HealthBar : MonoBehaviour, IHealthDisplay
+    {
+        [SerializeField] private Image _fill;
+        [SerializeField] private Image _diff;
+        [SerializeField] private int _diffCatchingUpFrames = 40;
+
+        private float _diffInitialValue;
+        private int _catchingUpFramesLeft;
+        
+        public void HandleHealthChanged(Health.Health health, HealthChangeReason _)
+        {
+            _fill.fillAmount = health.Current / health.Max;
+            if (_fill.fillAmount > _diff.fillAmount)
+                _diff.fillAmount = _fill.fillAmount;
+            else
+            {
+                _diffInitialValue = _diff.fillAmount;
+                _catchingUpFramesLeft = _diffCatchingUpFrames;
+            }
+        }
+
+        public void Tick()
+        {
+            if(_catchingUpFramesLeft == 0)
+                return;
+            
+            if(_catchingUpFramesLeft-- > _diffCatchingUpFrames / 2)
+                return;
+
+            var normValue = 1 - _catchingUpFramesLeft / ((float)_diffCatchingUpFrames / 2);
+            _diff.fillAmount = Mathf.Lerp(_diffInitialValue, _fill.fillAmount, normValue);
+        }
+    }
+}

@@ -2,6 +2,7 @@
 using RogueDungeon.Characters;
 using RogueDungeon.Input;
 using RogueDungeon.Maze;
+using RogueDungeon.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ namespace RogueDungeon
 {
     public class Game
     {
+        private readonly GameUI _gameUI;
+
         private enum State
         {
             Exploration,
@@ -25,18 +28,19 @@ namespace RogueDungeon
         
         public GameObject LogicRoot { get; }
 
-        public Game(CharacterFactory characterFactory, CharacterScenePositions scenePositions)
+        public Game(CharacterFactory characterFactory, CharacterScenePositions scenePositions, GameUI gameUI)
         {
+            _gameUI = gameUI;
             LogicRoot = new GameObject("Root");
             _charactersManager = new CharactersManager(characterFactory, scenePositions, LogicRoot);
             _mazeExplorer = new MazeExplorer(this, new Maze.Maze(), LogicRoot.transform);
-            CreateCharacter("test-player", Position.Player);
+            CreateCharacter("test-player", Position.Player, _gameUI.PlayerHealthBar);
             SwitchState(State.Exploration);
         }
 
-        public void CreateCharacter(string configName, Position? position = null)
+        public void CreateCharacter(string configName, Position? position = null, IHealthDisplay healthDisplay = null)
         {
-            _charactersManager.CreateCharacter(configName, position);
+            _charactersManager.CreateCharacter(configName, position, healthDisplay);
             UpdateGameState();
         }
 

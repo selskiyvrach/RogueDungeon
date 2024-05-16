@@ -33,13 +33,13 @@ MonoBehaviour:
       - RelativeValue: 10
         Value: 10
       - RelativeValue: 20
-        Value: 20
+        Value: 15
       - RelativeValue: 30
-        Value: 30
+        Value: 20
       - RelativeValue: 40
-        Value: 40
+        Value: 25
       - RelativeValue: 50
-        Value: 50
+        Value: 30
   - <Key>k__BackingField: AttackActionDuration
     <Value>k__BackingField:
       <Entries>k__BackingField:

@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using RogueDungeon.Health;
+using RogueDungeon.UI;
 using UnityEngine;
 using Animator = RogueDungeon.Animations.Animator;
 
@@ -9,11 +10,12 @@ namespace RogueDungeon.Characters
     {
         private readonly Transform _parent;
 
-        public CharacterFactory(Transform parent) => 
+        public CharacterFactory(Transform parent) =>
             _parent = parent;
 
+        /// <param name="healthDisplay"> Can set a custom one. E.g. for the player or a boss. Otherwise is taken from the prefab</param>
         [CanBeNull]
-        public Character Create(string configName)
+        public Character Create(string configName, IHealthDisplay healthDisplay = null)
         {
             var config = Resources.Load<CharacterConfig>("Configs/Characters/" + configName);
             if(config == null)
@@ -23,7 +25,7 @@ namespace RogueDungeon.Characters
             }
             var gameObject = Object.Instantiate(config.Prefab, _parent);
             var animator = gameObject.GetComponent<Animator>();
-            var healthDisplay = gameObject.GetComponent<HealthDisplay>();
+            healthDisplay ??= gameObject.GetComponentInChildren<IHealthDisplay>();
             var character = new Character(config, animator, healthDisplay, gameObject);
 
             character.Controller = config.CreateController(character);

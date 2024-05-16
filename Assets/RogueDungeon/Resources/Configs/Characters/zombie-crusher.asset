@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: zombie-crusher
   m_EditorClassIdentifier: 
   _id: zombie-crusher
-  _prefab: {fileID: 3864037956472320553, guid: 525ad45139acb6746812c6fe1ca19efa, type: 3}
+  _prefab: {fileID: 547848315934841500, guid: eb571b1711286e64bbf02199636b5b77, type: 3}
   _stats:
     _stats:
     - Id: Hp
