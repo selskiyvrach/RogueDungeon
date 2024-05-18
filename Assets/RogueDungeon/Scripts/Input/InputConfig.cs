@@ -12,20 +12,11 @@ namespace RogueDungeon.Input
         [Serializable]
         public class UnitConfig
         {
-            [HorizontalGroup, HideLabel] public Action Action;
-            [HorizontalGroup, HideLabel] public KeyCode KeyCode;
+            [HorizontalGroup, HideLabel] public Mode Modes;
+            [HorizontalGroup(width: .3f), HideLabel] public Action Action;
+            [HorizontalGroup(width: .2f), HideLabel] public KeyCode KeyCode;
         }
 
-        [Serializable]
-        public class ModeUnits
-        {
-            [HideLabel] public Mode Mode;
-            public UnitConfig[] Units;
-        }
-
-        [SerializeField] private ModeUnits[] _modes;
-
-        public IEnumerable<(Mode mode, UnitConfig unitConfig)> GetUnitsByModes() => 
-            from mode in _modes from unit in mode.Units select (mode.Mode, unit);
+        [field: SerializeField] public UnitConfig[] Units { get; private set; }
     }
 }

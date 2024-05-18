@@ -1,10 +1,14 @@
-﻿namespace RogueDungeon.Input
+﻿using System;
+
+namespace RogueDungeon.Input
 {
+    [Flags]
     public enum Mode
     {
-        Combat = 10,
-        Crossroad = 20,
-        Walking = 30,
-        UI = 40,
+        None = 0,
+        Combat = 1,
+        Crossroad = 2,
+        Exploration = 4,
+        UI = 8,
     }
 }

@@ -18,6 +18,9 @@
         DodgeRight = 302,
         Block = 303,
         
+        // Exploration
+        Interact = 400,
+        
         // close
         // confirm
         // cancel

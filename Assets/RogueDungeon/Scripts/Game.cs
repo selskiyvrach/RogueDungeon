@@ -68,26 +68,12 @@ namespace RogueDungeon
         private void SwitchState(State state)
         {
             _currentState = state;
-            switch (_currentState)
-            {
-                case State.Exploration:
-                    Input.Input.SetModeState(Mode.Combat, true);
-                    Input.Input.SetModeState(Mode.Walking, true);
-                    Input.Input.SetModeState(Mode.Crossroad, false);
-                    break;
-                case State.Combat:
-                    Input.Input.SetModeState(Mode.Combat, true);
-                    Input.Input.SetModeState(Mode.Walking, false);
-                    Input.Input.SetModeState(Mode.Crossroad, false);
-                    break;
-                case State.Crossroad:
-                    Input.Input.SetModeState(Mode.Combat, false);
-                    Input.Input.SetModeState(Mode.Walking, false);
-                    Input.Input.SetModeState(Mode.Crossroad, true);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            Input.Input.SetModeState(_currentState switch {
+                State.Exploration => Mode.Exploration,
+                State.Combat => Mode.Combat,
+                State.Crossroad => Mode.Crossroad,
+                _ => throw new ArgumentOutOfRangeException(),
+            });
         }
 
         private void UpdateGameState()
