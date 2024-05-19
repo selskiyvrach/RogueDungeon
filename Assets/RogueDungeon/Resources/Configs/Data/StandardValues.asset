@@ -92,3 +92,55 @@ MonoBehaviour:
         Value: 80
       - RelativeValue: 50
         Value: 100
+  - <Key>k__BackingField: BalanceRestorationFrames
+    <Value>k__BackingField:
+      <Entries>k__BackingField:
+      - RelativeValue: 10
+        Value: 60
+      - RelativeValue: 20
+        Value: 90
+      - RelativeValue: 30
+        Value: 120
+      - RelativeValue: 40
+        Value: 180
+      - RelativeValue: 50
+        Value: 240
+  - <Key>k__BackingField: Balance
+    <Value>k__BackingField:
+      <Entries>k__BackingField:
+      - RelativeValue: 10
+        Value: 20
+      - RelativeValue: 20
+        Value: 40
+      - RelativeValue: 30
+        Value: 60
+      - RelativeValue: 40
+        Value: 80
+      - RelativeValue: 50
+        Value: 120
+  - <Key>k__BackingField: StaggerDuration
+    <Value>k__BackingField:
+      <Entries>k__BackingField:
+      - RelativeValue: 10
+        Value: 30
+      - RelativeValue: 20
+        Value: 45
+      - RelativeValue: 30
+        Value: 60
+      - RelativeValue: 40
+        Value: 80
+      - RelativeValue: 50
+        Value: 100
+  - <Key>k__BackingField: BalanceDamage
+    <Value>k__BackingField:
+      <Entries>k__BackingField:
+      - RelativeValue: 10
+        Value: 10
+      - RelativeValue: 20
+        Value: 20
+      - RelativeValue: 30
+        Value: 30
+      - RelativeValue: 40
+        Value: 40
+      - RelativeValue: 50
+        Value: 50

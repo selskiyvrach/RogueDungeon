@@ -7,6 +7,7 @@ namespace RogueDungeon.Data.Stats
         public const string FLAT = "Flat";
         public const string PERCENT = "Percent";
         public const string HP = "Hp";
+        public const string BALANCE = "Balance";
         public const string BONUS = "Bonus";
         
         public const string RESIST = "Resist";
@@ -26,5 +27,6 @@ namespace RogueDungeon.Data.Stats
             {SLASH_DAMAGE, PHYSICAL_DAMAGE},
             {BLUNT_DAMAGE, PHYSICAL_DAMAGE},
         };
+
     }
 }

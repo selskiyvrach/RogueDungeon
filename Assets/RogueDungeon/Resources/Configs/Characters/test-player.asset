@@ -21,6 +21,19 @@ MonoBehaviour:
         _relativeValueType: 40
         <Key>k__BackingField: Hp
         _customValue: 0
+    - Id: Balance
+      StatConfig:
+        _relativeValueType: 30
+        <Key>k__BackingField: Balance
+        _customValue: 0
+  _staggerActionConfig:
+    _animationName: 
+    _frames:
+      _relativeValueType: 0
+      <Key>k__BackingField: 
+      _customValue: 0
+    _cycle: 0
+    _keyframes: []
   _deathActionConfig:
     _animationName: PlayerDeath
     _frames:
@@ -78,11 +91,17 @@ MonoBehaviour:
       _relativeValueType: 0
       <Key>k__BackingField: 
       _customValue: 10
+    _balanceDamage:
+      _relativeValueType: 20
+      <Key>k__BackingField: BalanceDamage
+      _customValue: 0
+    <DamageType>k__BackingField: BluntDamage
+    <DodgeableBy>k__BackingField: 0
     _attackActionConfig:
       _animationName: HandsAttack
       _frames:
-        _relativeValueType: 0
-        <Key>k__BackingField: 
+        _relativeValueType: 10
+        <Key>k__BackingField: AttackActionDuration
         _customValue: 20
       _cycle: 0
       _keyframes:
@@ -91,8 +110,6 @@ MonoBehaviour:
           _relativeValueType: 0
           <Key>k__BackingField: 
           _customValue: 15
-    <DamageType>k__BackingField: BluntDamage
-    <DodgeableBy>k__BackingField: 0
   <UnarmedBlock>k__BackingField:
     <Stats>k__BackingField:
       _stats:

@@ -46,7 +46,7 @@ namespace RogueDungeon.Actions
     }
         
     [Serializable]
-    public class HandyActionConfig : IAttackConfig, IActionConfig
+    public class HandyAttackConfig : IAttackConfig, IActionConfig
     {
         public enum damageType
         {
@@ -75,8 +75,9 @@ namespace RogueDungeon.Actions
         public string DamageType => _damageType.ToString();
         public float Damage => StandardValues.GetValue("AttackDamage", _damage);
         public int Frames => Mathf.RoundToInt(StandardValues.GetValue("AttackActionDuration", _duration));
+        public float BalanceDamage => 0;
         public bool Cycle => false;
-
+        
         public DodgeState DodgeableBy => _hitType switch
         {
             HitType.Left => DodgeState.DodgingRight,

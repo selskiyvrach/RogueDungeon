@@ -1,10 +1,10 @@
-﻿using RogueDungeon.Health;
+﻿using RogueDungeon.CharacterResource;
 
 namespace RogueDungeon.UI
 {
     public interface IHealthDisplay
     {
-        void HandleHealthChanged(Health.Health health, HealthChangeReason _);
+        void HandleHealthChanged(Resource resource, ResourceChangeReason _);
         void Tick();
     }
 }

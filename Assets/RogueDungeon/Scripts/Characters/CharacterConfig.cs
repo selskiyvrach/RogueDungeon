@@ -9,8 +9,10 @@ namespace RogueDungeon.Characters
         [SerializeField] private string _id;
         [SerializeField] private GameObject _prefab;
         [SerializeField] private StatsConfig _stats;
+        [SerializeField] private ActionConfig _staggerActionConfig;
         [SerializeField] private ActionConfig _deathActionConfig;
 
+        public ActionConfig StaggerActionConfig => _staggerActionConfig;
         public ActionConfig DeathActionConfig => _deathActionConfig;
         public string Id => _id;
         public GameObject Prefab => _prefab;

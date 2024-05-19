@@ -29,7 +29,7 @@ namespace RogueDungeon.Characters
 
         public override void Tick()
         {
-            if (Character.Health.IsDead && !_startedHandlingDeath)
+            if (Character.Health.IsDepleted && !_startedHandlingDeath)
             {
                 StartAction(new DeathAction(_config.DeathActionConfig));
                 _startedHandlingDeath = true;

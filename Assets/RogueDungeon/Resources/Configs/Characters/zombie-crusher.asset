@@ -18,9 +18,27 @@ MonoBehaviour:
     _stats:
     - Id: Hp
       StatConfig:
-        _relativeValueType: 40
+        _relativeValueType: 50
         <Key>k__BackingField: Hp
         _customValue: 0
+    - Id: BalanceRestorationFrames
+      StatConfig:
+        _relativeValueType: 50
+        <Key>k__BackingField: BalanceRestorationFrames
+        _customValue: 0
+    - Id: Balance
+      StatConfig:
+        _relativeValueType: 30
+        <Key>k__BackingField: Balance
+        _customValue: 0
+  _staggerActionConfig:
+    _animationName: Stagger
+    _frames:
+      _relativeValueType: 30
+      <Key>k__BackingField: StaggerDuration
+      _customValue: 0
+    _cycle: 0
+    _keyframes: []
   _deathActionConfig:
     _animationName: Death
     _frames:

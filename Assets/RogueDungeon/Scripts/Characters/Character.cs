@@ -1,5 +1,5 @@
-﻿using RogueDungeon.Data.Stats;
-using RogueDungeon.Health;
+﻿using RogueDungeon.CharacterResource;
+using RogueDungeon.Data.Stats;
 using RogueDungeon.UI;
 using UnityEngine;
 using Animator = RogueDungeon.Animations.Animator;
@@ -11,7 +11,8 @@ namespace RogueDungeon.Characters
         public string Id { get; }
         public CharacterConfig Config { get; }
         public Animator Animator { get; }
-        public Health.Health Health { get; }
+        public Resource Health { get; }
+        public Resource Balance { get; }
         public IHealthDisplay HealthDisplay { get; }
         public GameObject GameObject { get; }
         public CombatState CombatState { get; } = new();
@@ -24,7 +25,11 @@ namespace RogueDungeon.Characters
             GameObject = gameObject;
             Config = config;
             Id = Config.Id;
-            Health = new Health.Health();
+            Health = new Resource();
+            Health.Set(GetStat(Constants.HP), ResourceChangeReason.Recalculated);
+            
+            Balance = new Resource();
+            Balance.Set(GetStat(Constants.BALANCE), ResourceChangeReason.Recalculated);
         }
         
         public float GetStat(string id) => 
@@ -32,5 +37,11 @@ namespace RogueDungeon.Characters
             (CombatState.BlockIsRaised 
                 ? CombatState.BlockingWeaponStats.GetStat(id) 
                 : 0);
+
+        public void TakeDamage(float damage, float balanceDamage)
+        {
+            Health.Spend(damage);
+            Balance.Spend(balanceDamage);
+        }
     }
 }

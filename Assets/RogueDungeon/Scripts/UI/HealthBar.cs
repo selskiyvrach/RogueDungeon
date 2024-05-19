@@ -1,4 +1,4 @@
-﻿using RogueDungeon.Health;
+﻿using RogueDungeon.CharacterResource;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,9 +13,9 @@ namespace RogueDungeon.UI
         private float _diffInitialValue;
         private int _catchingUpFramesLeft;
         
-        public void HandleHealthChanged(Health.Health health, HealthChangeReason _)
+        public void HandleHealthChanged(Resource resource, ResourceChangeReason _)
         {
-            _fill.fillAmount = health.Current / health.Max;
+            _fill.fillAmount = resource.Current / resource.Max;
             if (_fill.fillAmount > _diff.fillAmount)
                 _diff.fillAmount = _fill.fillAmount;
             else

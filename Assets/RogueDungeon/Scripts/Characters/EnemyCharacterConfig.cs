@@ -11,7 +11,7 @@ namespace RogueDungeon.Characters
     public class EnemyCharacterConfig : CharacterConfig
     {
         [SerializeField] private EnemyCharacterConfig _extends;
-        [SerializeField] private HandyActionConfig[] _attackConfigs;
+        [SerializeField] private HandyAttackConfig[] _attackConfigs;
         [SerializeField] private AttackPattern[] _attackPatterns;
         
         public IAttackConfig GetAttackConfig(string id)

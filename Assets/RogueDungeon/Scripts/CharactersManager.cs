@@ -98,12 +98,12 @@ namespace RogueDungeon
 
             // clear dead enemies with post-death actions finished
             for (var i = _allEnemies.Count - 1; i >= 0; i--)
-                if (_allEnemies[i].Health.IsDead && _allEnemies[i].Controller.CurrentAction is null)
+                if (_allEnemies[i].Health.IsDepleted && _allEnemies[i].Controller.CurrentAction is null)
                     RemoveEnemy(i);
             
             // update alive enemies
             _aliveEnemies.Clear();
-            _aliveEnemies.AddRange(_allEnemies.Where(n => !n.Health.IsDead));
+            _aliveEnemies.AddRange(_allEnemies.Where(n => !n.Health.IsDepleted));
             
             // tick hivemind
             _hivemind.Tick();

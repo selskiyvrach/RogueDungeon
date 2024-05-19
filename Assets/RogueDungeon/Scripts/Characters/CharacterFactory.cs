@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using RogueDungeon.Health;
 using RogueDungeon.UI;
 using UnityEngine;
 using Animator = RogueDungeon.Animations.Animator;

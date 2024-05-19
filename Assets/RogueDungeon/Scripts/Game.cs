@@ -54,7 +54,7 @@ namespace RogueDungeon
             
             UpdateGameState();
             
-            if (_charactersManager.Player.Health.IsDead && _charactersManager.Player.Controller.CurrentAction is null)
+            if (_charactersManager.Player.Health.IsDepleted && _charactersManager.Player.Controller.CurrentAction is null)
             {
                 var deathScreen = Object.Instantiate(Resources.Load<Canvas>("Prefabs/UI/Screens/DeathScreen"));
                 deathScreen.GetComponentInChildren<Button>().onClick.AddListener(Restart);

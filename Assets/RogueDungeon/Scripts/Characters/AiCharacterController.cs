@@ -23,7 +23,7 @@ namespace RogueDungeon.Characters
         {
             base.Tick();
 
-            if (Character.Health.IsDead)
+            if (Character.Health.IsDepleted)
             {
                 if (_handlingDeath) 
                     return;
@@ -52,7 +52,7 @@ namespace RogueDungeon.Characters
 
         public void StartNewPattern()
         {
-            if (Character.Health.IsDead)
+            if (Character.Health.IsDepleted)
             {
                 Debug.LogError("Cannot start a pattern - the character is dead");
                 return;

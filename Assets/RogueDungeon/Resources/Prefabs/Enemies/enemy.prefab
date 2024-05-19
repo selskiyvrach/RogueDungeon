@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 7400000, guid: 70601dd2c18248440a06d96db614f93a, type: 2}
   - {fileID: 7400000, guid: 54efbb016831ef247ba4b2455102790f, type: 2}
   - {fileID: 7400000, guid: 6ff0a46e548b7c945a71e32c6369eb22, type: 2}
+  - {fileID: 7400000, guid: 02e691981f2ca5241a754593bcc76f90, type: 2}
 --- !u!1 &3967005694949693527
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +87,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4403097707715438257}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -9.28, y: 0, z: 2.319999}
 --- !u!33 &2728393649741867101
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -174,6 +175,7 @@ Animation:
   - {fileID: 7400000, guid: 70601dd2c18248440a06d96db614f93a, type: 2}
   - {fileID: 7400000, guid: 54efbb016831ef247ba4b2455102790f, type: 2}
   - {fileID: 7400000, guid: 6ff0a46e548b7c945a71e32c6369eb22, type: 2}
+  - {fileID: 7400000, guid: 02e691981f2ca5241a754593bcc76f90, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0

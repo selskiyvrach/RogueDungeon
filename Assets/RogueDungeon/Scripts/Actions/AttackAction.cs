@@ -36,7 +36,8 @@ namespace RogueDungeon.Actions
             }
 
             damage = GetDamageAfterReduction(defender, damage, _attackConfig.DamageType);
-            defender.Health.TakeDamage(damage);
+            
+            defender.TakeDamage(damage, _attackConfig.BalanceDamage);
         }
 
         private static float GetDamageAfterReduction(IStatsProvider defender, float damage, string damageType)

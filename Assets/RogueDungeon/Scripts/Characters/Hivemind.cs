@@ -19,6 +19,7 @@ namespace RogueDungeon.Characters
         private bool _isSwapping;
         private int _swapFrames;
         private readonly int _swapDuration = 15;
+        private int _staggerFramesPassed;
 
         public Hivemind(CharactersManager charactersManager)
         {
@@ -37,6 +38,12 @@ namespace RogueDungeon.Characters
             if (HandleSwapping()) 
                 return;
 
+            // wait a bit if current char is staggered and pass turn after that
+            if (_currentCharacter != null && 
+                _currentCharacter.Character.CombatState.IsStaggered && 
+                _staggerFramesPassed++ < 60)
+                _currentCharacter = null;
+            
             // if current char is performing its pattern
             if (_currentCharacter is { CurrentPattern: not null })
                 return;
@@ -54,8 +61,10 @@ namespace RogueDungeon.Characters
             while (_currentCharacter == null && _currentCharacterIndex < _charactersInMoveOrder.Count)
             {
                 var nextChar = _charactersInMoveOrder[_currentCharacterIndex++];
-                if(!nextChar.Character.Health.IsDead)
-                    _currentCharacter = nextChar;
+                if(nextChar.Character.Health.IsDepleted)
+                    continue;
+                _currentCharacter = nextChar;
+                _staggerFramesPassed = 0;
             }
 
             if (_currentCharacter == null)
@@ -81,7 +90,7 @@ namespace RogueDungeon.Characters
             
             foreach (var character in _charactersManager.AllEnemies)
             {
-                if(character.Health.IsDead)
+                if(character.Health.IsDepleted)
                     continue;
                 
                 if (character.CombatState.Position != Position.Player)
