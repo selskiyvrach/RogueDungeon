@@ -100,9 +100,9 @@ MonoBehaviour:
     _attackActionConfig:
       _animationName: HandsAttack
       _frames:
-        _relativeValueType: 10
+        _relativeValueType: 0
         <Key>k__BackingField: AttackActionDuration
-        _customValue: 20
+        _customValue: 30
       _cycle: 0
       _keyframes:
       - <Name>k__BackingField: Hit

@@ -26,8 +26,13 @@ namespace RogueDungeon.Characters
                 return;
             CurrentAction.Tick();
             Character.Animator.UpdateState((float)CurrentAction.CurrentFrame / CurrentAction.Frames);
-            if (CurrentAction.IsFinished)
-                StopCurrentAction();
+
+            if (!CurrentAction.IsFinished) 
+                return;
+            
+            if (CurrentAction == _staggerAction) 
+                Character.CombatState.IsStaggered = false;
+            StopCurrentAction();
         }
 
         private void HandleBalance()
@@ -35,21 +40,13 @@ namespace RogueDungeon.Characters
             if(Character.Health.IsDepleted)
                 return;
             
-            var balance = Character.Balance;
-            // no check for current stagger since the stagger should restart on the next balance depletion
-            // should not be empty if not hit again since restoration happens later in this method
-            if (balance.IsDepleted)
-            {
-                StopCurrentAction();
-                StartAction(_staggerAction);
-                Character.CombatState.IsStaggered = true;
-            }
+            if (!Character.Balance.IsDepleted) 
+                return;
             
-            if(CurrentAction == _staggerAction && CurrentAction.IsFinished)
-                Character.CombatState.IsStaggered = false;
-
-            if (!balance.IsFull)
-                balance.Restore(60f / Character.GetStat("BalanceRestorationFrames"));
+            StopCurrentAction();
+            StartAction(_staggerAction);
+            Character.CombatState.IsStaggered = true;
+            Character.Balance.Restore(Character.Balance.Max);
         }
 
         protected void StartAction(Action action)

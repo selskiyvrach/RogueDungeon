@@ -23,11 +23,8 @@ namespace RogueDungeon.Characters
         {
             base.Tick();
 
-            if (Character.Health.IsDepleted)
+            if (Character.Health.IsDepleted && !_handlingDeath)
             {
-                if (_handlingDeath) 
-                    return;
-                
                 StopCurrentAction();
                 CurrentPattern = null;
                 StartAction(new DeathAction(((EnemyCharacterConfig)Character.Config).DeathActionConfig));

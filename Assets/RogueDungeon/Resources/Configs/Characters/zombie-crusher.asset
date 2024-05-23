@@ -21,14 +21,9 @@ MonoBehaviour:
         _relativeValueType: 50
         <Key>k__BackingField: Hp
         _customValue: 0
-    - Id: BalanceRestorationFrames
-      StatConfig:
-        _relativeValueType: 50
-        <Key>k__BackingField: BalanceRestorationFrames
-        _customValue: 0
     - Id: Balance
       StatConfig:
-        _relativeValueType: 30
+        _relativeValueType: 50
         <Key>k__BackingField: Balance
         _customValue: 0
   _staggerActionConfig:

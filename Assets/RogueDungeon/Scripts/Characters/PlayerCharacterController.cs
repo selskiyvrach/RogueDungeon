@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
 namespace RogueDungeon.Characters
 {
-    public class KeyboardCharacterController : CharacterController
+    public class PlayerCharacterController : CharacterController
     {
         private readonly PlayerCharacterConfig _config;
         private readonly Dictionary<string, Action> _actions;
@@ -13,7 +13,13 @@ namespace RogueDungeon.Characters
         private int _coyoteTimeFrames;
         private bool _startedHandlingDeath;
 
-        public KeyboardCharacterController(Character character) : base(character)
+        // STAMINA
+            // amount config
+            // restoration rate amount config
+            // cost for actions
+            // restoration on ticks
+        
+        public PlayerCharacterController(Character character) : base(character)
         {
             _config = character.Config as PlayerCharacterConfig;
             Assert.IsNotNull(_config);

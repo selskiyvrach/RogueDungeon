@@ -39,11 +39,17 @@ namespace RogueDungeon.Characters
                 return;
 
             // wait a bit if current char is staggered and pass turn after that
-            if (_currentCharacter != null && 
-                _currentCharacter.Character.CombatState.IsStaggered && 
-                _staggerFramesPassed++ < 60)
-                _currentCharacter = null;
-            
+            if (_currentCharacter?.Character.CombatState.IsStaggered ?? false)
+            {
+                if (_staggerFramesPassed++ > 60)
+                {
+                    PickNextCharacter();
+                    _staggerFramesPassed = 0;
+                }
+                else    
+                    return;
+            }
+
             // if current char is performing its pattern
             if (_currentCharacter is { CurrentPattern: not null })
                 return;
@@ -51,21 +57,13 @@ namespace RogueDungeon.Characters
             // wait for chill time
             if (_currentCharacterIndex == _charactersInMoveOrder.Count)
             {
-                if (_chillFrames-- == 0) 
-                    RefreshCharactersList();
-                return;
+                if (_chillFrames-- > 0)
+                    return;
+                _chillFrames = 0;
+                RefreshCharactersList();
             }
 
-            // pick next character
-            _currentCharacter = null;
-            while (_currentCharacter == null && _currentCharacterIndex < _charactersInMoveOrder.Count)
-            {
-                var nextChar = _charactersInMoveOrder[_currentCharacterIndex++];
-                if(nextChar.Character.Health.IsDepleted)
-                    continue;
-                _currentCharacter = nextChar;
-                _staggerFramesPassed = 0;
-            }
+            PickNextCharacter();
 
             if (_currentCharacter == null)
                 return;
@@ -76,6 +74,19 @@ namespace RogueDungeon.Characters
             // if it's the last char pattern - finalize chill duration 
             if (_currentCharacterIndex == _charactersInMoveOrder.Count)
                 _chillFrames /= _charactersInMoveOrder.Count;
+        }
+
+        private void PickNextCharacter()
+        {
+            _currentCharacter = null;
+            while (_currentCharacter == null && _currentCharacterIndex < _charactersInMoveOrder.Count)
+            {
+                var nextChar = _charactersInMoveOrder[_currentCharacterIndex++];
+                if (nextChar.Character.Health.IsDepleted || nextChar.Character.CombatState.IsStaggered)
+                    continue;
+                _currentCharacter = nextChar;
+                _staggerFramesPassed = 0;
+            }
         }
 
         private void StopCharactersActivity()
