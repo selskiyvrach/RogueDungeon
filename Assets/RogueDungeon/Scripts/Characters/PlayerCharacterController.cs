@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using RogueDungeon.Actions;
+using RogueDungeon.Items;
 using UnityEngine.Assertions;
 
 namespace RogueDungeon.Characters
@@ -10,25 +11,20 @@ namespace RogueDungeon.Characters
         private readonly Dictionary<string, Action> _actions;
         
         private string _pendingCommand;
-        private int _coyoteTimeFrames;
         private bool _startedHandlingDeath;
-
-        // STAMINA
-            // amount config
-            // restoration rate amount config
-            // cost for actions
-            // restoration on ticks
+        private readonly Combo _attackCombo;
         
         public PlayerCharacterController(Character character) : base(character)
         {
             _config = character.Config as PlayerCharacterConfig;
             Assert.IsNotNull(_config);
+            _attackCombo = new Combo(_config.Attack);
             _actions = new Dictionary<string, Action>
             {
                 ["RaiseBlock"] = new BlockAction(_config.UnarmedBlock),
                 ["DodgeLeft"] = new DodgeAction(_config.DodgeLeft, DodgeState.DodgingLeft), 
                 ["DodgeRight"] = new DodgeAction(_config.DodgeRight, DodgeState.DodgingRight),
-                ["Attack"] = new AttackAction(_config.UnarmedAttack),
+                ["Attack"] = new AttackAction(_attackCombo),
                 ["Idle"] = new IdleAction(_config.IdleAction),
             };
         }
@@ -63,34 +59,35 @@ namespace RogueDungeon.Characters
 
             if (CurrentAction is BlockAction block && _pendingCommand != "RaiseBlock") 
                 block.OnCommand("LowerBlock");
-
-            if(_pendingCommand == null)
-                return;
-
-            if (_pendingCommand is "RaiseBlock" or "DodgeLeft" or "DodgeRight")
-                if (CurrentAction is AttackAction)
-                {
-                    ResetAnimation();
-                    StopCurrentAction();
-                }
             
-            if (CurrentAction == null)
-            {
-                StartAction(_actions[_pendingCommand]);
-                _pendingCommand = null;
-                return;
-            }
+            if(CurrentAction is IdleAction && _pendingCommand != null)
+                StopCurrentAction();
 
-            if (_coyoteTimeFrames-- == 0)
-                _pendingCommand = null;
+            if (CurrentAction != null) 
+                return;
+            if (_pendingCommand == "ContinueCombo")
+            {
+                _attackCombo.CurrentIndex++;
+                _attackCombo.CurrentIndex %= _attackCombo.Length;
+                _pendingCommand = "Attack";
+            }
+            StartAction(_actions[_pendingCommand ?? "Idle"]);
+            _pendingCommand = null;
         }
 
         private void RegisterInputCommand(string command)
         {
             _pendingCommand = command;
-            _coyoteTimeFrames = 15;
+            if (_pendingCommand == "Attack") 
+            {
+                if (CurrentAction is AttackAction)
+                    _pendingCommand = "ContinueCombo";
+                else
+                    _attackCombo.CurrentIndex = 0;
+            }
+
             if (CurrentAction is BlockAction && _pendingCommand == "RaiseBlock")
-                _coyoteTimeFrames = 1;
+                _pendingCommand = null;
         }
     }
 }
