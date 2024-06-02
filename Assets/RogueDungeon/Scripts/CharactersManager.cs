@@ -29,7 +29,8 @@ namespace RogueDungeon
             _hivemind = new Hivemind(this);
         }
 
-        public void CreateCharacter(string configName, Position? pos = null, IHealthDisplay healthDisplay = null)
+        public void CreateCharacter(string configName, Position? pos = null, IResourceDisplay healthBar = null,
+            IResourceDisplay staminaBar = null)
         {
             pos ??= !HasCharacterInPosition(Position.Frontline, out var _) 
                 ? Position.Frontline 
@@ -44,7 +45,7 @@ namespace RogueDungeon
                 return;
             }
 
-            var character = _characterFactory.Create(configName, healthDisplay);
+            var character = _characterFactory.Create(configName, healthBar, staminaBar);
             if (character == null)
             {
                 Debug.LogError("Character cannot be null");

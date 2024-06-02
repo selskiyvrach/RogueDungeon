@@ -34,13 +34,14 @@ namespace RogueDungeon
             LogicRoot = new GameObject("Root");
             _charactersManager = new CharactersManager(characterFactory, scenePositions, LogicRoot);
             _mazeExplorer = new MazeExplorer(this, new Maze.Maze(), LogicRoot.transform);
-            CreateCharacter("test-player", Position.Player, _gameUI.PlayerHealthBar);
+            CreateCharacter("test-player", Position.Player, _gameUI.PlayerHealthBar, _gameUI.PlayerStaminaBar);
             SwitchState(State.Exploration);
         }
 
-        public void CreateCharacter(string configName, Position? position = null, IHealthDisplay healthDisplay = null)
+        public void CreateCharacter(string configName, Position? position = null,
+            IResourceDisplay healthBar = null, IResourceDisplay staminaBar = null)
         {
-            _charactersManager.CreateCharacter(configName, position, healthDisplay);
+            _charactersManager.CreateCharacter(configName, position, healthBar, staminaBar);
             UpdateGameState();
         }
 

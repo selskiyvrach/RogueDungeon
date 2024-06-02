@@ -52,13 +52,19 @@ namespace RogueDungeon.Characters
                 RegisterInputCommand("DodgeRight");
             if(Input.Input.GetUnit(Input.Action.Attack).Down)
                 RegisterInputCommand("Attack");
-            if(Input.Input.GetUnit(Input.Action.Block).Held)
+            if(Input.Input.GetUnit(Input.Action.Block).Down)
                 RegisterInputCommand("RaiseBlock");
+            if(Input.Input.GetUnit(Input.Action.Block).Up)
+                RegisterInputCommand("LowerBlock");
             
             base.Tick();
 
-            if (CurrentAction is BlockAction block && _pendingCommand != "RaiseBlock") 
-                block.OnCommand("LowerBlock");
+            if (_pendingCommand == "LowerBlock")
+            {
+                if(CurrentAction is BlockAction block) 
+                    block.OnCommand("LowerBlock");
+                _pendingCommand = null;
+            }
             
             if(CurrentAction is IdleAction && _pendingCommand != null)
                 StopCurrentAction();
@@ -85,9 +91,6 @@ namespace RogueDungeon.Characters
                 else
                     _attackCombo.CurrentIndex = 0;
             }
-
-            if (CurrentAction is BlockAction && _pendingCommand == "RaiseBlock")
-                _pendingCommand = null;
         }
     }
 }

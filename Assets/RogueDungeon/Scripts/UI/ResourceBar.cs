@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace RogueDungeon.UI
 {
-    public class HealthBar : MonoBehaviour, IHealthDisplay
+    public class ResourceBar : MonoBehaviour, IResourceDisplay
     {
         [SerializeField] private Image _fill;
         [SerializeField] private Image _diff;
@@ -13,7 +13,7 @@ namespace RogueDungeon.UI
         private float _diffInitialValue;
         private int _catchingUpFramesLeft;
         
-        public void HandleHealthChanged(Resource resource, ResourceChangeReason _)
+        public void HandleChanged(Resource resource, ResourceChangeReason _)
         {
             _fill.fillAmount = resource.Current / resource.Max;
             if (_fill.fillAmount > _diff.fillAmount)

@@ -11,7 +11,9 @@ namespace RogueDungeon.Characters
         [SerializeField] private StatsConfig _stats;
         [SerializeField] private ActionConfig _staggerActionConfig;
         [SerializeField] private ActionConfig _deathActionConfig;
+        [SerializeField] private bool _hasStamina;
 
+        public bool HasStamina => _hasStamina;
         public ActionConfig StaggerActionConfig => _staggerActionConfig;
         public ActionConfig DeathActionConfig => _deathActionConfig;
         public string Id => _id;
