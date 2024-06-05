@@ -69,8 +69,5 @@ namespace RogueDungeon.Characters
             CurrentAction = null;
             Character.Animator.SetState(null);
         }
-
-        protected void ResetAnimation() => 
-            Character.Animator.UpdateState(0);
     }
 }

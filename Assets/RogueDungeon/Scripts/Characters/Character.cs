@@ -43,12 +43,9 @@ namespace RogueDungeon.Characters
             Balance = new Resource();
             Balance.Set(GetStat(Constants.BALANCE), ResourceChangeReason.Recalculated);
         }
-        
+
         public float GetStat(string id) => 
-            Config.GetStat(id) + 
-            (CombatState.BlockIsRaised 
-                ? CombatState.BlockingWeaponStats.GetStat(id) 
-                : 0);
+            Config.GetStat(id);
 
         public void TakeDamage(float damage, float balanceDamage)
         {

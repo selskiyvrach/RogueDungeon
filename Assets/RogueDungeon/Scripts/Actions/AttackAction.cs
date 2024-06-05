@@ -25,6 +25,11 @@ namespace RogueDungeon.Actions
             if(dodged)
                 return;
 
+            // middle attack is blocked fully, side attack deal reduced damage
+            var isBlocking = defender.CombatState.BlockIsRaised;
+            if(isBlocking && _attackConfig.DodgeableBy == DodgeState.NotDodging)
+                return;
+
             var damage = _attackConfig.Damage;
             var damageType = _attackConfig.DamageType;
 
@@ -35,15 +40,22 @@ namespace RogueDungeon.Actions
                 damageType = Constants.DAMAGE_TYPE_PARENTS[damageType];
             }
 
-            damage = GetDamageAfterReduction(defender, damage, _attackConfig.DamageType);
+            damage = GetDamageAfterReduction(defender, damage, _attackConfig.DamageType, isBlocking);
             
             defender.TakeDamage(damage, _attackConfig.BalanceDamage);
         }
 
-        private static float GetDamageAfterReduction(IStatsProvider defender, float damage, string damageType)
+        private static float GetDamageAfterReduction(Character defender, float damage, string damageType, bool isBlocking)
         {
-            var resistFlat = defender.GetStat(damageType + Constants.RESIST + Constants.FLAT);
-            var resistPercent = defender.GetStat(damageType + Constants.RESIST + Constants.PERCENT);
+            var resistFlatName = damageType + Constants.RESIST + Constants.FLAT;
+            var resistFlat = defender.GetStat(resistFlatName);
+            if (isBlocking)
+                resistFlat += defender.CombatState.BlockingWeaponStats.GetStat(resistFlatName);
+            
+            var resistPercentName = damageType + Constants.RESIST + Constants.PERCENT;
+            var resistPercent = defender.GetStat(resistPercentName);
+            if (isBlocking)
+                resistPercent += defender.CombatState.BlockingWeaponStats.GetStat(resistPercentName);
             
             damage *= 1 - resistPercent;
             damage -= resistFlat;
@@ -51,7 +63,7 @@ namespace RogueDungeon.Actions
             
             var parent = Constants.DAMAGE_TYPE_PARENTS[damageType];
             if (parent != null)
-                damage = GetDamageAfterReduction(defender, damage, parent);
+                damage = GetDamageAfterReduction(defender, damage, parent, isBlocking);
             
             return damage;
         }

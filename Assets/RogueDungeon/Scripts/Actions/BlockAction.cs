@@ -62,7 +62,7 @@ namespace RogueDungeon.Actions
             combatState.BlockingWeaponStats = _block;
         }
 
-        private static void LowerBlock(CombatState combatState)
+        private void LowerBlock(CombatState combatState)
         {
             combatState.BlockIsRaised = false;
             combatState.BlockingWeaponStats = null;
