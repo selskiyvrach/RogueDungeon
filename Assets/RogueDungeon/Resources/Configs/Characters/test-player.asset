@@ -26,6 +26,11 @@ MonoBehaviour:
         _relativeValueType: 30
         <Key>k__BackingField: Balance
         _customValue: 0
+    - Id: Stamina
+      StatConfig:
+        _relativeValueType: 0
+        <Key>k__BackingField: 
+        _customValue: 100
   _staggerActionConfig:
     _animationName: 
     _frames:
@@ -42,6 +47,7 @@ MonoBehaviour:
       _customValue: 30
     _cycle: 0
     _keyframes: []
+  _hasStamina: 1
   <IdleAction>k__BackingField:
     _animationName: Idle
     _frames:
