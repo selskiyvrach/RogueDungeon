@@ -39,6 +39,8 @@ MonoBehaviour:
       _customValue: 0
     _cycle: 0
     _keyframes: []
+    _hasStaminaCost: 0
+    _staminaCost: 10
   _deathActionConfig:
     _animationName: PlayerDeath
     _frames:
@@ -47,7 +49,8 @@ MonoBehaviour:
       _customValue: 30
     _cycle: 0
     _keyframes: []
-  _hasStamina: 1
+    _hasStaminaCost: 0
+    _staminaCost: 10
   <IdleAction>k__BackingField:
     _animationName: Idle
     _frames:
@@ -56,6 +59,8 @@ MonoBehaviour:
       _customValue: 30
     _cycle: 1
     _keyframes: []
+    _hasStaminaCost: 0
+    _staminaCost: 10
   <DodgeRight>k__BackingField:
     _animationName: DodgeRight
     _frames:
@@ -74,6 +79,8 @@ MonoBehaviour:
         _relativeValueType: 0
         <Key>k__BackingField: 
         _customValue: 25
+    _hasStaminaCost: 1
+    _staminaCost: 10
   <DodgeLeft>k__BackingField:
     _animationName: DodgeLeft
     _frames:
@@ -92,30 +99,8 @@ MonoBehaviour:
         _relativeValueType: 0
         <Key>k__BackingField: 
         _customValue: 25
-  <UnarmedAttack>k__BackingField:
-    _damage:
-      _relativeValueType: 0
-      <Key>k__BackingField: 
-      _customValue: 10
-    _balanceDamage:
-      _relativeValueType: 20
-      <Key>k__BackingField: BalanceDamage
-      _customValue: 0
-    <DamageType>k__BackingField: BluntDamage
-    <DodgeableBy>k__BackingField: 0
-    _attackActionConfig:
-      _animationName: RightSwing
-      _frames:
-        _relativeValueType: 0
-        <Key>k__BackingField: AttackActionDuration
-        _customValue: 30
-      _cycle: 0
-      _keyframes:
-      - <Name>k__BackingField: Hit
-        <Frame>k__BackingField:
-          _relativeValueType: 0
-          <Key>k__BackingField: 
-          _customValue: 25
+    _hasStaminaCost: 1
+    _staminaCost: 10
   <UnarmedBlock>k__BackingField:
     <Stats>k__BackingField:
       _stats:
@@ -142,6 +127,8 @@ MonoBehaviour:
           _relativeValueType: 0
           <Key>k__BackingField: 
           _customValue: 7
+      _hasStaminaCost: 0
+      _staminaCost: 10
   <Attack>k__BackingField:
     <BaseAttack>k__BackingField:
       _damage:
@@ -167,6 +154,8 @@ MonoBehaviour:
             _relativeValueType: 0
             <Key>k__BackingField: 
             _customValue: 25
+        _hasStaminaCost: 1
+        _staminaCost: 25
     <Animations>k__BackingField:
     - 
     - LeftSwing
@@ -190,3 +179,5 @@ MonoBehaviour:
           _customValue: 0
         _cycle: 0
         _keyframes: []
+        _hasStaminaCost: 0
+        _staminaCost: 10

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using RogueDungeon.Actions;
+using RogueDungeon.CharacterResource;
 using RogueDungeon.Items;
 using UnityEngine.Assertions;
 
@@ -13,7 +14,8 @@ namespace RogueDungeon.Characters
         private string _pendingCommand;
         private bool _startedHandlingDeath;
         private readonly Combo _attackCombo;
-        
+        private int _framesSinceSpentStamina;
+
         public PlayerCharacterController(Character character) : base(character)
         {
             _config = character.Config as PlayerCharacterConfig;
@@ -27,6 +29,10 @@ namespace RogueDungeon.Characters
                 ["Attack"] = new AttackAction(_attackCombo),
                 ["Idle"] = new IdleAction(_config.IdleAction),
             };
+            Character.Stamina = new Resource();
+            Character.Stamina.Set(Character.GetStat("Stamina"), Character.GetStat("Stamina"), ResourceChangeReason.Recalculated);
+            Character.Stamina.OnChanged += reason => Character.StaminaDisplay.HandleChanged(Character.Stamina, reason);
+            Character.StaminaDisplay.HandleChanged(Character.Stamina, ResourceChangeReason.Recalculated);
         }
 
         public override void Tick()
@@ -58,6 +64,11 @@ namespace RogueDungeon.Characters
                 RegisterInputCommand("LowerBlock");
             
             base.Tick();
+            if (_framesSinceSpentStamina++ > 45)
+            {
+                Character.Stamina.Restore(30 * UnityEngine.Time.deltaTime);
+            }
+            Character.StaminaDisplay.Tick();
 
             if (_pendingCommand == "LowerBlock")
             {
@@ -66,18 +77,38 @@ namespace RogueDungeon.Characters
                 _pendingCommand = null;
             }
             
-            if(CurrentAction is IdleAction && _pendingCommand != null)
-                StopCurrentAction();
-
-            if (CurrentAction != null) 
-                return;
             if (_pendingCommand == "ContinueCombo")
             {
                 _attackCombo.CurrentIndex++;
                 _attackCombo.CurrentIndex %= _attackCombo.Length;
                 _pendingCommand = "Attack";
             }
-            StartAction(_actions[_pendingCommand ?? "Idle"]);
+
+            var action = _actions[_pendingCommand ?? "Idle"];
+            if (action.Config is IStaminaCostable { HasStaminaCost: true })
+            {
+                if (Character.Stamina.IsDepleted)
+                {
+                    _pendingCommand = null;
+                    return;
+                }
+            }
+
+            if (CurrentAction is IdleAction && _pendingCommand != null)
+            {
+                StopCurrentAction();
+            }
+
+            if (CurrentAction != null) 
+                return;
+
+            if (action.Config is IStaminaCostable { HasStaminaCost: true } costable)
+            {
+                _framesSinceSpentStamina = 0;
+                Character.Stamina.Spend(costable.StaminaCost);
+            }
+            
+            StartAction(action);
             _pendingCommand = null;
         }
 

@@ -14,11 +14,6 @@ namespace RogueDungeon.Characters
             Character = character;
             Character.Health.OnChanged += reason => Character.HealthDisplay.HandleChanged(Character.Health, reason);
             Character.HealthDisplay.HandleChanged(Character.Health, ResourceChangeReason.Recalculated);
-            if (Character.Config.HasStamina)
-            {
-                Character.Stamina.OnChanged += reason => Character.StaminaDisplay.HandleChanged(Character.Stamina, reason);
-                Character.StaminaDisplay.HandleChanged(Character.Stamina, ResourceChangeReason.Recalculated);
-            }
             _staggerAction = new StaggerAction(character.Config.StaggerActionConfig);
         }
 

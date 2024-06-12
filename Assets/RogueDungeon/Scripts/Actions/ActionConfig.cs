@@ -17,17 +17,27 @@ namespace RogueDungeon.Actions
         string GetKeyframe(int frame);
     }
 
+    public interface IStaminaCostable
+    {
+        bool HasStaminaCost { get; }
+        float StaminaCost { get; }
+    }
+
     [Serializable]
-    public class ActionConfig : IActionConfig
+    public class ActionConfig : IActionConfig, IStaminaCostable
     {
         [SerializeField] private string _animationName;
         [SerializeField] private StatConfig _frames;
         [SerializeField] private bool _cycle;
         [SerializeField] private Keyframe[] _keyframes;
+        [SerializeField] private bool _hasStaminaCost;
+        [SerializeField, ShowIf("_hasStaminaCost")] private float _staminaCost = 10;
 
         public string AnimationName => _animationName;
         public int Frames => _frames.GetIntValue();
         public bool Cycle => _cycle;
+        public bool HasStaminaCost => _hasStaminaCost;
+        public float StaminaCost => _staminaCost;
 
         [CanBeNull]
         public string GetKeyframe(int frame)
@@ -43,6 +53,7 @@ namespace RogueDungeon.Actions
 
             return null;
         }
+
     }
         
     [Serializable]

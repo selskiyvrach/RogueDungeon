@@ -10,7 +10,6 @@ namespace RogueDungeon.Characters
         [field: SerializeField] public ActionConfig IdleAction  { get; private set; }
         [field: SerializeField] public ActionConfig DodgeRight  { get; private set; }
         [field: SerializeField] public ActionConfig DodgeLeft  { get; private set; }
-        [field: SerializeField] public AttackConfig UnarmedAttack  { get; private set; }
         [field: SerializeField] public BlockConfig UnarmedBlock  { get; private set; }
         [field: SerializeField] public AttackComboConfig Attack  { get; private set; }
         

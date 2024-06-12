@@ -7,7 +7,7 @@ namespace RogueDungeon.Actions
 {
     public abstract class Action
     {
-        private readonly IActionConfig _config;
+        public IActionConfig Config { get; }
         private bool _hasStarted;
         private bool _isRewinding;
 
@@ -21,15 +21,15 @@ namespace RogueDungeon.Actions
             }
         }
 
-        public virtual bool IsFinished => _hasStarted && (!IsRewinding && CurrentFrame == _config.Frames || IsRewinding && CurrentFrame == 1);
+        public virtual bool IsFinished => _hasStarted && (!IsRewinding && CurrentFrame == Config.Frames || IsRewinding && CurrentFrame == 1);
 
         public int CurrentFrame { get; private set; }
 
-        public int Frames => _config.Frames;
+        public int Frames => Config.Frames;
 
-        public string AnimationName => _config.AnimationName;
+        public string AnimationName => Config.AnimationName;
 
-        public bool Cycle => _config.Cycle;
+        public bool Cycle => Config.Cycle;
 
         /// <summary>
         /// The character for whom the action is being executed at the moment. Null if the action is not being executed at the moment
@@ -40,7 +40,7 @@ namespace RogueDungeon.Actions
         protected Action(IActionConfig config)
         {
             Assert.IsNotNull(config);
-            _config = config;
+            Config = config;
         }
 
         public void Start(Character character)
@@ -57,7 +57,7 @@ namespace RogueDungeon.Actions
         {
             switch (IsRewinding)
             {
-                case false when CurrentFrame == _config.Frames:
+                case false when CurrentFrame == Config.Frames:
                 case true when CurrentFrame == 1:
                     return;
             }
@@ -65,7 +65,7 @@ namespace RogueDungeon.Actions
             CurrentFrame += IsRewinding ? -1 : 1;
             TryRaiseCallback();
             if (IsFinished && Cycle)
-                CurrentFrame = IsRewinding ? _config.Frames : 0;
+                CurrentFrame = IsRewinding ? Config.Frames : 0;
         }
 
         public void Stop()
@@ -81,7 +81,7 @@ namespace RogueDungeon.Actions
 
         private void TryRaiseCallback()
         {
-            var keyframe = _config.GetKeyframe(CurrentFrame); 
+            var keyframe = Config.GetKeyframe(CurrentFrame); 
             if(keyframe != null)
                 OnKeyframe(keyframe);
         }

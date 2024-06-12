@@ -27,7 +27,8 @@ namespace RogueDungeon.Characters
             var gameObject = Object.Instantiate(config.Prefab, _parent);
             var animator = gameObject.GetComponent<Animator>();
             healthBar ??= gameObject.GetComponentInChildren<IResourceDisplay>();
-            var character = new Character(config, animator, gameObject, healthBar, staminaBar);
+            var character = new Character(config, animator, gameObject, healthBar);
+            character.StaminaDisplay = staminaBar;
 
             character.Controller = config.CreateController(character);
             return character;

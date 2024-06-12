@@ -3,7 +3,7 @@ using RogueDungeon.Characters;
 
 namespace RogueDungeon.Items
 {
-    public class Combo : IAttackConfig, IActionConfig
+    public class Combo : IAttackConfig, IActionConfig, IStaminaCostable
     {
         private readonly AttackComboConfig _config;
         private int _currentIndex;
@@ -44,5 +44,13 @@ namespace RogueDungeon.Items
 
         public string GetKeyframe(int frame) => 
             _currentAttack.AttackActionConfig.GetKeyframe(frame);
+
+        public bool HasStaminaCost => _currentAttack.AttackActionConfig is IStaminaCostable costable
+            ? costable.HasStaminaCost
+            : false;
+        
+        public float StaminaCost => _currentAttack.AttackActionConfig is IStaminaCostable costable
+            ? costable.StaminaCost
+            : 0; 
     }
 }
