@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace RogueDungeon.Weapons
+namespace RogueDungeon.Player
 {
-    public class WeaponTest : MonoBehaviour
+    public class PlayerControllerDebug : MonoBehaviour
     {
         [SerializeField] private int _targetFrameRate = 20;
-        [FormerlySerializedAs("_weapon")] [SerializeField] private PlayerController _playerController;
+        [SerializeField] private PlayerController _playerController;
 
         private void Update()
         {
@@ -21,8 +20,7 @@ namespace RogueDungeon.Weapons
                 fontSize = 100,
             };
             var text = $"[{_playerController.CurrentState.Name}]: {_playerController.CurrFrame}/{_playerController.CurrentState.Frames}" +
-                       $"\n" +
-                       "[Command]: " + (_playerController.Command == null ? "null" : _playerController.Command.ToString());
+                       $"\n[Command]: {_playerController.Command}";
             GUI.Label(labelRect, text, style);
         }
     }

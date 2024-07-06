@@ -3,7 +3,7 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RogueDungeon.Weapons
+namespace RogueDungeon.Player
 {
     public class PlayerController : MonoBehaviour
     {
@@ -88,8 +88,6 @@ namespace RogueDungeon.Weapons
         }
     }
 
-    // state can transition to idle if has any command except for  
-
     [Flags]
     public enum Command
     {
@@ -100,9 +98,7 @@ namespace RogueDungeon.Weapons
         DodgeRight = 8,
         Any = Attack | Block | DodgeLeft | DodgeRight,
     }
-
-    // idle to block
-        // block if finished regardless of the command 
+    
     [Flags]
     public enum Condition
     {
