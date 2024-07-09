@@ -29,7 +29,7 @@ namespace RogueDungeon.Player
         private void LateUpdate()  
         {
             if (_animation != null)
-                _animation.SampleAnimation(_animationRoot, (float)_playerController.CurrFrame / _playerController.CurrentState.Frames);
+                _animation.SampleAnimation(_animationRoot, _animation.length * ((float)_playerController.CurrFrame / _playerController.CurrentState.Frames));
         }
     }
 }

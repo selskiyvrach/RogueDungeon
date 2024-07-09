@@ -275,8 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _states:
   - <Name>k__BackingField: Idle
-    <Frames>k__BackingField: 30
-    <SupportIdleTransitions>k__BackingField: 0
+    <Frames>k__BackingField: 45
     <Transitions>k__BackingField:
     - <State>k__BackingField: Attack
       <Condition>k__BackingField: 2
@@ -300,7 +299,6 @@ MonoBehaviour:
       <ConsumesCommands>k__BackingField: 0
   - <Name>k__BackingField: Attack
     <Frames>k__BackingField: 30
-    <SupportIdleTransitions>k__BackingField: 0
     <Transitions>k__BackingField:
     - <State>k__BackingField: Attack2
       <Condition>k__BackingField: 3
@@ -311,28 +309,28 @@ MonoBehaviour:
       <Commands>k__BackingField: 0
       <ConsumesCommands>k__BackingField: 0
   - <Name>k__BackingField: AttackToIdle
-    <Frames>k__BackingField: 30
-    <SupportIdleTransitions>k__BackingField: 1
-    <Transitions>k__BackingField: []
+    <Frames>k__BackingField: 20
+    <Transitions>k__BackingField:
+    - <State>k__BackingField: Idle
+      <Condition>k__BackingField: 1
+      <Commands>k__BackingField: 0
+      <ConsumesCommands>k__BackingField: 0
   - <Name>k__BackingField: Attack2
     <Frames>k__BackingField: 30
-    <SupportIdleTransitions>k__BackingField: 0
     <Transitions>k__BackingField:
-    - <State>k__BackingField: Attack
-      <Condition>k__BackingField: 3
-      <Commands>k__BackingField: 1
-      <ConsumesCommands>k__BackingField: 1
     - <State>k__BackingField: Attack2ToIdle
       <Condition>k__BackingField: 1
       <Commands>k__BackingField: 0
       <ConsumesCommands>k__BackingField: 0
   - <Name>k__BackingField: Attack2ToIdle
-    <Frames>k__BackingField: 30
-    <SupportIdleTransitions>k__BackingField: 1
-    <Transitions>k__BackingField: []
+    <Frames>k__BackingField: 15
+    <Transitions>k__BackingField:
+    - <State>k__BackingField: Idle
+      <Condition>k__BackingField: 1
+      <Commands>k__BackingField: 0
+      <ConsumesCommands>k__BackingField: 0
   - <Name>k__BackingField: DodgeLeft
     <Frames>k__BackingField: 30
-    <SupportIdleTransitions>k__BackingField: 0
     <Transitions>k__BackingField:
     - <State>k__BackingField: Idle
       <Condition>k__BackingField: 1
@@ -340,23 +338,20 @@ MonoBehaviour:
       <ConsumesCommands>k__BackingField: 0
   - <Name>k__BackingField: DodgeRight
     <Frames>k__BackingField: 30
-    <SupportIdleTransitions>k__BackingField: 0
     <Transitions>k__BackingField:
     - <State>k__BackingField: Idle
       <Condition>k__BackingField: 1
       <Commands>k__BackingField: 0
       <ConsumesCommands>k__BackingField: 0
   - <Name>k__BackingField: IdleToBlock
-    <Frames>k__BackingField: 30
-    <SupportIdleTransitions>k__BackingField: 0
+    <Frames>k__BackingField: 6
     <Transitions>k__BackingField:
     - <State>k__BackingField: Block
       <Condition>k__BackingField: 1
       <Commands>k__BackingField: 0
       <ConsumesCommands>k__BackingField: 2
   - <Name>k__BackingField: Block
-    <Frames>k__BackingField: 30
-    <SupportIdleTransitions>k__BackingField: 0
+    <Frames>k__BackingField: 1
     <Transitions>k__BackingField:
     - <State>k__BackingField: BlockToIdle
       <Condition>k__BackingField: 2
@@ -371,9 +366,12 @@ MonoBehaviour:
       <Commands>k__BackingField: 0
       <ConsumesCommands>k__BackingField: 0
   - <Name>k__BackingField: BlockToIdle
-    <Frames>k__BackingField: 30
-    <SupportIdleTransitions>k__BackingField: 1
-    <Transitions>k__BackingField: []
+    <Frames>k__BackingField: 6
+    <Transitions>k__BackingField:
+    - <State>k__BackingField: Idle
+      <Condition>k__BackingField: 1
+      <Commands>k__BackingField: 0
+      <ConsumesCommands>k__BackingField: 0
 --- !u!4 &1848257222
 Transform:
   m_ObjectHideFlags: 0
@@ -402,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be6e21ffc7849fbb6e3fcece7c25576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetFrameRate: 20
+  _targetFrameRate: 60
   _playerController: {fileID: 1848257221}
 --- !u!114 &1848257224
 MonoBehaviour:

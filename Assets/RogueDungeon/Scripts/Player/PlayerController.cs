@@ -39,9 +39,6 @@ namespace RogueDungeon.Player
             if (TryTransitionFromState(CurrentState)) 
                 return;
             
-            if (CurrentState.SupportIdleTransitions && TryTransitionFromState(GetState("Idle"))) 
-                return;
-            
             if(CurrFrame == CurrentState.Frames)
                 Debug.LogError($"No valid transition found. State: {CurrentState.Name}, command: {Command}, frame: {CurrFrame}");
         }
@@ -121,7 +118,6 @@ namespace RogueDungeon.Player
     {
         [field: Title("@Name"), SerializeField] public string Name { get; private set; }
         [field: SerializeField] public int Frames { get; private set; }
-        [field: SerializeField] public bool SupportIdleTransitions { get; private set; }
         [field: SerializeField] public Transition[] Transitions { get; private set; }
     }
 }
