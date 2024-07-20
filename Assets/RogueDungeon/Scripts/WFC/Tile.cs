@@ -61,6 +61,7 @@ namespace RogueDungeon.WFC
                     6 => (new Vector2Int(-1, 1), false),
                     7 => (new Vector2Int(0, 1), (_exitsOnEdges & Edge.Up) != 0),
                     8 => (new Vector2Int(1, 1), false),
+                    _ => throw new ArgumentOutOfRangeException()
                 };
                 
             }

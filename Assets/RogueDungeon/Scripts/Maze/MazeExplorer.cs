@@ -1,4 +1,4 @@
-﻿using RogueDungeon.Input;
+﻿using RogueDungeon.Time;
 using UnityEngine;
 
 namespace RogueDungeon.Maze
@@ -6,8 +6,10 @@ namespace RogueDungeon.Maze
     public class MazeExplorer
     {
         private readonly Maze _maze;
-        private readonly Game _game;
-        
+        private readonly ITime _time;
+        private readonly IRoomEnteredListener _roomEnteredListener;
+        private readonly IIsOnCrossroadListener _isOnCrossroadListener;
+
         private Vector2Int _position;
         private Vector2Int _direction;
         private Vector2Int _targetDirection;
@@ -18,16 +20,21 @@ namespace RogueDungeon.Maze
         private int _rotatedForFrames;
         private bool _isMoving;
         private bool _isRotating;
+        // private readonly IInput _input;
 
         public Transform MazeCursor { get; }
         public bool IsOnCrossroad { get; private set; }
 
-        public MazeExplorer(Game game, Maze maze, Transform mazeCursor)
+        public MazeExplorer(ITime time, IRoomEnteredListener roomEnteredListener, IIsOnCrossroadListener isOnCrossroadListener, Maze maze, Transform mazeCursor)// IInput input)
         {
-            _game = game;
+            _time = time;
+            _roomEnteredListener = roomEnteredListener;
+            _isOnCrossroadListener = isOnCrossroadListener;
             _maze = maze;
+            // _input = input;
             MazeCursor = mazeCursor;
             _direction = Vector2Int.up;
+            _time.EachTick(Tick, TickOrders.MAZE_EXPLORER);
             MoveTo(_maze.StartingPoint);
         }
 
@@ -56,31 +63,31 @@ namespace RogueDungeon.Maze
                 _direction = _targetDirection;
             }
 
-            if (IsOnCrossroad)
-            {
-                if (Input.Input.GetUnit(Action.ChooseForward).Down)
-                    MoveForward();
-
-                else if (Input.Input.GetUnit(Action.ChooseBack).Down)
-                    RotateTo(_maze.TurnAround(_direction));
-
-                else if (Input.Input.GetUnit(Action.ChooseLeft).Down)
-                    RotateTo(_maze.TurnCounterclockwise(_direction));
-
-                else if (Input.Input.GetUnit(Action.ChooseRight).Down) 
-                    RotateTo(_maze.TurnClockwise(_direction));
-
-                return;
-            }
-
-            if (Input.Input.GetUnit(Action.MoveForward).Down)
-            {
-                MoveForward();
-                return;
-            }
-
-            if (Input.Input.GetUnit(Action.TurnAround).Down) 
-                RotateTo(_maze.TurnAround(_direction));
+            // if (IsOnCrossroad)
+            // {
+            //     if (_input.GetUnit(Action.ChooseForward).Down)
+            //         MoveForward();
+            //
+            //     else if (_input.GetUnit(Action.ChooseBack).Down)
+            //         RotateTo(_maze.TurnAround(_direction));
+            //
+            //     else if (_input.GetUnit(Action.ChooseLeft).Down)
+            //         RotateTo(_maze.TurnCounterclockwise(_direction));
+            //
+            //     else if (_input.GetUnit(Action.ChooseRight).Down) 
+            //         RotateTo(_maze.TurnClockwise(_direction));
+            //
+            //     return;
+            // }
+            //
+            // if (_input.GetUnit(Action.MoveForward).Down)
+            // {
+            //     MoveForward();
+            //     return;
+            // }
+            //
+            // if (_input.GetUnit(Action.TurnAround).Down) 
+            //     RotateTo(_maze.TurnAround(_direction));
         }
 
         private void RotateTo(Vector2Int targetDirection)
@@ -101,9 +108,20 @@ namespace RogueDungeon.Maze
         private void MoveTo(Vector2Int coords)
         {
             _position = coords;
-            _maze.GetTile(coords).OnEntered(_game);
+            _roomEnteredListener.OnRoomEntered(_maze.GetTile(coords));
             IsOnCrossroad = _maze.IsCrossroad(coords);
             MazeCursor.position = new Vector3(_position.x, 0, _position.y);
+            _isOnCrossroadListener.SetIsOnCrossroad(IsOnCrossroad);
         }
+    }
+
+    public interface IIsOnCrossroadListener
+    {
+        void SetIsOnCrossroad(bool isOnCrossroad);
+    }
+
+    public interface IRoomEnteredListener
+    {
+        void OnRoomEntered(Tile tile);
     }
 }
