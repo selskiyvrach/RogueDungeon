@@ -6,5 +6,6 @@ namespace RogueDungeon.Player.Commands
         Block,
         DodgeLeft,
         DodgeRight,
+        MoveForward,
     }
 }

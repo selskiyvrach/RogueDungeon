@@ -193,6 +193,8 @@ GameObject:
   - component: {fileID: 9081369088553065601}
   - component: {fileID: 5261846334951547202}
   - component: {fileID: 4303013995717459085}
+  - component: {fileID: 4755277049367778099}
+  - component: {fileID: 6930443109031261808}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -260,6 +262,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _walkAnimation: {fileID: 5261846334951547202}
   _idleAnimation: {fileID: 9081369088553065601}
+  _dodgeRightAnimation: {fileID: 6930443109031261808}
+  _dodgeLeftAnimation: {fileID: 4755277049367778099}
+--- !u!114 &4755277049367778099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2765455459887452515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5c17f963db447b901d2fc7cac8aa68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animationClip: {fileID: 7400000, guid: de92576c19310c04faeb25c495501e06, type: 2}
+  _target: {fileID: 2765455459887452515}
+  _loop: 0
+--- !u!114 &6930443109031261808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2765455459887452515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5824b007194f5080281676d11128e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animationClip: {fileID: 7400000, guid: 5b2891c56e993c74188982855c62557a, type: 2}
+  _target: {fileID: 2765455459887452515}
+  _loop: 0
 --- !u!1 &4701724849526284636
 GameObject:
   m_ObjectHideFlags: 0

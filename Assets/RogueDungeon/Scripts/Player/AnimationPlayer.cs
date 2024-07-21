@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using RogueDungeon.StateMachine;
+using UnityEngine;
 
 namespace RogueDungeon.Player
 {
-    public abstract class AnimationPlayer : MonoBehaviour, IAnimation
+    public abstract class AnimationPlayer : MonoBehaviour, IAnimation, IFinishable
     {
         [SerializeField] private AnimationClip _animationClip;
         [SerializeField] private GameObject _target;
@@ -10,6 +11,8 @@ namespace RogueDungeon.Player
         
         private float _playTime;
         private bool _isPlaying;
+
+        public bool IsFinished => _playTime >= _animationClip.length;
 
         public void Play()
         {
@@ -33,7 +36,7 @@ namespace RogueDungeon.Player
         private void UpdatePlayback()
         {
             _animationClip.SampleAnimation(_target, _playTime);
-            if (_playTime < _animationClip.length) 
+            if (!IsFinished) 
                 return;
             
             if (_loop)

@@ -1,11 +1,20 @@
-﻿using RogueDungeon.StateMachine;
-using UnityEngine;
+﻿using RogueDungeon.Player.Commands;
+using RogueDungeon.StateMachine;
 
 namespace RogueDungeon.Player
 {
-    public class HasWalkInputCondition : ICondition
+    public class HasInputCondition : ICondition
     {
-        public bool IsMet() => 
-            Input.GetKey(KeyCode.W);
+        private readonly Commands.Commands _commands;
+        private readonly Command _command;
+
+        public HasInputCondition(Commands.Commands commands, Command command)
+        {
+            _commands = commands;
+            _command = command;
+        }
+
+        public bool IsMet() =>
+            _commands.HasCommand(_command);
     }
 }

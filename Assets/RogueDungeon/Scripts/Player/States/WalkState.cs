@@ -1,6 +1,6 @@
 ﻿using RogueDungeon.StateMachine;
 
-namespace RogueDungeon.Player
+namespace RogueDungeon.Player.States
 {
     public class WalkState : StateWithHandlers
     {
