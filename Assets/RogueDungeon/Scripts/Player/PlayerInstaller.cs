@@ -15,13 +15,14 @@ namespace RogueDungeon.Player
     
         public override void InstallBindings()
         {
-            var commands = new Commands.Commands();
+            var commandsReader = new CommandsReader();
             
             var idleState = new IdleState();
             idleState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IIdleAnimation>(_idleAnimation));
             
             var walkState = new WalkState();
             walkState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IWalkAnimation>(_walkAnimation));
+            walkState.AddAllHandlerInterfaces(new WalkAnimationKeyframesSoundHandler(_walkAnimation));
 
             var dodgeRightState = new DodgeRightState(_dodgeRightAnimation);
             dodgeRightState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IDodgeAnimation>(_dodgeRightAnimation));
@@ -29,10 +30,10 @@ namespace RogueDungeon.Player
             var dodgeLeftState = new DodgeLeftState(_dodgeLeftAnimation);
             dodgeLeftState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IDodgeAnimation>(_dodgeLeftAnimation));
         
-            var hasWalkInputCondition = new HasInputCondition(commands, Command.MoveForward);
+            var hasWalkInputCondition = new HasInputCondition(commandsReader, Command.MoveForward);
             var doesNotHaveWalkInputCondition = new Negator(hasWalkInputCondition);
-            var hasDodgeRightInputCondition = new HasInputCondition(commands, Command.DodgeRight);
-            var hasDodgeLeftInputCondition = new HasInputCondition(commands, Command.DodgeLeft);
+            var hasDodgeRightInputCondition = new HasInputCondition(commandsReader, Command.DodgeRight);
+            var hasDodgeLeftInputCondition = new HasInputCondition(commandsReader, Command.DodgeLeft);
 
             var stateMachineBuilder = new StateMachineBuilder();
             stateMachineBuilder.AddState(walkState);

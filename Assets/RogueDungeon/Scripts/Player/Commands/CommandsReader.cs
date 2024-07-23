@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RogueDungeon.Player.Commands
 {
-    public class Commands : ICommandsProvider
+    public class CommandsReader : ICommandsProvider
     {
         public bool HasCommand(Command command) => 
             Input.GetKey(command switch

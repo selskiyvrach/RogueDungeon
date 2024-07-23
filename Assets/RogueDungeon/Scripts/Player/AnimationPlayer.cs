@@ -1,4 +1,7 @@
-﻿using RogueDungeon.StateMachine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using RogueDungeon.StateMachine;
 using UnityEngine;
 
 namespace RogueDungeon.Player
@@ -9,6 +12,14 @@ namespace RogueDungeon.Player
         [SerializeField] private GameObject _target;
         [SerializeField] private bool _loop;
         
+        private struct EventData
+        {
+            public int Index;
+            public float Time;
+        }
+        
+        private readonly Stack<EventData> _animationEvents = new();
+        
         private float _playTime;
         private bool _isPlaying;
 
@@ -18,6 +29,7 @@ namespace RogueDungeon.Player
         {
             _isPlaying = true;
             _playTime = 0;
+            PrepareEvents();
             UpdatePlayback();
         }
 
@@ -31,18 +43,48 @@ namespace RogueDungeon.Player
             
             _playTime += UnityEngine.Time.deltaTime;
             UpdatePlayback();
+            CheckAndFireEvents();
+        }
+
+        private void CheckAndFireEvents()
+        {
+            if(!_animationEvents.TryPeek(out var @event))
+                return;
+            if (@event.Time < _playTime - UnityEngine.Time.deltaTime * .5f)
+                OnEvent(_animationEvents.Pop().Index);
+        }
+
+        protected virtual void OnEvent(int eventIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PrepareEvents()
+        {
+            _animationEvents.Clear();
+            for (var i = _animationClip.events.Length - 1; i >= 0; i--) 
+                _animationEvents.Push(new EventData { Time = _animationClip.events[i].time, Index = i});
         }
 
         private void UpdatePlayback()
         {
             _animationClip.SampleAnimation(_target, _playTime);
-            if (!IsFinished) 
-                return;
             
+            if (!IsFinished)
+                return;
+
             if (_loop)
+            {
                 _playTime = 0;
+                PrepareEvents();
+            }
             else
+            {
+                while (_animationEvents.Any()) 
+                    OnEvent(_animationEvents.Pop().Index); 
                 Stop();
+            }
+
         }
     }
 }

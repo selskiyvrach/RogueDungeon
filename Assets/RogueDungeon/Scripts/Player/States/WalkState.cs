@@ -1,4 +1,5 @@
 ﻿using RogueDungeon.StateMachine;
+using UnityEngine;
 
 namespace RogueDungeon.Player.States
 {
@@ -48,7 +49,7 @@ namespace RogueDungeon.Player.States
 
         protected override void HandleStep()
         {
-            
+            Debug.Log("On step keyframe");
         }
     }
 }
