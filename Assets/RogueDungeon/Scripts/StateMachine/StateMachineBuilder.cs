@@ -1,13 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine.Assertions;
+﻿using UnityEngine.Assertions;
 
 namespace RogueDungeon.StateMachine
 {
-    public interface IStateHandlersProvider
-    {
-        IEnumerable<IStateHandler> GetHandlers();
-    }
-
     public class StateMachineBuilder
     {
         private readonly StatesContainer _statesContainer = new();
@@ -29,23 +23,43 @@ namespace RogueDungeon.StateMachine
         }
 
         public void AddTransitionToState<TTo>(ICondition condition) where TTo : IState=> 
-            _transitionsContainer.Add(new Transition<TTo>(condition));
+            _transitionsContainer.Add(new TransitionToStateOfType<TTo>(condition));
+        
+        public void AddTransitionToState(IState state, ICondition condition) => 
+            _transitionsContainer.Add(new TransitionToState(state, condition));
         
         public void AddTransitionFromToState<TFrom, TTo>(ICondition condition) where TFrom : IState where TTo : IState =>  
-            AddTransitionToState<TTo>(new CompositeCondition(condition, new IsInStateCondition<TFrom>(_stateMachine)));
+            AddTransitionToState<TTo>(new IfAllCondition(condition, new IsInStateOfTypeCondition<TFrom>(_stateMachine)));
+        
+        public void AddTransitionFromToState(IState from, IState to, ICondition condition) =>  
+            AddTransitionToState(to, new IfAllCondition(condition, new IsInStateCondition(_stateMachine, from)));
         
         public void AddTransitionFromFinishedState<TFrom, TTo>(ICondition condition = null) where TFrom : IState where TTo : IState
         {
             var finalCondition = condition != null
-                ? new CompositeCondition(
+                ? new IfAllCondition(
                     condition,
-                    new IsInStateCondition<TFrom>(_stateMachine),
+                    new IsInStateOfTypeCondition<TFrom>(_stateMachine),
                     new IsCurrentStateFinishedCondition(_stateMachine))
-                : new CompositeCondition(
-                    new IsInStateCondition<TFrom>(_stateMachine),
+                : new IfAllCondition(
+                    new IsInStateOfTypeCondition<TFrom>(_stateMachine),
                     new IsCurrentStateFinishedCondition(_stateMachine));
                 
             AddTransitionToState<TTo>(finalCondition);
+        }
+        
+        public void AddTransitionFromFinishedState(IState from, IState to, ICondition condition = null)
+        {
+            var finalCondition = condition != null
+                ? new IfAllCondition(
+                    condition,
+                    new IsInStateCondition(_stateMachine, from),
+                    new IsCurrentStateFinishedCondition(_stateMachine))
+                : new IfAllCondition(
+                    new IsInStateCondition(_stateMachine, from),
+                    new IsCurrentStateFinishedCondition(_stateMachine));
+                
+            AddTransitionToState(to, finalCondition);
         }
 
         public void SetStartState(IState state) => 

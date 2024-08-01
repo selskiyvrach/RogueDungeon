@@ -1,19 +1,17 @@
-using System;
-
-namespace RogueDungeon.StateMachine
+﻿namespace RogueDungeon.StateMachine
 {
-    public class IsInStateCondition<T> : ICondition where T : IState
+    public class IsInStateCondition : ICondition
     {
         private readonly ICurrentStateProvider _currentStateProvider;
-        private readonly Type _targetType;
+        private readonly IState _targetState;
 
-        public IsInStateCondition(ICurrentStateProvider currentStateProvider)
+        public IsInStateCondition(ICurrentStateProvider currentStateProvider, IState targetState)
         {
             _currentStateProvider = currentStateProvider;
-            _targetType = typeof(T);
+            _targetState = targetState;
         }
 
         public bool IsMet() => 
-            _currentStateProvider.CurrentState.GetType() == _targetType;
+            _currentStateProvider.CurrentState == _targetState;
     }
 }

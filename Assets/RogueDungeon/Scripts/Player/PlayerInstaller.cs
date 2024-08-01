@@ -8,15 +8,15 @@ namespace RogueDungeon.Player
 {
     public class PlayerInstaller : MonoInstaller
     {
+        [SerializeField] private CommandsReader _commandsReader;
         [SerializeField] private WalkAnimationPlayer _walkAnimation;
         [SerializeField] private IdleAnimationPlayer _idleAnimation;
         [SerializeField] private DodgeRightAnimationPlayer _dodgeRightAnimation;
         [SerializeField] private DodgeLeftAnimationPlayer _dodgeLeftAnimation;
-    
+        [SerializeField] private TestComboCreator _testComboCreator;
+        
         public override void InstallBindings()
         {
-            var commandsReader = new CommandsReader();
-            
             var idleState = new IdleState();
             idleState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IIdleAnimation>(_idleAnimation));
             
@@ -30,10 +30,11 @@ namespace RogueDungeon.Player
             var dodgeLeftState = new DodgeLeftState(_dodgeLeftAnimation);
             dodgeLeftState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IDodgeAnimation>(_dodgeLeftAnimation));
         
-            var hasWalkInputCondition = new HasInputCondition(commandsReader, Command.MoveForward);
+            var hasWalkInputCondition = new HasInputCondition(_commandsReader, Command.MoveForward);
             var doesNotHaveWalkInputCondition = new Negator(hasWalkInputCondition);
-            var hasDodgeRightInputCondition = new HasInputCondition(commandsReader, Command.DodgeRight);
-            var hasDodgeLeftInputCondition = new HasInputCondition(commandsReader, Command.DodgeLeft);
+            var hasDodgeRightInputCondition = new HasInputCondition(_commandsReader, Command.DodgeRight);
+            var hasDodgeLeftInputCondition = new HasInputCondition(_commandsReader, Command.DodgeLeft);
+            var hasAttackInputCondition = new HasInputCondition(_commandsReader, Command.Attack);
 
             var stateMachineBuilder = new StateMachineBuilder();
             stateMachineBuilder.AddState(walkState);
@@ -50,6 +51,13 @@ namespace RogueDungeon.Player
             
             stateMachineBuilder.AddTransitionFromToState<IdleState, DodgeLeftState>(hasDodgeLeftInputCondition);
             stateMachineBuilder.AddTransitionFromFinishedState<DodgeLeftState, IdleState>();
+
+            _testComboCreator.Construct(_commandsReader, _commandsReader);
+            var attackState = new AttackComboState(_testComboCreator);
+            stateMachineBuilder.AddState(attackState);
+            
+            stateMachineBuilder.AddTransitionFromToState<IdleState, AttackComboState>(hasAttackInputCondition);
+            stateMachineBuilder.AddTransitionFromFinishedState<AttackComboState, IdleState>();
 
             var player = new Player(stateMachineBuilder.Build());
             Container.Bind<Player>().To<Player>().FromInstance(player);

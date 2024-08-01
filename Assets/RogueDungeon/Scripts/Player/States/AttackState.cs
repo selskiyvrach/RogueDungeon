@@ -1,70 +1,52 @@
 ﻿using System;
+using RogueDungeon.Player.Commands;
 using RogueDungeon.StateMachine;
+using UnityEngine.Assertions;
 
 namespace RogueDungeon.Player.States
 {
-    // public class AttackInfo
-    // {
-    //     
-    // }
-    //
-    // public interface IAttackAnimation
-    // {
-    //     event Action OnHitKeyframe;
-    // }
-    //
-    // public class DeadState : IState, IEnterable
-    // {
-    //     public void Enter()
-    //     {
-    //         
-    //     }
-    // }
-    //
-    // public interface IAttackComboInfoProvider
-    // {
-    //     bool TryGetNext(out AttackInfo attackInfo);
-    //     void Reset();
-    // }
-    //
-    // public class AttackState : IState, IFinishable, IEnterable
-    // {
-    //     private readonly IAttackComboInfoProvider _comboInfoProvider;
-    //     private int _attacksInSuccessionCount;
-    //     
-    //     public bool IsFinished { get; private set; }
-    //
-    //     public void Enter()
-    //     {
-    //         _comboInfoProvider.Reset();
-    //         _attacksInSuccessionCount = 0;
-    //         StartNextAttack();
-    //     }
-    //
-    //     private void StartNextAttack()
-    //     {
-    //         if (!_comboInfoProvider.TryGetNext(out var info))
-    //         {
-    //             IsFinished = true;
-    //             return;
-    //         }
-    //         
-    //     }
-    // }
-    //
-    //
-    // public class DodgeLeftState : IState, IFinishable
-    // {
-    //     public bool IsFinished { get; }
-    // }
-    //
-    // public class DodgeRightState : IState, IFinishable
-    // {
-    //     public bool IsFinished { get; }
-    // }
-    //
-    // public class BlockState : IState, IFinishable
-    // {
-    //     public bool IsFinished { get; }
-    // }
+    public class AttackState : FinishableByAnimationState<IAttackAnimation>
+    {
+        public AttackState(IAttackAnimation animation) : base(animation)
+        {
+        }
+    }
+    
+    public class SwingState : FinishableByAnimationState<ISwingAnimation>
+    {
+        public SwingState(ISwingAnimation animation) : base(animation)
+        {
+        }
+    }
+
+    public class SwingAnimation : AnimationPlayer, ISwingAnimation
+    {
+        
+    }
+
+    public class AttackAnimation : AnimationPlayer, IAttackAnimation
+    {
+        public event Action OnHitKeyframe;
+
+        protected override void OnEvent(int eventIndex)
+        {
+            Assert.AreEqual(eventIndex, 0);
+            
+        }
+    }
+
+    public class ConsumeCommandStateEnterHandler : IStateEnterHandler
+    {
+        private readonly ICommandsConsumer _commandsConsumer;
+        private readonly Command _command;
+
+        public ConsumeCommandStateEnterHandler(ICommandsConsumer commandsConsumer, Command command)
+        {
+            _commandsConsumer = commandsConsumer;
+            _command = command;
+        }
+
+        public void OnEnter() => 
+            _commandsConsumer.ConsumeCommandIfCurrent(_command);
+    }
 }

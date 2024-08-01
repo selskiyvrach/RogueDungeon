@@ -9,22 +9,14 @@ namespace RogueDungeon.StateMachine
         private List<IStateTickHandler> _stateTickHandlers;
         private List<IStateExitHandler> _stateExitHandlers;
 
-        /// <summary>
-        /// Adds handles as a specific interface derived from IStateHandler
-        /// </summary>
-        public void AddHandlerInterface<T>(T handler) where T : IStateHandler
-        {
-            var type = typeof(T);
-
-            if (type == typeof(IStateEnterHandler))
-                (_stateEnterHandlers ??= new List<IStateEnterHandler>()).Add((IStateEnterHandler)handler);
-            else if(type == typeof(IStateTickHandler))
-                (_stateTickHandlers ??= new List<IStateTickHandler>()).Add((IStateTickHandler)handler);
-            else if(type == typeof(IStateExitHandler)) 
-                (_stateExitHandlers ??= new List<IStateExitHandler>()).Add((IStateExitHandler)handler);
-            else
-                throw new Exception("Handler type has not been specified");
-        }
+        public void AddStateEnterHandler(IStateEnterHandler handler) => 
+            (_stateEnterHandlers ??= new List<IStateEnterHandler>()).Add(handler);
+        
+        public void AddStateExitHandler(IStateExitHandler handler) => 
+            (_stateExitHandlers ??= new List<IStateExitHandler>()).Add(handler);
+        
+        public void AddStateTickHandler(IStateTickHandler handler) => 
+            (_stateTickHandlers ??= new List<IStateTickHandler>()).Add(handler);
         
         /// <summary>
         /// Adds handler as all of its handler interfaces
@@ -32,11 +24,11 @@ namespace RogueDungeon.StateMachine
         public void AddAllHandlerInterfaces(IStateHandler handler)
         {
             if(handler is IStateEnterHandler enterHandler)
-                AddHandlerInterface(enterHandler);
+                AddStateEnterHandler(enterHandler);
             if(handler is IStateTickHandler tickHandler)
-                AddHandlerInterface(tickHandler);
+                AddStateTickHandler(tickHandler);
             if(handler is IStateExitHandler exitHandler) 
-                AddHandlerInterface(exitHandler);
+                AddStateExitHandler(exitHandler);
         }
         
         public bool RemoveHandler<T>(T handler) where T : IStateHandler =>
@@ -48,7 +40,7 @@ namespace RogueDungeon.StateMachine
                 _ => false
             };
 
-        public void Enter()
+        public virtual void Enter()
         {
             if(_stateEnterHandlers == null || _stateEnterHandlers.Count == 0)
                 return;
@@ -57,7 +49,7 @@ namespace RogueDungeon.StateMachine
                 handler.OnEnter();
         }
 
-        public void Exit()
+        public virtual void Exit()
         {
             if(_stateExitHandlers == null || _stateExitHandlers.Count == 0)
                 return;
@@ -66,7 +58,7 @@ namespace RogueDungeon.StateMachine
                 handler.OnExit();
         }
 
-        public void Tick()
+        public virtual void Tick()
         {
             if(_stateTickHandlers == null || _stateTickHandlers.Count == 0)
                 return;

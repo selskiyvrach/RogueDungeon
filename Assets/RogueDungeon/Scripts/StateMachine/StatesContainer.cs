@@ -1,50 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RogueDungeon.StateMachine
 {
     public class StatesContainer
     {
         private IState _startState;
-        private readonly Dictionary<Type, IState> _states = new();
+        private readonly HashSet<IState> _states = new();
 
         public void SetStartState(IState startState) => 
             _startState = startState;
 
         public void AddState(IState state) => 
-            _states[state.GetType()] = state;
+            _states.Add(state);
 
         public IState GetStartState() => 
             _startState;
 
         public IState GetState(Type stateType) => 
-            _states[stateType];
-    }
+            _states.FirstOrDefault(n => n.GetType() == stateType);
 
-    public class Transitions : List<Transition>
-    {
-    }
-
-    public class TransitionsContainer
-    {
-        private readonly Transitions _transitions = new();
-
-        public void Add(Transition transition) => 
-            _transitions.Add(transition);
-
-        public bool CanTransitTo(out Type stateType)
-        {
-            stateType = null;
-            
-            foreach (var transition in _transitions)
-            {
-                if(!transition.Condition.IsMet())
-                    continue;
-                stateType = transition.To;
-                break;
-            }
-
-            return stateType != null;
-        }
+        /// <summary>
+        /// Use to make sure that said state belongs to this sets set
+        /// </summary>
+        public IState GetState(IState requiredState) =>
+            _states.FirstOrDefault(n => n == requiredState);
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -9,7 +8,7 @@ namespace RogueDungeon.StateMachine
     {
         private readonly StatesContainer _statesContainer;
         private readonly TransitionsContainer _transitionsContainer;
-        private readonly HashSet<Type> _transitionsThisFrame = new();
+        private readonly HashSet<IState> _transitionsThisFrame = new();
         private IState _currentState;
         private bool _isRunning;
 
@@ -26,26 +25,32 @@ namespace RogueDungeon.StateMachine
             Assert.IsFalse(_isRunning);
             SwitchToState(_statesContainer.GetStartState());
             _isRunning = true;
+            ProcessTransitions();
         }
 
         public void Tick()
         {
             Assert.IsTrue(_isRunning);
+            (_currentState as ITickable)?.Tick();
+            
+            ProcessTransitions();
+        }
+
+        private void ProcessTransitions()
+        {
             _transitionsThisFrame.Clear();
             while (true)
             {
-                if (!_transitionsContainer.CanTransitTo(out var newStateType))
+                if (!_transitionsContainer.CanTransition(_statesContainer, out var newState))
                     break;
                 
-                if (!_transitionsThisFrame.Add(newStateType))
+                if (!_transitionsThisFrame.Add(newState))
                 {
-                    Debug.LogError("Infinite transition cycle detected: " + string.Join(" -> ", _transitionsThisFrame) + " " + newStateType);
+                    Debug.LogError("Infinite transition cycle detected: " + string.Join(" -> ", _transitionsThisFrame) + " " + newState);
                     break;
                 }
-                SwitchToState(_statesContainer.GetState(newStateType));
+                SwitchToState(newState);
             }
-            
-            (_currentState as ITickable)?.Tick();
         }
 
         public void Stop()
