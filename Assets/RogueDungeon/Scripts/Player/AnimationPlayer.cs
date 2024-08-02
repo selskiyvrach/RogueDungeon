@@ -56,7 +56,6 @@ namespace RogueDungeon.Player
 
         protected virtual void OnEvent(int eventIndex)
         {
-            throw new NotImplementedException();
         }
 
         private void PrepareEvents()
