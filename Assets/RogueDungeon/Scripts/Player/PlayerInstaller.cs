@@ -26,9 +26,11 @@ namespace RogueDungeon.Player
 
             var dodgeRightState = new DodgeRightState(_dodgeRightAnimation);
             dodgeRightState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IDodgeAnimation>(_dodgeRightAnimation));
+            dodgeRightState.AddStateEnterHandler(new ConsumeCommandStateEnterHandler(_commandsReader, Command.DodgeRight));
             
             var dodgeLeftState = new DodgeLeftState(_dodgeLeftAnimation);
             dodgeLeftState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IDodgeAnimation>(_dodgeLeftAnimation));
+            dodgeLeftState.AddStateEnterHandler(new ConsumeCommandStateEnterHandler(_commandsReader, Command.DodgeLeft));
         
             var hasWalkInputCondition = new HasInputCondition(_commandsReader, Command.MoveForward);
             var doesNotHaveWalkInputCondition = new Negator(hasWalkInputCondition);

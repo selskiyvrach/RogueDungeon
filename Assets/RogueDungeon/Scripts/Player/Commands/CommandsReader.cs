@@ -7,7 +7,6 @@ namespace RogueDungeon.Player.Commands
     {
         private readonly Dictionary<Command, KeyCode> _commandCodes = new ()
         {
-            [Command.MoveForward] = KeyCode.W,
             [Command.Attack] = KeyCode.Mouse0,
             [Command.DodgeLeft] = KeyCode.A,
             [Command.DodgeRight] = KeyCode.D,
@@ -18,9 +17,14 @@ namespace RogueDungeon.Player.Commands
 
         private void Update()
         {
+            if (_currentCommand == Command.MoveForward)
+                _currentCommand = null;
+            if (Input.GetKey(KeyCode.W))
+                _currentCommand = Command.MoveForward;
+            
             foreach (var (command, keyCode) in _commandCodes)
             {
-                if (Input.GetKey(keyCode))
+                if (Input.GetKeyDown(keyCode))
                     _currentCommand = command;
             }
         }
