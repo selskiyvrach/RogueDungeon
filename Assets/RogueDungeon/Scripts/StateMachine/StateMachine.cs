@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
+using RogueDungeon.Logging;
 using UnityEngine.Assertions;
 
 namespace RogueDungeon.StateMachine
 {
-    public class StateMachine : ICurrentStateProvider
+    public class StateMachine : ICurrentStateProvider, IDebugName
     {
         private readonly StatesContainer _statesContainer;
         private readonly TransitionsContainer _transitionsContainer;
@@ -13,7 +13,9 @@ namespace RogueDungeon.StateMachine
         private bool _isRunning;
 
         public IState CurrentState => _currentState;
-        
+
+        public string DebugName { get; set; }
+
         public StateMachine(StatesContainer statesContainer, TransitionsContainer transitionsContainer)
         {
             _statesContainer = statesContainer;
@@ -46,7 +48,7 @@ namespace RogueDungeon.StateMachine
                 
                 if (!_transitionsThisFrame.Add(newState))
                 {
-                    Debug.LogError("Infinite transition cycle detected: " + string.Join(" -> ", _transitionsThisFrame) + " " + newState);
+                    Logger.LogError(this, "Infinite transition cycle detected: " + string.Join(" -> ", _transitionsThisFrame) + " " + newState);
                     break;
                 }
                 SwitchToState(newState);
@@ -65,7 +67,7 @@ namespace RogueDungeon.StateMachine
             ExitCurrentState();
             _currentState = newState;
             (_currentState as IEnterable)?.Enter();
-            Debug.Log("[State]: " + _currentState.GetType().Name);
+            Logger.Log(this, "Switched to state {0}", _currentState);
         }
 
         private void ExitCurrentState() => 

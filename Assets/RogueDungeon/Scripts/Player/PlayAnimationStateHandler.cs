@@ -2,11 +2,11 @@
 
 namespace RogueDungeon.Player
 {
-    public class PlayAnimationStateHandler<TAnimation> : IStateEnterHandler, IStateExitHandler where TAnimation : IAnimation
+    public class PlayAnimationStateHandler : IStateEnterHandler, IStateExitHandler
     {
-        private TAnimation _animation;
+        private readonly IAnimation _animation;
 
-        public PlayAnimationStateHandler(TAnimation animation) =>
+        public PlayAnimationStateHandler(IAnimation animation) => 
             _animation = animation;
 
         public void OnEnter() => 
@@ -14,5 +14,12 @@ namespace RogueDungeon.Player
 
         public void OnExit() => 
             _animation.Stop();
+    }
+
+    public class PlayAnimationStateHandler<TAnimation> : PlayAnimationStateHandler where TAnimation : IAnimation
+    {
+        public PlayAnimationStateHandler(TAnimation animation) : base(animation)
+        {
+        }
     }
 }

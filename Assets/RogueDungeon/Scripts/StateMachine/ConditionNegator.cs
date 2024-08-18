@@ -1,10 +1,10 @@
 namespace RogueDungeon.StateMachine
 {
-    public class Negator : ICondition
+    public class ConditionNegator : ICondition
     {
         private readonly ICondition _condition;
 
-        public Negator(ICondition condition) => 
+        public ConditionNegator(ICondition condition) => 
             _condition = condition;
 
         public bool IsMet() => 

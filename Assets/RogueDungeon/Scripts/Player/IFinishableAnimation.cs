@@ -2,7 +2,7 @@
 
 namespace RogueDungeon.Player
 {
-    public interface ISwingAnimation : IAnimation, IFinishable
+    public interface IFinishableAnimation : IAnimation, IFinishable
     {
         
     }

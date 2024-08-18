@@ -10,7 +10,6 @@ namespace RogueDungeon.Player.Commands
             [Command.Attack] = KeyCode.Mouse0,
             [Command.DodgeLeft] = KeyCode.A,
             [Command.DodgeRight] = KeyCode.D,
-            [Command.Block] = KeyCode.Mouse1,
         };
 
         private Command? _currentCommand;
@@ -27,6 +26,9 @@ namespace RogueDungeon.Player.Commands
                 if (Input.GetKeyDown(keyCode))
                     _currentCommand = command;
             }
+
+            if (Input.GetKey(KeyCode.Mouse1))
+                _currentCommand = Command.Block;
         }
 
         public bool HasCommand(Command command) => 

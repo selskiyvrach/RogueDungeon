@@ -13,30 +13,31 @@ namespace RogueDungeon.Player
         [SerializeField] private IdleAnimationPlayer _idleAnimation;
         [SerializeField] private DodgeRightAnimationPlayer _dodgeRightAnimation;
         [SerializeField] private DodgeLeftAnimationPlayer _dodgeLeftAnimation;
-        [SerializeField] private TestComboCreator _testComboCreator;
+        [SerializeField] private WeaponManipulatorStateMachineCreator _weaponManipulatorStateMachineCreator;
         
         public override void InstallBindings()
         {
-            var idleState = new IdleState();
+            var idleState = new State();
             idleState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IIdleAnimation>(_idleAnimation));
             
-            var walkState = new WalkState();
+            var walkState = new State();
             walkState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IWalkAnimation>(_walkAnimation));
             walkState.AddAllHandlerInterfaces(new WalkAnimationKeyframesSoundHandler(_walkAnimation));
 
-            var dodgeRightState = new DodgeRightState(_dodgeRightAnimation);
+            var dodgeRightState = new FinishableState(_dodgeRightAnimation);
             dodgeRightState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IDodgeAnimation>(_dodgeRightAnimation));
             dodgeRightState.AddStateEnterHandler(new ConsumeCommandStateEnterHandler(_commandsReader, Command.DodgeRight));
             
-            var dodgeLeftState = new DodgeLeftState(_dodgeLeftAnimation);
+            var dodgeLeftState = new FinishableState(_dodgeLeftAnimation);
             dodgeLeftState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IDodgeAnimation>(_dodgeLeftAnimation));
             dodgeLeftState.AddStateEnterHandler(new ConsumeCommandStateEnterHandler(_commandsReader, Command.DodgeLeft));
         
             var hasWalkInputCondition = new HasInputCondition(_commandsReader, Command.MoveForward);
-            var doesNotHaveWalkInputCondition = new Negator(hasWalkInputCondition);
+            var doesNotHaveWalkInputCondition = new ConditionNegator(hasWalkInputCondition);
             var hasDodgeRightInputCondition = new HasInputCondition(_commandsReader, Command.DodgeRight);
             var hasDodgeLeftInputCondition = new HasInputCondition(_commandsReader, Command.DodgeLeft);
             var hasAttackInputCondition = new HasInputCondition(_commandsReader, Command.Attack);
+            var hasBlockInputCondition = new HasInputCondition(_commandsReader, Command.Block);
 
             var stateMachineBuilder = new StateMachineBuilder();
             stateMachineBuilder.AddState(walkState);
@@ -45,21 +46,24 @@ namespace RogueDungeon.Player
             stateMachineBuilder.AddState(dodgeLeftState);
             stateMachineBuilder.SetStartState(idleState);
         
-            stateMachineBuilder.AddTransitionFromToState<IdleState, WalkState>(hasWalkInputCondition);
-            stateMachineBuilder.AddTransitionFromToState<WalkState, IdleState>(doesNotHaveWalkInputCondition);
+            stateMachineBuilder.AddTransitionFromToState(idleState, walkState, hasWalkInputCondition);
+            stateMachineBuilder.AddTransitionFromToState(walkState, idleState, doesNotHaveWalkInputCondition);
             
-            stateMachineBuilder.AddTransitionFromToState<IdleState, DodgeRightState>(hasDodgeRightInputCondition);
-            stateMachineBuilder.AddTransitionFromFinishedState<DodgeRightState, IdleState>();
+            stateMachineBuilder.AddTransitionFromToState(idleState, dodgeRightState, hasDodgeRightInputCondition);
+            stateMachineBuilder.AddTransitionFromFinishedState(dodgeRightState, idleState);
             
-            stateMachineBuilder.AddTransitionFromToState<IdleState, DodgeLeftState>(hasDodgeLeftInputCondition);
-            stateMachineBuilder.AddTransitionFromFinishedState<DodgeLeftState, IdleState>();
+            stateMachineBuilder.AddTransitionFromToState(idleState, dodgeLeftState, hasDodgeLeftInputCondition);
+            stateMachineBuilder.AddTransitionFromFinishedState(dodgeLeftState, idleState);
 
-            _testComboCreator.Construct(_commandsReader, _commandsReader);
-            var attackState = new AttackComboState(_testComboCreator);
+            _weaponManipulatorStateMachineCreator.Construct(_commandsReader, _commandsReader);
+            var attackState = new EquipmentManipulationState(_weaponManipulatorStateMachineCreator);
             stateMachineBuilder.AddState(attackState);
             
-            stateMachineBuilder.AddTransitionFromToState<IdleState, AttackComboState>(hasAttackInputCondition);
-            stateMachineBuilder.AddTransitionFromFinishedState<AttackComboState, IdleState>();
+            stateMachineBuilder.AddTransitionFromToState(idleState, attackState, hasAttackInputCondition);
+            stateMachineBuilder.AddTransitionFromToState(idleState, attackState, hasBlockInputCondition);
+            stateMachineBuilder.AddTransitionFromFinishedState(attackState, idleState);
+            
+            stateMachineBuilder.SetDebugName("Player root state machine");
 
             var player = new Player(stateMachineBuilder.Build());
             Container.Bind<Player>().To<Player>().FromInstance(player);

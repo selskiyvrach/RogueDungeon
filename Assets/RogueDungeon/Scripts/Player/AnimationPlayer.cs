@@ -1,29 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using RogueDungeon.Logging;
 using RogueDungeon.StateMachine;
 using UnityEngine;
 
 namespace RogueDungeon.Player
 {
-    public abstract class AnimationPlayer : MonoBehaviour, IAnimation, IFinishable
+    public class AnimationPlayer : MonoBehaviour, IAnimation, IFinishable, IDebugName
     {
         [SerializeField] private AnimationClip _animationClip;
         [SerializeField] private GameObject _target;
         [SerializeField] private bool _loop;
-        
+
+        public string DebugName => $"[Animation player] animation name: {_animationClip?.name}";
+
         private struct EventData
         {
             public int Index;
             public float Time;
         }
-        
+
         private readonly Stack<EventData> _animationEvents = new();
-        
+
         private float _playTime;
         private bool _isPlaying;
 
         public bool IsFinished => _playTime >= _animationClip.length;
+
 
         public void Play()
         {

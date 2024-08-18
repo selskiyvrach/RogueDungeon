@@ -1,34 +1,28 @@
 ﻿using RogueDungeon.StateMachine;
+using ITickable = RogueDungeon.StateMachine.ITickable;
 
 namespace RogueDungeon.Player.States
 {
-    public class AttackComboState : StateWithHandlers, IFinishableState
+    public class EquipmentManipulationState : IFinishableState, IEnterable, IExitable, ITickable
     {
-        private readonly TestComboCreator _comboCreator;
+        private readonly WeaponManipulatorStateMachineCreator _comboCreator;
         
         private IFinishableState _combo;
         public bool IsFinished => _combo.IsFinished;
 
-        public AttackComboState(TestComboCreator comboCreator) => 
+        public EquipmentManipulationState(WeaponManipulatorStateMachineCreator comboCreator) => 
             _comboCreator = comboCreator;
 
-        public override void Enter()
+        public void Enter()
         {
-            base.Enter();
             _combo = _comboCreator.GetCombo();
             (_combo as IEnterable)?.Enter();
         }
 
-        public override void Exit()
-        {
-            base.Exit();
+        public void Exit() => 
             (_combo as IExitable)?.Exit();
-        }
 
-        public override void Tick()
-        {
-            base.Tick();
+        public void Tick() => 
             (_combo as ITickable)?.Tick();
-        }
     }
 }

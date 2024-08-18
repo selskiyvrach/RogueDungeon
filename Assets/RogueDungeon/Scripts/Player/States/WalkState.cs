@@ -3,11 +3,6 @@ using UnityEngine;
 
 namespace RogueDungeon.Player.States
 {
-    public class WalkState : StateWithHandlers
-    {
-        
-    }
-
     public abstract class WalkAnimationKeyframesHandler : IStateEnterHandler, IStateExitHandler
     {
         private readonly IWalkAnimation _walkAnimation;

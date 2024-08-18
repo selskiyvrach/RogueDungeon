@@ -5,7 +5,7 @@
         private readonly IFinishableSetter _finishableSetter;
         private readonly bool _value;
  
-        public SetFinishableStateEnterHandler(IFinishableSetter finishableSetter, bool value = true)
+        public SetFinishableStateEnterHandler(IFinishableSetter finishableSetter, bool value)
         {
             _finishableSetter = finishableSetter;
             _value = value;

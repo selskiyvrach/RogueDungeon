@@ -1,8 +1,16 @@
-﻿namespace RogueDungeon.StateMachine
+﻿using RogueDungeon.Logging;
+
+namespace RogueDungeon.StateMachine
 {
-    public class StateMachineToIStateAdapter : IState, IExitable, IEnterable, ITickable
+    public class StateMachineToIStateAdapter : IState, IExitable, IEnterable, ITickable, IDebugName
     {
         private readonly StateMachine _stateMachine;
+
+        public string DebugName
+        {
+            get => _stateMachine.DebugName;
+            set => _stateMachine.DebugName = value;
+        }
 
         public StateMachineToIStateAdapter(StateMachine stateMachine) => 
             _stateMachine = stateMachine;
