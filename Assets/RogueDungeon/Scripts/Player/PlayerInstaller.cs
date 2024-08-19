@@ -17,18 +17,18 @@ namespace RogueDungeon.Player
         
         public override void InstallBindings()
         {
-            var idleState = new State();
+            var idleState = new State {DebugName = "Idle state"};
             idleState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IIdleAnimation>(_idleAnimation));
             
-            var walkState = new State();
+            var walkState = new State {DebugName = "Walk state"};
             walkState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IWalkAnimation>(_walkAnimation));
             walkState.AddAllHandlerInterfaces(new WalkAnimationKeyframesSoundHandler(_walkAnimation));
 
-            var dodgeRightState = new FinishableState(_dodgeRightAnimation);
+            var dodgeRightState = new FinishableState(_dodgeRightAnimation){DebugName = "Dodge right state"};
             dodgeRightState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IDodgeAnimation>(_dodgeRightAnimation));
             dodgeRightState.AddStateEnterHandler(new ConsumeCommandStateEnterHandler(_commandsReader, Command.DodgeRight));
             
-            var dodgeLeftState = new FinishableState(_dodgeLeftAnimation);
+            var dodgeLeftState = new FinishableState(_dodgeLeftAnimation){DebugName = "Dodge left state"};
             dodgeLeftState.AddAllHandlerInterfaces(new PlayAnimationStateHandler<IDodgeAnimation>(_dodgeLeftAnimation));
             dodgeLeftState.AddStateEnterHandler(new ConsumeCommandStateEnterHandler(_commandsReader, Command.DodgeLeft));
         

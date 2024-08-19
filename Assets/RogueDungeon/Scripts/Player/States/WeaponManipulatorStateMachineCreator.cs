@@ -30,7 +30,7 @@ namespace RogueDungeon.Player.States
         {
             var builder = new StateMachineBuilder();
             
-            var idleState = new State();
+            var idleState = new State {DebugName = "Equipment idle state"};
             builder.AddState(idleState);
             builder.SetStartState(idleState);
             
@@ -51,7 +51,7 @@ namespace RogueDungeon.Player.States
             for (var i = 0; i < _attackAnimations.Length; i++)
             {
                 var anim = _attackAnimations[i];
-                var state = attackStates[i] = new FinishableState(anim) {DebugName = $"Attack {i} state"};
+                var state = attackStates[i] = new FinishableState(anim) {DebugName = $"Attack{i + 1} state"};
                 state.AddStateEnterHandler(new PlayAnimationStateHandler(anim));
                 state.AddStateEnterHandler(consumeAttackCommandHandler);
                 builder.AddState(state);
@@ -93,8 +93,8 @@ namespace RogueDungeon.Player.States
 
             // FINISHING LOGIC
             var finishedToken = new IsFinishedToken();
-            idleToAttackState.AddStateEnterHandler(new SetFinishableStateEnterHandler(finishedToken, false));
-            idleState.AddStateEnterHandler(new SetFinishableStateEnterHandler(finishedToken, true));
+            idleState.AddStateEnterHandler(new FinishableSetterStateEnterHandler(finishedToken, true));
+            idleState.AddStateExitHandler(new FinishableSetterStateExitHandler(finishedToken, false));
             // FINISHING LOGIC END
             
             return new StateMachineToFinishableStateAdapter(builder.Build(), finishedToken) {DebugName = "Weapon manipulation state"};

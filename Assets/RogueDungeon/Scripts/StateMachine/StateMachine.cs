@@ -66,8 +66,8 @@ namespace RogueDungeon.StateMachine
         {
             ExitCurrentState();
             _currentState = newState;
-            (_currentState as IEnterable)?.Enter();
             Logger.Log(this, "Switched to state {0}", _currentState);
+            (_currentState as IEnterable)?.Enter();
         }
 
         private void ExitCurrentState() => 

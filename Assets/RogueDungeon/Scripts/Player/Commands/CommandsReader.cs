@@ -16,17 +16,20 @@ namespace RogueDungeon.Player.Commands
 
         private void Update()
         {
+            // walk input
             if (_currentCommand == Command.MoveForward)
                 _currentCommand = null;
             if (Input.GetKey(KeyCode.W))
                 _currentCommand = Command.MoveForward;
             
+            // other inputs
             foreach (var (command, keyCode) in _commandCodes)
             {
                 if (Input.GetKeyDown(keyCode))
                     _currentCommand = command;
             }
 
+            // block input
             if (Input.GetKey(KeyCode.Mouse1))
                 _currentCommand = Command.Block;
         }
