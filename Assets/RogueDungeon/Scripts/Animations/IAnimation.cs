@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Player
+﻿namespace RogueDungeon.Animations
 {
     public interface IAnimation
     {

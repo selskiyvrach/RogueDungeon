@@ -19,6 +19,9 @@ namespace RogueDungeon.Logging
         public static void LogError(object sender, string message, params object[] arguments) => 
             SendToLogging(CreateResultMessage(sender, message, arguments), LogType.Error);
 
+        public static void LogWarning(object sender, string message, params object[] arguments) => 
+            SendToLogging(CreateResultMessage(sender, message, arguments), LogType.Warning);
+
         private static string CreateResultMessage(object sender, string message, params object[] arguments)
         {
             Builder.Clear();

@@ -1,4 +1,5 @@
-﻿using RogueDungeon.StateMachine;
+﻿using RogueDungeon.Animations;
+using RogueDungeon.StateMachine;
 
 namespace RogueDungeon.Player
 {
@@ -14,12 +15,5 @@ namespace RogueDungeon.Player
 
         public void OnExit() => 
             _animation.Stop();
-    }
-
-    public class PlayAnimationStateHandler<TAnimation> : PlayAnimationStateHandler where TAnimation : IAnimation
-    {
-        public PlayAnimationStateHandler(TAnimation animation) : base(animation)
-        {
-        }
     }
 }

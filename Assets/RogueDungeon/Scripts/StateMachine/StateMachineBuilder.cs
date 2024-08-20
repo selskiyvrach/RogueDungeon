@@ -1,4 +1,5 @@
-﻿using UnityEngine.Assertions;
+﻿using RogueDungeon.Player;
+using UnityEngine.Assertions;
 
 namespace RogueDungeon.StateMachine
 {
@@ -23,16 +24,16 @@ namespace RogueDungeon.StateMachine
         public void AddTransitionFromToState(IState from, IState to, ICondition condition) =>  
             AddTransitionToState(to, new IfAllCondition(condition, new IsInStateCondition(_stateMachine, from)));
         
-        public void AddTransitionFromFinishedState(IFinishableState from, IState to, ICondition condition = null)
+        public void AddTransitionWhenFinished(IState from, IState to, IFinishable finishable, ICondition condition = null)
         {
             var finalCondition = condition != null
                 ? new IfAllCondition(
                     condition,
                     new IsInStateCondition(_stateMachine, from),
-                    new IsCurrentStateFinishedCondition(_stateMachine))
+                    new IsFinishedCondition(finishable))
                 : new IfAllCondition(
                     new IsInStateCondition(_stateMachine, from),
-                    new IsCurrentStateFinishedCondition(_stateMachine));
+                    new IsFinishedCondition(finishable));
                 
             AddTransitionToState(to, finalCondition);
         }
