@@ -1,13 +1,8 @@
 ﻿using System;
-using RogueDungeon.Logging;
+using RogueDungeon.DebugTools;
 
 namespace RogueDungeon.StateMachine
 {
-    public interface ITransition
-    {
-        bool CanTransit(StatesContainer statesContainer, out IState transitionTo);
-    }
-
     public class TransitionToState : ITransition
     {
         private readonly IState _state;
@@ -23,7 +18,7 @@ namespace RogueDungeon.StateMachine
         {
             transitionTo = _condition.IsMet() 
                 ? statesContainer.GetState(_state) ?? throw new Exception("States container does not contain this state: " + 
-                    (_state is IDebugName nameable ? nameable.DebugName : _state?.GetType().Name))
+                                                                          (_state is IDebugName nameable ? nameable.DebugName : _state?.GetType().Name))
                 : null;
             return transitionTo != null;
         }

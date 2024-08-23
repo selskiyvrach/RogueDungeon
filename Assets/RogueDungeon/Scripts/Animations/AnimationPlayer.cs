@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using RogueDungeon.Logging;
+using RogueDungeon.DebugTools;
 using RogueDungeon.StateMachine;
 using UniRx;
 using UnityEngine;
-using Logger = RogueDungeon.Logging.Logger;
+using Logger = RogueDungeon.DebugTools.Logger;
 
 namespace RogueDungeon.Animations
 {

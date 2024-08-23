@@ -3,7 +3,7 @@ namespace RogueDungeon.Player.Commands
     public enum Command
     {
         Attack,
-        Block,
+        HoldBlock,
         DodgeLeft,
         DodgeRight,
         MoveForward,

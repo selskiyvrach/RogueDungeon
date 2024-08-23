@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using RogueDungeon.Logging;
+using RogueDungeon.DebugTools;
 using UnityEngine.Assertions;
 
 namespace RogueDungeon.StateMachine

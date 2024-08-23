@@ -1,4 +1,4 @@
-﻿using RogueDungeon.Logging;
+﻿using RogueDungeon.DebugTools;
 
 namespace RogueDungeon.StateMachine
 {

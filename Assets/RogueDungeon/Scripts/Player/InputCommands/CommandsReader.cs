@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RogueDungeon.DebugTools;
 using UnityEngine;
 
 namespace RogueDungeon.Player.Commands
@@ -16,6 +17,12 @@ namespace RogueDungeon.Player.Commands
 
         private void Update()
         {
+            ReadCommands();
+            DebugHUD.SetData(this, "Current command: " + _currentCommand);
+        } 
+
+        private void ReadCommands()
+        {
             // walk input
             if (_currentCommand == Command.MoveForward)
                 _currentCommand = null;
@@ -30,17 +37,17 @@ namespace RogueDungeon.Player.Commands
             }
 
             // block input
-            if (Input.GetKey(KeyCode.Mouse1))
-                _currentCommand = Command.Block;
+            if(Input.GetKey(KeyCode.Mouse1))
+                _currentCommand = Command.HoldBlock;
+            else if (_currentCommand == Command.HoldBlock)
+                _currentCommand = null;
         }
 
         public bool HasCommand(Command command) => 
             _currentCommand == command;
 
-        public void ConsumeCommandIfCurrent(Command command, bool logError = true)
+        public void ConsumeCommandIfCurrent(Command command)
         {
-            if(logError && _currentCommand != command)
-                Debug.LogError($"Trying to consume an invalid command. current: {_currentCommand}, consuming: {command}");
             if (_currentCommand == command)
                 _currentCommand = null;
         }

@@ -2,7 +2,7 @@
 using System.Text;
 using UnityEngine;
 
-namespace RogueDungeon.Logging
+namespace RogueDungeon.DebugTools
 {
     public interface IDebugName
     {

@@ -26,6 +26,11 @@ namespace RogueDungeon.Player.States
             _commandsConsumer = commandsConsumer;
         }
         
+        // heavy attack idea
+            // prepare attack state (weapon is outside the screen)
+            // if command == holdAttack
+                // transition to prepare heavy attack state
+        
         public IFinishableState GetCombo()
         {
             var builder = new StateMachineBuilder();
@@ -71,16 +76,14 @@ namespace RogueDungeon.Player.States
             // ATTACKS END
             
             // BLOCK
-            var hasBlockInputCondition = new HasCommandCondition(Command.Block, _commandsProvider);
+            var hasBlockInputCondition = new HasCommandCondition(Command.HoldBlock, _commandsProvider);
             var doesNotHaveBlockInputCondition = new ConditionNegator(hasBlockInputCondition);
             
             var idleToBlockState = new State {DebugName = "Idle to block state"};
             idleToBlockState.AddHandler(new PlayAnimationStateHandler(_idleToBlockAnimation));
-            idleToBlockState.AddHandler(new ConsumeCommandStateEnterHandler(_commandsConsumer, Command.Block));
             var blockToIdleState = new State {DebugName = "Block to idle state"};
             blockToIdleState.AddHandler(new PlayAnimationStateHandler(_blockToIdleAnimation));
             var holdBlockState = new State {DebugName = "Hold block state"};
-            holdBlockState.AddHandler(new ConsumeCommandStateEnterHandler(_commandsConsumer, Command.Block));
             holdBlockState.AddHandler(new PlayAnimationStateHandler(_holdBlockAnimation));
             
             builder.AddState(idleToBlockState);

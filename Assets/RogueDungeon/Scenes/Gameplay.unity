@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 1744587202}
+  - {fileID: 1744587208}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -490,7 +490,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b1353be74b298141ba99669d9373a88, type: 3}
---- !u!114 &1744587202 stripped
+--- !u!114 &1744587208 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4303013995717459085, guid: 0b1353be74b298141ba99669d9373a88,
     type: 3}

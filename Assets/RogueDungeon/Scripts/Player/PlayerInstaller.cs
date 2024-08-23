@@ -38,7 +38,7 @@ namespace RogueDungeon.Player
             var hasDodgeRightInputCondition = new HasInputCondition(_commandsReader, Command.DodgeRight);
             var hasDodgeLeftInputCondition = new HasInputCondition(_commandsReader, Command.DodgeLeft);
             var hasAttackInputCondition = new HasInputCondition(_commandsReader, Command.Attack);
-            var hasBlockInputCondition = new HasInputCondition(_commandsReader, Command.Block);
+            var hasBlockInputCondition = new HasInputCondition(_commandsReader, Command.HoldBlock);
 
             var stateMachineBuilder = new StateMachineBuilder();
             stateMachineBuilder.AddState(walkState);

@@ -1,4 +1,5 @@
 using System.Linq;
+using RogueDungeon.DebugTools;
 
 namespace RogueDungeon.StateMachine
 {
@@ -14,7 +15,7 @@ namespace RogueDungeon.StateMachine
     
     public class IfAnyCondition : CompositeCondition
     {
-        public IfAnyCondition(ICondition[] conditions) : base(conditions)
+        public IfAnyCondition(params ICondition[] conditions) : base(conditions)
         {
         }
 
@@ -26,8 +27,12 @@ namespace RogueDungeon.StateMachine
     {
         private readonly ICondition[] _conditions;
 
-        protected CompositeCondition(ICondition[] conditions) => 
+        protected CompositeCondition(params ICondition[] conditions)
+        {
+            if(conditions.IsNullOrEmpty())
+                Logger.LogError(this, "Null or empty conditions");
             _conditions = conditions;
+        }
 
         public bool IsMet() => IsMetInternal(_conditions);
         protected abstract bool IsMetInternal(ICondition[] conditions);
