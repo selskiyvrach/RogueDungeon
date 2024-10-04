@@ -2,7 +2,9 @@
 using RogueDungeon.Player.Commands;
 using RogueDungeon.Player.States;
 using RogueDungeon.StateMachine;
+using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace RogueDungeon.Player
@@ -14,7 +16,7 @@ namespace RogueDungeon.Player
         [SerializeField] private AnimationPlayer _idleAnimation;
         [SerializeField] private AnimationPlayer _dodgeRightAnimation;
         [SerializeField] private AnimationPlayer _dodgeLeftAnimation;
-        [SerializeField] private WeaponManipulatorStateMachineCreator _weaponManipulatorStateMachineCreator;
+        [FormerlySerializedAs("_testWeaponManipulator")] [SerializeField] private Weapon testWeapon;
         
         public override void InstallBindings()
         {
@@ -37,8 +39,6 @@ namespace RogueDungeon.Player
             var doesNotHaveWalkInputCondition = new ConditionNegator(hasWalkInputCondition);
             var hasDodgeRightInputCondition = new HasInputCondition(_commandsReader, Command.DodgeRight);
             var hasDodgeLeftInputCondition = new HasInputCondition(_commandsReader, Command.DodgeLeft);
-            var hasAttackInputCondition = new HasInputCondition(_commandsReader, Command.Attack);
-            var hasBlockInputCondition = new HasInputCondition(_commandsReader, Command.HoldBlock);
 
             var stateMachineBuilder = new StateMachineBuilder();
             stateMachineBuilder.AddState(walkState);
@@ -55,18 +55,22 @@ namespace RogueDungeon.Player
             
             stateMachineBuilder.AddTransitionFromToState(idleState, dodgeLeftState, hasDodgeLeftInputCondition);
             stateMachineBuilder.AddTransitionWhenFinished(dodgeLeftState, idleState, new AnimationPlayerToFinishableAdapter(_dodgeLeftAnimation));
-
-            _weaponManipulatorStateMachineCreator.Construct(_commandsReader, _commandsReader);
-            var attackState = new EquipmentManipulationState(_weaponManipulatorStateMachineCreator);
-            stateMachineBuilder.AddState(attackState);
-            
-            stateMachineBuilder.AddTransitionFromToState(idleState, attackState, hasAttackInputCondition);
-            stateMachineBuilder.AddTransitionFromToState(idleState, attackState, hasBlockInputCondition);
-            stateMachineBuilder.AddTransitionWhenFinished(attackState, idleState, attackState);
             
             stateMachineBuilder.SetDebugName("Player root state machine");
 
             var player = new Player(stateMachineBuilder.Build());
+            player.SetTestItemManipulator(testWeapon); 
+            
+            testWeapon.Construct(_commandsReader, _commandsReader);
+            var itemManipulatorState = new EquipmentManipulationState(player);
+            stateMachineBuilder.AddState(itemManipulatorState);
+            testWeapon.OnHit.Subscribe(_ => Debug.Log("OnHit"));
+            testWeapon.IsBlockRaised.Subscribe(value => Debug.Log("Block state: " + value));
+            
+            stateMachineBuilder.AddTransitionFromToState(idleState, itemManipulatorState, itemManipulatorState);
+            stateMachineBuilder.AddTransitionFromToState(idleState, itemManipulatorState, itemManipulatorState);
+            stateMachineBuilder.AddTransitionWhenFinished(itemManipulatorState, idleState, itemManipulatorState);
+            
             Container.Bind<Player>().To<Player>().FromInstance(player);
             player.Run();
         }

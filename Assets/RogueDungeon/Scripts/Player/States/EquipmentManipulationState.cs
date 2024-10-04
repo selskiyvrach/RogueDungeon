@@ -3,26 +3,26 @@ using ITickable = RogueDungeon.StateMachine.ITickable;
 
 namespace RogueDungeon.Player.States
 {
-    public class EquipmentManipulationState : IFinishableState, IEnterable, IExitable, ITickable
+    public class EquipmentManipulationState : IFinishableState, IEnterable, IExitable, ITickable, ICondition, IItemManipulator
     {
-        private readonly WeaponManipulatorStateMachineCreator _comboCreator;
+        private readonly ICurrentItemManipulatorProvider _currentItemManipulatorProvider;
+        public ICondition EnterCondition => this;
+        public IFinishableState State => this;
+        public bool IsFinished => _currentItemManipulatorProvider.CurrentManipulator.Value.State.IsFinished;
         
-        private IFinishableState _combo;
-        public bool IsFinished => _combo.IsFinished;
+        public EquipmentManipulationState(ICurrentItemManipulatorProvider currentItemManipulatorProvider) => 
+            _currentItemManipulatorProvider = currentItemManipulatorProvider;
 
-        public EquipmentManipulationState(WeaponManipulatorStateMachineCreator comboCreator) => 
-            _comboCreator = comboCreator;
-
-        public void Enter()
-        {
-            _combo = _comboCreator.GetCombo();
-            (_combo as IEnterable)?.Enter();
-        }
+        public void Enter() => 
+            (_currentItemManipulatorProvider.CurrentManipulator.Value.State as IEnterable)?.Enter();
 
         public void Exit() => 
-            (_combo as IExitable)?.Exit();
+            (_currentItemManipulatorProvider.CurrentManipulator.Value.State as IExitable)?.Exit();
 
         public void Tick() => 
-            (_combo as ITickable)?.Tick();
+            (_currentItemManipulatorProvider.CurrentManipulator.Value.State as ITickable)?.Tick();
+
+        bool ICondition.IsMet() => 
+            _currentItemManipulatorProvider.CurrentManipulator.Value.EnterCondition.IsMet();
     }
 }

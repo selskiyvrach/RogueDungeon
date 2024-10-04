@@ -1,12 +1,16 @@
 ﻿using RogueDungeon.Animations;
 using RogueDungeon.Player.Commands;
 using RogueDungeon.StateMachine;
+using UniRx;
 using UnityEngine;
 
 namespace RogueDungeon.Player.States
 {
-    public class WeaponManipulatorStateMachineCreator : MonoBehaviour
+    public class Weapon : MonoBehaviour, IItemManipulator
     {
+        [Header("Stats")] 
+        [SerializeField] private float _damage;
+        
         [Header("Attacks")]
         [SerializeField] private AnimationPlayer _idleToAttackAnimation;
         [SerializeField] private AnimationPlayer[] _attackAnimations;
@@ -19,19 +23,21 @@ namespace RogueDungeon.Player.States
 
         private ICommandsProvider _commandsProvider;
         private ICommandsConsumer _commandsConsumer;
+        
+        public IFinishableState State { get; private set; }
+        public ICondition EnterCondition { get; private set; }
+        public ISubject<Unit> OnHit { get; } = new Subject<Unit>();
+        public IReadOnlyReactiveProperty<bool> IsBlockRaised { get; } = new ReactiveProperty<bool>();
 
         public void Construct(ICommandsProvider commandsProvider, ICommandsConsumer commandsConsumer)
         {
             _commandsProvider = commandsProvider;
             _commandsConsumer = commandsConsumer;
+            State = CreateState();
+            EnterCondition = new IfAnyCondition(new HasCommandCondition(Command.Attack, _commandsProvider), new HasCommandCondition(Command.Block, _commandsProvider));
         }
-        
-        // heavy attack idea
-            // prepare attack state (weapon is outside the screen)
-            // if command == holdAttack
-                // transition to prepare heavy attack state
-        
-        public IFinishableState GetCombo()
+
+        private IFinishableState CreateState()
         {
             var builder = new StateMachineBuilder();
             
@@ -56,6 +62,11 @@ namespace RogueDungeon.Player.States
             for (var i = 0; i < _attackAnimations.Length; i++)
             {
                 var anim = _attackAnimations[i];
+                anim.OnEvent.Subscribe(eventName =>
+                {
+                    if(eventName == "OnHit")
+                        OnHit.OnNext();
+                });
                 var state = attackStates[i] = new State {DebugName = $"Attack{i + 1} state"};
                 state.AddHandler(new PlayAnimationStateHandler(anim));
                 state.AddHandler(consumeAttackCommandHandler);
@@ -76,15 +87,19 @@ namespace RogueDungeon.Player.States
             // ATTACKS END
             
             // BLOCK
-            var hasBlockInputCondition = new HasCommandCondition(Command.HoldBlock, _commandsProvider);
+            var hasBlockInputCondition = new HasCommandCondition(Command.Block, _commandsProvider);
             var doesNotHaveBlockInputCondition = new ConditionNegator(hasBlockInputCondition);
             
             var idleToBlockState = new State {DebugName = "Idle to block state"};
             idleToBlockState.AddHandler(new PlayAnimationStateHandler(_idleToBlockAnimation));
+            idleToBlockState.AddHandler(new ConsumeCommandStateEnterHandler(_commandsConsumer, Command.Block));
+            idleToBlockState.AddHandler(new ActionStateEnterHandler(() => (IsBlockRaised as ReactiveProperty<bool>).Value = true));
             var blockToIdleState = new State {DebugName = "Block to idle state"};
             blockToIdleState.AddHandler(new PlayAnimationStateHandler(_blockToIdleAnimation));
+            blockToIdleState.AddHandler(new ConsumeCommandStateEnterHandler(_commandsConsumer, Command.Block));
             var holdBlockState = new State {DebugName = "Hold block state"};
             holdBlockState.AddHandler(new PlayAnimationStateHandler(_holdBlockAnimation));
+            holdBlockState.AddHandler(new ActionStateExitHandler(() => (IsBlockRaised as ReactiveProperty<bool>).Value = false));
             
             builder.AddState(idleToBlockState);
             builder.AddState(holdBlockState);
