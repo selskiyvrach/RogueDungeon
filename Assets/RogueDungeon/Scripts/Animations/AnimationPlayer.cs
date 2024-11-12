@@ -2,29 +2,42 @@
 using System.Collections.Generic;
 using System.Linq;
 using RogueDungeon.DebugTools;
+using RogueDungeon.Gameplay;
+using RogueDungeon.Utils;
 using UniRx;
 using UnityEngine;
 
 namespace RogueDungeon.Animations
-{ 
-    [Serializable]
+{
     public class AnimationPlayer : IAnimation, IDebugName
     {
-        [SerializeField] private AnimationClip _animationClip;
-        [SerializeField] private GameObject _target;
-        [SerializeField] private float _duration = 1f;
-        [SerializeField] private bool _loop;
-       
+        private readonly AnimationConfig _config;
+        private readonly AnimationTarget _target;
         private readonly Queue<(float time, string eventName)> _eventsToPlay = new();
+        private readonly AnimationClip _animationClip;
+        private readonly bool _loop;
+        private readonly float _duration;
+
         private float _playTime;
         private float _timeScale;
         private IDisposable _updateSubscriber;
-
         public ISubject<string> OnEvent { get; } = new Subject<string>();
+
         public string DebugName => $"[Animation player] animation name: {_animationClip?.name}";
+
         public bool IsFinished => _playTime >= _animationClip.length;
+
         public bool IsLooped => _loop;
-        
+
+        public AnimationPlayer(AnimationConfig config, AnimationTarget target)
+        {
+            _target = target;
+            _config = config;
+            _animationClip = _config.AnimationClip;
+            _loop = _config.Loop;
+            _duration = _config.Duration;
+        }
+
         public void Play()
         {
             _playTime = 0;
@@ -39,14 +52,14 @@ namespace RogueDungeon.Animations
 
         private void OnUpdate()
         {
-            _playTime += UnityEngine.Time.deltaTime * _timeScale;
+            _playTime += Time.deltaTime * _timeScale;
             EvaluateEvents();
             UpdatePlayback();
         }
 
         private void UpdatePlayback()
         {
-            _animationClip.SampleAnimation(_target, _playTime);
+            _animationClip.SampleAnimation(_target.GameObject, _playTime);
             
             if (!IsFinished)
                 return;

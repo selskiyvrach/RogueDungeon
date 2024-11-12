@@ -1,0 +1,140 @@
+﻿using System;
+using RogueDungeon.Animations;
+using RogueDungeon.Gameplay.InputCommands;
+using RogueDungeon.Services.FSM;
+using UniRx;
+using UnityEngine;
+
+namespace RogueDungeon.Gameplay.States
+{
+    public class Weapon : MonoBehaviour, IItemManipulationStateInfo
+    {
+        [Header("Stats")] 
+        [SerializeField] private float _damage;
+        
+        [Header("Attacks")]
+        [SerializeField] private AnimationPlayer _idleToAttackAnimation;
+        [SerializeField] private AnimationPlayer[] _attackAnimations;
+        [SerializeField] private AnimationPlayer _toIdleAnimation;
+
+        [Header("Block")]
+        [SerializeField] private AnimationPlayer _idleToBlockAnimation;
+        [SerializeField] private AnimationPlayer _blockToIdleAnimation;
+        [SerializeField] private AnimationPlayer _holdBlockAnimation;
+
+        private ICommandsProvider _commandsProvider;
+        private ICommandsConsumer _commandsConsumer;
+        private IHitTargetProvider _targetProvider;
+
+        public IFinishableState State { get; private set; }
+        public ICondition EnterCondition { get; private set; }
+        public IReadOnlyReactiveProperty<bool> IsBlockRaised { get; } = new ReactiveProperty<bool>();
+
+        public void Construct(ICommandsProvider commandsProvider, ICommandsConsumer commandsConsumer, IHitTargetProvider targetProvider)
+        {
+            _targetProvider = targetProvider;
+            _commandsProvider = commandsProvider;
+            _commandsConsumer = commandsConsumer;
+            State = CreateState();
+            EnterCondition = new IfAnyCondition(new HasCommandCondition(Command.Attack, _commandsProvider), new HasCommandCondition(Command.Block, _commandsProvider));
+        }
+
+        private IFinishableState CreateState()
+        {
+            var builder = new StateMachineBuilder();
+            
+            var idleState = new State {DebugName = "Equipment idle state"};
+            builder.AddState(idleState);
+            builder.SetStartState(idleState);
+            
+            // ATTACKS
+            var consumeAttackCommandHandler = new ConsumeCommandStateEnterHandler(_commandsConsumer, Command.Attack);
+            var hasAttackCommandCondition = new HasCommandCondition(Command.Attack, _commandsProvider);
+            var hasNoAttackCommandCondition = new ConditionNegator(hasAttackCommandCondition);
+
+            var idleToAttackState = new State {DebugName = "Idle to attack state"};
+            idleToAttackState.AddHandler(new PlayAnimationStateHandler(_idleToAttackAnimation));
+            builder.AddState(idleToAttackState);
+            
+            var toIdleState = new State {DebugName = "Attack to idle state"};
+            toIdleState.AddHandler(new PlayAnimationStateHandler(_toIdleAnimation));
+            builder.AddState(toIdleState);
+
+            var attackStates = new State[_attackAnimations.Length];
+            for (var i = 0; i < _attackAnimations.Length; i++)
+            {
+                var anim = _attackAnimations[i];
+                anim.OnEvent.Subscribe(eventName =>
+                {
+                    if (eventName == "OnHit")
+                        HandleHit();
+                    else
+                        throw new NotImplementedException(eventName + " event is not implemented");
+                });
+                var state = attackStates[i] = new State {DebugName = $"Attack{i + 1} state"};
+                state.AddHandler(new PlayAnimationStateHandler(anim));
+                state.AddHandler(consumeAttackCommandHandler);
+                builder.AddState(state);
+            }
+            
+            for (var i = 0; i < attackStates.Length; i++)
+            {
+                var animationFinishedCondition = new AnimationPlayerToFinishableAdapter(_attackAnimations[i]);
+                builder.AddTransitionWhenFinished(attackStates[i], toIdleState, animationFinishedCondition, hasNoAttackCommandCondition);
+                builder.AddTransitionWhenFinished(attackStates[i],
+                    i + 1 < attackStates.Length ? attackStates[i + 1] : attackStates[0], animationFinishedCondition,  hasAttackCommandCondition);
+            }
+            
+            builder.AddTransition(idleState, idleToAttackState, hasAttackCommandCondition);
+            builder.AddTransitionWhenFinished(idleToAttackState, attackStates[0], new AnimationPlayerToFinishableAdapter(_idleToAttackAnimation));
+            builder.AddTransitionWhenFinished(toIdleState, idleState, new AnimationPlayerToFinishableAdapter(_toIdleAnimation));
+            // ATTACKS END
+            
+            // BLOCK
+            var hasBlockInputCondition = new HasCommandCondition(Command.Block, _commandsProvider);
+            var doesNotHaveBlockInputCondition = new ConditionNegator(hasBlockInputCondition);
+            
+            var idleToBlockState = new State {DebugName = "Idle to block state"};
+            idleToBlockState.AddHandler(new PlayAnimationStateHandler(_idleToBlockAnimation));
+            idleToBlockState.AddHandler(new ConsumeCommandStateEnterHandler(_commandsConsumer, Command.Block));
+            idleToBlockState.AddHandler(new ActionStateEnterHandler(() => (IsBlockRaised as ReactiveProperty<bool>).Value = true));
+            var blockToIdleState = new State {DebugName = "Block to idle state"};
+            blockToIdleState.AddHandler(new PlayAnimationStateHandler(_blockToIdleAnimation));
+            blockToIdleState.AddHandler(new ConsumeCommandStateEnterHandler(_commandsConsumer, Command.Block));
+            var holdBlockState = new State {DebugName = "Hold block state"};
+            holdBlockState.AddHandler(new PlayAnimationStateHandler(_holdBlockAnimation));
+            holdBlockState.AddHandler(new ActionStateExitHandler(() => (IsBlockRaised as ReactiveProperty<bool>).Value = false));
+            
+            builder.AddState(idleToBlockState);
+            builder.AddState(holdBlockState);
+            builder.AddState(blockToIdleState);
+            
+            builder.AddTransition(idleState, idleToBlockState, hasBlockInputCondition);
+            builder.AddTransitionWhenFinished(idleToBlockState, holdBlockState, new AnimationPlayerToFinishableAdapter(_idleToBlockAnimation));
+            builder.AddTransition(holdBlockState, blockToIdleState, doesNotHaveBlockInputCondition);
+            builder.AddTransitionWhenFinished(blockToIdleState, idleState, new AnimationPlayerToFinishableAdapter(_blockToIdleAnimation));
+            // BLOCK END
+
+            // FINISHING LOGIC
+            var finishedToken = new IsFinishedToken();
+            idleState.AddHandler(new FinishableSetterStateEnterHandler(finishedToken, true));
+            idleState.AddHandler(new FinishableSetterStateExitHandler(finishedToken, false));
+            // FINISHING LOGIC END
+            
+            return new StateMachineToFinishableStateAdapter(builder.Build(), finishedToken) {DebugName = "Weapon manipulation state"};
+        }
+
+        private void HandleHit() => 
+            _targetProvider.GetHittable()?.TakeDamage(_damage);
+    }
+
+    public interface IHitTargetProvider
+    {
+        IHittable GetHittable();
+    }
+
+    public interface IHittable
+    {
+        void TakeDamage(float damage);
+    }
+}

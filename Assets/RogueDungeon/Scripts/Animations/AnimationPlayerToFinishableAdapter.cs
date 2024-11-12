@@ -1,6 +1,6 @@
 ﻿using System;
 using RogueDungeon.DebugTools;
-using RogueDungeon.StateMachine;
+using RogueDungeon.Services.FSM;
 
 namespace RogueDungeon.Animations
 {

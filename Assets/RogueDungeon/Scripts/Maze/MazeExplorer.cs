@@ -1,12 +1,10 @@
-﻿using RogueDungeon.Time;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace RogueDungeon.Maze
 {
     public class MazeExplorer
     {
         private readonly Maze _maze;
-        private readonly ITime _time;
         private readonly IRoomEnteredListener _roomEnteredListener;
         private readonly IIsOnCrossroadListener _isOnCrossroadListener;
 
@@ -25,16 +23,14 @@ namespace RogueDungeon.Maze
         public Transform MazeCursor { get; }
         public bool IsOnCrossroad { get; private set; }
 
-        public MazeExplorer(ITime time, IRoomEnteredListener roomEnteredListener, IIsOnCrossroadListener isOnCrossroadListener, Maze maze, Transform mazeCursor)// IInput input)
+        public MazeExplorer(IRoomEnteredListener roomEnteredListener, IIsOnCrossroadListener isOnCrossroadListener, Maze maze, Transform mazeCursor)// IInput input)
         {
-            _time = time;
             _roomEnteredListener = roomEnteredListener;
             _isOnCrossroadListener = isOnCrossroadListener;
             _maze = maze;
             // _input = input;
             MazeCursor = mazeCursor;
             _direction = Vector2Int.up;
-            _time.EachTick(Tick, TickOrders.MAZE_EXPLORER);
             MoveTo(_maze.StartingPoint);
         }
 
