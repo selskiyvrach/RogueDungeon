@@ -8,13 +8,19 @@ namespace RogueDungeon.Gameplay.InputCommands
 {
     public class PlayerInput : ICommandsProvider, ICommandsConsumer, IDisposable
     {
-        private static readonly Dictionary<Command, (KeyCode keyCode, float coyoteTime)> Commands = new()
+        private enum KeyState
         {
-            [Command.MoveForward] = (KeyCode.W, 0),
-            [Command.Attack] = (KeyCode.Mouse0, .15f),
-            [Command.DodgeRight] = (KeyCode.D, .15f),
-            [Command.DodgeLeft] = (KeyCode.A, .15f),
-            [Command.Block] = (KeyCode.Mouse1, .15f),
+            Down,
+            Held
+        }
+        
+        private static readonly Dictionary<Command, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
+        {
+            [Command.MoveForward] = (KeyCode.W,KeyState.Held , 0),
+            [Command.Attack] = (KeyCode.Mouse0, KeyState.Down,.15f),
+            [Command.DodgeRight] = (KeyCode.D, KeyState.Down,.15f),
+            [Command.DodgeLeft] = (KeyCode.A, KeyState.Down,.15f),
+            [Command.Block] = (KeyCode.Mouse1, KeyState.Held,.15f),
         };
 
         private readonly IDisposable _sub;
@@ -58,9 +64,14 @@ namespace RogueDungeon.Gameplay.InputCommands
         {
             var currentCommand = (Command?)null;
 
-            foreach (var (command, (code, coyoteTime)) in Commands)
+            foreach (var (command, (code, state, coyoteTime)) in Commands)
             {
-                if (!Input.GetKey(code)) 
+                if (! (state switch
+                    {
+                        KeyState.Down => Input.GetKeyDown(code),
+                        KeyState.Held => Input.GetKey(code),
+                        _ => throw new ArgumentOutOfRangeException()
+                    } )) 
                     continue;
                 
                 _timeSinceReleased = 0;
