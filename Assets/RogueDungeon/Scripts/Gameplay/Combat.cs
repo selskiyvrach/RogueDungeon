@@ -38,7 +38,7 @@ namespace RogueDungeon.Gameplay
     public abstract class Character : IDamageable, ITickable
     {
         private readonly StateMachine _behaviourStateMachine;
-        private readonly IEventBus<IAnimationEvent> _animationEvents;
+        protected readonly IEventBus<IAnimationEvent> AnimationEvents;
         
         protected readonly EntitiesRegistry EntitiesRegistry;
         public float AttackDamage { get; protected set; }
@@ -47,9 +47,9 @@ namespace RogueDungeon.Gameplay
 
         protected Character(IEventBus<IAnimationEvent> animationEvents, StateMachine behaviourStateMachine)
         {
-            _animationEvents = animationEvents;
+            AnimationEvents = animationEvents;
             _behaviourStateMachine = behaviourStateMachine;
-            _animationEvents.Subscribe<HitKeyframeEvent>(OnAttackHitKeyframe);
+            AnimationEvents.Subscribe<HitKeyframeEvent>(OnAttackHitKeyframe);
         }
 
         public void Enable() => 

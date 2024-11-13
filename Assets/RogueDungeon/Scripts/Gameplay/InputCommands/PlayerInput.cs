@@ -17,10 +17,10 @@ namespace RogueDungeon.Gameplay.InputCommands
         private static readonly Dictionary<Command, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
         {
             [Command.MoveForward] = (KeyCode.W,KeyState.Held , 0),
-            [Command.Attack] = (KeyCode.Mouse0, KeyState.Down,.15f),
-            [Command.DodgeRight] = (KeyCode.D, KeyState.Down,.15f),
-            [Command.DodgeLeft] = (KeyCode.A, KeyState.Down,.15f),
-            [Command.Block] = (KeyCode.Mouse1, KeyState.Held,.15f),
+            [Command.Attack] = (KeyCode.Mouse0, KeyState.Down, .5f),
+            [Command.DodgeRight] = (KeyCode.D, KeyState.Down,.5f),
+            [Command.DodgeLeft] = (KeyCode.A, KeyState.Down,.5f),
+            [Command.Block] = (KeyCode.Mouse1, KeyState.Held,.5f),
         };
 
         private readonly IDisposable _sub;

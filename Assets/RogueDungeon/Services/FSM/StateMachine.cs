@@ -67,7 +67,7 @@ namespace RogueDungeon.Services.FSM
         {
             ExitCurrentState();
             _currentState = newState;
-            Logger.Log(this, "Switched to state {0}", _currentState);
+            // Logger.Log(this, "Switched to state {0}", _currentState);
             (_currentState as IEnterable)?.Enter();
         }
 

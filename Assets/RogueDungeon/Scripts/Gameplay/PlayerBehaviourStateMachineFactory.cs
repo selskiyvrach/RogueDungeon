@@ -75,8 +75,11 @@ namespace RogueDungeon.Gameplay
             dodgeLeftAnimation = new AnimationPlayer(_animationsConfig.DodgeLeftAnimation, _animationRoot);
             dodgeLeftState.AddHandler(new PlayAnimationStateHandler(dodgeLeftAnimation));
             dodgeLeftState.AddHandler(new ConsumeCommandStateEnterHandler(_playerInput, Command.DodgeLeft));
-            dodgeLeftState.AddHandler(new ThrowAnimationEventStateHandler<DodgeStartedEvent,DodgeEndedEvent>(
-                dodgeLeftAnimation, _animationEvents, AnimEventNames.DODGE_STARTED, AnimEventNames.DODGE_FINISHED));
+            
+            dodgeLeftState.AddHandler(new AnimationEventStateHandler<DodgeEvent>(_animationEvents, dodgeLeftAnimation, AnimEventNames.DODGE_STARTED, 
+                new DodgeEvent(DodgeEvent.DodgeState.Started, DodgeEvent.DodgeDirection.Left)));
+            dodgeLeftState.AddHandler(new AnimationEventStateHandler<DodgeEvent>(_animationEvents, dodgeLeftAnimation, AnimEventNames.DODGE_ENDED, 
+                new DodgeEvent(DodgeEvent.DodgeState.Ended, DodgeEvent.DodgeDirection.Left)));
             return dodgeLeftState;
         }
 
@@ -86,8 +89,10 @@ namespace RogueDungeon.Gameplay
             dodgeRightAnimation = new AnimationPlayer(_animationsConfig.DodgeRightAnimation, _animationRoot);
             dodgeRightState.AddHandler(new PlayAnimationStateHandler(dodgeRightAnimation));
             dodgeRightState.AddHandler(new ConsumeCommandStateEnterHandler(_playerInput, Command.DodgeRight));
-            dodgeRightState.AddHandler(new ThrowAnimationEventStateHandler<DodgeStartedEvent,DodgeEndedEvent>(
-                dodgeRightAnimation, _animationEvents, AnimEventNames.DODGE_STARTED, AnimEventNames.DODGE_FINISHED));
+            dodgeRightState.AddHandler(new AnimationEventStateHandler<DodgeEvent>(_animationEvents, dodgeRightAnimation, AnimEventNames.DODGE_STARTED, 
+                new DodgeEvent(DodgeEvent.DodgeState.Started, DodgeEvent.DodgeDirection.Right)));
+            dodgeRightState.AddHandler(new AnimationEventStateHandler<DodgeEvent>(_animationEvents, dodgeRightAnimation, AnimEventNames.DODGE_ENDED, 
+                new DodgeEvent(DodgeEvent.DodgeState.Ended, DodgeEvent.DodgeDirection.Right)));
             return dodgeRightState;
         }
 

@@ -6,51 +6,46 @@ using UniRx;
 
 namespace RogueDungeon.Gameplay
 {
-    public abstract class ThrowAnimationEventStateHandler : IStateEnterHandler, IStateExitHandler 
+    public abstract class AnimationEventStateHandler : IStateEnterHandler, IStateExitHandler 
     {
         private readonly IAnimation _animation;
-        private readonly (string _eventName, Action _dispatcher)[] _eventDispatchers;
+        private readonly string _eventName;
         private IDisposable _sub;
 
-        protected ThrowAnimationEventStateHandler(IAnimation animation, IEventBus<IAnimationEvent> eventBus, (string eventName, Action dispatcher)[] eventHandlers)
+        protected AnimationEventStateHandler(IAnimation animation, string eventName)
         {
-            _eventDispatchers = eventHandlers;
             _animation = animation;
+            _eventName = eventName;
         }
 
         public void OnEnter()
         {
             _sub = _animation.OnEvent.Subscribe(name =>
             {
-                foreach (var (eventName, dispatcher) in _eventDispatchers)
-                {
-                    if(name == eventName)
-                        dispatcher?.Invoke();
-                }
+                if(name == _eventName)
+                    OnEvent();
             });
         }
 
         public void OnExit() => 
             _sub?.Dispose();
+
+        protected abstract void OnEvent();
     }
     
     
-    public class ThrowAnimationEventStateHandler<T> : ThrowAnimationEventStateHandler where T : IAnimationEvent, new()
+    public class AnimationEventStateHandler<T> : AnimationEventStateHandler where T : IAnimationEvent, new()
     {
-        public ThrowAnimationEventStateHandler(IAnimation animation, IEventBus<IAnimationEvent> eventBus, string eventName) : base(animation, eventBus, new (string, Action)[]
-            { (eventName, () => eventBus.Fire(new T())) })
+        private readonly IEventBus<IAnimationEvent> _eventBus;
+        private readonly T _event;
+
+        public AnimationEventStateHandler(IEventBus<IAnimationEvent> eventBus, IAnimation animation, string eventName, T @event) : base(animation, eventName)
         {
+            _eventBus = eventBus;
+            _event = @event;
         }
-    }
-    
-    public class ThrowAnimationEventStateHandler<T1, T2> : ThrowAnimationEventStateHandler where T1 : IAnimationEvent, new() where T2 : IAnimationEvent, new()
-    {
-        public ThrowAnimationEventStateHandler(IAnimation animation, IEventBus<IAnimationEvent> eventBus, string event1Name, string event2Name) : base(animation, eventBus, new (string, Action)[]
-        {
-            (event1Name, () => eventBus.Fire(new T1())),
-            (event2Name, () => eventBus.Fire(new T2())),
-        })
-        {
-        }
+
+        protected override void OnEvent() => 
+            _eventBus.Fire(_event);
     }
 }
