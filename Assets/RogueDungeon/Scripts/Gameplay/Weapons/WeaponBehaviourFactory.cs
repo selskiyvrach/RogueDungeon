@@ -3,36 +3,37 @@ using RogueDungeon.Gameplay.InputCommands;
 using RogueDungeon.Gameplay.States;
 using RogueDungeon.Services.Events;
 using RogueDungeon.Services.FSM;
-using UniRx;
 using Zenject;
 
 namespace RogueDungeon.Gameplay.Weapons
 {
-    public class WeaponBehaviourFactory : IFactory<WeaponBehaviour>
+    public class WeaponBehaviourFactory : IFactory<WeaponConfig, WeaponBehaviour>
     {
-        private readonly WeaponConfig _config;
         private readonly AnimationTarget _animationTarget;
         private readonly ICommandsProvider _commandsProvider;
         private readonly ICommandsConsumer _commandsConsumer;
         private readonly IEventBus<IAnimationEvent> _animationEvents;
 
-        public WeaponBehaviourFactory(ICommandsProvider commandsProvider, ICommandsConsumer commandsConsumer, IEventBus<IAnimationEvent> animationEvents, WeaponConfig config, AnimationTarget animationTarget)
+        public WeaponBehaviourFactory(
+            ICommandsProvider commandsProvider, 
+            ICommandsConsumer commandsConsumer, 
+            IEventBus<IAnimationEvent> animationEvents, 
+            AnimationTarget animationTarget)
         {
             _commandsProvider = commandsProvider;
             _commandsConsumer = commandsConsumer;
             _animationEvents = animationEvents;
-            _config = config;
             _animationTarget = animationTarget;
         }
 
-        public WeaponBehaviour Create() =>
-            new(CreateEnterCondition(), CreateState());
+        public WeaponBehaviour Create(WeaponConfig config) =>
+            new(CreateEnterCondition(), CreateState(config));
 
         private IfAnyCondition CreateEnterCondition() =>
             new(new HasCommandCondition(Command.Attack, _commandsProvider),
                 new HasCommandCondition(Command.Block, _commandsProvider));
 
-        private IFinishableState CreateState()
+        private IFinishableState CreateState(WeaponConfig config)
         {
             var builder = new StateMachineBuilder();
             
@@ -46,19 +47,19 @@ namespace RogueDungeon.Gameplay.Weapons
             var hasNoAttackCommandCondition = new ConditionNegator(hasAttackCommandCondition);
 
             var idleToAttackState = new State {DebugName = "Idle to attack state"};
-            var idleToAttackAnimation = new AnimationPlayer(_config.IdleToAttackAnimation, _animationTarget);
+            var idleToAttackAnimation = new AnimationPlayer(config.IdleToAttackAnimation, _animationTarget);
             idleToAttackState.AddHandler(new PlayAnimationStateHandler(idleToAttackAnimation));
             builder.AddState(idleToAttackState);
 
-            var toIdleAnimation = new AnimationPlayer(_config.ToIdleAnimation, _animationTarget);
+            var toIdleAnimation = new AnimationPlayer(config.ToIdleAnimation, _animationTarget);
             var toIdleState = new State {DebugName = "Attack to idle state"};
             toIdleState.AddHandler(new PlayAnimationStateHandler(toIdleAnimation));
             builder.AddState(toIdleState);
 
-            var attackStates = new State[_config.AttackAnimations.Length];
-            for (var i = 0; i < _config.AttackAnimations.Length; i++)
+            var attackStates = new State[config.AttackAnimations.Length];
+            for (var i = 0; i < config.AttackAnimations.Length; i++)
             {
-                var anim = new AnimationPlayer(_config.AttackAnimations[i], _animationTarget);
+                var anim = new AnimationPlayer(config.AttackAnimations[i], _animationTarget);
                 var state = attackStates[i] = new State {DebugName = $"Attack{i + 1} state"};
                 state.AddHandler(new AnimationEventStateHandler<AttackEvent>(_animationEvents, anim, AnimEventNames.ATTACK_HIT, new AttackEvent()));
                 state.AddHandler(new PlayAnimationStateHandler(anim));
@@ -68,7 +69,7 @@ namespace RogueDungeon.Gameplay.Weapons
             
             for (var i = 0; i < attackStates.Length; i++)
             {
-                var animationFinishedCondition = new AnimationPlayerToFinishableAdapter(new AnimationPlayer(_config.AttackAnimations[i], _animationTarget));
+                var animationFinishedCondition = new AnimationPlayerToFinishableAdapter(new AnimationPlayer(config.AttackAnimations[i], _animationTarget));
                 builder.AddTransitionWhenFinished(attackStates[i], toIdleState, animationFinishedCondition, hasNoAttackCommandCondition);
                 builder.AddTransitionWhenFinished(attackStates[i],
                     i + 1 < attackStates.Length ? attackStates[i + 1] : attackStates[0], animationFinishedCondition,  hasAttackCommandCondition);
@@ -83,19 +84,19 @@ namespace RogueDungeon.Gameplay.Weapons
             var hasBlockInputCondition = new HasCommandCondition(Command.Block, _commandsProvider);
             var doesNotHaveBlockInputCondition = new ConditionNegator(hasBlockInputCondition);
 
-            var idleToBlockAnimation = new AnimationPlayer(_config.IdleToBlockAnimation, _animationTarget);
+            var idleToBlockAnimation = new AnimationPlayer(config.IdleToBlockAnimation, _animationTarget);
             var idleToBlockState = new State {DebugName = "Idle to block state"};
             idleToBlockState.AddHandler(new PlayAnimationStateHandler(idleToBlockAnimation));
             idleToBlockState.AddHandler(new ConsumeCommandStateEnterHandler(_commandsConsumer, Command.Block));
             idleToBlockState.AddHandler(new AnimationEventStateHandler<BlockStateEvent>(_animationEvents, idleToBlockAnimation, AnimEventNames.BLOCK_RAISED, 
                 new BlockStateEvent(BlockStateEvent.BlockState.Raised)));
 
-            var blockToIdleAnimation = new AnimationPlayer(_config.BlockToIdleAnimation, _animationTarget);
+            var blockToIdleAnimation = new AnimationPlayer(config.BlockToIdleAnimation, _animationTarget);
             var blockToIdleState = new State {DebugName = "Block to idle state"};
             blockToIdleState.AddHandler(new PlayAnimationStateHandler(blockToIdleAnimation));
             blockToIdleState.AddHandler(new ConsumeCommandStateEnterHandler(_commandsConsumer, Command.Block));
 
-            var holdBlockAnimation = new AnimationPlayer(_config.HoldBlockAnimation, _animationTarget);
+            var holdBlockAnimation = new AnimationPlayer(config.HoldBlockAnimation, _animationTarget);
             var holdBlockState = new State {DebugName = "Hold block state"};
             holdBlockState.AddHandler(new PlayAnimationStateHandler(holdBlockAnimation));
             holdBlockState.AddHandler(new AnimationEventStateHandler<BlockStateEvent>(_animationEvents, idleToBlockAnimation, AnimEventNames.BLOCK_LOWERED, 

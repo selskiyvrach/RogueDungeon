@@ -6,7 +6,7 @@ namespace RogueDungeon.Gameplay.Weapons
     {
         public override void InstallBindings()
         {
-            // Container.Bind<>()
+            // is being created via factory provided config
         }
     }
 }
