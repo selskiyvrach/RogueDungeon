@@ -13,20 +13,20 @@ namespace RogueDungeon.Gameplay
         private readonly PlayerAnimationsConfig _animationsConfig;
         private readonly CharacterAnimationRoot _animationRoot;
         private readonly IEventBus<IAnimationEvent> _animationEvents;
-        private readonly IItemManipulatorProvider _itemManipulatorProvider;
+        private readonly AvailableInteractions _availableInteractions;
 
         public PlayerBehaviourStateMachineFactory(
             PlayerInput playerInput, 
             PlayerAnimationsConfig animationsConfig, 
             CharacterAnimationRoot animationRoot, 
             IEventBus<IAnimationEvent> animationEvents, 
-            IItemManipulatorProvider itemManipulatorProvider)
+            AvailableInteractions availableInteractions)
         {
             _playerInput = playerInput;
             _animationsConfig = animationsConfig;
             _animationRoot = animationRoot;
             _animationEvents = animationEvents;
-            _itemManipulatorProvider = itemManipulatorProvider;
+            _availableInteractions = availableInteractions;
         }
 
         public StateMachine Create()
@@ -35,7 +35,7 @@ namespace RogueDungeon.Gameplay
             var walkState = CreateWalkState();
             var dodgeRightState = CreateDodgeRightState(out var dodgeRightAnimation);
             var dodgeLeftState = CreateDodgeLeftState(out var dodgeLeftAnimation);
-            var itemManipulatorState = new EquipmentManipulationState(_itemManipulatorProvider);
+            var interactionState = new InteractionState(_availableInteractions);
         
             var hasWalkInputCondition = new HasInputCondition(_playerInput, Command.MoveForward);
             var doesNotHaveWalkInputCondition = new ConditionNegator(hasWalkInputCondition);
@@ -60,11 +60,11 @@ namespace RogueDungeon.Gameplay
             
             builder.SetDebugName("Player root state machine");
             
-            builder.AddState(itemManipulatorState);
+            builder.AddState(interactionState);
             
-            builder.AddTransition(idleState, itemManipulatorState, itemManipulatorState);
-            builder.AddTransition(idleState, itemManipulatorState, itemManipulatorState);
-            builder.AddTransitionWhenFinished(itemManipulatorState, idleState, itemManipulatorState);
+            builder.AddTransition(idleState, interactionState, interactionState);
+            builder.AddTransition(idleState, interactionState, interactionState);
+            builder.AddTransitionWhenFinished(interactionState, idleState, interactionState);
 
             return builder.Build();
         }

@@ -12,22 +12,22 @@ namespace RogueDungeon.Services.Events
     {
         private readonly Dictionary<Type, object> _listeners = new();
 
-        public void Subscribe<T>(Action<T> listener) where T : TEventType
+        public void AddHandler<T>(IEventHandler<T> listener) where T : TEventType
         {
             if (!_listeners.TryGetValue(typeof(T), out var existingListeners))
             {
                 existingListeners = new List<Action<T>>();
                 _listeners[typeof(T)] = existingListeners;
             }
-            ((List<Action<T>>)existingListeners).Add(listener);
+            ((List<IEventHandler<T>>)existingListeners).Add(listener);
         }
 
-        public void Unsubscribe<T>(Action<T> listener) where T : TEventType
+        public void RemoveHandler<T>(IEventHandler<T> listener) where T : TEventType
         {
             if (!_listeners.TryGetValue(typeof(T), out var existingListeners))
                 return;
             
-            var listeners = (List<Action<T>>)existingListeners;
+            var listeners = (List<IEventHandler<T>>)existingListeners;
             var listenerIndex = listeners.IndexOf(listener);
             if(!listeners.IndexOutOfBounds(listenerIndex))
                 listeners[listenerIndex] = null;
@@ -38,13 +38,13 @@ namespace RogueDungeon.Services.Events
             if (!_listeners.TryGetValue(typeof(T), out var listenersObj)) 
                 return;
             
-            var listeners = (List<Action<T>>)listenersObj;
+            var listeners = (List<IEventHandler<T>>)listenersObj;
             for (var i = listeners.Count - 1; i >= 0; i--)
             {
                 if(listeners[i] == null)
                     listeners.RemoveAt(i);
                 else
-                    listeners[i].Invoke(@event);
+                    listeners[i].Handle(@event);
             }
         }
     }

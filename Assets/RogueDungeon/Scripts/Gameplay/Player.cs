@@ -3,20 +3,27 @@ using RogueDungeon.Services.FSM;
 
 namespace RogueDungeon.Gameplay
 {
-    public class Player : Character
+    public class Player : Character, IEventHandler<DodgeEvent>, IEventHandler<AttackEvent>
     {
-        public Equipment Equipment { get; }
+        public AvailableInteractions AvailableInteractions { get; }
         public PlayerDodgeState DodgeState { get; private set; }
         public EnemyPosition CurrentAttackDirection => EnemyPosition.Middle;
 
-        public Player(IEventBus<IAnimationEvent> animationEvents, Equipment equipment, StateMachine stateMachine) : base(animationEvents, stateMachine)
+        public Player(IEventBus<IAnimationEvent> animationEvents, AvailableInteractions availableInteractions, StateMachine stateMachine) : base(animationEvents, stateMachine)
         {
-            Equipment = equipment;
-            AnimationEvents.Subscribe<DodgeEvent>(@event => DodgeState = @event.ToDodgeState());
+            AvailableInteractions = availableInteractions;
+            AnimationEvents.AddHandler<DodgeEvent>(this);
+            AnimationEvents.AddHandler<AttackEvent>(this);
             Enable();
         }
+ 
+        public void Handle(DodgeEvent @event) => 
+            DodgeState = @event.ToDodgeState();
 
-        protected override IDamageable GetAttackTarget() => 
-            EntitiesRegistry.GetEnemyAtPosition(CurrentAttackDirection);
+        public void Handle(AttackEvent @event)
+        {
+            var target = EntitiesRegistry.GetEnemyAtPosition(CurrentAttackDirection);
+            target?.TakeDamage(AttackDamage);
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using RogueDungeon.DebugTools;
-using UnityEngine.Assertions;
 
 namespace RogueDungeon.Services.FSM
 {
@@ -24,7 +23,6 @@ namespace RogueDungeon.Services.FSM
 
         public void Run()
         {
-            Assert.IsFalse(IsRunning);
             SwitchToState(_statesContainer.GetStartState());
             IsRunning = true;
             ProcessTransitions();
@@ -58,7 +56,6 @@ namespace RogueDungeon.Services.FSM
 
         public void Stop()
         {
-            Assert.IsTrue(IsRunning);
             ExitCurrentState();
             IsRunning = false;
         }

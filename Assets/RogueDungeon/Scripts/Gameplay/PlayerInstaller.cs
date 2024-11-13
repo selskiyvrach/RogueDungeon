@@ -14,7 +14,7 @@ namespace RogueDungeon.Gameplay
             Container.Bind<IEventBus<IAnimationEvent>>().To<EventBus<IAnimationEvent>>().FromNew().AsSingle();
             Container.Bind<PlayerAnimationsConfig>().FromScriptableObjectResource("Player/PlayerAnimationsConfig").AsSingle();
             Container.Bind<StateMachine>().FromFactory<PlayerBehaviourStateMachineFactory>().AsSingle();
-            Container.BindInterfacesAndSelfTo<Equipment>().FromNew().AsSingle();
+            Container.BindInterfacesAndSelfTo<AvailableInteractions>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<Player>().FromNew().AsSingle().NonLazy();
         }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace RogueDungeon.Services.FSM
@@ -17,10 +16,7 @@ namespace RogueDungeon.Services.FSM
 
         public IState GetStartState() => 
             _startState;
-
-        public IState GetState(Type stateType) => 
-            _states.FirstOrDefault(n => n.GetType() == stateType);
-
+        
         /// <summary>
         /// Use to make sure that said state belongs to this sets set
         /// </summary>

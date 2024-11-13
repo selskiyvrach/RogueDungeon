@@ -49,7 +49,6 @@ namespace RogueDungeon.Gameplay
         {
             AnimationEvents = animationEvents;
             _behaviourStateMachine = behaviourStateMachine;
-            AnimationEvents.Subscribe<HitKeyframeEvent>(OnAttackHitKeyframe);
         }
 
         public void Enable() => 
@@ -58,13 +57,8 @@ namespace RogueDungeon.Gameplay
         public void Disable() => 
             _behaviourStateMachine.Stop();
 
-        private void OnAttackHitKeyframe(HitKeyframeEvent obj) => 
-            GetAttackTarget()?.TakeDamage(AttackDamage);
-
         public void TakeDamage(float damage) => 
             CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, MaxHealth);
-
-        protected abstract IDamageable GetAttackTarget();
         
         public void Tick() => 
             _behaviourStateMachine.Tick();
@@ -87,7 +81,7 @@ namespace RogueDungeon.Gameplay
         {
         }
 
-        protected override IDamageable GetAttackTarget()
+        protected IDamageable GetAttackTarget()
         {
             var player = EntitiesRegistry.Player; 
             return player.DodgeState switch
