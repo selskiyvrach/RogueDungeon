@@ -1,6 +1,4 @@
 using RogueDungeon.Animations;
-using RogueDungeon.Characters;
-using RogueDungeon.Gameplay;
 
 namespace RogueDungeon.Player
 {
@@ -27,11 +25,11 @@ namespace RogueDungeon.Player
             Direction = direction;
         }
 
-        public PlayerDodgeState ToDodgeState() =>
+        public Player.DodgeState ToDodgeState() =>
             State == DodgeState.Ended
-                ? PlayerDodgeState.None
+                ? Player.DodgeState.None
                 : Direction == DodgeDirection.Left
-                    ? PlayerDodgeState.Left
-                    : PlayerDodgeState.Right;
+                    ? Player.DodgeState.Left
+                    : Player.DodgeState.Right;
     }
 }

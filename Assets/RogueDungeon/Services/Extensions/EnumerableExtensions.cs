@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace RogueDungeon.Utils
+namespace RogueDungeon.Services.Extensions
 {
     public static class EnumerableExtensions
     {
@@ -21,5 +22,17 @@ namespace RogueDungeon.Utils
 
         public static List<T> ToListOrNull<T>(this IEnumerable<T> source) => 
             !(source?.Any() ?? false) ? null : source.ToList();
+
+        public static IEnumerable<T> GetAll<T>(this IEnumerable<object> source, Predicate<T> predicate = null) => 
+            source.Where(n => n is T item && (predicate?.Invoke(item) ?? false)).Cast<T>();
+
+        public static T Get<T>(this IEnumerable<object> source, Predicate<T> predicate = null) =>
+            source.GetAll(predicate).First();
+        
+        public static T GetOrDefault<T>(this IEnumerable<object> source, Predicate<T> predicate = null) =>
+            source.TryGet(out var result, predicate) ? result : default;
+        
+        public static bool TryGet<T>(this IEnumerable<object> source, out T result, Predicate<T> predicate = null) =>
+            (result = source.GetAll(predicate).FirstOrDefault()) != null;
     }
 }

@@ -1,4 +1,0 @@
-﻿namespace RogueDungeon.Gameplay
-{
-
-}

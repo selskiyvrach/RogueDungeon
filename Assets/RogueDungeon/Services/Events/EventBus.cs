@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using RogueDungeon.Utils;
+using RogueDungeon.Services.Extensions;
 
 namespace RogueDungeon.Services.Events
 {
@@ -29,7 +29,7 @@ namespace RogueDungeon.Services.Events
             
             var listeners = (List<IEventHandler<T>>)existingListeners;
             var listenerIndex = listeners.IndexOf(listener);
-            if(!listeners.IndexOutOfBounds(listenerIndex))
+            if(!listeners.OutOfBounds(listenerIndex))
                 listeners[listenerIndex] = null;
         }
 
@@ -47,5 +47,8 @@ namespace RogueDungeon.Services.Events
                     listeners[i].Handle(@event);
             }
         }
+
+        public void Dispose() => 
+            _listeners.Clear();
     }
 }

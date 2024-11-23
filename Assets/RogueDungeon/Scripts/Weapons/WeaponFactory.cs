@@ -1,20 +1,15 @@
-﻿using RogueDungeon.Services.AssetManagement;
-using Zenject;
+﻿using Zenject;
 
 namespace RogueDungeon.Weapons
 {
-    public class WeaponFactory : IFactory<WeaponConfig, Weapon>
+    public class WeaponFactory : IFactory<WeaponConfig, IWeapon, Weapon>
     {
         private readonly WeaponBehaviourFactory _weaponBehaviourFactory;
-        private readonly IAssetProvider<WeaponConfig> _configProvider;
 
-        public WeaponFactory(WeaponBehaviourFactory weaponBehaviourFactory, IAssetProvider<WeaponConfig> configProvider)
-        {
+        public WeaponFactory(WeaponBehaviourFactory weaponBehaviourFactory) => 
             _weaponBehaviourFactory = weaponBehaviourFactory;
-            _configProvider = configProvider;
-        }
 
-        public Weapon Create(WeaponConfig config) => 
-            new(config, _weaponBehaviourFactory.Create(config));
+        public Weapon Create(WeaponConfig config, IWeapon weapon) => 
+            new(config, _weaponBehaviourFactory.Create(config, weapon));
     }
 }

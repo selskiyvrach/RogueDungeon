@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using RogueDungeon.DebugTools;
-using RogueDungeon.Utils;
+using RogueDungeon.Services.DebugTools;
+using RogueDungeon.Services.Extensions;
 
 namespace RogueDungeon.Services.FSM
 {

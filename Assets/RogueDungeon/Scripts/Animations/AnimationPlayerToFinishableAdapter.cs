@@ -1,5 +1,5 @@
 ﻿using System;
-using RogueDungeon.DebugTools;
+using RogueDungeon.Services.DebugTools;
 using RogueDungeon.Services.FSM;
 
 namespace RogueDungeon.Animations

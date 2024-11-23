@@ -8,7 +8,7 @@ using Zenject;
 
 namespace RogueDungeon.Weapons
 {
-    public class WeaponBehaviourFactory : IFactory<WeaponConfig, WeaponBehaviour>
+    public class WeaponBehaviourFactory : IFactory<WeaponConfig, IWeapon, WeaponBehaviour>
     {
         private readonly AnimationTarget _animationTarget;
         private readonly ICommandsProvider _commandsProvider;
@@ -27,14 +27,14 @@ namespace RogueDungeon.Weapons
             _animationTarget = animationTarget;
         }
 
-        public WeaponBehaviour Create(WeaponConfig config) =>
-            new(CreateEnterCondition(), CreateState(config));
+        public WeaponBehaviour Create(WeaponConfig config, IWeapon weapon) =>
+            new(CreateEnterCondition(), CreateState(config, weapon));
 
         private IfAnyCondition CreateEnterCondition() =>
             new(new HasCommandCondition(Command.Attack, _commandsProvider),
                 new HasCommandCondition(Command.Block, _commandsProvider));
 
-        private IFinishableState CreateState(WeaponConfig config)
+        private IFinishableState CreateState(WeaponConfig config, IWeapon weapon)
         {
             var builder = new StateMachineBuilder();
             
@@ -89,8 +89,8 @@ namespace RogueDungeon.Weapons
             var idleToBlockState = new State {DebugName = "Idle to block state"};
             idleToBlockState.AddHandler(new PlayAnimationStateHandler(idleToBlockAnimation));
             idleToBlockState.AddHandler(new ConsumeCommandStateEnterHandler(_commandsConsumer, Command.Block));
-            idleToBlockState.AddHandler(new AnimationEventStateHandler<BlockStateEvent>(_animationEvents, idleToBlockAnimation, AnimEventNames.BLOCK_RAISED, 
-                new BlockStateEvent(BlockStateEvent.BlockState.Raised)));
+            idleToBlockState.AddHandler(new AnimationEventStateHandler<BlockEvent>(_animationEvents, idleToBlockAnimation, AnimEventNames.BLOCK_RAISED, 
+                new BlockEvent(weapon)));
 
             var blockToIdleAnimation = new AnimationPlayer(config.BlockToIdleAnimation, _animationTarget);
             var blockToIdleState = new State {DebugName = "Block to idle state"};
@@ -100,8 +100,8 @@ namespace RogueDungeon.Weapons
             var holdBlockAnimation = new AnimationPlayer(config.HoldBlockAnimation, _animationTarget);
             var holdBlockState = new State {DebugName = "Hold block state"};
             holdBlockState.AddHandler(new PlayAnimationStateHandler(holdBlockAnimation));
-            holdBlockState.AddHandler(new AnimationEventStateHandler<BlockStateEvent>(_animationEvents, idleToBlockAnimation, AnimEventNames.BLOCK_LOWERED, 
-                new BlockStateEvent(BlockStateEvent.BlockState.Lowered)));
+            holdBlockState.AddHandler(new AnimationEventStateHandler<BlockEvent>(_animationEvents, idleToBlockAnimation, AnimEventNames.BLOCK_LOWERED, 
+                new BlockEvent(null)));
             
             builder.AddState(idleToBlockState);
             builder.AddState(holdBlockState);

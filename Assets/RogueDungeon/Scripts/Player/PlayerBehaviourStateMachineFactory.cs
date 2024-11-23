@@ -1,5 +1,4 @@
 ﻿using RogueDungeon.Animations;
-using RogueDungeon.Gameplay;
 using RogueDungeon.PlayerInputCommands;
 using RogueDungeon.Services.Events;
 using RogueDungeon.Services.FSM;

@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.DebugTools
+﻿namespace RogueDungeon.Services.DebugTools
 {
     public interface IDebugName
     {

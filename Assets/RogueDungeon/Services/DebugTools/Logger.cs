@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
-using RogueDungeon.Utils;
+using RogueDungeon.Services.Extensions;
 using UnityEngine;
 
-namespace RogueDungeon.DebugTools
+namespace RogueDungeon.Services.DebugTools
 {
     public static class Logger
     {

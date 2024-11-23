@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using RogueDungeon.DebugTools;
+using RogueDungeon.Services.DebugTools;
 
 namespace RogueDungeon.Services.FSM
 {

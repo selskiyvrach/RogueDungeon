@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueDungeon.DebugTools
+namespace RogueDungeon.Services.DebugTools
 {
     public class DebugHUD : MonoBehaviour
     {

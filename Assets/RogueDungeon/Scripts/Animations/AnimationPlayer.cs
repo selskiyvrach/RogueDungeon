@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using RogueDungeon.DebugTools;
-using RogueDungeon.Gameplay;
-using RogueDungeon.Utils;
+using RogueDungeon.Services.DebugTools;
+using RogueDungeon.Services.Extensions;
 using UniRx;
 using UnityEngine;
 

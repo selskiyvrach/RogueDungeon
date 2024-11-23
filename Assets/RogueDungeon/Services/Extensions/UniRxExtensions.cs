@@ -1,6 +1,6 @@
 ﻿using UniRx;
 
-namespace RogueDungeon.Utils
+namespace RogueDungeon.Services.Extensions
 {
     public static class UnirxExtensions
     {

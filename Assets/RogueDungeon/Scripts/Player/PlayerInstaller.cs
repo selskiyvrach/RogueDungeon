@@ -22,7 +22,17 @@ namespace RogueDungeon.Player
             Container.Bind<StateMachine>().FromFactory<PlayerBehaviourStateMachineFactory>().AsSingle();
             Container.BindInterfacesAndSelfTo<WeaponFactory>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<AvailableInteractions>().FromNew().AsSingle();
-            Container.BindInterfacesAndSelfTo<Player>().FromNew().AsSingle().NonLazy();
+            // Container.BindInterfacesAndSelfTo<Player>().FromNew().AsSingle().NonLazy();
+        }
+    }
+    
+    public class PlayerFactory : IFactory<Entities.Player>
+    {
+        
+        
+        public Entities.Player Create()
+        {
+            return null;
         }
     }
 }
