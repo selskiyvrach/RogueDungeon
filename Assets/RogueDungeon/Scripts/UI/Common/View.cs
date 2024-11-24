@@ -7,7 +7,9 @@ namespace RogueDungeon.UI.Common
         public virtual void Dispose() => 
             Destroy(gameObject);
 
-        public virtual void Initialize(T viewModel) => 
-            viewModel.OnDisposed += Dispose;
+        public virtual void Initialize(T viewModel)
+        {
+            
+        }
     }
 }

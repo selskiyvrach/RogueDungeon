@@ -11,7 +11,7 @@ namespace RogueDungeon.UI.LoadingScreen
         public IReadOnlyReactiveProperty<float> Progress => _model.Progress;
         public IReadOnlyReactiveProperty<bool> IsFinished => _isFinished;
 
-        public SceneLoadingProcessViewModel(ISceneLoadingModel model) : base(model)
+        public SceneLoadingProcessViewModel(ISceneLoadingModel model)
         {
             _model = model;
             _model.OnFinished += () => _isFinished.Value = true;
