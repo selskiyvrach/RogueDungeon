@@ -11,7 +11,6 @@ namespace RogueDungeon.Game
         
         public override void InstallBindings()
         {
-            Container.Bind<IMainMenuView>().To<MainMenuView>().FromInstance(_mainMenuView);
             
         }
     }

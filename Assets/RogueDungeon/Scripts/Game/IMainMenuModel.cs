@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using RogueDungeon.UI;
 using RogueDungeon.UI.Common;
 
 namespace RogueDungeon.Game

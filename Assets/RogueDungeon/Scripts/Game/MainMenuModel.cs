@@ -7,7 +7,7 @@ using RogueDungeon.UI.Common;
 
 namespace RogueDungeon.Game
 {
-    internal class MainMenuModel : Model, IMainMenuModel
+    public class MainMenuModel : Model, IMainMenuModel
     {
         public event Action OnNewGame;
         public event Action OnQuit;
