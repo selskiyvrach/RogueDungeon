@@ -25,14 +25,21 @@ namespace Common.SceneManagement
         {
             var asyncOperation = SceneManager.LoadSceneAsync(sceneName);
             asyncOperation.allowSceneActivation = false;
-            asyncOperation.completed += _ =>
-            {
-                asyncOperation.allowSceneActivation = true;
-            };
-            while (!asyncOperation.isDone)
+
+            while (asyncOperation.progress < 0.9f)
             {
                 var progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
                 _progress.Value = progress;
+                yield return null;
+            }
+
+            _progress.Value = 1f; 
+            yield return new WaitForSeconds(.2f);
+
+            asyncOperation.allowSceneActivation = true;
+
+            while (!asyncOperation.isDone)
+            {
                 yield return null;
             }
 

@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/RogueDungeon/Scenes/EntryPoint.unity
+    path: Assets/RogueDungeon/Scenes/InBuild/EntryPoint.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/RogueDungeon/Scenes/MainMenu.unity
+    path: Assets/RogueDungeon/Scenes/InBuild/MainMenu.unity
     guid: 412c6a96b50643c46b92edcf0049cc4f
+  - enabled: 1
+    path: Assets/RogueDungeon/Scenes/InBuild/Gameplay.unity
+    guid: d53dee7272a7ed4428b66aff08c96df7
   m_configObjects: {}

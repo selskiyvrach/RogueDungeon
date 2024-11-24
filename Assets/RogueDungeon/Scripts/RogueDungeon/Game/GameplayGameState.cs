@@ -1,13 +1,20 @@
-﻿using System;
-using Common.Game;
+﻿using Common.Game;
+using Common.SceneManagement;
+using RogueDungeon.SceneManagement;
 
 namespace RogueDungeon.Game
 {
     internal class GameplayGameState : IGameState
     {
-        public void Enter()
+        private readonly ISceneLoader _sceneLoader;
+
+        public GameplayGameState(ISceneLoader sceneLoader) => 
+            _sceneLoader = sceneLoader;
+
+        public async void Enter()
         {
-            throw new NotImplementedException();
+            await _sceneLoader.Load<GameplayScene>();
+            
         }
     }
 }

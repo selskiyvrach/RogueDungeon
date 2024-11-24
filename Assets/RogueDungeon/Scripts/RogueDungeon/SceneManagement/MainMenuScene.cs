@@ -1,4 +1,6 @@
-﻿namespace Common.SceneManagement
+﻿using Common.SceneManagement;
+
+namespace RogueDungeon.SceneManagement
 {
     public class MainMenuScene : Scene
     {
