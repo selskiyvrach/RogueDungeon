@@ -39,7 +39,6 @@ namespace RogueDungeon.SceneManagement
             {
                 var progress = Mathf.Clamp01(asyncOperation.progress / 0.9f);
                 _progress.Value = progress;
-                yield return new WaitForSeconds(2);
                 yield return null;
             }
 

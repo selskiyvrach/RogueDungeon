@@ -16,3 +16,5 @@ MonoBehaviour:
     type: 3}
   _loadingScreenView: {fileID: 789231533747508349, guid: 4731e8f0156653444b58e067b6062994,
     type: 3}
+  _gameCamera: {fileID: 526907443447943245, guid: 3505bfda12e0dcc45a76b5ec65954a2d,
+    type: 3}
