@@ -1,39 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CoroutineRunner : MonoBehaviour
+public class CoroutineRunner : MonoBehaviour, ICoroutineRunner
 {
-    private static CoroutineRunner _instance;
+    public Coroutine Run(IEnumerator coroutine) => 
+        StartCoroutine(coroutine);
 
-    private static CoroutineRunner Instance
-    {
-        get
-        {
-            if (_instance != null) 
-                return _instance;
-            
-            var gameObject = new GameObject("CoroutineRunner");
-            _instance = gameObject.AddComponent<CoroutineRunner>();
-            DontDestroyOnLoad(gameObject);
-            return _instance;
-        }
-    }
-
-    public static Coroutine Run(IEnumerator coroutine) => 
-        Instance.StartCoroutine(coroutine);
-
-    public static void Stop(Coroutine coroutine)
+    public void Stop(Coroutine coroutine)
     {
         if (coroutine != null) 
-            Instance.StopCoroutine(coroutine);
+            StopCoroutine(coroutine);
     }
 
-    public static void Stop(IEnumerator coroutine)
+    public void Stop(IEnumerator coroutine)
     {
         if (coroutine != null) 
-            Instance.StopCoroutine(coroutine);
+            StopCoroutine(coroutine);
     }
-
-    private void OnDestroy() => 
-        _instance = null;
 }

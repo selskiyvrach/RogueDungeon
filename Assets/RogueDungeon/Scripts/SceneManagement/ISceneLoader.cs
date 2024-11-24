@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace RogueDungeon.SceneManagement
+﻿namespace RogueDungeon.SceneManagement
 {
     public interface ISceneLoader
     {
-        void LoadScene<T>(Action callback = null) where T : Scene, new();
+        void Load<T>() where T : Scene, new();
     }
 }

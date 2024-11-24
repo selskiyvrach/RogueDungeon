@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47cba767f184558a7ffe3e17f09f350, type: 3}
   m_Name: BootstrapStateInstaller
   m_EditorClassIdentifier: 
-  _gameRootGameObject: {fileID: 3900700532823289838, guid: dbe4615c2de726146a051d17822a4338,
-    type: 3}
-  _loadingScreenView: {fileID: 789231533747508349, guid: 4731e8f0156653444b58e067b6062994,
+  _rootGameObject: {fileID: 3900700532823289838, guid: dbe4615c2de726146a051d17822a4338,
     type: 3}
   _gameCamera: {fileID: 526907443447943245, guid: 3505bfda12e0dcc45a76b5ec65954a2d,
     type: 3}
   _eventSystem: {fileID: 4340473840694383706, guid: bdc31969160fe6345985bc3f21356030,
     type: 3}
+  _loadingSceneMvvmFactory: {fileID: 11400000, guid: 968bcba2f4fccea4184f900572403241,
+    type: 2}

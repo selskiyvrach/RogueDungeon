@@ -2,7 +2,7 @@
 
 namespace RogueDungeon.Game
 {
-    public interface IGameRootObject
+    public interface ICommonRootObject
     {
         Transform CommonRootTransform { get; }
     }

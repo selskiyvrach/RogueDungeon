@@ -2,7 +2,7 @@
 
 namespace RogueDungeon.Game
 {
-    public class GameRootObject : MonoBehaviour, IGameRootObject, IUiRootObject
+    public class GameRootObject : MonoBehaviour, ICommonRootObject, IUiRootObject
     {
         [SerializeField] private Transform _uiTransform;
         public Transform UiRootTransform => _uiTransform;
