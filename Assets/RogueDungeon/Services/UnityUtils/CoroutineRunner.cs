@@ -1,20 +1,23 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
-public class CoroutineRunner : MonoBehaviour, ICoroutineRunner
+namespace RogueDungeon.Services.UnityUtils
 {
-    public Coroutine Run(IEnumerator coroutine) => 
-        StartCoroutine(coroutine);
-
-    public void Stop(Coroutine coroutine)
+    public class CoroutineRunner : MonoBehaviour, ICoroutineRunner
     {
-        if (coroutine != null) 
-            StopCoroutine(coroutine);
-    }
+        public Coroutine Run(IEnumerator coroutine) => 
+            StartCoroutine(coroutine);
 
-    public void Stop(IEnumerator coroutine)
-    {
-        if (coroutine != null) 
-            StopCoroutine(coroutine);
+        public void Stop(Coroutine coroutine)
+        {
+            if (coroutine != null) 
+                StopCoroutine(coroutine);
+        }
+
+        public void Stop(IEnumerator coroutine)
+        {
+            if (coroutine != null) 
+                StopCoroutine(coroutine);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using RogueDungeon.Camera;
 using RogueDungeon.SceneManagement;
+using RogueDungeon.Services.UnityUtils;
 using RogueDungeon.UI.LoadingScreen;
 using UnityEngine;
 using UnityEngine.EventSystems;
