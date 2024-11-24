@@ -3,7 +3,8 @@
 namespace RogueDungeon.UI.Common
 {
     [RequireComponent(typeof(Canvas))]
-    public class CanvasSorter : MonoBehaviour
+    [DisallowMultipleComponent]
+    public sealed class CanvasSorter : MonoBehaviour
     {
         [SerializeField] private UiSortingOrder uiSortingOrder;
         [SerializeField, HideInInspector] private Canvas _canvas;
