@@ -1,6 +1,7 @@
 ﻿using Common.Mvvm.ViewModel;
 using Common.UiCommons;
 using RogueDungeon.Game;
+using RogueDungeon.Localization;
 using UniRx;
 
 namespace RogueDungeon.UI.MainMenu
@@ -13,7 +14,11 @@ namespace RogueDungeon.UI.MainMenu
         public MainMenuViewModel(IMainMenuModel mainMenuModel)
         {
             _mainMenuModel = mainMenuModel;
-            MenuItems = new ReactiveCollection<IMenuItem>(_mainMenuModel.MainItems);
+            MenuItems = new ReactiveCollection<IMenuItem>(new []
+            {
+                new MenuItemData(WrapInCloseViewAndDisposeSelfCommand(_mainMenuModel.StartNewGameCommand()), Aliases.NEW_GAME),
+                new MenuItemData(WrapInCloseViewAndDisposeSelfCommand(_mainMenuModel.QuitCommand()), Aliases.QUIT_GAME)
+            });
         }
 
         public override void Dispose()

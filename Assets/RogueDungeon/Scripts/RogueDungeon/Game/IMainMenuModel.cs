@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common.Commands;
 using Common.Mvvm.Model;
 using Common.UiCommons;
 
@@ -9,6 +10,7 @@ namespace RogueDungeon.Game
     {
         event Action OnNewGame;
         event Action OnQuit;
-        IEnumerable<IMenuItem> MainItems { get; }
+        ICommand StartNewGameCommand();
+        ICommand QuitCommand();
     }
 }

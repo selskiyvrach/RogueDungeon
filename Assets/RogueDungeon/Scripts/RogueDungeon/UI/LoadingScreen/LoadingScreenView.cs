@@ -1,7 +1,5 @@
-﻿using System;
-using Common.Mvvm.View;
+﻿using Common.Mvvm.View;
 using DG.Tweening;
-using UniRx;
 using UnityEngine;
 
 namespace RogueDungeon.UI.LoadingScreen
@@ -12,19 +10,14 @@ namespace RogueDungeon.UI.LoadingScreen
         [SerializeField] private float _fadeDuration = .25f;
         
         private ILoadingScreenViewModel _viewModel;
-        private IDisposable _sub;
 
         public override void Initialize(ILoadingScreenViewModel viewModel)
         {
             base.Initialize(viewModel);
             _canvasGroup.alpha = 1;
-            _sub = viewModel.IsFinished.Where(n => n).Subscribe(_ => Close());
         }
 
-        private void Close()
-        {
-            _sub.Dispose();
-            _canvasGroup.DOFade(0, _fadeDuration).OnComplete(Dispose);
-        }
+        protected override void Close() => 
+            _canvasGroup.DOFade(0, _fadeDuration).OnComplete(base.Close);
     }
 }

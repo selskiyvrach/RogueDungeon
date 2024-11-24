@@ -14,7 +14,11 @@ namespace RogueDungeon.UI.LoadingScreen
         public LoadingScreenViewModel(ISceneLoadingModel model)
         {
             _model = model;
-            _model.OnFinished += () => _isFinished.Value = true;
+            _model.OnFinished += () =>
+            {
+                _isFinished.Value = true;
+                CloseView();
+            };
         }
     }
 }

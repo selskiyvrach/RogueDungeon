@@ -15,6 +15,7 @@ namespace RogueDungeon.UI.MainMenu
 
         public override void Initialize(IMainMenuViewModel viewModel)
         {
+            base.Initialize(viewModel);
             var buttons = viewModel.MenuItems.ToArray();
             _buttonList.SetActiveItemsCount(buttons.Length);
             for (var i = 0; i < _buttonList.Count; i++)

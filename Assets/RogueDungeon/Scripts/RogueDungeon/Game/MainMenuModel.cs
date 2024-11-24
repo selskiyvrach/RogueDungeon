@@ -12,15 +12,12 @@ namespace RogueDungeon.Game
     {
         public event Action OnNewGame;
         public event Action OnQuit;
+        
+        public ICommand StartNewGameCommand() => 
+            new ActionCommand(() => OnNewGame.Invoke());
 
-        public IEnumerable<IMenuItem> MainItems { get; }
-
-        public MainMenuModel() =>
-            MainItems = new []
-            {
-                new MenuItemData(new ActionCommand(() => OnNewGame.Invoke()), Aliases.NEW_GAME),
-                new MenuItemData(new ActionCommand(() => OnQuit.Invoke()), Aliases.QUIT_GAME),
-            };
+        public ICommand QuitCommand() => 
+            new ActionCommand(() => OnQuit.Invoke());
 
         public override void Dispose()
         {
