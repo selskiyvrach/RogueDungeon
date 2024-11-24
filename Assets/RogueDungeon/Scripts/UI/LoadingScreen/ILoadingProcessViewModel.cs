@@ -1,8 +1,9 @@
-﻿using UniRx;
+﻿using RogueDungeon.UI.Common;
+using UniRx;
 
 namespace RogueDungeon.UI.LoadingScreen
 {
-    public interface ILoadingScreenViewModel
+    public interface ILoadingProcessViewModel : IViewModel
     {
         IReadOnlyReactiveProperty<float> Progress { get; }
         IReadOnlyReactiveProperty<bool> IsFinished { get; }
