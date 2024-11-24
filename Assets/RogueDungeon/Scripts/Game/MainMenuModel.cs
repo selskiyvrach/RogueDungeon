@@ -17,8 +17,8 @@ namespace RogueDungeon.Game
         public MainMenuModel() =>
             MainItems = new []
             {
-                new MenuItemData(new ActionCommand(OnNewGame.Invoke), Aliases.NEW_GAME),
-                new MenuItemData(new ActionCommand(OnQuit.Invoke), Aliases.QUIT_GAME),
+                new MenuItemData(new ActionCommand(() => OnNewGame.Invoke()), Aliases.NEW_GAME),
+                new MenuItemData(new ActionCommand(() => OnQuit.Invoke()), Aliases.QUIT_GAME),
             };
 
         public override void Dispose()

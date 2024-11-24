@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f170484d8ec44168a3aaa965a39ae65, type: 3}
-  m_Name: GameInstaller
+  m_Script: {fileID: 11500000, guid: 8638c4ac313448b6a42f51f468eeaba1, type: 3}
+  m_Name: MainMenuStateInstaller
   m_EditorClassIdentifier: 
-  _bootstrapStateInstaller: {fileID: 11400000, guid: 9f9a8dc3df6de60448912879ad7a3653,
-    type: 2}
-  _mainMenuStateInstaller: {fileID: 11400000, guid: c864a1cabe865e4458cba194a01301e3,
+  _mainMenuMvvmFactory: {fileID: 11400000, guid: 3271d9eaa41b51c4b9cf58bb7a5282b1,
     type: 2}

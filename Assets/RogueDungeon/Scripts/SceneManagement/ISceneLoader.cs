@@ -1,7 +1,9 @@
-﻿namespace RogueDungeon.SceneManagement
+﻿using System.Threading.Tasks;
+
+namespace RogueDungeon.SceneManagement
 {
     public interface ISceneLoader
     {
-        void Load<T>() where T : Scene, new();
+        Task Load<T>() where T : Scene, new();
     }
 }

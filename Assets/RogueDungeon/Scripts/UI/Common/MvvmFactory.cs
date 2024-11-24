@@ -5,7 +5,7 @@ using Zenject;
 
 namespace RogueDungeon.UI.LoadingScreen
 {
-    public abstract class MvvmFactory<TModelImpl, TViewModelImpl, TViewImpl, TModelInterface> : ScriptableObject, IFactory<TModelInterface> 
+    public abstract class MvvmFactory<TModelImpl, TViewModelImpl, TViewImpl, TModelInterface> : ScriptableObject, IFactory<TModelImpl> 
         where TModelInterface : IModel where TModelImpl : TModelInterface
         where TViewModelImpl : IViewModel<TModelInterface>
         where TViewImpl : MonoBehaviour, IView<TViewModelImpl>
@@ -15,7 +15,7 @@ namespace RogueDungeon.UI.LoadingScreen
         [Inject] private DiContainer _diContainer;
         [Inject] private IUiRootObject _uiRootObject;
 
-        public TModelInterface Create()
+        public TModelImpl Create()
         {
             var subContainer = _diContainer.CreateSubContainer();
 
@@ -28,7 +28,7 @@ namespace RogueDungeon.UI.LoadingScreen
             var view = Instantiate(_viewPrefab, _uiRootObject.UiRootTransform);
             view.Initialize(viewModel);
 
-            return model;
+            return (TModelImpl)model;
         }
     }
 }

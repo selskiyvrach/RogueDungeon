@@ -1,6 +1,7 @@
 ﻿using RogueDungeon.UI.LoadingScreen;
 using RogueDungeon.UI.MainMenu;
 using UnityEngine;
+using Zenject;
 
 namespace RogueDungeon.Game
 {
