@@ -1,4 +1,5 @@
-﻿using Common.SceneManagement;
+﻿using Common.Events;
+using Common.SceneManagement;
 using Common.UnityUtils;
 using RogueDungeon.Camera;
 using RogueDungeon.UI.LoadingScreen;
@@ -25,6 +26,8 @@ namespace RogueDungeon.Game
             var coroutineRunner = new GameObject("CoroutineRunner").AddComponent<CoroutineRunner>();
             coroutineRunner.transform.SetParent(gameRoot.CommonRootTransform);
             Container.Bind<ICoroutineRunner>().To<CoroutineRunner>().FromInstance(coroutineRunner).AsSingle();
+            
+            Container.Bind<IEventBus>().To<EventBus>().FromNew().AsSingle();
             
             Instantiate(_eventSystem, gameRoot.CommonRootTransform);
 

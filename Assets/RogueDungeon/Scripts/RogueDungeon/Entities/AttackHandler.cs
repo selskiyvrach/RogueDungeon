@@ -15,7 +15,7 @@ namespace RogueDungeon.Entities
         public AttackHandler(IRegistry<IRootEntity> entities) => 
             _entities = entities;
 
-        public void Handle(AttackEvent @event)
+        public void HandleEvent(AttackEvent @event)
         {
             var target = @event.AtaAttackData.TargetsMask.GetTargets(_entities).FirstOrDefault();
             if(target == null)

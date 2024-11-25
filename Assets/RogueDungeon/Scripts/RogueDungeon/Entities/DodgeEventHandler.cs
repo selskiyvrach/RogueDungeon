@@ -11,7 +11,7 @@ namespace RogueDungeon.Entities
         public DodgeEventHandler(Property<DodgeState> dodgeState) => 
             _dodgeState = dodgeState;
 
-        public void Handle(DodgeEvent @event) => 
+        public void HandleEvent(DodgeEvent @event) => 
             _dodgeState.Value = @event.ToDodgeState();
     }
 }

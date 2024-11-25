@@ -4,7 +4,7 @@ using Common.DotNetUtils;
 
 namespace Common.Events
 {
-    public class EventBus : EventBus<object>
+    public class EventBus : EventBus<object>, IEventBus
     {
     }
     
@@ -16,7 +16,7 @@ namespace Common.Events
         {
             if (!_listeners.TryGetValue(typeof(T), out var existingListeners))
             {
-                existingListeners = new List<Action<T>>();
+                existingListeners = new List<IEventHandler<T>>();
                 _listeners[typeof(T)] = existingListeners;
             }
             ((List<IEventHandler<T>>)existingListeners).Add(listener);
@@ -44,7 +44,7 @@ namespace Common.Events
                 if(listeners[i] == null)
                     listeners.RemoveAt(i);
                 else
-                    listeners[i].Handle(@event);
+                    listeners[i].HandleEvent(@event);
             }
         }
 

@@ -11,7 +11,7 @@ namespace RogueDungeon.Entities
         public BlockEventHandler(Property<BlockState> property) => 
             _property = property;
 
-        public void Handle(BlockEvent @event) =>
+        public void HandleEvent(BlockEvent @event) =>
             _property.Value.CurrentlyBlockingWith = @event.BlockingWeapon;
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IEventHandler<TEvent>
     {
-        void Handle(TEvent @event);
+        void HandleEvent(TEvent @event);
     }
 }

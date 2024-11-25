@@ -19,10 +19,10 @@ namespace Zenject
         public event Action PreResolve;
         public event Action PostResolve;
 
-        public UnityEvent OnPreInstall;
-        public UnityEvent OnPostInstall;
-        public UnityEvent OnPreResolve;
-        public UnityEvent OnPostResolve;
+        [HideInInspector]public UnityEvent OnPreInstall;
+        [HideInInspector]public UnityEvent OnPostInstall;
+        [HideInInspector]public UnityEvent OnPreResolve;
+        [HideInInspector]public UnityEvent OnPostResolve;
 
         public static Action<DiContainer> ExtraBindingsInstallMethod;
         public static Action<DiContainer> ExtraBindingsLateInstallMethod;
@@ -33,15 +33,15 @@ namespace Zenject
         [FormerlySerializedAs("_parentNewObjectsUnderRoot")]
         [Tooltip("When true, objects that are created at runtime will be parented to the SceneContext")]
         [SerializeField]
-        bool _parentNewObjectsUnderSceneContext;
+        [HideInInspector]bool _parentNewObjectsUnderSceneContext;
 
         [Tooltip("Optional contract names for this SceneContext, allowing contexts in subsequently loaded scenes to depend on it and be parented to it, and also for previously loaded decorators to be included")]
         [SerializeField]
-        List<string> _contractNames = new List<string>();
+        [HideInInspector]List<string> _contractNames = new List<string>();
 
         [Tooltip("Optional contract names of SceneContexts in previously loaded scenes that this context depends on and to which it should be parented")]
         [SerializeField]
-        List<string> _parentContractNames = new List<string>();
+        [HideInInspector]List<string> _parentContractNames = new List<string>();
 
         DiContainer _container;
 
