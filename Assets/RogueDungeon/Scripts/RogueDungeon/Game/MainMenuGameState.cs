@@ -1,11 +1,10 @@
-﻿using Common.Game;
-using Common.SceneManagement;
-using RogueDungeon.SceneManagement;
+﻿using Common.FSM;
+using Common.Game;
 using Zenject;
 
 namespace RogueDungeon.Game
 {
-    public class MainMenuGameState : IGameState
+    public class MainMenuGameState : IGameState, IExitable
     {
         private readonly IGameStateChanger _stateChanger;
         private readonly DiContainer _container;
@@ -30,10 +29,10 @@ namespace RogueDungeon.Game
         private void StartNewGame() => 
             _stateChanger.EnterState<GameplayGameState>();
 
-        public void Exit() => 
-            _mainMenuModel.Dispose();
-
         private void Quit() => 
             _stateChanger.EnterState<QuitGameState>();
+
+        public void Exit() => 
+            _mainMenuModel.Dispose();
     }
 }

@@ -16,3 +16,5 @@ MonoBehaviour:
     type: 2}
   _mainMenuStateInstaller: {fileID: 11400000, guid: c864a1cabe865e4458cba194a01301e3,
     type: 2}
+  _gameplayStateInstaller: {fileID: 11400000, guid: 963df8d9c730ff449a3b6de2b7045658,
+    type: 2}

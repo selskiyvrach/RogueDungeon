@@ -4,7 +4,7 @@ namespace Common.DotNetUtils
 {
     public static class EnumExtensions
     {
-        public static T ThrowIfNone<T>(this T target)
+        public static T ThrowIfNone<T>(this T target) where T : struct, Enum
         {
             if (target.ToString() == "None")
                 throw new Exception("Item has value of None");
