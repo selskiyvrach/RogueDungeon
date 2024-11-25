@@ -1,7 +1,6 @@
-﻿using Common.Game;
-using Zenject;
+﻿using Zenject;
 
-namespace RogueDungeon.Game
+namespace Common.Game
 {
     public class GameStateFactory : IGameStatesFactory
     {

@@ -7,7 +7,7 @@ using Zenject;
 
 namespace RogueDungeon.Game
 {
-    internal class GameplayGameState : IGameState, IEventHandler<OnSceneContainerCreatedEvent<GameplayScene>>, IExitable
+    internal class GameplayGameState : IGameState, ISceneContainerReadyListener<GameplayScene>, IExitable
     {
         private readonly ISceneLoader _sceneLoader;
         private readonly DiContainer _container;
@@ -20,18 +20,17 @@ namespace RogueDungeon.Game
 
         public async void Enter()
         {
-            _container.Bind<IEventHandler<OnSceneContainerCreatedEvent<GameplayScene>>>().FromInstance(this).AsSingle();
+            _container.Bind<ISceneContainerReadyListener<GameplayScene>>().FromInstance(this).AsSingle();
             await _sceneLoader.Load<GameplayScene>();
-            _container.Unbind<IEventHandler<OnSceneContainerCreatedEvent<GameplayScene>>>();
+            _container.Unbind<ISceneContainerReadyListener<GameplayScene>>();
         }
 
-        public void HandleEvent(OnSceneContainerCreatedEvent<GameplayScene> @event)
+        public void OnSceneContainerReady(DiContainer container)
         {
-            var sceneContainer = @event.SceneContainer;
             
         }
 
         public void Exit() =>
-            _container.Unbind<IEventHandler<OnSceneContainerCreatedEvent<GameplayScene>>>();
+            _container.Unbind<ISceneContainerReadyListener<GameplayScene>>();
     }
 }

@@ -1,15 +1,13 @@
-﻿using Common.Events;
-using Common.SceneManagement;
-using Zenject;
+﻿using Zenject;
 
-namespace RogueDungeon.Game
+namespace Common.SceneManagement
 {
     public abstract class SceneInstaller<T> : MonoInstaller where T : Scene
     {
         public sealed override void InstallBindings()
         {
             InstallSceneBindings();
-            Container.Resolve<IEventHandler<OnSceneContainerCreatedEvent<T>>>().HandleEvent(new OnSceneContainerCreatedEvent<T>(Container));
+            Container.Resolve<ISceneContainerReadyListener<T>>().OnSceneContainerReady(Container);
         }
 
         protected virtual void InstallSceneBindings()

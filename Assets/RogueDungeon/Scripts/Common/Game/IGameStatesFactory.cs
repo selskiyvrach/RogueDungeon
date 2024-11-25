@@ -1,6 +1,4 @@
-﻿using Common.Game;
-
-namespace RogueDungeon.Game
+﻿namespace Common.Game
 {
     public interface IGameStatesFactory
     {
