@@ -25,11 +25,11 @@ namespace RogueDungeon.Player
             Direction = direction;
         }
 
-        public Player.DodgeState ToDodgeState() =>
-            State == DodgeState.Ended
-                ? Player.DodgeState.None
-                : Direction == DodgeDirection.Left
-                    ? Player.DodgeState.Left
-                    : Player.DodgeState.Right;
+        // public DodgeState ToDodgeState() =>
+        //     State == DodgeState.Ended
+        //         ? PlayerDodgeState.None
+        //         : Direction == DodgeDirection.Left
+        //             ? DodgeState.Left
+        //             : DodgeState.Right;
     }
 }

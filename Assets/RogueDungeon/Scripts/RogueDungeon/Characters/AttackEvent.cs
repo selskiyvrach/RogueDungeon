@@ -26,7 +26,7 @@ namespace RogueDungeon.Characters
     public class EnemyTargetsMask : TargetsMask
     {
         protected override bool IsValidTarget(IRootEntity entity) => 
-            entity is Entities.Player;
+            entity is Player.Player;
     }
 
     public class PlayerTargetsMask : TargetsMask

@@ -1,5 +1,6 @@
 ﻿using Common.Events;
 using Common.FSM;
+using Common.UnityUtils;
 using RogueDungeon.Animations;
 using RogueDungeon.PlayerInputCommands;
 using Zenject;
@@ -8,16 +9,16 @@ namespace RogueDungeon.Player
 {
     public class PlayerBehaviourStateMachineFactory : IFactory<StateMachine>
     {
-        private readonly PlayerInput _playerInput;
+        private readonly IPlayerInput _playerInput;
         private readonly PlayerAnimationsConfig _animationsConfig;
-        private readonly CharacterAnimationRoot _animationRoot;
+        private readonly IRootObject<AnimationPlayer> _animationRoot;
         private readonly IEventBus<IAnimationEvent> _animationEvents;
         private readonly AvailableInteractions _availableInteractions;
 
         public PlayerBehaviourStateMachineFactory(
-            PlayerInput playerInput, 
+            IPlayerInput playerInput, 
             PlayerAnimationsConfig animationsConfig, 
-            CharacterAnimationRoot animationRoot, 
+            IRootObject<AnimationPlayer> animationRoot, 
             IEventBus<IAnimationEvent> animationEvents, 
             AvailableInteractions availableInteractions)
         {

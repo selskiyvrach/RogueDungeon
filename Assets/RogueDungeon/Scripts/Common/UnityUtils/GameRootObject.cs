@@ -9,4 +9,10 @@ namespace Common.UnityUtils
         public Transform UiRootTransform => _uiTransform;
         public Transform CommonRootTransform => transform;
     }
+
+    public interface IRootObject<T>
+    {
+        GameObject GameObject { get; }
+        Transform Transform => GameObject.transform;
+    }
 }

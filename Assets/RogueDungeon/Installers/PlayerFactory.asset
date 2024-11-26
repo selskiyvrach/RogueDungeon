@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6f8224f159747fabda8aa715b8905d4, type: 3}
-  m_Name: GameplayStateInstaller
+  m_Script: {fileID: 11500000, guid: 1300cb8a5b9540d48e9b1faa6c8c3eb9, type: 3}
+  m_Name: PlayerFactory
   m_EditorClassIdentifier: 
-  _playerFactory: {fileID: 11400000, guid: 84b1f0fd5d87c194f8c389f2b925dcdb, type: 2}
+  _playerConfig: {fileID: 11400000, guid: ceb52ff106563a54b83bac61e8cfedb7, type: 2}
+  _animationsConfig: {fileID: 11400000, guid: 6c20ee315cb40e94280411df61bef09e, type: 2}

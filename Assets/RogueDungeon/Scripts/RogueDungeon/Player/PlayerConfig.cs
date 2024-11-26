@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace RogueDungeon.Player
 {
-    [CreateAssetMenu(menuName = "Configs/Player", fileName = "PlayerConfig", order = 0)]
+    [CreateAssetMenu(menuName = "Configs/Player/PlayerConfig", fileName = "PlayerConfig", order = 0)]
     public class PlayerConfig : Config
     {
-        [field: SerializeField] public GameObject Prefab { get; private set; }
+        [field: SerializeField] public PlayerGameObjectInstaller Prefab { get; private set; }
     }
 }

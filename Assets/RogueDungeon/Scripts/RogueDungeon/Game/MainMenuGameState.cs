@@ -1,5 +1,7 @@
 ﻿using Common.FSM;
 using Common.Game;
+using Common.SceneManagement;
+using RogueDungeon.SceneManagement;
 using Zenject;
 
 namespace RogueDungeon.Game

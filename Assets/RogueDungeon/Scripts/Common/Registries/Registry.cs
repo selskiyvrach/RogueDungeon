@@ -2,6 +2,11 @@
 
 namespace Common.Registries
 {
+    public class Registry : Registry<object>, IRegistry
+    {
+        
+    }
+
     public class Registry<TConstraint> : List<TConstraint>, IRegistry<TConstraint>, IRegistryNode<TConstraint>
     {
         private readonly List<IRegistry<TConstraint>> _children = new();
