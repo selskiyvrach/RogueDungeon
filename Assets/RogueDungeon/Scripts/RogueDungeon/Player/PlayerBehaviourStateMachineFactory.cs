@@ -77,9 +77,9 @@ namespace RogueDungeon.Player
             dodgeLeftState.AddHandler(new ConsumeCommandStateEnterHandler(_playerInput, Command.DodgeLeft));
             
             dodgeLeftState.AddHandler(new AnimationEventStateHandler<DodgeEvent>(_animationEvents, dodgeLeftAnimation, AnimEventNames.DODGE_STARTED, 
-                new DodgeEvent(DodgeEvent.DodgeState.Started, DodgeEvent.DodgeDirection.Left)));
+                new DodgeEvent(DodgeState.Left)));
             dodgeLeftState.AddHandler(new AnimationEventStateHandler<DodgeEvent>(_animationEvents, dodgeLeftAnimation, AnimEventNames.DODGE_ENDED, 
-                new DodgeEvent(DodgeEvent.DodgeState.Ended, DodgeEvent.DodgeDirection.Left)));
+                new DodgeEvent(DodgeState.None)));
             return dodgeLeftState;
         }
 
@@ -90,9 +90,9 @@ namespace RogueDungeon.Player
             dodgeRightState.AddHandler(new PlayAnimationStateHandler(dodgeRightAnimation));
             dodgeRightState.AddHandler(new ConsumeCommandStateEnterHandler(_playerInput, Command.DodgeRight));
             dodgeRightState.AddHandler(new AnimationEventStateHandler<DodgeEvent>(_animationEvents, dodgeRightAnimation, AnimEventNames.DODGE_STARTED, 
-                new DodgeEvent(DodgeEvent.DodgeState.Started, DodgeEvent.DodgeDirection.Right)));
+                new DodgeEvent(DodgeState.Right)));
             dodgeRightState.AddHandler(new AnimationEventStateHandler<DodgeEvent>(_animationEvents, dodgeRightAnimation, AnimEventNames.DODGE_ENDED, 
-                new DodgeEvent(DodgeEvent.DodgeState.Ended, DodgeEvent.DodgeDirection.Right)));
+                new DodgeEvent(DodgeState.None)));
             return dodgeRightState;
         }
 

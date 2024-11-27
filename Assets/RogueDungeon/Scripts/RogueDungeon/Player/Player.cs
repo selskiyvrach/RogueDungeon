@@ -1,4 +1,5 @@
-﻿using Common.Events;
+﻿using System;
+using Common.Events;
 using Common.FSM;
 using Common.UnityUtils;
 using RogueDungeon.Animations;
@@ -14,9 +15,10 @@ namespace RogueDungeon.Player
         private readonly IRootObject<UnityEngine.Camera> _cameraRoot;
         private readonly StateMachine _behaviour;
         private readonly IGameCamera _gameCamera;
-        private readonly DodgeStateHandler _dodgeStateHandler;
+        private readonly DodgeHandler _dodgeHandler;
 
-        public Positions Position => _dodgeStateHandler.Position;
+        public Positions Position => _dodgeHandler.ToPlayerPosition();
+        public DodgeState DodgeState => _dodgeHandler.DodgeState;
 
         public Player(IEventBus<IAnimationEvent> animationEvents, StateMachine behaviour, IGameCamera gameCamera, IRootObject<UnityEngine.Camera> cameraRoot)
         {
@@ -25,15 +27,7 @@ namespace RogueDungeon.Player
             _cameraRoot = cameraRoot;
             _gameCamera.Follow = _cameraRoot.Transform;
             _gameCamera.Follow = cameraRoot.Transform;
-
-            _dodgeStateHandler = new DodgeStateHandler();
-            animationEvents.AddHandler(new DodgeEventHandler(_dodgeStateHandler));
+            animationEvents.AddHandler(_dodgeHandler = new DodgeHandler());
         }
-
-        void IDodger.StartDodge(DodgeEvent.DodgeDirection dodgeDirection) => 
-            _dodgeStateHandler.StartDodge(dodgeDirection);
-
-        void IDodger.FinishDodge() => 
-            _dodgeStateHandler.FinishDodge();
     }
 }
