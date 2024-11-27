@@ -29,10 +29,8 @@ namespace Common.FSM
         
         public CompetingState<TCompetition> CreateCompetingState<TCompetition>(TCompetition competition = default, string debugName = null) where TCompetition : IComparable<TCompetition>
         {
-            var state = new CompetingState<TCompetition>();
+            var state = CreateState<CompetingState<TCompetition>>(debugName: debugName);
             state.Competition = competition;
-            state.DebugName = debugName;
-            _statesContainer.AddState(state);
             return state;
         }
         
@@ -68,9 +66,12 @@ namespace Common.FSM
         public void SetStartState(IState state) => 
             _statesContainer.SetStartState(state);
 
-        public T Build()
+        // use this decorator to set up transitions depending on current state before building the state machine itself
+        public T Build(CurrentStateProviderDecorator stateProviderDecorator = null)
         {
             Assert.IsNotNull(_statesContainer.GetStartState());
+            if (stateProviderDecorator != null)
+                stateProviderDecorator.Provider = _stateMachine;
             return _stateMachine;
         }
     }

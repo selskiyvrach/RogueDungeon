@@ -47,9 +47,12 @@ namespace RogueDungeon.Player
 
             var idle = builder.CreateEnumCompetingState(Priority.Idle, "Idle");
             var attack = builder.CreateEnumCompetingState(Priority.AttackExecution, "Attack");
-            var death = builder.CreateState("Death");
 
-            return builder.Build();
+            var stateProvider = new CurrentStateProviderDecorator();
+            builder.AddTransition(idle, attack, new OutcompetesCurrentStateCondition<EnumComparer<Priority>>(idle, stateProvider));
+            builder.AddTransition(attack, idle, new OutcompetesCurrentStateCondition<EnumComparer<Priority>>(attack, stateProvider));
+
+            return builder.Build(stateProviderDecorator: stateProvider);
         }
     }
 
