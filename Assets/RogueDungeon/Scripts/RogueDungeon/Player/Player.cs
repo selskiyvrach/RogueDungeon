@@ -28,7 +28,6 @@ namespace RogueDungeon.Player
 
     public class PlayerRootStateMachineBuildingDirector
     {
-
         public enum Priority
         {
             Idle = 0,
@@ -46,8 +45,8 @@ namespace RogueDungeon.Player
         {
             var builder = new StateMachineBuilder();
 
-            var idle = builder.CreateState("Idle");
-            var attack = builder.CreateState("Attack");
+            var idle = builder.CreateEnumCompetingState(Priority.Idle, "Idle");
+            var attack = builder.CreateEnumCompetingState(Priority.AttackExecution, "Attack");
             var death = builder.CreateState("Death");
 
             return builder.Build();

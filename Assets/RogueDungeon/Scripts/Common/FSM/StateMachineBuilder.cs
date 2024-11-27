@@ -27,7 +27,7 @@ namespace Common.FSM
             return state;
         }
         
-        public CompetingState<TCompetition> CreateState<TCompetition>(TCompetition competition = default, string debugName = null) where TCompetition : IComparable<TCompetition>
+        public CompetingState<TCompetition> CreateCompetingState<TCompetition>(TCompetition competition = default, string debugName = null) where TCompetition : IComparable<TCompetition>
         {
             var state = new CompetingState<TCompetition>();
             state.Competition = competition;
@@ -35,6 +35,9 @@ namespace Common.FSM
             _statesContainer.AddState(state);
             return state;
         }
+        
+        public CompetingState<EnumComparer<TEnum>> CreateEnumCompetingState<TEnum>(TEnum competition = default, string debugName = null) where TEnum : Enum => 
+            CreateCompetingState(new EnumComparer<TEnum>(competition), debugName);
 
         public IState CreateState(string debugName = null) => 
             CreateState<State>(debugName);
