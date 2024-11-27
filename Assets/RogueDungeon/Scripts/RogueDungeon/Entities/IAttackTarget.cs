@@ -1,6 +1,8 @@
-﻿namespace RogueDungeon.Entities
+﻿using RogueDungeon.Collisions;
+
+namespace RogueDungeon.Entities
 {
-    public interface IAttackTarget : IRootEntity
+    public interface IAttackTarget
     {
         void TakeDamage(float damage);
     }

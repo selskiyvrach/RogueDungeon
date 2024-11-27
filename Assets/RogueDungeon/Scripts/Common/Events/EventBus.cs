@@ -33,6 +33,12 @@ namespace Common.Events
                 listeners[listenerIndex] = null;
         }
 
+        public void AddHandler<T>(Action<T> listener) where T : TEventType => 
+            AddHandler(new ActionEventHandler<T>(listener));
+
+        public void RemoveHandler<T>(Action<T> listener) where T : TEventType => 
+            RemoveHandler(new ActionEventHandler<T>(listener));
+
         public void Fire<T>(T @event) where T : TEventType
         {
             if (!_listeners.TryGetValue(typeof(T), out var listenersObj)) 

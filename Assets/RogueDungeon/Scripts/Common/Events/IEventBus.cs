@@ -10,6 +10,8 @@ namespace Common.Events
     {
         void AddHandler<T>(IEventHandler<T> listener) where T : TEventType;
         void RemoveHandler<T>(IEventHandler<T> listener) where T : TEventType;
+        void AddHandler<T>(Action<T> listener) where T : TEventType;
+        void RemoveHandler<T>(Action<T> listener) where T : TEventType;
         void Fire<T>(T @event) where T : TEventType;
     }
 }

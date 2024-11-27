@@ -7,45 +7,40 @@ using RogueDungeon.Enemies;
 using RogueDungeon.Entities;
 using RogueDungeon.Entities.Prameters;
 using RogueDungeon.Entities.Properties;
+using RogueDungeon.Weapons;
 
 namespace RogueDungeon.Characters
 {
     public interface ITargetsMask
     {
-        IEnumerable<IAttackTarget> GetTargets(IRegistry<IRootEntity> entities);
+        IEnumerable<IGameEntity> GetTargets(IRegistry<IGameEntity> entities);
     }
 
     public abstract class TargetsMask : ITargetsMask
     {
-        public IEnumerable<IAttackTarget> GetTargets(IRegistry<IRootEntity> entities) =>
-            entities.GetAll<IAttackTarget>(IsValidTarget);
+        public IEnumerable<IGameEntity> GetTargets(IRegistry<IGameEntity> entities) =>
+            entities.GetAll<IGameEntity>(IsValidTarget);
 
-        protected abstract bool IsValidTarget(IRootEntity entity);
+        protected abstract bool IsValidTarget(IGameEntity entity);
     }
     
     public class EnemyTargetsMask : TargetsMask
     {
-        protected override bool IsValidTarget(IRootEntity entity) => 
+        protected override bool IsValidTarget(IGameEntity entity) => 
             entity is Player.Player;
     }
 
     public class PlayerTargetsMask : TargetsMask
     {
-        protected override bool IsValidTarget(IRootEntity entity) => 
-            entity.Properties.Any(n => n is Property<EnemyPosition> pos && pos.Value == EnemyPosition.Middle);
+        protected override bool IsValidTarget(IGameEntity entity) => 
+            entity is IEnemy;
     }
-    
-    public interface IAttackData
+
+    public interface IEnemy : IGameEntity
     {
-        ITargetsMask TargetsMask { get; }
-        IRegistry<Parameter> Parameters { get; }
-        IRegistry<Property> Properties { get; }
     }
 
     public readonly struct AttackEvent : IAnimationEvent
     {
-        public readonly IAttackData AtaAttackData;
-        public AttackEvent(IAttackData ataAttackData) => 
-            AtaAttackData = ataAttackData;
     }
 }
