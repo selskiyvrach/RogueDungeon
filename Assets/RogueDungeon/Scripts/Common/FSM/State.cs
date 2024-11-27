@@ -4,7 +4,7 @@ using Common.DotNetUtils;
 
 namespace Common.FSM
 {
-    public sealed class State : IState, IEnterable, IExitable, ITickable, IDebugName
+    public class State : IState, IEnterable, IExitable, ITickable, IDebugName
     {
         private readonly HashSet<IStateEnterHandler> _stateEnterHandlers = new();
         private readonly HashSet<IStateTickHandler> _stateTickHandlers = new();

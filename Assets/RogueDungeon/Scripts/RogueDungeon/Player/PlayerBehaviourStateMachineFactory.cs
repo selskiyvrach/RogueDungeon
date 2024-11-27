@@ -13,20 +13,18 @@ namespace RogueDungeon.Player
         private readonly PlayerAnimationsConfig _animationsConfig;
         private readonly IRootObject<AnimationPlayer> _animationRoot;
         private readonly IEventBus<IAnimationEvent> _animationEvents;
-        private readonly AvailableInteractions _availableInteractions;
+        private IAvailableInteractionsProvider _availableInteractions;
 
         public PlayerBehaviourStateMachineFactory(
             IPlayerInput playerInput, 
             PlayerAnimationsConfig animationsConfig, 
             IRootObject<AnimationPlayer> animationRoot, 
-            IEventBus<IAnimationEvent> animationEvents, 
-            AvailableInteractions availableInteractions)
+            IEventBus<IAnimationEvent> animationEvents) 
         {
             _playerInput = playerInput;
             _animationsConfig = animationsConfig;
             _animationRoot = animationRoot;
             _animationEvents = animationEvents;
-            _availableInteractions = availableInteractions;
         }
 
         public StateMachine Create()

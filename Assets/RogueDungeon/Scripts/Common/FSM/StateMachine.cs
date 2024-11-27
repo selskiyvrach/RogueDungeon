@@ -64,7 +64,6 @@ namespace Common.FSM
         {
             ExitCurrentState();
             _currentState = newState;
-            // Logger.Log(this, "Switched to state {0}", _currentState);
             (_currentState as IEnterable)?.Enter();
         }
 

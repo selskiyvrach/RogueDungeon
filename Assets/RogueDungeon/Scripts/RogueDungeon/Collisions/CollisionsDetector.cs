@@ -8,9 +8,9 @@ namespace RogueDungeon.Collisions
 {
     public class CollisionsDetector : ICollisionsDetector
     {
-        private readonly IRegistry<IRootEntity> _gameEntities;
+        private readonly IRegistry<IGameEntity> _gameEntities;
 
-        public CollisionsDetector(IRegistry<IRootEntity> gameEntities) =>
+        public CollisionsDetector(IRegistry<IGameEntity> gameEntities) =>
             _gameEntities = gameEntities;
 
         public IEnumerable<Collision> GetCollisions(Positions positionsMask) => 

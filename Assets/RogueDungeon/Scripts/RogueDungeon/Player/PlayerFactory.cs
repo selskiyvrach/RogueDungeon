@@ -40,8 +40,7 @@ namespace RogueDungeon.Player
             container.Bind<IEventBus<IAnimationEvent>>().To<EventBus<IAnimationEvent>>().FromNew().AsSingle();
             container.Bind<PlayerAnimationsConfig>().FromNewScriptableObject(_animationsConfig).AsSingle();
             container.Bind<StateMachine>().FromFactory<PlayerBehaviourStateMachineFactory>().AsSingle();
-            container.BindInterfacesAndSelfTo<WeaponFactory>().FromNew().AsSingle();
-            container.BindInterfacesAndSelfTo<AvailableInteractions>().FromNew().AsSingle();
+            container.BindInterfacesTo<WeaponFactory>().FromNew().AsSingle();
             container.BindInterfacesAndSelfTo<Player>().FromNew().AsSingle();
         }
     }

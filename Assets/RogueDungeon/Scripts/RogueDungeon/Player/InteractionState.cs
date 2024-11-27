@@ -31,7 +31,7 @@ namespace RogueDungeon.Player
 
         bool ICondition.IsMet()
         {
-            _interactionCandidate = _interactionsProvider.Interactions.FirstOrDefault(n => n.InteractionEnterCondition.IsMet());
+            _interactionCandidate = _interactionsProvider?.Interactions.FirstOrDefault(n => n.InteractionEnterCondition.IsMet());
             return _interactionCandidate != null;
         }
     }

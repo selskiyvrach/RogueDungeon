@@ -5,5 +5,7 @@ namespace RogueDungeon.Entities
     public interface IGameEntity
     {
         Positions Position { get; }
+        void Enable();
+        void Disable();
     }
 }

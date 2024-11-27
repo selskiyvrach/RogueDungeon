@@ -19,6 +19,26 @@ namespace Common.FSM
         public void AddState(IState state) => 
             _statesContainer.AddState(state);
 
+        public TState CreateState<TState>(string debugName = null) where TState : State, new()
+        {
+            var state = new TState();
+            state.DebugName = debugName;
+            _statesContainer.AddState(state);
+            return state;
+        }
+        
+        public CompetingState<TCompetition> CreateState<TCompetition>(TCompetition competition = default, string debugName = null) where TCompetition : IComparable<TCompetition>
+        {
+            var state = new CompetingState<TCompetition>();
+            state.Competition = competition;
+            state.DebugName = debugName;
+            _statesContainer.AddState(state);
+            return state;
+        }
+
+        public IState CreateState(string debugName = null) => 
+            CreateState<State>(debugName);
+
         public void SetDebugName(string name) =>
             _stateMachine.DebugName = name;
 
