@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Common.DebugTools;
+using Common.Providers;
 
 namespace Common.FSM
 {
-    public class StateMachine : ICurrentStateProvider, IDebugName
+    public class StateMachine : IProvider<IState>, IDebugName
     {
         private readonly StatesContainer _statesContainer;
         private readonly TransitionsContainer _transitionsContainer;
@@ -11,8 +12,7 @@ namespace Common.FSM
         private IState _currentState;
         public bool IsRunning { get; private set; }
 
-        public IState CurrentState => _currentState;
-
+        public IState Get => _currentState;
         public string DebugName { get; set; }
 
         public StateMachine(StatesContainer statesContainer, TransitionsContainer transitionsContainer)

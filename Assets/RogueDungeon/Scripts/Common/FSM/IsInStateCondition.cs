@@ -1,17 +1,19 @@
-﻿namespace Common.FSM
+﻿using Common.Providers;
+
+namespace Common.FSM
 {
     public class IsInStateCondition : ICondition
     {
-        private readonly ICurrentStateProvider _currentStateProvider;
+        private readonly IProvider<IState> _currentStateProvider;
         private readonly IState _targetState;
 
-        public IsInStateCondition(ICurrentStateProvider currentStateProvider, IState targetState)
+        public IsInStateCondition(IProvider<IState> currentStateProvider, IState targetState)
         {
             _currentStateProvider = currentStateProvider;
             _targetState = targetState;
         }
 
         public bool IsMet() => 
-            _currentStateProvider.CurrentState == _targetState;
+            _currentStateProvider.Get == _targetState;
     }
 }

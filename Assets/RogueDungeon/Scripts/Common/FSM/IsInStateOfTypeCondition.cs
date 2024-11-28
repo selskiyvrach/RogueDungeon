@@ -1,19 +1,20 @@
 using System;
+using Common.Providers;
 
 namespace Common.FSM
 {
     public class IsInStateOfTypeCondition<T> : ICondition where T : IState
     {
-        private readonly ICurrentStateProvider _currentStateProvider;
+        private readonly IProvider<IState> _currentStateProvider;
         private readonly Type _targetType;
 
-        public IsInStateOfTypeCondition(ICurrentStateProvider currentStateProvider)
+        public IsInStateOfTypeCondition(IProvider<IState> currentStateProvider)
         {
             _currentStateProvider = currentStateProvider;
             _targetType = typeof(T);
         }
 
         public bool IsMet() => 
-            _currentStateProvider.CurrentState.GetType() == _targetType;
+            _currentStateProvider.Get.GetType() == _targetType;
     }
 }

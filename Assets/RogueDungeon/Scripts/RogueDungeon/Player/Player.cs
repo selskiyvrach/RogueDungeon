@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Common.Events;
 using Common.FSM;
+using Common.Providers;
 using Common.UnityUtils;
 using RogueDungeon.Animations;
 using RogueDungeon.Camera;
@@ -48,7 +49,7 @@ namespace RogueDungeon.Player
             var idle = builder.CreateEnumCompetingState(Priority.Idle, "Idle");
             var attack = builder.CreateEnumCompetingState(Priority.AttackExecution, "Attack");
 
-            var stateProvider = new CurrentStateProviderDecorator();
+            var stateProvider = new ProviderDecorator<IState>();
             builder.AddTransition(idle, attack, new OutcompetesCurrentStateCondition<EnumComparer<Priority>>(idle, stateProvider));
             builder.AddTransition(attack, idle, new OutcompetesCurrentStateCondition<EnumComparer<Priority>>(attack, stateProvider));
 
@@ -66,7 +67,6 @@ namespace RogueDungeon.Player
         private IDisposable _sub;
 
         public Positions Position => _dodgeHandler.ToPlayerPosition();
-
         public DodgeState DodgeState => _dodgeHandler.DodgeState;
 
         public Player(IEventBus<IAnimationEvent> animationEvents, StateMachine behaviour, IGameCamera gameCamera, IRootObject<UnityEngine.Camera> cameraRoot)

@@ -1,4 +1,5 @@
 ﻿using System;
+using Common.Providers;
 using UnityEngine.Assertions;
 
 namespace Common.FSM
@@ -67,11 +68,11 @@ namespace Common.FSM
             _statesContainer.SetStartState(state);
 
         // use this decorator to set up transitions depending on current state before building the state machine itself
-        public T Build(CurrentStateProviderDecorator stateProviderDecorator = null)
+        public T Build(IProviderDecorator<IState> stateProviderDecorator = null)
         {
             Assert.IsNotNull(_statesContainer.GetStartState());
             if (stateProviderDecorator != null)
-                stateProviderDecorator.Provider = _stateMachine;
+                stateProviderDecorator.DecoratedProvider = _stateMachine;
             return _stateMachine;
         }
     }
