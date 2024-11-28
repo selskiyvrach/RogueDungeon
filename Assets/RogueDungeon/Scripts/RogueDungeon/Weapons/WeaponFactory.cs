@@ -9,7 +9,9 @@ namespace RogueDungeon.Weapons
         public WeaponFactory(WeaponBehaviourFactory weaponBehaviourFactory) => 
             _weaponBehaviourFactory = weaponBehaviourFactory;
 
-        public Weapon Create(WeaponConfig config, IWeapon weapon) => 
-            new(config, _weaponBehaviourFactory.Create(config, weapon));
+        public Weapon Create(WeaponConfig config, IWeapon weapon)
+        {
+            return null; // new(config, _weaponBehaviourFactory.Create(config, weapon));
+        }
     }
 }
