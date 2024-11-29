@@ -15,6 +15,6 @@ namespace Common.FSM
         }
 
         public bool IsMet() => 
-            _currentStateProvider.Get.GetType() == _targetType;
+            _currentStateProvider.value.GetType() == _targetType;
     }
 }

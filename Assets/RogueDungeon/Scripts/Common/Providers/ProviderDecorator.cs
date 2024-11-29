@@ -7,7 +7,7 @@
 
     public class ProviderDecorator<T> : IProviderDecorator<T> 
     {
-        public T Get => DecoratedProvider.Get;
+        public T value => DecoratedProvider.value;
         public IProvider<T> DecoratedProvider { get; set; }
 
         public ProviderDecorator(IProvider<T> decoratedProvider = default) => 

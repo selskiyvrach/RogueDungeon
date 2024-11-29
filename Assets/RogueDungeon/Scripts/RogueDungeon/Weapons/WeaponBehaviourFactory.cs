@@ -28,9 +28,9 @@ namespace RogueDungeon.Weapons
         public WeaponBehaviour Create(WeaponConfig config, IWeapon weapon) =>
             new(CreateEnterCondition(), CreateState(config, weapon));
 
-        private IfAnyCondition CreateEnterCondition() =>
-            new(new HasCommandCondition(Command.Attack, _playerInput),
-                new HasCommandCondition(Command.Block, _playerInput));
+        private IfAny CreateEnterCondition() =>
+            new(new HasCommand(Command.Attack, _playerInput),
+                new HasCommand(Command.Block, _playerInput));
 
         private IFinishableState CreateState(WeaponConfig config, IWeapon weapon)
         {
@@ -42,8 +42,8 @@ namespace RogueDungeon.Weapons
             
             // ATTACKS
             var consumeAttackCommandHandler = new ConsumeCommandStateEnterHandler(_playerInput, Command.Attack);
-            var hasAttackCommandCondition = new HasCommandCondition(Command.Attack, _playerInput);
-            var hasNoAttackCommandCondition = new ConditionNegator(hasAttackCommandCondition);
+            var hasAttackCommandCondition = new HasCommand(Command.Attack, _playerInput);
+            var hasNoAttackCommandCondition = new Not(hasAttackCommandCondition);
 
             var idleToAttackState = new State {DebugName = "Idle to attack state"};
             var idleToAttackAnimation = new AnimationPlayer(config.IdleToAttackAnimation, _animationTarget);
@@ -68,20 +68,20 @@ namespace RogueDungeon.Weapons
             
             for (var i = 0; i < attackStates.Length; i++)
             {
-                var animationFinishedCondition = new AnimationPlayerToFinishableAdapter(new AnimationPlayer(config.AttackAnimations[i], _animationTarget));
-                builder.AddTransitionWhenFinished(attackStates[i], toIdleState, animationFinishedCondition, hasNoAttackCommandCondition);
-                builder.AddTransitionWhenFinished(attackStates[i],
+                var animationFinishedCondition = new AnimationToFinishable(new AnimationPlayer(config.AttackAnimations[i], _animationTarget));
+                builder.AddTransitionFromFinished(attackStates[i], toIdleState, animationFinishedCondition, hasNoAttackCommandCondition);
+                builder.AddTransitionFromFinished(attackStates[i],
                     i + 1 < attackStates.Length ? attackStates[i + 1] : attackStates[0], animationFinishedCondition,  hasAttackCommandCondition);
             }
             
             builder.AddTransition(idleState, idleToAttackState, hasAttackCommandCondition);
-            builder.AddTransitionWhenFinished(idleToAttackState, attackStates[0], new AnimationPlayerToFinishableAdapter(idleToAttackAnimation));
-            builder.AddTransitionWhenFinished(toIdleState, idleState, new AnimationPlayerToFinishableAdapter(toIdleAnimation));
+            builder.AddTransitionFromFinished(idleToAttackState, attackStates[0], new AnimationToFinishable(idleToAttackAnimation));
+            builder.AddTransitionFromFinished(toIdleState, idleState, new AnimationToFinishable(toIdleAnimation));
             // ATTACKS END
             
             // BLOCK
-            var hasBlockInputCondition = new HasCommandCondition(Command.Block, _playerInput);
-            var doesNotHaveBlockInputCondition = new ConditionNegator(hasBlockInputCondition);
+            var hasBlockInputCondition = new HasCommand(Command.Block, _playerInput);
+            var doesNotHaveBlockInputCondition = new Not(hasBlockInputCondition);
 
             var idleToBlockAnimation = new AnimationPlayer(config.IdleToBlockAnimation, _animationTarget);
             var idleToBlockState = new State {DebugName = "Idle to block state"};
@@ -106,9 +106,9 @@ namespace RogueDungeon.Weapons
             builder.AddState(blockToIdleState);
             
             builder.AddTransition(idleState, idleToBlockState, hasBlockInputCondition);
-            builder.AddTransitionWhenFinished(idleToBlockState, holdBlockState, new AnimationPlayerToFinishableAdapter(idleToBlockAnimation));
+            builder.AddTransitionFromFinished(idleToBlockState, holdBlockState, new AnimationToFinishable(idleToBlockAnimation));
             builder.AddTransition(holdBlockState, blockToIdleState, doesNotHaveBlockInputCondition);
-            builder.AddTransitionWhenFinished(blockToIdleState, idleState, new AnimationPlayerToFinishableAdapter(blockToIdleAnimation));
+            builder.AddTransitionFromFinished(blockToIdleState, idleState, new AnimationToFinishable(blockToIdleAnimation));
             // BLOCK END
 
             // FINISHING LOGIC

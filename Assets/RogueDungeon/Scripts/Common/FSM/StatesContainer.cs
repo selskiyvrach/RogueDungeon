@@ -8,11 +8,20 @@ namespace Common.FSM
         private IState _startState;
         private readonly HashSet<IState> _states = new();
 
-        public void SetStartState(IState startState) => 
+        public void AddStartState(IState startState)
+        {
+            Add(startState);
             _startState = startState;
+        }
 
-        public void AddState(IState state) => 
+        public void Add(IState state) => 
             _states.Add(state);
+        
+        public void Add(IEnumerable<IState> states)
+        {
+            foreach (var state in states) 
+                Add(state);
+        }
 
         public IState GetStartState() => 
             _startState;
@@ -20,7 +29,7 @@ namespace Common.FSM
         /// <summary>
         /// Use to make sure that said state belongs to this sets set
         /// </summary>
-        public IState GetState(IState requiredState) =>
+        public IState Get(IState requiredState) =>
             _states.FirstOrDefault(n => n == requiredState);
     }
 }

@@ -36,7 +36,7 @@ namespace RogueDungeon.Player
             var interactionState = new InteractionState(_availableInteractions);
         
             var hasWalkInputCondition = new HasInputCondition(_playerInput, Command.MoveForward);
-            var doesNotHaveWalkInputCondition = new ConditionNegator(hasWalkInputCondition);
+            var doesNotHaveWalkInputCondition = new Not(hasWalkInputCondition);
             var hasDodgeRightInputCondition = new HasInputCondition(_playerInput, Command.DodgeRight);
             var hasDodgeLeftInputCondition = new HasInputCondition(_playerInput, Command.DodgeLeft);
 
@@ -51,10 +51,10 @@ namespace RogueDungeon.Player
             builder.AddTransition(walkState, idleState, doesNotHaveWalkInputCondition);
             
             builder.AddTransition(idleState, dodgeRightState, hasDodgeRightInputCondition);
-            builder.AddTransitionWhenFinished(dodgeRightState, idleState, new AnimationPlayerToFinishableAdapter(dodgeRightAnimation));
+            builder.AddTransitionFromFinished(dodgeRightState, idleState, new AnimationToFinishable(dodgeRightAnimation));
             
             builder.AddTransition(idleState, dodgeLeftState, hasDodgeLeftInputCondition);
-            builder.AddTransitionWhenFinished(dodgeLeftState, idleState, new AnimationPlayerToFinishableAdapter(dodgeLeftAnimation));
+            builder.AddTransitionFromFinished(dodgeLeftState, idleState, new AnimationToFinishable(dodgeLeftAnimation));
             
             builder.SetDebugName("Player root state machine");
             
@@ -62,7 +62,7 @@ namespace RogueDungeon.Player
             
             builder.AddTransition(idleState, interactionState, interactionState);
             builder.AddTransition(idleState, interactionState, interactionState);
-            builder.AddTransitionWhenFinished(interactionState, idleState, interactionState);
+            builder.AddTransitionFromFinished(interactionState, idleState, interactionState);
 
             return builder.Build();
         }

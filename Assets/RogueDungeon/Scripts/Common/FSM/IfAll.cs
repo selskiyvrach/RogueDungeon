@@ -4,9 +4,9 @@ using Common.DotNetUtils;
 
 namespace Common.FSM
 {
-    public class IfAllCondition : CompositeCondition
+    public class IfAll : CompositeCondition
     {
-        public IfAllCondition(params ICondition[] conditions) : base(conditions)
+        public IfAll(params ICondition[] conditions) : base(conditions)
         {
         }
         
@@ -14,9 +14,9 @@ namespace Common.FSM
             conditions.All(condition => condition.IsMet());
     }
     
-    public class IfAnyCondition : CompositeCondition
+    public class IfAny : CompositeCondition
     {
-        public IfAnyCondition(params ICondition[] conditions) : base(conditions)
+        public IfAny(params ICondition[] conditions) : base(conditions)
         {
         }
 

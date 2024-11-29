@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Common.Events;
 using Common.FSM;
 using Common.Providers;
@@ -8,54 +7,45 @@ using RogueDungeon.Animations;
 using RogueDungeon.Camera;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;
+using RogueDungeon.PlayerInputCommands;
 using UniRx;
 
 namespace RogueDungeon.Player
 {
-    // idle
-    
-    // dodge
-    
-    // attack start
-    // attack execute
-    // attack finish
-    
-    // stun
-    
-    // death
-    
-    // root state machine
-    // condition from state + comparer to current
-
     public class PlayerRootStateMachineBuildingDirector
     {
-        public enum Priority
+        private IPlayerInput _input;
+        
+        public void Create()
         {
-            Idle = 0,
+            var attack = new Value<bool>();
+            var isAttacking = new ValueCondition(attack);
             
-            AttackStart = 10,
-            AttackFinish = 10,
             
-            Dodge = 20,
-            AttackExecution = 20,
+            var dodge = new Value<bool>();
+            var isDodging = new ValueCondition(dodge);
             
-            Death = 100,
-        }
+            var dodgeRight = new TimerState(1).Bind(dodge);
+            var dodgeLeft = new TimerState(1).Bind(dodge);
+            var dodgeIdle = new State();
 
-        public StateMachine Create()
-        {
-            var builder = new StateMachineBuilder();
-
-            var idle = builder.CreateEnumCompetingState(Priority.Idle, "Idle");
-            var attack = builder.CreateEnumCompetingState(Priority.AttackExecution, "Attack");
-
-            var stateProvider = new ProviderDecorator<IState>();
-            builder.AddTransition(idle, attack, new OutcompetesCurrentStateCondition<EnumComparer<Priority>>(idle, stateProvider));
-            builder.AddTransition(attack, idle, new OutcompetesCurrentStateCondition<EnumComparer<Priority>>(attack, stateProvider));
-
-            return builder.Build(stateProviderDecorator: stateProvider);
+            var dodgeBuilder = new StateMachineBuilder(dodgeIdle, dodgeRight, dodgeLeft);
+            dodgeBuilder.AddTransition(dodgeIdle, dodgeRight, new IfAll(new Not(isAttacking), new HasCommand(Command.DodgeRight, _input)));
+            dodgeBuilder.AddTransition(dodgeIdle, dodgeLeft, new IfAll(new Not(isAttacking), new HasCommand(Command.DodgeLeft, _input)));
+            dodgeBuilder.AddTransitionFromFinished(dodgeRight, dodgeIdle);
+            dodgeBuilder.AddTransitionFromFinished(dodgeLeft, dodgeIdle);
         }
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     public class Player : IGameEntity, IDodger
     {

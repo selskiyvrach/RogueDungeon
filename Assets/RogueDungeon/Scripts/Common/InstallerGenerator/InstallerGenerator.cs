@@ -136,7 +136,7 @@ public class {targetType.Name}FactoryInstaller : ScriptableObjectInstaller<{targ
 
     private static void CreateInstallerAsset(Type targetType, string assetPath)
     {
-        var installerTypeName = $"{targetType.Name}Installer";
+        var installerTypeName = $"{targetType.Name}FactoryInstaller";
         var installerType = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(a => a.GetTypes())
             .FirstOrDefault(t => t.Name == installerTypeName);

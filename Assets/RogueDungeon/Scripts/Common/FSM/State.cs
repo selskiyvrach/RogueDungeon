@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Common.DebugTools;
 using Common.DotNetUtils;
+using Common.Providers;
 
 namespace Common.FSM
 {
@@ -23,6 +25,18 @@ namespace Common.FSM
                 _stateTickHandlers.Add(tickHandler);
             if(handler is IStateExitHandler exitHandler) 
                 _stateExitHandlers.Add(exitHandler);
+        }
+        
+        public void AddEnterHandler(Action handler) => 
+            AddHandler(new ActionStateEnterHandler(handler));
+        
+        public void AddExitHandler(Action handler) => 
+            AddHandler(new ActionStateExitHandler(handler));
+        
+        public void Bind(Action<bool> isInStateCallback)
+        {
+            _stateEnterHandlers.Add(new ActionStateEnterHandler(() => isInStateCallback?.Invoke(true)));
+            _stateExitHandlers.Add(new ActionStateExitHandler(() => isInStateCallback?.Invoke(false)));
         }
 
         public void Enter()

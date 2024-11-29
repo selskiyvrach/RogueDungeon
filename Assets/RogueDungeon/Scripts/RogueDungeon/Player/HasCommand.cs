@@ -3,12 +3,12 @@ using RogueDungeon.PlayerInputCommands;
 
 namespace RogueDungeon.Player
 {
-    public class HasCommandCondition : ICondition
+    public class HasCommand : ICondition
     {
         private readonly IPlayerInput _playerInput;
         private readonly Command _command;
 
-        public HasCommandCondition(Command command, IPlayerInput playerInput)
+        public HasCommand(Command command, IPlayerInput playerInput)
         {
             _playerInput = playerInput;
             _command = command;

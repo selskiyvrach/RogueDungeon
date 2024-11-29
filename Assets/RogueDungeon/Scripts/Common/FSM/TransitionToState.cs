@@ -17,7 +17,7 @@ namespace Common.FSM
         public bool CanTransit(StatesContainer statesContainer, out IState transitionTo)
         {
             transitionTo = _condition.IsMet() 
-                ? statesContainer.GetState(_state) ?? throw new Exception("States container does not contain this state: " + 
+                ? statesContainer.Get(_state) ?? throw new Exception("States container does not contain this state: " + 
                                                                           (_state is IDebugName nameable ? nameable.DebugName : _state?.GetType().Name))
                 : null;
             return transitionTo != null;

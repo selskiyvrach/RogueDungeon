@@ -14,6 +14,17 @@ namespace Common.FSM
         }
 
         public bool IsMet() => 
-            _currentStateProvider.Get == _targetState;
+            _currentStateProvider.value == _targetState;
+    }
+    
+    public class ValueCondition : ICondition
+    {
+        private readonly IProvider<bool> _provider;
+
+        public ValueCondition(IProvider<bool> provider) => 
+            _provider = provider;
+
+        public bool IsMet() => 
+            _provider.value;
     }
 }

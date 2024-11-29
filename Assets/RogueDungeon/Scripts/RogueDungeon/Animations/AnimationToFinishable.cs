@@ -5,12 +5,12 @@ using Common.FSM;
 namespace RogueDungeon.Animations
 {
     [Serializable]
-    public class AnimationPlayerToFinishableAdapter : IFinishable
+    public class AnimationToFinishable : IFinishable
     {
         private AnimationPlayer _animationPlayer;
         public bool IsFinished => _animationPlayer.IsFinished;
 
-        public AnimationPlayerToFinishableAdapter(AnimationPlayer animationPlayer)
+        public AnimationToFinishable(AnimationPlayer animationPlayer)
         {
             _animationPlayer = animationPlayer;
             if (_animationPlayer.IsLooped) 
