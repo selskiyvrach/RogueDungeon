@@ -1,52 +1,15 @@
 ﻿using System;
 using Common.Events;
 using Common.FSM;
-using Common.Providers;
 using Common.UnityUtils;
 using RogueDungeon.Animations;
 using RogueDungeon.Camera;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;
-using RogueDungeon.PlayerInputCommands;
 using UniRx;
 
 namespace RogueDungeon.Player
 {
-    public class PlayerRootStateMachineBuildingDirector
-    {
-        private IPlayerInput _input;
-        
-        public void Create()
-        {
-            var attack = new Value<bool>();
-            var isAttacking = new ValueCondition(attack);
-            
-            
-            var dodge = new Value<bool>();
-            var isDodging = new ValueCondition(dodge);
-            
-            var dodgeRight = new TimerState(1).Bind(dodge);
-            var dodgeLeft = new TimerState(1).Bind(dodge);
-            var dodgeIdle = new State();
-
-            var dodgeBuilder = new StateMachineBuilder(dodgeIdle, dodgeRight, dodgeLeft);
-            dodgeBuilder.AddTransition(dodgeIdle, dodgeRight, new IfAll(new Not(isAttacking), new HasCommand(Command.DodgeRight, _input)));
-            dodgeBuilder.AddTransition(dodgeIdle, dodgeLeft, new IfAll(new Not(isAttacking), new HasCommand(Command.DodgeLeft, _input)));
-            dodgeBuilder.AddTransitionFromFinished(dodgeRight, dodgeIdle);
-            dodgeBuilder.AddTransitionFromFinished(dodgeLeft, dodgeIdle);
-        }
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     public class Player : IGameEntity, IDodger
     {
         private readonly IEventBus<IAnimationEvent> _animationEvents;

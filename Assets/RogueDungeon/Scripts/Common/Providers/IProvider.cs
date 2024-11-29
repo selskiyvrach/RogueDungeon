@@ -2,11 +2,11 @@
 {
     public interface IProvider<out T>
     {
-        T value { get; }
+        T Item { get; }
     }
 
     public interface IValue<T> : IProvider<T>
     {
-        T value { set; }
+        T Item { set; }
     }
 }

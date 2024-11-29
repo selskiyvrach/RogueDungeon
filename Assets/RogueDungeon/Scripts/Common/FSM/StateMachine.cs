@@ -12,7 +12,7 @@ namespace Common.FSM
         private IState _currentState;
         public bool IsRunning { get; private set; }
 
-        public IState value => _currentState;
+        public IState Item => _currentState;
         public string DebugName { get; set; }
 
         public StateMachine(StatesContainer statesContainer, TransitionsContainer transitionsContainer)

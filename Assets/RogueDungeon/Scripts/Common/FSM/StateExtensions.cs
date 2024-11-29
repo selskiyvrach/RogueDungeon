@@ -6,7 +6,7 @@ namespace Common.FSM
     {
         public static T Bind<T>(this T state, IValue<bool> value) where T : State
         {
-            state.Bind(value);
+            state.Bind(n => value.Item = n);
             return state;
         }
     }

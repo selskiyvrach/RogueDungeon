@@ -15,6 +15,6 @@ namespace Common.FSM
         }
 
         public bool IsMet() =>
-            _currentStateProvider.value is ICompetingState<T> competitor && _state.Competition.CompareTo(competitor.Competition) > 0;
+            _currentStateProvider.Item is ICompetingState<T> competitor && _state.Competition.CompareTo(competitor.Competition) > 0;
     }
 }

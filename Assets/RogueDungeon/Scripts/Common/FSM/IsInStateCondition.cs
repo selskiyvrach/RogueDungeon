@@ -14,7 +14,7 @@ namespace Common.FSM
         }
 
         public bool IsMet() => 
-            _currentStateProvider.value == _targetState;
+            _currentStateProvider.Item == _targetState;
     }
     
     public class ValueCondition : ICondition
@@ -25,6 +25,6 @@ namespace Common.FSM
             _provider = provider;
 
         public bool IsMet() => 
-            _provider.value;
+            _provider.Item;
     }
 }
