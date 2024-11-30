@@ -12,15 +12,15 @@ namespace RogueDungeon.Weapons
     public class WeaponBehaviourFactory : IFactory<WeaponConfig, IWeapon, WeaponBehaviour>
     {
         private readonly IRootObject<AnimationPlayer> _animationTarget;
-        private readonly IPlayerInput _playerInput;
+        private readonly ICharacterInput _characterInput;
         private readonly IEventBus<IAnimationEvent> _animationEvents;
 
         public WeaponBehaviourFactory(
-            IPlayerInput playerInput, 
+            ICharacterInput characterInput, 
             IEventBus<IAnimationEvent> animationEvents, 
             IRootObject<AnimationPlayer> animationTarget)
         {
-            _playerInput = playerInput;
+            _characterInput = characterInput;
             _animationEvents = animationEvents;
             _animationTarget = animationTarget;
         }
@@ -29,8 +29,8 @@ namespace RogueDungeon.Weapons
             new(CreateEnterCondition(), CreateState(config, weapon));
 
         private IfAny CreateEnterCondition() =>
-            new(new HasCommand(Command.Attack, _playerInput),
-                new HasCommand(Command.Block, _playerInput));
+            new(new HasCommand(Command.Attack, _characterInput),
+                new HasCommand(Command.Block, _characterInput));
 
         private IFinishableState CreateState(WeaponConfig config, IWeapon weapon)
         {
@@ -41,8 +41,8 @@ namespace RogueDungeon.Weapons
             builder.SetStartState(idleState);
             
             // ATTACKS
-            var consumeAttackCommandHandler = new ConsumeCommandStateEnterHandler(_playerInput, Command.Attack);
-            var hasAttackCommandCondition = new HasCommand(Command.Attack, _playerInput);
+            var consumeAttackCommandHandler = new ConsumeCommandStateEnterHandler(_characterInput, Command.Attack);
+            var hasAttackCommandCondition = new HasCommand(Command.Attack, _characterInput);
             var hasNoAttackCommandCondition = new Not(hasAttackCommandCondition);
 
             var idleToAttackState = new State {DebugName = "Idle to attack state"};
@@ -80,20 +80,20 @@ namespace RogueDungeon.Weapons
             // ATTACKS END
             
             // BLOCK
-            var hasBlockInputCondition = new HasCommand(Command.Block, _playerInput);
+            var hasBlockInputCondition = new HasCommand(Command.Block, _characterInput);
             var doesNotHaveBlockInputCondition = new Not(hasBlockInputCondition);
 
             var idleToBlockAnimation = new AnimationPlayer(config.IdleToBlockAnimation, _animationTarget);
             var idleToBlockState = new State {DebugName = "Idle to block state"};
             idleToBlockState.AddHandler(new PlayAnimationStateHandler(idleToBlockAnimation));
-            idleToBlockState.AddHandler(new ConsumeCommandStateEnterHandler(_playerInput, Command.Block));
+            idleToBlockState.AddHandler(new ConsumeCommandStateEnterHandler(_characterInput, Command.Block));
             idleToBlockState.AddHandler(new AnimationEventStateHandler<BlockEvent>(_animationEvents, idleToBlockAnimation, AnimEventNames.BLOCK_RAISED, 
                 new BlockEvent(weapon)));
 
             var blockToIdleAnimation = new AnimationPlayer(config.BlockToIdleAnimation, _animationTarget);
             var blockToIdleState = new State {DebugName = "Block to idle state"};
             blockToIdleState.AddHandler(new PlayAnimationStateHandler(blockToIdleAnimation));
-            blockToIdleState.AddHandler(new ConsumeCommandStateEnterHandler(_playerInput, Command.Block));
+            blockToIdleState.AddHandler(new ConsumeCommandStateEnterHandler(_characterInput, Command.Block));
 
             var holdBlockAnimation = new AnimationPlayer(config.HoldBlockAnimation, _animationTarget);
             var holdBlockState = new State {DebugName = "Hold block state"};

@@ -2,6 +2,6 @@
 {
     public interface IDodger
     {
-        DodgeState DodgeState { get; }
+        DodgeState DodgeState { get; set; }
     }
 }

@@ -1,30 +1,31 @@
-﻿using Common.Providers;
+﻿
+using RogueDungeon.Entities.Properties;
 
 namespace Common.FSM
 {
     public class IsInStateCondition : ICondition
     {
-        private readonly IProvider<IState> _currentStateProvider;
+        private readonly IReadOnlyProperty<IState> _currentStateProvider;
         private readonly IState _targetState;
 
-        public IsInStateCondition(IProvider<IState> currentStateProvider, IState targetState)
+        public IsInStateCondition(IReadOnlyProperty<IState> currentStateProvider, IState targetState)
         {
             _currentStateProvider = currentStateProvider;
             _targetState = targetState;
         }
 
         public bool IsMet() => 
-            _currentStateProvider.Item == _targetState;
+            _currentStateProvider.Value == _targetState;
     }
     
     public class ValueCondition : ICondition
     {
-        private readonly IProvider<bool> _provider;
+        private readonly IReadOnlyProperty<bool> _provider;
 
-        public ValueCondition(IProvider<bool> provider) => 
+        public ValueCondition(IReadOnlyProperty<bool> provider) => 
             _provider = provider;
 
         public bool IsMet() => 
-            _provider.Item;
+            _provider.Value;
     }
 }

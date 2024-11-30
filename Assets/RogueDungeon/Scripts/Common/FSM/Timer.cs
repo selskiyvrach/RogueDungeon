@@ -12,6 +12,13 @@ namespace Common.FSM
         public Timer(float duration) => 
             _duration = duration;
 
+        public Timer()
+        {
+        }
+
+        public void Start(float duration) => 
+            _sub = Observable.Timer(TimeSpan.FromSeconds(_duration)).Subscribe(_ => Stop());
+
         public void Start() => 
             _sub = Observable.Timer(TimeSpan.FromSeconds(_duration)).Subscribe(_ => Stop());
 

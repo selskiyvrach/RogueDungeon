@@ -4,15 +4,11 @@
     {
     }
 
-    public class Property<T> : Property
+    public class Property<T> : Property, IProperty<T>
     {
         public T Value { get; set; }
 
-        public Property()
-        {
-        }
-        
-        public Property(T value) => 
+        public Property(T value = default) => 
             Value = value;
     }
 }

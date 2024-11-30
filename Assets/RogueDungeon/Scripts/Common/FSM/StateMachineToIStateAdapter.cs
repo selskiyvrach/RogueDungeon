@@ -18,10 +18,12 @@ namespace Common.FSM
         public void Exit() => 
             _stateMachine.Stop();
 
-        public void Enter() => 
-            _stateMachine.Run();
-
         public void Tick() => 
             _stateMachine.Tick();
+
+        public void Enter()
+        {
+            
+        }
     }
 }

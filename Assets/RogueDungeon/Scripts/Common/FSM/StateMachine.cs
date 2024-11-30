@@ -1,18 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Common.DebugTools;
-using Common.Providers;
+using RogueDungeon.Entities.Properties;
+using UniRx;
+using Logger = Common.DebugTools.Logger;
 
 namespace Common.FSM
 {
-    public class StateMachine : IProvider<IState>, IDebugName
+    public class AutoRunner : IDisposable
+    {
+        private readonly StateMachine _stateMachine;
+        private readonly IDisposable _sub;
+
+        public AutoRunner(StateMachine stateMachine)
+        {
+            _stateMachine = stateMachine;
+            _stateMachine.Initialize();
+            _sub = Observable.EveryUpdate().Subscribe(_ => _stateMachine.Tick());
+        }
+
+        public void Dispose()
+        {
+            _stateMachine.Stop();
+            _sub?.Dispose();
+        }
+    }
+
+    public class StateMachine : IReadOnlyProperty<IState>, IDebugName
     {
         private readonly StatesContainer _statesContainer;
         private readonly TransitionsContainer _transitionsContainer;
         private readonly HashSet<IState> _transitionsThisFrame = new();
         private IState _currentState;
-        public bool IsRunning { get; private set; }
 
-        public IState Item => _currentState;
+        public IState Value => _currentState;
         public string DebugName { get; set; }
 
         public StateMachine(StatesContainer statesContainer, TransitionsContainer transitionsContainer)
@@ -21,21 +42,14 @@ namespace Common.FSM
             _transitionsContainer = transitionsContainer;
         }
 
-        public void Run()
-        {
-            SwitchToState(_statesContainer.GetStartState());
-            IsRunning = true;
-            ProcessTransitions();
-        }
-
         public void Tick()
         {
-            if(!IsRunning)
-                return;
-            
             (_currentState as ITickable)?.Tick();
             ProcessTransitions();
         }
+
+        public void Initialize() => 
+            SwitchToState(_statesContainer.GetStartState());
 
         private void ProcessTransitions()
         {
@@ -54,11 +68,8 @@ namespace Common.FSM
             }
         }
 
-        public void Stop()
-        {
+        public void Stop() => 
             ExitCurrentState();
-            IsRunning = false;
-        }
 
         private void SwitchToState(IState newState)
         {

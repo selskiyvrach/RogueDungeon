@@ -35,7 +35,7 @@ namespace RogueDungeon.Player
             var gameObjectInstaller = Instantiate(_playerConfig.Prefab, _instantiatePlayerTo.Transform);
             gameObjectInstaller.InstallToPlayerContext(container);
             
-            container.Bind<IPlayerInput>().To<PlayerInput>().FromNew().AsSingle();
+            container.Bind<ICharacterInput>().To<CharacterInput>().FromNew().AsSingle();
             container.Bind<IRootObject<Animation>>().FromComponentInNewPrefab(_playerConfig.Prefab).AsSingle();
             container.Bind<IEventBus<IAnimationEvent>>().To<EventBus<IAnimationEvent>>().FromNew().AsSingle();
             container.Bind<PlayerAnimationsConfig>().FromNewScriptableObject(_animationsConfig).AsSingle();

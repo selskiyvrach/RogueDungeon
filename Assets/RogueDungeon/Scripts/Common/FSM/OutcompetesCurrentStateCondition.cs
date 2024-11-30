@@ -1,20 +1,20 @@
 ﻿using System;
-using Common.Providers;
+using RogueDungeon.Entities.Properties;
 
 namespace Common.FSM
 {
     public class OutcompetesCurrentStateCondition<T> : ICondition where T : IComparable<T>
     {
-        private readonly IProvider<IState> _currentStateProvider;
+        private readonly IReadOnlyProperty<IState> _currentStateProvider;
         private readonly ICompetingState<T> _state;
 
-        public OutcompetesCurrentStateCondition(ICompetingState<T> state, IProvider<IState> currentStateProvider)
+        public OutcompetesCurrentStateCondition(ICompetingState<T> state, IReadOnlyProperty<IState> currentStateProvider)
         {
             _currentStateProvider = currentStateProvider;
             _state = state;
         }
 
         public bool IsMet() =>
-            _currentStateProvider.Item is ICompetingState<T> competitor && _state.Competition.CompareTo(competitor.Competition) > 0;
+            _currentStateProvider.Value is ICompetingState<T> competitor && _state.Competition.CompareTo(competitor.Competition) > 0;
     }
 }

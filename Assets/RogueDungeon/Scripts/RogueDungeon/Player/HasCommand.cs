@@ -5,16 +5,16 @@ namespace RogueDungeon.Player
 {
     public class HasCommand : ICondition
     {
-        private readonly IPlayerInput _playerInput;
+        private readonly ICharacterInput _characterInput;
         private readonly Command _command;
 
-        public HasCommand(Command command, IPlayerInput playerInput)
+        public HasCommand(Command command, ICharacterInput characterInput)
         {
-            _playerInput = playerInput;
+            _characterInput = characterInput;
             _command = command;
         }
 
         public bool IsMet() => 
-            _playerInput.HasCommand(_command);
+            _characterInput.HasCommand(_command);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Common.FSM
 {
-    public class FuncCondition : ICondition
+    public class If : ICondition
     {
         private readonly Func<bool> _predicate;
 
-        public FuncCondition(Func<bool> predicate) => 
+        public If(Func<bool> predicate) => 
             _predicate = predicate;
 
         public bool IsMet() => 

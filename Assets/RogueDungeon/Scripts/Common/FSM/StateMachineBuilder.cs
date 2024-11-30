@@ -1,5 +1,5 @@
 ﻿using System;
-using Common.Providers;
+using RogueDungeon.Entities.Properties;
 using UnityEngine.Assertions;
 
 namespace Common.FSM
@@ -46,9 +46,6 @@ namespace Common.FSM
         public CompetingState<EnumComparer<TEnum>> CreateEnumCompetingState<TEnum>(TEnum competition = default, string debugName = null) where TEnum : Enum => 
             CreateCompetingState(new EnumComparer<TEnum>(competition), debugName);
 
-        public State CreateState(string debugName = null) => 
-            CreateState<State>(debugName);
-
         public void SetDebugName(string name) =>
             _stateMachine.DebugName = name;
 
@@ -79,11 +76,11 @@ namespace Common.FSM
             _statesContainer.AddStartState(state);
 
         // use this decorator to set up transitions depending on current state before building the state machine itself
-        public StateMachine Build(IProviderDecorator<IState> stateProviderDecorator = null)
+        public StateMachine Build(IReadOnlyPropertyDecorator<IState> stateProviderDecorator = null)
         {
             Assert.IsNotNull(_statesContainer.GetStartState());
             if (stateProviderDecorator != null)
-                stateProviderDecorator.DecoratedProvider = _stateMachine;
+                stateProviderDecorator.Decorated = _stateMachine;
             return _stateMachine;
         }
     }

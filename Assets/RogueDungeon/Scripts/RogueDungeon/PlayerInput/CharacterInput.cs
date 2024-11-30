@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RogueDungeon.PlayerInputCommands
 {
-    public class PlayerInput : IPlayerInput, IDisposable
+    public class CharacterInput : ICharacterInput, IDisposable
     {
         private enum KeyState
         {
@@ -28,7 +28,7 @@ namespace RogueDungeon.PlayerInputCommands
         private float _timeSinceReleased;
         private float _timeHeld;
 
-        public PlayerInput() => 
+        public CharacterInput() => 
             _sub = Observable.EveryUpdate().Subscribe(_ => Tick());
 
         public void Dispose() => 

@@ -5,10 +5,10 @@ namespace RogueDungeon.Player
 {
     public class HasInputCondition : ICondition
     {
-        private readonly IPlayerInput _commandsReader;
+        private readonly ICharacterInput _commandsReader;
         private readonly Command _command;
 
-        public HasInputCondition(IPlayerInput commandsReader, Command command)
+        public HasInputCondition(ICharacterInput commandsReader, Command command)
         {
             _commandsReader = commandsReader;
             _command = command;

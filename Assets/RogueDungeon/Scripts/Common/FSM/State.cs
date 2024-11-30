@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Common.DebugTools;
 using Common.DotNetUtils;
-using Common.Providers;
 
 namespace Common.FSM
 {
@@ -11,6 +10,9 @@ namespace Common.FSM
         private readonly HashSet<IStateEnterHandler> _stateEnterHandlers = new();
         private readonly HashSet<IStateTickHandler> _stateTickHandlers = new();
         private readonly HashSet<IStateExitHandler> _stateExitHandlers = new();
+
+        public State(string debugName = null) => 
+            DebugName = debugName;
 
         public string DebugName { get; set; }
 
