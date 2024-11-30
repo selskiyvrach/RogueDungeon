@@ -22,10 +22,10 @@ namespace Common.FSM
             AddExitHandler(_timer.Stop);
         }
         
-        public TimerState(IReadOnlyProperty<Parameter> duration)
+        public TimerState(Parameter duration)
         {
             _timer = new Timer();
-            AddEnterHandler(() => _timer.Start(duration.Value.Value));
+            AddEnterHandler(() => _timer.Start(duration.Value));
             AddExitHandler(_timer.Stop);
         }
     }

@@ -11,16 +11,16 @@ namespace RogueDungeon.Player
 
     public class DodgeBehaviour
     {
-        public DodgeBehaviour(IProperty<DodgeState> dodge, IReadOnlyProperty<AttackState> attack, IReadOnlyProperty<DodgeDuration> dodgeDuration, ICharacterInput input)
+        public DodgeBehaviour(IProperty<DodgeState> dodge, ControlState control, DodgeDuration dodgeDuration, ICharacterInput input)
         {
             var dodgeIdle = new State().OnEnter(() => dodge.Value = DodgeState.None);
             var dodgeRight = new TimerState(dodgeDuration).OnEnter(() => dodge.Value = DodgeState.Right);
             var dodgeLeft = new TimerState(dodgeDuration).OnEnter(() => dodge.Value = DodgeState.Left);
 
             var dodgeBuilder = new StateMachineBuilder(dodgeIdle, dodgeRight, dodgeLeft);
-            var notAttacking = new If(() => attack.Value != AttackState.Executing);
-            dodgeBuilder.AddTransition(dodgeIdle, dodgeRight, new IfAll(notAttacking, new HasCommand(Command.DodgeRight, input)));
-            dodgeBuilder.AddTransition(dodgeIdle, dodgeLeft, new IfAll(notAttacking, new HasCommand(Command.DodgeLeft, input)));
+            var canStartDodgeExecution = new If(control.CanStartHardMovementAnim);
+            dodgeBuilder.AddTransition(dodgeIdle, dodgeRight, new IfAll(canStartDodgeExecution, new HasCommand(Command.DodgeRight, input)));
+            dodgeBuilder.AddTransition(dodgeIdle, dodgeLeft, new IfAll(canStartDodgeExecution, new HasCommand(Command.DodgeLeft, input)));
             dodgeBuilder.AddTransitionFromFinished(dodgeRight, dodgeIdle);
             dodgeBuilder.AddTransitionFromFinished(dodgeLeft, dodgeIdle);
         }
@@ -40,10 +40,10 @@ namespace RogueDungeon.Player
 
     public class AttackBehaviour
     {
-        public AttackBehaviour(IReadOnlyProperty<DodgeState> dodge, IProperty<AttackState> attack, 
-            IReadOnlyProperty<AttackPrepareDuration> prepareDuration, 
-            IReadOnlyProperty<AttackExecuteDuration> executeDuration, 
-            IReadOnlyProperty<AttackFinishDuration> finishDuration, 
+        public AttackBehaviour(ControlState control, IProperty<AttackState> attack, 
+            AttackPrepareDuration prepareDuration, 
+            AttackExecuteDuration executeDuration, 
+            AttackFinishDuration finishDuration, 
             ICharacterInput input)
         {
             var attackIdle = new State().OnEnter(() => attack.Value = AttackState.None);
@@ -52,11 +52,11 @@ namespace RogueDungeon.Player
             var executeAttack = new TimerState(executeDuration).OnEnter(() => attack.Value = AttackState.Executing);
             var attackBuilder = new StateMachineBuilder(attackIdle, prepareAttack, executeAttack, finishAttack);
 
-            var dodging = new If(() => dodge.Value != DodgeState.None);
-            var notDodging = new Not(dodging);
+            var canStartHardAnim = new If(control.CanStartHardHandsAnim);
+            var notDodging = new Not(canStartHardAnim);
             attackBuilder.AddTransition(attackIdle, prepareAttack, new IfAll(notDodging, new HasCommand(Command.Attack, input)));
             attackBuilder.AddTransitionFromFinished(prepareAttack, executeAttack, notDodging);
-            attackBuilder.AddTransitionFromFinished(prepareAttack, finishAttack, dodging);
+            attackBuilder.AddTransitionFromFinished(prepareAttack, finishAttack, canStartHardAnim);
             attackBuilder.AddTransitionFromFinished(executeAttack, finishAttack);
             attackBuilder.AddTransitionFromFinished(finishAttack, attackIdle);
         }
