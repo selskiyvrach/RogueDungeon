@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Entities.Prameters
+﻿namespace Common.Prameters
 {
     public class AttackDamage : Parameter
     {

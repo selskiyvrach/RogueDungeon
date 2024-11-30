@@ -1,4 +1,5 @@
-﻿using RogueDungeon.Entities.Properties;
+﻿using Common.Prameters;
+using Common.Properties;
 
 namespace Common.FSM
 {
@@ -18,6 +19,13 @@ namespace Common.FSM
         {
             _timer = new Timer();
             AddEnterHandler(() => _timer.Start(duration.Value));
+            AddExitHandler(_timer.Stop);
+        }
+        
+        public TimerState(IReadOnlyProperty<Parameter> duration)
+        {
+            _timer = new Timer();
+            AddEnterHandler(() => _timer.Start(duration.Value.Value));
             AddExitHandler(_timer.Stop);
         }
     }

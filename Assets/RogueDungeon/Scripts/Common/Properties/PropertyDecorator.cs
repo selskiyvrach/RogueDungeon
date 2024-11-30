@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Entities.Properties
+﻿namespace Common.Properties
 {
     public interface IPropertyDecorator<T> : IReadOnlyPropertyDecorator<T>, IProperty<T>
     {

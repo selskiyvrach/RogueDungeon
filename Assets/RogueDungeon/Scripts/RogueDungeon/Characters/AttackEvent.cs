@@ -5,8 +5,6 @@ using Common.Registries;
 using RogueDungeon.Animations;
 using RogueDungeon.Enemies;
 using RogueDungeon.Entities;
-using RogueDungeon.Entities.Prameters;
-using RogueDungeon.Entities.Properties;
 using RogueDungeon.Weapons;
 
 namespace RogueDungeon.Characters

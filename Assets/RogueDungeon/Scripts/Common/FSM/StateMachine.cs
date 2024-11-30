@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.DebugTools;
-using RogueDungeon.Entities.Properties;
+using Common.Properties;
 using UniRx;
 using Logger = Common.DebugTools.Logger;
 

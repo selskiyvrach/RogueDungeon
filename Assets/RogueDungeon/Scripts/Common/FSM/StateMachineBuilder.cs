@@ -1,5 +1,5 @@
 ﻿using System;
-using RogueDungeon.Entities.Properties;
+using Common.Properties;
 using UnityEngine.Assertions;
 
 namespace Common.FSM

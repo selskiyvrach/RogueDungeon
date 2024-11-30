@@ -1,5 +1,5 @@
 ﻿using System;
-using RogueDungeon.Entities.Properties;
+using Common.Properties;
 
 namespace Common.FSM
 {

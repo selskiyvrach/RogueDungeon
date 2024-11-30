@@ -1,5 +1,5 @@
 ﻿using Common.Events;
-using RogueDungeon.Entities.Properties;
+using Common.Properties;
 using RogueDungeon.Weapons;
 
 namespace RogueDungeon.Entities
