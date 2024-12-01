@@ -22,8 +22,11 @@ namespace RogueDungeon.Game
 
         public async void Enter()
         {
-            await _sceneLoader.Load<MainMenuScene>();
-            _mainMenuModel = _container.Resolve<MainMenuStateInstaller>().Resolve(); 
+            await _sceneLoader.Load<UIOnlyScene>();
+            var stateContainer = _container.CreateSubContainer();
+            var stateInstaller = _container.Resolve<MainMenuStateInstaller>();
+            stateInstaller.Install(stateContainer);
+            _mainMenuModel = stateContainer.Resolve<IMainMenuModel>(); 
             _mainMenuModel.OnNewGame += StartNewGame;
             _mainMenuModel.OnQuit += Quit;
         }

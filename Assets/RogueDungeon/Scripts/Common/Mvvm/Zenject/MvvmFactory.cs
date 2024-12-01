@@ -1,4 +1,5 @@
-﻿using Common.Mvvm.Model;
+﻿using Common.InstallerGenerator;
+using Common.Mvvm.Model;
 using Common.Mvvm.View;
 using Common.Mvvm.ViewModel;
 using Common.UiCommons;
@@ -7,17 +8,29 @@ using Zenject;
 
 namespace Common.Mvvm.Zenject
 {
-    public abstract class MvvmFactory<TModelImpl, TViewModelImpl, TViewImpl, TModelInterface> : ScriptableObject, IFactory<TModelImpl> 
+    public abstract class MvvmFactory<TModelImpl, TViewModelImpl, TViewImpl, TModelInterface, TFactory> : ScriptableInstaller, IFactory<TModelInterface> 
         where TModelInterface : IModel where TModelImpl : TModelInterface
         where TViewModelImpl : IViewModel<TModelInterface>
         where TViewImpl : MonoBehaviour, IView<TViewModelImpl>
+        where TFactory : class, IFactory<TModelInterface>
     {
         [SerializeField] private TViewImpl _viewPrefab;
         
-        [Inject] private DiContainer _diContainer;
-        [Inject] private IUiRootObject _uiRootObject;
+        private DiContainer _diContainer;
+        private IUiRootObject _uiRootObject;
 
-        public TModelImpl Create()
+        public override void Install(DiContainer container)
+        {
+            base.Install(container);
+            _diContainer = container;
+            _uiRootObject = container.Resolve<IUiRootObject>();
+            
+            // need to bind both tfactory and ifactory<TInterface>
+            container.BindInterfacesAndSelfTo<TFactory>().FromInstance(this as TFactory);
+            container.Bind<TModelInterface>().FromFactory<TFactory>();
+        }
+
+        public TModelInterface Create()
         {
             var subContainer = _diContainer.CreateSubContainer();
 

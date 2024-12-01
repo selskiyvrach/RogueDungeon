@@ -1,8 +1,8 @@
 ﻿using Common.Events;
+using Common.InstallerGenerator;
 using Common.SceneManagement;
 using Common.UnityUtils;
 using RogueDungeon.Camera;
-using RogueDungeon.UI.LoadingScreen;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -10,31 +10,30 @@ using Zenject;
 namespace RogueDungeon.Game
 {
     [CreateAssetMenu(menuName = "Installers/BootstrapStateInstaller", fileName = "BootstrapStateInstaller", order = 0)]
-    public class BootstrapStateInstaller : ScriptableObjectInstaller<BootstrapStateInstaller>
+    public class BootstrapStateInstaller : ScriptableInstaller
     {
         [SerializeField] private GameRootObject _rootGameObject;
         [SerializeField] private GameCamera _gameCamera;
         [SerializeField] private EventSystem _eventSystem;
-        [SerializeField] private SceneLoadingProcessMvvmFactory _loadingSceneMvvmFactory;
 
-        public override void InstallBindings()
+        public override void Install(DiContainer container)
         {
             var gameRoot = Instantiate(_rootGameObject);
             DontDestroyOnLoad(gameRoot);
-            Container.BindInterfacesTo<GameRootObject>().FromInstance(gameRoot).AsSingle();
-
+            container.BindInterfacesTo<GameRootObject>().FromInstance(gameRoot).AsSingle();
+            
             var coroutineRunner = new GameObject("CoroutineRunner").AddComponent<CoroutineRunner>();
             coroutineRunner.transform.SetParent(gameRoot.CommonRootTransform);
-            Container.Bind<ICoroutineRunner>().To<CoroutineRunner>().FromInstance(coroutineRunner).AsSingle();
+            container.InstanceSingle<ICoroutineRunner, CoroutineRunner>(coroutineRunner);
             
-            Container.Bind<IEventBus>().To<EventBus>().FromNew().AsSingle();
-            
+            container.NewSingle<IEventBus, EventBus>();
             Instantiate(_eventSystem, gameRoot.CommonRootTransform);
-
-            Container.Bind<IGameCamera>().To<GameCamera>().FromInstance(Instantiate(_gameCamera, gameRoot.CommonRootTransform));
-
-            Container.Bind<IFactory<ISceneLoadingModel>>().To<SceneLoadingProcessMvvmFactory>().FromNewScriptableObject(_loadingSceneMvvmFactory).AsSingle();
-            Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
+            
+            // base needs some stuff
+            base.Install(container);
+            
+            container.InstanceSingle<IGameCamera, GameCamera>(Instantiate(_gameCamera, gameRoot.CommonRootTransform));
+            container.NewSingle<ISceneLoader, SceneLoader>();
         }
     }
 }

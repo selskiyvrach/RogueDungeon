@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8638c4ac313448b6a42f51f468eeaba1, type: 3}
   m_Name: MainMenuStateInstaller
   m_EditorClassIdentifier: 
-  _mainMenuMvvmFactory: {fileID: 11400000, guid: 3271d9eaa41b51c4b9cf58bb7a5282b1,
-    type: 2}
+  _otherInstallers:
+  - {fileID: 11400000, guid: 3271d9eaa41b51c4b9cf58bb7a5282b1, type: 2}

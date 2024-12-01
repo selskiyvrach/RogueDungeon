@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82adf6b044884825b251223f3ab0752a, type: 3}
   m_Name: MainMenuMvvmFactory
   m_EditorClassIdentifier: 
+  _otherInstallers: []
   _viewPrefab: {fileID: 1659619825924562783, guid: af3efaed05b01a445b24f8b834ad6535,
     type: 3}

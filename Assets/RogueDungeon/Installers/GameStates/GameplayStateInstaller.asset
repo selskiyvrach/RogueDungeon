@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f8224f159747fabda8aa715b8905d4, type: 3}
   m_Name: GameplayStateInstaller
   m_EditorClassIdentifier: 
+  _otherInstallers:
+  - {fileID: 11400000, guid: 70f1837e40ef64947abfc6ea7d1d7ae5, type: 2}
   _playerFactory: {fileID: 11400000, guid: 84b1f0fd5d87c194f8c389f2b925dcdb, type: 2}
