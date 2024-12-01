@@ -10,7 +10,7 @@ namespace Common.InstallerGenerator
 {
     public static class InstallerGenerator
     {
-        private const string InstallersFolder = "Assets/Installers";
+        private const string InstallersFolder = "Assets/Generated";
 
         [MenuItem("Generate/Installer Classes")]
         public static void GenerateInstallerClasses()
@@ -51,35 +51,7 @@ namespace Common.InstallerGenerator
             AssetDatabase.Refresh();
             AssetDatabase.SaveAssets();
         }
-
-        [MenuItem("Generate/Installer Assets")]
-        public static void CreateInstallerAssets()
-        {
-            var typesWithAttribute = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(assembly => assembly.GetTypes())
-                .Where(type => type.GetCustomAttribute<CreateFactoryInstallerAttribute>() != null);
-
-            foreach (var type in typesWithAttribute)
-            {
-                var fileName = type.Name + "FactoryInstaller.asset";
-                var assetPath = Path.Combine(InstallersFolder, fileName);
-                var assetFullPath = Path.Combine(Application.dataPath, InstallersFolder["Assets/".Length..], fileName);
-
-                if (!File.Exists(assetFullPath))
-                {
-                    CreateInstallerAsset(type, assetPath);
-                    Debug.Log($"Generated installer asset for {type.Name} at {assetPath}");
-                }
-                else
-                {
-                    Debug.Log($"Installer asset for {type.Name} already exists at {assetPath}");
-                }
-            }
-
-            AssetDatabase.Refresh();
-            AssetDatabase.SaveAssets();
-        }
-
+        
         private static string GenerateInstallerCode(Type targetType, Type bindAs, Type[] serializeFields, Type[] factoryParameters)
         {
             // Collect all namespaces for the using statements
@@ -134,29 +106,6 @@ public class {targetType.Name}FactoryInstaller : ScriptableObjectInstaller<{targ
     }}
 }}
 ";
-        }
-
-        private static void CreateInstallerAsset(Type targetType, string assetPath)
-        {
-            var installerTypeName = $"{targetType.Name}FactoryInstaller";
-            var installerType = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(a => a.GetTypes())
-                .FirstOrDefault(t => t.Name == installerTypeName);
-
-            if (installerType == null)
-            {
-                Debug.LogError($"Could not find generated installer class {installerTypeName}. Ensure the script has been compiled.");
-                return;
-            }
-
-            var asset = ScriptableObject.CreateInstance(installerType);
-            var directory = Path.GetDirectoryName(assetPath);
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            AssetDatabase.CreateAsset(asset, assetPath);
         }
     }
 }

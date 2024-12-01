@@ -27,7 +27,7 @@ namespace RogueDungeon.Game
         public void OnSceneContainerReady(DiContainer sceneContainer)
         {
             var gameplayInstaller = _globalContainer.Resolve<GameplayStateInstaller>();
-            gameplayInstaller.InstallToSceneContext(sceneContainer);
+            gameplayInstaller.Install(sceneContainer);
         }
 
         public void Exit() =>

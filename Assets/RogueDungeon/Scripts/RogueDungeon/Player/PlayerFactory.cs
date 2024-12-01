@@ -1,11 +1,7 @@
-﻿using Common.Events;
-using Common.FSM;
-using Common.Registries;
+﻿using Common.Registries;
 using Common.UnityUtils;
-using RogueDungeon.Animations;
 using RogueDungeon.Entities;
 using RogueDungeon.PlayerInputCommands;
-using RogueDungeon.Weapons;
 using UnityEngine;
 using Zenject;
 
@@ -34,13 +30,11 @@ namespace RogueDungeon.Player
         {
             var gameObjectInstaller = Instantiate(_playerConfig.Prefab, _instantiatePlayerTo.Transform);
             gameObjectInstaller.InstallToPlayerContext(container);
-            
+
+            container.Bind<PlayerCameraHandler>().FromNew().AsSingle();
             container.Bind<ICharacterInput>().To<CharacterInput>().FromNew().AsSingle();
             container.Bind<IRootObject<Animation>>().FromComponentInNewPrefab(_playerConfig.Prefab).AsSingle();
-            container.Bind<IEventBus<IAnimationEvent>>().To<EventBus<IAnimationEvent>>().FromNew().AsSingle();
             container.Bind<PlayerAnimationsConfig>().FromNewScriptableObject(_animationsConfig).AsSingle();
-            container.Bind<StateMachine>().FromFactory<PlayerBehaviourStateMachineFactory>().AsSingle();
-            container.BindInterfacesTo<WeaponFactory>().FromNew().AsSingle();
             container.BindInterfacesAndSelfTo<Player>().FromNew().AsSingle();
         }
     }
