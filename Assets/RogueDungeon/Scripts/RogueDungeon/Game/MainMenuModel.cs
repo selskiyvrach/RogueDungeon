@@ -1,29 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using Common.Commands;
+﻿using Common.Commands;
+using Common.Game;
 using Common.Mvvm.Model;
-using Common.UiCommons;
-using RogueDungeon.Localization;
-using RogueDungeon.UI;
 
 namespace RogueDungeon.Game
 {
     public class MainMenuModel : Model, IMainMenuModel
     {
-        public event Action OnNewGame;
-        public event Action OnQuit;
-        
+        private readonly IGameStateChanger _gameStateChanger;
+
+        public MainMenuModel(IGameStateChanger gameStateChanger) => 
+            _gameStateChanger = gameStateChanger;
+
         public ICommand StartNewGameCommand() => 
-            new ActionCommand(() => OnNewGame.Invoke());
+            new ActionCommand(() => _gameStateChanger.EnterState<GameplayGameState>());
 
         public ICommand QuitCommand() => 
-            new ActionCommand(() => OnQuit.Invoke());
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            OnNewGame = null;
-            OnQuit = null;
-        }
+            new ActionCommand(() => _gameStateChanger.EnterState<QuitGameState>());
     }
 }

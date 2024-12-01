@@ -1,11 +1,15 @@
+using Common.GameObjectMarkers;
 using Common.InstallerGenerator;
 using Common.Properties;
 using RogueDungeon.Player;
 using RogueDungeon.PlayerInputCommands;
+using UnityEngine;
 using Zenject;
 
 public class PlayerFactoryInstaller : ScriptableInstaller, IFactory<Player>
 {
+    [SerializeField] private PlayerGameObjectInstaller _gameObjectInstaller;
+    
     private DiContainer _container;
 
     public override void Install(DiContainer container)
@@ -18,8 +22,10 @@ public class PlayerFactoryInstaller : ScriptableInstaller, IFactory<Player>
     {
         var subContainer = _container.CreateSubContainer();
 
-        subContainer.NewSingle<IProperty<AttackState>, Property<AttackState>>();
-        subContainer.NewSingle<IProperty<DodgeState>, Property<DodgeState>>();
+        Instantiate(_gameObjectInstaller, subContainer.Resolve<PlayerParentObject>().transform).InstallToPlayerContext(subContainer);
+        
+        subContainer.NewSingleInterfacesAndSelf<Property<AttackState>>();
+        subContainer.NewSingleInterfacesAndSelf<Property<DodgeState>>();
         subContainer.NewSingle<CharacterControlStateResolver>();
         subContainer.NewSingle<AttackBehaviour>();
         subContainer.NewSingle<DodgeBehaviour>();

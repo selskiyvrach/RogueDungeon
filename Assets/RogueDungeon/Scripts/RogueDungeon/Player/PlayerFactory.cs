@@ -1,5 +1,5 @@
-﻿using Common.Registries;
-using Common.UnityUtils;
+﻿using Common.GameObjectMarkers;
+using Common.Registries;
 using RogueDungeon.Entities;
 using RogueDungeon.PlayerInputCommands;
 using UnityEngine;
@@ -13,7 +13,7 @@ namespace RogueDungeon.Player
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private PlayerAnimationsConfig _animationsConfig;
 
-        [Inject] private IRootObject<Player> _instantiatePlayerTo;
+        [Inject] private PlayerParentObject _instantiatePlayerTo;
         [Inject] private IRegistry<IGameEntity> _gameEntitiesRegistry;
         [Inject] private DiContainer _container;
         
@@ -28,12 +28,12 @@ namespace RogueDungeon.Player
 
         private void InstallBindingsToPlayerContext(DiContainer container)
         {
-            var gameObjectInstaller = Instantiate(_playerConfig.Prefab, _instantiatePlayerTo.Transform);
+            var gameObjectInstaller = Instantiate(_playerConfig.Prefab, _instantiatePlayerTo.transform);
             gameObjectInstaller.InstallToPlayerContext(container);
 
             container.Bind<PlayerCameraHandler>().FromNew().AsSingle();
             container.Bind<ICharacterInput>().To<CharacterInput>().FromNew().AsSingle();
-            container.Bind<IRootObject<Animation>>().FromComponentInNewPrefab(_playerConfig.Prefab).AsSingle();
+            container.Bind<CharacterAnimationRootObject>().FromComponentInNewPrefab(_playerConfig.Prefab).AsSingle();
             container.Bind<PlayerAnimationsConfig>().FromNewScriptableObject(_animationsConfig).AsSingle();
             container.BindInterfacesAndSelfTo<Player>().FromNew().AsSingle();
         }

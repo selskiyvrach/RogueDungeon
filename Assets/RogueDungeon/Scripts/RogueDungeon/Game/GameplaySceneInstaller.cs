@@ -1,14 +1,20 @@
-﻿using Common.SceneManagement;
-using RogueDungeon.SceneManagement;
-using UnityEngine;
+﻿using Common.GameObjectMarkers;
+using Common.InstallerGenerator;
+using Common.Registries;
+using RogueDungeon.Collisions;
+using RogueDungeon.Entities;
+using Zenject;
 
 namespace RogueDungeon.Game
 {
-    public class GameplaySceneInstaller : SceneInstaller<GameplayScene>
+    public class GameplaySceneInstaller : MonoInstaller
     {
-        [SerializeField] private GameplayRootObject _gameplayRootObject;
-        
-        protected override void InstallSceneBindings() => 
-            Container.BindInterfacesTo<GameplayRootObject>().FromInstance(_gameplayRootObject).AsSingle();
+        public override void InstallBindings()
+        {
+            Container.Bind<IRegistry<IGameEntity>>().To<Registry<IGameEntity>>().FromNew().AsSingle();
+            Container.Bind<ICollisionsDetector>().To<CollisionsDetector>().FromNew().AsSingle();
+            Container.NewSingle<ISpawner<Player.Player>, Spawner<Player.Player, PlayerParentObject>>();
+            Container.Bind<GameplayController>().AsSingle().NonLazy();
+        }
     }
 }

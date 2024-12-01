@@ -1,4 +1,5 @@
-﻿using Common.Mvvm.ViewModel;
+﻿using Common.Events;
+using Common.Mvvm.ViewModel;
 using Common.UiCommons;
 using RogueDungeon.Game;
 using RogueDungeon.Localization;
@@ -16,8 +17,8 @@ namespace RogueDungeon.UI.MainMenu
             _mainMenuModel = mainMenuModel;
             MenuItems = new ReactiveCollection<IMenuItem>(new []
             {
-                new MenuItemData(WrapInCloseViewAndDisposeSelfCommand(_mainMenuModel.StartNewGameCommand()), Aliases.NEW_GAME),
-                new MenuItemData(WrapInCloseViewAndDisposeSelfCommand(_mainMenuModel.QuitCommand()), Aliases.QUIT_GAME)
+                new MenuItemData(_mainMenuModel.StartNewGameCommand(), Aliases.NEW_GAME),
+                new MenuItemData(_mainMenuModel.QuitCommand(), Aliases.QUIT_GAME)
             });
         }
 

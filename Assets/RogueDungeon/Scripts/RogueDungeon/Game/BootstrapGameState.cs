@@ -6,14 +6,24 @@ namespace RogueDungeon.Game
     public class BootstrapGameState : IGameState
     {
         private readonly IGameStateChanger _gameStateChanger;
+        private readonly DiContainer _container;
 
-        public BootstrapGameState(IGameStateChanger gameStateChanger, DiContainer container, BootstrapStateInstaller stateInstaller)
+        public BootstrapGameState(IGameStateChanger gameStateChanger, DiContainer container)
         {
             _gameStateChanger = gameStateChanger;
-            stateInstaller.Install(container);
+            _container = container;
+            container.BindInstance(this);
         }
 
-        public void Enter() => 
+        public void BoostrapInstallerIsReady(BootstrapStateInstaller installer)
+        {
+            installer.Bootstrap(_container);
             _gameStateChanger.EnterState<MainMenuGameState>();
+        }
+
+        public void Enter()
+        {
+            
+        }
     }
 }

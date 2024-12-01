@@ -1,5 +1,6 @@
 ﻿using Common.Events;
 using Common.FSM;
+using Common.GameObjectMarkers;
 using Common.UnityUtils;
 using RogueDungeon.Animations;
 using RogueDungeon.Characters;
@@ -11,14 +12,14 @@ namespace RogueDungeon.Weapons
 {
     public class WeaponBehaviourFactory : IFactory<WeaponConfig, IWeapon, WeaponBehaviour>
     {
-        private readonly IRootObject<AnimationPlayer> _animationTarget;
+        private readonly WeaponAnimationRootObject _animationTarget;
         private readonly ICharacterInput _characterInput;
         private readonly IEventBus<IAnimationEvent> _animationEvents;
 
         public WeaponBehaviourFactory(
             ICharacterInput characterInput, 
             IEventBus<IAnimationEvent> animationEvents, 
-            IRootObject<AnimationPlayer> animationTarget)
+            WeaponAnimationRootObject animationTarget)
         {
             _characterInput = characterInput;
             _animationEvents = animationEvents;

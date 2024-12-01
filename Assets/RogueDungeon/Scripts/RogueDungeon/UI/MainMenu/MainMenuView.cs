@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Common.Mvvm.View;
 using Common.UiCommons;
 using UnityEngine;
+using Zenject;
 
 namespace RogueDungeon.UI.MainMenu
 {
@@ -9,14 +11,21 @@ namespace RogueDungeon.UI.MainMenu
     public class MainMenuView : View<IMainMenuViewModel>, IMainMenuView
     {
         [SerializeField, HideInInspector] private TextButtonList _buttonList;
+        private IMainMenuViewModel _viewModel;
 
         private void OnValidate() => 
             _buttonList = GetComponent<TextButtonList>();
 
-        public override void Initialize(IMainMenuViewModel viewModel)
+        [Inject]
+        public override void Construct(IMainMenuViewModel viewModel)
         {
-            base.Initialize(viewModel);
-            var buttons = viewModel.MenuItems.ToArray();
+            base.Construct(viewModel);
+            _viewModel = viewModel;
+        }
+
+        private void Start()
+        {
+            var buttons = _viewModel.MenuItems.ToArray();
             _buttonList.SetActiveItemsCount(buttons.Length);
             for (var i = 0; i < _buttonList.Count; i++)
             {

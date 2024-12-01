@@ -8,14 +8,14 @@ using Zenject;
 
 namespace Common.Mvvm.Zenject
 {
-    public abstract class MvvmFactory<TModelImpl, TViewModelImpl, TViewImpl, TModelInterface, TFactory> : ScriptableInstaller, IFactory<TModelInterface> 
+    public class MvvmFactory<TModelImpl, TViewModelImpl, TViewImpl, TModelInterface, TFactory> : ScriptableInstaller, IFactory<TModelInterface> 
         where TModelInterface : IModel where TModelImpl : TModelInterface
         where TViewModelImpl : IViewModel<TModelInterface>
         where TViewImpl : MonoBehaviour, IView<TViewModelImpl>
         where TFactory : class, IFactory<TModelInterface>
     {
         [SerializeField] private TViewImpl _viewPrefab;
-        
+
         private DiContainer _diContainer;
         private IUiRootObject _uiRootObject;
 
@@ -25,7 +25,6 @@ namespace Common.Mvvm.Zenject
             _diContainer = container;
             _uiRootObject = container.Resolve<IUiRootObject>();
             
-            // need to bind both tfactory and ifactory<TInterface>
             container.BindInterfacesAndSelfTo<TFactory>().FromInstance(this as TFactory);
             container.Bind<TModelInterface>().FromFactory<TFactory>();
         }
@@ -41,7 +40,7 @@ namespace Common.Mvvm.Zenject
             var viewModel = subContainer.Resolve<TViewModelImpl>();
 
             var view = Instantiate(_viewPrefab, _uiRootObject.UiRootTransform);
-            view.Initialize(viewModel);
+            view.Construct(viewModel);
 
             return (TModelImpl)model;
         }

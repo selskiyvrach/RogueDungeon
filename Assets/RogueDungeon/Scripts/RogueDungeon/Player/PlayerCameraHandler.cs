@@ -1,4 +1,4 @@
-﻿using Common.UnityUtils;
+﻿using Common.GameObjectMarkers;
 using RogueDungeon.Camera;
 
 namespace RogueDungeon.Player
@@ -6,13 +6,13 @@ namespace RogueDungeon.Player
     public class PlayerCameraHandler
     {
         private readonly IGameCamera _gameCamera;
-        private readonly IRootObject<UnityEngine.Camera> _cameraRoot;
+        private readonly CameraParentObject _cameraParent;
 
-        public PlayerCameraHandler(IGameCamera gameCamera, IRootObject<UnityEngine.Camera> cameraRoot)
+        public PlayerCameraHandler(IGameCamera gameCamera, CameraParentObject cameraParent)
         {
             _gameCamera = gameCamera;
-            _cameraRoot = cameraRoot;
-            _gameCamera.Follow = _cameraRoot.Transform;
+            _cameraParent = cameraParent;
+            _gameCamera.Follow = _cameraParent.transform;
         }
     }
 }

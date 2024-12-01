@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Common.DebugTools;
 using Common.DotNetUtils;
+using Common.GameObjectMarkers;
 using Common.UnityUtils;
 using UniRx;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace RogueDungeon.Animations
     public class AnimationPlayer : IAnimation, IDebugName
     {
         private readonly AnimationConfig _config;
-        private readonly IRootObject<AnimationPlayer> _target;
+        private readonly AnimationRootObject _target;
         private readonly Queue<(float time, string eventName)> _eventsToPlay = new();
         private readonly AnimationClip _animationClip;
         private readonly bool _loop;
@@ -28,7 +29,7 @@ namespace RogueDungeon.Animations
 
         public bool IsLooped => _loop;
 
-        public AnimationPlayer(AnimationConfig config, IRootObject<AnimationPlayer> target)
+        public AnimationPlayer(AnimationConfig config, AnimationRootObject target)
         {
             _target = target;
             _config = config;
@@ -58,7 +59,7 @@ namespace RogueDungeon.Animations
 
         private void UpdatePlayback()
         {
-            _animationClip.SampleAnimation(_target.GameObject, _playTime);
+            _animationClip.SampleAnimation(_target.gameObject, _playTime);
             
             if (!IsFinished)
                 return;

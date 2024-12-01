@@ -9,7 +9,7 @@ namespace Common.Mvvm.View
     {
         private IDisposable _sub;
 
-        public virtual void Initialize(T viewModel) => 
+        public virtual void Construct(T viewModel) => 
             _sub = viewModel.ShouldRemainOpen.Subscribe(ChangeOpenState);
 
         private void ChangeOpenState(bool value)

@@ -12,7 +12,10 @@ namespace Common.InstallerGenerator
         
         public static void NewSingleInterfaces<TTo>(this DiContainer container) => 
             container.BindInterfacesTo<TTo>().FromNew().AsSingle();
-
+        
+        public static void NewSingleInterfacesAndSelf<TTo>(this DiContainer container) => 
+            container.BindInterfacesAndSelfTo<TTo>().FromNew().AsSingle();
+        
         public static void NewSingle<T>(this DiContainer container) =>
             container.NewSingle<T, T>();
 

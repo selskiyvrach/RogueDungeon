@@ -7,7 +7,7 @@ namespace Common.Mvvm.View
     {
     }
 
-    public interface IView<in T> : IView, IInitializable<T> where T : IViewModel 
+    public interface IView<in T> : IView, IConstructable<T> where T : IViewModel 
     {
         
     }

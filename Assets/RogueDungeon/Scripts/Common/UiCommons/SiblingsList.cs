@@ -27,16 +27,10 @@ namespace Common.UiCommons
              _creator = () => UnityEngine.Object.Instantiate(prefab, parent, worldPosStays);
             
              foreach (var child in parent.GetDirectChildren<T>())
-             {
                  if (child.gameObject.activeSelf)
-                 {
                      _activeItems.Add(child);
-                 }
                  else
-                 {
                      _inactiveItems.Enqueue(child);
-                 }
-             }
          }
 
          public void SetActiveItemsCount(int count)

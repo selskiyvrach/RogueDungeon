@@ -1,29 +1,44 @@
-﻿using System.Threading.Tasks;
-using Zenject;
+﻿using System;
+using System.Collections;
+using System.Threading.Tasks;
+using Common.UnityUtils;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Common.SceneManagement
 {
     public class SceneLoader : ISceneLoader
     {
-        private readonly IFactory<ISceneLoadingModel> _factory;
-        private bool _isFinished;
+        private readonly ICoroutineRunner _coroutineRunner;
+        private Coroutine _loadingRoutine;
 
-        public SceneLoader(IFactory<ISceneLoadingModel> factory) => 
-            _factory = factory;
+        public SceneLoader(ICoroutineRunner coroutineRunner) => 
+            _coroutineRunner = coroutineRunner;
 
         public async Task Load<T>() where T : Scene, new()
         {
-            _isFinished = false;
-            var model =_factory.Create();
-            model.OnFinished += () =>
-            {
-                _isFinished = true;
-                model.Dispose();
-            };
-            model.Load(new T().SceneName);
+            if (_loadingRoutine != null)
+                throw new InvalidOperationException("Another scene loading is already in progress");
             
-            while (!_isFinished) 
+            _loadingRoutine = _coroutineRunner.Run(LoadingCoroutine(new T().SceneName));
+            while (_loadingRoutine != null) 
                 await Task.Yield();
+        }
+
+        private IEnumerator LoadingCoroutine(string sceneName)
+        {
+            var asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+            asyncOperation.allowSceneActivation = false;
+
+            while (asyncOperation.progress < 0.9f)
+                yield return null;
+
+            asyncOperation.allowSceneActivation = true;
+
+            while (!asyncOperation.isDone)
+                yield return null;
+            
+            _loadingRoutine = null;
         }
     }
 }
