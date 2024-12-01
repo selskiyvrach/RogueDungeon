@@ -1,4 +1,6 @@
 ﻿using Common.Game;
+using Common.SceneManagement;
+using RogueDungeon.UI.LoadingScreen;
 using Zenject;
 
 namespace RogueDungeon.Game
@@ -12,18 +14,18 @@ namespace RogueDungeon.Game
         {
             _gameStateChanger = gameStateChanger;
             _container = container;
-            container.BindInstance(this);
+            _container.Bind<BootstrapGameState>().FromInstance(this);
         }
 
-        public void BoostrapInstallerIsReady(BootstrapStateInstaller installer)
+        public void BoostrapInstallerIsReady(BootstrapperInstaller installer)
         {
             installer.Bootstrap(_container);
             _gameStateChanger.EnterState<MainMenuGameState>();
+            _container.Unbind<BootstrapGameState>();
         }
 
         public void Enter()
         {
-            
-        }
+        }   
     }
 }

@@ -12,9 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f170484d8ec44168a3aaa965a39ae65, type: 3}
   m_Name: GameInstaller
   m_EditorClassIdentifier: 
-  _bootstrapStateInstaller: {fileID: 11400000, guid: 9f9a8dc3df6de60448912879ad7a3653,
-    type: 2}
-  _mainMenuStateInstaller: {fileID: 11400000, guid: c864a1cabe865e4458cba194a01301e3,
-    type: 2}
-  _gameplayStateInstaller: {fileID: 11400000, guid: 963df8d9c730ff449a3b6de2b7045658,
-    type: 2}
+  _loadingScreen: {fileID: 4016198338483813180, guid: f399f8a2616ff7f438eb07adb7c5e021,
+    type: 3}

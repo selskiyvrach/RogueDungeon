@@ -10,7 +10,7 @@ using Zenject;
 
 namespace RogueDungeon.Game
 {
-    public class BootstrapStateInstaller : MonoInstaller
+    public class BootstrapperInstaller : MonoInstaller
     {
         [SerializeField] private GameRootObject _gameRootObject;
         [SerializeField] private GameCamera _gameCamera;
