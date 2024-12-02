@@ -5,6 +5,7 @@ using Common.Properties;
 using Common.ZenjectUtils;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;
+using RogueDungeon.Parameters;
 using UnityEngine;
 using Zenject;
 
