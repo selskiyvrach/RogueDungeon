@@ -33,8 +33,6 @@ namespace Common.Prameters
             
             foreach (var modifier in _modifiers)
             {
-                if(modifier.Equals(_default))
-                    continue;
                 if (modifier.type == Modifier.Type.Flat)
                     flatTotal += modifier.Value;
                 else
@@ -47,27 +45,31 @@ namespace Common.Prameters
 
         public void AddModifier(Modifier modifier)
         {
-            for (var i = 0; i < _modifiers.Count; i++)
-            {   
-                if (!_modifiers[i].Equals(_default))
-                    continue;
-                _modifiers[i] = modifier;
-                _isDirty = true;
-                return;
-            }
             _modifiers.Add(modifier);
             _isDirty = true;
-            
         }
-
-        public void RemoveAllFromSource(object source)
+        
+        public void RemoveOneFromSource(object source)
         {
-            for (var i = 0; i < _modifiers.Count; i++)
+            for (var i = _modifiers.Count - 1; i >= 0; i--)
             {
                 var modifier = _modifiers[i];
                 if (modifier.Source != source)
                     continue;
-                _modifiers[i] = _default;
+                _modifiers.RemoveAt(i);
+                _isDirty = true;
+                return;
+            }
+        }
+
+        public void RemoveAllFromSource(object source)
+        {
+            for (var i = _modifiers.Count - 1; i >= 0; i--)
+            {
+                var modifier = _modifiers[i];
+                if (modifier.Source != source)
+                    continue;
+                _modifiers.RemoveAt(i);
                 _isDirty = true;
             }
         }
