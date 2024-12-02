@@ -12,6 +12,6 @@ namespace RogueDungeon.UI.LoadingScreen
             gameObject.SetActive(true);
 
         public void Hide() => 
-            _canvasGroup.DOFade(0, _fadeDuration);
+            _canvasGroup.DOFade(0, _fadeDuration).OnComplete(() => gameObject.SetActive(false));
     }
 }

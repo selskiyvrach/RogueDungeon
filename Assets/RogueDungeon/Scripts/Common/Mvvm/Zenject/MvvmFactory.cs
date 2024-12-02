@@ -1,8 +1,8 @@
-﻿using Common.InstallerGenerator;
-using Common.Mvvm.Model;
+﻿using Common.Mvvm.Model;
 using Common.Mvvm.View;
 using Common.Mvvm.ViewModel;
 using Common.UiCommons;
+using Common.ZenjectUtils;
 using UnityEngine;
 using Zenject;
 

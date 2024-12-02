@@ -1,20 +1,17 @@
 ﻿using Common.Game;
-using Common.InstallerGenerator;
-using RogueDungeon.UI.LoadingScreen;
-using UnityEngine;
+using Common.ZenjectUtils;
+using Common.ZenjectUtils.ContextHandles;
 using Zenject;
 
 namespace RogueDungeon.Game
 {
     public class GameInstaller : ScriptableObjectInstaller<GameInstaller>
     {
-        [SerializeField] private LoadingScreen _loadingScreen;
-
         public override void InstallBindings()
         {
-            Container.NewSingle<IGameStatesFactory, GameStateFactory>();
+            Container.NewSingle<GameContextHandle>();
             Container.NewSingle<IGameStateChanger, GameStateChanger>();
-            Container.Bind<Common.Game.Game>().To<Common.Game.Game>().FromNew().AsSingle().NonLazy();
+            Container.NewSingle<Common.Game.Game>();
         }
     }
 }

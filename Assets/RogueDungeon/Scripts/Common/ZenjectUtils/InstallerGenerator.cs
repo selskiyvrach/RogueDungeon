@@ -6,7 +6,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace Common.InstallerGenerator
+namespace Common.ZenjectUtils
 {
     public static class InstallerGenerator
     {

@@ -1,21 +1,26 @@
-﻿using Common.FSM;
-using RogueDungeon.Game;
+﻿using Common.ZenjectUtils.ContextHandles;
+using RogueDungeon.UI.LoadingScreen;
 
 namespace Common.Game
 {
     public class GameStateChanger : IGameStateChanger
     {
-        private readonly IGameStatesFactory _gameStateFactory;
-        private IGameState _currentState;
+        private readonly GameContextHandle _gameContextHandle;
+        private readonly ILoadingScreen _loadingScreen;
+        private GameState _currentState;
 
-        public GameStateChanger(IGameStatesFactory gameStateFactory) => 
-            _gameStateFactory = gameStateFactory;
-
-        public void EnterState<T>() where T : IGameState
+        public GameStateChanger(GameContextHandle gameContextHandle, ILoadingScreen loadingScreen)
         {
-            (_currentState as IExitable)?.Exit();
-            _currentState = _gameStateFactory.Create<T>();
-            _currentState.Enter();
+            _gameContextHandle = gameContextHandle;
+            _loadingScreen = loadingScreen;
+        }
+
+        public async void EnterState<T>() where T : GameState
+        {
+            _loadingScreen.Show();
+            _currentState = _gameContextHandle.Container.Instantiate<T>();
+            await _currentState.Enter();
+            _loadingScreen.Hide();
         }
     }
 }

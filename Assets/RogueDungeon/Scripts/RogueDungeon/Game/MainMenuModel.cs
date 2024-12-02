@@ -12,7 +12,7 @@ namespace RogueDungeon.Game
             _gameStateChanger = gameStateChanger;
 
         public ICommand StartNewGameCommand() => 
-            new ActionCommand(() => _gameStateChanger.EnterState<GameplayGameState>());
+            new ActionCommand(() => _gameStateChanger.EnterState<GameplayState>());
 
         public ICommand QuitCommand() => 
             new ActionCommand(() => _gameStateChanger.EnterState<QuitGameState>());

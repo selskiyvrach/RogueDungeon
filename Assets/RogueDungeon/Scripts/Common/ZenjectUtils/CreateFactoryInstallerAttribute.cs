@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.InstallerGenerator
+namespace Common.ZenjectUtils
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     public class CreateFactoryInstallerAttribute : Attribute

@@ -2,6 +2,6 @@
 {
     public interface IGameStateChanger
     {
-        void EnterState<T>() where T : IGameState;
+        void EnterState<T>() where T : GameState;
     }
 }

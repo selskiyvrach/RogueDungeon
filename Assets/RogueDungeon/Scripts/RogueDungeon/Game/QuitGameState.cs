@@ -1,15 +1,14 @@
-﻿using Common.Game;
-using UnityEngine;
-
+﻿using System.Threading.Tasks;
+using Common.Game;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 namespace RogueDungeon.Game
 {
-    public class QuitGameState : IGameState
+    public class QuitGameState : GameState
     {
-        public void Enter()
+        public override Task Enter()
         {
 #if UNITY_EDITOR
             if (EditorApplication.isPlaying)
@@ -19,6 +18,7 @@ namespace RogueDungeon.Game
 #else 
             Application.Quit();
 #endif
+            return Task.CompletedTask;
         }
     }
 }

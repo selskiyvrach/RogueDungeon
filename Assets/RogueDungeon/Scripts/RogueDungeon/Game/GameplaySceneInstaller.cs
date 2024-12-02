@@ -1,6 +1,6 @@
 ﻿using Common.GameObjectMarkers;
-using Common.InstallerGenerator;
 using Common.Registries;
+using Common.ZenjectUtils;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;
 using Zenject;
@@ -13,8 +13,8 @@ namespace RogueDungeon.Game
         {
             Container.Bind<IRegistry<IGameEntity>>().To<Registry<IGameEntity>>().FromNew().AsSingle();
             Container.Bind<ICollisionsDetector>().To<CollisionsDetector>().FromNew().AsSingle();
-            Container.NewSingle<ISpawner<Player.Player>, Spawner<Player.Player, PlayerParentObject>>();
-            Container.Bind<GameplayController>().AsSingle().NonLazy();
+            // Container.NewSingle<ISpawner<Player.Player>, Spawner<Player.Player, PlayerParentObject>>();
+            // Container.Bind<GameplayController>().AsSingle().NonLazy();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace Common.InstallerGenerator
+namespace Common.ZenjectUtils
 {
     public static class ZenjectExtensions
     {

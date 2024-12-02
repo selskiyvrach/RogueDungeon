@@ -1,6 +1,6 @@
 using Common.GameObjectMarkers;
-using Common.InstallerGenerator;
 using Common.Properties;
+using Common.ZenjectUtils;
 using RogueDungeon.Player;
 using RogueDungeon.PlayerInputCommands;
 using UnityEngine;
