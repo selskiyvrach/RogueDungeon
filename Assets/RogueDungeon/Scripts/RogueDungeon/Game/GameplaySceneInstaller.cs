@@ -1,20 +1,28 @@
-﻿using Common.GameObjectMarkers;
+﻿using Common.DotNetUtils;
+using Common.GameObjectMarkers;
 using Common.Registries;
 using Common.ZenjectUtils;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;
+using RogueDungeon.Player;
+using UnityEngine;
 using Zenject;
 
 namespace RogueDungeon.Game
 {
     public class GameplaySceneInstaller : MonoInstaller
     {
+        [SerializeField] private PlayerParentObject _playerRootObject;
+        [SerializeField] private PlayerFactory _playerFactory;
+        
         public override void InstallBindings()
         {
-            Container.Bind<IRegistry<IGameEntity>>().To<Registry<IGameEntity>>().FromNew().AsSingle();
-            Container.Bind<ICollisionsDetector>().To<CollisionsDetector>().FromNew().AsSingle();
-            // Container.NewSingle<ISpawner<Player.Player>, Spawner<Player.Player, PlayerParentObject>>();
-            // Container.Bind<GameplayController>().AsSingle().NonLazy();
+            Container.InstanceSingle(_playerRootObject.ThrowIfNull());
+            Container.NewSingle<IRegistry<IGameEntity>, Registry<IGameEntity>>();
+            Container.NewSingle<ICollisionsDetector, CollisionsDetector>();
+            Container.Bind<IFactory<Player.Player>>().To<PlayerFactory>().FromNewScriptableObject(_playerFactory.ThrowIfNull()).AsSingle();
+            var factory = Container.Resolve<IFactory<Player.Player>>();
+            var player = factory.Create();
         }
     }
 }

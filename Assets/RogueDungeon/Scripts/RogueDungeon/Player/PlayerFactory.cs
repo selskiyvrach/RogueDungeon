@@ -7,7 +7,6 @@ using Zenject;
 
 namespace RogueDungeon.Player
 {
-    [CreateAssetMenu(menuName = "Installers/PlayerFactory", fileName = "PlayerFactory", order = 0)]
     public class PlayerFactory : ScriptableObject, IFactory<Player>
     {
         [SerializeField] private PlayerConfig _playerConfig;

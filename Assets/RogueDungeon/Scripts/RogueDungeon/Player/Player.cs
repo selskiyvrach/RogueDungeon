@@ -27,13 +27,5 @@ namespace RogueDungeon.Player
             _dodgeState = dodgeState;
             _playerRoot = playerRoot;
         }
-
-        public void Enable()
-        {
-        }
-
-        public void Disable()
-        {
-        }
     }
 }

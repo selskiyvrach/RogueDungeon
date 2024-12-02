@@ -6,6 +6,9 @@ namespace Common.ZenjectUtils
     {
         public static void InstanceSingle<TAs, TTo>(this DiContainer container, TTo instance) where TTo : TAs => 
             container.Bind<TAs>().To<TTo>().FromInstance(instance);
+        
+        public static void InstanceSingle<T>(this DiContainer container, T instance) => 
+            container.Bind<T>().FromInstance(instance);
 
         public static void NewSingle<TAs, TTo>(this DiContainer container) where TTo : TAs => 
             container.Bind<TAs>().To<TTo>().FromNew().AsSingle();
