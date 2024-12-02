@@ -5,10 +5,10 @@ using Common.ZenjectUtils;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;
 using UnityEngine;
+using Zenject;
 
 namespace RogueDungeon.Player
 {
-    [CreateFactoryInstaller]
     public class Player : IGameEntity, IDodger
     {
         private readonly PlayerRootObject _playerRoot;
@@ -18,10 +18,13 @@ namespace RogueDungeon.Player
         public Positions Position => _dodgeState.Value.ToPlayerPosition();
         public DodgeState DodgeState => _dodgeState.Value;
 
-        private readonly Property<AttackState> _attackState;
-        private readonly Property<DodgeState> _dodgeState;
+        private readonly IProperty<AttackState> _attackState;
+        private readonly IProperty<DodgeState> _dodgeState;
 
-        public Player(Property<AttackState> attackState, Property<DodgeState> dodgeState, PlayerRootObject playerRoot)
+        [Inject] private DodgeBehaviour _dodgeBehaviour;
+        [Inject] private AttackBehaviour _attackBehaviour;
+
+        public Player(IProperty<AttackState> attackState, IProperty<DodgeState> dodgeState, PlayerRootObject playerRoot)
         {
             _attackState = attackState;
             _dodgeState = dodgeState;

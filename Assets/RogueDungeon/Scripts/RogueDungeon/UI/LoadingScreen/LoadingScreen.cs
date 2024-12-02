@@ -8,8 +8,11 @@ namespace RogueDungeon.UI.LoadingScreen
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private float _fadeDuration = .25f;
 
-        public void Show() => 
+        public void Show()
+        {
             gameObject.SetActive(true);
+            _canvasGroup.alpha = 1;
+        }
 
         public void Hide() => 
             _canvasGroup.DOFade(0, _fadeDuration).OnComplete(() => gameObject.SetActive(false));

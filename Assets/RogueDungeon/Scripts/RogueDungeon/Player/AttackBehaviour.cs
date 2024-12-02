@@ -7,6 +7,9 @@ namespace RogueDungeon.Player
 {
     public class DodgeDuration : Parameter
     {
+        public DodgeDuration(float value, Type paramType = Type.Flat) : base(value, paramType)
+        {
+        }
     }
 
     public class DodgeBehaviour
@@ -28,14 +31,23 @@ namespace RogueDungeon.Player
     
     public class AttackPrepareDuration : Parameter
     {
+        public AttackPrepareDuration(float value, Type paramType = Type.Flat) : base(value, paramType)
+        {
+        }
     }
     
     public class AttackExecuteDuration : Parameter
     {
+        public AttackExecuteDuration(float value, Type paramType = Type.Flat) : base(value, paramType)
+        {
+        }
     }
     
     public class AttackFinishDuration : Parameter
     {
+        public AttackFinishDuration(float value, Type paramType = Type.Flat) : base(value, paramType)
+        {
+        }
     }
 
     public class AttackBehaviour

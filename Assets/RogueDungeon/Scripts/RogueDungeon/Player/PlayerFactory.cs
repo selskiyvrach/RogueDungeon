@@ -1,7 +1,10 @@
 ﻿using Common.GameObjectMarkers;
+using Common.Properties;
 using Common.Registries;
+using Common.ZenjectUtils;
 using RogueDungeon.Entities;
 using RogueDungeon.PlayerInputCommands;
+using Unity.Properties;
 using UnityEngine;
 using Zenject;
 
@@ -30,11 +33,25 @@ namespace RogueDungeon.Player
             var gameObjectInstaller = Instantiate(_playerConfig.Prefab, _instantiatePlayerTo.transform);
             gameObjectInstaller.InstallToPlayerContext(container);
 
-            container.Bind<PlayerCameraHandler>().FromNew().AsSingle();
-            container.Bind<ICharacterInput>().To<CharacterInput>().FromNew().AsSingle();
-            container.Bind<CharacterAnimationRootObject>().FromComponentInNewPrefab(_playerConfig.Prefab).AsSingle();
+            container.Bind<PlayerCameraHandler>().AsSingle().NonLazy();
             container.Bind<PlayerAnimationsConfig>().FromNewScriptableObject(_animationsConfig).AsSingle();
-            container.BindInterfacesAndSelfTo<Player>().FromNew().AsSingle();
+            
+            // parameter manager or smth
+            container.InstanceSingle(new DodgeDuration(1));
+            container.InstanceSingle(new AttackPrepareDuration(1));
+            container.InstanceSingle(new AttackExecuteDuration(1));
+            container.InstanceSingle(new AttackFinishDuration(1));
+            
+            container.NewSingle<CharacterControlStateResolver>();
+            container.NewSingle<ICharacterInput, CharacterInput>();
+            container.NewSingleInterfaces<Property<AttackState>>();
+            container.NewSingleInterfaces<Property<DodgeState>>();
+            // behaviour aggregation
+            // behaviour update 
+            container.NewSingle<DodgeBehaviour>();
+            container.NewSingle<AttackBehaviour>();
+            
+            container.NewSingle<Player>();
         }
     }
 }
