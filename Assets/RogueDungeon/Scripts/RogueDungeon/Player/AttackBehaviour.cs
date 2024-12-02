@@ -1,24 +1,22 @@
-﻿using Common.FSM;
+﻿using Common.DotNetUtils;
+using Common.FSM;
 using Common.Prameters;
 using Common.Properties;
+using Common.Registries;
+using RogueDungeon.Parameters;
 using RogueDungeon.PlayerInputCommands;
 
 namespace RogueDungeon.Player
 {
-    public class DodgeDuration : Parameter
-    {
-        public DodgeDuration(float value, Type paramType = Type.Flat) : base(value, paramType)
-        {
-        }
-    }
-
     public class DodgeBehaviour
     {
-        public DodgeBehaviour(IProperty<DodgeState> dodge, CharacterControlStateResolver control, DodgeDuration dodgeDuration, ICharacterInput input)
+        public DodgeBehaviour(IProperty<DodgeState> dodge, CharacterControlStateResolver control, Parameters<Timings> parameters, ICharacterInput input)
         {
             var dodgeIdle = new State().OnEnter(() => dodge.Value = DodgeState.None);
-            var dodgeRight = new TimerState(dodgeDuration).OnEnter(() => dodge.Value = DodgeState.Right);
-            var dodgeLeft = new TimerState(dodgeDuration).OnEnter(() => dodge.Value = DodgeState.Left);
+            
+            // problem with that is that dodge duration is not counted with all the affecting parameters
+            var dodgeRight = new TimerState(parameters.Get(Timings.DodgeDuration)).OnEnter(() => dodge.Value = DodgeState.Right);
+            var dodgeLeft = new TimerState(parameters.Get(Timings.DodgeDuration)).OnEnter(() => dodge.Value = DodgeState.Left);
 
             var dodgeBuilder = new StateMachineBuilder(dodgeIdle, dodgeRight, dodgeLeft);
             var canStartDodgeExecution = new If(control.CanStartHardMovementAnim);
@@ -28,40 +26,15 @@ namespace RogueDungeon.Player
             dodgeBuilder.AddTransitionFromFinished(dodgeLeft, dodgeIdle);
         }
     }
-    
-    public class AttackPrepareDuration : Parameter
-    {
-        public AttackPrepareDuration(float value, Type paramType = Type.Flat) : base(value, paramType)
-        {
-        }
-    }
-    
-    public class AttackExecuteDuration : Parameter
-    {
-        public AttackExecuteDuration(float value, Type paramType = Type.Flat) : base(value, paramType)
-        {
-        }
-    }
-    
-    public class AttackFinishDuration : Parameter
-    {
-        public AttackFinishDuration(float value, Type paramType = Type.Flat) : base(value, paramType)
-        {
-        }
-    }
 
     public class AttackBehaviour
     {
-        public AttackBehaviour(CharacterControlStateResolver control, IProperty<AttackState> attack, 
-            AttackPrepareDuration prepareDuration, 
-            AttackExecuteDuration executeDuration, 
-            AttackFinishDuration finishDuration, 
-            ICharacterInput input)
+        public AttackBehaviour(CharacterControlStateResolver control, IProperty<AttackState> attack, Parameters<Timings> timings, ICharacterInput input)
         {
             var attackIdle = new State().OnEnter(() => attack.Value = AttackState.None);
-            var prepareAttack = new TimerState(prepareDuration).OnEnter(() => attack.Value = AttackState.Preparing);
-            var finishAttack = new TimerState(finishDuration).OnEnter(() => attack.Value = AttackState.Finishing);
-            var executeAttack = new TimerState(executeDuration).OnEnter(() => attack.Value = AttackState.Executing);
+            var prepareAttack = new TimerState(timings.Get(Timings.AttackPrepareDuration)).OnEnter(() => attack.Value = AttackState.Preparing);
+            var finishAttack = new TimerState(timings.Get(Timings.AttackFinishDuration)).OnEnter(() => attack.Value = AttackState.Finishing);
+            var executeAttack = new TimerState(timings.Get(Timings.AttackExecuteDuration)).OnEnter(() => attack.Value = AttackState.Executing);
             var attackBuilder = new StateMachineBuilder(attackIdle, prepareAttack, executeAttack, finishAttack);
 
             var canStartHardAnim = new If(control.CanStartHardHandsAnim);

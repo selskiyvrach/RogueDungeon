@@ -15,13 +15,6 @@ namespace Common.FSM
             AddExitHandler(_timer.Stop);
         }
         
-        public TimerState(IReadOnlyProperty<float> duration)
-        {
-            _timer = new Timer();
-            AddEnterHandler(() => _timer.Start(duration.Value));
-            AddExitHandler(_timer.Stop);
-        }
-        
         public TimerState(Parameter duration)
         {
             _timer = new Timer();

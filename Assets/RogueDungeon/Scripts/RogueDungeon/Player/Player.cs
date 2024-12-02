@@ -1,5 +1,6 @@
 ﻿using System;
 using Common.GameObjectMarkers;
+using Common.Prameters;
 using Common.Properties;
 using Common.ZenjectUtils;
 using RogueDungeon.Collisions;
@@ -24,7 +25,7 @@ namespace RogueDungeon.Player
         [Inject] private DodgeBehaviour _dodgeBehaviour;
         [Inject] private AttackBehaviour _attackBehaviour;
 
-        public Player(IProperty<AttackState> attackState, IProperty<DodgeState> dodgeState, PlayerRootObject playerRoot)
+        public Player(IProperty<AttackState> attackState, IProperty<DodgeState> dodgeState, PlayerRootObject playerRoot, Parameters<CharacterParameter> parameters)
         {
             _attackState = attackState;
             _dodgeState = dodgeState;

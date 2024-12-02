@@ -1,10 +1,11 @@
 ﻿using Common.GameObjectMarkers;
+using Common.Prameters;
 using Common.Properties;
 using Common.Registries;
 using Common.ZenjectUtils;
 using RogueDungeon.Entities;
+using RogueDungeon.Parameters;
 using RogueDungeon.PlayerInputCommands;
-using Unity.Properties;
 using UnityEngine;
 using Zenject;
 
@@ -37,10 +38,7 @@ namespace RogueDungeon.Player
             container.Bind<PlayerAnimationsConfig>().FromNewScriptableObject(_animationsConfig).AsSingle();
             
             // parameter manager or smth
-            container.InstanceSingle(new DodgeDuration(1));
-            container.InstanceSingle(new AttackPrepareDuration(1));
-            container.InstanceSingle(new AttackExecuteDuration(1));
-            container.InstanceSingle(new AttackFinishDuration(1));
+            container.InstanceSingle(new Parameters<Timings>());
             
             container.NewSingle<CharacterControlStateResolver>();
             container.NewSingle<ICharacterInput, CharacterInput>();
