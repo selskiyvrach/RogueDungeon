@@ -14,7 +14,7 @@ namespace Common.Prameters
         public readonly object Source;
         public readonly Type type;
         
-        public Modifier(float value, object source, Type type = Type.Flat)
+        public Modifier(Type type, float value, object source)
         {
             Value = value;
             Source = source.ThrowIfNull();

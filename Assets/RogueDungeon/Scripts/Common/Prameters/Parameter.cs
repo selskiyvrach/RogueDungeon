@@ -20,7 +20,7 @@ namespace Common.Prameters
         }
 
         public Parameter(float value) => 
-            AddModifier(new Modifier(value, this));
+            AddModifier(new Modifier(Modifier.Type.Flat, value, this));
 
         public Parameter()
         {
