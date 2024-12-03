@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Common.DotNetUtils
 {
@@ -10,5 +12,8 @@ namespace Common.DotNetUtils
                 throw new Exception("Item has value of None");
             return target;
         }
+
+        public static IEnumerable<T> GetValues<T>(this T target) where T : struct, Enum => 
+            Enum.GetValues(typeof(T)).Cast<T>();
     }
 }

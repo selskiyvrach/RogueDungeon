@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Common.Prameters
 {
-    public class ParametersAggregate
+    public class ParametersAggregate : IParameters
     {
         private readonly Dictionary<object, object> _parametersMap = new();
         

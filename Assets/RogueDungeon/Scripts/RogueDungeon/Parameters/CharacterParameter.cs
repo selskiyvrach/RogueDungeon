@@ -4,16 +4,18 @@
     {
         None,
         Health = 100,
+        HealthBonus = 150,
     }
 
     public enum Timings
     {
         None = 0,
-        // Attack
+        
         AttackPrepareDuration = 100,
         AttackExecuteDuration = 101,
         AttackFinishDuration = 102,
-        // Dodge
+        AttackSpeedBonus = 150,
+        
         DodgeDuration = 200,
     }
 }

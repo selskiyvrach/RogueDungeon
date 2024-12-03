@@ -1,12 +1,29 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Common.DotNetUtils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Common.Prameters
 {
     public abstract class ParametersConfig<T> : ScriptableObject where T : struct, Enum
     {
-        [SerializeField] private List<ParameterPicker<T>> _parameters;
+        [SerializeField, PropertyOrder(10)] private List<ParameterPicker<T>> _parameters;
+        
+        [Button, HorizontalGroup, PropertyOrder(0)]
+        private void Fill() => 
+            _parameters.AddRange(default(T).GetValues().Except(new []{default(T)})
+                .Where(n => !_parameters.Any(m => m.ParameterType.Equals(n))).Select(n => new ParameterPicker<T> {ParameterType = n}));
+        
+        [Button, HorizontalGroup, PropertyOrder(1)]
+        private void SortAlph() => 
+            _parameters = _parameters.OrderBy(n => n.ParameterType.ToString()).ToList();
+        
+        [Button, HorizontalGroup, PropertyOrder(2)]
+        private void SortVal() => 
+            _parameters = _parameters.OrderBy(n => n.Value).ToList();
+        
         
         public void ApplyToParameters(Parameters<T> parameters)
         {
