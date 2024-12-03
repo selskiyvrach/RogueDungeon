@@ -38,7 +38,13 @@ namespace RogueDungeon.Player
             container.Bind<PlayerAnimationsConfig>().FromNewScriptableObject(_animationsConfig).AsSingle();
             
             // parameter manager or smth
-            container.InstanceSingle(new Parameters<Timings>());
+            var timings = new Parameters<Timings>();
+            _playerConfig.TimingsConfig.ApplyToParameters(timings);
+            container.InstanceSingle(timings);
+
+            var charParameters = new Parameters<CharacterParameter>();
+            _playerConfig.CharacterParametersConfig.ApplyToParameters(charParameters);
+            container.InstanceSingle(charParameters);
             
             container.NewSingle<CharacterControlStateResolver>();
             container.NewSingle<ICharacterInput, CharacterInput>();
@@ -48,6 +54,8 @@ namespace RogueDungeon.Player
             // behaviour update 
             container.NewSingle<DodgeBehaviour>();
             container.NewSingle<AttackBehaviour>();
+
+            container.Resolve<DodgeBehaviour>();
             
             container.NewSingle<Player>();
         }
