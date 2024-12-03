@@ -25,5 +25,18 @@ namespace Common.Prameters
             Get<T>().FetchConfig(config);
             return this;
         }
+        
+        public ParametersAggregate FetchConfig(ParametersConfig config)
+        {
+            config.ApplyToParameters(this);
+            return this;
+        }
+        
+        public ParametersAggregate FetchConfigs(IEnumerable<ParametersConfig> configs)
+        {
+            foreach (var config in configs)
+                FetchConfig(config);
+            return this;
+        }
     }
 }

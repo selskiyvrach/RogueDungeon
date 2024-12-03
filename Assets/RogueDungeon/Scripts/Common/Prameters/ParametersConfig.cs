@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Common.Prameters
 {
-    public abstract class ParametersConfig<T> : ScriptableObject where T : struct, Enum
+    public abstract class ParametersConfig<T> : ParametersConfig where T : struct, Enum
     {
         [SerializeField, PropertyOrder(10)] private List<ParameterPicker<T>> _parameters;
         
@@ -30,5 +30,13 @@ namespace Common.Prameters
             foreach (var picker in _parameters) 
                 parameters.GetOrAdd(picker.ParameterType).AddModifier(new Modifier(picker.ModifierType, picker.Value, this));
         }
+
+        public override void ApplyToParameters(ParametersAggregate aggregate) => 
+            aggregate.Get<T>().FetchConfig(this);
+    }
+
+    public abstract class ParametersConfig : ScriptableObject
+    {
+        public abstract void ApplyToParameters(ParametersAggregate aggregate);
     }
 }
