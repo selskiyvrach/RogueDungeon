@@ -19,5 +19,11 @@ namespace Common.Prameters
                 Add(id);
             return Get(id);
         }
+
+        public Parameters<T> FetchConfig(ParametersConfig<T> config)
+        {
+            config.ApplyToParameters(this);
+            return this;
+        }
     }
 }
