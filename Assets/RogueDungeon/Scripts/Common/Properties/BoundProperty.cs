@@ -2,7 +2,7 @@
 
 namespace Common.Properties
 {
-    public class BoundProperty<T> : Property<T>
+    public class BoundProperty<T> : Property<T> where T : struct, Enum
     {
         private readonly Func<T> _getter;
         private readonly Action<T> _setter;

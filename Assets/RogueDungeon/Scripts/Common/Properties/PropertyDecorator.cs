@@ -1,6 +1,8 @@
-﻿namespace Common.Properties
+﻿using System;
+
+namespace Common.Properties
 {
-    public interface IPropertyDecorator<T> : IReadOnlyPropertyDecorator<T>, IProperty<T>
+    public interface IPropertyDecorator<T> : IReadOnlyPropertyDecorator<T>, IProperty<T> where T : struct, Enum
     {
         new IProperty<T> Decorated { get; set; }
     }
@@ -10,7 +12,7 @@
         IReadOnlyProperty<T> Decorated { get; set; }
     }
 
-    public class PropertyDecorator<T> : IPropertyDecorator<T>
+    public class PropertyDecorator<T> : IPropertyDecorator<T> where T : struct, Enum
     {
         public IProperty<T> Decorated { get; set; }
 
