@@ -1,32 +1,18 @@
-﻿using Common.FSM;
+﻿using Common.Behaviours;
+using Common.FSM;
 using Common.Prameters;
 using Common.Properties;
 using RogueDungeon.Parameters;
+using RogueDungeon.Player;
 using RogueDungeon.PlayerInputCommands;
 
-namespace RogueDungeon.Player
+namespace RogueDungeon.Behaviours
 {
-    public class DodgeBehaviour
+    public class AttackBehaviour : Behaviour
     {
-        public DodgeBehaviour(IProperty<DodgeState> dodge, CharacterControlStateResolver control, Parameters<Timings> parameters, ICharacterInput input)
-        {
-            var dodgeIdle = new State().OnEnter(() => dodge.Value = DodgeState.None);
-            
-            // problem with that is that dodge duration is not counted with all the affecting parameters
-            var dodgeRight = new TimerState(parameters.Get(Timings.DodgeDuration)).OnEnter(() => dodge.Value = DodgeState.Right);
-            var dodgeLeft = new TimerState(parameters.Get(Timings.DodgeDuration)).OnEnter(() => dodge.Value = DodgeState.Left);
+        private readonly StateMachine _stateMachine;
+        protected override ITickable Tickable => _stateMachine;
 
-            var dodgeBuilder = new StateMachineBuilder(dodgeIdle, dodgeRight, dodgeLeft);
-            var canStartDodgeExecution = new If(control.CanStartHardMovementAnim);
-            dodgeBuilder.AddTransition(dodgeIdle, dodgeRight, new IfAll(canStartDodgeExecution, new HasCommand(Command.DodgeRight, input)));
-            dodgeBuilder.AddTransition(dodgeIdle, dodgeLeft, new IfAll(canStartDodgeExecution, new HasCommand(Command.DodgeLeft, input)));
-            dodgeBuilder.AddTransitionFromFinished(dodgeRight, dodgeIdle);
-            dodgeBuilder.AddTransitionFromFinished(dodgeLeft, dodgeIdle);
-        }
-    }
-
-    public class AttackBehaviour
-    {
         public AttackBehaviour(CharacterControlStateResolver control, IProperty<AttackState> attack, Parameters<Timings> timings, ICharacterInput input)
         {
             var attackIdle = new State().OnEnter(() => attack.Value = AttackState.None);
@@ -42,6 +28,7 @@ namespace RogueDungeon.Player
             attackBuilder.AddTransitionFromFinished(prepareAttack, finishAttack, canStartHardAnim);
             attackBuilder.AddTransitionFromFinished(executeAttack, finishAttack);
             attackBuilder.AddTransitionFromFinished(finishAttack, attackIdle);
+            _stateMachine = attackBuilder.Build();
         }
     }
 }

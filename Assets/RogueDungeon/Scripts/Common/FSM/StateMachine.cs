@@ -26,7 +26,7 @@ namespace Common.FSM
         }
     }
 
-    public class StateMachine : IReadOnlyProperty<IState>, IDebugName
+    public class StateMachine : IReadOnlyProperty<IState>, IDebugName, ITickable
     {
         private readonly StatesContainer _statesContainer;
         private readonly TransitionsContainer _transitionsContainer;

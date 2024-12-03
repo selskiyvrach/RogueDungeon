@@ -4,11 +4,30 @@ namespace Common.ZenjectUtils
 {
     public static class ZenjectExtensions
     {
-        public static void InstanceSingle<TAs, TTo>(this DiContainer container, TTo instance) where TTo : TAs => 
+        public static TTo InstanceSingle<TAs, TTo>(this DiContainer container, TTo instance) where TTo : TAs
+        {
             container.Bind<TAs>().To<TTo>().FromInstance(instance);
+            return instance;
+        }
         
-        public static void InstanceSingle<T>(this DiContainer container, T instance) => 
+        public static TTo InstanceSingleInterfacesAndSelf<TTo>(this DiContainer container, TTo instance)
+        {
+            container.BindInterfacesTo<TTo>().FromInstance(instance);
+            return instance;
+        }
+
+        public static TTo InstanceSingle<TAs1, TAs2, TTo>(this DiContainer container, TTo instance) where TTo : TAs1, TAs2
+        {
+            container.Bind<TAs1>().To<TTo>().FromInstance(instance);
+            container.Bind<TAs2>().To<TTo>().FromInstance(instance);
+            return instance;
+        }
+
+        public static T InstanceSingle<T>(this DiContainer container, T instance)
+        {
             container.Bind<T>().FromInstance(instance);
+            return instance;
+        }
 
         public static void NewSingle<TAs, TTo>(this DiContainer container) where TTo : TAs => 
             container.Bind<TAs>().To<TTo>().FromNew().AsSingle();

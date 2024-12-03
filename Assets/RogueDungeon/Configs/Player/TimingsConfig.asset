@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: TimingsConfig
   m_EditorClassIdentifier: 
   _parameters:
+  - ParameterType: 150
+    ModifierType: 0
+    Value: 0
   - ParameterType: 101
     ModifierType: 0
     Value: 0.3
@@ -22,9 +25,6 @@ MonoBehaviour:
   - ParameterType: 100
     ModifierType: 0
     Value: 0.4
-  - ParameterType: 150
-    ModifierType: 0
-    Value: 0
   - ParameterType: 200
     ModifierType: 0
     Value: 0.4

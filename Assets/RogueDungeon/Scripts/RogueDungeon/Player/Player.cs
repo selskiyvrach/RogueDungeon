@@ -1,11 +1,9 @@
 ﻿using System;
 using Common.GameObjectMarkers;
-using Common.Prameters;
 using Common.Properties;
-using Common.ZenjectUtils;
+using RogueDungeon.Behaviours;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;
-using RogueDungeon.Parameters;
 using UnityEngine;
 using Zenject;
 
@@ -20,17 +18,17 @@ namespace RogueDungeon.Player
         public Positions Position => _dodgeState.Value.ToPlayerPosition();
         public DodgeState DodgeState => _dodgeState.Value;
 
-        private readonly IProperty<AttackState> _attackState;
         private readonly IProperty<DodgeState> _dodgeState;
 
         [Inject] private DodgeBehaviour _dodgeBehaviour;
         [Inject] private AttackBehaviour _attackBehaviour;
 
-        public Player(IProperty<AttackState> attackState, IProperty<DodgeState> dodgeState, PlayerRootObject playerRoot, Parameters<CharacterParameter> parameters)
+        public Player(IProperty<DodgeState> dodgeState, PlayerRootObject playerRoot, AttackBehaviour attackBehaviour, DodgeBehaviour dodgeBehaviour)
         {
-            _attackState = attackState;
             _dodgeState = dodgeState;
             _playerRoot = playerRoot;
+            attackBehaviour.Enable();
+            dodgeBehaviour.Enable();
         }
     }
 }

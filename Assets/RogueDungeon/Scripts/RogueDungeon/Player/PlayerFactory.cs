@@ -3,6 +3,7 @@ using Common.Prameters;
 using Common.Properties;
 using Common.Registries;
 using Common.ZenjectUtils;
+using RogueDungeon.Behaviours;
 using RogueDungeon.Entities;
 using RogueDungeon.Parameters;
 using RogueDungeon.PlayerInputCommands;
@@ -45,19 +46,21 @@ namespace RogueDungeon.Player
             var charParameters = new Parameters<CharacterParameter>();
             _playerConfig.CharacterParametersConfig.ApplyToParameters(charParameters);
             container.InstanceSingle(charParameters);
+
+            container.InstanceSingle<IRegistry<Property>, Registry<Property>>(new Registry<Property>
+            {
+                container.InstanceSingleInterfacesAndSelf(new Property<DodgeState>()),
+                container.InstanceSingleInterfacesAndSelf(new Property<AttackState>()),
+            });
             
             container.NewSingle<CharacterControlStateResolver>();
             container.NewSingle<ICharacterInput, CharacterInput>();
-            container.NewSingleInterfaces<Property<AttackState>>();
-            container.NewSingleInterfaces<Property<DodgeState>>();
-            // behaviour aggregation
-            // behaviour update 
+            
             container.NewSingle<DodgeBehaviour>();
             container.NewSingle<AttackBehaviour>();
 
             container.Resolve<DodgeBehaviour>();
-            
-            container.NewSingle<Player>();
+            container.NewSingleResolve<Player>();
         }
     }
 }
