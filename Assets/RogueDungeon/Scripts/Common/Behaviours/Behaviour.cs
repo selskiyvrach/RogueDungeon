@@ -1,5 +1,4 @@
 ﻿using System;
-using Common.FSM;
 using UniRx;
 
 namespace Common.Behaviours
@@ -8,18 +7,15 @@ namespace Common.Behaviours
     {
         private IDisposable _sub;
 
-        protected virtual ITickable Tickable { get; }
-
         public virtual void Enable()
         {
             _sub?.Dispose();
             _sub = Observable.EveryUpdate().Subscribe(_ => Tick());
         }
 
-        public void Disable() => 
+        public virtual void Disable() => 
             _sub?.Dispose();
 
-        private void Tick() => 
-            Tickable?.Tick();
+        public abstract void Tick();
     }
 }

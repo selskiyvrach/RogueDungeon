@@ -1,14 +1,11 @@
 ﻿using System;
+using RogueDungeon.Behaviours;
+using RogueDungeon.Behaviours.DodgeBehaviour;
 using RogueDungeon.Collisions;
 
 namespace RogueDungeon.Player
 {
-    public enum DodgeState
-    {
-        None,
-        Left,
-        Right
-    }
+
 
     public static class DodgeStateExtensions
     {

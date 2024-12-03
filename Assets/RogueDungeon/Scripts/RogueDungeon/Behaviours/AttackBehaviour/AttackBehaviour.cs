@@ -6,7 +6,7 @@ using RogueDungeon.Parameters;
 using RogueDungeon.Player;
 using RogueDungeon.PlayerInputCommands;
 
-namespace RogueDungeon.Behaviours
+namespace RogueDungeon.Behaviours.AttackBehaviour
 {
     public class AttackBehaviour : Behaviour
     {

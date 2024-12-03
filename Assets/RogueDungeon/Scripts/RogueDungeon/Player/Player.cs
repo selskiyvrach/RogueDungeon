@@ -2,6 +2,8 @@
 using Common.GameObjectMarkers;
 using Common.Properties;
 using RogueDungeon.Behaviours;
+using RogueDungeon.Behaviours.AttackBehaviour;
+using RogueDungeon.Behaviours.DodgeBehaviour;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;
 using UnityEngine;

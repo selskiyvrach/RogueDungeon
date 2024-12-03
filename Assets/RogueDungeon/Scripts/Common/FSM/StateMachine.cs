@@ -15,7 +15,7 @@ namespace Common.FSM
         public AutoRunner(StateMachine stateMachine)
         {
             _stateMachine = stateMachine;
-            _stateMachine.Initialize();
+            _stateMachine.Run();
             _sub = Observable.EveryUpdate().Subscribe(_ => _stateMachine.Tick());
         }
 
@@ -48,7 +48,7 @@ namespace Common.FSM
             ProcessTransitions();
         }
 
-        public void Initialize() => 
+        public void Run() => 
             SwitchToState(_statesContainer.GetStartState());
 
         private void ProcessTransitions()

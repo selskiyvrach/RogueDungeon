@@ -1,5 +1,4 @@
-﻿using Common.Prameters;
-using Common.Properties;
+﻿using System;
 
 namespace Common.FSM
 {
@@ -15,10 +14,10 @@ namespace Common.FSM
             AddExitHandler(_timer.Stop);
         }
         
-        public TimerState(Parameter duration)
+        public TimerState(Func<float> duration)
         {
             _timer = new Timer();
-            AddEnterHandler(() => _timer.Start(duration.Value));
+            AddEnterHandler(()=> _timer.Start(duration.Invoke()));
             AddExitHandler(_timer.Stop);
         }
     }

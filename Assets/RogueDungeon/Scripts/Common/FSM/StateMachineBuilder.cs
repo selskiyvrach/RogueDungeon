@@ -10,15 +10,13 @@ namespace Common.FSM
         private readonly TransitionsContainer _transitionsContainer = new();
         private readonly StateMachine _stateMachine;
         
-        public StateMachineBuilder(params IState[] states)
+        public StateMachineBuilder(IState startState, params IState[] states)
         {
             _stateMachine = new StateMachine(_statesContainer, _transitionsContainer);
-            for (var i = 0; i < states.Length; i++)
+            _statesContainer.AddStartState(startState);
+            foreach (var t in states)
             {
-                if(i == 0)
-                    _statesContainer.AddStartState(states[0]);
-                else
-                    _statesContainer.Add(states[i]);
+                _statesContainer.Add(t);
             }
         }
 

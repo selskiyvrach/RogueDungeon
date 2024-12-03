@@ -4,6 +4,8 @@ using Common.Properties;
 using Common.Registries;
 using Common.ZenjectUtils;
 using RogueDungeon.Behaviours;
+using RogueDungeon.Behaviours.AttackBehaviour;
+using RogueDungeon.Behaviours.DodgeBehaviour;
 using RogueDungeon.Entities;
 using RogueDungeon.Parameters;
 using RogueDungeon.PlayerInputCommands;
