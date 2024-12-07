@@ -1,9 +1,8 @@
 ﻿using System;
-using RogueDungeon.Behaviours;
-using RogueDungeon.Behaviours.DodgeBehaviour;
+using RogueDungeon.Behaviours.MovementBehaviour;
 using RogueDungeon.Collisions;
 
-namespace RogueDungeon.Player
+namespace RogueDungeon.Game
 {
 
 

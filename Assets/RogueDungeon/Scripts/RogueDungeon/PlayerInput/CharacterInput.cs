@@ -4,7 +4,7 @@ using Common.DebugTools;
 using UniRx;
 using UnityEngine;
 
-namespace RogueDungeon.PlayerInputCommands
+namespace RogueDungeon.PlayerInput
 {
     public class CharacterInput : ICharacterInput, IDisposable
     {

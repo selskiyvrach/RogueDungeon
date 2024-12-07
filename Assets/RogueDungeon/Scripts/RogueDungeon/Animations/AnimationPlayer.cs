@@ -3,45 +3,38 @@ using System.Collections.Generic;
 using Common.DebugTools;
 using Common.DotNetUtils;
 using Common.GameObjectMarkers;
-using Common.UnityUtils;
 using UniRx;
 using UnityEngine;
 
 namespace RogueDungeon.Animations
 {
-    public class AnimationPlayer : IAnimation, IDebugName
+    public class AnimationPlayer : IDebugName
     {
-        private readonly AnimationConfig _config;
-        private readonly AnimationRootObject _target;
+        private AnimationConfig _config;
+        private AnimationRootObject _target;
         private readonly Queue<(float time, string eventName)> _eventsToPlay = new();
-        private readonly AnimationClip _animationClip;
-        private readonly bool _loop;
-        private readonly float _duration;
+        private float _duration;
 
         private float _playTime;
         private float _timeScale;
         private IDisposable _updateSubscriber;
         public ISubject<string> OnEvent { get; } = new Subject<string>();
 
-        public string DebugName => $"[Animation player] animation name: {_animationClip?.name}";
+        public string DebugName => $"[Animation player] animation name: {_config?.AnimationClip?.name}";
 
-        public bool IsFinished => _playTime >= _animationClip.length;
+        public bool IsFinished => _playTime >= _config.AnimationClip.length;
 
-        public bool IsLooped => _loop;
+        public bool IsLooped => _config.Loop;
 
-        public AnimationPlayer(AnimationConfig config, AnimationRootObject target)
+        public void Play(AnimationConfig config, AnimationRootObject target) =>
+            Play(config, target, config.AnimationClip.length);
+        
+        public void Play(AnimationConfig config, AnimationRootObject target, float duration)
         {
             _target = target;
             _config = config;
-            _animationClip = _config.AnimationClip;
-            _loop = _config.Loop;
-            _duration = _config.Duration;
-        }
-
-        public void Play()
-        {
             _playTime = 0;
-            _timeScale = _animationClip.length / _duration;
+            _timeScale = _config.AnimationClip.length / duration;
             _updateSubscriber = Observable.EveryUpdate().Subscribe(_ => OnUpdate());
             PrepareEvents();
             UpdatePlayback();
@@ -59,12 +52,12 @@ namespace RogueDungeon.Animations
 
         private void UpdatePlayback()
         {
-            _animationClip.SampleAnimation(_target.gameObject, _playTime);
+            _config.AnimationClip.SampleAnimation(_target.gameObject, _playTime);
             
             if (!IsFinished)
                 return;
 
-            if (_loop)
+            if (_config.Loop)
             {
                 _playTime = 0;
                 PrepareEvents();
@@ -73,7 +66,7 @@ namespace RogueDungeon.Animations
                 Stop();
         }
 
-        public void EvaluateEvents()
+        private void EvaluateEvents()
         {
             while (_eventsToPlay.TryPeek(out var peekedEvent) && peekedEvent.time < _playTime) 
                 OnEvent.OnNext(_eventsToPlay.Dequeue().eventName);
@@ -82,11 +75,11 @@ namespace RogueDungeon.Animations
         private void PrepareEvents()
         {
             _eventsToPlay.Clear();
-            for (var i = 0; i < _animationClip.events.Length; i++)
+            for (var i = 0; i < _config.AnimationClip.events.Length; i++)
             {
-                var @event = _animationClip.events[i];
+                var @event = _config.AnimationClip.events[i];
                 if (@event.stringParameter.IsNullOrEmpty())
-                    Debug.LogError($"Invalid event name at index {i} in animation clip {_animationClip.name}");
+                    Debug.LogError($"Invalid event name at index {i} in animation clip {_config.AnimationClip.name}");
                 else
                     _eventsToPlay.Enqueue((@event.time, @event.stringParameter));
             }

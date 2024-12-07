@@ -1,18 +1,17 @@
 ﻿using Common.GameObjectMarkers;
 using Common.Prameters;
-using Common.Properties;
 using Common.Registries;
 using Common.ZenjectUtils;
-using RogueDungeon.Behaviours;
-using RogueDungeon.Behaviours.AttackBehaviour;
-using RogueDungeon.Behaviours.DodgeBehaviour;
+using RogueDungeon.Behaviours.MovementBehaviour;
+using RogueDungeon.Behaviours.WeaponBehaviour;
 using RogueDungeon.Entities;
 using RogueDungeon.Parameters;
-using RogueDungeon.PlayerInputCommands;
+using RogueDungeon.Player.Behaviours;
+using RogueDungeon.PlayerInput;
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Player
+namespace RogueDungeon.Player.Installers
 {
     public class PlayerFactory : ScriptableObject, IFactory<Player>
     {
@@ -48,20 +47,13 @@ namespace RogueDungeon.Player
             var charParameters = new Parameters<CharacterParameter>();
             _playerConfig.CharacterParametersConfig.ApplyToParameters(charParameters);
             container.InstanceSingle(charParameters);
-
-            container.InstanceSingle<IRegistry<Property>, Registry<Property>>(new Registry<Property>
-            {
-                container.InstanceSingleInterfacesAndSelf(new Property<DodgeState>()),
-                container.InstanceSingleInterfacesAndSelf(new Property<AttackState>()),
-            });
             
-            container.NewSingle<CharacterControlStateResolver>();
+            container.NewSingleInterfaces<PlayerBehavioursMediator>();
             container.NewSingle<ICharacterInput, CharacterInput>();
             
-            container.NewSingle<DodgeBehaviour>();
-            container.NewSingle<AttackBehaviour>();
+            container.NewSingle<MovementBehaviour>();
+            container.NewSingle<WeaponBehaviour>();
 
-            container.Resolve<DodgeBehaviour>();
             container.NewSingleResolve<Player>();
         }
     }

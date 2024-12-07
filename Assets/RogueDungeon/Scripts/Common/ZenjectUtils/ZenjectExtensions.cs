@@ -12,6 +12,12 @@ namespace Common.ZenjectUtils
         
         public static TTo InstanceSingleInterfacesAndSelf<TTo>(this DiContainer container, TTo instance)
         {
+            container.BindInterfacesAndSelfTo<TTo>().FromInstance(instance);
+            return instance;
+        }
+        
+        public static TTo InstanceSingleInterfaces<TTo>(this DiContainer container, TTo instance)
+        {
             container.BindInterfacesTo<TTo>().FromInstance(instance);
             return instance;
         }

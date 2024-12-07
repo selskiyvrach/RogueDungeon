@@ -5,7 +5,7 @@ using Common.UnityUtils;
 using RogueDungeon.Animations;
 using RogueDungeon.Characters;
 using RogueDungeon.Player;
-using RogueDungeon.PlayerInputCommands;
+using RogueDungeon.PlayerInput;
 using Zenject;
 
 namespace RogueDungeon.Weapons

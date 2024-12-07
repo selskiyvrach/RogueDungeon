@@ -2,16 +2,17 @@
 using Common.GameObjectMarkers;
 using Common.Properties;
 using RogueDungeon.Behaviours;
-using RogueDungeon.Behaviours.AttackBehaviour;
-using RogueDungeon.Behaviours.DodgeBehaviour;
+using RogueDungeon.Behaviours.MovementBehaviour;
+using RogueDungeon.Behaviours.WeaponBehaviour;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;
+using RogueDungeon.Game;
 using UnityEngine;
 using Zenject;
 
 namespace RogueDungeon.Player
 {
-    public class Player : IGameEntity, IDodger
+    public class Player : IGameEntity
     {
         private readonly PlayerRootObject _playerRoot;
         private IDisposable _sub;
@@ -22,15 +23,15 @@ namespace RogueDungeon.Player
 
         private readonly IProperty<DodgeState> _dodgeState;
 
-        [Inject] private DodgeBehaviour _dodgeBehaviour;
-        [Inject] private AttackBehaviour _attackBehaviour;
+        [Inject] private MovementBehaviour _movementBehaviour;
+        [Inject] private WeaponBehaviour _weaponBehaviour;
 
-        public Player(IProperty<DodgeState> dodgeState, PlayerRootObject playerRoot, AttackBehaviour attackBehaviour, DodgeBehaviour dodgeBehaviour)
+        public Player(IProperty<DodgeState> dodgeState, PlayerRootObject playerRoot, WeaponBehaviour weaponBehaviour, MovementBehaviour movementBehaviour)
         {
             _dodgeState = dodgeState;
             _playerRoot = playerRoot;
-            attackBehaviour.Enable();
-            dodgeBehaviour.Enable();
+            weaponBehaviour.Enable();
+            movementBehaviour.Enable();
         }
     }
 }

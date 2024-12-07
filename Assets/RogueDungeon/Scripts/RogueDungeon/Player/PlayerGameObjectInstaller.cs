@@ -8,7 +8,7 @@ namespace RogueDungeon.Player
 {
     public class PlayerGameObjectInstaller : MonoInstaller
     {
-        [SerializeField] private CharacterAnimationRootObject _characterAnimationRoot;
+        [SerializeField] private CharacterMovementAnimationRootObject _characterAnimationRoot;
         [SerializeField] private WeaponAnimationRootObject _weaponAnimationRoot;
         [SerializeField] private CameraParentObject _cameraParentObject;
         [SerializeField] private PlayerRootObject _playerRootObject;

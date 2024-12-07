@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.PlayerInputCommands
+﻿namespace RogueDungeon.PlayerInput
 {
     public interface ICharacterInput
     {

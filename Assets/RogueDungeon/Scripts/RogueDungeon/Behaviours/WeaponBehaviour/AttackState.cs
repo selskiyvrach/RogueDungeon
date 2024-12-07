@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Player
+﻿namespace RogueDungeon.Behaviours.WeaponBehaviour
 {
     public enum AttackState
     {

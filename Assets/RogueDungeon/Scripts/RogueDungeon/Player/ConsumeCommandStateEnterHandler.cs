@@ -1,5 +1,5 @@
 ﻿using Common.FSM;
-using RogueDungeon.PlayerInputCommands;
+using RogueDungeon.PlayerInput;
 
 namespace RogueDungeon.Player
 {
