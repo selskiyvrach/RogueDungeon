@@ -17,5 +17,4 @@ namespace RogueDungeon.Behaviours.WeaponBehaviour
         public bool HasAttackInput() => 
             _hasAttackInput.Invoke(); 
     }
-    
 }

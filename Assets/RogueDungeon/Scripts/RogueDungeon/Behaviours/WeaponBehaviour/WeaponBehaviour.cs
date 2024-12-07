@@ -1,50 +1,10 @@
-﻿using System;
-using Common.FSM;
-using UnityEngine;
+﻿using Common.FSM;
 using UnityEngine.Assertions;
 using Behaviour = Common.Behaviours.Behaviour;
 
 namespace RogueDungeon.Behaviours.WeaponBehaviour
 {
-    public interface IAttackComboConfig
-    {
-        int Count { get; }
-        IAttackTimingsProvider GetTimings(int attackIndex);
-    }
-
-    public class WeaponConfig : ScriptableObject, IAttackComboConfig
-    {
-        [field: SerializeField] public AttackConfig[] Attacks { get; private set; }
-        
-        public int Count => Attacks.Length;
-        
-        public IAttackTimingsProvider GetTimings(int attackIndex) => 
-            Attacks[attackIndex];
-    }
-
-    [Serializable]
-    public class AttackConfig : IAttackTimingsProvider
-    {
-        [field: SerializeField] public float PrepareDuration { get; private set; } = .5f;
-        [field: SerializeField] public AnimationClip PrepareAnimation {get; private set; }
-        
-        [field: SerializeField] public float ExecuteDuration {get; private set;}= .5f;
-        [field: SerializeField] public AnimationClip ExecuteAnimation {get; private set; }
-        
-        [field: SerializeField] public float FinishDuration {get; private set;}= .5f;
-        [field: SerializeField] public AnimationClip FinishAnimation {get; private set; }
-
-        public float GetPrepareDuration() => 
-            PrepareDuration;
-
-        public float GetExecuteDuration() => 
-            ExecuteDuration;
-
-        public float GetFinishDuration() => 
-            FinishDuration;
-    }
-
-    public class AttackBehaviour : Behaviour
+    public class WeaponBehaviour : Behaviour
     {
         private readonly IAttackMediator _mediator;
         private readonly IAttackInputProvider _inputProvider;
@@ -52,7 +12,7 @@ namespace RogueDungeon.Behaviours.WeaponBehaviour
         
         private readonly StateMachine _stateMachine;
 
-        public AttackBehaviour(IAttackMediator mediator, IAttackInputProvider inputProvider, IAttackComboConfig comboConfig)
+        public WeaponBehaviour(IAttackMediator mediator, IAttackInputProvider inputProvider, IAttackComboConfig comboConfig)
         {
             _mediator = mediator;
             _inputProvider = inputProvider;
