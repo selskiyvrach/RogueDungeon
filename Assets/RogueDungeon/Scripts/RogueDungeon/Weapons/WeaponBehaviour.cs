@@ -42,6 +42,7 @@ namespace RogueDungeon.Weapons
             
             // attack cancel by another action
             attackBuilder.AddTransitionFromFinished(prepareAttack, finishAttack, new Not(canStartAttack));
+            _stateMachine = attackBuilder.Build();
         }
 
         private bool TryStartNextComboAttack(ICondition shouldStartAttack)

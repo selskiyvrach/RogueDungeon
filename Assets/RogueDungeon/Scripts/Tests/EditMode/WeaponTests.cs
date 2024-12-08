@@ -3,76 +3,118 @@ using NUnit.Framework;
 using RogueDungeon.Weapons;
 using UniRx;
 
-namespace Tests.EditMode
+[TestFixture]
+public class WeaponBehaviourTests
 {
-    public class WeaponBehaviourTests
+    private Mock<IAttackMediator> _mockMediator;
+    private Mock<IAttackInputProvider> _mockInputProvider;
+    private Mock<IAttackComboConfig> _mockComboConfig;
+    private Mock<IAttackTimingsProvider> _mockTimingsProvider;
+
+    private WeaponBehaviour _weaponBehaviour;
+    private ReactiveProperty<AttackState> _mockAttackState;
+
+    [SetUp]
+    public void Setup()
     {
-        private Mock<IAttackMediator> _mediatorMock;            
-        private Mock<IAttackInputProvider> _inputProviderMock;
-        private Mock<IAttackComboConfig> _comboConfigMock;
-        private WeaponBehaviour _weaponBehaviour;
+        _mockMediator = new Mock<IAttackMediator>();
+        _mockInputProvider = new Mock<IAttackInputProvider>();
+        _mockComboConfig = new Mock<IAttackComboConfig>();
+        _mockTimingsProvider = new Mock<IAttackTimingsProvider>();
 
-        [SetUp]
-        public void SetUp()
-        {
-            // Create mocks
-            _mediatorMock = new Mock<IAttackMediator>();
-            _inputProviderMock = new Mock<IAttackInputProvider>();
-            _comboConfigMock = new Mock<IAttackComboConfig>();
+        // Setup default timings
+        _mockTimingsProvider.Setup(t => t.GetPrepareDuration()).Returns(1f);
+        _mockTimingsProvider.Setup(t => t.GetExecuteDuration()).Returns(1f);
+        _mockTimingsProvider.Setup(t => t.GetFinishDuration()).Returns(1f);
 
-            // Mock properties and methods
-            _mediatorMock.Setup(m => m.CanStartAttack()).Returns(true);
-            _mediatorMock.SetupProperty(m => m.AttackState, new ReactiveProperty<AttackState>(AttackState.None));
-            _mediatorMock.SetupProperty(m => m.ComboIndex, 0);
+        // Return the mocked timings provider
+        _mockComboConfig.Setup(c => c.GetTimings(It.IsAny<int>())).Returns(_mockTimingsProvider.Object);
+        _mockComboConfig.Setup(c => c.Count).Returns(3);
 
-            _comboConfigMock.Setup(c => c.Count).Returns(3);
-            _comboConfigMock.Setup(c => c.GetTimings(It.IsAny<int>()))
-                .Returns(new Mock<IAttackTimingsProvider>().Object);
+        _mockMediator.SetupProperty(m => m.ComboIndex, 0);
+        _mockAttackState = new ReactiveProperty<AttackState>(AttackState.None);
 
-            // Initialize the behaviour
-            _weaponBehaviour = new WeaponBehaviour(
-                _mediatorMock.Object,
-                _inputProviderMock.Object,
-                _comboConfigMock.Object);
-        }
+        // Setup the mock to return the real ReactiveProperty
+        _mockMediator.Setup(m => m.AttackState).Returns(_mockAttackState);
+        _mockMediator.Setup(m => m.CanStartAttack()).Returns(true);
 
-        [Test]
-        public void Enable_ResetsAttackStateAndComboIndex_AndRunsStateMachine()
-        {
-            // Act
-            _weaponBehaviour.Enable();
+        _weaponBehaviour = new WeaponBehaviour(
+            _mockMediator.Object,
+            _mockInputProvider.Object,
+            _mockComboConfig.Object);
+    }
 
-            // Assert
-            Assert.AreEqual(AttackState.None, _mediatorMock.Object.AttackState.Value);
-            Assert.AreEqual(0, _mediatorMock.Object.ComboIndex);
-        }
+    [Test]
+    public void Enable_ShouldInitializeState()
+    {
+        _weaponBehaviour.Enable();
 
-        [Test]
-        public void Disable_ResetsAttackStateAndComboIndex_AndStopsStateMachine()
-        {
-            // Arrange
-            _weaponBehaviour.Enable();
+        Assert.AreEqual(AttackState.None, _mockMediator.Object.AttackState.Value);
+        Assert.AreEqual(0, _mockMediator.Object.ComboIndex);
+    }
 
-            // Act
-            _weaponBehaviour.Disable();
+    [Test]
+    public void Disable_ShouldResetState()
+    {
+        _weaponBehaviour.Enable();
+        _weaponBehaviour.Disable();
 
-            // Assert
-            Assert.AreEqual(AttackState.None, _mediatorMock.Object.AttackState.Value);
-            Assert.AreEqual(0, _mediatorMock.Object.ComboIndex);
-        }
+        Assert.AreEqual(AttackState.None, _mockMediator.Object.AttackState.Value);
+        Assert.AreEqual(0, _mockMediator.Object.ComboIndex);
+    }
 
-        [Test]
-        public void Tick_CallsStateMachineTick()
-        {
-            // Arrange
-            _weaponBehaviour.Enable();
+    [Test]
+    public void Tick_ShouldAdvanceStateMachine()
+    {
+        _mockInputProvider.Setup(i => i.HasAttackInput()).Returns(true);
 
-            // Act
-            _weaponBehaviour.Tick();
+        _weaponBehaviour.Enable();
+        _weaponBehaviour.Tick();
 
-            // Assert
-            // No exceptions or errors indicate success since Tick() doesn't return values.
-            Assert.Pass();
-        }
+        _mockMediator.VerifySet(m => m.AttackState.Value = AttackState.Preparing, Times.Once);
+    }
+
+    [Test]
+    public void TryStartNextComboAttack_ShouldIncrementComboIndex()
+    {
+        _mockInputProvider.Setup(i => i.HasAttackInput()).Returns(true);
+
+        _weaponBehaviour.Enable();
+        _weaponBehaviour.Tick(); // Preparing -> Executing
+        _weaponBehaviour.Tick(); // Executing -> Finishing
+        _weaponBehaviour.Tick(); // Finishing -> Idle (Ready for next combo)
+
+        Assert.AreEqual(1, _mockMediator.Object.ComboIndex);
+    }
+
+    [Test]
+    public void ComboAttack_ShouldFailIfComboLimitReached()
+    {
+        _weaponBehaviour.Enable();
+        _mockInputProvider.Setup(i => i.HasAttackInput()).Returns(true);
+        _mockMediator.Setup(m => m.ComboIndex).Returns(2); // Maximum combo index
+
+        _weaponBehaviour.Tick(); // Preparing -> Executing
+        _weaponBehaviour.Tick(); // Executing -> Finishing
+        _weaponBehaviour.Tick(); // Finishing -> Idle (No further combo)
+
+        Assert.AreEqual(2, _mockMediator.Object.ComboIndex); // Remains at max index
+    }
+
+    [Test]
+    public void AttackCancel_ShouldReturnToIdle()
+    {
+        _mockMediator.Setup(m => m.CanStartAttack()).Returns(false);
+
+        _weaponBehaviour.Enable();
+        _weaponBehaviour.Tick(); // Should attempt Preparing but cancel to Idle
+
+        Assert.AreEqual(AttackState.None, _mockMediator.Object.AttackState.Value);
+    }
+
+    [TearDown]
+    public void Teardown()
+    {
+        _weaponBehaviour.Disable();
     }
 }
