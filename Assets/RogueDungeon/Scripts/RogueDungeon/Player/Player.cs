@@ -1,7 +1,6 @@
 ﻿using System;
 using Common.GameObjectMarkers;
 using Common.Properties;
-using RogueDungeon.Behaviours;
 using RogueDungeon.Behaviours.MovementBehaviour;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;

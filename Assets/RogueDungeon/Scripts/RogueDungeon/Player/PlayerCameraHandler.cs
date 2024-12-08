@@ -1,5 +1,5 @@
-﻿using Common.GameObjectMarkers;
-using RogueDungeon.Camera;
+﻿using Common.Camera;
+using Common.GameObjectMarkers;
 
 namespace RogueDungeon.Player
 {

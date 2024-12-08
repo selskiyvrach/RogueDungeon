@@ -1,0 +1,22 @@
+{
+    "name": "Weapons.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:47b4a74c924a7e64db6342f44a788d60",
+        "GUID:51b79209ff3fd3f48b2288ae2ce8715d",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:fe4c99835ce3ff644abcef12e84147ad",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

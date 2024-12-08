@@ -1,5 +1,5 @@
-﻿using Common.FSM;
-using Behaviour = Common.Behaviours.Behaviour;
+﻿using Common.Behaviours;
+using Common.FSM;
 
 namespace RogueDungeon.Behaviours.MovementBehaviour
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -29,7 +28,7 @@ namespace RogueDungeon.Maze
                 {
                     var tileCoords = cellCoord + localCoords;
                     var tile = new Tile(tileCoords);
-                    Object.Instantiate(tilePrefab, new Vector3(tileCoords.x, 0, tileCoords.y), quaternion.identity, _map.transform);
+                    Object.Instantiate(tilePrefab, new Vector3(tileCoords.x, 0, tileCoords.y), Quaternion.identity, _map.transform);
                     _tiles.Add(tileCoords, tile);
                 }
             }

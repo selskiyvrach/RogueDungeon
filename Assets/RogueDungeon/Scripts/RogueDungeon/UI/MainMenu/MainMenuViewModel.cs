@@ -1,6 +1,5 @@
-﻿using Common.Events;
-using Common.Mvvm.ViewModel;
-using Common.UiCommons;
+﻿using Common.Mvvm.ViewModel;
+using Common.UI.Commons;
 using RogueDungeon.Game;
 using RogueDungeon.Localization;
 using UniRx;

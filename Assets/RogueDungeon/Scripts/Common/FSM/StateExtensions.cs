@@ -1,5 +1,4 @@
 ﻿using System;
-using Common.Properties;
 using UnityEngine;
 
 namespace Common.FSM

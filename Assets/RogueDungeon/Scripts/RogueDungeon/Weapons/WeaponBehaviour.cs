@@ -1,6 +1,6 @@
-﻿using Common.FSM;
+﻿using Common.Behaviours;
+using Common.FSM;
 using UnityEngine.Assertions;
-using Behaviour = Common.Behaviours.Behaviour;
 
 namespace RogueDungeon.Weapons
 {

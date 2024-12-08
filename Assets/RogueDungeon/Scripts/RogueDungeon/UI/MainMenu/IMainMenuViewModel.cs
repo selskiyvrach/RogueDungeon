@@ -1,5 +1,5 @@
 ﻿using Common.Mvvm.ViewModel;
-using Common.UiCommons;
+using Common.UI.Commons;
 using RogueDungeon.Game;
 using UniRx;
 

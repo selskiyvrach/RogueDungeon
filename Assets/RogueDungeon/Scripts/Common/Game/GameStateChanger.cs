@@ -1,5 +1,5 @@
-﻿using Common.ZenjectUtils.ContextHandles;
-using RogueDungeon.UI.LoadingScreen;
+﻿using Common.UI.LoadingScreen;
+using Common.ZenjectUtils.ContextHandles;
 
 namespace Common.Game
 {

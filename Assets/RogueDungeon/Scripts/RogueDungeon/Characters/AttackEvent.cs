@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Common.DotNetUtils;
 using Common.Registries;
 using RogueDungeon.Animations;
-using RogueDungeon.Enemies;
 using RogueDungeon.Entities;
-using RogueDungeon.Weapons;
 
 namespace RogueDungeon.Characters
 {

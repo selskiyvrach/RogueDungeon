@@ -1,5 +1,4 @@
 ﻿using Common.SceneManagement;
-using RogueDungeon.SceneManagement;
 
 namespace Common.Game
 {

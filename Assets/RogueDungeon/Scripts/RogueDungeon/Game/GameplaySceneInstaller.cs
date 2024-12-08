@@ -4,7 +4,6 @@ using Common.Registries;
 using Common.ZenjectUtils;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;
-using RogueDungeon.Player;
 using RogueDungeon.Player.Installers;
 using UnityEngine;
 using Zenject;

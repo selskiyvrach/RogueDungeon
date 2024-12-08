@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Common.Mvvm.View;
-using Common.UiCommons;
+using Common.UI.Commons;
 using UnityEngine;
 using Zenject;
 
