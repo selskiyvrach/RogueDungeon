@@ -1,6 +1,7 @@
 ﻿using System;
 using RogueDungeon.Behaviours.MovementBehaviour;
-using RogueDungeon.Behaviours.WeaponBehaviour;
+using RogueDungeon.Weapons;
+using UniRx;
 
 namespace RogueDungeon.Player.Behaviours
 {
@@ -11,17 +12,16 @@ namespace RogueDungeon.Player.Behaviours
 
         public int ComboIndex { get; set; } = -1;
 
-        public AttackState AttackState
-        {
-            get => _attackState;
-            set => OnAttackStateChanged.Invoke(_attackState = value);
-        }
+        public ReactiveProperty<AttackState> AttackState { get; } = new();
 
-        public event Action<AttackState> OnAttackStateChanged = delegate { };
+        public void OnHitKeyframe()
+        {
+            throw new NotImplementedException();
+        }
 
 
         public bool CanStartDodge() => 
-            AttackState != AttackState.Executing;
+            AttackState.Value != Weapons.AttackState.Executing;
 
         public bool CanStartAttack() => 
             DodgeState == DodgeState.None;

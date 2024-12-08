@@ -2,10 +2,10 @@
 using RogueDungeon.Animations;
 using UnityEngine;
 
-namespace RogueDungeon.Behaviours.WeaponBehaviour
+namespace RogueDungeon.Weapons
 {
     [Serializable]
-    public class AttackConfig : IAttackTimingsProvider, IAttackAnimationsConfig
+    public class AttackConfig : IAttackTimingsProvider, IAttackAnimationsProvider
     {
         [field: SerializeField] public float PrepareDuration { get; private set; } = .5f;
         [field: SerializeField] public AnimationConfig PrepareAnimation {get; private set; }
@@ -16,13 +16,13 @@ namespace RogueDungeon.Behaviours.WeaponBehaviour
         [field: SerializeField] public float FinishDuration {get; private set;}= .5f;
         [field: SerializeField] public AnimationConfig FinishAnimation {get; private set; }
 
-        public float GetPrepareDuration() => 
+        float IAttackTimingsProvider.GetPrepareDuration() => 
             PrepareDuration;
 
-        public float GetExecuteDuration() => 
+        float IAttackTimingsProvider.GetExecuteDuration() => 
             ExecuteDuration;
 
-        public float GetFinishDuration() => 
+        float IAttackTimingsProvider.GetFinishDuration() => 
             FinishDuration;
     }
 }

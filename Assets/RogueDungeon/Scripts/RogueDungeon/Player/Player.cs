@@ -3,10 +3,10 @@ using Common.GameObjectMarkers;
 using Common.Properties;
 using RogueDungeon.Behaviours;
 using RogueDungeon.Behaviours.MovementBehaviour;
-using RogueDungeon.Behaviours.WeaponBehaviour;
 using RogueDungeon.Collisions;
 using RogueDungeon.Entities;
 using RogueDungeon.Game;
+using RogueDungeon.Weapons;
 using UnityEngine;
 using Zenject;
 

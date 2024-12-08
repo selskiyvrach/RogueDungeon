@@ -1,10 +1,10 @@
 ﻿using RogueDungeon.Animations;
 
-namespace RogueDungeon.Behaviours.WeaponBehaviour
+namespace RogueDungeon.Weapons
 {
     public interface IWeaponAnimationsConfig
     {
         AnimationConfig IdleAnimation { get; }
-        IAttackAnimationsConfig GetAttackAnimationConfig(int attackIndex);
+        IAttackAnimationsProvider GetAttackAnimationConfig(int attackIndex);
     }
 }

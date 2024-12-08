@@ -4,7 +4,7 @@ using RogueDungeon.Animations;
 using UniRx;
 using UnityEngine;
 
-namespace RogueDungeon.Behaviours.WeaponBehaviour
+namespace RogueDungeon.Weapons
 {
     public class WeaponAnimator : AttackStateChangedHandler
     {

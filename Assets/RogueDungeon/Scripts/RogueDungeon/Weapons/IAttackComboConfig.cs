@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Behaviours.WeaponBehaviour
+﻿namespace RogueDungeon.Weapons
 {
     public interface IAttackComboConfig
     {

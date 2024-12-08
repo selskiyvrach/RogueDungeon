@@ -38,6 +38,9 @@ namespace Common.ZenjectUtils
         public static void NewSingle<TAs, TTo>(this DiContainer container) where TTo : TAs => 
             container.Bind<TAs>().To<TTo>().FromNew().AsSingle();
         
+        public static void NewSingleNonLazy<TAs, TTo>(this DiContainer container) where TTo : TAs => 
+            container.Bind<TAs>().To<TTo>().FromNew().AsSingle().NonLazy();
+        
         public static void NewSingleInterfaces<TTo>(this DiContainer container) => 
             container.BindInterfacesTo<TTo>().FromNew().AsSingle();
         
@@ -47,6 +50,9 @@ namespace Common.ZenjectUtils
         public static void NewSingle<T>(this DiContainer container) =>
             container.NewSingle<T, T>();
 
+        public static void NewSingleNonLazy<T>(this DiContainer container) =>
+            container.NewSingleNonLazy<T, T>();
+        
         public static T NewSingleResolve<T>(this DiContainer container)
         {
             container.NewSingle<T>();

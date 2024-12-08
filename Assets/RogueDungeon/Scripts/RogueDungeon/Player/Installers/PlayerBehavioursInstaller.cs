@@ -1,7 +1,7 @@
 ﻿using Common.ZenjectUtils;
 using RogueDungeon.Behaviours.MovementBehaviour;
-using RogueDungeon.Behaviours.WeaponBehaviour;
 using RogueDungeon.Player.Behaviours;
+using RogueDungeon.Weapons;
 using UnityEngine;
 using Zenject;
 

@@ -3,11 +3,11 @@ using Common.Prameters;
 using Common.Registries;
 using Common.ZenjectUtils;
 using RogueDungeon.Behaviours.MovementBehaviour;
-using RogueDungeon.Behaviours.WeaponBehaviour;
 using RogueDungeon.Entities;
 using RogueDungeon.Parameters;
 using RogueDungeon.Player.Behaviours;
 using RogueDungeon.PlayerInput;
+using RogueDungeon.Weapons;
 using UnityEngine;
 using Zenject;
 

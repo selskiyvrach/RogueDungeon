@@ -1,8 +1,8 @@
 ﻿using RogueDungeon.Animations;
 
-namespace RogueDungeon.Behaviours.WeaponBehaviour
+namespace RogueDungeon.Weapons
 {
-    public interface IAttackAnimationsConfig
+    public interface IAttackAnimationsProvider
     {
         AnimationConfig PrepareAnimation { get; }
         AnimationConfig ExecuteAnimation { get; }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RogueDungeon.Behaviours.WeaponBehaviour
+namespace RogueDungeon.Weapons
 {
     public interface IAttackInputProvider
     {
