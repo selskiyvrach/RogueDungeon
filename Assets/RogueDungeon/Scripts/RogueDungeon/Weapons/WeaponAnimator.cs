@@ -11,7 +11,7 @@ namespace RogueDungeon.Weapons
         private readonly IAttackMediator _attackMediator;
         private readonly WeaponAnimationRootObject _animationRoot;
         private readonly IWeaponAnimationsConfig _animationsConfig;
-        private readonly IAttackComboConfig _comboConfig;
+        private readonly IAttackComboCountAndTimingsConfig _comboConfig;
 
         private readonly AnimationPlayer _animationPlayer = new();
 
@@ -19,7 +19,7 @@ namespace RogueDungeon.Weapons
             IAttackMediator attackMediator, 
             IWeaponAnimationsConfig animationsConfig, 
             WeaponAnimationRootObject animationRoot, 
-            IAttackComboConfig comboConfig) : base(attackMediator)
+            IAttackComboCountAndTimingsConfig comboConfig) : base(attackMediator)
         {
             _attackMediator = attackMediator;
             _animationsConfig = animationsConfig;
@@ -31,7 +31,7 @@ namespace RogueDungeon.Weapons
         private void HandleEvent(string value)
         {
             if(value == AnimEventNames.ATTACK_HIT)
-                _attackMediator.OnHitKeyframe();
+                _attackMediator.OnHitKeyframe.OnNext(Unit.Default);
             else
                 Debug.LogError($"Unexpected animation event in {nameof(WeaponAnimator)}: " + value);
         }
@@ -40,12 +40,12 @@ namespace RogueDungeon.Weapons
         {
             if (state == AttackState.None)
             {
-                _animationPlayer.Play(_animationsConfig.IdleAnimation, _animationRoot);
+                _animationPlayer.Play(_animationsConfig.IdleAnimation, _animationRoot, isLooped: true);
                 return;
             }
 
-            var animConfig = _animationsConfig.GetAttackAnimationConfig(_attackMediator.ComboIndex);
-            var timingConfig = _comboConfig.GetTimings(_attackMediator.ComboIndex);
+            var animConfig = _animationsConfig.GetAttackAnimationConfig(_attackMediator.AttackIndex);
+            var timingConfig = _comboConfig.GetTimings(_attackMediator.AttackIndex);
             _animationPlayer.Play(state switch
                 {
                     AttackState.Preparing => animConfig.PrepareAnimation,

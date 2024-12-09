@@ -8,7 +8,7 @@ public class WeaponBehaviourTests
 {
     private Mock<IAttackMediator> _mockMediator;
     private Mock<IAttackInputProvider> _mockInputProvider;
-    private Mock<IAttackComboConfig> _mockComboConfig;
+    private Mock<IAttackComboCountAndTimingsConfig> _mockComboConfig;
     private Mock<IAttackTimingsProvider> _mockTimingsProvider;
 
     private WeaponBehaviour _weaponBehaviour;
@@ -19,7 +19,7 @@ public class WeaponBehaviourTests
     {
         _mockMediator = new Mock<IAttackMediator>();
         _mockInputProvider = new Mock<IAttackInputProvider>();
-        _mockComboConfig = new Mock<IAttackComboConfig>();
+        _mockComboConfig = new Mock<IAttackComboCountAndTimingsConfig>();
         _mockTimingsProvider = new Mock<IAttackTimingsProvider>();
 
         // Setup default timings
@@ -31,7 +31,7 @@ public class WeaponBehaviourTests
         _mockComboConfig.Setup(c => c.GetTimings(It.IsAny<int>())).Returns(_mockTimingsProvider.Object);
         _mockComboConfig.Setup(c => c.Count).Returns(3);
 
-        _mockMediator.SetupProperty(m => m.ComboIndex, 0);
+        _mockMediator.SetupProperty(m => m.AttackIndex, 0);
         _mockAttackState = new ReactiveProperty<AttackState>(AttackState.None);
 
         // Setup the mock to return the real ReactiveProperty
@@ -50,7 +50,7 @@ public class WeaponBehaviourTests
         _weaponBehaviour.Enable();
 
         Assert.AreEqual(AttackState.None, _mockMediator.Object.AttackState.Value);
-        Assert.AreEqual(0, _mockMediator.Object.ComboIndex);
+        Assert.AreEqual(0, _mockMediator.Object.AttackIndex);
     }
 
     [Test]
@@ -60,7 +60,7 @@ public class WeaponBehaviourTests
         _weaponBehaviour.Disable();
 
         Assert.AreEqual(AttackState.None, _mockMediator.Object.AttackState.Value);
-        Assert.AreEqual(0, _mockMediator.Object.ComboIndex);
+        Assert.AreEqual(0, _mockMediator.Object.AttackIndex);
     }
 
     [Test]
@@ -84,7 +84,7 @@ public class WeaponBehaviourTests
         _weaponBehaviour.Tick(); // Executing -> Finishing
         _weaponBehaviour.Tick(); // Finishing -> Idle (Ready for next combo)
 
-        Assert.AreEqual(1, _mockMediator.Object.ComboIndex);
+        Assert.AreEqual(1, _mockMediator.Object.AttackIndex);
     }
 
     [Test]
@@ -92,13 +92,13 @@ public class WeaponBehaviourTests
     {
         _weaponBehaviour.Enable();
         _mockInputProvider.Setup(i => i.HasAttackInput()).Returns(true);
-        _mockMediator.Setup(m => m.ComboIndex).Returns(2); // Maximum combo index
+        _mockMediator.Setup(m => m.AttackIndex).Returns(2); // Maximum combo index
 
         _weaponBehaviour.Tick(); // Preparing -> Executing
         _weaponBehaviour.Tick(); // Executing -> Finishing
         _weaponBehaviour.Tick(); // Finishing -> Idle (No further combo)
 
-        Assert.AreEqual(2, _mockMediator.Object.ComboIndex); // Remains at max index
+        Assert.AreEqual(2, _mockMediator.Object.AttackIndex); // Remains at max index
     }
 
     [Test]

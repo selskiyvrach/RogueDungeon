@@ -8,11 +8,11 @@ namespace RogueDungeon.Weapons
     {
         private readonly IAttackMediator _mediator;
         private readonly IAttackInputProvider _inputProvider;
-        private readonly IAttackComboConfig _comboConfig;
+        private readonly IAttackComboCountAndTimingsConfig _comboConfig;
         
         private readonly StateMachine _stateMachine;
 
-        public WeaponBehaviour(IAttackMediator mediator, IAttackInputProvider inputProvider, IAttackComboConfig comboConfig)
+        public WeaponBehaviour(IAttackMediator mediator, IAttackInputProvider inputProvider, IAttackComboCountAndTimingsConfig comboConfig)
         {
             _mediator = mediator;
             _inputProvider = inputProvider;
@@ -25,7 +25,7 @@ namespace RogueDungeon.Weapons
             
             var finishAttack = new TimerState(() => GetTimings().GetFinishDuration())
                 .OnEnter(() => _mediator.AttackState.Value = AttackState.Finishing)
-                .OnExit(() => _mediator.ComboIndex = 0);
+                .OnExit(() => _mediator.AttackIndex = 0);
             
             var attackBuilder = new StateMachineBuilder(attackIdle, prepareAttack, executeAttack, finishAttack);
             var canStartAttack = new If(_mediator.CanStartAttack);
@@ -47,16 +47,16 @@ namespace RogueDungeon.Weapons
 
         private bool TryStartNextComboAttack(ICondition shouldStartAttack)
         {
-            if (!shouldStartAttack.IsMet() || _mediator.ComboIndex >= _comboConfig.Count - 1)
+            if (!shouldStartAttack.IsMet() || _mediator.AttackIndex >= _comboConfig.Count - 1)
                 return false;
-            _mediator.ComboIndex++;
+            _mediator.AttackIndex++;
             return true;
         }
 
         public override void Enable()
         {
             Assert.IsTrue(_mediator.AttackState.Value == AttackState.None);
-            Assert.IsTrue(_mediator.ComboIndex == 0);
+            Assert.IsTrue(_mediator.AttackIndex == 0);
             
             base.Enable();
             _stateMachine.Run();
@@ -66,7 +66,7 @@ namespace RogueDungeon.Weapons
         {
             base.Disable();
             _mediator.AttackState.Value = AttackState.None;
-            _mediator.ComboIndex = 0;
+            _mediator.AttackIndex = 0;
             _stateMachine.Stop();
         }
 
@@ -74,6 +74,6 @@ namespace RogueDungeon.Weapons
             _stateMachine.Tick();
 
         private IAttackTimingsProvider GetTimings() => 
-            _comboConfig.GetTimings(_mediator.ComboIndex);
+            _comboConfig.GetTimings(_mediator.AttackIndex);
     }
 }

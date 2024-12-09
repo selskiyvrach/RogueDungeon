@@ -12,31 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288289683a2e494c8446c18cf65ff7fe, type: 3}
   m_Name: TEST_WeaponConfig
   m_EditorClassIdentifier: 
-  _idleAnimation:
-    _animationClip: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
-    _loop: 1
+  _idleAnimation: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
   _attacks:
-  - <PrepareDuration>k__BackingField: 0.5
-    <PrepareAnimation>k__BackingField:
-      _animationClip: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
-      _loop: 0
-    <ExecuteDuration>k__BackingField: 0.5
-    <ExecuteAnimation>k__BackingField:
-      _animationClip: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
-      _loop: 0
-    <FinishDuration>k__BackingField: 0.5
-    <FinishAnimation>k__BackingField:
-      _animationClip: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
-      _loop: 0
-  - <PrepareDuration>k__BackingField: 0.5
-    <PrepareAnimation>k__BackingField:
-      _animationClip: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
-      _loop: 0
-    <ExecuteDuration>k__BackingField: 0.5
-    <ExecuteAnimation>k__BackingField:
-      _animationClip: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
-      _loop: 0
-    <FinishDuration>k__BackingField: 0.5
-    <FinishAnimation>k__BackingField:
-      _animationClip: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
-      _loop: 0
+  - <OverrideDamage>k__BackingField: 1
+    <OverrideHitMask>k__BackingField: 1
+    <OverrideTimings>k__BackingField: 1
+    <Damage>k__BackingField: 10
+    <HitMask>k__BackingField: 8
+    <PrepareAnimationDuration>k__BackingField: 0.3
+    <ExecuteAnimationDuration>k__BackingField: 0.3
+    <FinishAnimationDuration>k__BackingField: 0.3
+    <PrepareAnimation>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+      type: 2}
+    <ExecuteAnimation>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+      type: 2}
+    <FinishAnimation>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+      type: 2}
+  - <OverrideDamage>k__BackingField: 0
+    <OverrideHitMask>k__BackingField: 0
+    <OverrideTimings>k__BackingField: 0
+    <Damage>k__BackingField: 10
+    <HitMask>k__BackingField: 8
+    <PrepareAnimationDuration>k__BackingField: 0
+    <ExecuteAnimationDuration>k__BackingField: 0
+    <FinishAnimationDuration>k__BackingField: 0
+    <PrepareAnimation>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+      type: 2}
+    <ExecuteAnimation>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+      type: 2}
+    <FinishAnimation>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+      type: 2}

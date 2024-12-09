@@ -6,20 +6,17 @@ namespace RogueDungeon.Weapons
     public interface IAttackMediator
     {
         bool CanStartAttack();
-        int ComboIndex { get; set; }
+        int AttackIndex { get; set; }
         ReactiveProperty<AttackState> AttackState { get; }
-        void OnHitKeyframe();
+        ISubject<Unit> OnHitKeyframe { get; }
     }
 
     public class DummyAttackMediator : IAttackMediator
     {
         public bool CanStartAttack() => 
             true;
-
-        public int ComboIndex { get; set; }
+        public int AttackIndex { get; set; }
         public ReactiveProperty<AttackState> AttackState { get; } = new();
-
-        public void OnHitKeyframe() => 
-            Debug.Log("Hit keyframe pseudo-handled");
+        ISubject<Unit> IAttackMediator.OnHitKeyframe { get; } = new Subject<Unit>();
     }
 }

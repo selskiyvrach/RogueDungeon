@@ -34,5 +34,12 @@ namespace Common.DotNetUtils
         
         public static bool TryGet<T>(this IEnumerable<object> source, out T result, Predicate<T> predicate = null) =>
             (result = source.GetAll(predicate).FirstOrDefault()) != null;
+
+        public static IEnumerable<T> Foreach<T>(this IEnumerable<T> source, Action<T> action) =>
+            source.Select(n =>
+            {
+                action?.Invoke(n);
+                return n;
+            });
     }
 }

@@ -1,11 +1,11 @@
-﻿using RogueDungeon.Animations;
+﻿using UnityEngine;
 
 namespace RogueDungeon.Weapons
 {
     public interface IAttackAnimationsProvider
     {
-        AnimationConfig PrepareAnimation { get; }
-        AnimationConfig ExecuteAnimation { get; }
-        AnimationConfig FinishAnimation { get; }
+        AnimationClip PrepareAnimation { get; }
+        AnimationClip ExecuteAnimation { get; }
+        AnimationClip FinishAnimation { get; }
     }
 }

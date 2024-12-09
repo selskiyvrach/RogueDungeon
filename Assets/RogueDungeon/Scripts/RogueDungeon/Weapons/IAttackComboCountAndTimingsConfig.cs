@@ -1,6 +1,6 @@
 ﻿namespace RogueDungeon.Weapons
 {
-    public interface IAttackComboConfig
+    public interface IAttackComboCountAndTimingsConfig
     {
         int Count { get; }
         IAttackTimingsProvider GetTimings(int attackIndex);

@@ -1,10 +1,10 @@
-﻿using RogueDungeon.Animations;
+﻿using UnityEngine;
 
 namespace RogueDungeon.Weapons
 {
     public interface IWeaponAnimationsConfig
     {
-        AnimationConfig IdleAnimation { get; }
+        AnimationClip IdleAnimation { get; }
         IAttackAnimationsProvider GetAttackAnimationConfig(int attackIndex);
     }
 }
