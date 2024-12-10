@@ -6,20 +6,19 @@ namespace RogueDungeon.Weapons
 {
     public interface IWeaponActionsDurationsProvider
     {
-        float AttackPrepareDuration { get; }
+        float IdleAttackTransitionDuration { get; }
         float AttackExecuteDuration { get; }
-        float AttackFinishDuration { get; }
         float SheathDuration { get; }
-        // block duration
+        float BlockDuration { get; }
     }
 
     [Serializable]
-    public class BaseWeaponActionsDurations : IWeaponActionsDurationsProvider
+    public class BaseWeaponActionsDurations : IWeaponActionsBaseDurationsProvider
     {
-        [field: SerializeField] public float AttackPrepareDuration { get; private set;} = .5f;
+        [field: SerializeField] public float IdleAttackTransitionDuration { get; private set;} = .5f;
         [field: SerializeField] public float AttackExecuteDuration { get; private set;} = .5f;
-        [field: SerializeField] public float AttackFinishDuration { get; private set;} = .5f;
         [field: SerializeField] public float SheathDuration { get; private set;} = .5f;
+        [field: SerializeField] public float BlockDuration { get; private set;} = .5f;
     }
 
     public interface ICharacterAttributesProvider
@@ -28,7 +27,7 @@ namespace RogueDungeon.Weapons
         int Agility { get; }
     }
 
-    public interface IWeaponActionsBaseValuesProvider : IWeaponActionsDurationsProvider
+    public interface IWeaponActionsBaseDurationsProvider : IWeaponActionsDurationsProvider
     {
                 
     }
@@ -46,18 +45,18 @@ namespace RogueDungeon.Weapons
         
         private readonly IWeaponWeightProvider _weightProvider;
         private readonly ICharacterAttributesProvider _attributesProvider;
-        private readonly IWeaponActionsBaseValuesProvider _baseDurationValues;
+        private readonly IWeaponActionsBaseDurationsProvider _baseDurationDurations;
 
-        public float AttackPrepareDuration { get; private set; }
+        public float IdleAttackTransitionDuration { get; private set; }
         public float AttackExecuteDuration { get; private set; }
-        public float AttackFinishDuration { get; private set; }
         public float SheathDuration { get; private set; }
+        public float BlockDuration { get; private set; }
 
-        public WeaponActionsDurationsCalculator(IWeaponWeightProvider weightProvider, ICharacterAttributesProvider attributesProvider, IWeaponActionsBaseValuesProvider baseDurationValues)
+        public WeaponActionsDurationsCalculator(IWeaponWeightProvider weightProvider, ICharacterAttributesProvider attributesProvider, IWeaponActionsBaseDurationsProvider baseDurationDurations)
         {
             _weightProvider = weightProvider;
             _attributesProvider = attributesProvider;
-            _baseDurationValues = baseDurationValues;
+            _baseDurationDurations = baseDurationDurations;
             Refresh();
         }
 
@@ -69,10 +68,10 @@ namespace RogueDungeon.Weapons
             var agCoeff = - ((float)_attributesProvider.Agility - 5) / 5 * (1 - weaponHeavyToLightRatio);
             var totalCoeff = 1 + weaponWeightCoeff + strCoeff + agCoeff;
             
-            AttackPrepareDuration = _baseDurationValues.AttackPrepareDuration * totalCoeff;
-            AttackExecuteDuration = _baseDurationValues.AttackExecuteDuration * totalCoeff;
-            AttackFinishDuration = _baseDurationValues.AttackFinishDuration * totalCoeff;
-            SheathDuration = _baseDurationValues.SheathDuration * totalCoeff;
+            IdleAttackTransitionDuration = _baseDurationDurations.IdleAttackTransitionDuration * totalCoeff;
+            AttackExecuteDuration = _baseDurationDurations.AttackExecuteDuration * totalCoeff;
+            SheathDuration = _baseDurationDurations.SheathDuration * totalCoeff;
+            BlockDuration = _baseDurationDurations.BlockDuration * totalCoeff;
         }
     }
 
