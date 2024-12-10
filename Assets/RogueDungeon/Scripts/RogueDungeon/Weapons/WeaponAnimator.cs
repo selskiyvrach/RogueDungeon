@@ -1,6 +1,4 @@
-﻿using System;
-using Common.GameObjectMarkers;
-using RogueDungeon.Animations;
+﻿using Common.GameObjectMarkers;
 using UniRx;
 using UnityEngine;
 
@@ -8,60 +6,29 @@ namespace RogueDungeon.Weapons
 {
     public class WeaponAnimator : AttackStateChangedHandler
     {
+        [SerializeField] private Animator _handAnimator;
+        [SerializeField] private Animator _screenEffectsAnimator;
+        
         private readonly IAttackMediator _attackMediator;
         private readonly WeaponAnimationRootObject _animationRoot;
-        private readonly IWeaponAnimationsConfig _animationsConfig;
-        private readonly IAttackComboCountAndTimingsConfig _comboConfig;
 
-        private readonly AnimationPlayer _animationPlayer = new();
-
-        public WeaponAnimator(
-            IAttackMediator attackMediator, 
-            IWeaponAnimationsConfig animationsConfig, 
-            WeaponAnimationRootObject animationRoot, 
-            IAttackComboCountAndTimingsConfig comboConfig) : base(attackMediator)
+        public WeaponAnimator(IAttackMediator attackMediator, WeaponAnimationRootObject animationRoot) : base(attackMediator)
         {
             _attackMediator = attackMediator;
-            _animationsConfig = animationsConfig;
             _animationRoot = animationRoot;
-            _comboConfig = comboConfig;
-            _animationPlayer.OnEvent.Subscribe(HandleEvent);
+            _attackMediator.OnHitKeyframe.Subscribe(_ => PlayHitAnimation());
         }
 
-        private void HandleEvent(string value)
+        private void PlayHitAnimation()
         {
-            if(value == AnimEventNames.ATTACK_HIT)
-                _attackMediator.OnHitKeyframe.OnNext(Unit.Default);
-            else
-                Debug.LogError($"Unexpected animation event in {nameof(WeaponAnimator)}: " + value);
+            // play hit based on direction
         }
 
         protected override void HandleStateChanged(AttackState state)
         {
-            if (state == AttackState.None)
-            {
-                _animationPlayer.Play(_animationsConfig.IdleAnimation, _animationRoot, isLooped: true);
-                return;
-            }
-
-            var animConfig = _animationsConfig.GetAttackAnimationConfig(_attackMediator.AttackIndex);
-            var timingConfig = _comboConfig.GetTimings(_attackMediator.AttackIndex);
-            _animationPlayer.Play(state switch
-                {
-                    AttackState.Preparing => animConfig.PrepareAnimation,
-                    AttackState.Executing => animConfig.ExecuteAnimation,
-                    AttackState.Finishing => animConfig.FinishAnimation,
-                    _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
-                }, 
-                _animationRoot, 
-                state switch 
-                {
-                    AttackState.Preparing => timingConfig.GetPrepareDuration(),
-                    AttackState.Executing => timingConfig.GetExecuteDuration(),
-                    AttackState.Finishing => timingConfig.GetFinishDuration(),
-                    _ => throw new ArgumentOutOfRangeException(nameof(state), state, null)
-                }
-            );
+            // play idle
+            // play prepare
+            // play finished
         }
     }
 }

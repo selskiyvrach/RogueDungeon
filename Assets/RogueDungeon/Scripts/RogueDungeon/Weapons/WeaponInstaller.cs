@@ -21,7 +21,7 @@ namespace RogueDungeon.Weapons
             _weaponContainer.InstanceSingle(_animationRoot);
             
             _weaponContainer.InstanceSingle<IAttackMediator>(new DummyAttackMediator());
-            _weaponContainer.InstanceSingle<IAttackInputProvider>(new DummyAttackInputProvider(() => Input.GetMouseButtonDown(0)));
+            _weaponContainer.InstanceSingle<IWeaponInputProvider>(new DummyWeaponInputProvider(() => Input.GetMouseButtonDown(0)));
             _weaponContainer.InstanceSingle<IAttackDamageModifier>(new DummyAttackDamageModifier());
 
             _weaponContainer.NewSingleInterfacesAndSelf<WeaponAnimator>();
