@@ -5,20 +5,29 @@ using Zenject;
 
 namespace RogueDungeon.Weapons
 {
-    public class WeaponInstaller : MonoInstaller
+    public class WeaponInstaller : MonoBehaviour, IWeaponInstaller
     {
-        [SerializeField] private WeaponConfig _config;
         [SerializeField] private WeaponAnimationRootObject _animationRoot;
 
-        public override void InstallBindings()
+        private DiContainer _weaponContainer;
+
+        public IWeapon ResolveWeapon() => _weaponContainer.Resolve<IWeapon>();
+
+        public void InstallBindings(WeaponConfig config, DiContainer container)
         {
-            Container.InstanceSingleInterfaces(_config);
-            Container.InstanceSingle(_animationRoot);
-            Container.InstanceSingle<IAttackMediator>(new DummyAttackMediator());
-            Container.InstanceSingle<IAttackInputProvider>(new DummyAttackInputProvider(() => Input.GetMouseButtonDown(0)));
+            _weaponContainer = container.CreateSubContainer();
             
-            Container.NewSingleNonLazy<WeaponAnimator>();
-            Container.NewSingleNonLazy<WeaponBehaviour>();
+            _weaponContainer.InstanceSingleInterfaces(config);
+            _weaponContainer.InstanceSingle(_animationRoot);
+            
+            _weaponContainer.InstanceSingle<IAttackMediator>(new DummyAttackMediator());
+            _weaponContainer.InstanceSingle<IAttackInputProvider>(new DummyAttackInputProvider(() => Input.GetMouseButtonDown(0)));
+            _weaponContainer.InstanceSingle<IAttackDamageModifier>(new DummyAttackDamageModifier());
+
+            _weaponContainer.NewSingle<WeaponAnimator>();
+            _weaponContainer.NewSingle<WeaponBehaviour>();
+            _weaponContainer.NewSingle<AttackHitHandler>();
+            _weaponContainer.NewSingle<IWeapon, Weapon>();
         }
     }
 }

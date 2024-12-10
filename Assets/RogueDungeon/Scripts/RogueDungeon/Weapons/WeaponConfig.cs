@@ -6,8 +6,9 @@ namespace RogueDungeon.Weapons
 {
     public class WeaponConfig : ScriptableObject, IAttackComboCountAndTimingsConfig, IWeaponAnimationsConfig, IWeaponParametersConfig
     {
+        [field: TitleGroup("Prefab"), HideLabel, SerializeField] public WeaponInstaller Prefab { get; private set; }
         [SerializeField, HideLabel, TitleGroup("Idle animation")] private AnimationClip _idleAnimation;
-        [SerializeField] private AttackConfig[] _attacks;
+        [SerializeField, TitleGroup("Attacks")] private AttackConfig[] _attacks;
 
         int IAttackComboCountAndTimingsConfig.Count => _attacks.Length;
         

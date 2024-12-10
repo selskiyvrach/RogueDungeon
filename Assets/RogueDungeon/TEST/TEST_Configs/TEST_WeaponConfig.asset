@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 288289683a2e494c8446c18cf65ff7fe, type: 3}
   m_Name: TEST_WeaponConfig
   m_EditorClassIdentifier: 
+  <Prefab>k__BackingField: {fileID: 2562710683153110367, guid: 6d1e658bc9f8afe48a4ff83462ca3f7b,
+    type: 3}
   _idleAnimation: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
   _attacks:
   - <OverrideDamage>k__BackingField: 1
