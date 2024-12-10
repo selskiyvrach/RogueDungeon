@@ -21,12 +21,12 @@ MonoBehaviour:
     <OverrideTimings>k__BackingField: 1
     <Damage>k__BackingField: 10
     <HitMask>k__BackingField: 8
-    <PrepareAnimationDuration>k__BackingField: 0.3
-    <ExecuteAnimationDuration>k__BackingField: 0.3
-    <FinishAnimationDuration>k__BackingField: 0.3
+    <PrepareAnimationDuration>k__BackingField: 0.2
+    <ExecuteAnimationDuration>k__BackingField: 0.4
+    <FinishAnimationDuration>k__BackingField: 0.2
     <PrepareAnimation>k__BackingField: {fileID: 7400000, guid: 82d5299bf6cfbd04bb8b9569b28c285a,
       type: 2}
-    <ExecuteAnimation>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+    <ExecuteAnimation>k__BackingField: {fileID: 7400000, guid: 8ee57f65f03bb5d408b4069f22526c37,
       type: 2}
     <FinishAnimation>k__BackingField: {fileID: 7400000, guid: 02cf1cc053486db459e64353bd903438,
       type: 2}
