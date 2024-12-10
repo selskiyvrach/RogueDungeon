@@ -7,7 +7,7 @@ using UniRx;
 public class WeaponBehaviourTests
 {
     private Mock<IAttackMediator> _mockMediator;
-    private Mock<IAttackInputProvider> _mockInputProvider;
+    private Mock<IWeaponInputProvider> _mockInputProvider;
     private Mock<IAttackComboCountAndTimingsConfig> _mockComboConfig;
     private Mock<IAttackTimingsProvider> _mockTimingsProvider;
 
@@ -18,7 +18,7 @@ public class WeaponBehaviourTests
     public void Setup()
     {
         _mockMediator = new Mock<IAttackMediator>();
-        _mockInputProvider = new Mock<IAttackInputProvider>();
+        _mockInputProvider = new Mock<IWeaponInputProvider>();
         _mockComboConfig = new Mock<IAttackComboCountAndTimingsConfig>();
         _mockTimingsProvider = new Mock<IAttackTimingsProvider>();
 
