@@ -11,14 +11,14 @@ namespace Common.FSM
         {
             _timer = new Timer(duration);
             AddEnterHandler(_timer.Start);
-            AddExitHandler(_timer.Stop);
+            AddExitHandler(_timer.Cancel);
         }
         
         public TimerState(Func<float> duration)
         {
             _timer = new Timer();
             AddEnterHandler(()=> _timer.Start(duration.Invoke()));
-            AddExitHandler(_timer.Stop);
+            AddExitHandler(_timer.Cancel);
         }
     }
 }

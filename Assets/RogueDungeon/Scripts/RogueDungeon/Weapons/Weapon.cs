@@ -15,6 +15,9 @@
             _weaponBehaviour = weaponBehaviour;
             _weaponAnimator = weaponAnimator;
             _attackHitHandler = attackHitHandler;
+            
+            _weaponAnimator.Initialize();
+            _weaponBehaviour.Enable();
         }
     }
 }

@@ -33,6 +33,7 @@ namespace RogueDungeon.Animations
             _isLooped = isLooped;
             _playTime = 0;
             _timeScale = _clip.length / _duration;
+            _updateSubscriber?.Dispose();
             _updateSubscriber = Observable.EveryUpdate().Subscribe(_ => OnUpdate());
             PrepareEvents();
             UpdatePlayback();

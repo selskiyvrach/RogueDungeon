@@ -17,31 +17,29 @@ namespace Common.FSM
         {
         }
 
-        public void Start(float duration)
-        {
-            _duration = duration;
-            Start();
-        }
-
         public void Start(float duration, Action callback)
         {
             _callback = callback;
             Start(duration);
         }
 
-        public void Start() => 
-            _sub = Observable.Timer(TimeSpan.FromSeconds(_duration)).Subscribe(_ => Stop());
-
-        public void Stop()
+        public void Start(float duration)
         {
-            _callback?.Invoke();
-            Cancel();
+            _duration = duration;
+            Start();
         }
 
-        public void Cancel()
+        public void Start()
         {
+            IsFinished = false;
+            _sub = Observable.Timer(TimeSpan.FromSeconds(_duration)).Subscribe(_ =>
+            {
+                _callback?.Invoke();
+                IsFinished = true;
+            });
+        }
+
+        public void Cancel() => 
             _sub?.Dispose();
-            IsFinished = true;
-        }
     }
 }

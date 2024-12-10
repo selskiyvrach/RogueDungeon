@@ -83,7 +83,10 @@ Animation:
   m_Enabled: 0
   serializedVersion: 3
   m_Animation: {fileID: 0}
-  m_Animations: []
+  m_Animations:
+  - {fileID: 7400000, guid: 3d24f20c33be8ec4e81301440a91097f, type: 2}
+  - {fileID: 7400000, guid: 82d5299bf6cfbd04bb8b9569b28c285a, type: 2}
+  - {fileID: 7400000, guid: 02cf1cc053486db459e64353bd903438, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
