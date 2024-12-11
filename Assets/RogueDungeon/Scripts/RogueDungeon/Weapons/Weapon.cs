@@ -7,16 +7,16 @@
     public class Weapon : IWeapon
     {
         private readonly WeaponBehaviour _weaponBehaviour;
-        private readonly WeaponAnimator _weaponAnimator;
+        private readonly WeaponWorldSpaceAnimator _weaponWorldSpaceAnimator;
         private readonly AttackHitHandler _attackHitHandler;
 
-        public Weapon(WeaponBehaviour weaponBehaviour, WeaponAnimator weaponAnimator, AttackHitHandler attackHitHandler)
+        public Weapon(WeaponBehaviour weaponBehaviour, WeaponWorldSpaceAnimator weaponWorldSpaceAnimator, AttackHitHandler attackHitHandler)
         {
             _weaponBehaviour = weaponBehaviour;
-            _weaponAnimator = weaponAnimator;
+            _weaponWorldSpaceAnimator = weaponWorldSpaceAnimator;
             _attackHitHandler = attackHitHandler;
             
-            _weaponAnimator.Initialize();
+            _weaponWorldSpaceAnimator.Initialize();
             _weaponBehaviour.Enable();
         }
     }
