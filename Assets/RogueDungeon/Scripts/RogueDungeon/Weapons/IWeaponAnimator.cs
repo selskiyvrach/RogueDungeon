@@ -6,8 +6,6 @@ namespace RogueDungeon.Weapons
     {
         void PlayHit(ScreenSpaceDirection direction);
         void ResetCurrentAnimation();
-        void PlayUnsheath(float duration);
-        void PlaySheath(float duration);
         void PlayPrepareAttack(float duration);
         void PlayFinishAttackLeft(float duration);
         void PlayFinishAttackRight(float duration);

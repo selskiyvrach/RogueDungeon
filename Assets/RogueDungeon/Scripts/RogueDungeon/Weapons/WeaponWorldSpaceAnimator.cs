@@ -12,8 +12,6 @@ namespace RogueDungeon.Weapons
         [SerializeField] private AnimationClip _finishAttackRightAnimation;
         [SerializeField] private AnimationClip _finishAttackLeftAnimation;
         
-        private static readonly int UnsheathHash = Animator.StringToHash("unsheath");
-        private static readonly int SheathHash = Animator.StringToHash("sheath");
         private static readonly int PrepareAttackHash = Animator.StringToHash("prepare_attack");
         private static readonly int FinishAttackHash = Animator.StringToHash("finish_attack");
         private static readonly int SpeedHash = Animator.StringToHash("speed");
@@ -21,12 +19,6 @@ namespace RogueDungeon.Weapons
         
         public void ResetCurrentAnimation() => 
             _animator.SetTrigger(IdleHash);
-
-        public void PlayUnsheath(float duration) => 
-            PlayHandAnimation(UnsheathHash, _unsheathAnimation.length, duration);
-
-        public void PlaySheath(float duration) => 
-            PlayHandAnimation(SheathHash, _sheathAnimation.length, duration);
 
         public void PlayPrepareAttack(float duration) => 
             PlayHandAnimation(PrepareAttackHash, _prepareAttackAnimation.length, duration);

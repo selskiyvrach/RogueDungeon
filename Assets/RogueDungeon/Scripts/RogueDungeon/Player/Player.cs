@@ -23,9 +23,9 @@ namespace RogueDungeon.Player
         private readonly IProperty<DodgeState> _dodgeState;
 
         [Inject] private MovementBehaviour _movementBehaviour;
-        [Inject] private WeaponBehaviour _weaponBehaviour;
+        [Inject] private AttackBehaviour _weaponBehaviour;
 
-        public Player(IProperty<DodgeState> dodgeState, PlayerRootObject playerRoot, WeaponBehaviour weaponBehaviour, MovementBehaviour movementBehaviour)
+        public Player(IProperty<DodgeState> dodgeState, PlayerRootObject playerRoot, AttackBehaviour weaponBehaviour, MovementBehaviour movementBehaviour)
         {
             _dodgeState = dodgeState;
             _playerRoot = playerRoot;

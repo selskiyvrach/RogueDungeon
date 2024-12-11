@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RogueDungeon.Weapons
 {
-    public interface IWeaponActionsDurationsProvider
+    public interface IAttackActionsDurationsProvider
     {
         float IdleAttackTransition { get; }
         float AttackExecute { get; }
@@ -27,13 +27,12 @@ namespace RogueDungeon.Weapons
         int Agility { get; }
     }
 
-    public interface IWeaponActionsBaseDurationsProvider : IWeaponActionsDurationsProvider
+    public interface IWeaponActionsBaseDurationsProvider : IAttackActionsDurationsProvider
     {
         
     }
 
-
-    public class WeaponActionsDurationsCalculator : IWeaponActionsDurationsProvider
+    public class WeaponActionsDurationsCalculator : IAttackActionsDurationsProvider
     {
         // player: strength 1-10
         // player: agility 1-10
@@ -76,7 +75,7 @@ namespace RogueDungeon.Weapons
         }
     }
 
-    public interface IWeaponAttackDirectionsProvider
+    public interface IAttackDirectionsProvider
     {
         ScreenSpaceDirection[] ComboAttackDirections { get; }
     }
@@ -86,7 +85,7 @@ namespace RogueDungeon.Weapons
         float Weight { get; }
     }
 
-    public class WeaponConfig : ScriptableObject, IWeaponAttackDirectionsProvider, IWeaponWeightProvider
+    public class WeaponConfig : ScriptableObject, IAttackDirectionsProvider, IWeaponWeightProvider
     {
         [field: SerializeField] public WeaponInstaller Prefab { get; private set; }
         [field: SerializeField] public float Weight { get; private set; } = 5;

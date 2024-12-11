@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RogueDungeon.Weapons
 {
-    public class WeaponAnimatorFacade : MonoBehaviour, IWeaponAnimator
+    public class AttackAnimatorFacade : MonoBehaviour, IWeaponAnimator
     {
         [SerializeField] private WeaponWorldSpaceAnimator _worldSpaceAnimator;
         [SerializeField] private WeaponScreenSpaceAnimator _screenSpaceAnimator;
@@ -13,12 +13,6 @@ namespace RogueDungeon.Weapons
 
         public void ResetCurrentAnimation() => 
             _worldSpaceAnimator.ResetCurrentAnimation();
-
-        public void PlayUnsheath(float duration) => 
-            _worldSpaceAnimator.PlayUnsheath(duration);
-
-        public void PlaySheath(float duration) => 
-            _worldSpaceAnimator.PlaySheath(duration);
 
         public void PlayPrepareAttack(float duration) => 
             _worldSpaceAnimator.PlayPrepareAttack(duration);

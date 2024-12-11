@@ -2,12 +2,12 @@
 
 namespace RogueDungeon.Weapons
 {
-    public interface IWeaponInputProvider
+    public interface IAttackInputProvider
     {
         bool HasAttackInput();
     }
     
-    public class DummyWeaponInputProvider : IWeaponInputProvider
+    public class DummyWeaponInputProvider : IAttackInputProvider
     {
         private readonly Func<bool> _hasAttackInput;
 

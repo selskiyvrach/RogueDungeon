@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 4919887546836312029}
   - component: {fileID: 7251517860949749528}
   m_Layer: 0
-  m_Name: ScreenSpaceEffects
+  m_Name: ScreenSpaceAnimator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
