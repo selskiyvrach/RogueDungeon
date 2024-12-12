@@ -11,6 +11,7 @@ namespace RogueDungeon.Weapons
         event Action OnPrepareAttackStarted;
         event Action OnExecuteAttackStarted;
         event Action OnHitKeyframe;
+        event Action OnIdle;
         event Action OnFinishAttackStarted;
     }
 }

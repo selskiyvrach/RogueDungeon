@@ -24,6 +24,7 @@ namespace RogueDungeon.Weapons
         public event Action OnPrepareAttackStarted = delegate { };
         public event Action OnExecuteAttackStarted = delegate { };
         public event Action OnHitKeyframe = delegate { };
+        public event Action OnIdle = delegate { };
         public event Action OnFinishAttackStarted = delegate { };
 
         public AttackBehaviour(IAttackMediator mediator, IAttackInputProvider inputProvider, IAttackDirectionsProvider weaponParameters, IAttackActionsDurationsProvider durationsProvider)
@@ -39,6 +40,7 @@ namespace RogueDungeon.Weapons
                     _attackIndex = -1;
                     _mediator.IsAttackInterruptable = true;
                     CurrentAttackDirection = ScreenSpaceDirection.None;
+                    OnIdle.Invoke();
                 });
             
             var prepareAttack = new TimerState(() => Durations.IdleAttackTransition).OnEnter(() =>
@@ -62,7 +64,7 @@ namespace RogueDungeon.Weapons
                 });
 
             var finishAttack = new TimerState(() => Durations.IdleAttackTransition)
-                .OnEnter(OnFinishAttackStarted.Invoke);
+                .OnEnter(() => OnFinishAttackStarted.Invoke());
             
             var attackBuilder = new StateMachineBuilder(attackIdle, prepareAttack, executeAttack, finishAttack);
             var canStartAttack = new If(_mediator.CanStartAttack);

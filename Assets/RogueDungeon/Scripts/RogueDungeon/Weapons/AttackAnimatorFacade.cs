@@ -16,8 +16,8 @@ namespace RogueDungeon.Weapons
         public void PlayHit(ScreenSpaceDirection direction) => 
             _screenSpaceAnimator.PlayHit(direction);
 
-        public void ResetCurrentAnimation() => 
-            _worldSpaceAnimator.ResetCurrentAnimation();
+        public void PlayIdle() => 
+            _worldSpaceAnimator.PlayIdle();
 
         public void PlayPrepareAttack(float duration) => 
             _worldSpaceAnimator.PlayPrepareAttack(duration);

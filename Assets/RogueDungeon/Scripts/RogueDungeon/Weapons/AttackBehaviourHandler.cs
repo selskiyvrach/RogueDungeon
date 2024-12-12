@@ -11,12 +11,14 @@ namespace RogueDungeon.Weapons
 
         public void Initialize()
         {
+            Behaviour.OnIdle += HandleIdle;
             Behaviour.OnHitKeyframe += HandleHit;
             Behaviour.OnPrepareAttackStarted += HandlePrepare;
             Behaviour.OnExecuteAttackStarted += HandleExecute;
             Behaviour.OnFinishAttackStarted += HandleFinish;
         }
 
+        protected abstract void HandleIdle();
         protected abstract void HandleExecute();
         protected abstract void HandleFinish();
         protected abstract void HandlePrepare();

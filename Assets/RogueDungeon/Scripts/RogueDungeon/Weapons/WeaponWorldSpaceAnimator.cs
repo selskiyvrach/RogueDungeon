@@ -17,7 +17,7 @@ namespace RogueDungeon.Weapons
         private static readonly int SpeedHash = Animator.StringToHash("speed");
         private static readonly int IdleHash = Animator.StringToHash("idle");
         
-        public void ResetCurrentAnimation() => 
+        public void PlayIdle() => 
             PlayHandAnimation(IdleHash, _idleAnimation.length, _idleAnimation.length);
 
         public void PlayPrepareAttack(float duration) => 

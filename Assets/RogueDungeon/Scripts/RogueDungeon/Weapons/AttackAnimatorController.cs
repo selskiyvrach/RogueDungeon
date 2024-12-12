@@ -10,6 +10,9 @@ namespace RogueDungeon.Weapons
         public AttackAnimatorController(IWeaponAnimator animator, IAttackBehaviour attackBehaviour) : base(attackBehaviour) => 
             _animator = animator;
 
+        protected override void HandleIdle() => 
+            _animator.PlayIdle();
+
         protected override void HandleExecute()
         {
         }
