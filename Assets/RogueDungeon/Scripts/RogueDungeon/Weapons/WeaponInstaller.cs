@@ -1,5 +1,6 @@
 ﻿using Common.GameObjectMarkers;
 using Common.ZenjectUtils;
+using RogueDungeon.PlayerInput;
 using UnityEngine;
 using Zenject;
 
@@ -22,7 +23,8 @@ namespace RogueDungeon.Weapons
             _weaponContainer.InstanceSingle(_animationRoot);
             
             _weaponContainer.InstanceSingle<IAttackMediator>(new DummyAttackMediator());
-            _weaponContainer.InstanceSingle<IAttackInputProvider>(new DummyWeaponInputProvider(() => Input.GetMouseButtonDown(0)));
+            var input = new CharacterInput();
+            _weaponContainer.InstanceSingle<IAttackInputProvider>(new DummyWeaponInputProvider(() => input.HasCommand(Command.Attack)));
             _weaponContainer.InstanceSingle<IAttackDamageModifier>(new DummyAttackDamageModifier());
             _weaponContainer.InstanceSingle(_animator);
             _weaponContainer.NewSingle<IWeaponAnimator, AttackAnimatorFacade>();

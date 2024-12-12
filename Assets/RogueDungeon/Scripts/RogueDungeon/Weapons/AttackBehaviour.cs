@@ -45,8 +45,7 @@ namespace RogueDungeon.Weapons
             
             var prepareAttack = new TimerState(() => Durations.IdleAttackTransition).OnEnter(() =>
             {
-                _attackIndex = ++_attackIndex % _weaponParameters.ComboAttackDirections.Length;
-                CurrentAttackDirection = _weaponParameters.ComboAttackDirections[_attackIndex];
+                IncrementCurrentAttack();
                 OnPrepareAttackStarted.Invoke();
             });
             
@@ -73,15 +72,29 @@ namespace RogueDungeon.Weapons
             // basic flow of states
             attackBuilder.AddTransition(attackIdle, prepareAttack, shouldStartAttack);
             attackBuilder.AddTransitionFromFinished(prepareAttack, executeAttack, canStartAttack);
+            // combo continuation
+            attackBuilder.AddTransitionFromFinished(executeAttack, executeAttack, new If(() => TryTransitionToNextCombo(shouldStartAttack)));
             attackBuilder.AddTransitionFromFinished(executeAttack, finishAttack);
             attackBuilder.AddTransitionFromFinished(finishAttack, attackIdle);
             
-            // combo continuation
-            attackBuilder.AddTransitionFromFinished(executeAttack, executeAttack, shouldStartAttack);
             
             // attack cancel by another action
             attackBuilder.AddTransitionFromFinished(prepareAttack, finishAttack, new Not(canStartAttack));
             _stateMachine = attackBuilder.Build();
+        }
+
+        private void IncrementCurrentAttack()
+        {
+            _attackIndex = ++_attackIndex % _weaponParameters.ComboAttackDirections.Length;
+            CurrentAttackDirection = _weaponParameters.ComboAttackDirections[_attackIndex];
+        }
+
+        private bool TryTransitionToNextCombo(IfAll shouldStartAttack)
+        {
+            if (!shouldStartAttack.IsMet())
+                return false;
+            IncrementCurrentAttack();
+            return true;
         }
 
         public override void Enable()
