@@ -13,7 +13,7 @@ namespace RogueDungeon.Weapons
     }
 
     [Serializable]
-    public class BaseWeaponActionsDurations : IWeaponActionsBaseDurationsProvider
+    public class WeaponActionsDurations : IAttackActionsDurationsProvider
     {
         [field: SerializeField] public float IdleAttackTransition { get; private set;} = .5f;
         [field: SerializeField] public float AttackExecute { get; private set;} = .5f;
@@ -25,11 +25,6 @@ namespace RogueDungeon.Weapons
     {
         int Strength { get; }
         int Agility { get; }
-    }
-
-    public interface IWeaponActionsBaseDurationsProvider : IAttackActionsDurationsProvider
-    {
-        
     }
 
     public class WeaponActionsDurationsCalculator : IAttackActionsDurationsProvider
@@ -45,14 +40,14 @@ namespace RogueDungeon.Weapons
         
         private readonly IWeaponWeightProvider _weightProvider;
         private readonly ICharacterAttributesProvider _attributesProvider;
-        private readonly IWeaponActionsBaseDurationsProvider _baseDurationDurations;
+        private readonly IAttackActionsDurationsProvider _baseDurationDurations;
 
         public float IdleAttackTransition { get; private set; }
         public float AttackExecute { get; private set; }
         public float Sheath { get; private set; }
         public float Block { get; private set; }
 
-        public WeaponActionsDurationsCalculator(IWeaponWeightProvider weightProvider, ICharacterAttributesProvider attributesProvider, IWeaponActionsBaseDurationsProvider baseDurationDurations)
+        public WeaponActionsDurationsCalculator(IWeaponWeightProvider weightProvider, ICharacterAttributesProvider attributesProvider, IAttackActionsDurationsProvider baseDurationDurations)
         {
             _weightProvider = weightProvider;
             _attributesProvider = attributesProvider;

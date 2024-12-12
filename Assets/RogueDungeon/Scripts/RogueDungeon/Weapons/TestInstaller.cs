@@ -1,7 +1,4 @@
-﻿using Common.Registries;
-using Common.ZenjectUtils;
-using RogueDungeon.Collisions;
-using RogueDungeon.Entities;
+﻿using Common.ZenjectUtils;
 using UnityEngine;
 using Zenject;
 
@@ -11,12 +8,14 @@ namespace RogueDungeon.Weapons
     {
         [SerializeField] private WeaponConfig _weaponConfig;
         [SerializeField] private Transform _weaponParent;
+        [SerializeField] private WeaponScreenSpaceAnimator _screenSpaceAnimator;
+        [SerializeField] private WeaponActionsDurations _actionsDurations;
         
         public override void InstallBindings()
         {
             // environment
-            Container.NewSingle<IRegistry<IGameEntity>, Registry<IGameEntity>>();
-            Container.NewSingle<ICollisionsDetector, CollisionsDetector>();
+            Container.InstanceSingle(_screenSpaceAnimator);
+            Container.InstanceSingle<IAttackActionsDurationsProvider, WeaponActionsDurations>(_actionsDurations);
             
             // item
             Container.InstanceSingleInterfaces(_weaponConfig);

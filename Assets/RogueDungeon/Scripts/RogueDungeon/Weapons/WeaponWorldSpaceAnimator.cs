@@ -6,28 +6,28 @@ namespace RogueDungeon.Weapons
     {
         [SerializeField] private Animator _animator;
         [Space]
-        [SerializeField] private AnimationClip _unsheathAnimation;
-        [SerializeField] private AnimationClip _sheathAnimation;
         [SerializeField] private AnimationClip _prepareAttackAnimation;
+        [SerializeField] private AnimationClip _idleAnimation;
         [SerializeField] private AnimationClip _finishAttackRightAnimation;
         [SerializeField] private AnimationClip _finishAttackLeftAnimation;
         
-        private static readonly int PrepareAttackHash = Animator.StringToHash("prepare_attack");
-        private static readonly int FinishAttackHash = Animator.StringToHash("finish_attack");
+        private static readonly int PrepareAttackHash = Animator.StringToHash("prepare");
+        private static readonly int FinishRightAttackHash = Animator.StringToHash("finish_right");
+        private static readonly int FinishLeftAttackHash = Animator.StringToHash("finish_left");
         private static readonly int SpeedHash = Animator.StringToHash("speed");
         private static readonly int IdleHash = Animator.StringToHash("idle");
         
         public void ResetCurrentAnimation() => 
-            _animator.SetTrigger(IdleHash);
+            PlayHandAnimation(IdleHash, _idleAnimation.length, _idleAnimation.length);
 
         public void PlayPrepareAttack(float duration) => 
             PlayHandAnimation(PrepareAttackHash, _prepareAttackAnimation.length, duration);
 
         public void PlayFinishAttackLeft(float duration) => 
-            PlayHandAnimation(FinishAttackHash, _finishAttackLeftAnimation.length, duration);
+            PlayHandAnimation(FinishLeftAttackHash, _finishAttackLeftAnimation.length, duration);
         
         public void PlayFinishAttackRight(float duration) => 
-            PlayHandAnimation(FinishAttackHash, _finishAttackRightAnimation.length, duration);
+            PlayHandAnimation(FinishRightAttackHash, _finishAttackRightAnimation.length, duration);
 
         private void PlayHandAnimation(int hash, float animationLength, float duration)
         {

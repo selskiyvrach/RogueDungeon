@@ -8,6 +8,7 @@ namespace RogueDungeon.Weapons
     public class WeaponInstaller : MonoBehaviour, IWeaponInstaller
     {
         [SerializeField] private WeaponAnimationRootObject _animationRoot;
+        [SerializeField] private WeaponWorldSpaceAnimator _animator;
 
         private DiContainer _weaponContainer;
 
@@ -23,9 +24,11 @@ namespace RogueDungeon.Weapons
             _weaponContainer.InstanceSingle<IAttackMediator>(new DummyAttackMediator());
             _weaponContainer.InstanceSingle<IAttackInputProvider>(new DummyWeaponInputProvider(() => Input.GetMouseButtonDown(0)));
             _weaponContainer.InstanceSingle<IAttackDamageModifier>(new DummyAttackDamageModifier());
+            _weaponContainer.InstanceSingle(_animator);
+            _weaponContainer.NewSingle<IWeaponAnimator, AttackAnimatorFacade>();
+            _weaponContainer.NewSingle<AttackAnimatorController>();
 
-            _weaponContainer.NewSingleInterfacesAndSelf<WeaponWorldSpaceAnimator>();
-            _weaponContainer.NewSingle<AttackBehaviour>();
+            _weaponContainer.NewSingle<IAttackBehaviour, AttackBehaviour>();
             _weaponContainer.NewSingle<AttackHitHandler>();
             _weaponContainer.NewSingle<IWeapon, Weapon>();
         }

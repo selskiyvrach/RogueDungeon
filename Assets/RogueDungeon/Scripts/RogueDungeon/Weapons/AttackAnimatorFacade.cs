@@ -1,13 +1,18 @@
 ﻿using Common.ScreenSpaceEffects;
-using UnityEngine;
 
 namespace RogueDungeon.Weapons
 {
-    public class AttackAnimatorFacade : MonoBehaviour, IWeaponAnimator
+    public class AttackAnimatorFacade : IWeaponAnimator
     {
-        [SerializeField] private WeaponWorldSpaceAnimator _worldSpaceAnimator;
-        [SerializeField] private WeaponScreenSpaceAnimator _screenSpaceAnimator;
-        
+        private readonly WeaponWorldSpaceAnimator _worldSpaceAnimator;
+        private readonly WeaponScreenSpaceAnimator _screenSpaceAnimator;
+
+        public AttackAnimatorFacade(WeaponWorldSpaceAnimator worldSpaceAnimator, WeaponScreenSpaceAnimator screenSpaceAnimator)
+        {
+            _worldSpaceAnimator = worldSpaceAnimator;
+            _screenSpaceAnimator = screenSpaceAnimator;
+        }
+
         public void PlayHit(ScreenSpaceDirection direction) => 
             _screenSpaceAnimator.PlayHit(direction);
 
