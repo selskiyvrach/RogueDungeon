@@ -3,7 +3,7 @@ using Common.DotNetUtils;
 using Common.Fsm;
 using Zenject;
 
-namespace RogueDungeon.Behaviours.WeaponBehaviour
+namespace RogueDungeon.Behaviours.WeaponWielding
 {
     internal class StatesFactoryWithCache : IStatesFactory
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Common.Fsm;
 
-namespace RogueDungeon.Behaviours.WeaponBehaviour
+namespace RogueDungeon.Behaviours.WeaponWielding
 {
     internal class AttackExecutionState : TiedToAnimationState
     {
@@ -18,7 +18,7 @@ namespace RogueDungeon.Behaviours.WeaponBehaviour
         };
 
         public AttackExecutionState(IAnimator animator, IDurations durations, IComboInfo comboInfo, IComboCounter comboCounter, IInput input, IControlState controlState) : 
-            base(animator, durations, WeaponBehaviour.Duration.Attack)
+            base(animator, durations, WeaponWielding.Duration.Attack)
         {
             _comboInfo = comboInfo;
             _comboCounter = comboCounter;
@@ -45,7 +45,7 @@ namespace RogueDungeon.Behaviours.WeaponBehaviour
             if (_controlState.Is(AbleTo.StartAttack) && _input.TryConsume(Input.Attack))
             {
                 _comboCounter.Count++;
-                stateChanger.To<AttackExecutionState>();
+                stateChanger.To<AttackToAttackTransitionState>();
             }
             else
                 stateChanger.To<AttackFinishState>();

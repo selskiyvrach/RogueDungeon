@@ -1,6 +1,6 @@
 ﻿using Common.Fsm;
 
-namespace RogueDungeon.Behaviours.WeaponBehaviour
+namespace RogueDungeon.Behaviours.WeaponWielding
 {
     internal class IdleState : State
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Common.Fsm;
 
-namespace RogueDungeon.Behaviours.WeaponBehaviour
+namespace RogueDungeon.Behaviours.WeaponWielding
 {
     internal class AttackFinishState : TiedToAnimationState
     {
@@ -15,7 +15,7 @@ namespace RogueDungeon.Behaviours.WeaponBehaviour
         };
 
         public AttackFinishState(IAnimator animator, IDurations durations, IComboInfo comboInfo, IComboCounter comboCounter) 
-            : base(animator, durations, WeaponBehaviour.Duration.AttackIdleTransition)
+            : base(animator, durations, WeaponWielding.Duration.AttackIdleTransition)
         {
             _comboInfo = comboInfo;
             _comboCounter = comboCounter;

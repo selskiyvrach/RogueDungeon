@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Behaviours.WeaponBehaviour
+﻿namespace RogueDungeon.Behaviours.WeaponWielding
 {
     public struct PlayOptions
     {

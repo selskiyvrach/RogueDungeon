@@ -1,6 +1,6 @@
 ﻿using Common.Fsm;
 
-namespace RogueDungeon.Behaviours.WeaponBehaviour
+namespace RogueDungeon.Behaviours.WeaponWielding
 {
     internal class AttackPrepareState : TiedToAnimationState
     {
@@ -9,7 +9,7 @@ namespace RogueDungeon.Behaviours.WeaponBehaviour
         protected override Animation Animation => Animation.PrepareAttackToBottomLeft;
 
         public AttackPrepareState(IAnimator animator, IDurations durations) : 
-            base(animator, durations, WeaponBehaviour.Duration.AttackIdleTransition)
+            base(animator, durations, WeaponWielding.Duration.AttackIdleTransition)
         {
         }
 

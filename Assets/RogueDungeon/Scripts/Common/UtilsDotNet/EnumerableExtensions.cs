@@ -37,7 +37,10 @@ namespace Common.DotNetUtils
             source.Where(n => n is T item && (predicate?.Invoke(item) ?? false)).Cast<T>();
 
         public static T Get<T>(this IEnumerable<object> source, Predicate<T> predicate = null) =>
-            source.GetAll(predicate).First();
+            source.GetAll(predicate).FirstOrDefault();
+        
+        public static T Get<T>(this IEnumerable<T> source, Predicate<T> predicate) =>
+            source.FirstOrDefault(predicate.Invoke);
         
         public static T GetOrDefault<T>(this IEnumerable<object> source, Predicate<T> predicate = null) =>
             source.TryGet(out var result, predicate) ? result : default;
