@@ -10,26 +10,26 @@ namespace RogueDungeon.Weapons
     {
         T Create<T>() where T : IState;
     }
-
-    internal class StatesFactoryWithCache
+    
+    internal class StatesFactoryWithCache : IStatesFactory
     {
-        private readonly DiContainer _diContainer;
-        private readonly List<IState> _cachedStates = new();
+        private readonly DiContainer _container;
+        private readonly List<IState> _cache = new();
 
-        public StatesFactoryWithCache(DiContainer diContainer) => 
-            _diContainer = diContainer;
+        public StatesFactoryWithCache(DiContainer container) => 
+            _container = container;
 
         public T Create<T>() where T : IState => 
-            _cachedStates.Get<T>() ?? _cachedStates.With(_diContainer.Instantiate<T>()).Get<T>();
+            _cache.Get<T>() ?? _cache.With(_container.Instantiate<T>()).Get<T>();
     }
 
-    internal class WeaponBehaviour : Behaviour, IStateChanger
+    internal class WeaponWieldingBehaviour : Behaviour, IStateChanger
     {
         private readonly IStatesFactory _statesFactory;
         private readonly HashSet<IState> _transitionsHistory = new();
         private IState _currentState;
 
-        public WeaponBehaviour(IStatesFactory statesFactory) => 
+        public WeaponWieldingBehaviour(IStatesFactory statesFactory) => 
             _statesFactory = statesFactory;
 
         public override void Enable()
