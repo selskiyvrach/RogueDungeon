@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Common.UnityUtils
@@ -12,8 +13,8 @@ namespace Common.UnityUtils
         [Serializable]
         public struct KeyValuePair<TKey, TValue>
         {
-            public TKey Key;
-            public TValue Value;
+            [HideLabel, HorizontalGroup]public TKey Key;
+            [HideLabel, HorizontalGroup]public TValue Value;
 
             public System.Collections.Generic.KeyValuePair<TKey, TValue> ToSystemType() => 
                 new(Key, Value);
@@ -23,7 +24,6 @@ namespace Common.UnityUtils
         private Dictionary<TKey, TValue> _dictionary;
 
         public int Count => GetDictionary().Count;
-        public bool IsReadOnly => false;
         public IEnumerable<TKey> Keys => GetDictionary().Keys;
         public IEnumerable<TValue> Values => GetDictionary().Values;
         public TValue this[TKey key]
