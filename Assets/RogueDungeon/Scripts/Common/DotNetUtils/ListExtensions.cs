@@ -7,7 +7,19 @@ namespace Common.DotNetUtils
     {
         public static T Random<T>(this IList<T> source) => 
             source[UnityEngine.Random.Range(0, source.Count)];
+
+        public static List<T> With<T>(this List<T> list, T element)
+        {
+            list.Add(element);
+            return list;
+        }
         
+        public static T FromAdded<T>(this List<T> list, T element)
+        {
+            list.Add(element);
+            return element;
+        }
+
         public static bool TryGet<T>(this IList<T> source, int index, out T item)
         {
             var outOfBounds = source.OutOfBounds(index);

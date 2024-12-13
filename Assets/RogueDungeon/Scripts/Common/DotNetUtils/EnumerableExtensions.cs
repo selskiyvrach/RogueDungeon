@@ -7,6 +7,16 @@ namespace Common.DotNetUtils
 {
     public static class EnumerableExtensions
     {
+        public static string Join(this IEnumerable<string> source, string separator = ", ") => 
+            string.Join(separator, source);
+        
+        public static string Join<T>(this IEnumerable<T> source, Func<T, string> selector, string separator = ", ") => 
+            string.Join(separator, source.Select(selector));
+        
+        public static string JoinTypeNames<T>(this IEnumerable<T> source, string separator = ", ") => 
+            string.Join(separator, source.Select(n => n.TypeName()));
+
+
         public static IEnumerable<T> SafeEnumerable<T>(this IEnumerable<T> source) => 
             source ?? Enumerable.Empty<T>();
 
