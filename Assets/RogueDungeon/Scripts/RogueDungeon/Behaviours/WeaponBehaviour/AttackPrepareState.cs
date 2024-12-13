@@ -1,4 +1,6 @@
-﻿namespace RogueDungeon.Behaviours.WeaponBehaviour
+﻿using Common.Fsm;
+
+namespace RogueDungeon.Behaviours.WeaponBehaviour
 {
     internal class AttackPrepareState : TiedToAnimationState
     {

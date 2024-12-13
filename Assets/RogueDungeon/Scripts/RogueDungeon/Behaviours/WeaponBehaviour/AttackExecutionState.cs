@@ -1,4 +1,5 @@
 ﻿using System;
+using Common.Fsm;
 
 namespace RogueDungeon.Behaviours.WeaponBehaviour
 {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Common.DotNetUtils;
+using Common.Fsm;
 using Zenject;
 
 namespace RogueDungeon.Behaviours.WeaponBehaviour
