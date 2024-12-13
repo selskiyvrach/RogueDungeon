@@ -1,27 +1,34 @@
-﻿using Common.Fsm;
+﻿using System;
+using Common.Animations;
+using Common.Fsm;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
     internal abstract class TiedToAnimationState : TimerState
     {
         private readonly IAnimator _animator;
-        private readonly IDurations _durations;
-        private readonly Duration _duration;
+        protected abstract AnimationData Animation { get; }
+        protected override float Duration => Animation.Duration;
 
-        protected abstract Animation Animation { get; }
-        protected override float Duration => _durations.Get(_duration);
-
-        protected TiedToAnimationState(IAnimator animator, IDurations durations, Duration duration)
-        {
+        protected TiedToAnimationState(IAnimator animator) => 
             _animator = animator;
-            _durations = durations;
-            _duration = duration;
-        }
 
         public override void Enter()
         {
             base.Enter();
-            _animator.Play(new PlayOptions(Animation, Duration));
+            _animator.OnEvent += OnEvent;
+            _animator.Play(Animation);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            _animator.OnEvent -= OnEvent;
+        }
+
+        protected virtual void OnEvent(string name)
+        {
+            throw new NotImplementedException();
         }
     }
 }

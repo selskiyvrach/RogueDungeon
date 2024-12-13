@@ -8,11 +8,15 @@ namespace Common.Fsm
     public abstract class StateMachine : Behaviour, IStateChanger
     {
         private readonly IStatesFactory _statesFactory;
+        private readonly ILogger _logger;
         private readonly HashSet<IState> _transitionsHistory = new();
         private IState _currentState;
 
-        protected StateMachine(IStatesFactory statesFactory) => 
+        protected StateMachine(IStatesFactory statesFactory, ILogger logger = null)
+        {
             _statesFactory = statesFactory;
+            _logger = logger ?? new DefaultLogger();
+        }
 
         public override void Enable()
         {
@@ -30,6 +34,7 @@ namespace Common.Fsm
 
         public void To<T>() where T : IState
         {
+            _logger?.Log($"Fsm. {_currentState.TypeName()} -> {typeof(T).TypeName()}");
             _transitionsHistory.Clear();
             (_currentState as IExitableState)?.Exit();
             _currentState = _statesFactory.Create<T>();

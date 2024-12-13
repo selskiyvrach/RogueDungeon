@@ -1,4 +1,5 @@
-﻿using Common.Fsm;
+﻿using Common.Animations;
+using Common.Fsm;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
@@ -10,7 +11,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         private readonly IControlState _controlState;
         
         public override void Enter() => 
-            _animator.Play(new PlayOptions(Animation.Idle, _durations.Get(Duration.Idle)));
+            _animator.Play(new LoopedAnimationData(AnimationNames.IDLE, _durations.Get(Duration.Idle)));
 
         public override void CheckTransitions(IStateChanger stateChanger)
         {

@@ -476,7 +476,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 839564652}
-  - component: {fileID: 839564653}
   - component: {fileID: 839564654}
   m_Layer: 0
   m_Name: ScreenSpaceWeaponAnimator
@@ -501,19 +500,6 @@ Transform:
   - {fileID: 1497564347}
   m_Father: {fileID: 1312706632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &839564653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 839564651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78482f32e7944bc3985883dcb5bd3591, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 839564654}
 --- !u!95 &839564654
 Animator:
   serializedVersion: 5
