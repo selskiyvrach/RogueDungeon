@@ -1,6 +1,7 @@
 ﻿using System;
 using Common.Animations;
 using Common.Fsm;
+using UnityEngine.Assertions;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
@@ -39,6 +40,12 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         {
             base.Exit();
             _controlState.IsInUncancellableAnimation = false;
+        }
+
+        protected override void OnEvent(string name)
+        {
+            Assert.AreEqual(name, AnimationNames.HIT_EVENT);
+            // run some logic
         }
 
         public override void CheckTransitions(IStateChanger stateChanger)
