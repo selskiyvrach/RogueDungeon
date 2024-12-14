@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
-    internal class TestEnvironment : MonoBehaviour, IComboCounter, IComboInfo, IInput, IAnimator, IDurations, IControlState
+    internal class TestEnvironment : MonoBehaviour, IComboCounter, IComboInfo,  IAnimator, IDurations, IControlState
     {
         [Serializable]
         public class Durations : SerializableDictionary<Duration, float>
@@ -16,13 +16,10 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         [SerializeField] private Durations _durations;
         private IAnimator _animatorImplementation;
 
-        int IComboCounter.Count { get; set; }
+        int IComboCounter.AttackIndex { get; set; }
         AttackDirection[] IComboInfo.Directions => _attackDirections;
         public bool IsInUncancellableAnimation { get; set; }
-        bool IInput.TryConsume(Input input)
-        {
-            return UnityEngine.Input.GetKeyDown(KeyCode.Mouse0);
-        }
+
         float IDurations.Get(Duration type) => 
             _durations[type];
 

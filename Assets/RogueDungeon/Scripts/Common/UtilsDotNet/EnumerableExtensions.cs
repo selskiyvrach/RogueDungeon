@@ -34,7 +34,7 @@ namespace Common.DotNetUtils
             !(source?.Any() ?? false) ? null : source.ToList();
 
         public static IEnumerable<T> GetAll<T>(this IEnumerable<object> source, Predicate<T> predicate = null) => 
-            source.Where(n => n is T item && (predicate?.Invoke(item) ?? false)).Cast<T>();
+            source.Where(n => n is T item && (predicate == null || predicate.Invoke(item))).Cast<T>();
 
         public static T Get<T>(this IEnumerable<object> source, Predicate<T> predicate = null) =>
             source.GetAll(predicate).FirstOrDefault();

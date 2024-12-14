@@ -9,7 +9,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         private readonly IDurations _durations;
         private readonly IComboInfo _comboInfo;
         private readonly IComboCounter _comboCounter;
-        protected override AnimationData Animation => _comboInfo.Directions[_comboCounter.Count] switch
+        protected override AnimationData Animation => _comboInfo.Directions[_comboCounter.AttackIndex] switch
         {
             AttackDirection.BottomLeft => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_LEFT, _durations.Get(WeaponWielding.Duration.AttackIdleTransition)),
             AttackDirection.BottomRight => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_RIGHT, _durations.Get(WeaponWielding.Duration.AttackIdleTransition)),

@@ -1,5 +1,6 @@
 ﻿using Common.Animations;
 using Common.Fsm;
+using RogueDungeon.PlayerInput;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
@@ -9,9 +10,22 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         private readonly IDurations _durations;
         private readonly IInput _input;
         private readonly IControlState _controlState;
-        
-        public override void Enter() => 
+        private readonly IComboCounter _comboCounter;
+
+        public IdleState(IAnimator animator, IDurations durations, IInput input, IControlState controlState, IComboCounter comboCounter)
+        {
+            _animator = animator;
+            _durations = durations;
+            _input = input;
+            _controlState = controlState;
+            _comboCounter = comboCounter;
+        }
+
+        public override void Enter()
+        {
+            _comboCounter.AttackIndex = -1;
             _animator.Play(new LoopedAnimationData(AnimationNames.IDLE, _durations.Get(Duration.Idle)));
+        }
 
         public override void CheckTransitions(IStateChanger stateChanger)
         {

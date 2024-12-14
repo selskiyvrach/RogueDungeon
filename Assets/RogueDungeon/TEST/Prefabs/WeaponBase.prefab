@@ -9,11 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8721062719150755531}
-  - component: {fileID: 2562710683153110367}
-  - component: {fileID: 1853173692877314572}
-  - component: {fileID: 4601911986321717740}
-  - component: {fileID: 7384687569436844396}
-  - component: {fileID: 3738362142208682635}
+  - component: {fileID: 3459287763246610870}
+  - component: {fileID: 4479116600755710278}
   m_Layer: 0
   m_Name: WeaponBase
   m_TagString: Untagged
@@ -37,7 +34,7 @@ Transform:
   - {fileID: 7276862072391472814}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2562710683153110367
+--- !u!114 &3459287763246610870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,76 +43,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 901333088549468782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ab12544518444d9aa43afc17ab535f0, type: 3}
+  m_Script: {fileID: 11500000, guid: ef579e290b3349b3a685a1232f8cb152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationRoot: {fileID: 1853173692877314572}
-  _animator: {fileID: 3738362142208682635}
---- !u!114 &1853173692877314572
-MonoBehaviour:
+  _referenceToAnimation: {fileID: 4479116600755710278}
+--- !u!111 &4479116600755710278
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901333088549468782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 050fef2babb74548a484bd2a3deeaf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4601911986321717740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901333088549468782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f82e908922db4d9c8804014213268fba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!95 &7384687569436844396
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901333088549468782}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ed94b435c04dc50439271c66b40d8ad8, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3738362142208682635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901333088549468782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fbaf8cb321d4d07bdd348323b98a055, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 7384687569436844396}
-  _prepareAttackAnimation: {fileID: 7400000, guid: ebd5ecfd2f4c8df40ad4b69fceb91bce,
-    type: 2}
-  _idleAnimation: {fileID: 7400000, guid: 3d24f20c33be8ec4e81301440a91097f, type: 2}
-  _finishAttackRightAnimation: {fileID: 7400000, guid: 0727bcf2980342c42a85f92488ab4e54,
-    type: 2}
-  _finishAttackLeftAnimation: {fileID: 7400000, guid: da0ed563cf2b5ad4b9eb9d4a945fa8b4,
-    type: 2}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 4cf254eabdd83164dbc6a4d4d1c71287, type: 2}
+  - {fileID: 7400000, guid: 954d300da4456a641969dd98e34dec36, type: 2}
+  - {fileID: 7400000, guid: da0ed563cf2b5ad4b9eb9d4a945fa8b4, type: 2}
+  - {fileID: 7400000, guid: 0727bcf2980342c42a85f92488ab4e54, type: 2}
+  - {fileID: 7400000, guid: ebd5ecfd2f4c8df40ad4b69fceb91bce, type: 2}
+  - {fileID: 7400000, guid: 3d24f20c33be8ec4e81301440a91097f, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1163294296491785417
 GameObject:
   m_ObjectHideFlags: 0

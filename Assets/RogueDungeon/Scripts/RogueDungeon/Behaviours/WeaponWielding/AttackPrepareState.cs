@@ -7,11 +7,22 @@ namespace RogueDungeon.Behaviours.WeaponWielding
     {
         private readonly IDurations _durations;
         private readonly IControlState _controlState;
-        
-        protected override AnimationData Animation => new(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_RIGHT, _durations.Get(WeaponWielding.Duration.AttackIdleTransition));
+        private readonly IComboCounter _comboCounter;
 
-        public AttackPrepareState(IAnimator animator, IDurations durations) : base(animator) => 
+        protected override AnimationData Animation => new(AnimationNames.ATTACK_PREPARE_TO_BOTTOM_LEFT, _durations.Get(WeaponWielding.Duration.AttackIdleTransition));
+
+        public AttackPrepareState(IAnimator animator, IDurations durations, IControlState controlState, IComboCounter comboCounter) : base(animator)
+        {
             _durations = durations;
+            _controlState = controlState;
+            _comboCounter = comboCounter;
+        }
+
+        public override void Enter()
+        {
+            _comboCounter.AttackIndex++;
+            base.Enter();
+        }
 
         public override void CheckTransitions(IStateChanger stateChanger)
         {

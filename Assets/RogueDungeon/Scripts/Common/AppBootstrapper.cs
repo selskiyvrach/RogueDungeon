@@ -1,5 +1,4 @@
 ﻿using Common.Camera;
-using Common.GameObjectMarkers;
 using Common.SceneManagement;
 using Common.UI.LoadingScreen;
 using Common.UnityUtils;
@@ -18,7 +17,7 @@ namespace Common
         [SerializeField] private EventSystem _eventSystemPrefab;
 
         private GameContextHandle _gameContext;
-        private GameRootObject _gameRootObject;
+        private GameObject _gameRootObject;
         
         public override void InstallBindings()
         {
@@ -55,10 +54,9 @@ namespace Common
 
         private void CreateRootObject()
         {
-            _gameRootObject = new GameObject("GameRoot", typeof(GameRootObject)).GetComponent<GameRootObject>();
+            _gameRootObject = new GameObject("GameRoot");
             _gameRootObject.gameObject.isStatic = true;
             DontDestroyOnLoad(_gameRootObject);
-            _gameContext.Container.Bind<GameRootObject>().FromInstance(_gameRootObject);
         }
     }
 }

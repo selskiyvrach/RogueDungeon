@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: weapon_attack_finish_right
+  m_Name: attack_finish_from_bottom_right
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0

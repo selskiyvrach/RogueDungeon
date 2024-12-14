@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Common.DebugTools;
 using UniRx;
 using UnityEngine;
 
 namespace RogueDungeon.PlayerInput
 {
-    public class CharacterInput : ICharacterInput, IDisposable
+    public class CharacterInput : IDisposable, IInput
     {
         private enum KeyState
         {
@@ -14,17 +13,17 @@ namespace RogueDungeon.PlayerInput
             Held
         }
         
-        private static readonly Dictionary<Command, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
+        private static readonly Dictionary<Input, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
         {
-            [Command.MoveForward] = (KeyCode.W,KeyState.Held , 0),
-            [Command.Attack] = (KeyCode.Mouse0, KeyState.Down, .5f),
-            [Command.DodgeRight] = (KeyCode.D, KeyState.Down,.5f),
-            [Command.DodgeLeft] = (KeyCode.A, KeyState.Down,.5f),
-            [Command.Block] = (KeyCode.Mouse1, KeyState.Held,.5f),
+            [Input.MoveForward] = (KeyCode.W,KeyState.Held , 0),
+            [Input.Attack] = (KeyCode.Mouse0, KeyState.Down, .5f),
+            [Input.DodgeRight] = (KeyCode.D, KeyState.Down,.5f),
+            [Input.DodgeLeft] = (KeyCode.A, KeyState.Down,.5f),
+            [Input.Block] = (KeyCode.Mouse1, KeyState.Held,.5f),
         };
 
         private readonly IDisposable _sub;
-        private Command? _lastDetectedCommand;
+        private Input? _input;
         private float _timeSinceReleased;
         private float _timeHeld;
 
@@ -38,38 +37,29 @@ namespace RogueDungeon.PlayerInput
         {
             UpdateCoyoteTime();
             ReadCommands();
-            DebugHUD.SetData(this, "Current command: " + _lastDetectedCommand + (_timeHeld > 0.15f ? $"({_timeHeld:F2})" : ""));
         }
 
-        public bool HasCommand(Command command) => 
-            _lastDetectedCommand == command;
-
-        public bool HasCommand(Command command, out float heldDuration)
+        public bool TryConsume(Input input)
         {
-            heldDuration = _timeHeld;
-            return HasCommand(command);
-        }
-
-        public void ConsumeCommandIfCurrent(Command command)
-        {
-            if (_lastDetectedCommand != command)
-                return;
+            if (_input != input)
+                return false;
             
-            _lastDetectedCommand = null;
+            _input = null;
             _timeHeld = 0;
             _timeSinceReleased = Mathf.Infinity;
+            return true;
         }
 
         private void ReadCommands()
         {
-            var currentCommand = (Command?)null;
+            var currentCommand = (Input?)null;
 
             foreach (var (command, (code, state, coyoteTime)) in Commands)
             {
                 if (! (state switch
                     {
-                        KeyState.Down => Input.GetKeyDown(code),
-                        KeyState.Held => Input.GetKey(code),
+                        KeyState.Down => UnityEngine.Input.GetKeyDown(code),
+                        KeyState.Held => UnityEngine.Input.GetKey(code),
                         _ => throw new ArgumentOutOfRangeException()
                     } )) 
                     continue;
@@ -78,7 +68,7 @@ namespace RogueDungeon.PlayerInput
                 if (currentCommand != command)
                 {
                     currentCommand = command;
-                    _lastDetectedCommand = currentCommand;
+                    _input = currentCommand;
                     _timeHeld = 0;
                 }
                 else
@@ -88,12 +78,12 @@ namespace RogueDungeon.PlayerInput
 
         private void UpdateCoyoteTime()
         {
-            if (_lastDetectedCommand == null) 
+            if (_input == null) 
                 return;
             
             _timeSinceReleased += Time.deltaTime;
-            if (_timeSinceReleased >= Commands[(Command)_lastDetectedCommand].coyoteTime) 
-                _lastDetectedCommand = null;
+            if (_timeSinceReleased >= Commands[(Input)_input].coyoteTime) 
+                _input = null;
         }
     }
 }

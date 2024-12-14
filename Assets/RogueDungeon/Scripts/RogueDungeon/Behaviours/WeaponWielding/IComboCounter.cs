@@ -2,6 +2,6 @@
 {
     internal interface IComboCounter
     {
-        int Count { get; set; }
+        int AttackIndex { get; set; }
     }
 }

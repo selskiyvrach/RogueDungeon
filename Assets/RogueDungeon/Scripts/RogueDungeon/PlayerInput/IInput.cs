@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Behaviours.WeaponWielding
+﻿namespace RogueDungeon.PlayerInput
 {
     public interface IInput
     {

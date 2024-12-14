@@ -1,6 +1,7 @@
 ﻿using System;
 using Common.Animations;
 using Common.Fsm;
+using RogueDungeon.PlayerInput;
 using UnityEngine.Assertions;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
@@ -13,7 +14,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         private readonly IInput _input;
         private readonly IControlState _controlState;
 
-        protected override AnimationData Animation => _comboInfo.Directions[_comboCounter.Count] switch
+        protected override AnimationData Animation => _comboInfo.Directions[_comboCounter.AttackIndex] switch
         {
             AttackDirection.BottomLeft => new AnimationData(AnimationNames.ATTACK_TO_BOTTOM_LEFT, _durations.Get(WeaponWielding.Duration.Attack)),
             AttackDirection.BottomRight => new AnimationData(AnimationNames.ATTACK_TO_BOTTOM_RIGHT, _durations.Get(WeaponWielding.Duration.Attack)),
@@ -53,10 +54,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
             if(!IsTimerOff)
                 return;
             if (_controlState.Is(AbleTo.StartAttack) && _input.TryConsume(Input.Attack))
-            {
-                _comboCounter.Count++;
                 stateChanger.To<AttackToAttackTransitionState>();
-            }
             else
                 stateChanger.To<AttackFinishState>();
         }

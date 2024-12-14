@@ -1,7 +1,8 @@
 namespace RogueDungeon.PlayerInput
 {
-    public enum Command
+    public enum Input
     {
+        None,
         Attack,
         Block,
         DodgeLeft,
