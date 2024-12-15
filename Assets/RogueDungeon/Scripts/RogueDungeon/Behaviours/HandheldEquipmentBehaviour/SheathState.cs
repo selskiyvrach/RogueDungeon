@@ -7,11 +7,11 @@ namespace RogueDungeon.Behaviours.HandheldEquipmentBehaviour
 {
     public class SheathState : BoundToAnimationState
     {
-        private readonly ICurrentEquipmentState _equipment;
+        private readonly IChangingHandheldItemsInfo _equipment;
 
         protected override AnimationData Animation => new(AnimationNames.SHEATH_RIGHT_HAND, _equipment.CurrentItem.SheathDuration);
 
-        public SheathState(IAnimator animator, ICurrentEquipmentState equipment) : base(animator) => 
+        public SheathState(IAnimator animator, IChangingHandheldItemsInfo equipment) : base(animator) => 
             _equipment = equipment;
 
         public override void Enter()

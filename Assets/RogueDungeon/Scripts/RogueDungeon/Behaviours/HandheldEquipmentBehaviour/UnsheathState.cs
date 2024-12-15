@@ -8,12 +8,12 @@ namespace RogueDungeon.Behaviours.HandheldEquipmentBehaviour
 {
     public class UnsheathState : BoundToAnimationState
     {
-        private readonly ICurrentEquipmentState _equipment;
+        private readonly IChangingHandheldItemsInfo _equipment;
         private IHandheldItem _itemBeingUnsheathed;
 
         protected override AnimationData Animation => new(AnimationNames.UNSHEATH_RIGHT_HAND, _itemBeingUnsheathed.UnsheathDuration);
 
-        public UnsheathState(IAnimator animator, ICurrentEquipmentState equipment) : base(animator)
+        public UnsheathState(IAnimator animator, IChangingHandheldItemsInfo equipment) : base(animator)
         {
             _equipment = equipment;
         }

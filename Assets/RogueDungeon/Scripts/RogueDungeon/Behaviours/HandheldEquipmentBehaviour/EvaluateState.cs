@@ -4,7 +4,7 @@ namespace RogueDungeon.Behaviours.HandheldEquipmentBehaviour
 {
     public class EvaluateState : IState
     {
-        private readonly ICurrentEquipmentState _equipment;
+        private readonly IChangingHandheldItemsInfo _equipment;
         
         public void Enter() { }
 

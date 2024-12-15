@@ -34,7 +34,7 @@ namespace Common.Fsm
 
         public void To<T>() where T : class, IState
         {
-            _logger?.Log($"Fsm. {_currentState?.TypeName()} -> {typeof(T).Name}");
+            _logger?.Log($"Fsm [{this.TypeName()}]. {_currentState?.TypeName()} -> {typeof(T).Name}");
             _transitionsHistory.Clear();
             (_currentState as IExitableState)?.Exit();
             _currentState = _statesFactory.Create<T>();
