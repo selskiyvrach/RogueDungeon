@@ -1,4 +1,5 @@
 ﻿using RogueDungeon.Behaviours.WeaponWielding;
+using RogueDungeon.Items.Weapons;
 
 namespace RogueDungeon.Player
 {

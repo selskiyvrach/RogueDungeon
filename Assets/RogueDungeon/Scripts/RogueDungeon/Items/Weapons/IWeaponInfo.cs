@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Behaviours.WeaponWielding
+﻿namespace RogueDungeon.Items.Weapons
 {
     public interface IWeaponInfo : IItemInfo, IComboInfo, IDamageInfo
     {

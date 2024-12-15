@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RogueDungeon.Behaviours.WeaponWielding
+namespace RogueDungeon.Items.Weapons
 {
     [Flags]
     public enum DamageType

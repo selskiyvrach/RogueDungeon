@@ -3,6 +3,7 @@ using Common.Parameters;
 using Common.UtilsZenject;
 using RogueDungeon.Behaviours.WeaponWielding;
 using RogueDungeon.Characters;
+using RogueDungeon.Items.Weapons;
 using RogueDungeon.Parameters;
 using RogueDungeon.PlayerInput;
 using UnityEngine;

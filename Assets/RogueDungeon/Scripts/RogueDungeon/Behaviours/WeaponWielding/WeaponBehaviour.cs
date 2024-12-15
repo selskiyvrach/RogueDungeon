@@ -1,4 +1,5 @@
 ﻿using Common.Fsm;
+using RogueDungeon.Items.Weapons;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {

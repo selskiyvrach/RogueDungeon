@@ -1,0 +1,22 @@
+﻿using Common.Fsm;
+
+namespace RogueDungeon.Behaviours.EquipmentBehaviour
+{
+    public class EvaluateState : IState
+    {
+        private readonly ICurrentEquipmentState _equipment;
+        
+        public void Enter() { }
+
+        public void CheckTransitions(IStateChanger stateChanger)
+        {
+            if (_equipment.CurrentItem.Id != _equipment.IntendedItem.Id) 
+                return;
+            
+            if(_equipment.CurrentItem == null)
+                stateChanger.To<UnsheathState>();
+            else
+                stateChanger.To<SheathState>();
+        }
+    }
+}

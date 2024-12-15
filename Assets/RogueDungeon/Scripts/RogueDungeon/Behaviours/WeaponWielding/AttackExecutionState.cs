@@ -4,13 +4,14 @@ using Common.Fsm;
 using Common.Parameters;
 using RogueDungeon.Characters;
 using RogueDungeon.Fsm;
+using RogueDungeon.Items.Weapons;
 using RogueDungeon.Parameters;
 using RogueDungeon.PlayerInput;
 using UnityEngine.Assertions;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
-    internal class AttackExecutionState : TiedToAnimationState
+    internal class AttackExecutionState : BoundToAnimationState
     {
         private readonly IParameters _durations;
         private readonly IComboInfo _comboInfo;

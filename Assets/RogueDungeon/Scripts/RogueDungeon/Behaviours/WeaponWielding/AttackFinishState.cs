@@ -3,11 +3,12 @@ using Common.Animations;
 using Common.Fsm;
 using Common.Parameters;
 using RogueDungeon.Fsm;
+using RogueDungeon.Items.Weapons;
 using RogueDungeon.Parameters;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
-    internal class AttackFinishState : TiedToAnimationState
+    internal class AttackFinishState : BoundToAnimationState
     {
         private readonly IParameters _durations;
         private readonly IComboInfo _comboInfo;

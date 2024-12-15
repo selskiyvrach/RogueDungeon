@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using RogueDungeon.Behaviours.WeaponWielding;
+using UnityEngine;
 
-namespace RogueDungeon.Behaviours.WeaponWielding
+namespace RogueDungeon.Items.Weapons
 {
     public class WeaponConfig : ScriptableObject, IWeaponInfo
     {

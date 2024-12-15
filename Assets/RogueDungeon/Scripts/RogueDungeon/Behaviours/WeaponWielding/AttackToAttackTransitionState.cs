@@ -1,6 +1,7 @@
 ﻿using Common.Fsm;
 using Common.Parameters;
 using RogueDungeon.Characters;
+using RogueDungeon.Items.Weapons;
 using RogueDungeon.Parameters;
 
 namespace RogueDungeon.Behaviours.WeaponWielding

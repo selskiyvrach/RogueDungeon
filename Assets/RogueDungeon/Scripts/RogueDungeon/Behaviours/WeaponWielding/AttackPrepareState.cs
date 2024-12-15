@@ -7,7 +7,7 @@ using RogueDungeon.Parameters;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
-    internal class AttackPrepareState : TiedToAnimationState
+    internal class AttackPrepareState : BoundToAnimationState
     {
         private readonly IParameters _durations;
         private readonly IControlState _controlState;

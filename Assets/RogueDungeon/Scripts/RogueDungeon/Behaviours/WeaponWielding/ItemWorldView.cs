@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RogueDungeon.Items;
+using UnityEngine;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
