@@ -3,7 +3,7 @@ using Common.Fsm;
 using RogueDungeon.Behaviours.WeaponWielding;
 using RogueDungeon.Fsm;
 
-namespace RogueDungeon.Behaviours.EquipmentBehaviour
+namespace RogueDungeon.Behaviours.HandheldEquipmentBehaviour
 {
     public class SheathState : BoundToAnimationState
     {

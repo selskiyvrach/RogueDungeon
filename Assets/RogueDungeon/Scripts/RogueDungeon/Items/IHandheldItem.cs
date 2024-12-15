@@ -1,6 +1,6 @@
-﻿namespace RogueDungeon.Behaviours.EquipmentBehaviour
+﻿namespace RogueDungeon.Items
 {
-    public interface IItemHandle
+    public interface IHandheldItem
     {
         object Id { get; }
         float SheathDuration { get; }

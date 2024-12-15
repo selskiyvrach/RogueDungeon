@@ -1,6 +1,6 @@
 ﻿using Common.Fsm;
 
-namespace RogueDungeon.Behaviours.EquipmentBehaviour
+namespace RogueDungeon.Behaviours.HandheldEquipmentBehaviour
 {
     public class EvaluateState : IState
     {

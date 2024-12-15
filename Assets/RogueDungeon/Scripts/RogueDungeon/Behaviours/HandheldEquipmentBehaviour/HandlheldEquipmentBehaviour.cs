@@ -1,11 +1,12 @@
 ﻿using Common.Fsm;
+using RogueDungeon.Items;
 
-namespace RogueDungeon.Behaviours.EquipmentBehaviour
+namespace RogueDungeon.Behaviours.HandheldEquipmentBehaviour
 {
     public class EquipmentBehaviour : StateMachine, ICurrentEquipmentState
     {
-        public IItemHandle CurrentItem { get; set; }
-        public IItemHandle IntendedItem { get; set; }
+        public IHandheldItem CurrentItem { get; set; }
+        public IHandheldItem IntendedItem { get; set; }
 
         public EquipmentBehaviour(IStatesFactory statesFactory, ILogger logger = null) : base(statesFactory, logger)
         {

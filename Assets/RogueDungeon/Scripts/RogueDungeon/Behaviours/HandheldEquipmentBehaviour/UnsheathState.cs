@@ -1,17 +1,15 @@
 ﻿using Common.Animations;
 using Common.Fsm;
-using Common.Parameters;
 using RogueDungeon.Behaviours.WeaponWielding;
 using RogueDungeon.Fsm;
 using RogueDungeon.Items;
-using RogueDungeon.Parameters;
 
-namespace RogueDungeon.Behaviours.EquipmentBehaviour
+namespace RogueDungeon.Behaviours.HandheldEquipmentBehaviour
 {
     public class UnsheathState : BoundToAnimationState
     {
         private readonly ICurrentEquipmentState _equipment;
-        private IItemHandle _itemBeingUnsheathed;
+        private IHandheldItem _itemBeingUnsheathed;
 
         protected override AnimationData Animation => new(AnimationNames.UNSHEATH_RIGHT_HAND, _itemBeingUnsheathed.UnsheathDuration);
 
