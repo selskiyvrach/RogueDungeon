@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Common.Fsm
 {
-    public abstract class StatesFactoryWithCache : IStatesFactory
+    public class StatesFactoryWithCache : IStatesFactory
     {
         private readonly DiContainer _container;
         private readonly List<IState> _cache = new();
