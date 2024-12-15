@@ -1,6 +1,8 @@
 ﻿using System;
 using Common.Animations;
 using Common.Fsm;
+using Common.Parameters;
+using RogueDungeon.Parameters;
 using RogueDungeon.PlayerInput;
 using UnityEngine.Assertions;
 
@@ -8,7 +10,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
 {
     internal class AttackExecutionState : TiedToAnimationState
     {
-        private readonly IDurations _durations;
+        private readonly IParameters _durations;
         private readonly IComboInfo _comboInfo;
         private readonly IComboCounter _comboCounter;
         private readonly IInput _input;
@@ -16,12 +18,12 @@ namespace RogueDungeon.Behaviours.WeaponWielding
 
         protected override AnimationData Animation => _comboInfo.Directions[_comboCounter.AttackIndex] switch
         {
-            AttackDirection.BottomLeft => new AnimationData(AnimationNames.ATTACK_TO_BOTTOM_LEFT, _durations.Get(WeaponWielding.Duration.Attack)),
-            AttackDirection.BottomRight => new AnimationData(AnimationNames.ATTACK_TO_BOTTOM_RIGHT, _durations.Get(WeaponWielding.Duration.Attack)),
+            AttackDirection.BottomLeft => new AnimationData(AnimationNames.ATTACK_TO_BOTTOM_LEFT, _durations.Get(ParameterKeys.ATTACK_EXECUTION_DURATION)),
+            AttackDirection.BottomRight => new AnimationData(AnimationNames.ATTACK_TO_BOTTOM_RIGHT, _durations.Get(ParameterKeys.ATTACK_EXECUTION_DURATION)),
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        public AttackExecutionState(IAnimator animator, IDurations durations, IComboInfo comboInfo, IComboCounter comboCounter, IInput input, IControlState controlState) : 
+        public AttackExecutionState(IAnimator animator, IParameters durations, IComboInfo comboInfo, IComboCounter comboCounter, IInput input, IControlState controlState) : 
             base(animator)
         {
             _durations = durations;

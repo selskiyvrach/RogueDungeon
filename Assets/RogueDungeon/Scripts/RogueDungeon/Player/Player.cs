@@ -6,7 +6,10 @@ namespace RogueDungeon.Player
     {
         private readonly Behaviour _weaponBehaviour;
 
-        public Player(Behaviour weaponBehaviour) => 
+        public Player(Behaviour weaponBehaviour)
+        {
             _weaponBehaviour = weaponBehaviour;
+            _weaponBehaviour.Enable();
+        }
     }
 }

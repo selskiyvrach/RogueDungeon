@@ -1,17 +1,19 @@
 ﻿using Common.Fsm;
+using Common.Parameters;
+using RogueDungeon.Parameters;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
     internal class AttackToAttackTransitionState : TimerState
     {
-        private readonly IDurations _durations;
+        private readonly IParameters _durations;
         private readonly IControlState _controlState;
         private readonly IComboCounter _comboCounter;
         private readonly IComboInfo _comboInfo;
 
-        protected override float Duration => _durations.Get(WeaponWielding.Duration.AttackAttackTransition);
+        protected override float Duration => _durations.Get(ParameterKeys.ATTACK_TO_ATTACK_TRANSITION_DURATION);
 
-        public AttackToAttackTransitionState(IDurations durations, IControlState controlState, IComboCounter comboCounter, IComboInfo comboInfo)
+        public AttackToAttackTransitionState(IParameters durations, IControlState controlState, IComboCounter comboCounter, IComboInfo comboInfo)
         {
             _durations = durations;
             _controlState = controlState;

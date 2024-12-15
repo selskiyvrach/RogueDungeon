@@ -1,0 +1,25 @@
+﻿namespace RogueDungeon.Parameters
+{
+    public struct Key
+    {
+        public static readonly Key NONE = new(NONE_NAME, 0);
+        public const string NONE_NAME = "None";
+        
+        private readonly string _name;
+        private readonly int _value;
+
+        public Key(string name, int value)
+        {
+            _value = value;
+            _name = name;
+        }
+        
+        public override bool Equals(object obj) => 
+            obj is Key other && other._value == _value;
+
+        public override int GetHashCode() => _value.GetHashCode();
+        public static bool operator ==(Key left, Key right) => left._value == right._value;
+        public static bool operator !=(Key left, Key right) => left._value != right._value;
+        public override string ToString() => $"Key(Name: {_name}, Value: {_value})";
+    }
+}

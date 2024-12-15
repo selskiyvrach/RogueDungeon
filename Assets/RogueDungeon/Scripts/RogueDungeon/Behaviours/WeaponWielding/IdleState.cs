@@ -1,5 +1,7 @@
 ﻿using Common.Animations;
 using Common.Fsm;
+using Common.Parameters;
+using RogueDungeon.Parameters;
 using RogueDungeon.PlayerInput;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
@@ -7,12 +9,12 @@ namespace RogueDungeon.Behaviours.WeaponWielding
     internal class IdleState : IState
     {
         private readonly IAnimator _animator;
-        private readonly IDurations _durations;
+        private readonly IParameters _durations;
         private readonly IInput _input;
         private readonly IControlState _controlState;
         private readonly IComboCounter _comboCounter;
 
-        public IdleState(IAnimator animator, IDurations durations, IInput input, IControlState controlState, IComboCounter comboCounter)
+        public IdleState(IAnimator animator, IParameters durations, IInput input, IControlState controlState, IComboCounter comboCounter)
         {
             _animator = animator;
             _durations = durations;
@@ -24,7 +26,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         public void Enter()
         {
             _comboCounter.AttackIndex = -1;
-            _animator.Play(new LoopedAnimationData(AnimationNames.IDLE, _durations.Get(Duration.Idle)));
+            _animator.Play(new LoopedAnimationData(AnimationNames.IDLE, _durations.Get(ParameterKeys.IDLE_ANIMATION_SPEED)));
         }
 
         public void CheckTransitions(IStateChanger stateChanger)
