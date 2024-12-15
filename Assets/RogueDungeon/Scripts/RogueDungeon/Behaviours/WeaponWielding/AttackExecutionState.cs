@@ -2,6 +2,8 @@
 using Common.Animations;
 using Common.Fsm;
 using Common.Parameters;
+using RogueDungeon.Characters;
+using RogueDungeon.Fsm;
 using RogueDungeon.Parameters;
 using RogueDungeon.PlayerInput;
 using UnityEngine.Assertions;
@@ -16,7 +18,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         private readonly IInput _input;
         private readonly IControlState _controlState;
 
-        protected override AnimationData Animation => _comboInfo.Directions[_comboCounter.AttackIndex] switch
+        protected override AnimationData Animation => _comboInfo.AttackDirectionsInCombo[_comboCounter.AttackIndex] switch
         {
             AttackDirection.BottomLeft => new AnimationData(AnimationNames.ATTACK_TO_BOTTOM_LEFT, _durations.Get(ParameterKeys.ATTACK_EXECUTION_DURATION)),
             AttackDirection.BottomRight => new AnimationData(AnimationNames.ATTACK_TO_BOTTOM_RIGHT, _durations.Get(ParameterKeys.ATTACK_EXECUTION_DURATION)),
@@ -36,13 +38,13 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         public override void Enter()
         {
             base.Enter();
-            _controlState.IsInUncancellableAnimation = true;
+            _controlState.IsAttackInHardPhase = true;
         }
 
         public override void Exit()
         {
             base.Exit();
-            _controlState.IsInUncancellableAnimation = false;
+            _controlState.IsAttackInHardPhase = false;
         }
 
         protected override void OnEvent(string name)
@@ -55,7 +57,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         {
             if(!IsTimerOff)
                 return;
-            if (_controlState.Is(AbleTo.StartAttack) && _input.TryConsume(Input.Attack))
+            if (_controlState.CanAttack() && _input.TryConsume(Input.Attack))
                 stateChanger.To<AttackToAttackTransitionState>();
             else
                 stateChanger.To<AttackFinishState>();

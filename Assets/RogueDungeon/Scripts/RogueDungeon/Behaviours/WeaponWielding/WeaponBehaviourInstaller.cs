@@ -1,7 +1,6 @@
 ﻿using Common.Animations;
 using Common.Fsm;
-using Common.ZenjectUtils;
-using RogueDungeon.Animations;
+using Common.UtilsZenject;
 using UnityEngine;
 using Zenject;
 
@@ -22,7 +21,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
                  typeof(AttackPrepareState),
                  typeof(AttackToAttackTransitionState),
              }));
-             Container.NewSingleInterfacesAndSelf<Behaviour>();
+             Container.NewSingleInterfacesAndSelf<WeaponBehaviour>();
         }
     }
 }

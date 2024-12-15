@@ -1,6 +1,8 @@
 ﻿using Common.Animations;
 using Common.Fsm;
 using Common.Parameters;
+using RogueDungeon.Characters;
+using RogueDungeon.Fsm;
 using RogueDungeon.Parameters;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
@@ -30,7 +32,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         {
             if(!IsTimerOff)
                 return;
-            if(_controlState.Is(AbleTo.TransitionToAttackExecutionState))
+            if(_controlState.CanAttack())
                 stateChanger.To<AttackExecutionState>();
             else
                 stateChanger.To<AttackFinishState>();

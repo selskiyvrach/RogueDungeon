@@ -2,7 +2,7 @@
 using Common.Mvvm.View;
 using Common.Mvvm.ViewModel;
 using Common.UI.Commons;
-using Common.ZenjectUtils;
+using Common.UtilsZenject;
 using UnityEngine;
 using Zenject;
 

@@ -1,4 +1,4 @@
-﻿namespace Common.ScreenSpaceEffects
+﻿namespace Common.Effects
 {
     public enum ScreenSpaceDirection
     {

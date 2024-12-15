@@ -1,5 +1,6 @@
 ﻿using Common.Fsm;
 using Common.Parameters;
+using RogueDungeon.Characters;
 using RogueDungeon.Parameters;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
@@ -23,7 +24,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
 
         public override void Enter()
         {
-            _comboCounter.AttackIndex = ++_comboCounter.AttackIndex % _comboInfo.Directions.Length;
+            _comboCounter.AttackIndex = ++_comboCounter.AttackIndex % _comboInfo.AttackDirectionsInCombo.Length;
             base.Enter();
         }
 
@@ -31,7 +32,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         {
             if(!IsTimerOff)
                 return;
-            if (_controlState.Is(AbleTo.TransitionToAttackExecutionState))
+            if (_controlState.CanAttack())
                 stateChanger.To<AttackExecutionState>();
             else
                 stateChanger.To<AttackFinishState>();

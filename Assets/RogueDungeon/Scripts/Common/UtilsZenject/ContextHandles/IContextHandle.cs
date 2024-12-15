@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace Common.ZenjectUtils.ContextHandles
+namespace Common.UtilsZenject.ContextHandles
 {
     public interface IContextHandle
     {

@@ -1,5 +1,5 @@
-﻿using Common.ZenjectUtils;
-using Common.ZenjectUtils.ContextHandles;
+﻿using Common.UtilsZenject;
+using Common.UtilsZenject.ContextHandles;
 using Zenject;
 
 namespace Common.Game

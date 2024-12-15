@@ -1,6 +1,6 @@
 ﻿using UniRx;
 
-namespace Common.UniRxUtils
+namespace Common.UtilsUniRx
 {
     public static class UnirxExtensions
     {

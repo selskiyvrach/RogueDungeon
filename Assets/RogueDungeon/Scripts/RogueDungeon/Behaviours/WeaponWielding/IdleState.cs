@@ -1,6 +1,7 @@
 ﻿using Common.Animations;
 using Common.Fsm;
 using Common.Parameters;
+using RogueDungeon.Characters;
 using RogueDungeon.Parameters;
 using RogueDungeon.PlayerInput;
 
@@ -31,7 +32,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
 
         public void CheckTransitions(IStateChanger stateChanger)
         {
-            if(_controlState.Is(AbleTo.StartAttack) && _input.TryConsume(Input.Attack))
+            if(_controlState.CanAttack() && _input.TryConsume(Input.Attack))
                 stateChanger.To<AttackPrepareState>();
         }
     }

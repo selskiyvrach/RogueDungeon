@@ -1,6 +1,6 @@
 ﻿using System;
-using Common.UnityUtils;
-using RogueDungeon.Parameters;
+using Common.Keys;
+using Common.UtilsUnity;
 
 namespace Common.Parameters
 {

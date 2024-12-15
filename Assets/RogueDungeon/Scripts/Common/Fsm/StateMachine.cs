@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.Behaviours;
-using Common.DotNetUtils;
+using Common.UtilsDotNet;
 
 namespace Common.Fsm
 {

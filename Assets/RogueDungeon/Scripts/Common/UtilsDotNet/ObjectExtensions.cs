@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.DotNetUtils
+namespace Common.UtilsDotNet
 {
     public static class ObjectExtensions
     {

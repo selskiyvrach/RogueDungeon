@@ -1,4 +1,4 @@
-﻿using Common.ZenjectUtils;
+﻿using Common.UtilsZenject;
 using RogueDungeon.UI.MainMenu;
 using UnityEngine;
 using Zenject;

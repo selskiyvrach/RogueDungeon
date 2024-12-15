@@ -1,77 +1,79 @@
-﻿using UnityEditor;
-using UnityEngine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Animations;
+using UnityEditor;
 using UnityEditor.Animations;
+using UnityEngine;
 
-public class AnimatorParametersWindow : EditorWindow
+namespace Common.Animations
 {
-    private List<Type> markedClasses;
-    private Vector2 scrollPosition;
-
-    [MenuItem("Tools/Animator Parameters")]
-    public static void ShowWindow()
+    public class AnimatorParametersWindow : EditorWindow
     {
-        var window = GetWindow<AnimatorParametersWindow>("Animator Parameters");
-        window.LoadMarkedClasses();
-    }
+        private List<Type> markedClasses;
+        private Vector2 scrollPosition;
 
-    private void LoadMarkedClasses()
-    {
-        markedClasses = AnimatorParameterUtility.GetMarkedClasses();
-    }
-
-    private void OnGUI()
-    {
-        if (markedClasses == null || markedClasses.Count == 0)
+        [MenuItem("Tools/Animator Parameters")]
+        public static void ShowWindow()
         {
-            EditorGUILayout.LabelField("No marked classes found.");
-            return;
+            var window = GetWindow<AnimatorParametersWindow>("Animator Parameters");
+            window.LoadMarkedClasses();
         }
 
-        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
-        foreach (var type in markedClasses)
+        private void LoadMarkedClasses()
         {
-            if (GUILayout.Button(type.Name))
+            markedClasses = AnimatorParameterUtility.GetMarkedClasses();
+        }
+
+        private void OnGUI()
+        {
+            if (markedClasses == null || markedClasses.Count == 0)
             {
-                ShowClassDetails(type);
+                EditorGUILayout.LabelField("No marked classes found.");
+                return;
             }
-        }
-        EditorGUILayout.EndScrollView();
-    }
 
-    private void ShowClassDetails(Type type)
-    {
-        var triggers = AnimatorParameterUtility.GetParametersByAttribute<AnimatorTriggerAttribute>(type);
-        var floats = AnimatorParameterUtility.GetParametersByAttribute<AnimatorFloatParameterAttribute>(type);
-
-        var controller = Selection.activeObject as AnimatorController;
-        if (controller == null)
-        {
-            Debug.LogError("No AnimatorController selected.");
-            return;
-        }
-
-        Undo.RegisterCompleteObjectUndo(controller, "Add Animator Parameters");
-
-        foreach (var trigger in triggers)
-        {
-            if (!controller.parameters.Any(p => p.name == trigger))
+            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+            foreach (var type in markedClasses)
             {
-                controller.AddParameter(trigger, AnimatorControllerParameterType.Trigger);
+                if (GUILayout.Button(type.Name))
+                {
+                    ShowClassDetails(type);
+                }
             }
+            EditorGUILayout.EndScrollView();
         }
 
-        foreach (var floatParam in floats)
+        private void ShowClassDetails(Type type)
         {
-            if (!controller.parameters.Any(p => p.name == floatParam))
-            {
-                controller.AddParameter(floatParam, AnimatorControllerParameterType.Float);
-            }
-        }
+            var triggers = AnimatorParameterUtility.GetParametersByAttribute<AnimatorTriggerAttribute>(type);
+            var floats = AnimatorParameterUtility.GetParametersByAttribute<AnimatorFloatParameterAttribute>(type);
 
-        Debug.Log($"Added {triggers.Count} triggers and {floats.Count} float parameters to AnimatorController.");
+            var controller = Selection.activeObject as AnimatorController;
+            if (controller == null)
+            {
+                Debug.LogError("No AnimatorController selected.");
+                return;
+            }
+
+            Undo.RegisterCompleteObjectUndo(controller, "Add Animator Parameters");
+
+            foreach (var trigger in triggers)
+            {
+                if (!controller.parameters.Any(p => p.name == trigger))
+                {
+                    controller.AddParameter(trigger, AnimatorControllerParameterType.Trigger);
+                }
+            }
+
+            foreach (var floatParam in floats)
+            {
+                if (!controller.parameters.Any(p => p.name == floatParam))
+                {
+                    controller.AddParameter(floatParam, AnimatorControllerParameterType.Float);
+                }
+            }
+
+            Debug.Log($"Added {triggers.Count} triggers and {floats.Count} float parameters to AnimatorController.");
+        }
     }
 }

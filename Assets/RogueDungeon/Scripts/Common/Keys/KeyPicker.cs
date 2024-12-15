@@ -5,7 +5,7 @@ using System.Reflection;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RogueDungeon.Parameters
+namespace Common.Keys
 {
     [Serializable]
     public class KeyPicker<T> : KeyPicker

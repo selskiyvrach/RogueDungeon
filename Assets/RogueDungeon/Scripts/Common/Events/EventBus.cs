@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common.DotNetUtils;
+using Common.UtilsDotNet;
 
 namespace Common.Events
 {

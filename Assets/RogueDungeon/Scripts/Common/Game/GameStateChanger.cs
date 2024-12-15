@@ -1,5 +1,5 @@
 ﻿using Common.UI.LoadingScreen;
-using Common.ZenjectUtils.ContextHandles;
+using Common.UtilsZenject.ContextHandles;
 
 namespace Common.Game
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Common.Keys;
 using Common.Parameters;
 
 namespace RogueDungeon.Parameters

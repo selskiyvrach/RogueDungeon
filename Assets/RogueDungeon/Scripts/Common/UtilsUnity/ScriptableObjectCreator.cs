@@ -4,7 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Common.UnityUtils
+namespace Common.UtilsUnity
 {
     public class ScriptableObjectCreator : EditorWindow
     {

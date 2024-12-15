@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common.Animations;
-using Common.DotNetUtils;
+using Common.UtilsDotNet;
 using UnityEditor;
 using UnityEngine;
 
-namespace RogueDungeon.Animations
+namespace Common.Animations
 {
     public class AnimationPlayer : MonoBehaviour, IAnimator
     {
@@ -27,7 +26,7 @@ namespace RogueDungeon.Animations
         private void Awake()
         {
             enabled = false;
-            _clips = AnimationUtility.GetAnimationClips(_referenceToAnimation.ThrowIfNull().gameObject); 
+            _clips = AnimationUtility.GetAnimationClips(_referenceToAnimation.gameObject); 
         }
 
         public void Play(LoopedAnimationData loopedAnimationData)

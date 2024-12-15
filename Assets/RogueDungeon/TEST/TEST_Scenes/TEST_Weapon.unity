@@ -185,10 +185,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraParent: {fileID: 369588739}
-  _parameterPickers:
-  - _pickedName: ATTACK_EXECUTION_DURATION
   _parameterPicker:
-    _pickedName: NONE
+    _elements:
+    - Key:
+        _pickedName: ATTACK_TO_ATTACK_TRANSITION_DURATION
+      Value: 0.3
+    - Key:
+        _pickedName: ATTACK_IDLE_TRANSITION_DURATION
+      Value: 0.3
+    - Key:
+        _pickedName: ATTACK_EXECUTION_DURATION
+      Value: 0.3
+    - Key:
+        _pickedName: IDLE_ANIMATION_SPEED
+      Value: 0.3
+  _weaponCofig: {fileID: 11400000, guid: 0b0b5a494baebdb4d8444bb9c89b7049, type: 2}
 --- !u!114 &326015498
 MonoBehaviour:
   m_ObjectHideFlags: 0

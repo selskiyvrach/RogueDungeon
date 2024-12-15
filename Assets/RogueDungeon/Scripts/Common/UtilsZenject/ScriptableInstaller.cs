@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace Common.ZenjectUtils
+namespace Common.UtilsZenject
 {
     public class ScriptableInstaller : ScriptableObject
     {

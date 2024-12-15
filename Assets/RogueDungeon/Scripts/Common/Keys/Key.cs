@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Parameters
+﻿namespace Common.Keys
 {
     public struct Key
     {

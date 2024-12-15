@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Common.DotNetUtils;
+using Common.UtilsDotNet;
 using UnityEngine;
 
 namespace RogueDungeon.WFC

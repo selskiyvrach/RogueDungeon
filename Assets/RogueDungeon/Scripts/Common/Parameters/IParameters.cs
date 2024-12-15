@@ -1,4 +1,4 @@
-﻿using RogueDungeon.Parameters;
+﻿using Common.Keys;
 
 namespace Common.Parameters
 {

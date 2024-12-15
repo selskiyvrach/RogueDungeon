@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Common.DotNetUtils
+namespace Common.UtilsDotNet
 {
     public static class IDictionaryExtensions
     {

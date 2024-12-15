@@ -2,7 +2,7 @@
 using Common.Animations;
 using Common.Fsm;
 
-namespace RogueDungeon.Behaviours.WeaponWielding
+namespace RogueDungeon.Fsm
 {
     internal abstract class TiedToAnimationState : TimerState, IExitableState
     {

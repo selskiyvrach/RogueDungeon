@@ -1,5 +1,5 @@
 ﻿using System;
-using Common.DotNetUtils;
+using Common.UtilsDotNet;
 using Zenject;
 
 namespace Common.Fsm
