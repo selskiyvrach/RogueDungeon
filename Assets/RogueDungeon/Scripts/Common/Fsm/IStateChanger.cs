@@ -2,6 +2,6 @@
 {
     public interface IStateChanger
     {
-        void To<T>() where T : IState;
+        void To<T>() where T : class, IState;
     }
 }

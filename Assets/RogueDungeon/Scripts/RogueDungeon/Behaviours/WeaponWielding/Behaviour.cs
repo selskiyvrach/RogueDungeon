@@ -2,7 +2,7 @@
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
-    internal class Behaviour : StateMachine, IComboCounter
+    public class Behaviour : StateMachine, IComboCounter
     {
         int IComboCounter.AttackIndex { get; set; }
 

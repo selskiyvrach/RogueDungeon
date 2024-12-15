@@ -4,7 +4,7 @@ using Common.Fsm;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
-    internal abstract class TiedToAnimationState : TimerState
+    internal abstract class TiedToAnimationState : TimerState, IExitableState
     {
         private readonly IAnimator _animator;
         protected abstract AnimationData Animation { get; }
@@ -20,11 +20,8 @@ namespace RogueDungeon.Behaviours.WeaponWielding
             _animator.Play(Animation);
         }
 
-        public override void Exit()
-        {
-            base.Exit();
+        public virtual void Exit() => 
             _animator.OnEvent -= OnEvent;
-        }
 
         protected virtual void OnEvent(string name)
         {

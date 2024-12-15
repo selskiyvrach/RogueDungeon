@@ -32,7 +32,7 @@ namespace Common.Fsm
             _currentState.CheckTransitions(this);
         }
 
-        public void To<T>() where T : IState
+        public void To<T>() where T : class, IState
         {
             _logger?.Log($"Fsm. {_currentState?.TypeName()} -> {typeof(T).Name}");
             _transitionsHistory.Clear();

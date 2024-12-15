@@ -21,8 +21,8 @@ namespace RogueDungeon.Behaviours.WeaponWielding
 
         public override void Enter()
         {
-            base.Enter();
             _comboCounter.AttackIndex = ++_comboCounter.AttackIndex % _comboInfo.Directions.Length;
+            base.Enter();
         }
 
         public override void CheckTransitions(IStateChanger stateChanger)

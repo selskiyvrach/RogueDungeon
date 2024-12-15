@@ -4,7 +4,7 @@ using RogueDungeon.PlayerInput;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
-    internal class IdleState : State
+    internal class IdleState : IState
     {
         private readonly IAnimator _animator;
         private readonly IDurations _durations;
@@ -21,13 +21,13 @@ namespace RogueDungeon.Behaviours.WeaponWielding
             _comboCounter = comboCounter;
         }
 
-        public override void Enter()
+        public void Enter()
         {
             _comboCounter.AttackIndex = -1;
             _animator.Play(new LoopedAnimationData(AnimationNames.IDLE, _durations.Get(Duration.Idle)));
         }
 
-        public override void CheckTransitions(IStateChanger stateChanger)
+        public void CheckTransitions(IStateChanger stateChanger)
         {
             if(_controlState.Is(AbleTo.StartAttack) && _input.TryConsume(Input.Attack))
                 stateChanger.To<AttackPrepareState>();
