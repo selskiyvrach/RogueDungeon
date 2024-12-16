@@ -711,6 +711,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3733405680008688721, guid: 0b1353be74b298141ba99669d9373a88,
+        type: 3}
+      propertyPath: _monoInstallers.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4261873495399062472, guid: 0b1353be74b298141ba99669d9373a88,
         type: 3}
       propertyPath: m_LocalPosition.x

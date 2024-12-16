@@ -15,8 +15,8 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         private readonly IComboCounter _comboCounter;
         protected override AnimationData Animation => _comboInfo.AttackDirectionsInCombo[_comboCounter.AttackIndex] switch
         {
-            AttackDirection.BottomLeft => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_LEFT, _durations.Get(ParameterKeys.ATTACK_IDLE_TRANSITION_DURATION)),
-            AttackDirection.BottomRight => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_RIGHT, _durations.Get(ParameterKeys.ATTACK_IDLE_TRANSITION_DURATION)),
+            AttackDirection.BottomLeft => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_LEFT, _durations.Get(ParameterKeys.COMMON_ITEM_MANIPULATION_DURATION)),
+            AttackDirection.BottomRight => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_RIGHT, _durations.Get(ParameterKeys.COMMON_ITEM_MANIPULATION_DURATION)),
             _ => throw new ArgumentOutOfRangeException()
         };
 

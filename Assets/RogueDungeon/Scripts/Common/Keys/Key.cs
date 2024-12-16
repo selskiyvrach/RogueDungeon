@@ -2,16 +2,16 @@
 {
     public struct Key
     {
-        public static readonly Key NONE = new(NONE_NAME, 0);
+        public static readonly Key NONE = new(NONE_NAME);
         public const string NONE_NAME = "None";
         
         private readonly string _name;
         private readonly int _value;
 
-        public Key(string name, int value)
+        public Key(string name)
         {
-            _value = value;
             _name = name;
+            _value = name.GetHashCode();
         }
         
         public override bool Equals(object obj) => 

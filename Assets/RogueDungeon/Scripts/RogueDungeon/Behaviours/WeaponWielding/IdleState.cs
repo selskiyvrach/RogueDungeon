@@ -7,7 +7,7 @@ using RogueDungeon.PlayerInput;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
-    internal class IdleState : IState
+    internal class IdleState : IState, IEnterableState
     {
         private readonly IAnimator _animator;
         private readonly IParameters _durations;

@@ -2,10 +2,15 @@
 {
     public interface IHandheldItem
     {
-        object Id { get; }
-        float SheathDuration { get; }
-        float UnsheathDuration { get; }
+        IItem Item { get; }
         void SetVisible(bool value);
         void SetEnabled(bool value);
+        float SheathDuration { get; }
+        float UnsheathDuration { get; }
+    }
+
+    public interface IItemManipulationDurationCalculator
+    {
+        float Calculate(IItem item);
     }
 }

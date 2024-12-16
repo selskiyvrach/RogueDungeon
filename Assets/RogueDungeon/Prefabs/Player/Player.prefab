@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3733405680008688721}
   - component: {fileID: 7879816354633157313}
   - component: {fileID: 8610275046940229707}
+  - component: {fileID: 4340151303283909155}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 4340151303283909155}
   - {fileID: 8610275046940229707}
   - {fileID: 7879816354633157313}
   _installerPrefabs: []
@@ -68,6 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraParent: {fileID: 7437003320940221867}
+  _equipmentAnimator: {fileID: 9175019399121160681}
+  _weaponCofig: {fileID: 11400000, guid: 0b0b5a494baebdb4d8444bb9c89b7049, type: 2}
   _parameterPicker:
     _elements:
     - Key:
@@ -82,8 +86,6 @@ MonoBehaviour:
     - Key:
         _pickedName: IDLE_ANIMATION_SPEED
       Value: 0.3
-  _weaponCofig: {fileID: 11400000, guid: 0b0b5a494baebdb4d8444bb9c89b7049, type: 2}
-  _equipmentAnimator: {fileID: 9175019399121160681}
 --- !u!114 &8610275046940229707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +96,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2716c2111034e16ae0a87fe6c6e94fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4340151303283909155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519540501769377305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660071f9360c4f47b7c771dbbdf1d12a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &763680708661238317
@@ -224,6 +238,8 @@ Animation:
   - {fileID: 7400000, guid: 0727bcf2980342c42a85f92488ab4e54, type: 2}
   - {fileID: 7400000, guid: ebd5ecfd2f4c8df40ad4b69fceb91bce, type: 2}
   - {fileID: 7400000, guid: 3d24f20c33be8ec4e81301440a91097f, type: 2}
+  - {fileID: 7400000, guid: 0fc197a58775c2a4aaecb3493cd730e1, type: 2}
+  - {fileID: 7400000, guid: dfd339abcb2b4b04aa871a9c338d1cac, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

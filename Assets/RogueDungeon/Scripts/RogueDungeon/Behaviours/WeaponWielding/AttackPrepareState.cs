@@ -13,7 +13,7 @@ namespace RogueDungeon.Behaviours.WeaponWielding
         private readonly IControlState _controlState;
         private readonly IComboCounter _comboCounter;
 
-        protected override AnimationData Animation => new(AnimationNames.ATTACK_PREPARE_TO_BOTTOM_LEFT, _durations.Get(ParameterKeys.ATTACK_IDLE_TRANSITION_DURATION));
+        protected override AnimationData Animation => new(AnimationNames.ATTACK_PREPARE_TO_BOTTOM_LEFT, _durations.Get(ParameterKeys.COMMON_ITEM_MANIPULATION_DURATION));
 
         public AttackPrepareState(IAnimator animator, IParameters durations, IControlState controlState, IComboCounter comboCounter) : base(animator)
         {

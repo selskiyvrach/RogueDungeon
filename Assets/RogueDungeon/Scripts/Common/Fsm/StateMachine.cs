@@ -41,7 +41,7 @@ namespace Common.Fsm
             if (!_transitionsHistory.Add(_currentState))
                 throw new InvalidOperationException("Infinite transitions loop detected: " + _transitionsHistory.JoinTypeNames());
 
-            _currentState.Enter();
+            (_currentState as IEnterableState)?.Enter();
             _currentState.CheckTransitions(this);
         }
     }

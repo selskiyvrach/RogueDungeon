@@ -6,11 +6,9 @@ namespace RogueDungeon.Behaviours.HandheldEquipmentBehaviour
     {
         private readonly IChangingHandheldItemsInfo _equipment;
         
-        public void Enter() { }
-
         public void CheckTransitions(IStateChanger stateChanger)
         {
-            if (_equipment.CurrentItem.Id != _equipment.IntendedItem.Id) 
+            if (_equipment.CurrentItem.Item == _equipment.IntendedItem.Item) 
                 return;
             
             if(_equipment.CurrentItem == null)
