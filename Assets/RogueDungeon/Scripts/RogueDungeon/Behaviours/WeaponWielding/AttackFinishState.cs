@@ -1,31 +1,30 @@
 ﻿using System;
 using Common.Animations;
 using Common.Fsm;
-using Common.Parameters;
 using RogueDungeon.Fsm;
+using RogueDungeon.Items;
 using RogueDungeon.Items.Weapons;
-using RogueDungeon.Parameters;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
     internal class AttackFinishState : BoundToAnimationState
     {
-        private readonly IParameters _durations;
         private readonly IComboInfo _comboInfo;
         private readonly IComboCounter _comboCounter;
+        private readonly IAttackIdleTransitionDuration _duration;
         protected override AnimationData Animation => _comboInfo.AttackDirectionsInCombo[_comboCounter.AttackIndex] switch
         {
-            AttackDirection.BottomLeft => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_LEFT, _durations.Get(ParameterKeys.COMMON_ITEM_MANIPULATION_DURATION)),
-            AttackDirection.BottomRight => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_RIGHT, _durations.Get(ParameterKeys.COMMON_ITEM_MANIPULATION_DURATION)),
+            AttackDirection.BottomLeft => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_LEFT, _duration.Value),
+            AttackDirection.BottomRight => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_RIGHT, _duration.Value),
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        public AttackFinishState(IAnimator animator, IParameters durations, IComboInfo comboInfo, IComboCounter comboCounter) 
+        public AttackFinishState(IAnimator animator, IComboInfo comboInfo, IComboCounter comboCounter, IAttackIdleTransitionDuration duration) 
             : base(animator)
         {
-            _durations = durations;
             _comboInfo = comboInfo;
             _comboCounter = comboCounter;
+            _duration = duration;
         }
 
         public override void CheckTransitions(IStateChanger stateChanger)

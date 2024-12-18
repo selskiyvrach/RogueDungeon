@@ -6,6 +6,6 @@ namespace RogueDungeon.Behaviours.HandheldEquipmentBehaviour
     public class HandheldEquipmentBehaviourInstaller : MonoInstaller
     {
         public override void InstallBindings() => 
-            Container.NewSingle<HandheldEquipmentBehaviour>();
+            Container.NewSingle<HandheldItemBehaviour>();
     }
 }

@@ -8,7 +8,7 @@ namespace RogueDungeon.Behaviours.HandheldEquipmentBehaviour
         
         public void CheckTransitions(IStateChanger stateChanger)
         {
-            if (_equipment.CurrentItem.Item == _equipment.IntendedItem.Item) 
+            if (_equipment.CurrentItem == _equipment.IntendedItem) 
                 return;
             
             if(_equipment.CurrentItem == null)

@@ -1,4 +1,4 @@
-namespace RogueDungeon.PlayerInput
+namespace RogueDungeon.Player.Input
 {
     public enum Input
     {

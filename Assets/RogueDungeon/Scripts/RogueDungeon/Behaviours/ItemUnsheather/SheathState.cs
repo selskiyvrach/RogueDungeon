@@ -2,17 +2,22 @@
 using Common.Fsm;
 using RogueDungeon.Behaviours.WeaponWielding;
 using RogueDungeon.Fsm;
+using RogueDungeon.Items;
 
 namespace RogueDungeon.Behaviours.HandheldEquipmentBehaviour
 {
     public class SheathState : BoundToAnimationState
     {
         private readonly IChangingHandheldItemsInfo _equipment;
+        private readonly IUnsheathDuration _timeFormula;
 
-        protected override AnimationData Animation => new(AnimationNames.SHEATH_RIGHT_HAND, _equipment.CurrentItem.SheathDuration);
+        protected override AnimationData Animation => new(AnimationNames.SHEATH_RIGHT_HAND, _timeFormula.Value);
 
-        public SheathState(IAnimator animator, IChangingHandheldItemsInfo equipment) : base(animator) => 
+        public SheathState(IAnimator animator, IChangingHandheldItemsInfo equipment, IUnsheathDuration timeFormula) : base(animator)
+        {
             _equipment = equipment;
+            _timeFormula = timeFormula;
+        }
 
         public override void Enter()
         {

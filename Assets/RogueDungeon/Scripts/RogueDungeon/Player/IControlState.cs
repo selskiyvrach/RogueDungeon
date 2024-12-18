@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Characters
+﻿namespace RogueDungeon.Player
 {
     public interface IControlState
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
-namespace RogueDungeon.PlayerInput
+namespace RogueDungeon.Player.Input
 {
     public class CharacterInput : IDisposable, IInput
     {

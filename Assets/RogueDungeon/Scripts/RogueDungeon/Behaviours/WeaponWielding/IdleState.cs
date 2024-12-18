@@ -1,33 +1,32 @@
 ﻿using Common.Animations;
 using Common.Fsm;
-using Common.Parameters;
-using RogueDungeon.Characters;
-using RogueDungeon.Parameters;
-using RogueDungeon.PlayerInput;
+using RogueDungeon.Items;
+using RogueDungeon.Player;
+using RogueDungeon.Player.Input;
 
 namespace RogueDungeon.Behaviours.WeaponWielding
 {
     internal class IdleState : IState, IEnterableState
     {
         private readonly IAnimator _animator;
-        private readonly IParameters _durations;
         private readonly IInput _input;
         private readonly IControlState _controlState;
         private readonly IComboCounter _comboCounter;
+        private readonly IIdleAnimationSpeed _animationSpeed;
 
-        public IdleState(IAnimator animator, IParameters durations, IInput input, IControlState controlState, IComboCounter comboCounter)
+        public IdleState(IAnimator animator, IInput input, IControlState controlState, IComboCounter comboCounter, IIdleAnimationSpeed animationSpeed)
         {
             _animator = animator;
-            _durations = durations;
             _input = input;
             _controlState = controlState;
             _comboCounter = comboCounter;
+            _animationSpeed = animationSpeed;
         }
 
         public void Enter()
         {
             _comboCounter.AttackIndex = -1;
-            _animator.Play(new LoopedAnimationData(AnimationNames.IDLE, _durations.Get(ParameterKeys.IDLE_ANIMATION_SPEED)));
+            _animator.Play(new LoopedAnimationData(AnimationNames.IDLE, _animationSpeed.Value));
         }
 
         public void CheckTransitions(IStateChanger stateChanger)
