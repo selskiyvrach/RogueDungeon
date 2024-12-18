@@ -1,5 +1,5 @@
-﻿using RogueDungeon.Behaviours.HandheldEquipmentBehaviour;
-using RogueDungeon.Behaviours.WeaponWielding;
+﻿using RogueDungeon.Items.Handling.Unsheather;
+using RogueDungeon.Items.Handling.WeaponWielder;
 using RogueDungeon.Items.Weapons;
 
 namespace RogueDungeon.Player
@@ -19,13 +19,6 @@ namespace RogueDungeon.Player
 
         public void Initialize()
         {
-            EquipWeapon();
-        }
-
-        private void EquipWeapon()
-        {
-            _weapon.WeaponInfo = _weaponConfig;
-            _weapon.Enable();
         }
     }
 }

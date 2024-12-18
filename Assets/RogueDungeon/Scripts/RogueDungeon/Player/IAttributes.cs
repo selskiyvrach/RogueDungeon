@@ -2,7 +2,7 @@
 {
     public interface ICharacterAttributes
     {
-        Attribute Strength { get; }
-        Attribute Agility { get; }
+        int Strength { get; }
+        int Agility { get; }
     }
 }
