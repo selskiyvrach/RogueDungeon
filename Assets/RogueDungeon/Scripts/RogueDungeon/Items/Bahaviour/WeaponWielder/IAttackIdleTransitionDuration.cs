@@ -1,6 +1,6 @@
 ﻿using Common.Parameters;
 
-namespace RogueDungeon.Items.Handling.WeaponWielder
+namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
     public interface IAttackIdleTransitionDuration : IParameter
     {

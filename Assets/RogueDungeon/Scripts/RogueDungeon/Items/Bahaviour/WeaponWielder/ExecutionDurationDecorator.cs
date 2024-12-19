@@ -1,11 +1,11 @@
-﻿using RogueDungeon.Items.Handling.Common;
+﻿using RogueDungeon.Items.Bahaviour.Common;
 
-namespace RogueDungeon.Items.Handling.WeaponWielder
+namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
     public class ExecutionDurationDecorator : WeaponActionDurationBasedOnWeightModifier<IAttackExecutionDuration>, IAttackExecutionDuration
     {
-        public ExecutionDurationDecorator(IAttackExecutionDuration baseParameter, IStrengthAttribute strengthAttribute, IAgilityAttribute agilityAttribute, ICurrentHandheldItemProvider currentHandheldItem) : 
-            base(baseParameter, strengthAttribute, agilityAttribute, currentHandheldItem)
+        public ExecutionDurationDecorator(IAttackExecutionDuration baseParameter, IStrengthAttribute strengthAttribute, IAgilityAttribute agilityAttribute, ICurrentItemGetter currentItemGetterAndSetter) : 
+            base(baseParameter, strengthAttribute, agilityAttribute, currentItemGetterAndSetter)
         {
         }
     }

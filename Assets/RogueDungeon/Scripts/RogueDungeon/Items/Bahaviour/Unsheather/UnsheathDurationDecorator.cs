@@ -1,10 +1,10 @@
-﻿using RogueDungeon.Items.Handling.Common;
+﻿using RogueDungeon.Items.Bahaviour.Common;
 
-namespace RogueDungeon.Items.Handling.Unsheather
+namespace RogueDungeon.Items.Bahaviour.Unsheather
 {
     public class UnsheathDurationDecorator : WeaponActionDurationBasedOnWeightModifier<IUnsheathDuration>, IUnsheathDuration 
     {
-        public UnsheathDurationDecorator(IUnsheathDuration baseParameter, IStrengthAttribute strengthAttribute, IAgilityAttribute agilityAttribute, ICurrentHandheldItemProvider currentHandheldItem) : base(baseParameter, strengthAttribute, agilityAttribute, currentHandheldItem)
+        public UnsheathDurationDecorator(IUnsheathDuration baseParameter, IStrengthAttribute strengthAttribute, IAgilityAttribute agilityAttribute, ICurrentItemGetter currentItemGetterAndSetter) : base(baseParameter, strengthAttribute, agilityAttribute, currentItemGetterAndSetter)
         {
         }
     }

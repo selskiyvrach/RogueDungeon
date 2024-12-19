@@ -1,4 +1,4 @@
-﻿using RogueDungeon.Items.Handling.WeaponWielder;
+﻿using RogueDungeon.Items.Bahaviour.WeaponWielder;
 
 namespace RogueDungeon.Items.Weapons
 {

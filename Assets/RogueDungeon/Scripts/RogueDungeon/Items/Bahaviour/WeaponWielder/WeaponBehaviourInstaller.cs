@@ -2,14 +2,14 @@
 using Common.UtilsZenject;
 using Zenject;
 
-namespace RogueDungeon.Items.Handling.WeaponWielder
+namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
     public class WeaponBehaviourInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
-             Container.NewSingle<IStatesFactory, StatesFactoryWithCache>();
-             Container.NewSingleInterfacesAndSelf<WeaponBehaviour>();
+            Container.NewSingleInterfaces<WeaponBehaviourContext>();
+            Container.NewSingle<WeaponBehaviour>().WithArguments(new StatesFactoryWithCache(Container));
         }
     }
 }

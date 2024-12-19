@@ -16,17 +16,17 @@ namespace RogueDungeon.Player
 
         public override void InstallBindings()
         {
-            // Container.Resolve<IGameCamera>().Follow = _cameraParent;
             Container.NewSingle<IControlState, ControlState>();
             Container.NewSingle<IInput, CharacterInput>();
             Container.InstanceSingle(_weaponCofig);
             Container.InstanceSingle<IAnimator>(_equipmentAnimator);
-            _player = Container.NewSingleResolve<Player>();
+            Container.NewSingle<Player>();
         }
 
         public override void Start()
         {
             base.Start();
+            _player = Container.Resolve<Player>();
             _player.Initialize();
         }
     }

@@ -1,11 +1,15 @@
-﻿using Common.UtilsZenject;
+﻿using Common.Fsm;
+using Common.UtilsZenject;
 using Zenject;
 
-namespace RogueDungeon.Items.Handling.Unsheather
+namespace RogueDungeon.Items.Bahaviour.Unsheather
 {
-    public class HandheldEquipmentBehaviourInstaller : MonoInstaller
+    public class UnsheatherBehaviourInstaller : MonoInstaller
     {
-        public override void InstallBindings() => 
-            Container.NewSingle<HandheldItemBehaviour>();
+        public override void InstallBindings()
+        {
+            Container.NewSingleInterfaces<UnsheatherBehaviourContext>();
+            Container.NewSingle<UnsheatherBehaviour>().WithArguments(new StatesFactoryWithCache(Container));;
+        }
     }
 }

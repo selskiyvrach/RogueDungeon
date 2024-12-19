@@ -7,7 +7,7 @@ using RogueDungeon.Player;
 using RogueDungeon.Player.Input;
 using UnityEngine.Assertions;
 
-namespace RogueDungeon.Items.Handling.WeaponWielder
+namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
     internal class AttackExecutionState : BoundToAnimationState
     {

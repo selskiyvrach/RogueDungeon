@@ -1,6 +1,6 @@
 ﻿using Common.Animations;
 
-namespace RogueDungeon.Items.Handling.WeaponWielder
+namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
     [AnimatorParameters]
     public static class AnimationNames

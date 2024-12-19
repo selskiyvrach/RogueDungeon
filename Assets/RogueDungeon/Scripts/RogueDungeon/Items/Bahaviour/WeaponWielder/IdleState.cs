@@ -3,7 +3,7 @@ using Common.Fsm;
 using RogueDungeon.Player;
 using RogueDungeon.Player.Input;
 
-namespace RogueDungeon.Items.Handling.WeaponWielder
+namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
     internal class IdleState : IState, IEnterableState
     {

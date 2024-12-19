@@ -10,7 +10,7 @@ namespace Common.Fsm
         private readonly DiContainer _container;
         private readonly List<IState> _cache = new();
 
-        protected StatesFactoryWithCache(DiContainer container) => 
+        public StatesFactoryWithCache(DiContainer container) => 
             _container = container;
 
         public T Create<T>() where T : class, IState => 

@@ -3,7 +3,7 @@ using Common.Fsm;
 using RogueDungeon.Fsm;
 using RogueDungeon.Player;
 
-namespace RogueDungeon.Items.Handling.WeaponWielder
+namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
     internal class AttackPrepareState : BoundToAnimationState
     {

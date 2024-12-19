@@ -1,6 +1,6 @@
 ﻿using Common.Parameters;
 
-namespace RogueDungeon.Items.Handling.Unsheather
+namespace RogueDungeon.Items.Bahaviour.Unsheather
 {
     public interface IUnsheathDuration : IParameter
     {

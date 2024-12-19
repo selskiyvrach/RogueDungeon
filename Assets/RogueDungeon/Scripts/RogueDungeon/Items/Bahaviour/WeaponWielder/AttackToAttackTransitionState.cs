@@ -2,7 +2,7 @@
 using RogueDungeon.Items.Weapons;
 using RogueDungeon.Player;
 
-namespace RogueDungeon.Items.Handling.WeaponWielder
+namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
     internal class AttackToAttackTransitionState : TimerState
     {

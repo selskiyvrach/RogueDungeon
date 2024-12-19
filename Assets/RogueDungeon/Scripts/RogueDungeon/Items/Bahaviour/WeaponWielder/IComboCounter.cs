@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Items.Handling.WeaponWielder
+﻿namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
     internal interface IComboCounter
     {

@@ -1,26 +1,31 @@
 ﻿using Common.Animations;
 using Common.Fsm;
 using RogueDungeon.Fsm;
-using RogueDungeon.Items.Handling.WeaponWielder;
+using RogueDungeon.Items.Bahaviour.Common;
+using RogueDungeon.Items.Bahaviour.WeaponWielder;
 
-namespace RogueDungeon.Items.Handling.Unsheather
+namespace RogueDungeon.Items.Bahaviour.Unsheather
 {
-    public class SheathState : BoundToAnimationState
+    internal class SheathState : BoundToAnimationState
     {
-        private readonly IChangingHandheldItemsInfo _equipment;
+        private readonly ICurrentItemSetter _currentItemGetter;
+        private readonly ICurrentItemVisibleSetter _itemVisibleSetter;
+        private readonly ICurrentItemUsableSetter _itemUsableSetter;
         private readonly IUnsheathDuration _timeFormula;
 
         protected override AnimationData Animation => new(AnimationNames.SHEATH_RIGHT_HAND, _timeFormula.Value);
 
-        public SheathState(IAnimator animator, IChangingHandheldItemsInfo equipment, IUnsheathDuration timeFormula) : base(animator)
+        public SheathState(IAnimator animator, IUnsheathDuration timeFormula, ICurrentItemSetter currentItemGetter, ICurrentItemVisibleSetter itemVisibleSetter, ICurrentItemUsableSetter itemUsableSetter) : base(animator)
         {
-            _equipment = equipment;
             _timeFormula = timeFormula;
+            _currentItemGetter = currentItemGetter;
+            _itemVisibleSetter = itemVisibleSetter;
+            _itemUsableSetter = itemUsableSetter;
         }
 
         public override void Enter()
         {
-            _equipment.CurrentItem.SetCanBeUsed(false);
+            _itemUsableSetter.SetUsable(false);
             base.Enter();
         }
 
@@ -28,8 +33,8 @@ namespace RogueDungeon.Items.Handling.Unsheather
         {
             if (!IsTimerOff)
                 return;
-            _equipment.CurrentItem.SetVisible(false);
-            _equipment.CurrentItem = null;
+            _itemVisibleSetter.SetVisible(false);
+            _currentItemGetter.Item = null;
             stateChanger.To<EvaluateState>();
         }
     }
