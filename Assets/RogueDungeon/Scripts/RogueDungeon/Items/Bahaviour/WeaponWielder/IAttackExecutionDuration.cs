@@ -1,4 +1,5 @@
-﻿using Common.Parameters;
+﻿using System;
+using Common.Parameters;
 
 namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
@@ -8,7 +9,7 @@ namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 
     public class AttackExecutionDuration : Parameter, IAttackExecutionDuration
     {
-        public AttackExecutionDuration(float value) : base(value)
+        public AttackExecutionDuration(Func<float> value) : base(value)
         {
         }
     }

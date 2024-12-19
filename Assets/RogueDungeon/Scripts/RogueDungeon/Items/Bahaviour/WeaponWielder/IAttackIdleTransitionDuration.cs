@@ -1,4 +1,5 @@
-﻿using Common.Parameters;
+﻿using System;
+using Common.Parameters;
 
 namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
@@ -8,7 +9,7 @@ namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 
     public class AttackIdleTransitionDuration : Parameter, IAttackIdleTransitionDuration
     {
-        public AttackIdleTransitionDuration(float value) : base(value)
+        public AttackIdleTransitionDuration(Func<float> value) : base(value)
         {
         }
     }

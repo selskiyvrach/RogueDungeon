@@ -1,4 +1,5 @@
-﻿using Common.Parameters;
+﻿using System;
+using Common.Parameters;
 
 namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 {
@@ -9,7 +10,7 @@ namespace RogueDungeon.Items.Bahaviour.WeaponWielder
 
     public class IdleAnimationSpeed : Parameter, IIdleAnimationSpeed 
     {
-        public IdleAnimationSpeed(float value) : base(value)
+        public IdleAnimationSpeed(Func<float> value) : base(value)
         {
         }
     }

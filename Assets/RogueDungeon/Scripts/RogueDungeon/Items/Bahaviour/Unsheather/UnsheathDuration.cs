@@ -1,10 +1,12 @@
-﻿namespace RogueDungeon.Items.Bahaviour.Unsheather
-{
-    public class UnsheathDuration : IUnsheathDuration
-    {
-        public float Value { get; }
+﻿using System;
+using Common.Parameters;
 
-        public UnsheathDuration(float value) => 
-            Value = value;
+namespace RogueDungeon.Items.Bahaviour.Unsheather
+{
+    public class UnsheathDuration : Parameter, IUnsheathDuration
+    {
+        public UnsheathDuration(Func<float> value) : base(value)
+        {
+        }
     }
 }

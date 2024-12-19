@@ -1,4 +1,6 @@
-﻿namespace Common.Parameters
+﻿using System;
+
+namespace Common.Parameters
 {
     public interface IParameter<T> where T : IParameter
     {
@@ -11,9 +13,10 @@
 
     public class Parameter : IParameter
     {
-        public float Value { get; }
+        private readonly Func<float> _getter;
+        public float Value => _getter.Invoke();
 
-        public Parameter(float value) => 
-            Value = value;
+        protected Parameter(Func<float> value) => 
+            _getter = value;
     }
 }

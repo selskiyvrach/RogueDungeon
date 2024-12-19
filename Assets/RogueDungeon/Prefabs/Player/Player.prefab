@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7879816354633157313}
   - component: {fileID: 8610275046940229707}
   - component: {fileID: 4340151303283909155}
+  - component: {fileID: 7294909730519723855}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -54,6 +55,7 @@ MonoBehaviour:
   - {fileID: 4340151303283909155}
   - {fileID: 8610275046940229707}
   - {fileID: 7879816354633157313}
+  - {fileID: 7294909730519723855}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -84,10 +86,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2716c2111034e16ae0a87fe6c6e94fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _idleAnimationSpeed: 1
-  _attackExecutionDuration: 0.25
-  _attackAttackTransitionDuration: 0.25
-  _attackIdleTransitionDuration: 0.35
 --- !u!114 &4340151303283909155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,8 +98,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 660071f9360c4f47b7c771dbbdf1d12a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unsheathDuration: 0.5
   _itemVisibleSetter: {fileID: 7746264375280994412}
+--- !u!114 &7294909730519723855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519540501769377305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4cd3040c274517ae679a36165c5057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timings: {fileID: 11400000, guid: f28ce213d35081b4d9a2f9ced255e4fd, type: 2}
 --- !u!1 &763680708661238317
 GameObject:
   m_ObjectHideFlags: 0

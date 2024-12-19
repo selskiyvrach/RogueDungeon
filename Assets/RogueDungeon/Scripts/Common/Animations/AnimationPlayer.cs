@@ -33,7 +33,7 @@ namespace Common.Animations
         {
             _isLooped = true;
             var clip = _clips.Get(n => n.name == loopedAnimationData.Name);
-            _duration = clip.length; 
+            _duration = clip.length / loopedAnimationData.Speed; 
             Play(clip);
         }
 
