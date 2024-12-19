@@ -40,10 +40,10 @@ namespace Common.UtilsZenject
             return container.Resolve<T>();
         }
 
-        public static void NewSingeDecorator<T, TDecorator>(this DiContainer container) where TDecorator : T
+        public static InstantiateCallbackConditionCopyNonLazyBinder NewSingeDecorator<T, TDecorator>(this DiContainer container, params object[] arguments) where TDecorator : T
         {
             var decorated = container.Resolve<T>();
-            container.NewSingle<T, TDecorator>().WithArguments(decorated);
+            return container.NewSingle<T, TDecorator>().WithArguments(decorated);
         }
     }
 }
