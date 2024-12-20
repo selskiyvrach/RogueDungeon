@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Items
+﻿namespace RogueDungeon.Items.Data.Common
 {
     public interface IItemWeight
     {

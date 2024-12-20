@@ -1,0 +1,16 @@
+{
+    "name": "Items.Data.Weapons",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8e4fd398e11cfb2489c8c8aadbcaca24"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

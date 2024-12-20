@@ -1,0 +1,16 @@
+﻿using System;
+using Common.Parameters;
+
+namespace RogueDungeon.Items.Behaviours.WeaponWielder
+{
+    public interface IAttackExecutionDuration : IParameter
+    {
+    }
+
+    public class AttackExecutionDuration : Parameter, IAttackExecutionDuration
+    {
+        public AttackExecutionDuration(Func<float> value) : base(value)
+        {
+        }
+    }
+}

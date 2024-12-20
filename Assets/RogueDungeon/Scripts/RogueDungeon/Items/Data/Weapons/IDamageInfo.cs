@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Items.Weapons
+﻿namespace RogueDungeon.Items.Data.Weapons
 {
     public interface IDamageInfo
     {

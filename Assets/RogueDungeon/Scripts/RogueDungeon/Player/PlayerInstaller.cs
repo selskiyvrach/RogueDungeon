@@ -1,6 +1,6 @@
 ﻿using Common.Animations;
 using Common.UtilsZenject;
-using RogueDungeon.Items.Weapons;
+using RogueDungeon.Items.Data.Weapons;
 using RogueDungeon.Player.Input;
 using UnityEngine;
 using Zenject;

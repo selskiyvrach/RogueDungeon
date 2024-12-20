@@ -1,6 +1,4 @@
-﻿using RogueDungeon.Items.Bahaviour.WeaponWielder;
-
-namespace RogueDungeon.Items.Weapons
+﻿namespace RogueDungeon.Items.Data.Weapons
 {
     public interface IComboInfo 
     {
