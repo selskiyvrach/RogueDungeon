@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Items
+﻿namespace RogueDungeon.Player
 {
     public interface IStrengthAttribute
     {
