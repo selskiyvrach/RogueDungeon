@@ -777,23 +777,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4340151303283909155, guid: 0b1353be74b298141ba99669d9373a88,
-        type: 3}
-      propertyPath: _timings
-      value: 
-      objectReference: {fileID: 11400000, guid: f28ce213d35081b4d9a2f9ced255e4fd,
-        type: 2}
     - target: {fileID: 8547257778927841422, guid: 0b1353be74b298141ba99669d9373a88,
         type: 3}
       propertyPath: m_Name
       value: Item
       objectReference: {fileID: 0}
-    - target: {fileID: 8610275046940229707, guid: 0b1353be74b298141ba99669d9373a88,
-        type: 3}
-      propertyPath: _timings
-      value: 
-      objectReference: {fileID: 11400000, guid: c82069c4901950142bf45dcc7c7b4e4f,
-        type: 2}
     m_RemovedComponents:
     - {fileID: 7294909730519723855, guid: 0b1353be74b298141ba99669d9373a88, type: 3}
     m_RemovedGameObjects: []
