@@ -1,5 +1,5 @@
 {
-    "name": "Player",
+    "name": "RogueDungeon.Player",
     "rootNamespace": "",
     "references": [
         "GUID:d316658da0fa4369aa934d6805a690c4",
@@ -14,7 +14,10 @@
         "GUID:8e4fd398e11cfb2489c8c8aadbcaca24",
         "GUID:b4a932adf04e4c7f9a32442cf355e28c",
         "GUID:8b71a4b621c22ec46bef90eb533e2446",
-        "GUID:639c2d8dd4824fa1806fb5f1e9bb0396"
+        "GUID:639c2d8dd4824fa1806fb5f1e9bb0396",
+        "GUID:694f59623a13416e82dd84c3b2dcf008",
+        "GUID:cb477f113769433fb5c1f4c3673b8b45",
+        "GUID:2365f8453a954ab5a0db7b2d12b3d029"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

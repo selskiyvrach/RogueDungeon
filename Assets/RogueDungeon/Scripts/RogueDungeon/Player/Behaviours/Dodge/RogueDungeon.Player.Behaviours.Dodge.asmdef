@@ -1,5 +1,5 @@
 {
-    "name": "Player.Behaviours.Dodge",
+    "name": "RogueDungeon.Player.Behaviours.Dodge",
     "rootNamespace": "",
     "references": [
         "GUID:56316acafb484b999a91fbaf7d4fff95",
@@ -8,7 +8,8 @@
         "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
         "GUID:7219b7caae824cf8a7e9cd2b004517a7",
         "GUID:639c2d8dd4824fa1806fb5f1e9bb0396",
-        "GUID:7ed30415c41e161439fcc22ea83cb3b9"
+        "GUID:7ed30415c41e161439fcc22ea83cb3b9",
+        "GUID:694f59623a13416e82dd84c3b2dcf008"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

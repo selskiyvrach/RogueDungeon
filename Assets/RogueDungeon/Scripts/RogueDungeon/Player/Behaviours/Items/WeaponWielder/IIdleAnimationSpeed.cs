@@ -4,6 +4,5 @@ namespace RogueDungeon.Items.Behaviours.WeaponWielder
 {
     public interface  IIdleAnimationSpeed : IParameterDefinition
     {
-        float Value { get; }
     }
 }

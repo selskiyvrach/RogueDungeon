@@ -2,6 +2,7 @@
 using Common.Animations;
 using Common.Fsm;
 using Common.Parameters;
+using RogueDungeon.Characters.Commands;
 using RogueDungeon.Fsm;
 using RogueDungeon.Items.Data.Weapons;
 using UnityEngine.Assertions;
@@ -12,7 +13,7 @@ namespace RogueDungeon.Items.Behaviours.WeaponWielder
     {
         private readonly IComboInfo _comboInfo;
         private readonly IComboCounter _comboCounter;
-        private readonly IWeaponInput _input;
+        private readonly ICharacterCommands _input;
         private readonly IWeaponControlState _controlState;
         private readonly IParameter<IAttackExecutionDuration> _duration;
 
@@ -23,7 +24,7 @@ namespace RogueDungeon.Items.Behaviours.WeaponWielder
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        public AttackExecutionState(IAnimator animator, IComboInfo comboInfo, IComboCounter comboCounter, IWeaponInput input, IWeaponControlState controlState, IParameter<IAttackExecutionDuration> duration) : 
+        public AttackExecutionState(IAnimator animator, IComboInfo comboInfo, IComboCounter comboCounter, ICharacterCommands input, IWeaponControlState controlState, IParameter<IAttackExecutionDuration> duration) : 
             base(animator)
         {
             _comboInfo = comboInfo;
@@ -55,7 +56,7 @@ namespace RogueDungeon.Items.Behaviours.WeaponWielder
         {
             if(!IsTimerOff)
                 return;
-            if (_controlState.CanAttack() && _input.TryConsume(WeaponInputCommand.Attack))
+            if (_controlState.CanAttack() && _input.TryConsume<IAttackCommand>())
                 stateChanger.To<AttackToAttackTransitionState>();
             else
                 stateChanger.To<AttackFinishState>();

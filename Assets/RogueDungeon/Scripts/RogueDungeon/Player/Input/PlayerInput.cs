@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using RogueDungeon.Characters.Commands;
+using RogueDungeon.Items.Behaviours.WeaponWielder;
+using RogueDungeon.Player.Behaviours.Dodge;
 using UniRx;
 using UnityEngine;
 
 namespace RogueDungeon.Player.Input
 {
-    public class CharacterInput : IDisposable, IInput
+    public class PlayerInput : IDisposable, ICharacterCommands
     {
         private enum KeyState
         {
@@ -13,21 +16,21 @@ namespace RogueDungeon.Player.Input
             Held
         }
         
-        private static readonly Dictionary<Input, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
+        private static readonly Dictionary<Type, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
         {
-            [Input.MoveForward] = (KeyCode.W,KeyState.Held , 0),
-            [Input.Attack] = (KeyCode.Mouse0, KeyState.Down, .5f),
-            [Input.DodgeRight] = (KeyCode.D, KeyState.Down,.5f),
-            [Input.DodgeLeft] = (KeyCode.A, KeyState.Down,.5f),
-            [Input.Block] = (KeyCode.Mouse1, KeyState.Held,.5f),
+            // [Input.MoveForward] = (KeyCode.W,KeyState.Held , 0),
+            [typeof(IAttackCommand)] = (KeyCode.Mouse0, KeyState.Down, .5f),
+            [typeof(IDodgeRightCommand)] = (KeyCode.D, KeyState.Down,.5f),
+            [typeof(IDodgeLeftCommand)] = (KeyCode.A, KeyState.Down,.5f),
+            // [Input.Block] = (KeyCode.Mouse1, KeyState.Held,.5f),
         };
 
         private readonly IDisposable _sub;
-        private Input? _input;
+        private Type _currentInputCommand;
         private float _timeSinceReleased;
         private float _timeHeld;
 
-        public CharacterInput() => 
+        public PlayerInput() => 
             _sub = Observable.EveryUpdate().Subscribe(_ => Tick());
 
         public void Dispose() => 
@@ -39,12 +42,12 @@ namespace RogueDungeon.Player.Input
             ReadCommands();
         }
 
-        public bool TryConsume(Input input)
+        public bool TryConsume<T>() where T : ICharacterCommandDefinition
         {
-            if (_input != input)
+            if (_currentInputCommand != typeof(T))
                 return false;
             
-            _input = null;
+            _currentInputCommand = null;
             _timeHeld = 0;
             _timeSinceReleased = Mathf.Infinity;
             return true;
@@ -52,7 +55,7 @@ namespace RogueDungeon.Player.Input
 
         private void ReadCommands()
         {
-            var currentCommand = (Input?)null;
+            var currentCommand = (Type)null;
 
             foreach (var (command, (code, state, coyoteTime)) in Commands)
             {
@@ -68,7 +71,7 @@ namespace RogueDungeon.Player.Input
                 if (currentCommand != command)
                 {
                     currentCommand = command;
-                    _input = currentCommand;
+                    _currentInputCommand = currentCommand;
                     _timeHeld = 0;
                 }
                 else
@@ -78,12 +81,12 @@ namespace RogueDungeon.Player.Input
 
         private void UpdateCoyoteTime()
         {
-            if (_input == null) 
+            if (_currentInputCommand == null) 
                 return;
             
             _timeSinceReleased += Time.deltaTime;
-            if (_timeSinceReleased >= Commands[(Input)_input].coyoteTime) 
-                _input = null;
+            if (_timeSinceReleased >= Commands[_currentInputCommand].coyoteTime) 
+                _currentInputCommand = null;
         }
     }
 }

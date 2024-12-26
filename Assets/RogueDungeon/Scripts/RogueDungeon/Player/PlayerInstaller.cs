@@ -1,5 +1,6 @@
 ﻿using Common.Animations;
 using Common.UtilsZenject;
+using RogueDungeon.Characters.Commands;
 using RogueDungeon.Items.Data.Weapons;
 using RogueDungeon.Player.Input;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace RogueDungeon.Player
         public override void InstallBindings()
         {
             Container.NewSingle<IControlState, ControlState>();
-            Container.NewSingle<IInput, CharacterInput>();
+            Container.NewSingle<ICharacterCommands, PlayerInput>();
             Container.InstanceSingle(_weaponCofig);
             Container.InstanceSingle<IAnimator>(_equipmentAnimator);
             Container.NewSingle<Player>();
