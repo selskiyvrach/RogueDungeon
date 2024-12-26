@@ -2,7 +2,7 @@
 
 namespace RogueDungeon.Items.Behaviours.Unsheather
 {
-    public interface IUnsheathDuration : IParameter
+    public interface IUnsheathDuration : IParameterDefinition
     {
     }
 }
