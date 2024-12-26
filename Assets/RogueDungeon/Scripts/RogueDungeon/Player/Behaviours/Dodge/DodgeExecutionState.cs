@@ -1,13 +1,14 @@
 ﻿using System;
 using Common.Animations;
 using Common.Fsm;
+using Common.Parameters;
 using RogueDungeon.Fsm;
 
 namespace RogueDungeon.Player.Behaviours.Dodge
 {
     public abstract class DodgeExecutionState : BoundToAnimationState
     {
-        private readonly IDodgeDuration _duration;
+        private readonly IParameter<IDodgeDuration> _duration;
         private readonly IDodgeStateSetter _stateSetter;
 
         protected abstract DodgeState DodgeState { get; }
@@ -18,7 +19,7 @@ namespace RogueDungeon.Player.Behaviours.Dodge
             _ => throw new ArgumentOutOfRangeException()
         }, _duration.Value);
 
-        protected DodgeExecutionState(IAnimator animator, IDodgeDuration duration, IDodgeStateSetter stateSetter) : base(animator)
+        protected DodgeExecutionState(IAnimator animator, IParameter<IDodgeDuration> duration, IDodgeStateSetter stateSetter) : base(animator)
         {
             _duration = duration;
             _stateSetter = stateSetter;

@@ -1,4 +1,5 @@
 ﻿using Common.Animations;
+using Common.Parameters;
 
 namespace RogueDungeon.Player.Behaviours.Dodge
 {
@@ -6,7 +7,7 @@ namespace RogueDungeon.Player.Behaviours.Dodge
     {
         protected override DodgeState DodgeState => DodgeState.DodgingLeft;
 
-        public DodgeLeftState(IAnimator animator, IDodgeDuration duration, IDodgeStateSetter stateSetter) : base(animator, duration, stateSetter)
+        public DodgeLeftState(IAnimator animator, IParameter<IDodgeDuration> duration, IDodgeStateSetter stateSetter) : base(animator, duration, stateSetter)
         {
         }
     }

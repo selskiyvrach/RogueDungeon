@@ -1,6 +1,6 @@
 ﻿namespace Common.Parameters
 {
-    public interface IParameter<T> where T : IParameterDefinition
+    public interface IParameter<T> : IParameter where T : IParameterDefinition
     {
     }
 

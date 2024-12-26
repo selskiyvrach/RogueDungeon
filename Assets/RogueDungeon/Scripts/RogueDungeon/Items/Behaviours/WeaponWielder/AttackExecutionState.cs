@@ -1,6 +1,7 @@
 ﻿using System;
 using Common.Animations;
 using Common.Fsm;
+using Common.Parameters;
 using RogueDungeon.Fsm;
 using RogueDungeon.Items.Data.Weapons;
 using UnityEngine.Assertions;
@@ -13,7 +14,7 @@ namespace RogueDungeon.Items.Behaviours.WeaponWielder
         private readonly IComboCounter _comboCounter;
         private readonly IWeaponInput _input;
         private readonly IWeaponControlState _controlState;
-        private readonly IAttackExecutionDuration _duration;
+        private readonly IParameter<IAttackExecutionDuration> _duration;
 
         protected override AnimationData Animation => _comboInfo.AttackDirectionsInCombo[_comboCounter.AttackIndex] switch
         {
@@ -22,7 +23,7 @@ namespace RogueDungeon.Items.Behaviours.WeaponWielder
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        public AttackExecutionState(IAnimator animator, IComboInfo comboInfo, IComboCounter comboCounter, IWeaponInput input, IWeaponControlState controlState, IAttackExecutionDuration duration) : 
+        public AttackExecutionState(IAnimator animator, IComboInfo comboInfo, IComboCounter comboCounter, IWeaponInput input, IWeaponControlState controlState, IParameter<IAttackExecutionDuration> duration) : 
             base(animator)
         {
             _comboInfo = comboInfo;

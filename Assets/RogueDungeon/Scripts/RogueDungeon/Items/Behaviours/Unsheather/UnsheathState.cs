@@ -1,5 +1,6 @@
 ﻿using Common.Animations;
 using Common.Fsm;
+using Common.Parameters;
 using RogueDungeon.Fsm;
 using RogueDungeon.Items.Behaviours.Common;
 
@@ -9,11 +10,11 @@ namespace RogueDungeon.Items.Behaviours.Unsheather
     {
         private readonly ICurrentItemVisibleSetter _currentItemVisibleSetter;
         private readonly ICurrentItemUsableSetter _currentItemUsableSetter;
-        private readonly IUnsheathDuration _duration;
+        private readonly IParameter<IUnsheathDuration> _duration;
 
         protected override AnimationData Animation => new(AnimationNames.UNSHEATH_RIGHT_HAND, _duration.Value);
 
-        public UnsheathState(IAnimator animator, IUnsheathDuration duration, ICurrentItemVisibleSetter currentItemVisibleSetter, ICurrentItemUsableSetter currentItemUsableSetter) : base(animator)
+        public UnsheathState(IAnimator animator, IParameter<IUnsheathDuration> duration, ICurrentItemVisibleSetter currentItemVisibleSetter, ICurrentItemUsableSetter currentItemUsableSetter) : base(animator)
         {
             _duration = duration;
             _currentItemVisibleSetter = currentItemVisibleSetter;
