@@ -11,7 +11,7 @@ namespace RogueDungeon.Player
     public class PlayerInstaller : MonoInstaller
     {
         [SerializeField] private Transform _cameraParent;
-        [SerializeField] private AnimationPlayer _equipmentAnimator;
+        [SerializeField] private AnimationPlayer _animationPlayer;
         [SerializeField] private WeaponConfig _weaponCofig;
         private Player _player;
 
@@ -20,7 +20,7 @@ namespace RogueDungeon.Player
             Container.NewSingle<IControlState, ControlState>();
             Container.NewSingle<ICharacterCommands, PlayerInput>();
             Container.InstanceSingle(_weaponCofig);
-            Container.InstanceSingle<IAnimator>(_equipmentAnimator);
+            Container.InstanceSingle<IAnimator>(_animationPlayer);
             Container.NewSingleInterfacesAndSelf<Player>();
             Container.AutoResolve<Player>();
         }

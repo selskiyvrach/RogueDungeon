@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0a12f1fdd6573a4285fcbe440756e07, type: 3}
-  m_Name: UnsheatherTimings
+  m_Script: {fileID: 11500000, guid: ad01640987754cffadcd89f1d2cc7464, type: 3}
+  m_Name: WeaponTimings
   m_EditorClassIdentifier: 
   <IdleAnimationSpeed>k__BackingField: 1
-  <AttackExecutionDuration>k__BackingField: 0.2
-  <AttackAttackTransitionDuration>k__BackingField: 0.3
+  <AttackExecutionDuration>k__BackingField: 0.3
+  <AttackAttackTransitionDuration>k__BackingField: 0.25
   <AttackIdleTransitionDuration>k__BackingField: 0.4
-  <UnsheathDuration>k__BackingField: 0.5

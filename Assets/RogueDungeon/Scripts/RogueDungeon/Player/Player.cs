@@ -4,10 +4,12 @@ using Zenject;
 
 namespace RogueDungeon.Player
 {
-    public class Player : IInitializable
+    public class Player : IInitializable, ITickable
     {
         private readonly IIntendedCurrentItemSetter _itemSetter;
         private readonly WeaponConfig _weaponConfig;
+
+        private bool _itemIsNull = true;
 
         public Player(IIntendedCurrentItemSetter itemSetter, WeaponConfig weaponConfig)
         {
@@ -15,7 +17,19 @@ namespace RogueDungeon.Player
             _weaponConfig = weaponConfig;
         }
 
-        public void Initialize() => 
-            _itemSetter.Item = _weaponConfig;
+        public void Initialize() =>
+            SwitchWeapon();
+
+        public void Tick()
+        {
+            if (UnityEngine.Input.GetMouseButtonDown(1))
+                SwitchWeapon();
+        }
+
+        private void SwitchWeapon()
+        {
+            _itemSetter.Item = _itemIsNull ? _weaponConfig : null;
+            _itemIsNull = !_itemIsNull;
+        }
     }
 }

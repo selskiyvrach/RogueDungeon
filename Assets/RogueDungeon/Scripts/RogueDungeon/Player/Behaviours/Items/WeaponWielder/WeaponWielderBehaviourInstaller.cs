@@ -1,4 +1,5 @@
-﻿using Common.Behaviours;
+﻿using Common.Animations;
+using Common.Behaviours;
 using Common.Parameters;
 using Common.UtilsZenject;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
     public class WeaponWielderBehaviourInstaller : MonoInstaller
     {
         [SerializeField] private WeaponTimings _timings;
+        [SerializeField] private AnimationPlayer _animationPlayer;
         
         public override void InstallBindings()
         {
@@ -17,6 +19,7 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
             subContainer.NewSingleParameter<IAttackExecutionDuration>(() => _timings.AttackExecutionDuration);
             subContainer.NewSingleParameter<IAttackAttackTransitionDuration>(() => _timings.AttackAttackTransitionDuration);
             subContainer.NewSingleParameter<IAttackIdleTransitionDuration>(() => _timings.AttackIdleTransitionDuration);
+            subContainer.InstanceSingleInterfaces(_animationPlayer);
             
             subContainer.NewSingleAutoResolve<WeaponWielderBehaviourEnabler>();
         }

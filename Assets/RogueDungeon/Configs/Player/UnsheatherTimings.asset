@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3a425c2fa6341e585d7fa9a0e78a857, type: 3}
-  m_Name: CharacterParametersConfig
+  m_Script: {fileID: 11500000, guid: f0a12f1fdd6573a4285fcbe440756e07, type: 3}
+  m_Name: UnsheatherTimings
   m_EditorClassIdentifier: 
-  _parameters:
-  - ParameterType: 100
-    ModifierType: 0
-    Value: 100
+  <UnsheathDuration>k__BackingField: 0.3

@@ -1,7 +1,5 @@
 ﻿using Common.Behaviours;
-using Common.Fsm;
 using Common.Parameters;
-using Common.UtilsZenject;
 using UnityEngine;
 using Zenject;
 
@@ -13,10 +11,8 @@ namespace RogueDungeon.Player.Behaviours.Dodge
         
         public override void InstallBindings()
         {
-            var subContainer = Container.CreateSubContainer();
+            var subContainer = Container.BehaviourSubcontainer<DodgeBehaviour, DodgeInternalFacade, DodgeExternalFacade>(autoRunBehaviour: true);
             subContainer.NewSingleParameter<IDodgeDuration>(() => _parameters.Duration);
-            subContainer.NewSingle<DodgeBehaviour>().WithArguments(new StatesFactoryWithCache(Container)).NonLazy();
-            subContainer.NewSingle<BehaviourAutorunner<DodgeBehaviour>>();
         }
     }
 }
