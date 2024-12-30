@@ -11,7 +11,7 @@ namespace RogueDungeon.Player.Behaviours.Items.Unsheather
     {
         [SerializeField] private CurrentItemVisibleSetter _itemVisibleSetter;
         [SerializeField] private UnsheatherTimings _timings;
-        [SerializeField] private AnimationPlayer _animationPlayer;
+        [SerializeField] private EquipmentAnimationsPlayer _animationPlayer;
         
         public override void InstallBindings()
         {

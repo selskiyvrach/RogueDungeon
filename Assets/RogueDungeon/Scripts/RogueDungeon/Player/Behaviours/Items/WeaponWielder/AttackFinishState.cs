@@ -7,30 +7,39 @@ using RogueDungeon.Items.Data.Weapons;
 
 namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
 {
-    internal class AttackFinishState : BoundToAnimationState
+    internal class AttackFinishState<T> : BoundToAnimationState where T : IAttackDirection
     {
-        private readonly IComboInfo _comboInfo;
-        private readonly IComboCounter _comboCounter;
         private readonly IParameter<IAttackIdleTransitionDuration> _duration;
-        protected override AnimationData Animation => _comboInfo.AttackDirectionsInCombo[_comboCounter.AttackIndex] switch
-        {
-            AttackDirection.BottomLeft => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_LEFT, _duration.Value),
-            AttackDirection.BottomRight => new AnimationData(AnimationNames.ATTACK_FINISH_FROM_BOTTOM_RIGHT, _duration.Value),
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        protected override AnimationData Animation => new(typeof(T) == typeof(LeftDirection) 
+                ? AnimationNames.ATTACK_FINISH_FROM_BOTTOM_LEFT 
+                : typeof(T) == typeof(RightDirection) 
+                    ? AnimationNames.ATTACK_FINISH_FROM_BOTTOM_RIGHT 
+                    : throw new ArgumentOutOfRangeException(), 
+            _duration.Value);
 
-        public AttackFinishState(IAnimator animator, IComboInfo comboInfo, IComboCounter comboCounter, IParameter<IAttackIdleTransitionDuration> duration) 
-            : base(animator)
-        {
-            _comboInfo = comboInfo;
-            _comboCounter = comboCounter;
+        public AttackFinishState(IAnimator animator, IParameter<IAttackIdleTransitionDuration> duration) 
+            : base(animator) =>
             _duration = duration;
-        }
 
         public override void CheckTransitions(IStateChanger stateChanger)
         {
             if(IsTimerOff)
                 stateChanger.To<IdleState>();
         }
+    }
+
+    internal interface IAttackDirection
+    {
+        
+    }
+
+    internal class RightDirection : IAttackDirection
+    {
+        
+    }
+
+    internal class LeftDirection : IAttackDirection
+    {
+        
     }
 }

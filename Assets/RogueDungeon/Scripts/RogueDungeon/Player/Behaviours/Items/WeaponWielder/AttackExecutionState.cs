@@ -63,8 +63,12 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
                 return;
             if (_canAttackGetter.CanAttack && _input.TryConsume<IAttackCommand>())
                 stateChanger.To<AttackToAttackTransitionState>();
+            else if (_comboInfo.AttackDirectionsInCombo[_comboCounter.AttackIndex] == AttackDirection.BottomRight)
+                stateChanger.To<AttackFinishState<RightDirection>>();
+            else if (_comboInfo.AttackDirectionsInCombo[_comboCounter.AttackIndex] == AttackDirection.BottomLeft)
+                stateChanger.To<AttackFinishState<LeftDirection>>();
             else
-                stateChanger.To<AttackFinishState>();
+                throw new InvalidOperationException();
         }
     }
 }

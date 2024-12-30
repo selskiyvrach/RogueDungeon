@@ -33,7 +33,7 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
             if(_canAttackGetter.CanAttack)
                 stateChanger.To<AttackExecutionState>();
             else
-                stateChanger.To<AttackFinishState>();
+                stateChanger.To<AttackFinishState<RightDirection>>();
         }
     }
 }

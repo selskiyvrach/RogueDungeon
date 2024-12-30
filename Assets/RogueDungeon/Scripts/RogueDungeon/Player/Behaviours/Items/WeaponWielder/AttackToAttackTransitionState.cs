@@ -1,4 +1,5 @@
-﻿using Common.Fsm;
+﻿using System;
+using Common.Fsm;
 using Common.Parameters;
 using RogueDungeon.Items.Data.Weapons;
 
@@ -33,8 +34,12 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
                 return;
             if (_canAttackGetter.CanAttack)
                 stateChanger.To<AttackExecutionState>();
+            else if (_comboInfo.AttackDirectionsInCombo[_comboCounter.AttackIndex] == AttackDirection.BottomRight)
+                stateChanger.To<AttackFinishState<RightDirection>>();
+            else if (_comboInfo.AttackDirectionsInCombo[_comboCounter.AttackIndex] == AttackDirection.BottomLeft)
+                stateChanger.To<AttackFinishState<LeftDirection>>();
             else
-                stateChanger.To<AttackFinishState>();
+                throw new InvalidOperationException();
         }
     }
 }

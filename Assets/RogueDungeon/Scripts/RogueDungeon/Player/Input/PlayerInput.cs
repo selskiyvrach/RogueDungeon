@@ -44,13 +44,23 @@ namespace RogueDungeon.Player.Input
 
         public bool TryConsume<T>() where T : ICharacterCommandDefinition
         {
-            if (_currentInputCommand != typeof(T))
+            if (!IsCurrentCommand<T>())
                 return false;
+            ConsumeCommand<T>();
+            return true;
+        }
+
+        public bool IsCurrentCommand<T>() where T : ICharacterCommandDefinition => 
+            _currentInputCommand == typeof(T);
+
+        public void ConsumeCommand<T>() where T : ICharacterCommandDefinition
+        {
+            if (!IsCurrentCommand<T>())
+                throw new InvalidOperationException($"Cannot consume command of a wrong type. Current: {_currentInputCommand.Name}, consuming: {typeof(T).Name}");
             
             _currentInputCommand = null;
             _timeHeld = 0;
             _timeSinceReleased = Mathf.Infinity;
-            return true;
         }
 
         private void ReadCommands()

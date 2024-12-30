@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1703077838608592396}
-  - component: {fileID: 2593187693742985823}
+  - component: {fileID: 524891201825187366}
+  - component: {fileID: 566554165417645574}
   - component: {fileID: 6868007659460783522}
   m_Layer: 0
   m_Name: Body
@@ -34,7 +35,7 @@ Transform:
   - {fileID: 3584763964651940592}
   m_Father: {fileID: 4261873495399062472}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2593187693742985823
+--- !u!114 &524891201825187366
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +44,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 428013216903701158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef579e290b3349b3a685a1232f8cb152, type: 3}
+  m_Script: {fileID: 11500000, guid: 332a64a6657e4543ad05e2f6a22d0b28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _referenceToAnimation: {fileID: 6868007659460783522}
+--- !u!114 &566554165417645574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 428013216903701158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155d8db6dec3406c89bf8b40a3d07819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _referenceToAnimation: {fileID: 6868007659460783522}
@@ -157,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraParent: {fileID: 7437003320940221867}
-  _animationPlayer: {fileID: 2593187693742985823}
+  _animationPlayer: {fileID: 566554165417645574}
   _weaponCofig: {fileID: 11400000, guid: 0b0b5a494baebdb4d8444bb9c89b7049, type: 2}
 --- !u!114 &8610275046940229707
 MonoBehaviour:
@@ -172,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timings: {fileID: 11400000, guid: c82069c4901950142bf45dcc7c7b4e4f, type: 2}
-  _animationPlayer: {fileID: 2593187693742985823}
+  _animationPlayer: {fileID: 524891201825187366}
 --- !u!114 &4340151303283909155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemVisibleSetter: {fileID: 7746264375280994412}
   _timings: {fileID: 11400000, guid: f28ce213d35081b4d9a2f9ced255e4fd, type: 2}
-  _animationPlayer: {fileID: 2593187693742985823}
+  _animationPlayer: {fileID: 524891201825187366}
 --- !u!114 &3433045452399016358
 MonoBehaviour:
   m_ObjectHideFlags: 0

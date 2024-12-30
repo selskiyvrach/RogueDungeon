@@ -10,7 +10,7 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
     public class WeaponWielderBehaviourInstaller : MonoInstaller
     {
         [SerializeField] private WeaponTimings _timings;
-        [SerializeField] private AnimationPlayer _animationPlayer;
+        [SerializeField] private EquipmentAnimationsPlayer _animationPlayer;
         
         public override void InstallBindings()
         {
