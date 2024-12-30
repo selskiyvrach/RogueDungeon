@@ -2,9 +2,8 @@
 using Common.Fsm;
 using Common.Parameters;
 using RogueDungeon.Fsm;
-using RogueDungeon.Items.Behaviours.Common;
 
-namespace RogueDungeon.Items.Behaviours.Unsheather
+namespace RogueDungeon.Player.Behaviours.Items.Unsheather
 {
     public class UnsheathState : BoundToAnimationState
     {
@@ -23,8 +22,8 @@ namespace RogueDungeon.Items.Behaviours.Unsheather
 
         public override void Enter()
         {
-            _currentItemVisibleSetter.SetVisible(true);
-            _currentItemUsableSetter.SetUsable(false);
+            _currentItemVisibleSetter.IsVisible = true;
+            _currentItemUsableSetter.IsUsable = false;
             base.Enter();
         }
 
@@ -32,7 +31,7 @@ namespace RogueDungeon.Items.Behaviours.Unsheather
         {
             if (!IsTimerOff)
                 return;
-            _currentItemUsableSetter.SetUsable(true);
+            _currentItemUsableSetter.IsUsable = true;
             stateChanger.To<EvaluateState>();
         }
     }

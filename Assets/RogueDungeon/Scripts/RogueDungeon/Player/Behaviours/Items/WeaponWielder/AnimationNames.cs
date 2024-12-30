@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Items.Behaviours.WeaponWielder
+﻿namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
 {
     public static class AnimationNames
     {

@@ -1,29 +1,21 @@
-﻿using RogueDungeon.Items.Behaviours.Common;
-using RogueDungeon.Items.Behaviours.Unsheather;
-using RogueDungeon.Items.Behaviours.WeaponWielder;
-using RogueDungeon.Items.Data.Weapons;
+﻿using RogueDungeon.Items.Data.Weapons;
+using RogueDungeon.Player.Behaviours.Items.Unsheather;
+using Zenject;
 
 namespace RogueDungeon.Player
 {
-    public class Player
+    public class Player : IInitializable
     {
-        private readonly IIntendedItemSetter _itemSetter;
-        private readonly WeaponWielderBehaviour _weaponBehaviour;
-        private readonly UnsheatherBehaviour _unsheatherBehaviour;
+        private readonly IIntendedCurrentItemSetter _itemSetter;
         private readonly WeaponConfig _weaponConfig;
 
-        public Player(IIntendedItemSetter itemSetter, WeaponWielderBehaviour weaponBehaviour, WeaponConfig weaponConfig, UnsheatherBehaviour unsheatherBehaviour)
+        public Player(IIntendedCurrentItemSetter itemSetter, WeaponConfig weaponConfig)
         {
             _itemSetter = itemSetter;
-            _weaponBehaviour = weaponBehaviour;
             _weaponConfig = weaponConfig;
-            _unsheatherBehaviour = unsheatherBehaviour;
         }
 
-        public void Initialize()
-        {
+        public void Initialize() => 
             _itemSetter.Item = _weaponConfig;
-            _unsheatherBehaviour.Enable();
-        }
     }
 }

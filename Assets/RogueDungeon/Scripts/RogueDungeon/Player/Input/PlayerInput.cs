@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using RogueDungeon.Characters.Commands;
-using RogueDungeon.Items.Behaviours.WeaponWielder;
 using RogueDungeon.Player.Behaviours.Dodge;
+using RogueDungeon.Player.Behaviours.Items.WeaponWielder;
 using UniRx;
 using UnityEngine;
 

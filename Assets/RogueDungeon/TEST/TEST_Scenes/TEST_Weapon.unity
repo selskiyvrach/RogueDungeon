@@ -581,8 +581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 7950956090988867176}
+  _monoInstallers: []
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -712,21 +711,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 519540501769377305, guid: 0b1353be74b298141ba99669d9373a88,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3733405680008688721, guid: 0b1353be74b298141ba99669d9373a88,
-        type: 3}
-      propertyPath: _monoInstallers.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3733405680008688721, guid: 0b1353be74b298141ba99669d9373a88,
-        type: 3}
-      propertyPath: _monoInstallers.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4261873495399062472, guid: 0b1353be74b298141ba99669d9373a88,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -777,29 +761,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8547257778927841422, guid: 0b1353be74b298141ba99669d9373a88,
-        type: 3}
-      propertyPath: m_Name
-      value: Item
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7294909730519723855, guid: 0b1353be74b298141ba99669d9373a88, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b1353be74b298141ba99669d9373a88, type: 3}
---- !u!114 &7950956090988867176 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7879816354633157313, guid: 0b1353be74b298141ba99669d9373a88,
-    type: 3}
-  m_PrefabInstance: {fileID: 7950956090988867175}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d69b949f12a34f1590fa66a937f698ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

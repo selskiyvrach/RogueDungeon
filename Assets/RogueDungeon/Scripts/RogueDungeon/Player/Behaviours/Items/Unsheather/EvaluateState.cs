@@ -1,15 +1,14 @@
 ﻿using Common.Fsm;
-using RogueDungeon.Items.Behaviours.Common;
 
-namespace RogueDungeon.Items.Behaviours.Unsheather
+namespace RogueDungeon.Player.Behaviours.Items.Unsheather
 {
     public class EvaluateState : IState
     {
-        private readonly IIntendedItemGetter _intendedItemGetter;
+        private readonly IIntendedCurrentItemGetter _intendedItemGetter;
         private readonly ICurrentItemGetter _currentItemGetter;
         private readonly ICurrentItemSetter _currentItemSetter;
 
-        public EvaluateState(IIntendedItemGetter intendedItemGetter, ICurrentItemGetter currentItemGetter, ICurrentItemSetter currentItemSetter)
+        public EvaluateState(IIntendedCurrentItemGetter intendedItemGetter, ICurrentItemGetter currentItemGetter, ICurrentItemSetter currentItemSetter)
         {
             _intendedItemGetter = intendedItemGetter;
             _currentItemGetter = currentItemGetter;

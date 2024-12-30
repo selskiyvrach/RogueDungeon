@@ -7,14 +7,15 @@ using RogueDungeon.Fsm;
 using RogueDungeon.Items.Data.Weapons;
 using UnityEngine.Assertions;
 
-namespace RogueDungeon.Items.Behaviours.WeaponWielder
+namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
 {
     internal class AttackExecutionState : BoundToAnimationState
     {
         private readonly IComboInfo _comboInfo;
         private readonly IComboCounter _comboCounter;
         private readonly ICharacterCommands _input;
-        private readonly IWeaponControlState _controlState;
+        private readonly IIsAttackInUncancellableAnimationPhaseSetter _isAttackInUncancellableAnimationPhaseSetter;
+        private readonly ICanAttackGetter _canAttackGetter;
         private readonly IParameter<IAttackExecutionDuration> _duration;
 
         protected override AnimationData Animation => _comboInfo.AttackDirectionsInCombo[_comboCounter.AttackIndex] switch
@@ -24,26 +25,30 @@ namespace RogueDungeon.Items.Behaviours.WeaponWielder
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        public AttackExecutionState(IAnimator animator, IComboInfo comboInfo, IComboCounter comboCounter, ICharacterCommands input, IWeaponControlState controlState, IParameter<IAttackExecutionDuration> duration) : 
+        public AttackExecutionState(IAnimator animator, IComboInfo comboInfo, IComboCounter comboCounter,
+            ICharacterCommands input, IParameter<IAttackExecutionDuration> duration,
+            IIsAttackInUncancellableAnimationPhaseSetter isAttackInUncancellableAnimationPhaseSetter,
+            ICanAttackGetter canAttackGetter) : 
             base(animator)
         {
             _comboInfo = comboInfo;
             _comboCounter = comboCounter;
             _input = input;
-            _controlState = controlState;
             _duration = duration;
+            _isAttackInUncancellableAnimationPhaseSetter = isAttackInUncancellableAnimationPhaseSetter;
+            _canAttackGetter = canAttackGetter;
         }
 
         public override void Enter()
         {
             base.Enter();
-            _controlState.IsAttackInHardPhase = true;
+            _isAttackInUncancellableAnimationPhaseSetter.IsAttackInUncancellableAnimationState = true;
         }
 
         public override void Exit()
         {
             base.Exit();
-            _controlState.IsAttackInHardPhase = false;
+            _isAttackInUncancellableAnimationPhaseSetter.IsAttackInUncancellableAnimationState = false;
         }
 
         protected override void OnEvent(string name)
@@ -56,7 +61,7 @@ namespace RogueDungeon.Items.Behaviours.WeaponWielder
         {
             if(!IsTimerOff)
                 return;
-            if (_controlState.CanAttack() && _input.TryConsume<IAttackCommand>())
+            if (_canAttackGetter.CanAttack && _input.TryConsume<IAttackCommand>())
                 stateChanger.To<AttackToAttackTransitionState>();
             else
                 stateChanger.To<AttackFinishState>();

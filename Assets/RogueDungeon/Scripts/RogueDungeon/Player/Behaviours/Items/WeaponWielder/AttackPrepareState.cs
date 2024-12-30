@@ -3,20 +3,20 @@ using Common.Fsm;
 using Common.Parameters;
 using RogueDungeon.Fsm;
 
-namespace RogueDungeon.Items.Behaviours.WeaponWielder
+namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
 {
     internal class AttackPrepareState : BoundToAnimationState
     {
         private readonly IParameter<IAttackIdleTransitionDuration> _duration;
-        private readonly IWeaponControlState _controlState;
+        private readonly ICanAttackGetter _canAttackGetter;
         private readonly IComboCounter _comboCounter;
 
         protected override AnimationData Animation => new(AnimationNames.ATTACK_PREPARE_TO_BOTTOM_LEFT, _duration.Value);
 
-        public AttackPrepareState(IAnimator animator, IParameter<IAttackIdleTransitionDuration> duration, IWeaponControlState controlState, IComboCounter comboCounter) : base(animator)
+        public AttackPrepareState(IAnimator animator, IParameter<IAttackIdleTransitionDuration> duration, ICanAttackGetter canAttackGetter, IComboCounter comboCounter) : base(animator)
         {
             _duration = duration;
-            _controlState = controlState;
+            _canAttackGetter = canAttackGetter;
             _comboCounter = comboCounter;
         }
 
@@ -30,7 +30,7 @@ namespace RogueDungeon.Items.Behaviours.WeaponWielder
         {
             if(!IsTimerOff)
                 return;
-            if(_controlState.CanAttack())
+            if(_canAttackGetter.CanAttack)
                 stateChanger.To<AttackExecutionState>();
             else
                 stateChanger.To<AttackFinishState>();

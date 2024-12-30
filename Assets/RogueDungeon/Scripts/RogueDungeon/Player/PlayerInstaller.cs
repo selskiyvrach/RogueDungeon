@@ -21,14 +21,8 @@ namespace RogueDungeon.Player
             Container.NewSingle<ICharacterCommands, PlayerInput>();
             Container.InstanceSingle(_weaponCofig);
             Container.InstanceSingle<IAnimator>(_equipmentAnimator);
-            Container.NewSingle<Player>();
-        }
-
-        public override void Start()
-        {
-            base.Start();
-            _player = Container.Resolve<Player>();
-            _player.Initialize();
+            Container.NewSingleInterfacesAndSelf<Player>();
+            Container.AutoResolve<Player>();
         }
     }
 }

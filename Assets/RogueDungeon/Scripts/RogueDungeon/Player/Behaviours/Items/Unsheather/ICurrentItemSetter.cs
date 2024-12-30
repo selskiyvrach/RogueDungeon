@@ -1,6 +1,6 @@
 ﻿using RogueDungeon.Items.Data.Common;
 
-namespace RogueDungeon.Items.Behaviours.Common
+namespace RogueDungeon.Player.Behaviours.Items.Unsheather
 {
     public interface ICurrentItemSetter
     {

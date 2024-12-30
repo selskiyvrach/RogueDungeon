@@ -1,8 +1,9 @@
-﻿using Common.Fsm;
+﻿using Common.Behaviours;
+using Common.Fsm;
 
-namespace RogueDungeon.Items.Behaviours.Unsheather
+namespace RogueDungeon.Player.Behaviours.Items.Unsheather
 {
-    public class UnsheatherBehaviour : StateMachine
+    public class UnsheatherBehaviour : StateMachineBehaviour
     {
         public UnsheatherBehaviour(IStatesFactory statesFactory, ILogger logger = null) : base(statesFactory, logger)
         {

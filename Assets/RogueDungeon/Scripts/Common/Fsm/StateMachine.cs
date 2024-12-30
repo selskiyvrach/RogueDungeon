@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common.Behaviours;
 using Common.UtilsDotNet;
 
 namespace Common.Fsm
 {
-    public abstract class StateMachine : Behaviour, IStateChanger
+    public abstract class StateMachine : IStateChanger
     {
         private readonly IStatesFactory _statesFactory;
         private readonly ILogger _logger;
@@ -18,15 +17,12 @@ namespace Common.Fsm
             _logger = logger ?? new DefaultLogger();
         }
 
-        public override void Enable()
-        {
-            base.Enable();
+        public virtual void Enable() => 
             ToStartState();
-        }
 
         protected abstract void ToStartState();
 
-        public override void Tick(float timeDelta)
+        public void Tick(float timeDelta)
         {
             (_currentState as ITickableState)?.Tick(timeDelta);
             _currentState.CheckTransitions(this);

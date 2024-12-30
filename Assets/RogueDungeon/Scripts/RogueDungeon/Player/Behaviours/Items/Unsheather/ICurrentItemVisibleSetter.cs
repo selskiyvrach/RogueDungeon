@@ -1,7 +1,7 @@
-﻿namespace RogueDungeon.Items.Behaviours.Unsheather
+﻿namespace RogueDungeon.Player.Behaviours.Items.Unsheather
 {
     public interface ICurrentItemVisibleSetter
     {
-        void SetVisible(bool value);
+        bool IsVisible { set; }
     }
 }

@@ -1,8 +1,9 @@
-﻿using Common.Fsm;
+﻿using Common.Behaviours;
+using Common.Fsm;
 
-namespace RogueDungeon.Items.Behaviours.WeaponWielder
+namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
 {
-    public class WeaponWielderBehaviour : StateMachine
+    public class WeaponWielderBehaviour : StateMachineBehaviour
     {
         public WeaponWielderBehaviour(IStatesFactory statesFactory) : base(statesFactory)
         {

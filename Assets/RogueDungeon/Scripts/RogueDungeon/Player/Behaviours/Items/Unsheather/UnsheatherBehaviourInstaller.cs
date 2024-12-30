@@ -1,10 +1,10 @@
-﻿using Common.Fsm;
+﻿using Common.Behaviours;
 using Common.Parameters;
 using Common.UtilsZenject;
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Items.Behaviours.Unsheather
+namespace RogueDungeon.Player.Behaviours.Items.Unsheather
 {
     public class UnsheatherBehaviourInstaller : MonoInstaller
     {
@@ -13,10 +13,9 @@ namespace RogueDungeon.Items.Behaviours.Unsheather
         
         public override void InstallBindings()
         {
-            Container.NewSingleParameter<IUnsheathDuration>(() => _timings.UnsheathDuration);
-            Container.InstanceSingle<ICurrentItemVisibleSetter>(_itemVisibleSetter);
-            Container.NewSingleInterfaces<UnsheatherBehaviourContext>();
-            Container.NewSingle<UnsheatherBehaviour>().WithArguments(new StatesFactoryWithCache(Container));;
+            var subContainer = Container.BehaviourSubcontainer<UnsheatherBehaviour, UnsheatherInternalFacade, UnsheatherExternalFacade>(autoRunBehaviour: true);
+            subContainer.NewSingleParameter<IUnsheathDuration>(() => _timings.UnsheathDuration);
+            subContainer.InstanceSingle<ICurrentItemVisibleSetter>(_itemVisibleSetter);
         }
     }
 }

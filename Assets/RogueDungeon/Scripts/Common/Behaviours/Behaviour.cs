@@ -1,22 +1,24 @@
-﻿using System;
-using UniRx;
-using UnityEngine;
-
-namespace Common.Behaviours
+﻿namespace Common.Behaviours
 {
     public abstract class Behaviour : IBehaviour
     {
-        private IDisposable _sub;
+        private readonly Ticker _ticker = new();
+        private bool _isEnabled;
+
+        public bool IsEnabled => _isEnabled;
 
         public virtual void Enable()
         {
-            _sub?.Dispose();
-            _sub = Observable.EveryUpdate().Subscribe(_ => Tick(Time.deltaTime));
+            _ticker.Start(Tick);
+            _isEnabled = true;
         }
 
-        public virtual void Disable() => 
-            _sub?.Dispose();
+        public virtual void Disable()
+        {
+            _ticker.Stop();
+            _isEnabled = false;
+        }
 
-        public abstract void Tick(float timeDelta);
+        protected abstract void Tick(float timeDelta);
     }
 }

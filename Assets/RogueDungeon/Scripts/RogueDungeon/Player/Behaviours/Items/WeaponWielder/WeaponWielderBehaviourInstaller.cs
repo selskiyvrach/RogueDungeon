@@ -1,10 +1,10 @@
-﻿using Common.Fsm;
+﻿using Common.Behaviours;
 using Common.Parameters;
 using Common.UtilsZenject;
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Items.Behaviours.WeaponWielder
+namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
 {
     public class WeaponWielderBehaviourInstaller : MonoInstaller
     {
@@ -12,14 +12,13 @@ namespace RogueDungeon.Items.Behaviours.WeaponWielder
         
         public override void InstallBindings()
         {
-            Container.NewSingleParameter<IIdleAnimationSpeed>(() => _timings.IdleAnimationSpeed);
-            Container.NewSingleParameter<IAttackExecutionDuration>(() => _timings.AttackExecutionDuration);
-            Container.NewSingleParameter<IAttackAttackTransitionDuration>(() => _timings.AttackAttackTransitionDuration);
-            Container.NewSingleParameter<IAttackIdleTransitionDuration>(() => _timings.AttackIdleTransitionDuration);
+            var subContainer = Container.BehaviourSubcontainer<WeaponWielderBehaviour, WeaponWielderInternalFacade, WeaponWielderExternalFacade>();
+            subContainer.NewSingleParameter<IIdleAnimationSpeed>(() => _timings.IdleAnimationSpeed);
+            subContainer.NewSingleParameter<IAttackExecutionDuration>(() => _timings.AttackExecutionDuration);
+            subContainer.NewSingleParameter<IAttackAttackTransitionDuration>(() => _timings.AttackAttackTransitionDuration);
+            subContainer.NewSingleParameter<IAttackIdleTransitionDuration>(() => _timings.AttackIdleTransitionDuration);
             
-            Container.NewSingleInterfaces<WeaponWielderBehaviourContext>();
-            Container.NewSingle<WeaponWielderBehaviour>().WithArguments(new StatesFactoryWithCache(Container));
-            Container.NewSingleNonLazy<WeaponWielderBehaviourEnabler>();
+            subContainer.NewSingleAutoResolve<WeaponWielderBehaviourEnabler>();
         }
     }
 }

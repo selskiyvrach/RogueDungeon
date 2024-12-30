@@ -1,7 +1,7 @@
 ﻿using RogueDungeon.Items.Data.Common;
 using UnityEngine;
 
-namespace RogueDungeon.Items.Behaviours.WeaponWielder
+namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
 {
     public class ItemWorldView : MonoBehaviour
     {

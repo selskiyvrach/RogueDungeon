@@ -1,6 +1,6 @@
 ﻿using RogueDungeon.Characters.Commands;
 
-namespace RogueDungeon.Items.Behaviours.WeaponWielder
+namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
 {
     public interface IAttackCommand : ICharacterCommandDefinition
     {

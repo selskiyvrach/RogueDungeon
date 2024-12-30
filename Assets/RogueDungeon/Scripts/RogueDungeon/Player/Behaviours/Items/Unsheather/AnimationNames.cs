@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Items.Behaviours.Unsheather
+﻿namespace RogueDungeon.Player.Behaviours.Items.Unsheather
 {
     public static class AnimationNames
     {

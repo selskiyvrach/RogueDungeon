@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4261873495399062472}
   - component: {fileID: 3733405680008688721}
+  - component: {fileID: 6786155949642619508}
   - component: {fileID: 7879816354633157313}
   - component: {fileID: 8610275046940229707}
   - component: {fileID: 4340151303283909155}
@@ -51,12 +52,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 4340151303283909155}
-  - {fileID: 8610275046940229707}
+  - {fileID: 6786155949642619508}
   - {fileID: 7879816354633157313}
+  - {fileID: 8610275046940229707}
+  - {fileID: 4340151303283909155}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
+--- !u!114 &6786155949642619508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519540501769377305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ce6cb5c2dd48a0b9d08116fe94515f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7879816354633157313
 MonoBehaviour:
   m_ObjectHideFlags: 0

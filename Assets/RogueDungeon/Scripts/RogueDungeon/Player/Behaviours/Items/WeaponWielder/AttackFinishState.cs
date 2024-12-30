@@ -5,7 +5,7 @@ using Common.Parameters;
 using RogueDungeon.Fsm;
 using RogueDungeon.Items.Data.Weapons;
 
-namespace RogueDungeon.Items.Behaviours.WeaponWielder
+namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
 {
     internal class AttackFinishState : BoundToAnimationState
     {
