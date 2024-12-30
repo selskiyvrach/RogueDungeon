@@ -771,6 +771,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BodyAnimated
       objectReference: {fileID: 0}
+    - target: {fileID: 8545139126327366492, guid: 0b1353be74b298141ba99669d9373a88,
+        type: 3}
+      propertyPath: m_Name
+      value: HeadAnimated
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
