@@ -17,6 +17,7 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
         private readonly IIsAttackInUncancellableAnimationPhaseSetter _isAttackInUncancellableAnimationPhaseSetter;
         private readonly ICanAttackGetter _canAttackGetter;
         private readonly IParameter<IAttackExecutionDuration> _duration;
+        private readonly IAttackHitEventHandler _hitEventHandler;
 
         protected override AnimationData Animation => _comboInfo.AttackDirectionsInCombo[_comboCounter.AttackIndex] switch
         {
@@ -28,7 +29,7 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
         public AttackExecutionState(IAnimator animator, IComboInfo comboInfo, IComboCounter comboCounter,
             ICharacterCommands input, IParameter<IAttackExecutionDuration> duration,
             IIsAttackInUncancellableAnimationPhaseSetter isAttackInUncancellableAnimationPhaseSetter,
-            ICanAttackGetter canAttackGetter) : 
+            ICanAttackGetter canAttackGetter, IAttackHitEventHandler hitEventHandler) : 
             base(animator)
         {
             _comboInfo = comboInfo;
@@ -37,6 +38,7 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
             _duration = duration;
             _isAttackInUncancellableAnimationPhaseSetter = isAttackInUncancellableAnimationPhaseSetter;
             _canAttackGetter = canAttackGetter;
+            _hitEventHandler = hitEventHandler;
         }
 
         public override void Enter()
@@ -54,7 +56,7 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
         protected override void OnEvent(string name)
         {
             Assert.AreEqual(name, AnimationNames.HIT_EVENT);
-            // run some logic
+            _hitEventHandler.HandleHit();
         }
 
         public override void CheckTransitions(IStateChanger stateChanger)
