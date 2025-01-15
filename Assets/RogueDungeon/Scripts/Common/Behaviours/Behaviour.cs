@@ -2,23 +2,14 @@
 {
     public abstract class Behaviour : IBehaviour
     {
-        private readonly Ticker _ticker = new();
         private bool _isEnabled;
 
         public bool IsEnabled => _isEnabled;
 
-        public virtual void Enable()
-        {
-            _ticker.Start(Tick);
+        public virtual void Enable() => 
             _isEnabled = true;
-        }
 
-        public virtual void Disable()
-        {
-            _ticker.Stop();
+        public virtual void Disable() => 
             _isEnabled = false;
-        }
-
-        protected abstract void Tick(float timeDelta);
     }
 }

@@ -33,7 +33,7 @@ namespace RogueDungeon.Player.Behaviours.Dodge
 
         public override void CheckTransitions(IStateChanger stateChanger)
         {
-            if(!IsTimerOff)
+            if(!IsFinished)
                 return;
             _stateSetter.DodgeState = DodgeState.None;
             stateChanger.To<DodgeIdleState>();

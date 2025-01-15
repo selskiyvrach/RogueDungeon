@@ -30,7 +30,7 @@ namespace RogueDungeon.Player.Behaviours.Items.Unsheather
 
         public override void CheckTransitions(IStateChanger stateChanger)
         {
-            if (!IsTimerOff)
+            if (!IsFinished)
                 return;
             _itemVisibleSetter.IsVisible = false;
             _currentItemGetter.Item = null;

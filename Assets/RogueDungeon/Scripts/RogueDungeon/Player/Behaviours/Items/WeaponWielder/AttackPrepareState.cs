@@ -28,7 +28,7 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
 
         public override void CheckTransitions(IStateChanger stateChanger)
         {
-            if(!IsTimerOff)
+            if(!IsFinished)
                 return;
             if(_canAttackGetter.CanAttack)
                 stateChanger.To<AttackExecutionState>();

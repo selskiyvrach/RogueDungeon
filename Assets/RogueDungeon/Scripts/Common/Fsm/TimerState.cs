@@ -4,7 +4,7 @@
     {
         private float _timePassed;
         protected abstract float Duration { get; }
-        protected bool IsTimerOff => _timePassed >= Duration;
+        protected bool IsFinished => _timePassed >= Duration;
 
         public virtual void Enter() => 
             _timePassed = 0;

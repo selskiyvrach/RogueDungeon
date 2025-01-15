@@ -2,7 +2,6 @@
 using Common.UtilsZenject;
 using RogueDungeon.Characters.Commands;
 using RogueDungeon.Items.Data.Weapons;
-using RogueDungeon.Player.Behaviours.Items.WeaponWielder;
 using RogueDungeon.Player.Input;
 using UnityEngine;
 using Zenject;
@@ -26,23 +25,6 @@ namespace RogueDungeon.Player
             Container.InstanceSingle<IAnimator>(_animationPlayer);
             Container.NewSingleInterfacesAndSelf<Player>();
             Container.AutoResolve<Player>();
-
-            Container.NewSingle<AttackHitEventHandler>();
-            Container.AutoResolve<AttackHitEventHandler>();
         }
-    }
-
-    public class AttackHitEventHandler
-    {
-        private readonly IAttackHitEventObservable _attackHitEvent;
-
-        public AttackHitEventHandler(IAttackHitEventObservable attackHitEvent)
-        {
-            _attackHitEvent = attackHitEvent;
-            _attackHitEvent.OnHit += HandleHit;
-        }
-
-        private void HandleHit() => 
-            Debug.LogError("Behold attack hit event, everybody");
     }
 }

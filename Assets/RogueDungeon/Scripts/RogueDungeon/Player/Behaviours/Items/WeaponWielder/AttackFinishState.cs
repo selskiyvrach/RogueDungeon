@@ -23,7 +23,7 @@ namespace RogueDungeon.Player.Behaviours.Items.WeaponWielder
 
         public override void CheckTransitions(IStateChanger stateChanger)
         {
-            if(IsTimerOff)
+            if(IsFinished)
                 stateChanger.To<IdleState>();
         }
     }
