@@ -1,16 +1,25 @@
-﻿namespace Common.MoveSets
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Common.MoveSets
 {
     public class Move : IMove
     {
-        public string AnimationName { get; }
-        public float Duration { get; }
-        public IMove[] Transitions { get; }
+        private readonly Func<AnimationClip> _animationGetter;
+        private readonly Func<float> _durationGetter;
+        
+        public List<IMove> TransitionsUnderlyingList { get; } = new();
+        public string Name { get; }
+        public AnimationClip Animation => _animationGetter.Invoke();
+        public float Duration => _durationGetter.Invoke();
+        public IEnumerable<IMove> Transitions => TransitionsUnderlyingList;
 
-        protected Move(string animationName, float duration, IMove[] transitions)
+        public Move(string name, Func<AnimationClip> animationGetter, Func<float> durationGetter)
         {
-            AnimationName = animationName;
-            Duration = duration;
-            Transitions = transitions;
+            Name = name;
+            _animationGetter = animationGetter;
+            _durationGetter = durationGetter;
         }
     }
 }

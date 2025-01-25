@@ -2,7 +2,7 @@
 
 namespace RogueDungeon.Items.Data.Weapons
 {
-    public interface IWeaponInfo : IItemInfo, IComboInfo, IDamageInfo
+    public interface IWeaponInfo : IItemInfo, IDamageInfo
     {
         
     }

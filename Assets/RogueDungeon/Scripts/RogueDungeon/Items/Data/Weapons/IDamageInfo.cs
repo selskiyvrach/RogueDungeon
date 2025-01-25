@@ -3,6 +3,6 @@
     public interface IDamageInfo
     {
         float Damage { get; }
-        DamageType Type { get; }
+        DamageType DamageType { get; }
     }
 }

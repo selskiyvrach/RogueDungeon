@@ -2,7 +2,8 @@
     "name": "Items.Data.Weapons",
     "rootNamespace": "",
     "references": [
-        "GUID:8e4fd398e11cfb2489c8c8aadbcaca24"
+        "GUID:8e4fd398e11cfb2489c8c8aadbcaca24",
+        "GUID:7d27bb2260d84d6d88c974dc542e6285"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

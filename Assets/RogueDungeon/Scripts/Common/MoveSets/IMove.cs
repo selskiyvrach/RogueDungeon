@@ -1,9 +1,13 @@
-﻿namespace Common.MoveSets
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+namespace Common.MoveSets
 {
     public interface IMove
     {
-        string AnimationName {get;}
+        string Name {get;}
+        AnimationClip Animation {get;}
         float Duration { get; }
-        IMove[] Transitions { get; }
+        IEnumerable<IMove> Transitions { get; }
     }
 }

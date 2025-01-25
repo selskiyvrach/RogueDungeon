@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common.MoveSets;
+using UnityEngine;
 
 namespace RogueDungeon.Items.Data.Weapons
 {
@@ -7,9 +8,7 @@ namespace RogueDungeon.Items.Data.Weapons
         [field: SerializeField] public Sprite Sprite { get; private set; }
         [field: SerializeField] public float Weight { get; private set;}
         [field: SerializeField] public float Damage { get; private set; }
-        [field: SerializeField] public DamageType Type { get; private set; }
-        [field: SerializeField] public AttackDirection[] AttackDirectionsInCombo { get; private set; } = {
-            AttackDirection.BottomLeft, AttackDirection.BottomRight
-        };
+        [field: SerializeField] public DamageType DamageType { get; private set; }
+        [field: SerializeField] public MoveSetConfig MoveSetConfig { get; private set; }
     }
 }

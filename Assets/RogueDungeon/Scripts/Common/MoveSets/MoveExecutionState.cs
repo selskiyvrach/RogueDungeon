@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Common.AnimationBasedFsm;
 using Common.Animations;
 using Common.Fsm;
@@ -13,7 +14,7 @@ namespace Common.MoveSets
         private readonly ICurrentMoveSetter _currentMoveSetter;
         private readonly ITryTransitionToMoveGetter _tryTransitionToMoveGetter;
 
-        protected override AnimationData Animation => new (_currentMoveGetter.CurrentMove.AnimationName, _currentMoveGetter.CurrentMove.Duration);
+        protected override AnimationData Animation => new (_currentMoveGetter.CurrentMove.Animation.name, _currentMoveGetter.CurrentMove.Duration);
         
         public MoveExecutionState(IAnimator animator, IPendingMoveGetter pendingMoveGetter, IPendingMoveSetter pendingMoveSetter, ICurrentMoveSetter currentMoveSetter, ICurrentMoveGetter currentMoveGetter, ITryTransitionToMoveGetter tryTransitionToMoveGetter) : base(animator)
         {
@@ -37,13 +38,7 @@ namespace Common.MoveSets
                 return;
 
             var transitionTo = _currentMoveGetter.CurrentMove.Transitions.FirstOrDefault(n => _tryTransitionToMoveGetter.TryTransitionTo(n));
-            if (transitionTo == null)
-            {
-                stateChanger.To<MoveSetIdleState>();
-                return;
-            }
-
-            _pendingMoveSetter.PendingMove = transitionTo;
+            _pendingMoveSetter.PendingMove = transitionTo  ?? throw new Exception($"No transition from {_currentMoveGetter.CurrentMove.Name} found");
             stateChanger.To<MoveExecutionState>();
         }
     }
