@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Common.UtilsUnity;
+using Common.Unity;
 using UnityEngine;
 
 namespace Common.Animations

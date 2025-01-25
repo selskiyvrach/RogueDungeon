@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Common.UtilsUnity
+namespace Common.Unity
 {
     public class ScriptableObjectSearchWindow : EditorWindow
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Common.UtilsUnity
+namespace Common.Unity
 {
     [Serializable]
     public abstract class SerializableDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>

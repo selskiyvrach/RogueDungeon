@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RogueDungeon.Scripts.RogueDungeon.AttackHandling
+namespace RogueDungeon.AttackHandling
 {
     public interface IAttackHitEventObservable
     {

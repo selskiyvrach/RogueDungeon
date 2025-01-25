@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using RogueDungeon.Characters.Commands;
 using RogueDungeon.Player.Behaviours.Dodge;
-using RogueDungeon.Player.Behaviours.Items.WeaponWielder;
 using UniRx;
 using UnityEngine;
 
@@ -19,7 +18,6 @@ namespace RogueDungeon.Player.Input
         private static readonly Dictionary<Type, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
         {
             // [Input.MoveForward] = (KeyCode.W,KeyState.Held , 0),
-            [typeof(IAttackCommand)] = (KeyCode.Mouse0, KeyState.Down, .5f),
             [typeof(IDodgeRightCommand)] = (KeyCode.D, KeyState.Down,.5f),
             [typeof(IDodgeLeftCommand)] = (KeyCode.A, KeyState.Down,.5f),
             // [Input.Block] = (KeyCode.Mouse1, KeyState.Held,.5f),

@@ -1,7 +1,7 @@
-﻿using Common.Animations;
+﻿using Common.AnimationBasedFsm;
+using Common.Animations;
 using Common.Fsm;
 using Common.Parameters;
-using RogueDungeon.Fsm;
 
 namespace RogueDungeon.Player.Behaviours.Items.Unsheather
 {

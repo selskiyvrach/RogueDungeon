@@ -2,7 +2,7 @@
 
 namespace Common.Animations
 {
-    public interface IAnimator
+    public interface IAnimator 
     {
         event Action<string> OnEvent;
         void Play(AnimationData animationData);

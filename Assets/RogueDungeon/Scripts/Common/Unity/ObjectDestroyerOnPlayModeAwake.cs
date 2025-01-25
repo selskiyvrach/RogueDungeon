@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Common.UtilsUnity
+namespace Common.Unity
 {
     public class ObjectDestroyerOnPlayModeAwake : MonoBehaviour
     {

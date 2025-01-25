@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Common.Behaviours;
 
-namespace RogueDungeon.Scripts.RogueDungeon.AttackHandling
+namespace RogueDungeon.AttackHandling
 {
     public interface IAttackTargetsSelector
     {

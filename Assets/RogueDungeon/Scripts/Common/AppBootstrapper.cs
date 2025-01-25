@@ -1,7 +1,7 @@
 ﻿using Common.Camera;
 using Common.SceneManagement;
 using Common.UI.LoadingScreen;
-using Common.UtilsUnity;
+using Common.Unity;
 using Common.UtilsZenject;
 using Common.UtilsZenject.ContextHandles;
 using UnityEngine;
