@@ -1,7 +1,12 @@
 ﻿namespace Common.Fsm
 {
-    public interface IStatesFactory 
+    public interface ITypeBasedStatesProvider 
     {
-        TConcrete Create<TConcrete>() where TConcrete : class, IState;
+        TConcrete Get<TConcrete>() where TConcrete : class, IState;
+    }
+    
+    public interface IIdBasedStatesProvider 
+    {
+        IState Get(string id);
     }
 }

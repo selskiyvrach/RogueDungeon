@@ -4,9 +4,9 @@ using Zenject;
 
 namespace Common.Fsm
 {
-    public class PrecachedFactory : StatesFactoryWithCache
+    public class PrecachedProvider : StatesProviderWithCache
     {
-        public PrecachedFactory(DiContainer container, Type[] statesToCreate) : base(container) => 
+        public PrecachedProvider(DiContainer container, Type[] statesToCreate) : base(container) => 
             statesToCreate.Foreach(Create);
     }
 }

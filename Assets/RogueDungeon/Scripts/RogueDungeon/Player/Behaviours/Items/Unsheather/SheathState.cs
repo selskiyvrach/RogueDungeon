@@ -28,13 +28,13 @@ namespace RogueDungeon.Player.Behaviours.Items.Unsheather
             base.Enter();
         }
 
-        public override void CheckTransitions(IStateChanger stateChanger)
+        public override void CheckTransitions(ITypeBasedStateChanger typeBasedStateChanger)
         {
             if (!IsFinished)
                 return;
             _itemVisibleSetter.IsVisible = false;
             _currentItemGetter.Item = null;
-            stateChanger.To<EvaluateState>();
+            typeBasedStateChanger.ChangeState<EvaluateState>();
         }
     }
 }

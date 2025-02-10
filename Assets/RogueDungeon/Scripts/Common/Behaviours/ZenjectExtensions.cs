@@ -27,7 +27,7 @@ namespace Common.Behaviours
             if(typeof(TExternalFacade) != typeof(NullExternalFacade))
                 container.BindInterfacesTo<TExternalFacade>().FromMethod(_ => behaviourContainer.Instantiate<TExternalFacade>()).AsSingle();
             
-            behaviourContainer.NewSingle<IStatesFactory, StatesFactoryWithCache>();
+            behaviourContainer.NewSingle<ITypeBasedStatesProvider, StatesProviderWithCache>();
             behaviourContainer.NewSingleInterfacesAndSelf<TBehaviour>();
 
             if (autoRunBehaviour) 

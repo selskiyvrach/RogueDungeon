@@ -5,15 +5,15 @@ using Zenject;
 
 namespace Common.Fsm
 {
-    public class StatesFactoryWithCache : IStatesFactory
+    public class StatesProviderWithCache : ITypeBasedStatesProvider
     {
         private readonly DiContainer _container;
         private readonly List<IState> _cache = new();
 
-        public StatesFactoryWithCache(DiContainer container) => 
+        public StatesProviderWithCache(DiContainer container) => 
             _container = container;
 
-        public T Create<T>() where T : class, IState => 
+        public T Get<T>() where T : class, IState => 
             _cache.Get<T>() ?? _cache.With(_container.Instantiate<T>()).Get<T>();
 
         protected void Create(Type type)

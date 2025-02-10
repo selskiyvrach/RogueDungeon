@@ -32,14 +32,14 @@ namespace Common.MoveSets
             base.Enter();
         }
 
-        public override void CheckTransitions(IStateChanger stateChanger)
+        public override void CheckTransitions(ITypeBasedStateChanger typeBasedStateChanger)
         {
             if(!IsFinished)
                 return;
 
             var transitionTo = _currentMoveGetter.CurrentMove.Transitions.FirstOrDefault(n => _tryTransitionToMoveGetter.TryTransitionTo(n));
             _pendingMoveSetter.PendingMove = transitionTo  ?? throw new Exception($"No transition from {_currentMoveGetter.CurrentMove.Name} found");
-            stateChanger.To<MoveExecutionState>();
+            typeBasedStateChanger.ChangeState<MoveExecutionState>();
         }
     }
 }

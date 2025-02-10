@@ -7,7 +7,7 @@ namespace Common.Behaviours
         private readonly Ticker _ticker = new();
         public bool IsEnabled { get; private set; }
 
-        protected StateMachineBehaviour(IStatesFactory statesFactory, ILogger logger = null) : base(statesFactory, logger)
+        protected StateMachineBehaviour(ITypeBasedStatesProvider statesProvider, ILogger logger = null) : base(statesProvider, logger)
         {
         }
 

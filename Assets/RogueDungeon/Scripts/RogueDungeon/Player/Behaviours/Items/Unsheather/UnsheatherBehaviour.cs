@@ -5,11 +5,11 @@ namespace RogueDungeon.Player.Behaviours.Items.Unsheather
 {
     public class UnsheatherBehaviour : StateMachineBehaviour
     {
-        public UnsheatherBehaviour(IStatesFactory statesFactory, ILogger logger = null) : base(statesFactory, logger)
+        public UnsheatherBehaviour(ITypeBasedStatesProvider statesProvider, ILogger logger = null) : base(statesProvider, logger)
         {
         }
 
         protected override void ToStartState() => 
-            To<EvaluateState>();
+            ChangeState<EvaluateState>();
     }
 }

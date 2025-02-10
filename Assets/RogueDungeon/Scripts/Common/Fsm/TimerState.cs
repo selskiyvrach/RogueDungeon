@@ -12,6 +12,6 @@
         public void Tick(float timeDelta) => 
             _timePassed += timeDelta;
 
-        public abstract void CheckTransitions(IStateChanger stateChanger);
+        public abstract void CheckTransitions(ITypeBasedStateChanger typeBasedStateChanger);
     }
 }

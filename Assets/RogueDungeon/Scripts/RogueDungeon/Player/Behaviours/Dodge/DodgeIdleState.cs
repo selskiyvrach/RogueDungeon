@@ -14,15 +14,15 @@ namespace RogueDungeon.Player.Behaviours.Dodge
             _getter = getter;
         }
 
-        public void CheckTransitions(IStateChanger stateChanger)
+        public void CheckTransitions(ITypeBasedStateChanger typeBasedStateChanger)
         {
             if(!_getter.CanDodge)
                 return;
 
             if (_input.TryConsume<IDodgeLeftCommand>())
-                stateChanger.To<DodgeLeftState>();
+                typeBasedStateChanger.ChangeState<DodgeLeftState>();
             else if(_input.TryConsume<IDodgeRightCommand>())
-                stateChanger.To<DodgeRightState>();
+                typeBasedStateChanger.ChangeState<DodgeRightState>();
         }
     }
 }

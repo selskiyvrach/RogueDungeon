@@ -15,7 +15,7 @@ namespace RogueDungeon.Player.Behaviours.Items.Unsheather
             _currentItemSetter = currentItemSetter;
         }
 
-        public void CheckTransitions(IStateChanger stateChanger)
+        public void CheckTransitions(ITypeBasedStateChanger typeBasedStateChanger)
         {
             if (_intendedItemGetter.Item == _currentItemGetter.Item) 
                 return;
@@ -23,10 +23,10 @@ namespace RogueDungeon.Player.Behaviours.Items.Unsheather
             if (_currentItemGetter.Item == null)
             {
                 _currentItemSetter.Item = _intendedItemGetter.Item;
-                stateChanger.To<UnsheathState>();
+                typeBasedStateChanger.ChangeState<UnsheathState>();
             }
             else
-                stateChanger.To<SheathState>();
+                typeBasedStateChanger.ChangeState<SheathState>();
         }
     }
 }

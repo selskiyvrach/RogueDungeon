@@ -6,11 +6,11 @@ namespace RogueDungeon.Player.Behaviours.Dodge
 {
     public class DodgeBehaviour : StateMachineBehaviour
     {
-        public DodgeBehaviour(IStatesFactory statesFactory, ILogger logger = null) : base(statesFactory, logger)
+        public DodgeBehaviour(ITypeBasedStatesProvider statesProvider, ILogger logger = null) : base(statesProvider, logger)
         {
         }
 
         protected override void ToStartState() => 
-            To<DodgeIdleState>();
+            ChangeState<DodgeIdleState>();
     }
 }

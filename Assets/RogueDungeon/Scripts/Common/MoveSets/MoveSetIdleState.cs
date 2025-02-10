@@ -9,14 +9,14 @@ namespace Common.MoveSets
         private readonly IPendingMoveSetter _pendingMoveSetter;
         private readonly ITryTransitionToMoveGetter _tryTransitionToMoveGetter;
         
-        public void CheckTransitions(IStateChanger stateChanger)
+        public void CheckTransitions(ITypeBasedStateChanger typeBasedStateChanger)
         {
             var moveToTransitionTo = _moveSetMovesGetter.All.FirstOrDefault(n => _tryTransitionToMoveGetter.TryTransitionTo(n));
             if(moveToTransitionTo is null)
                 return;
             
             _pendingMoveSetter.PendingMove = moveToTransitionTo;
-            stateChanger.To<MoveExecutionState>();
+            typeBasedStateChanger.ChangeState<MoveExecutionState>();
         }
     }
 }

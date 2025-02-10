@@ -31,12 +31,12 @@ namespace RogueDungeon.Player.Behaviours.Dodge
             _stateSetter.DodgeState = DodgeState;
         }
 
-        public override void CheckTransitions(IStateChanger stateChanger)
+        public override void CheckTransitions(ITypeBasedStateChanger typeBasedStateChanger)
         {
             if(!IsFinished)
                 return;
             _stateSetter.DodgeState = DodgeState.None;
-            stateChanger.To<DodgeIdleState>();
+            typeBasedStateChanger.ChangeState<DodgeIdleState>();
         }
     }
 }

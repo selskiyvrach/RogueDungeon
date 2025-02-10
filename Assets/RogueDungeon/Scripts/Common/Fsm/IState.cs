@@ -2,6 +2,5 @@
 {
     public interface IState
     {
-        void CheckTransitions(IStateChanger stateChanger);
     }
 }

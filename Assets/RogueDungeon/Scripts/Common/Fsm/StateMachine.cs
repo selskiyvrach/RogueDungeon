@@ -4,41 +4,45 @@ using Common.UtilsDotNet;
 
 namespace Common.Fsm
 {
-    public abstract class StateMachine : IStateChanger
+    public abstract class StateMachine
     {
-        private readonly IStatesFactory _statesFactory;
+        private readonly IStateTransitionStrategy _transitionStrategy;
         private readonly ILogger _logger;
         private readonly HashSet<IState> _transitionsHistory = new();
         private IState _currentState;
 
-        protected StateMachine(IStatesFactory statesFactory, ILogger logger = null)
+        protected StateMachine(IStateTransitionStrategy transitionStrategy, ILogger logger = null)
         {
-            _statesFactory = statesFactory;
+            _transitionStrategy = transitionStrategy;
             _logger = logger ?? new DefaultLogger();
         }
 
         public virtual void Enable() => 
-            ToStartState();
-
-        protected abstract void ToStartState();
+            ChangeState(_transitionStrategy.GetStartState()); 
 
         public void Tick(float timeDelta)
         {
             (_currentState as ITickableState)?.Tick(timeDelta);
-            _currentState.CheckTransitions(this);
+            TryTransition();
         }
 
-        public void To<T>() where T : class, IState
+        public void ChangeState(IState newState)
         {
-            _logger?.Log($"Fsm [{this.TypeName()}]. {_currentState?.TypeName()} -> {typeof(T).Name}");
+            _logger?.Log($"Fsm [{this.TypeName()}]. {_currentState} -> {newState}");
             _transitionsHistory.Clear();
             (_currentState as IExitableState)?.Exit();
-            _currentState = _statesFactory.Create<T>();
+            _currentState = newState;
             if (!_transitionsHistory.Add(_currentState))
                 throw new InvalidOperationException("Infinite transitions loop detected: " + _transitionsHistory.JoinTypeNames());
 
             (_currentState as IEnterableState)?.Enter();
-            _currentState.CheckTransitions(this);
+            TryTransition();
+        }
+
+        private void TryTransition()
+        {
+            if(_transitionStrategy.GetTransition(_currentState) is {} state)
+                ChangeState(state);
         }
     }
 }
