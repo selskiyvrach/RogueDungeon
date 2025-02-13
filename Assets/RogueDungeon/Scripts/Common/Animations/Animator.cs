@@ -6,9 +6,6 @@ using UnityEngine;
 
 namespace Common.Animations
 {
-    using System;
-
-
     public class Animator : MonoBehaviour, IAnimator
     {
         [Serializable] private class Animations : SerializableDictionary<string, AnimationClip> { }

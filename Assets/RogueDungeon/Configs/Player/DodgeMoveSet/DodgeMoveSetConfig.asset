@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1dbd9be4ec94c31ab850f925a1bf1f4, type: 3}
+  m_Name: DodgeMoveSetConfig
+  m_EditorClassIdentifier: 
+  <MoveConfigs>k__BackingField:
+  - {fileID: 11400000, guid: 9f747b88bf646ae4e90da576e5064e51, type: 2}
+  - {fileID: 11400000, guid: 7d644d9429cb80c418a0b53adfff9db3, type: 2}
+  - {fileID: 11400000, guid: d34b5744fdeab4c49a6634ba831fb052, type: 2}

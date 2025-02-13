@@ -23,13 +23,13 @@ namespace Common.Fsm
         public void Tick(float timeDelta)
         {
             (_currentState as ITickableState)?.Tick(timeDelta);
+            _transitionsHistory.Clear();
             TryTransition();
         }
 
         public void ChangeState(IState newState)
         {
             _logger?.Log($"Fsm [{this.TypeName()}]. {_currentState} -> {newState}");
-            _transitionsHistory.Clear();
             (_currentState as IExitableState)?.Exit();
             _currentState = newState;
             if (!_transitionsHistory.Add(_currentState))

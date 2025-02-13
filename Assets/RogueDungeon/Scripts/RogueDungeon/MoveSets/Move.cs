@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Common.AnimationBasedFsm;
 using Common.Animations;
 using Common.Fsm;
@@ -11,16 +10,27 @@ namespace RogueDungeon.MoveSets
         public MoveConfig Config { get; }
         protected override AnimationData Animation => new(Config.AnimationClip.name, Config.Duration);
         public string Id => Config.Id;
-        public List<Move> Transitions { get; } = new();
+        public Move[] Transitions { get; set; }
 
         protected Move(MoveConfig config, IAnimator animator) : base(animator) => 
             Config = config;
 
-        public string GetTransitionStateId() =>
-            !IsFinished 
-                ? null 
-                : Transitions.First(n => n.CanTransitionTo()).Id;
+        public string GetTransitionStateId()
+        {
+            if (Id == "Idle")
+            {
+                var transition = Transitions.FirstOrDefault(n => n.CanTransitionTo())?.Id;
+                return IsFinished
+                    ? transition ?? "Idle"
+                    : transition;
+            }
+            
+            return IsFinished
+                ? Transitions.First(n => n.CanTransitionTo()).Id
+                : null;
+        }
 
         protected virtual bool CanTransitionTo() => true;
+        public override string ToString() => $"[Move: {Id}]";
     }
 }

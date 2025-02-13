@@ -15,9 +15,9 @@ namespace RogueDungeon.Player.Behaviours.Items.Unsheather
                 gameObject.SetActive(value);
             }
         }
-
-        [Inject]
-        public void Construct(ICurrentItemGetter currentItemGetter) =>
-            _currentItemGetter = currentItemGetter;
+        //
+        // [Inject]
+        // public void Construct(ICurrentItemGetter currentItemGetter) =>
+        //     _currentItemGetter = currentItemGetter;
     }
 }

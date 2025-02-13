@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,7 +131,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1425058664}
-  - component: {fileID: 1425058665}
   m_Layer: 0
   m_Name: PlayerParent
   m_TagString: Untagged
@@ -155,18 +153,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2082445627}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1425058665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425058663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88096321b59f4d948d17165319f0b92c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1552320122
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +281,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1662126079}
   - component: {fileID: 1662126078}
-  - component: {fileID: 1662126080}
   m_Layer: 0
   m_Name: GameplaySceneContext
   m_TagString: Untagged
@@ -316,8 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 1662126080}
+  _monoInstallers: []
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -350,20 +334,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1662126080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1662126077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6f8224f159747fabda8aa715b8905d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerRootObject: {fileID: 1425058665}
-  _playerFactory: {fileID: 11400000, guid: f93285b2a2ef8e74c84f130fced404a9, type: 2}
 --- !u!1 &2082445626
 GameObject:
   m_ObjectHideFlags: 0

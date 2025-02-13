@@ -41,7 +41,7 @@ namespace Common.Animations
         {
             _duration = animationData.Duration;
             _isLooped = false;
-            Play(_clips.Get(n => n.name == animationData.Name));
+            Play(_clips.Get(n => n.name == animationData.Name).ThrowIfNull());
         }
 
         private void Play(AnimationClip clip)

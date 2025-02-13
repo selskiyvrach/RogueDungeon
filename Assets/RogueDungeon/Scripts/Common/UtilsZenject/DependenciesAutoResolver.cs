@@ -17,7 +17,7 @@ namespace Common.UtilsZenject
                 _container = container;
 
             public override void Resolve() => 
-                _container.Instantiate<T>();
+                _container.Resolve<T>();
         }
         
         private readonly List<DependencyAutoResolver> _resolvers = new();

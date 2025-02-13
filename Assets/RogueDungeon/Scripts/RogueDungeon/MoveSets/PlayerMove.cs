@@ -16,7 +16,8 @@ namespace RogueDungeon.MoveSets
 
         public override void Enter()
         {
-            _inputReader.ConsumeInput(_config.RequiredInput);
+            if(_config.RequiredInput is not Input.None)
+                _inputReader.ConsumeInput(_config.RequiredInput);
             base.Enter();
         }
 
