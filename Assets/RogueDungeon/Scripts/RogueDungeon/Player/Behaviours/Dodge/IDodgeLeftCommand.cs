@@ -1,8 +1,8 @@
-﻿using RogueDungeon.Characters.Commands;
+﻿using RogueDungeon.Characters.Input;
 
 namespace RogueDungeon.Player.Behaviours.Dodge
 {
-    public interface IDodgeLeftCommand : ICharacterCommandDefinition
+    public interface IDodgeLeftCommand : IInputDefinition
     {
     }
 }

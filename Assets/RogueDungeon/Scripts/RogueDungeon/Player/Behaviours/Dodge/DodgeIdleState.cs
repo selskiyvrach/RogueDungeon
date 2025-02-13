@@ -1,14 +1,14 @@
 ﻿using Common.Fsm;
-using RogueDungeon.Characters.Commands;
+using RogueDungeon.Characters.Input;
 
 namespace RogueDungeon.Player.Behaviours.Dodge
 {
-    public class DodgeIdleState : IState
+    public class DodgeIdleState : ITypeBasedTransitionableState
     {
-        private readonly ICharacterCommands _input;
+        private readonly ICharacterInput _input;
         private readonly ICanDodgeGetter _getter;
 
-        public DodgeIdleState(ICharacterCommands input, ICanDodgeGetter getter)
+        public DodgeIdleState(ICharacterInput input, ICanDodgeGetter getter)
         {
             _input = input;
             _getter = getter;
@@ -19,9 +19,9 @@ namespace RogueDungeon.Player.Behaviours.Dodge
             if(!_getter.CanDodge)
                 return;
 
-            if (_input.TryConsume<IDodgeLeftCommand>())
+            if (_input.TryConsume(Input.DodgeLeft))
                 typeBasedStateChanger.ChangeState<DodgeLeftState>();
-            else if(_input.TryConsume<IDodgeRightCommand>())
+            else if(_input.TryConsume(Input.DodgeRight))
                 typeBasedStateChanger.ChangeState<DodgeRightState>();
         }
     }

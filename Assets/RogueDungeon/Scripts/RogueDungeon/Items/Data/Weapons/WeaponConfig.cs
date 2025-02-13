@@ -1,4 +1,4 @@
-﻿using Common.MoveSets;
+﻿using RogueDungeon.MoveSets;
 using UnityEngine;
 
 namespace RogueDungeon.Items.Data.Weapons

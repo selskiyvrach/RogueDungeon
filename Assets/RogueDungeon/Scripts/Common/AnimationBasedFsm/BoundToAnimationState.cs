@@ -1,15 +1,13 @@
 ﻿using Common.Animations;
 using Common.Fsm;
-using UniRx;
 
 namespace Common.AnimationBasedFsm
 {
-    public abstract class BoundToAnimationState : TimerState, IExitableState, IAnimationEventObservable
+    public abstract class BoundToAnimationState : TimerState, IExitableState
     {
         private readonly IAnimator _animator;
         protected abstract AnimationData Animation { get; }
         protected override float Duration => Animation.Duration;
-        ISubject<AnimationEvent> IAnimationEventObservable.OnEvent { get; } = new Subject<AnimationEvent>();
 
         protected BoundToAnimationState(IAnimator animator) => 
             _animator = animator;
@@ -17,14 +15,15 @@ namespace Common.AnimationBasedFsm
         public override void Enter()
         {
             base.Enter();
-            _animator.OnEvent += OnEvent;
+            _animator.OnEvent += OnAnimationEvent;
             _animator.Play(Animation);
         }
 
         public virtual void Exit() => 
-            _animator.OnEvent -= OnEvent;
+            _animator.OnEvent -= OnAnimationEvent;
 
-        private void OnEvent(string name) => 
-            ((IAnimationEventObservable)this).OnEvent.OnNext(new AnimationEvent(name));
+        protected virtual void OnAnimationEvent(string name)
+        {
+        }
     }
 }

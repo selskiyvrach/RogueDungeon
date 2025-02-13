@@ -6,7 +6,7 @@ using Common.Parameters;
 
 namespace RogueDungeon.Player.Behaviours.Dodge
 {
-    public abstract class DodgeExecutionState : BoundToAnimationState
+    public abstract class DodgeExecutionState : BoundToAnimationState, ITypeBasedTransitionableState
     {
         private readonly IParameter<IDodgeDuration> _duration;
         private readonly IDodgeStateSetter _stateSetter;
@@ -31,7 +31,7 @@ namespace RogueDungeon.Player.Behaviours.Dodge
             _stateSetter.DodgeState = DodgeState;
         }
 
-        public override void CheckTransitions(ITypeBasedStateChanger typeBasedStateChanger)
+        public void CheckTransitions(ITypeBasedStateChanger typeBasedStateChanger)
         {
             if(!IsFinished)
                 return;

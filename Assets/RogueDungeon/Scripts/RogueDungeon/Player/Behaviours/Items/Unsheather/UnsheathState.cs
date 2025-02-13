@@ -5,7 +5,7 @@ using Common.Parameters;
 
 namespace RogueDungeon.Player.Behaviours.Items.Unsheather
 {
-    public class UnsheathState : BoundToAnimationState
+    public class UnsheathState : BoundToAnimationState, ITypeBasedTransitionableState
     {
         private readonly ICurrentItemVisibleSetter _currentItemVisibleSetter;
         private readonly ICurrentItemUsableSetter _currentItemUsableSetter;
@@ -27,7 +27,7 @@ namespace RogueDungeon.Player.Behaviours.Items.Unsheather
             base.Enter();
         }
 
-        public override void CheckTransitions(ITypeBasedStateChanger typeBasedStateChanger)
+        public void CheckTransitions(ITypeBasedStateChanger typeBasedStateChanger)
         {
             if (!IsFinished)
                 return;

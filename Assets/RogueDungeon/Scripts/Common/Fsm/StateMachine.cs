@@ -4,20 +4,20 @@ using Common.UtilsDotNet;
 
 namespace Common.Fsm
 {
-    public abstract class StateMachine
+    public class StateMachine
     {
         private readonly IStateTransitionStrategy _transitionStrategy;
         private readonly ILogger _logger;
         private readonly HashSet<IState> _transitionsHistory = new();
         private IState _currentState;
 
-        protected StateMachine(IStateTransitionStrategy transitionStrategy, ILogger logger = null)
+        public StateMachine(IStateTransitionStrategy transitionStrategy, ILogger logger = null)
         {
             _transitionStrategy = transitionStrategy;
             _logger = logger ?? new DefaultLogger();
         }
 
-        public virtual void Enable() => 
+        public void Enable() => 
             ChangeState(_transitionStrategy.GetStartState()); 
 
         public void Tick(float timeDelta)

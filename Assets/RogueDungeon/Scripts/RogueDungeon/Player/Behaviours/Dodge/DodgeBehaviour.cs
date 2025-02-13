@@ -1,16 +1,12 @@
-﻿using Common.Behaviours;
-using Common.Fsm;
-using ILogger = Common.Fsm.ILogger;
+﻿using System;
 
 namespace RogueDungeon.Player.Behaviours.Dodge
 {
-    public class DodgeBehaviour : StateMachineBehaviour
+    public class DodgeBehaviour 
     {
-        public DodgeBehaviour(ITypeBasedStatesProvider statesProvider, ILogger logger = null) : base(statesProvider, logger)
+        public DodgeBehaviour()
         {
+            throw new NotImplementedException();
         }
-
-        protected override void ToStartState() => 
-            ChangeState<DodgeIdleState>();
     }
 }

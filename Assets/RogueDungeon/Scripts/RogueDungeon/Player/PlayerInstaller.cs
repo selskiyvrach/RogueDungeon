@@ -1,8 +1,7 @@
 ﻿using Common.Animations;
 using Common.UtilsZenject;
-using RogueDungeon.Characters.Commands;
+using RogueDungeon.Characters.Input;
 using RogueDungeon.Items.Data.Weapons;
-using RogueDungeon.Player.Input;
 using UnityEngine;
 using Zenject;
 
@@ -20,7 +19,7 @@ namespace RogueDungeon.Player
             Container.NewSingleInterfaces<PlayerControlStateMediator>();
             Container.AutoResolve<PlayerControlStateMediator>();
             
-            Container.NewSingle<ICharacterCommands, PlayerInput>();
+            Container.NewSingle<ICharacterInput, PlayerInput>();
             Container.InstanceSingle(_weaponCofig);
             Container.InstanceSingle<IAnimator>(_animationPlayer);
             Container.NewSingleInterfacesAndSelf<Player>();

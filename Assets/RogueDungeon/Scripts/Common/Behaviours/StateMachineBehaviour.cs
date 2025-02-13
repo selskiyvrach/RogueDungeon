@@ -2,19 +2,19 @@
 
 namespace Common.Behaviours
 {
-    public abstract class StateMachineBehaviour : StateMachine, IBehaviour
+    public class StateMachineBehaviour : IBehaviour
     {
+        private readonly StateMachine _stateMachine;
         private readonly Ticker _ticker = new();
         public bool IsEnabled { get; private set; }
 
-        protected StateMachineBehaviour(ITypeBasedStatesProvider statesProvider, ILogger logger = null) : base(statesProvider, logger)
-        {
-        }
+        protected StateMachineBehaviour(StateMachine stateMachine) => 
+            _stateMachine = stateMachine;
 
-        public override void Enable()
+        public void Enable()
         {
-            base.Enable();
-            _ticker.Start(Tick);
+            _stateMachine.Enable();
+            _ticker.Start(_stateMachine.Tick);
             IsEnabled = true;
         }
 

@@ -1,4 +1,4 @@
-﻿using RogueDungeon.Characters.Commands;
+﻿using RogueDungeon.Characters.Input;
 using RogueDungeon.Player.Behaviours.Dodge;
 using Zenject;
 
@@ -6,15 +6,15 @@ namespace RogueDungeon.Player
 {
     public class PlayerControlStateMediator : ITickable
     {
-        private readonly ICharacterCommands _characterCommands;
+        private readonly ICharacterInput _characterInput;
         private readonly IDodgeStateGetter _dodgeStateGetter;
         private readonly ICanDodgeSetter _canDodgeSetter;
 
-        public PlayerControlStateMediator(IDodgeStateGetter dodgeStateGetter, ICanDodgeSetter canDodgeSetter, ICharacterCommands characterCommands)
+        public PlayerControlStateMediator(IDodgeStateGetter dodgeStateGetter, ICanDodgeSetter canDodgeSetter, ICharacterInput characterInput)
         {
             _dodgeStateGetter = dodgeStateGetter;
             _canDodgeSetter = canDodgeSetter;
-            _characterCommands = characterCommands;
+            _characterInput = characterInput;
         }
 
         [Inject]
