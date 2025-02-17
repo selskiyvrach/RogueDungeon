@@ -11,14 +11,18 @@ namespace Common.Fsm
         private readonly HashSet<IState> _transitionsHistory = new();
         private IState _currentState;
 
+        private static int _instanceCount;
+        private readonly int _instanceId;
+
         public StateMachine(IStateTransitionStrategy transitionStrategy, ILogger logger = null)
         {
             _transitionStrategy = transitionStrategy;
             _logger = logger ?? new DefaultLogger();
+            _instanceId = _instanceCount++;
         }
 
         public void Enable() => 
-            ChangeState(_transitionStrategy.GetStartState()); 
+            ChangeState(_transitionStrategy.GetStartState());
 
         public void Tick(float timeDelta)
         {
@@ -29,7 +33,7 @@ namespace Common.Fsm
 
         public void ChangeState(IState newState)
         {
-            _logger?.Log($"Fsm [{this.TypeName()}]. {_currentState} -> {newState}");
+            _logger?.Log($"[Fsm: {_instanceId}]. {_currentState} -> {newState}");
             (_currentState as IExitableState)?.Exit();
             _currentState = newState;
             if (!_transitionsHistory.Add(_currentState))

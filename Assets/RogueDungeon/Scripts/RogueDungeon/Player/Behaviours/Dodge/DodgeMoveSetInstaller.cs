@@ -12,11 +12,10 @@ namespace RogueDungeon.Player.Behaviours.Dodge
         
         public override void InstallBindings()
         {
-            Container.InstanceSingle(new MoveSetBehaviourFactory().Create(_dodgeMoveSetConfig, Container));
-            Container.AutoResolve<MoveSetBehaviour>();
-            
-            Container.NewSingle<BehaviourAutorunner<MoveSetBehaviour>>();
-            Container.AutoResolve<BehaviourAutorunner<MoveSetBehaviour>>();
+            var container = Container.CreateSubContainer();
+            container.InstanceSingle(new MoveSetBehaviourFactory().Create(_dodgeMoveSetConfig, container));
+            container.AutoResolve<MoveSetBehaviour>();
+            container.NewSingleAutoResolve<BehaviourAutorunner<MoveSetBehaviour>>();
         }
     }
 }

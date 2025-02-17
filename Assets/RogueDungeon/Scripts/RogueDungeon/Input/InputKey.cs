@@ -3,10 +3,16 @@
     public enum InputKey
     {
         None,
+        
         LightAttack = 100,
         HeavyAttack = 200,
+        
         Block = 300,
+        
         DodgeRight = 400,
         DodgeLeft = 450,
+
+        Unsheath = 500,
+        Sheath = 550,
     }
 }
