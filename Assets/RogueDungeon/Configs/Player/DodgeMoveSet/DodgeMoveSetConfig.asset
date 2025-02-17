@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DodgeMoveSetConfig
   m_EditorClassIdentifier: 
   <MoveConfigs>k__BackingField:
-  - {fileID: 11400000, guid: 9f747b88bf646ae4e90da576e5064e51, type: 2}
-  - {fileID: 11400000, guid: 7d644d9429cb80c418a0b53adfff9db3, type: 2}
-  - {fileID: 11400000, guid: d34b5744fdeab4c49a6634ba831fb052, type: 2}
+  - {fileID: 11400000, guid: 4da00dd364801004d929dbbbaf91d019, type: 2}
+  - {fileID: 11400000, guid: 8fd05c892f444ef4fa809065804031f7, type: 2}
+  - {fileID: 11400000, guid: 6671d70ab2f02cb408989f01b3759618, type: 2}

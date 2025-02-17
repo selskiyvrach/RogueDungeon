@@ -9,7 +9,7 @@
         public virtual void Enter() => 
             _timePassed = 0;
 
-        public void Tick(float timeDelta) => 
+        public virtual void Tick(float timeDelta) => 
             _timePassed += timeDelta;
     }
 }

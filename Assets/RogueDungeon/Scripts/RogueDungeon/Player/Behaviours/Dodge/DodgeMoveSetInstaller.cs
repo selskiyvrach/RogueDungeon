@@ -1,7 +1,6 @@
 ﻿using Common.Behaviours;
 using Common.MoveSets;
 using Common.UtilsZenject;
-using RogueDungeon.Input;
 using UnityEngine;
 using Zenject;
 
@@ -13,7 +12,6 @@ namespace RogueDungeon.Player.Behaviours.Dodge
         
         public override void InstallBindings()
         {
-            Container.NewSingle<PlayerInput>();
             Container.InstanceSingle(new MoveSetBehaviourFactory().Create(_dodgeMoveSetConfig, Container));
             Container.AutoResolve<MoveSetBehaviour>();
             

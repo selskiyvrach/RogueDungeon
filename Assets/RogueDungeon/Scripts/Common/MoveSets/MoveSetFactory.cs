@@ -24,7 +24,7 @@ namespace Common.MoveSets
         }
 
         private IEnumerable<Move> CreateMoves(IEnumerable<MoveConfig> moveConfigs, DiContainer container) => 
-            moveConfigs.Select(n => container.Instantiate(n.MoveType, new[] { n })).Cast<Move>();
+            moveConfigs.Select(n => container.Instantiate(n.MoveType, new object[] {n})).Cast<Move>();
 
         private void CreateTransitions(Move[] moves)
         {
