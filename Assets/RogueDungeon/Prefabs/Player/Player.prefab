@@ -95,6 +95,7 @@ Animation:
   - {fileID: 7400000, guid: dfd339abcb2b4b04aa871a9c338d1cac, type: 2}
   - {fileID: 7400000, guid: d03a097b187bcee47a1c43c59faaed54, type: 2}
   - {fileID: 7400000, guid: ac484037d2f63874bb98bd5c34abcbc1, type: 2}
+  - {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -110,10 +111,8 @@ GameObject:
   - component: {fileID: 4261873495399062472}
   - component: {fileID: 3733405680008688721}
   - component: {fileID: 6786155949642619508}
-  - component: {fileID: 7879816354633157313}
-  - component: {fileID: 8610275046940229707}
-  - component: {fileID: 4340151303283909155}
-  - component: {fileID: 3433045452399016358}
+  - component: {fileID: 1129251976161846153}
+  - component: {fileID: 585434017018379008}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -152,10 +151,8 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 6786155949642619508}
-  - {fileID: 7879816354633157313}
-  - {fileID: 8610275046940229707}
-  - {fileID: 4340151303283909155}
-  - {fileID: 3433045452399016358}
+  - {fileID: 585434017018379008}
+  - {fileID: 1129251976161846153}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -171,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ce6cb5c2dd48a0b9d08116fe94515f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7879816354633157313
+--- !u!114 &1129251976161846153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,13 +177,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 519540501769377305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d69b949f12a34f1590fa66a937f698ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 9479eec1222542e294a2bfba016c9938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraParent: {fileID: 7437003320940221867}
-  _animationPlayer: {fileID: 566554165417645574}
-  _weaponCofig: {fileID: 11400000, guid: 0b0b5a494baebdb4d8444bb9c89b7049, type: 2}
---- !u!114 &8610275046940229707
+  _dodgeMoveSetConfig: {fileID: 11400000, guid: 86d1eb421d4318e44b736900965b2ccb,
+    type: 2}
+--- !u!114 &585434017018379008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,39 +191,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 519540501769377305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2716c2111034e16ae0a87fe6c6e94fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eb04db7337145ed835255cc7ae37988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timings: {fileID: 11400000, guid: c82069c4901950142bf45dcc7c7b4e4f, type: 2}
-  _animationPlayer: {fileID: 524891201825187366}
---- !u!114 &4340151303283909155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519540501769377305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 660071f9360c4f47b7c771dbbdf1d12a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemVisibleSetter: {fileID: 7746264375280994412}
-  _timings: {fileID: 11400000, guid: f28ce213d35081b4d9a2f9ced255e4fd, type: 2}
-  _animationPlayer: {fileID: 524891201825187366}
---- !u!114 &3433045452399016358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519540501769377305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d80f60b85ae43949666d0e32a8a7514, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _parameters: {fileID: 11400000, guid: a415664d7292cdf4e814d3a958ccb34e, type: 2}
+  _animator: {fileID: 566554165417645574}
 --- !u!1 &763680708661238317
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3991863009305808172}
   m_Layer: 0
-  m_Name: Animated
+  m_Name: RightHandAnimated
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -484,7 +451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3584763964651940592}
   m_Layer: 0
-  m_Name: Animated
+  m_Name: BodyAnimated
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -517,7 +484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7686856215775102625}
   m_Layer: 0
-  m_Name: AnimatedViaCode
+  m_Name: HeadAnimated
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,7 +4,7 @@ using Common.Fsm;
 using UnityEngine.Assertions;
 using Zenject;
 
-namespace RogueDungeon.MoveSets
+namespace Common.MoveSets
 {
     public class MoveSetBehaviourFactory : IFactory<MoveSetConfig, DiContainer, MoveSetBehaviour>
     {

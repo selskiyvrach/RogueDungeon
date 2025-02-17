@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace RogueDungeon.MoveSets
+namespace Common.MoveSets
 {
     public abstract class MoveSetConfig<T> : MoveSetConfig where T : MoveConfig
     {

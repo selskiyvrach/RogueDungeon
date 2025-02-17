@@ -18,4 +18,4 @@ MonoBehaviour:
   <Duration>k__BackingField: 0.5
   <Transitions>k__BackingField:
   - Idle
-  <RequiredInput>k__BackingField: 450
+  <RequiredInputKey>k__BackingField: 450

@@ -3,7 +3,7 @@ using Common.AnimationBasedFsm;
 using Common.Animations;
 using Common.Fsm;
 
-namespace RogueDungeon.MoveSets
+namespace Common.MoveSets
 {
     public class Move : BoundToAnimationState, IIdBasedTransitionableState
     {

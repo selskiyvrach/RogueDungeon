@@ -4,9 +4,9 @@ using Common.UtilsDotNet;
 using UniRx;
 using UnityEngine;
 
-namespace RogueDungeon.Characters.Input
+namespace RogueDungeon.Input
 {
-    public class PlayerInput : IDisposable, ICharacterInput
+    public class PlayerInput : IDisposable
     {
         private enum KeyState
         {
@@ -14,16 +14,16 @@ namespace RogueDungeon.Characters.Input
             Held
         }
         
-        private static readonly Dictionary<Input, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
+        private static readonly Dictionary<InputKey, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
         {
             // [Input.MoveForward] = (KeyCode.W,KeyState.Held , 0),
-            [Input.DodgeRight] = (KeyCode.D, KeyState.Down,.5f),
-            [Input.DodgeLeft] = (KeyCode.A, KeyState.Down,.5f),
+            [InputKey.DodgeRight] = (KeyCode.D, KeyState.Down,.5f),
+            [InputKey.DodgeLeft] = (KeyCode.A, KeyState.Down,.5f),
             // [Input.Block] = (KeyCode.Mouse1, KeyState.Held,.5f),
         };
 
         private readonly IDisposable _sub;
-        private Input _currentInput;
+        private InputKey _currentInputKey;
         private float _timeSinceReleased;
         private float _timeHeld;
 
@@ -39,22 +39,22 @@ namespace RogueDungeon.Characters.Input
             ReadCommands();
         }
 
-        public bool HasInput(Input input) => 
-            _currentInput == input.ThrowIfNone();
+        public bool HasInput(InputKey inputKey) => 
+            _currentInputKey == inputKey.ThrowIfNone();
 
-        public void ConsumeInput(Input input)
+        public void ConsumeInput(InputKey inputKey)
         {
-            if (!HasInput(input))
-                throw new InvalidOperationException($"Cannot consume command of a wrong type. Current: {_currentInput}, consuming: {input}");
+            if (!HasInput(inputKey))
+                throw new InvalidOperationException($"Cannot consume command of a wrong type. Current: {_currentInputKey}, consuming: {inputKey}");
             
-            _currentInput = Input.None;
+            _currentInputKey = InputKey.None;
             _timeHeld = 0;
             _timeSinceReleased = Mathf.Infinity;
         }
 
         private void ReadCommands()
         {
-            var currentCommand = Input.None;
+            var currentCommand = InputKey.None;
 
             foreach (var (command, (code, state, coyoteTime)) in Commands)
             {
@@ -70,7 +70,7 @@ namespace RogueDungeon.Characters.Input
                 if (currentCommand != command)
                 {
                     currentCommand = command;
-                    _currentInput = currentCommand;
+                    _currentInputKey = currentCommand;
                     _timeHeld = 0;
                 }
                 else
@@ -80,12 +80,12 @@ namespace RogueDungeon.Characters.Input
 
         private void UpdateCoyoteTime()
         {
-            if (_currentInput == Input.None) 
+            if (_currentInputKey == InputKey.None) 
                 return;
             
             _timeSinceReleased += Time.deltaTime;
-            if (_timeSinceReleased >= Commands[_currentInput].coyoteTime) 
-                _currentInput = Input.None;
+            if (_timeSinceReleased >= Commands[_currentInputKey].coyoteTime) 
+                _currentInputKey = InputKey.None;
         }
     }
 }

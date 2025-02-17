@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RogueDungeon.MoveSets
+namespace Common.MoveSets
 {
     public class MoveConfig : ScriptableObject
     {

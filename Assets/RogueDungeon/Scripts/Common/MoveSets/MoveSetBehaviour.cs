@@ -1,6 +1,6 @@
 ﻿using Common.Fsm;
 
-namespace RogueDungeon.MoveSets
+namespace Common.MoveSets
 {
     public class MoveSetBehaviour : Common.Behaviours.StateMachineBehaviour
     {
