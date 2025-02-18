@@ -7,7 +7,7 @@ namespace RogueDungeon.Player.Behaviours.Hands
     public class PlayerHands : IHandheldContext
     {
         private readonly IFactory<ItemConfig, HandHeldItemPresenter> _presenterFactory;
-        private readonly IFactory<ItemConfig, MoveSetBehaviour> _moveSetFactory;
+        private readonly IFactory<MoveSetConfig, MoveSetBehaviour> _moveSetFactory;
         
         private Item _currentItem;
         private HandHeldItemPresenter _itemPresenter;
@@ -32,6 +32,12 @@ namespace RogueDungeon.Player.Behaviours.Hands
             }
         }
 
+        public PlayerHands(IFactory<ItemConfig, HandHeldItemPresenter> presenterFactory, IFactory<MoveSetConfig, MoveSetBehaviour> moveSetFactory)
+        {
+            _presenterFactory = presenterFactory;
+            _moveSetFactory = moveSetFactory;
+        }
+
         public void SetCurrentItemInteractable(bool value)
         {
             if(value)
@@ -42,7 +48,7 @@ namespace RogueDungeon.Player.Behaviours.Hands
 
         private void CreateMoveSet()
         {
-            _itemMoveSet = _moveSetFactory.Create(CurrentItem.Config);
+            _itemMoveSet = _moveSetFactory.Create(CurrentItem.Config.MoveSetConfig);
             _itemMoveSet.Enable();
         }
 
