@@ -8,6 +8,9 @@ namespace Common.UI.LoadingScreen
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private float _fadeDuration = .25f;
 
+        private void Awake() => 
+            gameObject.SetActive(false);
+
         public void Show()
         {
             gameObject.SetActive(true);

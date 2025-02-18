@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f2dac52c9c64a488a2e79ab17620c5e, type: 3}
+  m_Name: ProjectContextInstaller
+  m_EditorClassIdentifier: 
+  _loadingScreenPrefab: {fileID: 4016198338483813180, guid: f399f8a2616ff7f438eb07adb7c5e021,
+    type: 3}
+  _gameCameraPrefab: {fileID: 526907443447943245, guid: 3505bfda12e0dcc45a76b5ec65954a2d,
+    type: 3}
+  _eventSystemPrefab: {fileID: 4340473840694383706, guid: bdc31969160fe6345985bc3f21356030,
+    type: 3}

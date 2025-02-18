@@ -1,5 +1,5 @@
 ﻿using System;
-using RogueDungeon.Scripts.RogueDungeon.Combat;
+using RogueDungeon.Combat;
 using UnityEngine;
 
 namespace RogueDungeon.Player.Behaviours.Dodge

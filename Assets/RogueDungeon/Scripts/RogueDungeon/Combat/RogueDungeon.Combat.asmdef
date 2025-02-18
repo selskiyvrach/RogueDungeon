@@ -1,4 +1,4 @@
 ﻿{
   "name": "RogueDungeon.Combat",
-  "references":[ "GUID:bf976f4fa76a4895a31ae9a9d493a745" ]
+  "references":[ "GUID:bf976f4fa76a4895a31ae9a9d493a745", "GUID:0d8beb7f090555447a6cf5ce9e54dbb4", "GUID:7219b7caae824cf8a7e9cd2b004517a7" ]
 }

@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Scripts.RogueDungeon.Combat
+﻿namespace RogueDungeon.Combat
 {
     public enum PlayerDodgeState
     {

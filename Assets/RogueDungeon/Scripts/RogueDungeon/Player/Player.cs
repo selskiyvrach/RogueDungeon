@@ -1,7 +1,6 @@
 ﻿using RogueDungeon.Combat;
 using RogueDungeon.Player.Behaviours.Dodge;
 using RogueDungeon.Player.Behaviours.Hands;
-using RogueDungeon.Scripts.RogueDungeon.Combat;
 
 namespace RogueDungeon.Player
 {

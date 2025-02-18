@@ -226,6 +226,7 @@ MonoBehaviour:
   _config: {fileID: 11400000, guid: cb570c68ba95b2f4388154ff2f3e5467, type: 2}
   _handsAnimator: {fileID: 524891201825187366}
   _itemPresenter: {fileID: 914613258679922615}
+  _testItemConfig: {fileID: 11400000, guid: ef43aeec929d0004f8a730deaad85546, type: 2}
 --- !u!1 &763680708661238317
 GameObject:
   m_ObjectHideFlags: 0
