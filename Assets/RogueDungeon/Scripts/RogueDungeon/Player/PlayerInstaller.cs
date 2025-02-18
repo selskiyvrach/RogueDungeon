@@ -10,8 +10,6 @@ namespace RogueDungeon.Player
         {
             Container.NewSingle<PlayerInput>();
             Container.NewSingleInterfacesAndSelf<Player>();
-            
-            Container.AutoResolve<Player>();
         }
     }
 }

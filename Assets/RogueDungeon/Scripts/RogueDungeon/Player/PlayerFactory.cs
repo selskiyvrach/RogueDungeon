@@ -10,10 +10,9 @@ namespace RogueDungeon.Player
         public PlayerFactory(DiContainer container) => 
             _container = container;
 
-        public Player Create(PlayerConfig config, Transform parent)
-        {
-            _container.InstantiatePrefab(config.Prefab, parent);
-            return _container.Resolve<Player>();
-        }
+        public Player Create(PlayerConfig config, Transform parent) => 
+            _container
+                .InstantiatePrefab(config.Prefab, parent)
+                .GetComponent<Context>().Container.Resolve<Player>();
     }
 }

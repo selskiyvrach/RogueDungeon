@@ -18,6 +18,13 @@ namespace RogueDungeon.Game.Gameplay
             Container.NewSingleInterfaces<PlayerFactory>();
             Container.Bind<IPlayerSpawner>().To<PlayerSpawner>().FromNew().AsSingle()
                 .WithArguments(_playerConfig, _playerTransform);
+            Container.NewSingle<Gameplay>();
+        }
+
+        public override void Start()
+        {
+            base.Start();
+            Container.Resolve<Gameplay>().Enable();
         }
     }
 }
