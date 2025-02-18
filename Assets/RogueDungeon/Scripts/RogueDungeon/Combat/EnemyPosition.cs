@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Enemies
+﻿namespace RogueDungeon.Combat
 {
     public enum EnemyPosition
     {

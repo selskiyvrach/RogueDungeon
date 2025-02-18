@@ -1,7 +1,9 @@
-﻿namespace RogueDungeon.Player.Behaviours.Dodge
+﻿using RogueDungeon.Scripts.RogueDungeon.Combat;
+
+namespace RogueDungeon.Player.Behaviours.Dodge
 {
     public interface IDodger
     {
-        DodgeState DodgeState { get; set; }
+        PlayerDodgeState DodgeState { get; set; }
     }
 }
