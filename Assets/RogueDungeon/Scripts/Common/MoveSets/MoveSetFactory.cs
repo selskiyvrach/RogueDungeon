@@ -6,14 +6,19 @@ using Zenject;
 
 namespace Common.MoveSets
 {
-    public class MoveSetBehaviourFactory : IFactory<MoveSetConfig, DiContainer, MoveSetBehaviour>
+    public class MoveSetFactory : IFactory<MoveSetConfig, MoveSetBehaviour>
     {
-        public MoveSetBehaviour Create(MoveSetConfig config, DiContainer container) =>
-            new(new StateMachine(CreateTransitionStrategy(config, container)));
+        private readonly DiContainer _container;
 
-        private IStateTransitionStrategy CreateTransitionStrategy(MoveSetConfig config, DiContainer container)
+        public MoveSetFactory(DiContainer container) => 
+            _container = container;
+
+        public MoveSetBehaviour Create(MoveSetConfig config) =>
+            new(new StateMachine(CreateTransitionStrategy(config)));
+
+        private IStateTransitionStrategy CreateTransitionStrategy(MoveSetConfig config)
         {
-            var moves = CreateMoves(config.Moves, container).ToArray();
+            var moves = CreateMoves(config.Moves).ToArray();
             CreateTransitions(moves);
             var strategy = new IdBasedTransitionStrategy
             {
@@ -23,8 +28,8 @@ namespace Common.MoveSets
             return strategy;
         }
 
-        private IEnumerable<Move> CreateMoves(IEnumerable<MoveConfig> moveConfigs, DiContainer container) => 
-            moveConfigs.Select(n => container.Instantiate(n.MoveType, new object[] {n})).Cast<Move>();
+        private IEnumerable<Move> CreateMoves(IEnumerable<MoveConfig> moveConfigs) => 
+            moveConfigs.Select(n => _container.Instantiate(n.MoveType, new object[] {n})).Cast<Move>();
 
         private void CreateTransitions(Move[] moves)
         {

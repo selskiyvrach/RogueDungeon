@@ -225,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _config: {fileID: 11400000, guid: cb570c68ba95b2f4388154ff2f3e5467, type: 2}
   _handsAnimator: {fileID: 524891201825187366}
+  _itemPresenter: {fileID: 914613258679922615}
 --- !u!1 &763680708661238317
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,8 +546,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 223113274195559467}
+  - component: {fileID: 914613258679922615}
   m_Layer: 0
-  m_Name: Item
+  m_Name: ItemPresenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -568,6 +570,19 @@ Transform:
   - {fileID: 2225696862643674190}
   m_Father: {fileID: 3991863009305808172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &914613258679922615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8547257778927841422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de3adddc481c4e74923a324f07079ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 7661930132946979845}
 --- !u!1001 &6748059961611519627
 PrefabInstance:
   m_ObjectHideFlags: 0

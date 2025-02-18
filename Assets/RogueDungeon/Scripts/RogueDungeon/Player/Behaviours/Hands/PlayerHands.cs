@@ -1,4 +1,5 @@
-﻿using RogueDungeon.Items;
+﻿using Common.MoveSets;
+using RogueDungeon.Items;
 using Zenject;
 
 namespace RogueDungeon.Player.Behaviours.Hands
@@ -6,8 +7,11 @@ namespace RogueDungeon.Player.Behaviours.Hands
     public class PlayerHands : IHandheldContext
     {
         private readonly IFactory<ItemConfig, HandHeldItemPresenter> _presenterFactory;
+        private readonly IFactory<ItemConfig, MoveSetBehaviour> _moveSetFactory;
+        
         private Item _currentItem;
-        private HandHeldItemPresenter _presenter;
+        private HandHeldItemPresenter _itemPresenter;
+        private MoveSetBehaviour _itemMoveSet;
 
         public Item IntendedItem { get; set; }
 
@@ -18,18 +22,34 @@ namespace RogueDungeon.Player.Behaviours.Hands
             {
                 _currentItem = value;
                 if (_currentItem != null)
-                    _presenter = _presenterFactory.Create(_currentItem.Config);
+                    _itemPresenter = _presenterFactory.Create(_currentItem.Config);
                 else
                 {
-                    _presenter.Destroy();
-                    _presenter = null;
+                    _itemPresenter.Release();
+                    _itemPresenter = null;
+                    DeleteMoveSet();
                 }
             }
         }
 
         public void SetCurrentItemInteractable(bool value)
         {
-            // what entity would control behaviours???
+            if(value)
+                CreateMoveSet();
+            else
+                DeleteMoveSet();
+        }
+
+        private void CreateMoveSet()
+        {
+            _itemMoveSet = _moveSetFactory.Create(CurrentItem.Config);
+            _itemMoveSet.Enable();
+        }
+
+        private void DeleteMoveSet()
+        {
+            _itemMoveSet.Disable();
+            _itemMoveSet = null;
         }
     }
 }

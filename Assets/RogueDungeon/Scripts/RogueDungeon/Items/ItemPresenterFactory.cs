@@ -1,16 +1,21 @@
-﻿using UnityEngine;
+﻿using UnityEngine.Assertions;
 using Zenject;
 
 namespace RogueDungeon.Items
 {
     public class ItemPresenterFactory : IFactory<ItemConfig, HandHeldItemPresenter>
     {
-        private readonly Transform _itemParent;
+        private readonly HandHeldItemPresenter _itemPresenter;
 
-        public ItemPresenterFactory(Transform itemParent) => 
-            _itemParent = itemParent;
+        public ItemPresenterFactory(HandHeldItemPresenter itemPresenter) => 
+            _itemPresenter = itemPresenter;
 
-        public HandHeldItemPresenter Create(ItemConfig param) => 
-            Object.Instantiate(param.Prefab, _itemParent, worldPositionStays: false);
+        public HandHeldItemPresenter Create(ItemConfig param)
+        {
+            Assert.IsTrue(_itemPresenter.IsReleased);
+            _itemPresenter.IsReleased = false;
+            _itemPresenter.Sprite = param.Sprite;
+            return _itemPresenter;
+        }
     }
 }
