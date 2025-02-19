@@ -7,7 +7,7 @@ namespace RogueDungeon.Weapons
     {
         private readonly EnemyAttackMoveConfig _config;
         
-        public EnemyAttackMove(EnemyAttackMoveConfig config, IAnimator animator) : base(config, animator) => 
+        public EnemyAttackMove(EnemyAttackMoveConfig config, IAnimator animator, IAttacksMediator mediator) : base(config, animator, mediator) => 
             _config = config;
 
         protected override void HandleAttack(IAttacksMediator attacksMediator) => 

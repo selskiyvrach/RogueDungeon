@@ -6,7 +6,10 @@ namespace RogueDungeon.Combat
     public class AttacksMediator : IAttacksMediator
     {
         private readonly ICombatantsRegistry _registry;
-        
+
+        public AttacksMediator(ICombatantsRegistry registry) => 
+            _registry = registry;
+
         public void MediatePlayerAttack(IPlayerAttackInfo attackInfo)
         {
             if (_registry.Enemies.FirstOrDefault(n => n.Position == EnemyPosition.Middle) is not {} enemy)

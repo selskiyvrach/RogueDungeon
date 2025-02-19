@@ -12,13 +12,16 @@ namespace RogueDungeon.Weapons
         private readonly IAttacksMediator _attacksMediator;
         private readonly AttackMoveConfig _config;
 
-        protected AttackMove(AttackMoveConfig config, IAnimator animator) : base(config, animator) => 
+        protected AttackMove(AttackMoveConfig config, IAnimator animator, IAttacksMediator attacksMediator) : base(config, animator)
+        {
             _config = config;
+            _attacksMediator = attacksMediator;
+        }
 
         protected override void OnAnimationEvent(string name)
         {
             base.OnAnimationEvent(name);
-            if (name == "Hit")
+            if (name == "hit")
             {
                 if(_config.JustAnimation)
                     Debug.LogError("Unsupposed Animation Event: " + name);
