@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Common.Animations
 {
-    public class AnimationPlayer : MonoBehaviour, IAnimator
+    public sealed class AnimationPlayer : MonoBehaviour, IAnimator
     {
         [SerializeField] private Animation _referenceToAnimation;
         

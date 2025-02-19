@@ -19,4 +19,11 @@ namespace RogueDungeon.Player
             throw new System.NotImplementedException();
         }
     }
+    
+    // create enemy class
+    // installer
+    // factory
+    // spawner
+    // install factory
+    // create an enemy in gameplay class
 }
