@@ -35,7 +35,7 @@ namespace Common.MoveSets
         {
             foreach (var move in moves)
             {
-                var transitions = moves.Where(n => move.Config.Transitions.Contains(n.Id)).ToArray();
+                var transitions = move.Config.Transitions.Select(n => moves.First(m => m.Id == n)).ToArray();
                 Assert.IsTrue(transitions.Length > 0);
                 move.Transitions = transitions;
             }

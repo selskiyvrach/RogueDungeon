@@ -54,7 +54,7 @@ namespace RogueDungeon.Player.Behaviours.Hands
 
         private void DeleteMoveSet()
         {
-            _itemMoveSet.Disable();
+            _itemMoveSet?.Disable();
             _itemMoveSet = null;
         }
     }

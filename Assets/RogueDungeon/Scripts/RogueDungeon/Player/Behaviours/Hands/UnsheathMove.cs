@@ -13,7 +13,6 @@ namespace RogueDungeon.Player.Behaviours.Hands
         {
             base.Enter();
             Context.CurrentItem = Context.IntendedItem;
-            Context.IntendedItem = null;
         }
 
         public override void Exit()

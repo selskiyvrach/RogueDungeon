@@ -8,7 +8,7 @@ namespace RogueDungeon.Player
     {
         public override void InstallBindings()
         {
-            Container.NewSingle<PlayerInput>();
+            Container.NewSingle<IPlayerInput, PlayerInput>();
             Container.NewSingleInterfacesAndSelf<Player>();
         }
     }

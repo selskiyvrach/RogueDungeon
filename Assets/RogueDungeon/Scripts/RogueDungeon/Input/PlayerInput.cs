@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RogueDungeon.Input
 {
-    public class PlayerInput : IDisposable
+    public class PlayerInput : IDisposable, IPlayerInput
     {
         private enum KeyState
         {
@@ -19,6 +19,7 @@ namespace RogueDungeon.Input
             // [Input.MoveForward] = (KeyCode.W,KeyState.Held , 0),
             [InputKey.DodgeRight] = (KeyCode.D, KeyState.Down,.5f),
             [InputKey.DodgeLeft] = (KeyCode.A, KeyState.Down,.5f),
+            [InputKey.LightAttack] = (KeyCode.Mouse0, KeyState.Down,.5f),
             // [Input.Block] = (KeyCode.Mouse1, KeyState.Held,.5f),
         };
 

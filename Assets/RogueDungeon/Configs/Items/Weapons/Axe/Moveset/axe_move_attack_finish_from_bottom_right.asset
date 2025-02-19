@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f2581f700c4fdc8e38fbc1d2d8107a, type: 3}
+  m_Name: axe_move_attack_finish_from_bottom_right
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: attack_finish_from_bottom_right
+  <AnimationClip>k__BackingField: {fileID: 7400000, guid: 0727bcf2980342c42a85f92488ab4e54,
+    type: 2}
+  <Duration>k__BackingField: 0.25
+  <Transitions>k__BackingField:
+  - Idle
+  <JustAnimation>k__BackingField: 1
+  <Damage>k__BackingField: 15
+  <RequiredInput>k__BackingField: 0
