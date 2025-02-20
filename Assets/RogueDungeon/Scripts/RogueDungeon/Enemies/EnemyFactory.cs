@@ -13,8 +13,10 @@ namespace RogueDungeon.Enemies
         public Enemy Create(EnemyFactoryArgs args)
         {
             var config = args.Config;
-            var enemyContainer = _container.InstantiatePrefab(config.Prefab, args.Parent).GetComponent<Context>().Container;
+            var enemy = _container.InstantiatePrefab(config.Prefab, args.Parent);
+            var enemyContainer = enemy.GetComponent<Context>().Container;
             enemyContainer.InstanceSingle(config);
+            enemyContainer.InstanceSingle(enemy.transform);
             return enemyContainer.Resolve<Enemy>();
         }
     }

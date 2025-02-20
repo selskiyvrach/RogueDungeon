@@ -9,6 +9,7 @@ namespace RogueDungeon.Game.Gameplay
 {
     public class GameplayInstaller : MonoInstaller
     {
+        [SerializeField] private GameplayConfig _gameplayConfig;
         [SerializeField] private Transform _playerTransform;
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private EnemyParents _enemyParents;
@@ -30,6 +31,7 @@ namespace RogueDungeon.Game.Gameplay
                 .WithArguments(_playerConfig, _playerTransform);
             
             // Gameplay
+            Container.InstanceSingle(_gameplayConfig);
             Container.NewSingle<Gameplay>();
         }
 

@@ -45,7 +45,7 @@ namespace RogueDungeon.Player.Behaviours.Hands
                 itemMovesetFactoryContainer.Resolve<IFactory<MoveSetConfig, MoveSetBehaviour>>(),
                 // sheath/unsheath moveset
                 unsheathMoveSetContainer.Resolve<MoveSetBehaviour>(),
-                // context
+                // context  
                 container.Resolve<HandHeldContext>()));
             container.NewSingle<PlayerHandsBehaviour>();
 
