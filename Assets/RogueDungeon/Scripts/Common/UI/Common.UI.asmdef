@@ -1,0 +1,17 @@
+{
+    "name": "Common.UI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3c6591eac2634e0db5ea71ec276d62ff",
+        "GUID:738b47d9f2cb27348adbc363000ad406"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

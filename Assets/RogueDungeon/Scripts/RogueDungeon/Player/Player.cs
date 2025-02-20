@@ -6,12 +6,14 @@ namespace RogueDungeon.Player
 {
     public class Player : IDodger, IPlayerCombatant 
     {
-        private readonly PlayerHands _playerHands;
+        private readonly PlayerHandsBehaviour _playerHandsBehaviour;
+        public PlayerGameObject GameObject { get; }
         public PlayerDodgeState DodgeState { get; set; }
 
-        public Player(PlayerHands playerHands)
+        public Player(PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject)
         {
-            _playerHands = playerHands;
+            _playerHandsBehaviour = playerHandsBehaviour;
+            GameObject = gameObject;
         }
 
         public void TakeDamage(float damage)

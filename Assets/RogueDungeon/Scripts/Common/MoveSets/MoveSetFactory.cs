@@ -14,7 +14,7 @@ namespace Common.MoveSets
             _container = container;
 
         public MoveSetBehaviour Create(MoveSetConfig config) =>
-            new(new StateMachine(CreateTransitionStrategy(config)));
+            new(new StateMachine(CreateTransitionStrategy(config), config.DebugName));
 
         private IStateTransitionStrategy CreateTransitionStrategy(MoveSetConfig config)
         {

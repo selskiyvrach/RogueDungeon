@@ -31,9 +31,12 @@ namespace Common.Behaviours
             behaviourContainer.NewSingleInterfacesAndSelf<TBehaviour>();
 
             if (autoRunBehaviour) 
-                behaviourContainer.NewSingleAutoResolve<BehaviourAutorunner<TBehaviour>>();
+                behaviourContainer.NewSingleAutoResolve<BehaviourInitializer<TBehaviour>>();
             
             return behaviourContainer;
         }
+        
+        public static void AutoInitBehaviour<TBehaviour>(this DiContainer container) where TBehaviour : IBehaviour => 
+            container.NewSingle<BehaviourInitializer<TBehaviour>>();
     }
 }

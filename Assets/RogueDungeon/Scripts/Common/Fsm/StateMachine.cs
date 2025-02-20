@@ -14,9 +14,12 @@ namespace Common.Fsm
         private static int _instanceCount;
         private readonly int _instanceId;
 
-        public StateMachine(IStateTransitionStrategy transitionStrategy, ILogger logger = null)
+        public string DebugName { get; set; }
+
+        public StateMachine(IStateTransitionStrategy transitionStrategy, string debugName = "", ILogger logger = null)
         {
             _transitionStrategy = transitionStrategy;
+            DebugName = debugName;
             _logger = logger ?? new DefaultLogger();
             _instanceId = _instanceCount++;
         }
@@ -33,7 +36,7 @@ namespace Common.Fsm
 
         public void ChangeState(IState newState)
         {
-            _logger?.Log($"[Fsm: {_instanceId}]. {_currentState} -> {newState}");
+            _logger?.Log($"[Fsm: '{DebugName}' ({_instanceId})]. {_currentState} -> {newState}");
             (_currentState as IExitableState)?.Exit();
             _currentState = newState;
             if (!_transitionsHistory.Add(_currentState))

@@ -1,5 +1,4 @@
-﻿using Common.Animations;
-using Common.UtilsZenject;
+﻿using Common.UtilsZenject;
 using RogueDungeon.Input;
 using UnityEngine;
 using Zenject;
@@ -8,11 +7,11 @@ namespace RogueDungeon.Player
 {
     public class PlayerInstaller : MonoInstaller
     {
-        [SerializeField] private AnimationPlayer _animationPlayer;
+        [SerializeField] private PlayerGameObject _playerGameObject;
 
         public override void InstallBindings()
         {
-            Container.InstanceSingleInterfaces(_animationPlayer);
+            Container.InstanceSingle(_playerGameObject);
             Container.NewSingle<IPlayerInput, PlayerInput>();
             Container.NewSingleInterfacesAndSelf<Player>();
         }

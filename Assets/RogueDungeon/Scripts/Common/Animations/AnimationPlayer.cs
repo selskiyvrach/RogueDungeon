@@ -9,6 +9,7 @@ namespace Common.Animations
     public sealed class AnimationPlayer : MonoBehaviour, IAnimator
     {
         [SerializeField] private Animation _referenceToAnimation;
+        [SerializeField] private GameObject _animatedObject;
         
         private readonly Queue<(float time, string eventName)> _eventsToPlay = new();
         
@@ -63,7 +64,7 @@ namespace Common.Animations
 
         private void UpdatePlayback()
         {
-            _clip.SampleAnimation(gameObject, _playTime);
+            _clip.SampleAnimation(_animatedObject, _playTime);
             
             if (!IsFinished)
                 return;

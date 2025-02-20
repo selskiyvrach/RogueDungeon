@@ -12,6 +12,7 @@ namespace Common.MoveSets
 
     public abstract class MoveSetConfig : ScriptableObject
     {
+        public string DebugName => name;
         public abstract IEnumerable<MoveConfig> Moves { get; }
     }
 }

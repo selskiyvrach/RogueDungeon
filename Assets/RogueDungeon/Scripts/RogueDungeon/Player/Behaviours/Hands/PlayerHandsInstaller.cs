@@ -13,24 +13,52 @@ namespace RogueDungeon.Player.Behaviours.Hands
         /// <summary>
         /// Sheath/Unsheath moveset
         /// </summary>
-        [SerializeField] private MoveSetConfig _config;
+        [SerializeField] private MoveSetConfig _sheathUnsheathMoveSetConfig;
         [SerializeField] private AnimationPlayer _handsAnimator;
+        [SerializeField] private AnimationPlayer _handHeldItemAnimator;
         [SerializeField] private HandHeldItemPresenter _itemPresenter;
         [SerializeField] private ItemConfig _testItemConfig;
 
         public override void InstallBindings()
         {
             var container = Container.CreateSubContainer();
-            container.NewSingleInterfacesAndSelf<PlayerHands>();
-            container.InstanceSingle<IAnimator>(_handsAnimator);
+            // helps to break circular dependencies between hands and moves
+            container.NewSingleInterfacesAndSelf<HandHeldContext>();
+            
             container.InstanceSingle(_itemPresenter);
             container.NewSingle<IFactory<ItemConfig, HandHeldItemPresenter>, ItemPresenterFactory>();
-            container.NewSingle<IFactory<MoveSetConfig, MoveSetBehaviour>, MoveSetFactory>();
-            container.InstanceSingle(new MoveSetFactory(container).Create(_config));
-            container.NewSingleAutoResolve<BehaviourAutorunner<MoveSetBehaviour>>();
-            Container.InstanceSingle(container.Resolve<PlayerHands>());
             
-            container.Resolve<PlayerHands>().IntendedItem = new Item(_testItemConfig);
+            // moveset factory for items
+            var itemMovesetFactoryContainer = container.CreateSubContainer();
+            itemMovesetFactoryContainer.InstanceSingle<IAnimator>(_handHeldItemAnimator);
+            itemMovesetFactoryContainer.NewSingle<IFactory<MoveSetConfig, MoveSetBehaviour>, MoveSetFactory>();
+            
+            // unsheath moveset
+            var unsheathMoveSetContainer = container.CreateSubContainer();
+            unsheathMoveSetContainer.InstanceSingle<IAnimator>(_handsAnimator);
+            unsheathMoveSetContainer.InstanceSingle(new MoveSetFactory(unsheathMoveSetContainer).Create(_sheathUnsheathMoveSetConfig));
+
+            container.InstanceSingle(new HandsArgs(
+                // item presenter factory
+                container.Resolve<IFactory<ItemConfig, HandHeldItemPresenter>>(),
+                // item moveSet factory
+                itemMovesetFactoryContainer.Resolve<IFactory<MoveSetConfig, MoveSetBehaviour>>(),
+                // sheath/unsheath moveset
+                unsheathMoveSetContainer.Resolve<MoveSetBehaviour>(),
+                // context
+                container.Resolve<HandHeldContext>()));
+            container.NewSingle<PlayerHandsBehaviour>();
+
+            var hands = container.Resolve<PlayerHandsBehaviour>();
+            Container.Bind<PlayerHandsBehaviour>().FromInstance(hands).AsSingle();
+            Container.Bind<IHandheldContext>().FromInstance(hands).AsSingle();
+        }
+
+        public override void Start()
+        {
+            base.Start();
+            Container.Resolve<PlayerHandsBehaviour>().Enable();
+            Container.Resolve<IHandheldContext>().IntendedItem = new Item(_testItemConfig);
         }
     }
 }

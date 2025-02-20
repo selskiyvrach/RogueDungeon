@@ -1,8 +1,8 @@
-﻿using Common.Camera;
-using Common.SceneManagement;
+﻿using Common.SceneManagement;
 using Common.UI.LoadingScreen;
 using Common.Unity;
 using Common.UtilsZenject;
+using RogueDungeon.Camera;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -32,7 +32,7 @@ namespace RogueDungeon.Game
         private void CreateCameraAndLoadingScreen()
         {
             Container.Bind<ILoadingScreen>().FromInstance(Instantiate(_loadingScreenPrefab, _gameRootObject.transform));
-            Container.Bind<GameCamera>().FromInstance(Instantiate(_gameCameraPrefab, _gameRootObject.transform));
+            Container.Bind<IGameCamera>().FromInstance(Instantiate(_gameCameraPrefab, _gameRootObject.transform));
         }
 
         private void CreateSceneLoader() => 

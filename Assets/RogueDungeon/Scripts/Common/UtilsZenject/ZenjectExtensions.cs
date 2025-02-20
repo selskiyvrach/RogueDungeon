@@ -33,7 +33,7 @@ namespace Common.UtilsZenject
         
         public static ConcreteIdArgConditionCopyNonLazyBinder NewSingle<T>(this DiContainer container) =>
             container.NewSingle<T, T>();
-        
+
         public static ConcreteIdArgConditionCopyNonLazyBinder NewSingleAutoResolve<T>(this DiContainer container)
         {
             container.AutoResolve<T>();
