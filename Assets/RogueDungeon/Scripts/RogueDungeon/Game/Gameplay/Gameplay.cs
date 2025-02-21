@@ -5,6 +5,38 @@ using RogueDungeon.Player;
 
 namespace RogueDungeon.Game.Gameplay
 {
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // spawn enemies -> on tile enter -> activate tile()
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public class Gameplay : Common.Behaviours.Behaviour
     {
         private readonly ICombatantsRegistry _combatantsRegistry;
