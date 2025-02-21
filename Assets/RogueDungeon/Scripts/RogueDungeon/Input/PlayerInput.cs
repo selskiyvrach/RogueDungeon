@@ -16,11 +16,15 @@ namespace RogueDungeon.Input
         
         private static readonly Dictionary<InputKey, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
         {
-            // [Input.MoveForward] = (KeyCode.W,KeyState.Held , 0),
+            [InputKey.MoveForward] = (KeyCode.W,KeyState.Held , 0),
+            [InputKey.TurnLeft] = (KeyCode.Q,KeyState.Held , .5f),
+            [InputKey.TurnRight] = (KeyCode.E,KeyState.Held , .5f),
+            [InputKey.TurnAround] = (KeyCode.S,KeyState.Held , .5f),
+            
             [InputKey.DodgeRight] = (KeyCode.D, KeyState.Down,.5f),
             [InputKey.DodgeLeft] = (KeyCode.A, KeyState.Down,.5f),
             [InputKey.LightAttack] = (KeyCode.Mouse0, KeyState.Down,.5f),
-            // [Input.Block] = (KeyCode.Mouse1, KeyState.Held,.5f),
+            [InputKey.Block] = (KeyCode.Mouse1, KeyState.Held,.5f),
         };
 
         private readonly IDisposable _sub;

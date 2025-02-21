@@ -14,5 +14,11 @@
 
         Unsheath = 500,
         Sheath = 550,
+        
+        MoveForward = 600,
+        
+        TurnLeft = 700,
+        TurnRight = 710,
+        TurnAround = 720,
     }
 }

@@ -1,7 +1,10 @@
 {
     "name": "RogueDungeon.Levels",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:b4a932adf04e4c7f9a32442cf355e28c",
+        "GUID:3c6591eac2634e0db5ea71ec276d62ff"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

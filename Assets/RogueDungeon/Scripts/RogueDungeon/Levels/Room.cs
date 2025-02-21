@@ -11,7 +11,6 @@ namespace RogueDungeon.Levels
         private IRoomEvent _eventBeingHandled;
 
         public Vector2Int Coordinates { get; }
-
         public AdjacentRooms AdjacentRooms { get; }
         
         public void Enter() => 

@@ -11,7 +11,7 @@ namespace Common.Behaviours
         protected StateMachineBehaviour(StateMachine stateMachine) => 
             _stateMachine = stateMachine;
 
-        public void Enable()
+        public virtual void Enable()
         {
             _stateMachine.Enable();
             _ticker.Start(_stateMachine.Tick);
