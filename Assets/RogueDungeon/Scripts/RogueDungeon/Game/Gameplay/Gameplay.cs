@@ -2,41 +2,10 @@
 using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
 using RogueDungeon.Player;
+using UnityEngine;
 
 namespace RogueDungeon.Game.Gameplay
 {
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // spawn enemies -> on tile enter -> activate tile()
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     public class Gameplay : Common.Behaviours.Behaviour
     {
         private readonly ICombatantsRegistry _combatantsRegistry;

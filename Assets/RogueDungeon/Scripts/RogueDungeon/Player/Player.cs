@@ -1,6 +1,7 @@
 ﻿using RogueDungeon.Combat;
 using RogueDungeon.Player.Behaviours.Dodge;
 using RogueDungeon.Player.Behaviours.Hands;
+using UnityEngine;
 
 namespace RogueDungeon.Player
 {
@@ -9,6 +10,7 @@ namespace RogueDungeon.Player
         private readonly PlayerHandsBehaviour _playerHandsBehaviour;
         public PlayerGameObject GameObject { get; }
         public PlayerDodgeState DodgeState { get; set; }
+        public Vector2Int LevelCoordinates { get; set; }
 
         public Player(PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject)
         {
