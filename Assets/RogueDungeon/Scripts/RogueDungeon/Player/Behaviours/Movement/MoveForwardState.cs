@@ -20,6 +20,7 @@ namespace RogueDungeon.Player.Behaviours.Movement
         {
             base.Enter();
             _from = LevelTraverser.Position.Round();
+            _level.Rooms.First(n => n.Coordinates == _from).Exit();
             _to = _from + LevelTraverser.Direction.Round();
         }
         

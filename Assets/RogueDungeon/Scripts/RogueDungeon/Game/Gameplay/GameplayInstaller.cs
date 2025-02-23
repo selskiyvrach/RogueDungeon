@@ -1,6 +1,7 @@
 ﻿using Common.UtilsZenject;
 using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
+using RogueDungeon.Levels;
 using RogueDungeon.Player;
 using UnityEngine;
 using Zenject;
@@ -13,9 +14,17 @@ namespace RogueDungeon.Game.Gameplay
         [SerializeField] private Transform _playerTransform;
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private EnemyParents _enemyParents;
+        [SerializeField] private Transform _levelRoot;
 
         public override void InstallBindings()
         {
+            // Level
+            var levelContainer = Container.CreateSubContainer();
+            levelContainer.InstanceSingle(_levelRoot);
+            levelContainer.NewSingle<IFactory<RoomConfig, Room>, RoomFactory>();
+            levelContainer.NewSingle<IFactory<LevelConfig, Level>, LevelFactory>();
+            Container.Bind<IFactory<LevelConfig, Level>>().FromMethod(() => levelContainer.Resolve<IFactory<LevelConfig, Level>>()).AsSingle();
+            
             // Combat
             Container.NewSingleInterfaces<AttacksMediator>();
             Container.NewSingleInterfaces<CombatantsRegistry>();

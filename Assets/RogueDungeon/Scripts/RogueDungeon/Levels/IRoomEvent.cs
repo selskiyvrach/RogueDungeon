@@ -1,8 +1,10 @@
-﻿namespace RogueDungeon.Levels
+﻿using System.Collections;
+
+namespace RogueDungeon.Levels
 {
     public interface IRoomEvent
     {
         RoomEventPriority Priority { get; }
-        void Trigger(Room room);
+        IEnumerator ProcessEvent(Room room);
     }
 }

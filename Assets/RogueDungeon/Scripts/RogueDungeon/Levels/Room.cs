@@ -1,43 +1,56 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Common.Unity;
 using UnityEngine;
 
 namespace RogueDungeon.Levels
 {
     public class Room : IRoom
     {
+        private readonly RoomConfig _config;
+        private readonly ICoroutineRunner _coroutineRunner;
         private readonly SortedList<RoomEventPriority, IRoomEvent> _events = new();
-        private IRoomEvent _eventBeingHandled;
+        private Coroutine _coroutine;
 
-        public Vector2Int Coordinates { get; }
-        public AdjacentRooms AdjacentRooms { get; }
-        
-        public void Enter() => 
-            ProcessNextEvent();
+        public Vector2Int Coordinates => _config.Coordinates;
+        public AdjacentRooms AdjacentRooms { get; set; }
+
+        public Room(RoomConfig config, ICoroutineRunner coroutineRunner)
+        {
+            _config = config;
+            _coroutineRunner = coroutineRunner;
+        }
+
+        public void Enter()
+        {
+            if(_coroutine != null)
+                throw new InvalidOperationException("Room already entered.");
+            _coroutine = _coroutineRunner.Run(ProcessRoomEvents());
+        }
+
+        public void Exit()
+        {
+            _coroutineRunner.Stop(_coroutine);
+            _coroutine = null;
+        }
 
         public void AddEvent(IRoomEvent roomEvent) => 
             _events.Add(roomEvent.Priority, roomEvent);
 
-        public void OnAfterEventHandled(IRoomEvent roomEvent)
+        private IEnumerator ProcessRoomEvents()
         {
-            if(_eventBeingHandled == null) 
-                throw new Exception("Event is not being handled");
-            if(roomEvent == null)
-                throw new Exception("Event is null");
-            if(roomEvent != _eventBeingHandled)
-                throw new Exception("Wrong event");
-            _eventBeingHandled = null;
-            ProcessNextEvent();
-        }
-
-        private void ProcessNextEvent()
-        {
-            if (_eventBeingHandled != null)
-                throw new Exception("Another event is already being handled");
-            _eventBeingHandled = _events.Last().Value;
-            _events.RemoveAt(_events.Count - 1);
-            _eventBeingHandled.Trigger(this);
+            while (true)
+            {
+                if (_events.Any())
+                {
+                    var e = _events.Last().Value;
+                    _events.RemoveAt(_events.Count - 1);
+                    yield return e.ProcessEvent(this);
+                }
+                yield return null;
+            }
         }
     }
 }

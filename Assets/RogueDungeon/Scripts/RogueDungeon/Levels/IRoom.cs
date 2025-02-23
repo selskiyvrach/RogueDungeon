@@ -7,7 +7,7 @@ namespace RogueDungeon.Levels
         Vector2Int Coordinates { get; }
         AdjacentRooms AdjacentRooms { get; }
         void Enter();
+        void Exit();
         void AddEvent(IRoomEvent roomEvent);
-        void OnAfterEventHandled(IRoomEvent roomEvent);
     }
 }
