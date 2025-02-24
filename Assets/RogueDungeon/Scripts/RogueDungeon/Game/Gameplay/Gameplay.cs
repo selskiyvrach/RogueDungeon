@@ -34,8 +34,8 @@ namespace RogueDungeon.Game.Gameplay
             var player = _playerSpawner.Spawn();
             _camera.Follow = player.GameObject.CameraReferencePoint;
             player.Enable();
-            // _enemySpawner.Spawn(new EnemySpawningArgs(_config.TestEnemy, EnemyPosition.Left));
-            // _enemySpawner.Spawn(new EnemySpawningArgs(_config.TestEnemy, EnemyPosition.Middle));
+            _enemySpawner.Spawn(new EnemySpawningArgs(_config.TestEnemy, EnemyPosition.Left));
+            _enemySpawner.Spawn(new EnemySpawningArgs(_config.TestEnemy, EnemyPosition.Middle));
         }
     }
 }

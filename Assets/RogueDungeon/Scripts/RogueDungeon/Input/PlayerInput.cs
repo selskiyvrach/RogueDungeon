@@ -17,9 +17,9 @@ namespace RogueDungeon.Input
         private static readonly Dictionary<InputKey, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
         {
             [InputKey.MoveForward] = (KeyCode.W,KeyState.Held , 0),
-            [InputKey.TurnLeft] = (KeyCode.Q,KeyState.Down , .5f),
-            [InputKey.TurnRight] = (KeyCode.E,KeyState.Down , .5f),
-            [InputKey.TurnAround] = (KeyCode.S,KeyState.Down , .5f),
+            [InputKey.TurnLeft] = (KeyCode.Q,KeyState.Held , 0),
+            [InputKey.TurnRight] = (KeyCode.E,KeyState.Held , 0),
+            [InputKey.TurnAround] = (KeyCode.S,KeyState.Down , .25f),
             
             [InputKey.DodgeRight] = (KeyCode.D, KeyState.Down,.5f),
             [InputKey.DodgeLeft] = (KeyCode.A, KeyState.Down,.5f),
