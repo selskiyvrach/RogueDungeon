@@ -31,10 +31,11 @@ namespace RogueDungeon.Game.Gameplay
         {
             base.Enable();
             _levelFactory.Create(_config.LevelConfig);
-            _playerSpawner.Spawn();
-            _camera.Follow = ((Player.Player)_combatantsRegistry.Player).GameObject.CameraReferencePoint;
-            _enemySpawner.Spawn(new EnemySpawningArgs(_config.TestEnemy, EnemyPosition.Left));
-            _enemySpawner.Spawn(new EnemySpawningArgs(_config.TestEnemy, EnemyPosition.Middle));
+            var player = _playerSpawner.Spawn();
+            _camera.Follow = player.GameObject.CameraReferencePoint;
+            player.Enable();
+            // _enemySpawner.Spawn(new EnemySpawningArgs(_config.TestEnemy, EnemyPosition.Left));
+            // _enemySpawner.Spawn(new EnemySpawningArgs(_config.TestEnemy, EnemyPosition.Middle));
         }
     }
 }

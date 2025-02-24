@@ -7,11 +7,11 @@ namespace RogueDungeon.Enemies
     {
         private readonly EnemyConfig _config;
 
-        public EnemyPosition Position { get; set; }
+        public EnemyPosition CombatPosition { get; set; }
         public Transform Transform { get; }
 
         public Enemy(EnemyConfig config, Transform transform)
-        {
+        {  
             Transform = transform;
             _config = config;
         }

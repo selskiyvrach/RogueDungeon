@@ -13,24 +13,24 @@ namespace RogueDungeon.Game.Gameplay
         [SerializeField] private GameplayConfig _gameplayConfig;
         [SerializeField] private Transform _playerTransform;
         [SerializeField] private PlayerConfig _playerConfig;
-        [SerializeField] private EnemyParents _enemyParents;
+        [SerializeField] private EnemyParent _enemyParent;
         [SerializeField] private Transform _levelRoot;
+        [SerializeField] private RoomLocalPositionsConfig _roomLocalPositionsConfig;
 
         public override void InstallBindings()
         {
             // Level
-            var levelContainer = Container.CreateSubContainer();
-            levelContainer.InstanceSingle(_levelRoot);
-            levelContainer.NewSingle<IFactory<RoomConfig, Room>, RoomFactory>();
-            levelContainer.NewSingle<IFactory<LevelConfig, Level>, LevelFactory>();
-            Container.Bind<IFactory<LevelConfig, Level>>().FromMethod(() => levelContainer.Resolve<IFactory<LevelConfig, Level>>()).AsSingle();
+            Container.InstanceSingle(_roomLocalPositionsConfig);
+            Container.InstanceSingle(_levelRoot);
+            Container.NewSingle<IFactory<RoomConfig, Room>, RoomFactory>();
+            Container.NewSingle<IFactory<LevelConfig, Level>, LevelFactory>();
             
             // Combat
             Container.NewSingleInterfaces<AttacksMediator>();
             Container.NewSingleInterfaces<CombatantsRegistry>();
             
             // Enemies
-            Container.InstanceSingle(_enemyParents);
+            Container.InstanceSingle(_enemyParent);
             Container.NewSingleInterfaces<EnemyFactory>();
             Container.NewSingleInterfaces<EnemySpawner>();
             

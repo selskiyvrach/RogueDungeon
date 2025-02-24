@@ -2,6 +2,6 @@
 {
     public interface IEnemyCombatant : ICombatTarget
     {
-        EnemyPosition Position { get; }
+        EnemyPosition CombatPosition { get; }
     }
 }

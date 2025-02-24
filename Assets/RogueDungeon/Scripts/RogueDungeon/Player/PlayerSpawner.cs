@@ -19,7 +19,11 @@ namespace RogueDungeon.Player
             _config = config;
         }
 
-        public void Spawn() => 
-            _playerRegistry.RegisterPlayer(_factory.Create(_config, _playerParent));
+        public Player Spawn()
+        {
+            var player = _factory.Create(_config, _playerParent);
+            _playerRegistry.RegisterPlayer(player);
+            return player;
+        }
     }
 }

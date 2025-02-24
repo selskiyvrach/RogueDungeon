@@ -1,5 +1,4 @@
 ﻿using Common.Animations;
-using Common.Behaviours;
 using Common.MoveSets;
 using Common.UtilsZenject;
 using RogueDungeon.Items;
@@ -57,8 +56,8 @@ namespace RogueDungeon.Player.Behaviours.Hands
         public override void Start()
         {
             base.Start();
-            Container.Resolve<PlayerHandsBehaviour>().Enable();
-            Container.Resolve<IHandheldContext>().IntendedItem = new Item(_testItemConfig);
+            // Container.Resolve<PlayerHandsBehaviour>().Enable();
+            // Container.Resolve<IHandheldContext>().IntendedItem = new Item(_testItemConfig);
         }
     }
 }

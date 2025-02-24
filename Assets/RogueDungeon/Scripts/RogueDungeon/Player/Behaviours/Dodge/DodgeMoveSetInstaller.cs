@@ -1,5 +1,4 @@
 ﻿using Common.Animations;
-using Common.Behaviours;
 using Common.MoveSets;
 using Common.UtilsZenject;
 using UnityEngine;
@@ -17,8 +16,6 @@ namespace RogueDungeon.Player.Behaviours.Dodge
             var container = Container.CreateSubContainer();
             container.InstanceSingle<IAnimator>(_animationPlayer);
             container.InstanceSingle(new MoveSetFactory(container).Create(_dodgeMoveSetConfig));
-            container.AutoResolve<MoveSetBehaviour>();
-            container.NewSingleAutoResolve<BehaviourInitializer<MoveSetBehaviour>>();
         }
     }
 }

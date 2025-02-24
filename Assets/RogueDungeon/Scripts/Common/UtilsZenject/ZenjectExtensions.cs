@@ -4,9 +4,6 @@ namespace Common.UtilsZenject
 {
     public static class ZenjectExtensions
     {
-        public static void AutoResolve<T>(this DiContainer container) => 
-            container.Resolve<DependenciesAutoResolver>().Add<T>(container);
-
         public static ConcreteIdArgConditionCopyNonLazyBinder InstanceSingle<TAs, TTo>(this DiContainer container, TTo instance) where TTo : TAs => 
             container.Bind<TAs>().To<TTo>().FromInstance(instance).AsSingle();
 
@@ -33,12 +30,6 @@ namespace Common.UtilsZenject
         
         public static ConcreteIdArgConditionCopyNonLazyBinder NewSingle<T>(this DiContainer container) =>
             container.NewSingle<T, T>();
-
-        public static ConcreteIdArgConditionCopyNonLazyBinder NewSingleAutoResolve<T>(this DiContainer container)
-        {
-            container.AutoResolve<T>();
-            return container.NewSingle<T, T>();
-        }
 
         public static IfNotBoundBinder NewSingleNonLazy<T>(this DiContainer container) =>
             container.NewSingleNonLazy<T, T>();

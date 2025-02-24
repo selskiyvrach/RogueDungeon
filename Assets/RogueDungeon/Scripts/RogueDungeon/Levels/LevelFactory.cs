@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Common.UtilsZenject;
 using UnityEngine;
 using Zenject;
 
@@ -32,7 +33,9 @@ namespace RogueDungeon.Levels
                     adjacentRooms.Add(right);
                 room.AdjacentRooms = new AdjacentRooms(room, adjacentRooms);
             }
-            return new Level(rooms[Vector2Int.zero], rooms.Values);
+
+            _container.InstanceSingle(new Level(rooms[Vector2Int.zero], rooms.Values));
+            return _container.Resolve<Level>();
         }
     }
 }

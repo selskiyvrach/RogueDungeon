@@ -1,13 +1,16 @@
-﻿using RogueDungeon.Combat;
+﻿using System;
+using RogueDungeon.Combat;
 using RogueDungeon.Player.Behaviours.Dodge;
 using RogueDungeon.Player.Behaviours.Hands;
 using RogueDungeon.Player.Behaviours.Movement;
 using UnityEngine;
+using Behaviour = Common.Behaviours.Behaviour;
 
 namespace RogueDungeon.Player
 {
-    public class Player : IDodger, IPlayerCombatant, ILevelTraverser 
+    public class Player : Behaviour, IDodger, IPlayerCombatant, ILevelTraverser 
     {
+        private readonly LevelTraverserBehaviour _levelTraverserBehaviour;
         private readonly PlayerHandsBehaviour _playerHandsBehaviour;
         public PlayerGameObject GameObject { get; }
         public PlayerDodgeState DodgeState { get; set; }
@@ -21,18 +24,34 @@ namespace RogueDungeon.Player
         Vector2 ILevelTraverser.Direction
         {
             get => GameObject.transform.forward;
-            set => GameObject.transform.forward = value;
+            set => GameObject.transform.forward = new Vector3(value.x, 0, value.y);
         }
 
-        public Player(PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject)
+        public Player(PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject, LevelTraverserBehaviour levelTraverserBehaviour)
         {
             _playerHandsBehaviour = playerHandsBehaviour;
             GameObject = gameObject;
+            _levelTraverserBehaviour = levelTraverserBehaviour;
+            _levelTraverserBehaviour.LevelTraverser = this;
+        }
+
+        public override void Enable()
+        {
+            base.Enable();
+            _levelTraverserBehaviour.Enable();
+            _playerHandsBehaviour.Enable();
+        }
+
+        public override void Disable()
+        {
+            base.Disable();
+            _levelTraverserBehaviour.Disable();
+            _playerHandsBehaviour.Disable();
         }
 
         public void TakeDamage(float damage)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

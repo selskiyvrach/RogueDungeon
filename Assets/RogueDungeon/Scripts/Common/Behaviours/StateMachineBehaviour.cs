@@ -4,17 +4,17 @@ namespace Common.Behaviours
 {
     public class StateMachineBehaviour : IBehaviour
     {
-        private readonly StateMachine _stateMachine;
+        public readonly StateMachine StateMachine;
         private readonly Ticker _ticker = new();
         public bool IsEnabled { get; private set; }
 
         protected StateMachineBehaviour(StateMachine stateMachine) => 
-            _stateMachine = stateMachine;
+            StateMachine = stateMachine;
 
         public virtual void Enable()
         {
-            _stateMachine.Enable();
-            _ticker.Start(_stateMachine.Tick);
+            StateMachine.Enable();
+            _ticker.Start(StateMachine.Tick);
             IsEnabled = true;
         }
 

@@ -2,6 +2,6 @@
 {
     public interface IPlayerSpawner
     {
-        void Spawn();
+        Player Spawn();
     }
 }
