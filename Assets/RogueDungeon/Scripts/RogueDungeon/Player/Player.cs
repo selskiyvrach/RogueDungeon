@@ -17,13 +17,21 @@ namespace RogueDungeon.Player
 
         Vector2 ILevelTraverser.Position
         {
-            get => GameObject.transform.position;
-            set => GameObject.transform.position = value;
+            get
+            {
+                var pos = GameObject.transform.localPosition;
+                return new Vector2(pos.x, pos.z);
+            }
+            set => GameObject.transform.localPosition = new Vector3(value.x, 0, value.y);
         }
 
         Vector2 ILevelTraverser.Direction
         {
-            get => GameObject.transform.forward;
+            get
+            {
+                var dir = GameObject.transform.forward;
+                return new Vector2(dir.x, dir.z);
+            }
             set => GameObject.transform.forward = new Vector3(value.x, 0, value.y);
         }
 

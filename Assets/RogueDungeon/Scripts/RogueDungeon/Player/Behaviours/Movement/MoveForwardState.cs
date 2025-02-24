@@ -31,9 +31,13 @@ namespace RogueDungeon.Player.Behaviours.Movement
         }
         
         public void Exit() => 
-            _level.Rooms.First(n => n.Coordinates == LevelTraverser.Position).Enter();
+            _level.Rooms.First(n => n.Coordinates == LevelTraverser.Position.Round()).Enter();
 
-        protected override void SetValueNormalized(float value) => 
-            LevelTraverser.Position = Vector3.Lerp(GetRealPosition(_from), GetRealPosition(_to), value);
+        protected override void SetValueNormalized(float value)
+        {
+            var from = GetPositionInTileWithOffset(_from);
+            var to = GetPositionInTileWithOffset(_to);
+            LevelTraverser.Position = Vector2.Lerp(from, to, value);
+        }
     }
 }

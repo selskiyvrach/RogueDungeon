@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6823128fd4bb4d1484002c0388fe574c, type: 3}
   m_Name: LevelTraverserConfig
   m_EditorClassIdentifier: 
-  <MoveDuration>k__BackingField: 1
-  <RotationDuration>k__BackingField: 1
-  <PositionOffsetFromTileCenter>k__BackingField: 0.5
+  <MoveDuration>k__BackingField: 0.35
+  <RotationDuration>k__BackingField: 0.35
+  <PositionOffsetFromTileCenter>k__BackingField: 0.2

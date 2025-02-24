@@ -8,8 +8,8 @@ namespace RogueDungeon.Player.Behaviours.Movement
     public class RotateState : TraversalState
     {
         private readonly IPlayerInput _input;
-        private Vector2Int _from;
-        private Vector2Int _to;
+        private float _from;
+        private float _to;
         protected override float Duration => Config.RotationDuration;
 
         public RotateState(ILevelTraverser levelTraverser, LevelTraverserConfig config, IPlayerInput input) : base(levelTraverser, config) => 
@@ -18,39 +18,36 @@ namespace RogueDungeon.Player.Behaviours.Movement
         public override void Enter()
         {
             base.Enter();
-            Rotation rotation;
+            _from = LevelTraverser.Direction.Round().Degrees();
+            _to = _from;
             if (_input.HasInput(InputKey.TurnLeft))
             {
                 _input.ConsumeInput(InputKey.TurnLeft);
-                rotation = Rotation.Left;
+                _to += 90;
             }
             else if (_input.HasInput(InputKey.TurnRight))
             {
                 _input.ConsumeInput(InputKey.TurnRight);
-                rotation = Rotation.Right;
+                _to += -90;
             }
             else if (_input.HasInput(InputKey.TurnAround))
             {
                 _input.ConsumeInput(InputKey.TurnAround);
-                rotation = Rotation.Around;
+                _to += 180;
             }
             else 
                 throw new Exception("Invalid input for RotateState");
-            
-            _from = LevelTraverser.Direction.Round();
-            _to = ((Vector2)_from).Rotate(rotation switch {
-                Rotation.Left => 90,
-                Rotation.Right => -90,
-                Rotation.Around => 180,
-                _ => throw new ArgumentOutOfRangeException()
-            }).Round();
+            _to %= 360;
         }
 
         protected override void SetValueNormalized(float value)
         {
-            var angle = Vector2.SignedAngle(_from, _to) * value;
-            LevelTraverser.Direction = LevelTraverser.Direction.Rotate(angle);
-            LevelTraverser.Position = GetRealPosition(LevelTraverser.Position.Round());
+            var angle = Mathf.LerpAngle(_from, _to, Mathf.Clamp01(value));
+            LevelTraverser.Direction = FromAngle(angle);
+            LevelTraverser.Position = GetPositionInTileWithOffset(LevelTraverser.Position.Round());
         }
+
+        private static Vector2 FromAngle(float degrees) =>
+            new(Mathf.Cos(degrees * Mathf.Deg2Rad), Mathf.Sin(degrees * Mathf.Deg2Rad));
     }
 }

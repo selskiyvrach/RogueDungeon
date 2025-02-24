@@ -19,15 +19,8 @@ namespace RogueDungeon.Player.Behaviours.Movement
             Config = config;
         }
 
-        public virtual void Enter()
-        {
-            // fix position and rotation
-            LevelTraverser.Direction = LevelTraverser.Direction.Round();
-            LevelTraverser.Position = LevelTraverser.Position.Round();
-            
+        public virtual void Enter() => 
             _timePassed = 0;
-            SetValueNormalized(0);
-        }
 
         public void Tick(float deltaTime)
         {
@@ -37,10 +30,10 @@ namespace RogueDungeon.Player.Behaviours.Movement
 
         protected abstract void SetValueNormalized(float value);
 
-        protected Vector2 GetRealPosition(Vector2 tile) => 
-            tile + LevelTraverser.Direction * - Config.PositionOffsetFromTileCenter;
+        protected Vector2 GetPositionInTileWithOffset(Vector2Int targetTile) => 
+            targetTile + LevelTraverser.Direction * -Config.PositionOffsetFromTileCenter;
 
-        
+
         public void CheckTransitions(ITypeBasedStateChanger stateChanger)
         {
             if(IsFinished)

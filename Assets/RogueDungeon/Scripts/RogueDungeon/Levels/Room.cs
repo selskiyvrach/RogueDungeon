@@ -36,20 +36,19 @@ namespace RogueDungeon.Levels
             _coroutine = null;
         }
 
-        public void AddEvent(IRoomEvent roomEvent) => 
+        public void AddEvent(IRoomEvent roomEvent)
+        {
             _events.Add(roomEvent.Priority, roomEvent);
+            _coroutine ??= _coroutineRunner.Run(ProcessRoomEvents());
+        }
 
         private IEnumerator ProcessRoomEvents()
         {
-            while (true)
+            while (_events.Any())
             {
-                if (_events.Any())
-                {
-                    var e = _events.Last().Value;
-                    _events.RemoveAt(_events.Count - 1);
-                    yield return e.ProcessEvent(this);
-                }
-                yield return null;
+                var e = _events.Last().Value;
+                _events.RemoveAt(_events.Count - 1);
+                yield return e.ProcessEvent(this);
             }
         }
     }
