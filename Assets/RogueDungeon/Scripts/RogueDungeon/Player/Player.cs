@@ -15,6 +15,7 @@ namespace RogueDungeon.Player
         private readonly PlayerHandsBehaviour _playerHandsBehaviour;
         public PlayerGameObject GameObject { get; }
         public PlayerDodgeState DodgeState { get; set; }
+        public bool IsAlive { get; }
 
         Vector2 ILevelTraverser.Position
         {

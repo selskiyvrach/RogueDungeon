@@ -40,6 +40,11 @@ namespace RogueDungeon.Levels
                 _enemySpawner.Spawn(rightEnemy, EnemyPosition.Right);
             if(_config.LeftEnemy is {} leftEnemy)
                 _enemySpawner.Spawn(leftEnemy, EnemyPosition.Left);
+            
+            foreach (var enemy in _enemiesRegistry.Enemies)
+            {
+                ((Enemy)enemy).Enable();
+            }
         }
     }
 }

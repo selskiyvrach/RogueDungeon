@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace RogueDungeon.Combat
+﻿namespace RogueDungeon.Combat
 {
     public interface ICombatantsRegistry : IPlayerRegistry, IEnemiesRegistry
     {
