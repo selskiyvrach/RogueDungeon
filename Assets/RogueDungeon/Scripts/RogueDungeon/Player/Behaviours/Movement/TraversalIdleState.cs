@@ -23,7 +23,7 @@ namespace RogueDungeon.Player.Behaviours.Movement
         {
             if (_input.HasInput(InputKey.MoveForward) && 
                 _level.Rooms.First(n => n.Coordinates == _levelTraverser.Position.Round()).AdjacentRooms.
-                    HasAdjacentRoom(_levelTraverser.Direction.ToAdjacency()))
+                    HasAdjacentRoom(_levelTraverser.Direction.Round()))
             {
                 stateChanger.ChangeState<MoveForwardState>();
             }

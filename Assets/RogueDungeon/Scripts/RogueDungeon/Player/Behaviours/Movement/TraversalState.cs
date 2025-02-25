@@ -1,5 +1,6 @@
 ﻿using Common.Fsm;
 using Common.Unity;
+using RogueDungeon.Levels;
 using UnityEngine;
 
 namespace RogueDungeon.Player.Behaviours.Movement

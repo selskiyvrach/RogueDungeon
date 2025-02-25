@@ -1,14 +1,14 @@
-﻿using RogueDungeon.Camera;
+﻿using Common.Behaviours;
+using RogueDungeon.Camera;
 using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
 using RogueDungeon.Levels;
 using RogueDungeon.Player;
-using UnityEngine;
 using Zenject;
 
 namespace RogueDungeon.Game.Gameplay
 {
-    public class Gameplay : Common.Behaviours.Behaviour
+    public class Gameplay : Behaviour
     {
         private readonly ICombatantsRegistry _combatantsRegistry;
         private readonly GameplayConfig _config;
@@ -30,12 +30,12 @@ namespace RogueDungeon.Game.Gameplay
         public override void Enable()
         {
             base.Enable();
-            _levelFactory.Create(_config.LevelConfig);
+            var level = _levelFactory.Create(_config.LevelConfig);
             var player = _playerSpawner.Spawn();
+            level.LevelTraverser = player;
+            level.Initialize();
             _camera.Follow = player.GameObject.CameraReferencePoint;
             player.Enable();
-            _enemySpawner.Spawn(new EnemySpawningArgs(_config.TestEnemy, EnemyPosition.Left));
-            _enemySpawner.Spawn(new EnemySpawningArgs(_config.TestEnemy, EnemyPosition.Middle));
         }
     }
 }

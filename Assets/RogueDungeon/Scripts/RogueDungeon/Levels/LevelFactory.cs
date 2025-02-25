@@ -34,7 +34,8 @@ namespace RogueDungeon.Levels
                 room.AdjacentRooms = new AdjacentRooms(room, adjacentRooms);
             }
 
-            _container.InstanceSingle(new Level(rooms[Vector2Int.zero], rooms.Values));
+            var level = new Level(rooms[Vector2Int.zero], rooms.Values);
+            _container.InstanceSingle(level);
             return _container.Resolve<Level>();
         }
     }

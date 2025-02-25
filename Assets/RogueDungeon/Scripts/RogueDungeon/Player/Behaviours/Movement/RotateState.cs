@@ -1,6 +1,7 @@
 ﻿using System;
 using Common.Unity;
 using RogueDungeon.Input;
+using RogueDungeon.Levels;
 using UnityEngine;
 
 namespace RogueDungeon.Player.Behaviours.Movement

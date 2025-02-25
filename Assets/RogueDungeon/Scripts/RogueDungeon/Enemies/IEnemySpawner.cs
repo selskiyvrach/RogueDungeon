@@ -1,7 +1,9 @@
-﻿namespace RogueDungeon.Enemies
+﻿using RogueDungeon.Combat;
+
+namespace RogueDungeon.Enemies
 {
     public interface IEnemySpawner
     {
-        void Spawn(EnemySpawningArgs args);
+        void Spawn(EnemyConfig config, EnemyPosition position);
     }
 }

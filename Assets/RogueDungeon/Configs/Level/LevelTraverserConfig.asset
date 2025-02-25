@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MoveDuration>k__BackingField: 0.35
   <RotationDuration>k__BackingField: 0.35
-  <PositionOffsetFromTileCenter>k__BackingField: 0.2
+  <PositionOffsetFromTileCenter>k__BackingField: 0.4

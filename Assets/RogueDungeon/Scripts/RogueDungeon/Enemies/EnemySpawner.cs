@@ -1,37 +1,41 @@
 ﻿using System;
+using System.Linq;
 using RogueDungeon.Combat;
-using RogueDungeon.Levels;
+using UnityEngine;
 using Zenject;
 
 namespace RogueDungeon.Enemies
 {
     public class EnemySpawner : IEnemySpawner
     {
+        private readonly BattleField _parent;
         private readonly RoomLocalPositionsConfig _roomLocalPositionConfig;
-        private readonly EnemyParent _parents;
         private readonly IFactory<EnemyFactoryArgs, Enemy> _factory;
         private readonly IEnemiesRegistry _enemiesRegistry;
 
-        public EnemySpawner(EnemyParent parents, IFactory<EnemyFactoryArgs, Enemy> factory, IEnemiesRegistry enemiesRegistry, RoomLocalPositionsConfig roomLocalPositionConfig)
+        public EnemySpawner(BattleField parent, IFactory<EnemyFactoryArgs, Enemy> factory, IEnemiesRegistry enemiesRegistry, RoomLocalPositionsConfig roomLocalPositionConfig)
         {
-            _parents = parents;
+            _parent = parent;
             _factory = factory;
             _enemiesRegistry = enemiesRegistry;
             _roomLocalPositionConfig = roomLocalPositionConfig;
         }
 
-        public void Spawn(EnemySpawningArgs args)
+        public void Spawn(EnemyConfig config, EnemyPosition position)
         {
-            var position = args.Position;
-            var enemy = _factory.Create(new EnemyFactoryArgs(args.Config, _parents.transform));
+            if (_enemiesRegistry.Enemies.Any(n => n.CombatPosition == position))
+                throw new Exception("Enemy position you want to spawn in is already occupied");
+            
+            var enemy = _factory.Create(new EnemyFactoryArgs(config, _parent.transform));
             enemy.CombatPosition = position;
-            enemy.Transform.localPosition = enemy.CombatPosition switch
+            var pos = enemy.CombatPosition switch
             {
                 EnemyPosition.Middle => _roomLocalPositionConfig.MiddleEnemyPos,
                 EnemyPosition.Left => _roomLocalPositionConfig.LeftEnemyPos,
                 EnemyPosition.Right => _roomLocalPositionConfig.RightEnemyPos,
                 _ => throw new ArgumentOutOfRangeException()
             };
+            enemy.Transform.localPosition = new Vector3(pos.x, 0, pos.y);
             _enemiesRegistry.RegisterEnemy(enemy);
         }
     }

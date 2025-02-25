@@ -1,4 +1,5 @@
 ﻿using RogueDungeon.Combat;
+using RogueDungeon.Player.Behaviours.Movement;
 using UnityEngine;
 using Zenject;
 
@@ -22,6 +23,7 @@ namespace RogueDungeon.Player
         public Player Spawn()
         {
             var player = _factory.Create(_config, _playerParent);
+            
             _playerRegistry.RegisterPlayer(player);
             return player;
         }

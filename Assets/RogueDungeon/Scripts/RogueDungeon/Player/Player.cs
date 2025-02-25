@@ -1,5 +1,6 @@
 ﻿using System;
 using RogueDungeon.Combat;
+using RogueDungeon.Levels;
 using RogueDungeon.Player.Behaviours.Dodge;
 using RogueDungeon.Player.Behaviours.Hands;
 using RogueDungeon.Player.Behaviours.Movement;

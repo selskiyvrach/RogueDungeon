@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RogueDungeon.Player.Behaviours.Movement
+namespace RogueDungeon.Levels
 {
     public interface ILevelTraverser
     {

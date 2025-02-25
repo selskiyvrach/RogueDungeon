@@ -13,7 +13,7 @@ namespace RogueDungeon.Game.Gameplay
         [SerializeField] private GameplayConfig _gameplayConfig;
         [SerializeField] private Transform _playerTransform;
         [SerializeField] private PlayerConfig _playerConfig;
-        [SerializeField] private EnemyParent _enemyParent;
+        [SerializeField] private BattleField _battleField;
         [SerializeField] private Transform _levelRoot;
         [SerializeField] private RoomLocalPositionsConfig _roomLocalPositionsConfig;
 
@@ -22,6 +22,7 @@ namespace RogueDungeon.Game.Gameplay
             // Level
             Container.InstanceSingle(_roomLocalPositionsConfig);
             Container.InstanceSingle(_levelRoot);
+            Container.NewSingle<IFactory<RoomEventConfig, IRoomEvent>, RoomEventFactory>();
             Container.NewSingle<IFactory<RoomConfig, Room>, RoomFactory>();
             Container.NewSingle<IFactory<LevelConfig, Level>, LevelFactory>();
             
@@ -30,7 +31,7 @@ namespace RogueDungeon.Game.Gameplay
             Container.NewSingleInterfaces<CombatantsRegistry>();
             
             // Enemies
-            Container.InstanceSingle(_enemyParent);
+            Container.InstanceSingle(_battleField);
             Container.NewSingleInterfaces<EnemyFactory>();
             Container.NewSingleInterfaces<EnemySpawner>();
             
