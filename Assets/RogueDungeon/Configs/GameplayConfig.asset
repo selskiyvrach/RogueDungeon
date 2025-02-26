@@ -16,3 +16,6 @@ MonoBehaviour:
     type: 2}
   <LevelConfig>k__BackingField: {fileID: 11400000, guid: 86f7670d01634b14698f234e984f0253,
     type: 2}
+  <ExplorationInputFilter>k__BackingField: {fileID: 0}
+  <CombatInputFilter>k__BackingField: {fileID: 11400000, guid: 5477bb6f2b279104a907ac3b6384146a,
+    type: 2}

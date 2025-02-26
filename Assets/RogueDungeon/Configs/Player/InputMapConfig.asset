@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52bcafde5dcb45e1acbc9202368534c7, type: 3}
+  m_Name: InputMapConfig
+  m_EditorClassIdentifier: 
+  <CombatInputFilter>k__BackingField:
+    <AllowedKeys>k__BackingField: 64000000c201000090010000
+  <ExplorationInputFilter>k__BackingField:
+    <AllowedKeys>k__BackingField: 58020000bc020000c6020000d0020000
+  <Units>k__BackingField:
+  - <Key>k__BackingField: 100
+    <KeyCode>k__BackingField: 323
+    <State>k__BackingField: 0
+    <CoyoteTime>k__BackingField: 0.5
+  - <Key>k__BackingField: 400
+    <KeyCode>k__BackingField: 100
+    <State>k__BackingField: 0
+    <CoyoteTime>k__BackingField: 0.5
+  - <Key>k__BackingField: 450
+    <KeyCode>k__BackingField: 97
+    <State>k__BackingField: 0
+    <CoyoteTime>k__BackingField: 0.5
+  - <Key>k__BackingField: 600
+    <KeyCode>k__BackingField: 119
+    <State>k__BackingField: 1
+    <CoyoteTime>k__BackingField: 0
+  - <Key>k__BackingField: 700
+    <KeyCode>k__BackingField: 113
+    <State>k__BackingField: 1
+    <CoyoteTime>k__BackingField: 0
+  - <Key>k__BackingField: 710
+    <KeyCode>k__BackingField: 101
+    <State>k__BackingField: 1
+    <CoyoteTime>k__BackingField: 0
+  - <Key>k__BackingField: 720
+    <KeyCode>k__BackingField: 115
+    <State>k__BackingField: 0
+    <CoyoteTime>k__BackingField: 0.15

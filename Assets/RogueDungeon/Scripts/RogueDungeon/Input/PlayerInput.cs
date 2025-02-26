@@ -1,81 +1,65 @@
 using System;
-using System.Collections.Generic;
+using Common.Behaviours;
 using Common.UtilsDotNet;
-using UniRx;
 using UnityEngine;
 
 namespace RogueDungeon.Input
 {
-    public class PlayerInput : IDisposable, IPlayerInput
+    internal class PlayerInput : TickableBehaviour, IPlayerInput
     {
-        private enum KeyState
-        {
-            Down,
-            Held
-        }
-        
-        private static readonly Dictionary<InputKey, (KeyCode keyCode, KeyState state, float coyoteTime)> Commands = new()
-        {
-            [InputKey.MoveForward] = (KeyCode.W,KeyState.Held , 0),
-            [InputKey.TurnLeft] = (KeyCode.Q,KeyState.Held , 0),
-            [InputKey.TurnRight] = (KeyCode.E,KeyState.Held , 0),
-            [InputKey.TurnAround] = (KeyCode.S,KeyState.Down , .25f),
-            
-            [InputKey.DodgeRight] = (KeyCode.D, KeyState.Down,.5f),
-            [InputKey.DodgeLeft] = (KeyCode.A, KeyState.Down,.5f),
-            [InputKey.LightAttack] = (KeyCode.Mouse0, KeyState.Down,.5f),
-            [InputKey.Block] = (KeyCode.Mouse1, KeyState.Held,.5f),
-        };
-
-        private readonly IDisposable _sub;
-        private InputKey _currentInputKey;
+        private readonly InputMapConfig _inputMapConfig;
+        private readonly InputMap _inputMap;
+        private InputUnit _currentInput;
         private float _timeSinceReleased;
         private float _timeHeld;
 
-        public PlayerInput() => 
-            _sub = Observable.EveryUpdate().Subscribe(_ => Tick());
+        public PlayerInput(InputMap inputMap, InputMapConfig inputMapConfig)
+        {
+            _inputMap = inputMap;
+            _inputMapConfig = inputMapConfig;
+        }
 
-        public void Dispose() => 
-            _sub?.Dispose();
-
-        private void Tick()
+        protected override void Tick(float timeDelta)
         {
             UpdateCoyoteTime();
             ReadCommands();
         }
 
         public bool HasInput(InputKey inputKey) => 
-            _currentInputKey == inputKey.ThrowIfNone();
+            _currentInput?.Key == inputKey.ThrowIfNone();
+
+        public void SetFilter(InputFilter filter)
+        {
+            _inputMap.SetFilter(filter);
+            ResetCurrentState();
+        }
 
         public void ConsumeInput(InputKey inputKey)
         {
             if (!HasInput(inputKey))
-                throw new InvalidOperationException($"Cannot consume command of a wrong type. Current: {_currentInputKey}, consuming: {inputKey}");
-            
-            _currentInputKey = InputKey.None;
+                throw new InvalidOperationException($"Cannot consume command of a wrong type. Current: {_currentInput}, consuming: {inputKey}");
+
+            ResetCurrentState();
+        }
+
+        private void ResetCurrentState()
+        {
+            _currentInput = null;
             _timeHeld = 0;
             _timeSinceReleased = Mathf.Infinity;
         }
 
         private void ReadCommands()
         {
-            var currentCommand = InputKey.None;
-
-            foreach (var (command, (code, state, coyoteTime)) in Commands)
+            foreach (var unit in _inputMap.EnabledUnits)
             {
-                if (! (state switch
-                    {
-                        KeyState.Down => UnityEngine.Input.GetKeyDown(code),
-                        KeyState.Held => UnityEngine.Input.GetKey(code),
-                        _ => throw new ArgumentOutOfRangeException()
-                    } )) 
+                if (!unit.IsReceived) 
                     continue;
                 
                 _timeSinceReleased = 0;
-                if (currentCommand != command)
+                if (unit != _currentInput)
                 {
-                    currentCommand = command;
-                    _currentInputKey = currentCommand;
+                    _currentInput = unit;
                     _timeHeld = 0;
                 }
                 else
@@ -85,12 +69,12 @@ namespace RogueDungeon.Input
 
         private void UpdateCoyoteTime()
         {
-            if (_currentInputKey == InputKey.None) 
+            if (_currentInput == null) 
                 return;
             
             _timeSinceReleased += Time.deltaTime;
-            if (_timeSinceReleased >= Commands[_currentInputKey].coyoteTime) 
-                _currentInputKey = InputKey.None;
+            if (_timeSinceReleased >= _currentInput.CoyoteTime) 
+                _currentInput = null;
         }
     }
 }

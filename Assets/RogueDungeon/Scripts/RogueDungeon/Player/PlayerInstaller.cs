@@ -12,7 +12,6 @@ namespace RogueDungeon.Player
         public override void InstallBindings()
         {
             Container.InstanceSingle(_playerGameObject);
-            Container.NewSingle<IPlayerInput, PlayerInput>();
             Container.NewSingleInterfacesAndSelf<Player>();
         }
     }

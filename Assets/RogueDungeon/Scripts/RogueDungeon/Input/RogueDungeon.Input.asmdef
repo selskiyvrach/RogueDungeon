@@ -1,4 +1,4 @@
 ﻿{
   "name": "RogueDungeon.Input",
-  "references":[ "GUID:560b04d1a97f54a4e82edc0cbbb69285", "GUID:bf976f4fa76a4895a31ae9a9d493a745" ]
+  "references":[ "GUID:560b04d1a97f54a4e82edc0cbbb69285", "GUID:bf976f4fa76a4895a31ae9a9d493a745", "GUID:7ed30415c41e161439fcc22ea83cb3b9", "GUID:0d8beb7f090555447a6cf5ce9e54dbb4", "GUID:7219b7caae824cf8a7e9cd2b004517a7" ]
 }

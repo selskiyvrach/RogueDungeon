@@ -2,12 +2,14 @@
 using Common.Unity;
 using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
+using RogueDungeon.Game.Gameplay;
 using UnityEngine;
 
 namespace RogueDungeon.Levels
 {
     public class CombatRoomEvent : RoomEvent
     {
+        private readonly IGameplayModeChanger _gameplayModeChanger;
         private readonly BattleField _battleField;
         private readonly CombatRoomEventConfig _config;
         private readonly IEnemiesRegistry _enemiesRegistry;
@@ -17,17 +19,19 @@ namespace RogueDungeon.Levels
 
         public override RoomEventPriority Priority => RoomEventPriority.Combat;
 
-        public CombatRoomEvent(IEnemiesRegistry enemiesRegistry, CombatRoomEventConfig config, IEnemySpawner enemySpawner, BattleField battleField, Level level)
+        public CombatRoomEvent(IEnemiesRegistry enemiesRegistry, CombatRoomEventConfig config, IEnemySpawner enemySpawner, BattleField battleField, Level level, IGameplayModeChanger gameplayModeChanger)
         {
             _enemiesRegistry = enemiesRegistry;
             _config = config;
             _enemySpawner = enemySpawner;
             _battleField = battleField;
             _level = level;
+            _gameplayModeChanger = gameplayModeChanger;
         }
 
         public override IEnumerator ProcessEvent(Room room)
         {
+            _gameplayModeChanger.SetCombatMode();
             yield return base.ProcessEvent(room);
             _room = room;
             
@@ -45,6 +49,9 @@ namespace RogueDungeon.Levels
             {
                 ((Enemy)enemy).Enable();
             }
+            
+            yield return new WaitForSeconds(3);
+            _gameplayModeChanger.SetExplorationMode();
         }
     }
 }

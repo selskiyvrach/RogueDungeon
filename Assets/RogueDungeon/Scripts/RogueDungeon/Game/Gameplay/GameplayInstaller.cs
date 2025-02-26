@@ -42,7 +42,7 @@ namespace RogueDungeon.Game.Gameplay
             
             // Gameplay
             Container.InstanceSingle(_gameplayConfig);
-            Container.NewSingle<Gameplay>();
+            Container.NewSingleInterfacesAndSelf<Gameplay>();
         }
 
         public override void Start()
