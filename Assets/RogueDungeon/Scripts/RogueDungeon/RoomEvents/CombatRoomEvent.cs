@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using Common.Unity;
 using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
@@ -15,7 +16,6 @@ namespace RogueDungeon.Levels
         private readonly IEnemiesRegistry _enemiesRegistry;
         private readonly IEnemySpawner _enemySpawner;
         private readonly Level _level;
-        private Room _room;
 
         public override RoomEventPriority Priority => RoomEventPriority.Combat;
 
@@ -32,8 +32,8 @@ namespace RogueDungeon.Levels
         public override IEnumerator ProcessEvent(Room room)
         {
             _gameplayModeChanger.SetCombatMode();
+            
             yield return base.ProcessEvent(room);
-            _room = room;
             
             _battleField.Position = room.Coordinates;
             _battleField.Direction = _level.LevelTraverser.Direction.Round();
@@ -45,12 +45,10 @@ namespace RogueDungeon.Levels
             if(_config.LeftEnemy is {} leftEnemy)
                 _enemySpawner.Spawn(leftEnemy, EnemyPosition.Left);
             
-            foreach (var enemy in _enemiesRegistry.Enemies)
-            {
-                ((Enemy)enemy).Enable();
-            }
+            foreach (var enemy in _enemiesRegistry.Enemies) 
+                enemy.Enable();
             
-            yield return new WaitForSeconds(3);
+            yield return new WaitUntil(() => !_enemiesRegistry.Enemies.Any());
             _gameplayModeChanger.SetExplorationMode();
         }
     }

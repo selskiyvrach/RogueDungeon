@@ -1,6 +1,8 @@
-﻿namespace RogueDungeon.Combat
+﻿using Common.Behaviours;
+
+namespace RogueDungeon.Combat
 {
-    public interface IEnemyCombatant : ICombatTarget
+    public interface IEnemyCombatant : IBehaviour, ICombatTarget
     {
         EnemyPosition CombatPosition { get; }
     }
