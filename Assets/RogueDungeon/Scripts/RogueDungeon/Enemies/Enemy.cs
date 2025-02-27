@@ -1,7 +1,7 @@
-﻿using RogueDungeon.Combat;
+﻿using Common.Unity;
+using RogueDungeon.Combat;
 using UnityEngine;
 using Behaviour = Common.Behaviours.Behaviour;
-using Object = UnityEngine.Object;
 
 namespace RogueDungeon.Enemies
 {
@@ -12,12 +12,12 @@ namespace RogueDungeon.Enemies
         private float _currentHealth;
 
         public EnemyPosition CombatPosition { get; set; }
-        public GameObject GameObject { get; }
+        public ITwoDWorldObject WorldObject { get; }
         public bool IsAlive => _currentHealth > 0;
         
         public Enemy(EnemyConfig config, GameObject gameObject, EnemyLifeCycleMoveSetBehaviour lifeCycleMoveSetBehaviour)
         {  
-            GameObject = gameObject;
+            WorldObject = new TwoDWorldObject(gameObject);
             _lifeCycleMoveSetBehaviour = lifeCycleMoveSetBehaviour;
             _config = config;
             _currentHealth = _config.Health;
@@ -35,8 +35,8 @@ namespace RogueDungeon.Enemies
             _lifeCycleMoveSetBehaviour.Disable();
         }
 
-        public void Destroy() => 
-            Object.Destroy(GameObject);
+        public void Destroy() =>
+            ((TwoDWorldObject)WorldObject).Destroy();
 
         public void TakeDamage(float damage) => 
             _currentHealth -= damage;

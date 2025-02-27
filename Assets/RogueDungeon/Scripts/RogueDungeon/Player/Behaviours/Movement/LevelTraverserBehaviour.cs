@@ -9,12 +9,13 @@ namespace RogueDungeon.Player.Behaviours.Movement
     public class LevelTraverserBehaviour : StateMachineBehaviour, ITwoDWorldObject
     {
         public ITwoDWorldObject LevelTraverser { get; set; }
-        
+
         public Vector2 LocalPosition
         {
             get => LevelTraverser.LocalPosition; 
             set => LevelTraverser.LocalPosition = value; 
         }
+
         public Vector2 Rotation
         {
             get => LevelTraverser.Rotation; 
@@ -29,11 +30,6 @@ namespace RogueDungeon.Player.Behaviours.Movement
         {
             ((TypeBasedTransitionStrategy)StateMachine.TransitionStrategy).SetStartState<TraversalIdleState>();
             base.Enable();
-        }
-
-        public void SetParent(Transform parent)
-        {
-            throw new System.NotImplementedException();            
         }
     }
 }

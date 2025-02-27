@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using RogueDungeon.Combat;
-using UnityEngine;
 using Zenject;
 
 namespace RogueDungeon.Enemies
@@ -28,8 +27,7 @@ namespace RogueDungeon.Enemies
             
             var enemy = _factory.Create(new EnemyFactoryArgs(config, _parent.transform));
             enemy.CombatPosition = position;
-            var pos = _roomLocalPositionConfig.Get(enemy.CombatPosition);
-            enemy.GameObject.transform.localPosition = new Vector3(pos.x, 0, pos.y);
+            enemy.WorldObject.LocalPosition = _roomLocalPositionConfig.Get(enemy.CombatPosition);
             _enemiesRegistry.RegisterEnemy(enemy);
         }
     }

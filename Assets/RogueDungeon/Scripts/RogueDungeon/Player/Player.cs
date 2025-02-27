@@ -17,8 +17,7 @@ namespace RogueDungeon.Player
         private readonly LevelTraverserBehaviour _levelTraverserBehaviour;
         private readonly PlayerConfig _config;
         private readonly PlayerHandsBehaviour _playerHandsBehaviour;
-        private readonly PlayerGameObject _gameObject;
-        public Transform CameraPovPoint => _gameObject.CameraReferencePoint;
+        public Transform CameraPovPoint { get; }
         public TwoDWorldObject WorldObject { get; }
         public PlayerDodgeState DodgeState { get; set; }
         public bool IsAlive { get; }
@@ -27,9 +26,9 @@ namespace RogueDungeon.Player
         {
             _config = config;
             _playerHandsBehaviour = playerHandsBehaviour;
-            _gameObject = gameObject;
             _levelTraverserBehaviour = levelTraverserBehaviour;
-            WorldObject = new TwoDWorldObject(_gameObject.gameObject);
+            WorldObject = new TwoDWorldObject(gameObject.gameObject);
+            CameraPovPoint = gameObject.CameraReferencePoint;
             _levelTraverserBehaviour.LevelTraverser = WorldObject;
         }
 

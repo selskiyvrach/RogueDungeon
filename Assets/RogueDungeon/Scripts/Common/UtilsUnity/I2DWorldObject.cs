@@ -4,7 +4,6 @@ namespace Common.Unity
 {
     public interface ITwoDWorldObject
     {
-        void SetParent(Transform parent);
         Vector2 LocalPosition { get; set; }
         Vector2 Rotation { get; set; }
     }
@@ -12,6 +11,9 @@ namespace Common.Unity
     public class TwoDWorldObject : ITwoDWorldObject
     {
         private readonly GameObject _gameObject;
+
+        public void Destroy() => 
+            Object.Destroy(_gameObject);
 
         public Vector2 LocalPosition
         {
@@ -35,8 +37,5 @@ namespace Common.Unity
         
         public TwoDWorldObject(GameObject gameObject) => 
             _gameObject = gameObject;
-
-        public void SetParent(Transform parent) => 
-            _gameObject.transform.SetParent(parent);
     }
 }

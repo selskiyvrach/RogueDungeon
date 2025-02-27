@@ -33,8 +33,7 @@ namespace RogueDungeon.Enemies.HiveMind
             {
                 Target = n.enemy,
                 DestinationCoordinates = _positionsConfig.Get(n.destination),
-                StartCoordinates = new Vector2(n.enemy.GameObject.transform.localPosition.x,
-                    n.enemy.GameObject.transform.localPosition.z),
+                StartCoordinates = n.enemy.WorldObject.LocalPosition,
                 DestinationPosition = n.destination,
             }));
             
@@ -52,11 +51,8 @@ namespace RogueDungeon.Enemies.HiveMind
         {
             _timePassed += timeDelta;
             var normTime = Mathf.Clamp01(_timePassed / _config.MoveFromPositionToPositionDuration);
-            foreach (var movement in _movements)
-            {
-                var coords = Vector2.Lerp(movement.StartCoordinates, movement.DestinationCoordinates, normTime);
-                movement.Target.GameObject.transform.localPosition = new Vector3(coords.x, 0, coords.y); 
-            }
+            foreach (var movement in _movements) 
+                movement.Target.WorldObject.LocalPosition = Vector2.Lerp(movement.StartCoordinates, movement.DestinationCoordinates, normTime);
         }
 
         public override void Exit()
