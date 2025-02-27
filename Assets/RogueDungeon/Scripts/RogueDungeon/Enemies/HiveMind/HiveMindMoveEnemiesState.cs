@@ -2,6 +2,7 @@
 using System.Linq;
 using Common.Behaviours;
 using Common.Fsm;
+using Common.Time;
 using RogueDungeon.Combat;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -10,7 +11,6 @@ namespace RogueDungeon.Enemies.HiveMind
 {
     public class HiveMindMoveEnemiesState : HiveMindState
     {
-        private readonly Ticker _ticker = new();
         private readonly HiveMindContext _context;
         private readonly HiveMindConfig _config;
         private readonly RoomLocalPositionsConfig _positionsConfig;
@@ -19,7 +19,9 @@ namespace RogueDungeon.Enemies.HiveMind
 
         private float _timePassed;
 
-        public HiveMindMoveEnemiesState(HiveMindContext context, HiveMindConfig config, RoomLocalPositionsConfig positionsConfig)
+        protected override bool IsSlackFrame => true;
+
+        public HiveMindMoveEnemiesState(HiveMindContext context, HiveMindConfig config, RoomLocalPositionsConfig positionsConfig) : base(context)
         {
             _context = context;
             _config = config;
@@ -44,11 +46,11 @@ namespace RogueDungeon.Enemies.HiveMind
                 movement.Target.CombatPosition = EnemyPosition.ChangingPosition;
             
             _timePassed = 0;
-            _ticker.Start(Tick);
         }
 
-        private void Tick(float timeDelta)
+        public override void Tick(float timeDelta)
         {
+            base.Tick(timeDelta);
             _timePassed += timeDelta;
             var normTime = Mathf.Clamp01(_timePassed / _config.MoveFromPositionToPositionDuration);
             foreach (var movement in _movements) 
@@ -61,7 +63,6 @@ namespace RogueDungeon.Enemies.HiveMind
             foreach (var n in _movements) 
                 n.Target.CombatPosition = n.DestinationPosition;
             _movements.Clear();
-            _ticker.Stop();
         }
 
         public override void CheckTransitions(ITypeBasedStateChanger stateChanger)

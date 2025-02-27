@@ -1,4 +1,6 @@
-﻿namespace Common.Behaviours
+﻿using Common.Time;
+
+namespace Common.Behaviours
 {
     public abstract class TickableBehaviour : Behaviour
     {

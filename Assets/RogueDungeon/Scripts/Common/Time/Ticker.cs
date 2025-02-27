@@ -1,8 +1,7 @@
 ﻿using System;
 using UniRx;
-using UnityEngine;
 
-namespace Common.Behaviours
+namespace Common.Time
 {
     public class Ticker
     {
@@ -11,7 +10,7 @@ namespace Common.Behaviours
         public void Start(Action<float> onTick)
         {
             _sub?.Dispose();
-            _sub = Observable.EveryUpdate().Subscribe(_ => onTick(Time.deltaTime));
+            _sub = Observable.EveryUpdate().Subscribe(_ => onTick(UnityEngine.Time.deltaTime));
         }
 
         public void Stop() => 

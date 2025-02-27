@@ -1,11 +1,12 @@
 ﻿using Common.Fsm;
+using Common.Time;
 
 namespace Common.Behaviours
 {
     public class StateMachineBehaviour : IBehaviour
     {
-        public readonly StateMachine StateMachine;
         private readonly Ticker _ticker = new();
+        protected readonly StateMachine StateMachine;
         public bool IsEnabled { get; private set; }
 
         protected StateMachineBehaviour(StateMachine stateMachine) => 
