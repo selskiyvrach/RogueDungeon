@@ -1,9 +1,17 @@
-﻿using RogueDungeon.Combat;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Common.Behaviours;
+using Common.Fsm;
+using RogueDungeon.Combat;
 using UnityEngine;
+using UnityEngine.Assertions;
+using Behaviour = Common.Behaviours.Behaviour;
+using Object = UnityEngine.Object;
 
 namespace RogueDungeon.Enemies
 {
-    public class Enemy : Common.Behaviours.Behaviour, IEnemyCombatant
+    public class Enemy : Behaviour, IEnemyCombatant
     {
         private readonly EnemyLifeCycleMoveSetBehaviour _lifeCycleMoveSetBehaviour;
         private readonly EnemyConfig _config;
@@ -36,12 +44,7 @@ namespace RogueDungeon.Enemies
         public void Destroy() => 
             Object.Destroy(GameObject);
 
-        public void TakeDamage(float damage)
-        {
+        public void TakeDamage(float damage) => 
             _currentHealth -= damage;
-            if (!IsAlive)
-            {
-            }
-        }
     }
 }

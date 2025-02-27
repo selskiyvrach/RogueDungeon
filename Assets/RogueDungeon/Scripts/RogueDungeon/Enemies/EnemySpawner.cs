@@ -28,13 +28,7 @@ namespace RogueDungeon.Enemies
             
             var enemy = _factory.Create(new EnemyFactoryArgs(config, _parent.transform));
             enemy.CombatPosition = position;
-            var pos = enemy.CombatPosition switch
-            {
-                EnemyPosition.Middle => _roomLocalPositionConfig.MiddleEnemyPos,
-                EnemyPosition.Left => _roomLocalPositionConfig.LeftEnemyPos,
-                EnemyPosition.Right => _roomLocalPositionConfig.RightEnemyPos,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            var pos = _roomLocalPositionConfig.Get(enemy.CombatPosition);
             enemy.GameObject.transform.localPosition = new Vector3(pos.x, 0, pos.y);
             _enemiesRegistry.RegisterEnemy(enemy);
         }

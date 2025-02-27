@@ -2,6 +2,7 @@
 using RogueDungeon.Camera;
 using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
+using RogueDungeon.Enemies.HiveMind;
 using RogueDungeon.Input;
 using RogueDungeon.Levels;
 using RogueDungeon.Player;
@@ -12,22 +13,20 @@ namespace RogueDungeon.Game.Gameplay
     public class Gameplay : Behaviour, IGameplayModeChanger
     {
         private readonly IPlayerInput _playerInput;
-        private readonly ICombatantsRegistry _combatantsRegistry;
         private readonly GameplayConfig _config;
         private readonly IPlayerSpawner _playerSpawner;
-        private readonly IEnemySpawner _enemySpawner;
         private readonly IGameCamera _camera;
         private readonly IFactory<LevelConfig, Level> _levelFactory;
+        private readonly HiveMindBehaviour _hiveMind;
 
-        public Gameplay(GameplayConfig config, IPlayerSpawner playerSpawner, ICombatantsRegistry combatantsRegistry, IEnemySpawner enemySpawner, IGameCamera camera, IFactory<LevelConfig, Level> levelFactory, IPlayerInput playerInput)
+        public Gameplay(GameplayConfig config, IPlayerSpawner playerSpawner, IGameCamera camera, IFactory<LevelConfig, Level> levelFactory, IPlayerInput playerInput, HiveMindBehaviour hiveMind)
         {
             _config = config;
             _playerSpawner = playerSpawner;
-            _combatantsRegistry = combatantsRegistry;
-            _enemySpawner = enemySpawner;
             _camera = camera;
             _levelFactory = levelFactory;
             _playerInput = playerInput;
+            _hiveMind = hiveMind;
         }
 
         public override void Enable()
@@ -42,10 +41,16 @@ namespace RogueDungeon.Game.Gameplay
             _playerInput.Enable();
         }
 
-        public void SetExplorationMode() => 
+        public void SetExplorationMode()
+        {
             _playerInput.SetFilter(_config.ExplorationInputFilter);
+            _hiveMind.Disable();
+        }
 
-        public void SetCombatMode() => 
+        public void SetCombatMode()
+        {
             _playerInput.SetFilter(_config.CombatInputFilter);
+            _hiveMind.Enable();
+        }
     }
 }
