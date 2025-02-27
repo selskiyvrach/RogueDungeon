@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Common.Behaviours;
-using Common.Fsm;
-using RogueDungeon.Combat;
+﻿using RogueDungeon.Combat;
 using UnityEngine;
-using UnityEngine.Assertions;
 using Behaviour = Common.Behaviours.Behaviour;
 using Object = UnityEngine.Object;
 

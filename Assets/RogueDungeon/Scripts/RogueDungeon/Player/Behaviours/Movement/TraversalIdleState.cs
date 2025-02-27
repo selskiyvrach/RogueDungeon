@@ -8,11 +8,11 @@ namespace RogueDungeon.Player.Behaviours.Movement
 {
     public class TraversalIdleState : ITypeBasedTransitionableState
     {
-        private readonly ILevelTraverser _levelTraverser;
+        private readonly ITwoDWorldObject _levelTraverser;
         private readonly IPlayerInput _input;
         private readonly Level _level;
 
-        public TraversalIdleState(IPlayerInput input, ILevelTraverser levelTraverser, Level level)
+        public TraversalIdleState(IPlayerInput input, ITwoDWorldObject levelTraverser, Level level)
         {
             _input = input;
             _levelTraverser = levelTraverser;
@@ -22,8 +22,8 @@ namespace RogueDungeon.Player.Behaviours.Movement
         public void CheckTransitions(ITypeBasedStateChanger stateChanger)
         {
             if (_input.HasInput(InputKey.MoveForward) && 
-                _level.Rooms.First(n => n.Coordinates == _levelTraverser.Position.Round()).AdjacentRooms.
-                    HasAdjacentRoom(_levelTraverser.Direction.Round()))
+                _level.Rooms.First(n => n.Coordinates == _levelTraverser.LocalPosition.Round()).AdjacentRooms.
+                    HasAdjacentRoom(_levelTraverser.Rotation.Round()))
             {
                 stateChanger.ChangeState<MoveForwardState>();
             }

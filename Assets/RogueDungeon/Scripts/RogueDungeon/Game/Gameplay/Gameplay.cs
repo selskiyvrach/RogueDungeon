@@ -34,11 +34,11 @@ namespace RogueDungeon.Game.Gameplay
             base.Enable();
             var level = _levelFactory.Create(_config.LevelConfig);
             var player = _playerSpawner.Spawn();
-            level.LevelTraverser = player;
+            level.LevelTraverser = player.WorldObject;
             level.Initialize();
-            _camera.Follow = player.GameObject.CameraReferencePoint;
-            player.Enable();
+            _camera.Follow = player.CameraPovPoint;
             _playerInput.Enable();
+            player.Enable();
         }
 
         public void SetExplorationMode()

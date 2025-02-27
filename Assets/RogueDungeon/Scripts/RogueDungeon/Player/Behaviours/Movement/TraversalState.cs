@@ -11,10 +11,10 @@ namespace RogueDungeon.Player.Behaviours.Movement
         
         protected readonly LevelTraverserConfig Config;
         protected abstract float Duration { get; }
-        protected readonly ILevelTraverser LevelTraverser;
+        protected readonly ITwoDWorldObject LevelTraverser;
         public bool IsFinished => _timePassed >= Duration;
 
-        protected TraversalState(ILevelTraverser levelTraverser, LevelTraverserConfig config)
+        protected TraversalState(ITwoDWorldObject levelTraverser, LevelTraverserConfig config)
         {
             LevelTraverser = levelTraverser;
             Config = config;
@@ -32,7 +32,7 @@ namespace RogueDungeon.Player.Behaviours.Movement
         protected abstract void SetValueNormalized(float value);
 
         protected Vector2 GetPositionInTileWithOffset(Vector2Int targetTile) => 
-            targetTile + LevelTraverser.Direction * -Config.PositionOffsetFromTileCenter;
+            targetTile + LevelTraverser.Rotation * -Config.PositionOffsetFromTileCenter;
 
 
         public void CheckTransitions(ITypeBasedStateChanger stateChanger)

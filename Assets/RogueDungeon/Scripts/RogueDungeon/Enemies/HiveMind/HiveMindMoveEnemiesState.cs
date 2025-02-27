@@ -10,14 +10,6 @@ namespace RogueDungeon.Enemies.HiveMind
 {
     public class HiveMindMoveEnemiesState : HiveMindState
     {
-        private struct Movement
-        {
-            public Enemy Target;
-            public EnemyPosition DestinationPosition;
-            public Vector2 StartCoordinates;
-            public Vector2 DestinationCoordinates;
-        }
-
         private readonly Ticker _ticker = new();
         private readonly HiveMindContext _context;
         private readonly HiveMindConfig _config;
@@ -37,12 +29,14 @@ namespace RogueDungeon.Enemies.HiveMind
         public override void Enter()
         {
             base.Enter();
-            _movements.AddRange(_context.EnemiesToMove.Select(n => new Movement { 
-                Target = n.enemy, 
+            _movements.AddRange(_context.EnemiesToMove.Select(n => new Movement
+            {
+                Target = n.enemy,
                 DestinationCoordinates = _positionsConfig.Get(n.destination),
-                StartCoordinates = new Vector2(n.enemy.GameObject.transform.localPosition.x, n.enemy.GameObject.transform.localPosition.z),
+                StartCoordinates = new Vector2(n.enemy.GameObject.transform.localPosition.x,
+                    n.enemy.GameObject.transform.localPosition.z),
                 DestinationPosition = n.destination,
-            }));  
+            }));
             
             _context.EnemiesToMove.Clear();
             Assert.IsTrue(_movements.Any());

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Common.Unity;
 
 namespace RogueDungeon.Levels
 {
@@ -8,7 +9,7 @@ namespace RogueDungeon.Levels
         private readonly Room[] _rooms;
         public IRoom StartingRoom { get; }
         public IEnumerable<IRoom> Rooms => _rooms;
-        public ILevelTraverser LevelTraverser { get; set; }
+        public ITwoDWorldObject LevelTraverser { get; set; }
 
         public Level(IRoom startingRoom, IEnumerable<Room> rooms)
         {

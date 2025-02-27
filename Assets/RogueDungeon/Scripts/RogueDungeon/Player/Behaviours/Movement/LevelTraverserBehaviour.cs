@@ -1,23 +1,24 @@
 ﻿using Common.Fsm;
+using Common.Unity;
 using RogueDungeon.Levels;
 using UnityEngine;
 using StateMachineBehaviour = Common.Behaviours.StateMachineBehaviour;
 
 namespace RogueDungeon.Player.Behaviours.Movement
 {
-    public class LevelTraverserBehaviour : StateMachineBehaviour, ILevelTraverser
+    public class LevelTraverserBehaviour : StateMachineBehaviour, ITwoDWorldObject
     {
-        public ILevelTraverser LevelTraverser { get; set; }
-        public Vector2 Position
+        public ITwoDWorldObject LevelTraverser { get; set; }
+        
+        public Vector2 LocalPosition
         {
-            get => LevelTraverser.Position;
-            set => LevelTraverser.Position = value;
+            get => LevelTraverser.LocalPosition; 
+            set => LevelTraverser.LocalPosition = value; 
         }
-
-        public Vector2 Direction
+        public Vector2 Rotation
         {
-            get => LevelTraverser.Direction;
-            set => LevelTraverser.Direction = value;
+            get => LevelTraverser.Rotation; 
+            set => LevelTraverser.Rotation = value; 
         }
 
         protected LevelTraverserBehaviour(StateMachine stateMachine) : base(stateMachine)
@@ -28,6 +29,11 @@ namespace RogueDungeon.Player.Behaviours.Movement
         {
             ((TypeBasedTransitionStrategy)StateMachine.TransitionStrategy).SetStartState<TraversalIdleState>();
             base.Enable();
+        }
+
+        public void SetParent(Transform parent)
+        {
+            throw new System.NotImplementedException();            
         }
     }
 }
