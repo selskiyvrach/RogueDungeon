@@ -35,7 +35,7 @@ namespace RogueDungeon.Enemies
                 EnemyPosition.Right => _roomLocalPositionConfig.RightEnemyPos,
                 _ => throw new ArgumentOutOfRangeException()
             };
-            enemy.Transform.localPosition = new Vector3(pos.x, 0, pos.y);
+            enemy.GameObject.transform.localPosition = new Vector3(pos.x, 0, pos.y);
             _enemiesRegistry.RegisterEnemy(enemy);
         }
     }

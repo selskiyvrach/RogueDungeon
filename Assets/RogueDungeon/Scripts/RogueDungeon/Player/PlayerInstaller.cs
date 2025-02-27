@@ -1,5 +1,4 @@
 ﻿using Common.UtilsZenject;
-using RogueDungeon.Input;
 using UnityEngine;
 using Zenject;
 
@@ -8,10 +7,12 @@ namespace RogueDungeon.Player
     public class PlayerInstaller : MonoInstaller
     {
         [SerializeField] private PlayerGameObject _playerGameObject;
+        [SerializeField] private PlayerConfig _config;
 
         public override void InstallBindings()
         {
             Container.InstanceSingle(_playerGameObject);
+            Container.InstanceSingle(_config);
             Container.NewSingleInterfacesAndSelf<Player>();
         }
     }

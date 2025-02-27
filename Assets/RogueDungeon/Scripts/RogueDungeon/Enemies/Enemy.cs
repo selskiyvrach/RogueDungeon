@@ -7,16 +7,18 @@ namespace RogueDungeon.Enemies
     {
         private readonly EnemyLifeCycleMoveSetBehaviour _lifeCycleMoveSetBehaviour;
         private readonly EnemyConfig _config;
+        private float _currentHealth;
 
         public EnemyPosition CombatPosition { get; set; }
-        public Transform Transform { get; }
-        public bool IsAlive { get; } = true;
+        public GameObject GameObject { get; }
+        public bool IsAlive => _currentHealth > 0;
         
-        public Enemy(EnemyConfig config, Transform transform, EnemyLifeCycleMoveSetBehaviour lifeCycleMoveSetBehaviour)
+        public Enemy(EnemyConfig config, GameObject gameObject, EnemyLifeCycleMoveSetBehaviour lifeCycleMoveSetBehaviour)
         {  
-            Transform = transform;
+            GameObject = gameObject;
             _lifeCycleMoveSetBehaviour = lifeCycleMoveSetBehaviour;
             _config = config;
+            _currentHealth = _config.Health;
         }
 
         public override void Enable()
@@ -31,9 +33,15 @@ namespace RogueDungeon.Enemies
             _lifeCycleMoveSetBehaviour.Disable();
         }
 
+        public void Destroy() => 
+            Object.Destroy(GameObject);
+
         public void TakeDamage(float damage)
         {
-            throw new System.NotImplementedException();
+            _currentHealth -= damage;
+            if (!IsAlive)
+            {
+            }
         }
     }
 }

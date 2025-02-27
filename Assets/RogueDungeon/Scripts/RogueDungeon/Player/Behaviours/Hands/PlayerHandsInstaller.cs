@@ -16,7 +16,6 @@ namespace RogueDungeon.Player.Behaviours.Hands
         [SerializeField] private AnimationPlayer _handsAnimator;
         [SerializeField] private AnimationPlayer _handHeldItemAnimator;
         [SerializeField] private HandHeldItemPresenter _itemPresenter;
-        [SerializeField] private ItemConfig _testItemConfig;
 
         public override void InstallBindings()
         {
@@ -51,13 +50,6 @@ namespace RogueDungeon.Player.Behaviours.Hands
             var hands = container.Resolve<PlayerHandsBehaviour>();
             Container.Bind<PlayerHandsBehaviour>().FromInstance(hands).AsSingle();
             Container.Bind<IHandheldContext>().FromInstance(hands).AsSingle();
-        }
-
-        public override void Start()
-        {
-            base.Start();
-            // Container.Resolve<PlayerHandsBehaviour>().Enable();
-            // Container.Resolve<IHandheldContext>().IntendedItem = new Item(_testItemConfig);
         }
     }
 }

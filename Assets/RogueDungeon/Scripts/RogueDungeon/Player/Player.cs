@@ -1,6 +1,7 @@
 ﻿using System;
 using RogueDungeon.Combat;
 using RogueDungeon.Input;
+using RogueDungeon.Items;
 using RogueDungeon.Levels;
 using RogueDungeon.Player.Behaviours.Dodge;
 using RogueDungeon.Player.Behaviours.Hands;
@@ -13,6 +14,7 @@ namespace RogueDungeon.Player
     public class Player : Behaviour, IDodger, IPlayerCombatant, ILevelTraverser 
     {
         private readonly LevelTraverserBehaviour _levelTraverserBehaviour;
+        private readonly PlayerConfig _config;
         private readonly PlayerHandsBehaviour _playerHandsBehaviour;
         public PlayerGameObject GameObject { get; }
         public PlayerDodgeState DodgeState { get; set; }
@@ -38,8 +40,9 @@ namespace RogueDungeon.Player
             set => GameObject.transform.forward = new Vector3(value.x, 0, value.y);
         }
 
-        public Player(PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject, LevelTraverserBehaviour levelTraverserBehaviour)
+        public Player(PlayerConfig config, PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject, LevelTraverserBehaviour levelTraverserBehaviour)
         {
+            _config = config;
             _playerHandsBehaviour = playerHandsBehaviour;
             GameObject = gameObject;
             _levelTraverserBehaviour = levelTraverserBehaviour;
@@ -51,6 +54,7 @@ namespace RogueDungeon.Player
             base.Enable();
             _levelTraverserBehaviour.Enable();
             _playerHandsBehaviour.Enable();
+            ((IHandheldContext)_playerHandsBehaviour).IntendedItem = new Item(_config.DefaultWeapon); 
         }
 
         public override void Disable()

@@ -1,5 +1,6 @@
 ﻿using Common.UtilsZenject;
 using RogueDungeon.Combat;
+using UnityEngine;
 using Zenject;
 
 namespace RogueDungeon.Enemies
@@ -8,6 +9,7 @@ namespace RogueDungeon.Enemies
     {
         public override void InstallBindings()
         {
+            Container.InstanceSingle(gameObject);
             Container.NewSingle<Enemy>();
             Container.Bind<IEnemyCombatant>().To<Enemy>().FromResolve();
         }

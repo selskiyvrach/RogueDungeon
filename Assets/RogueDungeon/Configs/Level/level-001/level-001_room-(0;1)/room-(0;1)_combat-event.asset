@@ -14,7 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MiddleEnemy>k__BackingField: {fileID: 11400000, guid: 654f9d831b7e2ee44b73859d84082555,
     type: 2}
-  <LeftEnemy>k__BackingField: {fileID: 11400000, guid: 654f9d831b7e2ee44b73859d84082555,
-    type: 2}
-  <RightEnemy>k__BackingField: {fileID: 11400000, guid: 654f9d831b7e2ee44b73859d84082555,
-    type: 2}
+  <LeftEnemy>k__BackingField: {fileID: 0}
+  <RightEnemy>k__BackingField: {fileID: 0}
