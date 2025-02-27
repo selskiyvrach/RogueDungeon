@@ -33,12 +33,12 @@ namespace RogueDungeon.Enemies.HiveMind
             _attackingEnemy = Context.AttackQueue.Dequeue().ThrowIfNull();
             Context.AttackQueue.Enqueue(_attackingEnemy);
             
-            // enemy.AttackBehaviour.StartAttack()
+            _attackingEnemy.AttackBehaviour.StartAttack();
         }
 
         public override void CheckTransitions(ITypeBasedStateChanger stateChanger)
         {
-            if(!_attackingEnemy.IsAlive) // !enemy.AttackBehaviour.IsAttacking
+            if(!_attackingEnemy.IsAlive || !_attackingEnemy.AttackBehaviour.IsAttacking)
                 stateChanger.ChangeState<HiveMindIdleState>();
         }
     }

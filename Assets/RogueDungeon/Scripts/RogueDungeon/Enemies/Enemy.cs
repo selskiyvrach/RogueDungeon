@@ -1,5 +1,6 @@
 ﻿using Common.Unity;
 using RogueDungeon.Combat;
+using RogueDungeon.Enemies.Attacks;
 using UnityEngine;
 using Behaviour = Common.Behaviours.Behaviour;
 
@@ -14,6 +15,7 @@ namespace RogueDungeon.Enemies
         public EnemyPosition CombatPosition { get; set; }
         public ITwoDWorldObject WorldObject { get; }
         public bool IsAlive => _currentHealth > 0;
+        public AttackBehaviour AttackBehaviour { get; }
         
         public Enemy(EnemyConfig config, GameObject gameObject, EnemyLifeCycleMoveSetBehaviour lifeCycleMoveSetBehaviour)
         {  
