@@ -10,7 +10,7 @@ namespace RogueDungeon.Combat
         public AttacksMediator(ICombatantsRegistry registry) => 
             _registry = registry;
 
-        public void MediatePlayerAttack(IPlayerAttackInfo attackInfo)
+        public void MediatePlayerAttack(float damage)
         {
             if (_registry.Enemies.FirstOrDefault(n => n.CombatPosition == EnemyPosition.Middle) is not {} enemy)
             {
@@ -18,25 +18,25 @@ namespace RogueDungeon.Combat
                 return;
             }
 
-            enemy.TakeDamage(attackInfo.Damage);
+            enemy.TakeDamage(damage);
         }
 
-        public void MediateEnemyAttack(IEnemyAttackInfo attackInfo)
+        public void MediateEnemyAttack(float damage, EnemyAttackDirection attackDirection)
         {
-            attackInfo.AttackDirection.ThrowIfNone();
+            attackDirection.ThrowIfNone();
             if(_registry.Player is not {} player)
                 return;
 
-            if (attackInfo.AttackDirection == EnemyAttackDirection.Left &&
+            if (attackDirection == EnemyAttackDirection.Left &&
                 player.DodgeState == PlayerDodgeState.DodgingRight
-                || attackInfo.AttackDirection == EnemyAttackDirection.Right &&
+                || attackDirection == EnemyAttackDirection.Right &&
                 player.DodgeState == PlayerDodgeState.DodgingLeft)
             {
                 // miss
                 return;
             }
             
-            player.TakeDamage(attackInfo.Damage);
+            player.TakeDamage(damage);
         }
     }
 }

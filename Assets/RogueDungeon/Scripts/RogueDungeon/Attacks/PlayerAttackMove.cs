@@ -17,7 +17,7 @@ namespace RogueDungeon.Weapons
         }
 
         protected override void HandleAttack(IAttacksMediator attacksMediator) => 
-            attacksMediator.MediatePlayerAttack(_config);
+            attacksMediator.MediatePlayerAttack(_config.Damage);
 
         public override void Enter()
         {

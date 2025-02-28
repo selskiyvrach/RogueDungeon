@@ -15,3 +15,15 @@ MonoBehaviour:
   <Health>k__BackingField: 10
   <Prefab>k__BackingField: {fileID: 3537052854619438027, guid: ceb53294180329e48bbab23da185840e,
     type: 3}
+  <Attacks>k__BackingField:
+  - <Type>k__BackingField: 1
+    <PrepareDuration>k__BackingField: 0.5
+    <PrepareSprites>k__BackingField:
+    - {fileID: 117835103, guid: 609905dc890e8e54d90b5cf642d6e770, type: 3}
+    - {fileID: 889457298, guid: 609905dc890e8e54d90b5cf642d6e770, type: 3}
+    <ExecuteDuration>k__BackingField: 0.5
+    <ExecuteSprites>k__BackingField:
+    - {fileID: 615034533, guid: 8e6c734ae3d78444cad4d68e2a63881b, type: 3}
+    - {fileID: -1646368046, guid: 8e6c734ae3d78444cad4d68e2a63881b, type: 3}
+    <Damage>k__BackingField: 15
+    <AttackDirection>k__BackingField: 1

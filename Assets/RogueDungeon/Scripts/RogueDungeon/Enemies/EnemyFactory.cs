@@ -1,4 +1,6 @@
-﻿using Common.UtilsZenject;
+﻿using System.Linq;
+using Common.UtilsZenject;
+using RogueDungeon.Enemies.Attacks;
 using Zenject;
 
 namespace RogueDungeon.Enemies
@@ -16,6 +18,7 @@ namespace RogueDungeon.Enemies
             var enemy = _container.InstantiatePrefab(config.Prefab, args.Parent);
             var enemyContainer = enemy.GetComponent<Context>().Container;
             enemyContainer.InstanceSingle(config);
+            enemyContainer.InstanceSingle(new EnemyActions(config.Attacks.Select(n => enemyContainer.Instantiate(n.ActionType, new[] {n})).Cast<EnemyAction>()));
             return enemyContainer.Resolve<Enemy>();
         }
     }

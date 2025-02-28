@@ -2,7 +2,7 @@
 {
     public interface IAttacksMediator
     {
-        void MediatePlayerAttack(IPlayerAttackInfo attackInfo);
-        void MediateEnemyAttack(IEnemyAttackInfo attackInfo);
+        void MediatePlayerAttack(float damage);
+        void MediateEnemyAttack(float damage, EnemyAttackDirection attackDirection);
     }
 }
