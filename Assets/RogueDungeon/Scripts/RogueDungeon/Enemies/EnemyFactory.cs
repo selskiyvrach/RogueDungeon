@@ -18,7 +18,7 @@ namespace RogueDungeon.Enemies
             var enemy = _container.InstantiatePrefab(config.Prefab, args.Parent);
             var enemyContainer = enemy.GetComponent<Context>().Container;
             enemyContainer.InstanceSingle(config);
-            enemyContainer.InstanceSingle(new EnemyActions(config.Attacks.Select(n => enemyContainer.Instantiate(n.ActionType, new[] {n})).Cast<EnemyAction>()));
+            enemyContainer.InstanceSingle(new EnemyAttacks(config.Attacks.Select(n => enemyContainer.Instantiate<EnemyAttackAction>(new[] {n}))));
             return enemyContainer.Resolve<Enemy>();
         }
     }

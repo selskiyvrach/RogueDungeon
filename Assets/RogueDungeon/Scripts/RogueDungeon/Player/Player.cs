@@ -49,7 +49,7 @@ namespace RogueDungeon.Player
 
         public void TakeDamage(float damage)
         {
-            throw new NotImplementedException();
+            Debug.LogError("Player taking damage");
         }
     }
 }

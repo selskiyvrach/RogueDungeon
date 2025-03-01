@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Common.Fsm;
 using Common.UtilsDotNet;
 using RogueDungeon.Combat;
@@ -8,10 +9,11 @@ namespace RogueDungeon.Enemies.HiveMind
 {
     public class HiveMindAttackState : HiveMindState
     {
+        private readonly List<EnemyAttackAction> _attacksBuffer = new(); 
         private readonly IEnemiesRegistry _enemiesRegistry;
         private readonly HiveMindContext _hiveMindContext;
         private Enemy _attackingEnemy;
-        private EnemyAction _attack;
+        private EnemyAttackAction _attack;
         protected override bool IsSlackFrame => false;
 
         public HiveMindAttackState(HiveMindContext context, IEnemiesRegistry enemiesRegistry, HiveMindContext hiveMindContext) : base(context)
@@ -24,34 +26,33 @@ namespace RogueDungeon.Enemies.HiveMind
         {
             _hiveMindContext.SlackTime = 0;
             base.Enter();
-            for (var i = 0; i < Context.AttackQueue.Count; i++)
+            for (var i = 0; i < Context.AttackersQueue.Count; i++)
             {
-                var enemy = Context.AttackQueue.Dequeue();
+                var enemy = Context.AttackersQueue.Dequeue();
                 if(_enemiesRegistry.Enemies.Any(n => n == enemy && n.IsAlive))
-                    Context.AttackQueue.Enqueue(enemy);
+                    Context.AttackersQueue.Enqueue(enemy);
             }
             foreach (var registeredEnemy in _enemiesRegistry.Enemies.Cast<Enemy>())
             {
-                if(!Context.AttackQueue.Contains(registeredEnemy) && registeredEnemy.IsAlive)
-                    Context.AttackQueue.Enqueue(registeredEnemy);
+                if(!Context.AttackersQueue.Contains(registeredEnemy) && registeredEnemy.IsAlive)
+                    Context.AttackersQueue.Enqueue(registeredEnemy);
             }
             
-            var attemptsLeft = Context.AttackQueue.Count;
+            var attemptsLeft = Context.AttackersQueue.Count;
             while (attemptsLeft-- > 0)
             {
-                var peek = Context.AttackQueue.Peek();
-                if (peek.Actions.FirstOrDefault(n =>
-                        n.Type == EnemyActionType.LightAttack &&
-                        ((EnemyAttackAction)n).IsSuitableForPosition(peek.CombatPosition)) is not { } attack) 
+                var peek = Context.AttackersQueue.Peek().ThrowIfNull();
+                _attacksBuffer.Clear();
+                _attacksBuffer.AddRange(peek.Attacks.Where(n => n.IsSuitableForPosition(peek.CombatPosition)));
+                if(_attacksBuffer.Count == 0)
                     continue;
-                
-                _attackingEnemy = Context.AttackQueue.Dequeue().ThrowIfNull();
-                _attack = attack;
+
+                _attackingEnemy = Context.AttackersQueue.Dequeue();
+                Context.AttackersQueue.Enqueue(_attackingEnemy);
+                _attack = _attacksBuffer.Random();
                 _attack.Start();
                 break;
             }
-
-            Context.AttackQueue.Enqueue(_attackingEnemy);
         }
 
         public override void CheckTransitions(ITypeBasedStateChanger stateChanger)

@@ -7,6 +7,6 @@ namespace RogueDungeon.Enemies
     {
         [field: SerializeField] public float Health { get; private set; } = 100f;
         [field: SerializeField] public EnemyInstaller Prefab { get; private set; }
-        [field: SerializeField] public EnemyAttackActionConfig[] Attacks { get; private set; }
+        [field: SerializeField] public EnemyAttackConfig[] Attacks { get; private set; }
     }
 }
