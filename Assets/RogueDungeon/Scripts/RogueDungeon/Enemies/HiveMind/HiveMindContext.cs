@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using RogueDungeon.Combat;
 
 namespace RogueDungeon.Enemies.HiveMind
 {

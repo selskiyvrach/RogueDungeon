@@ -1,6 +1,4 @@
-﻿using RogueDungeon.Combat;
-using RogueDungeon.Player.Behaviours.Movement;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace RogueDungeon.Player
@@ -24,7 +22,7 @@ namespace RogueDungeon.Player
         {
             var player = _factory.Create(_config, _playerParent);
             
-            _playerRegistry.RegisterPlayer(player);
+            _playerRegistry.Player = player;
             return player;
         }
     }

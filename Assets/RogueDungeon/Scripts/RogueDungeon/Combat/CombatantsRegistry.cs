@@ -1,31 +1,40 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using RogueDungeon.Enemies;
+using RogueDungeon.Enemies.HiveMind;
+using RogueDungeon.Player;
 
 namespace RogueDungeon.Combat
 {
-    public class CombatantsRegistry : ICombatantsRegistry
+    public class CombatantsRegistry : IEnemiesRegistry, IPlayerRegistry
     {
-        private readonly List<IEnemyCombatant> _enemies = new(3);
-        public IPlayerCombatant Player { get; private set; }
-        public IEnumerable<IEnemyCombatant> Enemies => _enemies;
+        private readonly List<Enemy> _enemies = new(3);
+        private Player.Player _player;
 
-        public void RegisterPlayer(IPlayerCombatant player) => 
-            Player = player;
-
-        public void UnregisterPlayer(IPlayerCombatant player)
+        public Player.Player Player
         {
-            if(player == Player)
-                Player = null;
-            else
-                throw new System.ArgumentException("Player is not registered");
+            get => _player;
+            set
+            {
+                if (_player != null)
+                    throw new Exception("Another player instance is already registered.");
+                _player = value;
+            }
         }
 
-        public void RegisterEnemy(IEnemyCombatant enemy) => 
-            _enemies.Add(enemy);
+        public IEnumerable<Enemy> Enemies => _enemies;
 
-        public void UnregisterEnemy(IEnemyCombatant enemy)
+        public void RegisterEnemy(Enemy enemy)
+        {
+            if (_enemies.Contains(enemy))
+                throw new Exception("This enemy instance is already registered.");
+            _enemies.Add(enemy);
+        }
+
+        public void UnregisterEnemy(Enemy enemy)
         {
             if(!_enemies.Remove(enemy))
-                throw new System.ArgumentException("Enemy is not registered");
+                throw new ArgumentException("Enemy is not registered");
         }
     }
 }

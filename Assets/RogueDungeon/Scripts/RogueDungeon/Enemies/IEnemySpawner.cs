@@ -1,6 +1,4 @@
-﻿using RogueDungeon.Combat;
-
-namespace RogueDungeon.Enemies
+﻿namespace RogueDungeon.Enemies
 {
     public interface IEnemySpawner
     {

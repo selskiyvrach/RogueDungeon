@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Common.Fsm;
-using RogueDungeon.Combat;
 
 namespace RogueDungeon.Enemies.HiveMind
 {
@@ -8,20 +7,20 @@ namespace RogueDungeon.Enemies.HiveMind
     {
         private readonly HiveMindConfig _config;
         private readonly HiveMindContext _context;
-        private readonly ICombatantsRegistry _combatantsRegistry;
+        private readonly IEnemiesRegistry _enemiesRegistry;
 
         protected override bool IsSlackFrame => true;
 
-        public HiveMindIdleState(ICombatantsRegistry combatantsRegistry, HiveMindContext context, HiveMindConfig config) : base(context)
+        public HiveMindIdleState(IEnemiesRegistry enemiesRegistry, HiveMindContext context, HiveMindConfig config) : base(context)
         {
-            _combatantsRegistry = combatantsRegistry;
+            _enemiesRegistry = enemiesRegistry;
             _context = context;
             _config = config;
         }
 
         public override void CheckTransitions(ITypeBasedStateChanger stateChanger)
         {
-            var enemies = _combatantsRegistry.Enemies;
+            var enemies = _enemiesRegistry.Enemies;
             if (enemies.Any() && enemies.All(n => n.CombatPosition != EnemyPosition.Middle))
             {
                 _context.EnemiesToMove.Add(((Enemy)enemies.First(), EnemyPosition.Middle));

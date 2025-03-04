@@ -2,7 +2,6 @@
 using System.Collections;
 using Common.Unity;
 using Common.UtilsDotNet;
-using RogueDungeon.Combat;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -22,7 +21,7 @@ namespace RogueDungeon.Enemies.Attacks
     public class EnemyAttackAction
     {
         private readonly ICoroutineRunner _coroutineRunner;
-        private readonly IAttacksMediator _attacksMediator;
+        private readonly IEnemyAttacksMediator _attacksMediator;
         private readonly SpriteRenderer _spriteRenderer;
         private readonly EnemyAttackConfig _config;
         private float _timePassed;
@@ -30,7 +29,7 @@ namespace RogueDungeon.Enemies.Attacks
 
         public bool IsFinished => _coroutine == null;
 
-        protected EnemyAttackAction(SpriteRenderer spriteRenderer, ICoroutineRunner coroutineRunner, EnemyAttackConfig config, IAttacksMediator attacksMediator)
+        protected EnemyAttackAction(SpriteRenderer spriteRenderer, ICoroutineRunner coroutineRunner, EnemyAttackConfig config, IEnemyAttacksMediator attacksMediator)
         {
             _spriteRenderer = spriteRenderer;
             _coroutineRunner = coroutineRunner;

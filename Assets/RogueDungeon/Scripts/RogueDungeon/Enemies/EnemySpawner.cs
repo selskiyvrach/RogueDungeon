@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Linq;
-using RogueDungeon.Combat;
+using RogueDungeon.Enemies.HiveMind;
+using UnityEngine;
 using Zenject;
 
 namespace RogueDungeon.Enemies
 {
     public class EnemySpawner : IEnemySpawner
     {
-        private readonly BattleField _parent;
+        private readonly Transform _parent;
         private readonly RoomLocalPositionsConfig _roomLocalPositionConfig;
         private readonly IFactory<EnemyFactoryArgs, Enemy> _factory;
         private readonly IEnemiesRegistry _enemiesRegistry;
 
-        public EnemySpawner(BattleField parent, IFactory<EnemyFactoryArgs, Enemy> factory, IEnemiesRegistry enemiesRegistry, RoomLocalPositionsConfig roomLocalPositionConfig)
+        public EnemySpawner(Transform parent, IFactory<EnemyFactoryArgs, Enemy> factory, IEnemiesRegistry enemiesRegistry, RoomLocalPositionsConfig roomLocalPositionConfig)
         {
             _parent = parent;
             _factory = factory;

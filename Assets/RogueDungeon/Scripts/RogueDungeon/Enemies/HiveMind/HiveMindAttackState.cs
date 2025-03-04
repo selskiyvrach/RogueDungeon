@@ -2,7 +2,6 @@
 using System.Linq;
 using Common.Fsm;
 using Common.UtilsDotNet;
-using RogueDungeon.Combat;
 using RogueDungeon.Enemies.Attacks;
 
 namespace RogueDungeon.Enemies.HiveMind

@@ -1,6 +1,4 @@
-﻿using RogueDungeon.Combat;
-
-namespace RogueDungeon.Player.Behaviours.Dodge
+﻿namespace RogueDungeon.Player.Behaviours.Dodge
 {
     public interface IDodger
     {

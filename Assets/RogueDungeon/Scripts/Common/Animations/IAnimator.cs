@@ -6,6 +6,5 @@ namespace Common.Animations
     {
         event Action<string> OnEvent;
         void Play(AnimationData animationData);
-        void Play(LoopedAnimationData loopedAnimationData);
     }
 }

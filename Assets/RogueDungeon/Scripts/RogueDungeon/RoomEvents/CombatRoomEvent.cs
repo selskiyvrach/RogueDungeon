@@ -3,6 +3,7 @@ using System.Linq;
 using Common.Unity;
 using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
+using RogueDungeon.Enemies.HiveMind;
 using RogueDungeon.Game.Gameplay;
 using UnityEngine;
 
