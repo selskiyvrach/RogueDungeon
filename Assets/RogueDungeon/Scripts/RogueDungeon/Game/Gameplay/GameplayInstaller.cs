@@ -27,7 +27,7 @@ namespace RogueDungeon.Game.Gameplay
             Container.NewSingle<IFactory<LevelConfig, Level>, LevelFactory>();
             
             // Combat
-            Container.NewSingleInterfaces<PlayerAttacksMediator>();
+            Container.NewSingleInterfaces<AttacksMediator>();
             Container.NewSingleInterfaces<CombatantsRegistry>();
             
             // Enemies

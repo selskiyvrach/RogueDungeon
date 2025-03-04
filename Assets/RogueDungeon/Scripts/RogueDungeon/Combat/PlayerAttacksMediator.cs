@@ -6,12 +6,12 @@ using RogueDungeon.Player;
 
 namespace RogueDungeon.Combat
 {
-    public class PlayerAttacksMediator : IPlayerAttacksMediator
+    public class AttacksMediator : IPlayerAttacksMediator, IEnemyAttacksMediator
     {
         private readonly IEnemiesRegistry _enemiesRegistry;
         private readonly IPlayerRegistry _playerRegistry;
 
-        public PlayerAttacksMediator(IEnemiesRegistry enemiesRegistry, IPlayerRegistry playerRegistry)
+        public AttacksMediator(IEnemiesRegistry enemiesRegistry, IPlayerRegistry playerRegistry)
         {
             _enemiesRegistry = enemiesRegistry;
             _playerRegistry = playerRegistry;

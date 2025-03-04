@@ -14,7 +14,6 @@ namespace RogueDungeon.Enemies
             Container.InstanceSingle(_spriteRenderer);
             Container.InstanceSingle(gameObject);
             Container.NewSingle<Enemy>();
-            Container.Bind<Enemy>().To<Enemy>().FromResolve();
         }
     }
 }
