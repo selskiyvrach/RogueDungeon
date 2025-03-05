@@ -42,7 +42,7 @@ namespace RogueDungeon.Enemies.HiveMind
             {
                 var peek = Context.AttackersQueue.Peek().ThrowIfNull();
                 _attacksBuffer.Clear();
-                _attacksBuffer.AddRange(peek.Attacks.Where(n => n.IsSuitableForPosition(peek.CombatPosition)));
+                // _attacksBuffer.AddRange(peek.Attacks.Where(n => n.IsSuitableForPosition(peek.CombatPosition)));
                 if(_attacksBuffer.Count == 0)
                     continue;
 

@@ -1,4 +1,4 @@
-﻿using RogueDungeon.Enemies.Attacks;
+﻿using RogueDungeon.Enemies.MoveSet;
 using UnityEngine;
 
 namespace RogueDungeon.Enemies
@@ -7,6 +7,6 @@ namespace RogueDungeon.Enemies
     {
         [field: SerializeField] public float Health { get; private set; } = 100f;
         [field: SerializeField] public EnemyInstaller Prefab { get; private set; }
-        [field: SerializeField] public EnemyAttackConfig[] Attacks { get; private set; }
+        [field: SerializeField] public EnemyMoveSetConfig MoveSet { get; private set; }
     }
 }

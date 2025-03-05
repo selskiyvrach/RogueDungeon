@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common.Fsm;
 using UnityEngine.Assertions;
@@ -14,15 +15,21 @@ namespace Common.MoveSets
             _container = container;
 
         public MoveSetBehaviour Create(MoveSetConfig config) =>
-            new(new StateMachine(CreateTransitionStrategy(config), config.DebugName));
+            new(CreateStateMachine(config));
+        
+        public T Create<T>(MoveSetConfig config) where T : MoveSetBehaviour => 
+            (T)Activator.CreateInstance(typeof(T), CreateStateMachine(config));
+
+        private StateMachine CreateStateMachine(MoveSetConfig config) => 
+            new(CreateTransitionStrategy(config), config.DebugName);
 
         private IStateTransitionStrategy CreateTransitionStrategy(MoveSetConfig config)
         {
-            var moves = CreateMoves(config.Moves).ToArray();
+            var moves = CreateMoves(config.Moves.Concat(config.ExtendsConfigs.SelectMany(n => n.Moves))).ToArray();
             CreateTransitions(moves);
             var strategy = new IdBasedTransitionStrategy
             {
-                StartStateId = config.Moves.First().Id,
+                StartStateId = config.FirstMove.Id,
                 TransitionMap = moves.ToDictionary(n => n.Id, n => (IIdBasedTransitionableState)n)
             };
             return strategy;

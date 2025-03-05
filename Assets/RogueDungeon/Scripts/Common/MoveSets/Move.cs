@@ -26,7 +26,7 @@ namespace Common.MoveSets
             }
             
             return IsFinished
-                ? Transitions.First(n => n.CanTransitionTo()).Id
+                ? Transitions.FirstOrDefault(n => n.CanTransitionTo())?.Id
                 : null;
         }
 

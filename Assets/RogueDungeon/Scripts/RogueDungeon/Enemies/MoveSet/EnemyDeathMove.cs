@@ -2,22 +2,20 @@
 using Common.Fsm;
 using RogueDungeon.Enemies.HiveMind;
 
-namespace RogueDungeon.Enemies.States
+namespace RogueDungeon.Enemies.MoveSet
 {
-    public class EnemyDeathState : EnemyState
+    public class EnemyDeathMove : EnemyMove
     {
         private readonly Enemy _enemy;
         private readonly IEnemiesRegistry _enemiesRegistry;
-        public EnemyDeathState(EnemyStateConfig config, IAnimator animator, IEnemiesRegistry enemiesRegistry, Enemy enemy) : base(config, animator)
+        public EnemyDeathMove(EnemyMoveConfig config, IAnimator animator, IEnemiesRegistry enemiesRegistry, Enemy enemy) : base(config, animator)
         {
             _enemiesRegistry = enemiesRegistry;
             _enemy = enemy;
         }
 
-        public override void CheckTransitions(ITypeBasedStateChanger stateChanger)
-        {
-            // no transitions from death...
-        }
+        protected override bool CanTransitionTo() => 
+            base.CanTransitionTo() && !_enemy.IsAlive;
 
         public override void Tick(float timeDelta)
         {

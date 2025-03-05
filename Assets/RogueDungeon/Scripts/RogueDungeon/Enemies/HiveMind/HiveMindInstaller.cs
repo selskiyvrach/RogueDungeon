@@ -14,7 +14,7 @@ namespace RogueDungeon.Enemies.HiveMind
             var container = Container.CreateSubContainer();
             container.InstanceSingle(_config);
             container.NewSingle<HiveMindContext>();
-            container.NewSingle<ITypeBasedStatesProvider, StatesProviderWithCache>();
+            container.NewSingle<ITypeBasedStatesProvider, TypeBasedStatesProviderWithCache>();
             var transitions = container.Instantiate<TypeBasedTransitionStrategy>();
             transitions.SetStartState<HiveMindIdleState>();
             container.NewSingle<StateMachine>();

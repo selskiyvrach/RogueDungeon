@@ -4,12 +4,12 @@ using Zenject;
 
 namespace Common.Fsm
 {
-    public class StatesProviderWithCache : ITypeBasedStatesProvider
+    public class TypeBasedStatesProviderWithCache : ITypeBasedStatesProvider
     {
         private readonly DiContainer _container;
         private readonly List<IState> _cache = new();
 
-        public StatesProviderWithCache(DiContainer container) => 
+        public TypeBasedStatesProviderWithCache(DiContainer container) => 
             _container = container;
 
         public T Get<T>() where T : class, IState => 
