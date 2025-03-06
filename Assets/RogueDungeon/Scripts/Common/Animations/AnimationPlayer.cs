@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Common.UtilsDotNet;
-using UnityEditor;
 using UnityEngine;
 
 namespace Common.Animations
@@ -13,7 +12,6 @@ namespace Common.Animations
         
         private readonly Queue<(float time, string eventName)> _eventsToPlay = new();
         
-        private AnimationClip[] _clips;
         private AnimationClip _clip;
         private float _duration;
         private bool _isLooped;
@@ -24,39 +22,22 @@ namespace Common.Animations
         public event Action<string> OnEvent;
         public bool IsFinished => _playTime >= _clip.length;
 
-        private void Awake()
-        {
-            enabled = false;
-            _clips = AnimationUtility.GetAnimationClips(_referenceToAnimation.gameObject); 
-        }
-
-        public void Play(LoopedAnimationData loopedAnimationData)
-        {
-            _isLooped = true;
-            var clip = _clips.Get(n => n.name == loopedAnimationData.Name);
-            _duration = clip.length / loopedAnimationData.Speed; 
-            Play(clip);
-        }
-
         public void Play(AnimationData animationData)
         {
             _duration = animationData.Duration;
             _isLooped = false;
-            Play(_clips.Get(n => n.name == animationData.Name).ThrowIfNull());
-        }
-
-        private void Play(AnimationClip clip)
-        {
-            _clip = clip;
-            _timeScale = clip.length / _duration;
+            _clip = animationData.Clip;
+            _timeScale = _clip.length / _duration;
             _playTime = 0;
             PrepareEvents();
             UpdatePlayback();
-            enabled = true;
         }
 
         private void Update()
         {
+            if(_clip == null)
+                return;
+            
             _playTime += Time.deltaTime * _timeScale;
             EvaluateEvents();
             UpdatePlayback();
@@ -75,7 +56,7 @@ namespace Common.Animations
                 PrepareEvents();
             }
             else
-                enabled = false;
+                _clip = null;
         }
 
         private void EvaluateEvents()

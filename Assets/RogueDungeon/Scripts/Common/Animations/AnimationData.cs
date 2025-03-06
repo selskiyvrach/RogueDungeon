@@ -1,13 +1,15 @@
-﻿namespace Common.Animations
+﻿using UnityEngine;
+
+namespace Common.Animations
 {
     public readonly struct AnimationData
     {
-        public readonly string Name;
+        public readonly AnimationClip Clip;
         public readonly float Duration;
 
-        public AnimationData(string name, float duration)
+        public AnimationData(AnimationClip clip, float duration)
         {
-            Name = name;
+            Clip = clip;
             Duration = duration;
         }
     }

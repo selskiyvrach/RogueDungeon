@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6350440433242336907}
   - component: {fileID: 6772439091050780369}
   m_Layer: 0
-  m_Name: LifeCycleAnimator
+  m_Name: MoveSetAnimator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

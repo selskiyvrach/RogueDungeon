@@ -8,7 +8,7 @@ namespace Common.MoveSets
     public class Move : BoundToAnimationState, IIdBasedTransitionableState
     {
         public MoveConfig Config { get; }
-        protected override AnimationData Animation => new(Config.AnimationClip.name, Config.Duration);
+        protected override AnimationData Animation => new(Config.AnimationClip, Config.Duration);
         public string Id => Config.Id;
         public Move[] Transitions { get; set; }
 
