@@ -1,5 +1,6 @@
 ﻿using Common.Animations;
 using Common.MoveSets;
+using RogueDungeon.Animations;
 using RogueDungeon.Player;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace RogueDungeon.Weapons
         protected override void OnAnimationEvent(string name)
         {
             base.OnAnimationEvent(name);
-            if (name == "hit")
+            if (name == AnimationEventNames.Hit)
             {
                 if(_config.JustAnimation)
                     Debug.LogError("Unsupposed Animation Event: " + name);

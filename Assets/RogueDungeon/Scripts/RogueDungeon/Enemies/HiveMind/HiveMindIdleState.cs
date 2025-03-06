@@ -21,13 +21,13 @@ namespace RogueDungeon.Enemies.HiveMind
         public override void CheckTransitions(ITypeBasedStateChanger stateChanger)
         {
             var enemies = _enemiesRegistry.Enemies;
-            if (enemies.Any() && enemies.All(n => n.CombatPosition != EnemyPosition.Middle))
+            if (enemies.Any() && enemies.All(n => n.CombatPosition is not EnemyPosition.Middle and not EnemyPosition.ChangingPosition))
             {
-                _context.EnemiesToMove.Add(((Enemy)enemies.First(), EnemyPosition.Middle));
+                _context.EnemiesToMove.Add((enemies.First(), EnemyPosition.Middle));
                 stateChanger.ChangeState<HiveMindMoveEnemiesState>();
             }
 
-            if (_context.SlackTime >= _config.SlackTime) 
+            if (_context.SlackTime >= _config.SlackTime && enemies.Any(n => n.IsIdle))
                 stateChanger.ChangeState<HiveMindAttackState>();
         }
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyIdleConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: idle
-  <AnimationClip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+  <AnimationClip>k__BackingField: {fileID: 7400000, guid: 338da7f47b95e6646909bc715d00bbfa,
     type: 2}
   <Duration>k__BackingField: 1
   <Transitions>k__BackingField:

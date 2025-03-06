@@ -18,7 +18,7 @@ namespace RogueDungeon.Enemies
             Container.InstanceSingle(gameObject);
             Container.NewSingle<Enemy>();
             Container.InstanceSingle<IAnimator>(_animationPlayer);
-            Container.Resolve<Enemy>().SetBehaviour(new MoveSetFactory(Container).Create<EnemyMoveSetBehaviour>(Container.Resolve<EnemyConfig>().MoveSet));
+            Container.Resolve<Enemy>().SetBehaviour(new MoveSetFactory(Container).Create<EnemyMoveSetBehaviour, EnemyMove>(Container.Resolve<EnemyConfig>().MoveSet));
         }
     }
 }

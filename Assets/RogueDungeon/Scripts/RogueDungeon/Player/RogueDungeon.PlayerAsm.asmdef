@@ -13,7 +13,8 @@
         "GUID:79d80b9db33c44689e04e627a46de626",
         "GUID:16603f163f524af7842af7f70b9aaa92",
         "GUID:b65a720ed25541bdb0e19d12ca51d3fd",
-        "GUID:3c6591eac2634e0db5ea71ec276d62ff"
+        "GUID:3c6591eac2634e0db5ea71ec276d62ff",
+        "RogueDungeon.Animations"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

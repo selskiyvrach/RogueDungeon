@@ -1,18 +1,25 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Common.Fsm
 {
     public class IdBasedTransitionStrategy : IStateTransitionStrategy
     {
-        public string StartStateId { get; set; }
-        public Dictionary<string, IIdBasedTransitionableState> TransitionMap { get; set; }
+        private readonly IState _startState;
+        public Dictionary<string, IIdBasedTransitionableState> Moves { get; }
+
+        public IdBasedTransitionStrategy(IEnumerable<IIdBasedTransitionableState> moves, string startState)
+        {
+            Moves = moves.ToDictionary(n => n.Id, n => n);
+            _startState = Moves[startState];
+        }
 
         public IState GetStartState() => 
-            TransitionMap[StartStateId];
+            _startState;
 
         public IState GetTransition(IState state) => 
             ((IIdBasedTransitionableState)state).GetTransitionStateId() is { } id 
-                ? TransitionMap[id] 
+                ? Moves[id] 
                 : null;
     }
 }

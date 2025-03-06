@@ -15,28 +15,17 @@ namespace Common.MoveSets
             _container = container;
 
         public MoveSetBehaviour Create(MoveSetConfig config) =>
-            new(CreateStateMachine(config));
+            new(CreateMoves(config.Moves), config.FirstMove.Id);
         
-        public T Create<T>(MoveSetConfig config) where T : MoveSetBehaviour => 
-            (T)Activator.CreateInstance(typeof(T), CreateStateMachine(config));
+        public TBehaviour Create<TBehaviour, TMove>(MoveSetConfig config) where TBehaviour : MoveSetBehaviour where TMove : Move => 
+            (TBehaviour)Activator.CreateInstance(typeof(TBehaviour), CreateMoves(config.Moves).Cast<TMove>(), config.FirstMove.Id);
 
-        private StateMachine CreateStateMachine(MoveSetConfig config) => 
-            new(CreateTransitionStrategy(config), config.DebugName);
-
-        private IStateTransitionStrategy CreateTransitionStrategy(MoveSetConfig config)
+        private IEnumerable<Move> CreateMoves(IEnumerable<MoveConfig> moveConfigs)
         {
-            var moves = CreateMoves(config.Moves.Concat(config.ExtendsConfigs.SelectMany(n => n.Moves))).ToArray();
+            var moves = moveConfigs.Select(n => _container.Instantiate(n.MoveType, new object[] { n })).Cast<Move>().ToArray();
             CreateTransitions(moves);
-            var strategy = new IdBasedTransitionStrategy
-            {
-                StartStateId = config.FirstMove.Id,
-                TransitionMap = moves.ToDictionary(n => n.Id, n => (IIdBasedTransitionableState)n)
-            };
-            return strategy;
+            return moves;
         }
-
-        private IEnumerable<Move> CreateMoves(IEnumerable<MoveConfig> moveConfigs) => 
-            moveConfigs.Select(n => _container.Instantiate(n.MoveType, new object[] {n})).Cast<Move>();
 
         private void CreateTransitions(Move[] moves)
         {

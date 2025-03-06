@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Common.Time;
 using Common.Unity;
+using Common.UtilsDotNet;
 using RogueDungeon.Enemies.MoveSet;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -125,6 +128,8 @@ namespace RogueDungeon.Enemies
         public EnemyPosition CombatPosition { get; set; }
         public ITwoDWorldObject WorldObject { get; }
         public bool IsAlive => _currentHealth > 0;
+        public IEnumerable<EnemyAttackMove> Attacks => _moveSetBehaviour.Moves.GetAll<EnemyAttackMove>();
+        public bool IsIdle => _moveSetBehaviour.IsIdle;
 
         public Enemy(EnemyConfig config, GameObject gameObject)
         {  
@@ -133,6 +138,7 @@ namespace RogueDungeon.Enemies
             _currentHealth = _config.Health;
         }
 
+        // creation step!
         public void SetBehaviour(EnemyMoveSetBehaviour moveSetBehaviour)
         {
             Assert.IsNull(_moveSetBehaviour);
@@ -157,5 +163,8 @@ namespace RogueDungeon.Enemies
 
         public void TakeDamage(float damage) => 
             _currentHealth -= damage;
+
+        public void PerformMove(EnemyAttackMove move) => 
+            _moveSetBehaviour.PendingMove = move;
     }
 }

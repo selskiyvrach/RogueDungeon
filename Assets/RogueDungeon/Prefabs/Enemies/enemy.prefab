@@ -112,7 +112,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animationPlayer: {fileID: 6772439091050780369}
-  _config: {fileID: 11400000, guid: ae702235ffc773848881755152fc56a0, type: 2}
   _spriteRenderer: {fileID: 4273855377420537768}
 --- !u!1 &8008703222660151044
 GameObject:
@@ -188,7 +187,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8072d7fccdca95f4a8e1113e051a3edf, type: 3}
+  m_Sprite: {fileID: -661027208, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
   m_Color: {r: 0.084905684, g: 0.0540673, b: 0.07818031, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -213,6 +212,7 @@ Animation:
   - {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
   - {fileID: 7400000, guid: f1ca005f2be838843ab128f69f8796d9, type: 2}
   - {fileID: 7400000, guid: 76c293bd796f6194599084b2d15a0f13, type: 2}
+  - {fileID: 7400000, guid: 338da7f47b95e6646909bc715d00bbfa, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
