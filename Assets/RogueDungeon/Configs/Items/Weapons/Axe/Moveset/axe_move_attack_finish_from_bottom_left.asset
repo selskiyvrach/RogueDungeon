@@ -24,7 +24,8 @@ MonoBehaviour:
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
-  - Idle
+  - <MoveId>k__BackingField: idle
+    <CanInterrupt>k__BackingField: 0
   <JustAnimation>k__BackingField: 1
   <Damage>k__BackingField: 15
   <RequiredInput>k__BackingField: 0

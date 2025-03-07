@@ -6,9 +6,9 @@ namespace RogueDungeon.Player.Behaviours.Hands
     public class HandHeldMoveConfig : MoveConfig
     {
         public override Type MoveType => Id switch {
-            "Idle" => typeof(HandHeldIdle),
-            "Unsheath" => typeof(UnsheathMove),
-            "Sheath" => typeof(SheathMove),
+            "idle" => typeof(HandHeldIdle),
+            "unsheath" => typeof(UnsheathMove),
+            "sheath" => typeof(SheathMove),
             _ => throw new ArgumentOutOfRangeException()
         };
     }

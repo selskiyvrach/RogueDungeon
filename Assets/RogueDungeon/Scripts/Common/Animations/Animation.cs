@@ -36,9 +36,18 @@ namespace Common.Animations
             
             foreach (var e in Events ?? Enumerable.Empty<AnimationEvent>())
             {
-                Assert.IsTrue(e.Time >= 0 && e.Time <= _config.Duration);
-                if(e.Time > lastFrameTime && e.Time < _timePassed)
-                    OnEvent?.Invoke(e.Name);
+                try
+                {
+                    Assert.IsTrue(e.Time >= 0 && e.Time <= _config.Duration);
+                    if(e.Time > lastFrameTime && e.Time < _timePassed)
+                        OnEvent?.Invoke(e.Name);
+
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    throw;
+                }
             }
             
             if(IsFinished)

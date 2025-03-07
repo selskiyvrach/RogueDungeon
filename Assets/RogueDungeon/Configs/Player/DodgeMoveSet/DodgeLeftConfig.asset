@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ce51916abd4f9986c41f9f58eb1fd2, type: 3}
   m_Name: DodgeLeftConfig
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: DodgeLeft
+  <Id>k__BackingField: dodge_left
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:
@@ -24,6 +24,7 @@ MonoBehaviour:
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
-  - Idle
+  - <MoveId>k__BackingField: idle
+    <CanInterrupt>k__BackingField: 0
   <RequiredInputKey>k__BackingField: 450
   <DodgeState>k__BackingField: 1

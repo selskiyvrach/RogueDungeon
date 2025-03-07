@@ -14,7 +14,7 @@ namespace Common.Animations
         {
             _target = target;
             _config = config;
-            Events = _config.Clip.events.Where(n => !n.stringParameter.IsNullOrEmpty()).Select(n => new AnimationEvent(n.time, n.stringParameter)).ToArray();
+            Events = _config.Clip.events.Where(n => !n.stringParameter.IsNullOrEmpty()).Select(n => new AnimationEvent(n.time / _config.Clip.length * _config.Duration, n.stringParameter)).ToArray();
         }
 
         protected override void ApplyAnimation(float timeNormalized) => 

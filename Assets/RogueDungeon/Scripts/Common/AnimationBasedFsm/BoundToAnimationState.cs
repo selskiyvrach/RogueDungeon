@@ -14,8 +14,11 @@ namespace Common.AnimationBasedFsm
             Animation.Play();
         }
 
-        public virtual void Exit() => 
+        public virtual void Exit()
+        {
             Animation.OnEvent -= OnAnimationEvent;
+            Animation.Stop();
+        }
 
         protected abstract void OnAnimationEvent(string name);
     }

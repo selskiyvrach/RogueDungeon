@@ -24,4 +24,5 @@ MonoBehaviour:
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
-  - death
+  - <MoveId>k__BackingField: death
+    <CanInterrupt>k__BackingField: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7180787e09084838b5dd771dc8f2b1d7, type: 3}
   m_Name: HandHeldUnsheathConfig
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: Unsheath
+  <Id>k__BackingField: unsheath
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:
@@ -24,4 +24,5 @@ MonoBehaviour:
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
-  - Idle
+  - <MoveId>k__BackingField: idle
+    <CanInterrupt>k__BackingField: 0

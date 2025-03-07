@@ -28,4 +28,7 @@ MonoBehaviour:
       - {fileID: -661027208, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
       <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
-  - death
+  - <MoveId>k__BackingField: death
+    <CanInterrupt>k__BackingField: 1
+  - <MoveId>k__BackingField: idle
+    <CanInterrupt>k__BackingField: 0

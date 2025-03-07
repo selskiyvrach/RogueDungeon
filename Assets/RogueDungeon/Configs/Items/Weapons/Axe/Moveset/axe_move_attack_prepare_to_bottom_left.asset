@@ -24,7 +24,8 @@ MonoBehaviour:
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
-  - attack_execute_to_bottom_left
+  - <MoveId>k__BackingField: attack_execute_to_bottom_left
+    <CanInterrupt>k__BackingField: 0
   <JustAnimation>k__BackingField: 1
   <Damage>k__BackingField: 0
   <RequiredInput>k__BackingField: 100

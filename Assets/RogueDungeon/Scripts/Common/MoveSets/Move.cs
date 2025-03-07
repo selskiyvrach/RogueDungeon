@@ -11,7 +11,7 @@ namespace Common.MoveSets
         
         public MoveConfig Config { get; }
         public string Id => Config.Id;
-        public Move[] Transitions { get; set; }
+        public Transition[] Transitions { get; set; }
 
         protected Move(MoveConfig config, IAnimation animation)
         {
@@ -19,20 +19,8 @@ namespace Common.MoveSets
             Animation = animation;
         }
 
-        public string GetTransitionStateId()
-        {
-            if (Id == "idle")
-            {
-                var transition = Transitions.FirstOrDefault(n => n.CanTransitionTo())?.Id;
-                return IsFinished
-                    ? transition ?? "idle"
-                    : transition;
-            }
-            
-            return IsFinished
-                ? Transitions.FirstOrDefault(n => n.CanTransitionTo())?.Id
-                : null;
-        }
+        public string GetTransitionStateId() => 
+            Transitions.FirstOrDefault(n => (IsFinished || n.CanInterrupt) && n.Move.CanTransitionTo())?.Move.Id;
 
         protected virtual bool CanTransitionTo() => true;
 
@@ -40,7 +28,6 @@ namespace Common.MoveSets
 
         protected override void OnAnimationEvent(string name)
         {
-            throw new System.NotImplementedException();
         }
     }
 }

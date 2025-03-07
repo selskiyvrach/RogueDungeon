@@ -34,9 +34,19 @@ namespace Common.MoveSets
         {
             foreach (var move in moves)
             {
-                var transitions = move.Config.Transitions.Select(n => moves.First(m => m.Id == n)).ToArray();
-                Assert.IsTrue(transitions.Length > 0);
-                move.Transitions = transitions;
+                try
+                {
+                    var transitions = move.Config.Transitions.Select(n => new Transition(moves.First(m => m.Id == n.MoveId), n.CanInterrupt)).ToArray();
+                    Assert.IsTrue(transitions.Length > 0);
+                    move.Transitions = transitions;
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+                
             }
         }
     }

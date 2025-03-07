@@ -12,7 +12,7 @@ namespace Common.MoveSets
     {
         [field: SerializeField] public string Id { get; private set; }
         [field: SerializeField, HideLabel] public AnimationConfigPicker AnimationConfigPicker { get; private set; }
-        [field: SerializeField] public string[] Transitions { get; private set; }
+        [field: SerializeField] public TransitionPicker[] Transitions { get; private set; }
 
         public virtual Type MoveType { get; } = typeof(Move);
     }
