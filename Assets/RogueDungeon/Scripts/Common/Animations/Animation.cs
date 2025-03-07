@@ -9,14 +9,16 @@ namespace Common.Animations
 {
     public abstract class Animation : IAnimation
     {
+        private readonly AnimationConfigWithDuration _config;
         private readonly Ticker _ticker = new();
         private float _timePassed;
-        
-        protected abstract float Duration { get; }
-        protected abstract IEnumerable<(float time, string name)> Events { get; }
-        
-        public bool IsFinished => _timePassed >= Duration;
+
+        protected abstract AnimationEvent[] Events { get; }
+        public bool IsFinished => _timePassed >= _config.Duration;
         public event Action<string> OnEvent;
+
+        protected Animation(AnimationConfigWithDuration config) => 
+            _config = config;
 
         public virtual void Play()
         {
@@ -30,13 +32,13 @@ namespace Common.Animations
             Assert.IsFalse(IsFinished);
             var lastFrameTime = _timePassed;
             _timePassed += timeDelta;
-            ApplyAnimation(Mathf.Clamp01(_timePassed / Duration));
+            ApplyAnimation(Mathf.Clamp01(_timePassed / _config.Duration));
             
-            foreach (var (time, name) in Events ?? Enumerable.Empty<(float, string)>())
+            foreach (var e in Events ?? Enumerable.Empty<AnimationEvent>())
             {
-                Assert.IsTrue(time >= 0 && time < Duration);
-                if(time > lastFrameTime && time < _timePassed)
-                    OnEvent?.Invoke(name);
+                Assert.IsTrue(e.Time >= 0 && e.Time < _config.Duration);
+                if(e.Time > lastFrameTime && e.Time < _timePassed)
+                    OnEvent?.Invoke(e.Name);
             }
             
             if(IsFinished)

@@ -22,7 +22,12 @@ namespace Common.MoveSets
 
         private IEnumerable<Move> CreateMoves(IEnumerable<MoveConfig> moveConfigs)
         {
-            var moves = moveConfigs.Select(n => _container.Instantiate(n.MoveType, new object[] { n })).Cast<Move>().ToArray();
+            var moves = moveConfigs.Select(n => _container.Instantiate(n.MoveType, new[]
+            {
+                n, 
+                _container.Instantiate(n.AnimationConfigPicker.Config.AnimationType, new []{n.AnimationConfigPicker.Config})
+            }))
+                .Cast<Move>().ToArray();
             CreateTransitions(moves);
             return moves;
         }

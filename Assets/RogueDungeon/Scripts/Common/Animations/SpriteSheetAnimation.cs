@@ -1,23 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 namespace Common.Animations
 {
     public class SpriteSheetAnimation : Animation
     {
+        private readonly SpriteSheetAnimationConfig _config;
         private readonly ISpriteSheetAnimationTarget _spriteSheetAnimationTarget;
         private readonly Sprite[] _sprites;
         
-        protected override float Duration { get; }
-        protected override IEnumerable<(float time, string name)> Events { get; }
+        protected override AnimationEvent[] Events { get; }
 
-        public SpriteSheetAnimation(ISpriteSheetAnimationTarget spriteSheetAnimationTarget, Sprite[] sprites, float duration, IEnumerable<(int frame, string name)> events)
+        public SpriteSheetAnimation(ISpriteSheetAnimationTarget spriteSheetAnimationTarget, SpriteSheetAnimationConfig config) : base(config)
         {
             _spriteSheetAnimationTarget = spriteSheetAnimationTarget;
-            _sprites = sprites;
-            Duration = duration;
-            Events = events.Select(n => (n.frame / (float)_sprites.Length * Duration, n.name)).ToArray();
+            _config = config;
+            Events = config.KeyFrames.Select(n => new AnimationEvent(n.Frame / (float)config.Sprites.Length * config.Duration, n.Name)).ToArray();
         }
 
         protected override void ApplyAnimation(float timeNormalized) => 
