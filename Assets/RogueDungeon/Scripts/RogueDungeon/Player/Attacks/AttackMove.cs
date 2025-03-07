@@ -11,7 +11,7 @@ namespace RogueDungeon.Weapons
         private readonly IPlayerAttacksMediator _playerAttacksMediator;
         private readonly AttackMoveConfig _config;
 
-        protected AttackMove(AttackMoveConfig config, IAnimator animator, IPlayerAttacksMediator playerAttacksMediator) : base(config, animator)
+        protected AttackMove(AttackMoveConfig config, IAnimation animation, IPlayerAttacksMediator playerAttacksMediator) : base(config, animation)
         {
             _config = config;
             _playerAttacksMediator = playerAttacksMediator;

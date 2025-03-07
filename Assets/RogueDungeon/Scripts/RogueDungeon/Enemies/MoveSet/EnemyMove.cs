@@ -5,7 +5,7 @@ namespace RogueDungeon.Enemies.MoveSet
 {
     public abstract class EnemyMove : Move
     {
-        protected EnemyMove(EnemyMoveConfig config, IAnimator animator) : base(config, animator)
+        protected EnemyMove(EnemyMoveConfig config, IAnimation animation) : base(config, animation)
         {
         }
     }

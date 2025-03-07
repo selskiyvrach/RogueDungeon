@@ -9,8 +9,8 @@ namespace RogueDungeon.Weapons
         private readonly PlayerAttackMoveConfig _config;
         private readonly IPlayerInput _input;
         
-        public PlayerAttackMove(IPlayerInput input, PlayerAttackMoveConfig config, IAnimator animator,
-            IPlayerAttacksMediator mediator) : base(config, animator, mediator)
+        public PlayerAttackMove(IPlayerInput input, PlayerAttackMoveConfig config, IAnimation animation,
+            IPlayerAttacksMediator mediator) : base(config, animation, mediator)
         {
             _config = config;
             _input = input;

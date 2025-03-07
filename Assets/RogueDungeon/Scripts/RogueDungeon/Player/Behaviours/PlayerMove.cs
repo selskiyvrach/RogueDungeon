@@ -9,7 +9,7 @@ namespace RogueDungeon.Player.Behaviours
         private readonly PlayerMoveConfig _config;
         private readonly IPlayerInput _inputReader;
 
-        public PlayerMove(PlayerMoveConfig config, IAnimator animator, IPlayerInput inputReader) : base(config, animator)
+        protected PlayerMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput inputReader) : base(config, animation)
         {
             _config = config;
             _inputReader = inputReader;

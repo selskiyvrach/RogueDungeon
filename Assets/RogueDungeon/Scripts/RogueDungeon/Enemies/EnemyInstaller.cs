@@ -3,21 +3,22 @@ using Common.MoveSets;
 using Common.UtilsZenject;
 using RogueDungeon.Enemies.MoveSet;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace RogueDungeon.Enemies
 {
     public class EnemyInstaller : MonoInstaller
     {
-        [SerializeField] private AnimationPlayer _animationPlayer;
-        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private AnimationClipTarget _animationClipTarget;
+        [SerializeField] private SpriteSheetAnimationTarget _spriteSheetAnimationTarget;
         
         public override void InstallBindings()
         {
-            Container.InstanceSingle(_spriteRenderer);
             Container.InstanceSingle(gameObject);
             Container.NewSingle<Enemy>();
-            Container.InstanceSingle<IAnimator>(_animationPlayer);
+            Container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
+            Container.InstanceSingle<ISpriteSheetAnimationTarget>(_spriteSheetAnimationTarget);
             Container.Resolve<Enemy>().SetBehaviour(new MoveSetFactory(Container).Create<EnemyMoveSetBehaviour, EnemyMove>(Container.Resolve<EnemyConfig>().MoveSet));
         }
     }

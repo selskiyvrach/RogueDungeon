@@ -5,7 +5,7 @@ namespace RogueDungeon.Player.Behaviours.Hands
 {
     public class UnsheathMove : HandHeldMove
     {
-        public UnsheathMove(IHandheldContext context, MoveConfig config, IAnimator animator) : base(context, config, animator)
+        public UnsheathMove(IHandheldContext context, MoveConfig config, IAnimation animation) : base(context, config, animation)
         {
         }
 

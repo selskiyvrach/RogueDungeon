@@ -7,7 +7,7 @@ namespace RogueDungeon.Player.Behaviours.Hands
     {
         protected readonly IHandheldContext Context;
         
-        protected HandHeldMove(IHandheldContext context, MoveConfig config, IAnimator animator) : base(config, animator) => 
+        protected HandHeldMove(IHandheldContext context, MoveConfig config, IAnimation animation) : base(config, animation) => 
             Context = context;
     }
 }

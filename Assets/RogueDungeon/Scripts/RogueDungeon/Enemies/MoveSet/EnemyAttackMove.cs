@@ -9,7 +9,7 @@ namespace RogueDungeon.Enemies.MoveSet
         private readonly IEnemyAttacksMediator _mediator;
         private readonly EnemyAttackMoveConfig _config;
         
-        public EnemyAttackMove(EnemyAttackMoveConfig config, IAnimator animator, IEnemyAttacksMediator mediator) : base(config, animator)
+        public EnemyAttackMove(EnemyAttackMoveConfig config, IAnimation animation, IEnemyAttacksMediator mediator) : base(config, animation)
         {
             _config = config;
             _mediator = mediator;

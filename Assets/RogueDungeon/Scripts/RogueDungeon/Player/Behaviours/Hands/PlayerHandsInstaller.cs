@@ -13,8 +13,8 @@ namespace RogueDungeon.Player.Behaviours.Hands
         /// Sheath/Unsheath moveset
         /// </summary>
         [SerializeField] private MoveSetConfig _sheathUnsheathMoveSetConfig;
-        [SerializeField] private AnimationPlayer _handsAnimator;
-        [SerializeField] private AnimationPlayer _handHeldItemAnimator;
+        [SerializeField] private AnimationClipTarget _handsAnimationsTarget;
+        [SerializeField] private AnimationClipTarget _handHeldItemAnimationsTarget;
         [SerializeField] private HandHeldItemPresenter _itemPresenter;
 
         public override void InstallBindings()
@@ -28,12 +28,12 @@ namespace RogueDungeon.Player.Behaviours.Hands
             
             // moveset factory for items
             var itemMovesetFactoryContainer = container.CreateSubContainer();
-            itemMovesetFactoryContainer.InstanceSingle<IAnimator>(_handHeldItemAnimator);
+            itemMovesetFactoryContainer.InstanceSingle<IAnimationClipTarget>(_handHeldItemAnimationsTarget);
             itemMovesetFactoryContainer.NewSingle<IFactory<MoveSetConfig, MoveSetBehaviour>, MoveSetFactory>();
             
             // unsheath moveset
             var unsheathMoveSetContainer = container.CreateSubContainer();
-            unsheathMoveSetContainer.InstanceSingle<IAnimator>(_handsAnimator);
+            unsheathMoveSetContainer.InstanceSingle<IAnimationClipTarget>(_handsAnimationsTarget);
             unsheathMoveSetContainer.InstanceSingle(new MoveSetFactory(unsheathMoveSetContainer).Create(_sheathUnsheathMoveSetConfig));
 
             container.InstanceSingle(new HandsArgs(

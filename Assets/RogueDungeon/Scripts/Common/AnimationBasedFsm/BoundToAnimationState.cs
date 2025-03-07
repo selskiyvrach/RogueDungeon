@@ -3,27 +3,20 @@ using Common.Fsm;
 
 namespace Common.AnimationBasedFsm
 {
-    public abstract class BoundToAnimationState : TimerState, IExitableState
+    public abstract class BoundToAnimationState : IState, IEnterableState, IExitableState
     {
-        private readonly IAnimator _animator;
-        protected abstract AnimationData Animation { get; }
-        protected override float Duration => Animation.Duration;
+        protected abstract IAnimation Animation { get; }
+        public bool IsFinished => Animation.IsFinished;
 
-        protected BoundToAnimationState(IAnimator animator) => 
-            _animator = animator;
-
-        public override void Enter()
+        public virtual void Enter()
         {
-            base.Enter();
-            _animator.OnEvent += OnAnimationEvent;
-            _animator.Play(Animation);
+            Animation.OnEvent += OnAnimationEvent;
+            Animation.Play();
         }
 
         public virtual void Exit() => 
-            _animator.OnEvent -= OnAnimationEvent;
+            Animation.OnEvent -= OnAnimationEvent;
 
-        protected virtual void OnAnimationEvent(string name)
-        {
-        }
+        protected abstract void OnAnimationEvent(string name);
     }
 }

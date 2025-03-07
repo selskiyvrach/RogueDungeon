@@ -8,12 +8,12 @@ namespace Common.Animations
     public class AnimationClipAdapter : Animation
     {
         private readonly AnimationClip _clip;
-        private readonly GameObject _target;
+        private readonly IAnimationClipTarget _target;
 
         protected override float Duration { get; }
         protected override IEnumerable<(float time, string name)> Events { get; }
 
-        public AnimationClipAdapter(AnimationClip clip, float duration, GameObject target)
+        public AnimationClipAdapter(AnimationClip clip, float duration, IAnimationClipTarget target)
         {
             _clip = clip;
             _target = target;
@@ -22,6 +22,6 @@ namespace Common.Animations
         }
 
         protected override void ApplyAnimation(float timeNormalized) => 
-            _clip.SampleAnimation(_target, _clip.length * timeNormalized);
+            _clip.SampleAnimation(_target.GameObject, _clip.length * timeNormalized);
     }
 }
