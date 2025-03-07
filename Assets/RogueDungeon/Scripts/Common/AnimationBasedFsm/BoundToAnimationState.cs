@@ -3,7 +3,7 @@ using Common.Fsm;
 
 namespace Common.AnimationBasedFsm
 {
-    public abstract class BoundToAnimationState : IState, IEnterableState, IExitableState
+    public abstract class BoundToAnimationState : IState, IEnterableState, IExitableState, ITickableState
     {
         protected abstract IAnimation Animation { get; }
         public bool IsFinished => Animation.IsFinished;
@@ -14,11 +14,11 @@ namespace Common.AnimationBasedFsm
             Animation.Play();
         }
 
-        public virtual void Exit()
-        {
+        public virtual void Exit() => 
             Animation.OnEvent -= OnAnimationEvent;
-            Animation.Stop();
-        }
+
+        public virtual void Tick(float timeDelta) => 
+            Animation.Tick(timeDelta);
 
         protected abstract void OnAnimationEvent(string name);
     }

@@ -5,9 +5,9 @@ using RogueDungeon.Enemies.HiveMind;
 
 namespace RogueDungeon.Enemies.MoveSet
 {
-    public class EnemyDeathMove : EnemyMove, ITickableState
+    public class EnemyDeathMove : EnemyMove
     {
-        private readonly Enemy _enemy;
+        private Enemy _enemy;
         private readonly IEnemiesRegistry _enemiesRegistry;
         public EnemyDeathMove(EnemyMoveConfig config, IAnimation animation, IEnemiesRegistry enemiesRegistry, Enemy enemy) : base(config, animation)
         {
@@ -18,14 +18,15 @@ namespace RogueDungeon.Enemies.MoveSet
         protected override bool CanTransitionTo() => 
             base.CanTransitionTo() && !_enemy.IsAlive;
         
-        public void Tick(float timeDelta)
+        public override void Tick(float timeDelta)
         {
-            if (!IsFinished) 
+            if (!IsFinished && _enemy == null)
                 return;
             
             _enemiesRegistry.UnregisterEnemy(_enemy);
             _enemy.Disable();
             _enemy.Destroy();
+            _enemy = null;
         }
     }
 }

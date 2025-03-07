@@ -12,17 +12,5 @@ namespace RogueDungeon.Enemies.MoveSet
             _config = config;
             _enemy = enemy;
         }
-
-        public override void Enter()
-        {
-            base.Enter();
-            // _context.EnemySpecificMoveSet.Enable();
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-            // _context.EnemySpecificMoveSet.Disable();
-        }
     }
 }

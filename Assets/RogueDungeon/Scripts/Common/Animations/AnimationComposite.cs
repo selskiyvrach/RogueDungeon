@@ -25,14 +25,17 @@ namespace Common.Animations
             }
         }
 
+        public void Tick(float deltaTime)
+        {
+            foreach (var animation in _animations) 
+                animation.Tick(deltaTime);
+        }
+
         public void Stop()
         {
             _ticker.Stop();
-            foreach (var animation in _animations)
-            {
+            foreach (var animation in _animations) 
                 animation.OnEvent -= RaiseEvent;
-                animation.Stop();
-            }
         }
 
         private void RaiseEvent(string name) => 

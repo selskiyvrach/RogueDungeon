@@ -7,6 +7,6 @@ namespace Common.Animations
         bool IsFinished { get; }
         event Action<string> OnEvent;
         void Play();
-        void Stop();
+        void Tick(float deltaTime);
     }
 }
