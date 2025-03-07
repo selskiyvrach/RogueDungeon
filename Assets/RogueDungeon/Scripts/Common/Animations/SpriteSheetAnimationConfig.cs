@@ -13,6 +13,6 @@ namespace Common.Animations
         [field: SerializeField] public Sprite[] Sprites {get; private set;}
         [field: SerializeField] public FrameEvent[] KeyFrames {get; private set;}
         
-        public override Type AnimationType => typeof(AnimationClipAdapter);
+        public override Type AnimationType => typeof(SpriteSheetAnimation);
     }
 }

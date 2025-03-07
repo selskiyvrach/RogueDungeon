@@ -13,9 +13,16 @@ MonoBehaviour:
   m_Name: DodgeIdleConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: Idle
-  <AnimationClip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
-    type: 2}
-  <Duration>k__BackingField: 1
+  <AnimationConfigPicker>k__BackingField:
+    _animationType: 0
+    _animationClipConfig:
+      <Duration>k__BackingField: 1
+      <Clip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+        type: 2}
+    _spriteSheetAnimationConfig:
+      <Duration>k__BackingField: 0
+      <Sprites>k__BackingField: []
+      <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
   - DodgeLeft
   - DodgeRight

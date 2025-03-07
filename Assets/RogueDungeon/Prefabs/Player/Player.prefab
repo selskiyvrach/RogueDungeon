@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9479eec1222542e294a2bfba016c9938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationClipTarget: {fileID: 0}
+  _animationClipTarget: {fileID: 3731265630743536219}
   _dodgeMoveSetConfig: {fileID: 11400000, guid: 86d1eb421d4318e44b736900965b2ccb,
     type: 2}
 --- !u!114 &6350304918856226592

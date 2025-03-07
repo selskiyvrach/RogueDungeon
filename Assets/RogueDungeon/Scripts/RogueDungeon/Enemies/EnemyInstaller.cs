@@ -3,7 +3,6 @@ using Common.MoveSets;
 using Common.UtilsZenject;
 using RogueDungeon.Enemies.MoveSet;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace RogueDungeon.Enemies
@@ -16,9 +15,9 @@ namespace RogueDungeon.Enemies
         public override void InstallBindings()
         {
             Container.InstanceSingle(gameObject);
-            Container.NewSingle<Enemy>();
             Container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
             Container.InstanceSingle<ISpriteSheetAnimationTarget>(_spriteSheetAnimationTarget);
+            Container.NewSingle<Enemy>();
             Container.Resolve<Enemy>().SetBehaviour(new MoveSetFactory(Container).Create<EnemyMoveSetBehaviour, EnemyMove>(Container.Resolve<EnemyConfig>().MoveSet));
         }
     }

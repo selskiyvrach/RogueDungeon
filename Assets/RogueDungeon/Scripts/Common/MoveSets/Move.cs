@@ -21,11 +21,11 @@ namespace Common.MoveSets
 
         public string GetTransitionStateId()
         {
-            if (Id == "Idle")
+            if (Id == "idle")
             {
                 var transition = Transitions.FirstOrDefault(n => n.CanTransitionTo())?.Id;
                 return IsFinished
-                    ? transition ?? "Idle"
+                    ? transition ?? "idle"
                     : transition;
             }
             

@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Id>k__BackingField: attack_execute_to_bottom_left
   <AnimationConfigPicker>k__BackingField:
-    _animationType: 2
+    _animationType: 0
     _animationClipConfig:
-      <Duration>k__BackingField: 0
-      <Clip>k__BackingField: {fileID: 0}
+      <Duration>k__BackingField: 0.3
+      <Clip>k__BackingField: {fileID: 7400000, guid: 4cf254eabdd83164dbc6a4d4d1c71287,
+        type: 2}
     _spriteSheetAnimationConfig:
       <Duration>k__BackingField: 0
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
-  <Duration>k__BackingField: 0.25
   <Transitions>k__BackingField:
   - attack_prepare_to_bottom_right
   - attack_finish_from_bottom_left

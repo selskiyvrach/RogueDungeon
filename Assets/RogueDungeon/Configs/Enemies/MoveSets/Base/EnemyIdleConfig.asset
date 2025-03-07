@@ -13,8 +13,19 @@ MonoBehaviour:
   m_Name: EnemyIdleConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: idle
-  <AnimationClip>k__BackingField: {fileID: 7400000, guid: 338da7f47b95e6646909bc715d00bbfa,
-    type: 2}
-  <Duration>k__BackingField: 1
+  <AnimationConfigPicker>k__BackingField:
+    _animationType: 1
+    _animationClipConfig:
+      <Duration>k__BackingField: 0
+      <Clip>k__BackingField: {fileID: 0}
+    _spriteSheetAnimationConfig:
+      <Duration>k__BackingField: 1
+      <Sprites>k__BackingField:
+      - {fileID: -661027208, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: -860329356, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: -1088192750, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: -860329356, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: -661027208, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
   - death

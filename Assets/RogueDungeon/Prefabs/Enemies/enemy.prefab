@@ -64,8 +64,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d493e94682d4cf1bbf75098282d94eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationClipTarget: {fileID: 0}
-  _spriteSheetAnimationTarget: {fileID: 0}
+  _animationClipTarget: {fileID: 4511428795101559773}
+  _spriteSheetAnimationTarget: {fileID: 7902273964972670759}
 --- !u!1 &8008703222660151044
 GameObject:
   m_ObjectHideFlags: 0

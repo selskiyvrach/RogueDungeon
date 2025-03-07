@@ -13,11 +13,18 @@ MonoBehaviour:
   m_Name: axe_move_attack_finish_from_bottom_left
   m_EditorClassIdentifier: 
   <Id>k__BackingField: attack_finish_from_bottom_left
-  <AnimationClip>k__BackingField: {fileID: 7400000, guid: da0ed563cf2b5ad4b9eb9d4a945fa8b4,
-    type: 2}
-  <Duration>k__BackingField: 0.25
+  <AnimationConfigPicker>k__BackingField:
+    _animationType: 0
+    _animationClipConfig:
+      <Duration>k__BackingField: 0.3
+      <Clip>k__BackingField: {fileID: 7400000, guid: da0ed563cf2b5ad4b9eb9d4a945fa8b4,
+        type: 2}
+    _spriteSheetAnimationConfig:
+      <Duration>k__BackingField: 0
+      <Sprites>k__BackingField: []
+      <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
   - Idle
   <JustAnimation>k__BackingField: 1
   <Damage>k__BackingField: 15
-  <Input>k__BackingField: 0
+  <RequiredInput>k__BackingField: 0

@@ -13,8 +13,15 @@ MonoBehaviour:
   m_Name: HandHeldSheathConfig
   m_EditorClassIdentifier: 
   <Id>k__BackingField: Sheath
-  <AnimationClip>k__BackingField: {fileID: 7400000, guid: 0fc197a58775c2a4aaecb3493cd730e1,
-    type: 2}
-  <Duration>k__BackingField: 0.5
+  <AnimationConfigPicker>k__BackingField:
+    _animationType: 0
+    _animationClipConfig:
+      <Duration>k__BackingField: 0.5
+      <Clip>k__BackingField: {fileID: 7400000, guid: 0fc197a58775c2a4aaecb3493cd730e1,
+        type: 2}
+    _spriteSheetAnimationConfig:
+      <Duration>k__BackingField: 0
+      <Sprites>k__BackingField: []
+      <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
   - Idle
