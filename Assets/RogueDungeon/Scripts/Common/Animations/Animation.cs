@@ -7,16 +7,6 @@ using UnityEngine.Assertions;
 
 namespace Common.Animations
 {
-    public interface IAnimation
-    {
-        bool IsFinished { get; }
-        event Action<string> OnEvent;
-        void Play();
-        void Stop();
-    }
-    
-    // create regular animation wrapper and spritesheet animation
-
     public abstract class Animation : IAnimation
     {
         private readonly Ticker _ticker = new();
@@ -31,11 +21,11 @@ namespace Common.Animations
         public virtual void Play()
         {
             _timePassed = 0;
-            ApplyAnimation(0);
             _ticker.Start(Tick);
+            ApplyAnimation(0);
         }
 
-        protected virtual void Tick(float timeDelta)
+        private void Tick(float timeDelta)
         {
             Assert.IsFalse(IsFinished);
             var lastFrameTime = _timePassed;
