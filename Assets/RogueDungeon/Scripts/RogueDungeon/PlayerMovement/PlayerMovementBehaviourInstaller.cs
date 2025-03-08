@@ -15,7 +15,7 @@ namespace PlayerMovement
             var levelTraverserContainer = Container.CreateSubContainer();
             levelTraverserContainer.InstanceSingle(_levelTraverserConfig);
             levelTraverserContainer.NewSingle<ITypeBasedStatesProvider, TypeBasedStatesProviderWithCache>();
-            levelTraverserContainer.NewSingle<IStateTransitionStrategy, TypeBasedTransitionStrategy>();
+            levelTraverserContainer.NewSingleInterfacesAndSelf<TypeBasedTransitionStrategy>();
             levelTraverserContainer.Resolve<TypeBasedTransitionStrategy>().SetStartState<TraversalIdleState>();
             levelTraverserContainer.NewSingle<StateMachine>();
             levelTraverserContainer.NewSingleInterfacesAndSelf<PlayerMovement>();

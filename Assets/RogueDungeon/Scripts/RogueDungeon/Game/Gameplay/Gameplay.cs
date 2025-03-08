@@ -17,6 +17,8 @@ namespace RogueDungeon.Game.Gameplay
         private readonly IGameCamera _camera;
         private readonly IFactory<LevelConfig, Level> _levelFactory;
         private readonly HiveMind _hiveMind;
+        
+        private Player.Player _player;
 
         public Gameplay(GameplayConfig config, IPlayerSpawner playerSpawner, IGameCamera camera, IFactory<LevelConfig, Level> levelFactory, IPlayerInput playerInput, HiveMind hiveMind)
         {
@@ -31,16 +33,19 @@ namespace RogueDungeon.Game.Gameplay
         public void Initialize()
         {
             var level = _levelFactory.Create(_config.LevelConfig);
-            var player = _playerSpawner.Spawn();
-            level.LevelTraverser = player.WorldObject;
+            _player = _playerSpawner.Spawn();
+            level.LevelTraverser = _player.WorldObject;
             level.Initialize();
-            _camera.Follow = player.CameraPovPoint;
-            player.Initialize();
+            _camera.Follow = _player.CameraPovPoint;
+            _player.Initialize();
+            _hiveMind.Initialize();
         }
 
         public void Tick(float timeDelta)
         {
-            throw new System.NotImplementedException();
+            _playerInput.Tick(timeDelta);
+            _player.Tick(timeDelta);
+            _hiveMind.Tick(timeDelta);
         }
 
         public void SetExplorationMode()

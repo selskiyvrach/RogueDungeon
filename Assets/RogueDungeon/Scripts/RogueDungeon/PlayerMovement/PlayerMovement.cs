@@ -26,10 +26,9 @@ namespace PlayerMovement
         protected PlayerMovement(StateMachine stateMachine) => 
             _stateMachine = stateMachine;
 
-        public void Initialize()
-        {
-        }
-        
+        public void Initialize() => 
+            _stateMachine.Initialize();
+
         public void Tick(float deltaTime) => 
             _stateMachine.Tick(deltaTime);
     }

@@ -1,4 +1,5 @@
-﻿using Common.UtilsZenject;
+﻿using System;
+using Common.UtilsZenject;
 using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
 using RogueDungeon.Levels;
@@ -16,6 +17,7 @@ namespace RogueDungeon.Game.Gameplay
         [SerializeField] private BattleField _battleField;
         [SerializeField] private Transform _levelRoot;
         [SerializeField] private RoomLocalPositionsConfig _roomLocalPositionsConfig;
+        private Gameplay _gameplay;
 
         public override void InstallBindings()
         {
@@ -48,7 +50,11 @@ namespace RogueDungeon.Game.Gameplay
         public override void Start()
         {
             base.Start();
-            Container.Resolve<Gameplay>().Initialize();
+            _gameplay = Container.Resolve<Gameplay>();
+            _gameplay.Initialize();
         }
+
+        private void Update() => 
+            _gameplay.Tick(Time.deltaTime);
     }
 }
