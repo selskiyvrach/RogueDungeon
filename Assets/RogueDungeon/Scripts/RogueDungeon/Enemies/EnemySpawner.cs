@@ -23,12 +23,12 @@ namespace RogueDungeon.Enemies
 
         public void Spawn(EnemyConfig config, EnemyPosition position)
         {
-            if (_enemiesRegistry.Enemies.Any(n => n.TargetablePosition == position))
+            if (_enemiesRegistry.Enemies.Any(n => n.OccupiedPosition == position))
                 throw new Exception("Enemy position you want to spawn in is already occupied");
             
             var enemy = _factory.Create(new EnemyFactoryArgs(config, _parent.transform));
-            enemy.TargetablePosition = position;
-            enemy.WorldObject.LocalPosition = _roomLocalPositionConfig.Get(enemy.TargetablePosition);
+            enemy.OccupiedPosition = position;
+            enemy.WorldObject.LocalPosition = _roomLocalPositionConfig.Get(enemy.OccupiedPosition);
             _enemiesRegistry.RegisterEnemy(enemy);
         }
     }

@@ -8,7 +8,6 @@ namespace RogueDungeon.Combat
 {
     public class CombatantsRegistry : IEnemiesRegistry, IPlayerRegistry
     {
-        private readonly List<Enemy> _enemies = new(3);
         private Player.Player _player;
 
         public Player.Player Player
@@ -22,18 +21,18 @@ namespace RogueDungeon.Combat
             }
         }
 
-        public IEnumerable<Enemy> Enemies => _enemies;
+        public List<Enemy> Enemies { get; } = new(3);
 
         public void RegisterEnemy(Enemy enemy)
         {
-            if (_enemies.Contains(enemy))
+            if (Enemies.Contains(enemy))
                 throw new Exception("This enemy instance is already registered.");
-            _enemies.Add(enemy);
+            Enemies.Add(enemy);
         }
 
         public void UnregisterEnemy(Enemy enemy)
         {
-            if(!_enemies.Remove(enemy))
+            if(!Enemies.Remove(enemy))
                 throw new ArgumentException("Enemy is not registered");
         }
     }

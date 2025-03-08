@@ -17,10 +17,11 @@ namespace RogueDungeon.Levels
         private readonly IEnemiesRegistry _enemiesRegistry;
         private readonly IEnemySpawner _enemySpawner;
         private readonly Level _level;
+        private readonly HiveMind _hiveMind;
 
         public override RoomEventPriority Priority => RoomEventPriority.Combat;
 
-        public CombatRoomEvent(IEnemiesRegistry enemiesRegistry, CombatRoomEventConfig config, IEnemySpawner enemySpawner, BattleField battleField, Level level, IGameplayModeChanger gameplayModeChanger)
+        public CombatRoomEvent(IEnemiesRegistry enemiesRegistry, CombatRoomEventConfig config, IEnemySpawner enemySpawner, BattleField battleField, Level level, IGameplayModeChanger gameplayModeChanger, HiveMind hiveMind)
         {
             _enemiesRegistry = enemiesRegistry;
             _config = config;
@@ -28,6 +29,7 @@ namespace RogueDungeon.Levels
             _battleField = battleField;
             _level = level;
             _gameplayModeChanger = gameplayModeChanger;
+            _hiveMind = hiveMind;
         }
 
         public override IEnumerator ProcessEvent(Room room)
@@ -38,6 +40,7 @@ namespace RogueDungeon.Levels
             
             _battleField.Position = room.Coordinates;
             _battleField.Direction = _level.LevelTraverser.Rotation.Round();
+            _hiveMind.Initialize();
             
             if(_config.MiddleEnemy is {} middleEnemy)
                 _enemySpawner.Spawn(middleEnemy, EnemyPosition.Middle);
@@ -48,8 +51,13 @@ namespace RogueDungeon.Levels
             
             foreach (var enemy in _enemiesRegistry.Enemies) 
                 enemy.Initialize();
+
+            while (_enemiesRegistry.Enemies.Any())
+            {
+                _hiveMind.Tick(Time.deltaTime);
+                yield return null;
+            }
             
-            yield return new WaitUntil(() => !_enemiesRegistry.Enemies.Any());
             _gameplayModeChanger.SetExplorationMode();
         }
     }
