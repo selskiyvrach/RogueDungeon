@@ -18,7 +18,7 @@ namespace RogueDungeon.Enemies
             Container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
             Container.InstanceSingle<ISpriteSheetAnimationTarget>(_spriteSheetAnimationTarget);
             Container.NewSingle<Enemy>();
-            Container.Resolve<Enemy>().SetBehaviour(new MoveSetFactory(Container).Create<EnemyMoveSetBehaviour, EnemyMove>(Container.Resolve<EnemyConfig>().MoveSet));
+            Container.Resolve<Enemy>().SetBehaviour(new MoveSetFactory(Container).Create(Container.Resolve<EnemyConfig>().MoveSet));
         }
     }
 }

@@ -11,7 +11,8 @@
         "GUID:acb9aa1ff2fc4cc297d84faa271ffca7",
         "GUID:cc8645a250564cfab03e49dbdc33c95d",
         "GUID:694f59623a13416e82dd84c3b2dcf008",
-        "GUID:3c6591eac2634e0db5ea71ec276d62ff"
+        "GUID:3c6591eac2634e0db5ea71ec276d62ff",
+        "Common.Lifecycle"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

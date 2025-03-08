@@ -8,11 +8,11 @@
         "GUID:16603f163f524af7842af7f70b9aaa92",
         "GUID:56316acafb484b999a91fbaf7d4fff95",
         "GUID:b4a932adf04e4c7f9a32442cf355e28c",
-        "GUID:7ed30415c41e161439fcc22ea83cb3b9",
         "GUID:3c6591eac2634e0db5ea71ec276d62ff",
         "GUID:34e812e582ac4704b9b415ce28b7272a",
         "GUID:bf976f4fa76a4895a31ae9a9d493a745",
-        "RogueDungeon.Animations"
+        "GUID:561af9d663014b93a576fb4aaea75f54",
+        "GUID:f7908ab9e5464a33be2525137c117ec8"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

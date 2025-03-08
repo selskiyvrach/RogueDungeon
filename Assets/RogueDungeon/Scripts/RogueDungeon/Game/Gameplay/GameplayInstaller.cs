@@ -48,7 +48,7 @@ namespace RogueDungeon.Game.Gameplay
         public override void Start()
         {
             base.Start();
-            Container.Resolve<Gameplay>().Enable();
+            Container.Resolve<Gameplay>().Initialize();
         }
     }
 }

@@ -1,17 +1,16 @@
-﻿using Common.Behaviours;
-using Common.MoveSets;
+﻿using Common.Fsm;
 using RogueDungeon.Items;
 
 namespace RogueDungeon.Player.Behaviours.Hands
 {
-    public class PlayerHandsBehaviour : Behaviour, IHandheldContext
+    public class PlayerHandsBehaviour : IHandheldContext
     {
         private readonly HandsArgs _args;
         
         private Item _currentItem;
         private Item _intendedItem;
         private HandHeldItemPresenter _itemPresenter;
-        private MoveSetBehaviour _itemMoveSet;
+        private StateMachine _itemMoveSet;
 
         Item IHandheldContext.CurrentItem
         {
@@ -31,18 +30,11 @@ namespace RogueDungeon.Player.Behaviours.Hands
         public PlayerHandsBehaviour(HandsArgs handsArgs) => 
             _args = handsArgs;
 
-        public override void Enable()
+        public void Initialize()
         {
             if(!_args.HandHeldContext.Inited)
                 _args.HandHeldContext.Init(() => _currentItem, () => _intendedItem, SetCurrentItem, n => _intendedItem = n, SetItemMoveSetActive);
-            _args.UnsheathMoveSet.Enable();
-            base.Enable();
-        }
-
-        public override void Disable()
-        {
-            base.Disable();
-            _args.UnsheathMoveSet.Disable();
+            _args.UnsheathMoveSet.Initialize();
         }
 
         private void SetCurrentItem(Item value)
@@ -69,13 +61,16 @@ namespace RogueDungeon.Player.Behaviours.Hands
         private void CreateItemMoveSet()
         {
             _itemMoveSet = _args.ItemMoveSetFactory.Create(_currentItem.Config.MoveSetConfig);
-            _itemMoveSet.Enable();
+            _itemMoveSet.Initialize();
         }
 
-        private void DeleteItemMoveSet()
-        {
-            _itemMoveSet?.Disable();
+        private void DeleteItemMoveSet() => 
             _itemMoveSet = null;
+
+        public void Tick(float deltaTime)
+        {
+            _itemMoveSet?.Tick(deltaTime);
+            _args.UnsheathMoveSet.Tick(deltaTime);
         }
     }
 }

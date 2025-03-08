@@ -13,14 +13,14 @@ namespace RogueDungeon.Enemies.HiveMind
         {
             var container = Container.CreateSubContainer();
             container.InstanceSingle(_config);
-            container.NewSingle<HiveMindContext>();
+            container.NewSingle<HiveMind>();
             container.NewSingle<ITypeBasedStatesProvider, TypeBasedStatesProviderWithCache>();
             var transitions = container.Instantiate<TypeBasedTransitionStrategy>();
             transitions.SetStartState<HiveMindIdleState>();
-            container.NewSingle<StateMachine>();
             container.InstanceSingle<IStateTransitionStrategy>(transitions);
-            container.NewSingle<HiveMindBehaviour>();
-            Container.Bind<HiveMindBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();
+            container.NewSingle<StateMachine>();
+            container.Resolve<HiveMind>().SetBehaviour(container.Resolve<StateMachine>());
+            Container.Bind<HiveMind>().FromSubContainerResolve().ByInstance(container).AsSingle();
         }
     }
 }

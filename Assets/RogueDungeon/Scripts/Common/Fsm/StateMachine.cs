@@ -6,7 +6,7 @@ namespace Common.Fsm
 {
     public class StateMachine
     {
-        public readonly IStateTransitionStrategy TransitionStrategy;
+        private readonly IStateTransitionStrategy _stateTransitionStrategy;
         private readonly ILogger _logger;
         private readonly HashSet<IState> _transitionsHistory = new();
 
@@ -16,16 +16,16 @@ namespace Common.Fsm
         public IState CurrentState { get; private set; }
         public string DebugName { get; set; }
 
-        public StateMachine(IStateTransitionStrategy transitionStrategy, string debugName = "", ILogger logger = null)
+        public StateMachine(IStateTransitionStrategy stateTransitionStrategy, string debugName = "", ILogger logger = null)
         {
-            TransitionStrategy = transitionStrategy;
+            _stateTransitionStrategy = stateTransitionStrategy;
             DebugName = debugName;
             _logger = logger ?? new DefaultLogger();
             _instanceId = _instanceCount++;
         }
 
-        public void Enable() => 
-            ChangeState(TransitionStrategy.GetStartState());
+        public void Initialize() => 
+            ChangeState(_stateTransitionStrategy.GetStartState());
 
         public void Tick(float timeDelta)
         {
@@ -48,7 +48,7 @@ namespace Common.Fsm
 
         private void TryTransition()
         {
-            if(TransitionStrategy.GetTransition(CurrentState) is {} state)
+            if(_stateTransitionStrategy.GetTransition(CurrentState) is {} state)
                 ChangeState(state);
         }
     }

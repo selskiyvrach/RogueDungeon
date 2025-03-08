@@ -20,7 +20,7 @@ namespace RogueDungeon.Combat
 
         public void MediatePlayerAttack(float damage)
         {
-            if (_enemiesRegistry.Enemies.FirstOrDefault(n => n.CombatPosition == EnemyPosition.Middle) is not {} enemy)
+            if (_enemiesRegistry.Enemies.FirstOrDefault(n => n.TargetablePosition == EnemyPosition.Middle) is not {} enemy)
             {
                 // miss
                 return;

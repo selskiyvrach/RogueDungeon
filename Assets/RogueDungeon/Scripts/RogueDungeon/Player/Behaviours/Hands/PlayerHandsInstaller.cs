@@ -1,4 +1,5 @@
 ﻿using Common.Animations;
+using Common.Fsm;
 using Common.MoveSets;
 using Common.UtilsZenject;
 using RogueDungeon.Items;
@@ -29,7 +30,7 @@ namespace RogueDungeon.Player.Behaviours.Hands
             // moveset factory for items
             var itemMovesetFactoryContainer = container.CreateSubContainer();
             itemMovesetFactoryContainer.InstanceSingle<IAnimationClipTarget>(_handHeldItemAnimationsTarget);
-            itemMovesetFactoryContainer.NewSingle<IFactory<MoveSetConfig, MoveSetBehaviour>, MoveSetFactory>();
+            itemMovesetFactoryContainer.NewSingle<IFactory<MoveSetConfig, StateMachine>, MoveSetFactory>();
             
             // unsheath moveset
             var unsheathMoveSetContainer = container.CreateSubContainer();
@@ -40,9 +41,9 @@ namespace RogueDungeon.Player.Behaviours.Hands
                 // item presenter factory
                 container.Resolve<IFactory<ItemConfig, HandHeldItemPresenter>>(),
                 // item moveSet factory
-                itemMovesetFactoryContainer.Resolve<IFactory<MoveSetConfig, MoveSetBehaviour>>(),
+                itemMovesetFactoryContainer.Resolve<IFactory<MoveSetConfig, StateMachine>>(),
                 // sheath/unsheath moveset
-                unsheathMoveSetContainer.Resolve<MoveSetBehaviour>(),
+                unsheathMoveSetContainer.Resolve<StateMachine>(),
                 // context  
                 container.Resolve<HandHeldContext>()));
             container.NewSingle<PlayerHandsBehaviour>();

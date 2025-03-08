@@ -47,7 +47,7 @@ namespace RogueDungeon.Levels
                 _enemySpawner.Spawn(leftEnemy, EnemyPosition.Left);
             
             foreach (var enemy in _enemiesRegistry.Enemies) 
-                enemy.Enable();
+                enemy.Initialize();
             
             yield return new WaitUntil(() => !_enemiesRegistry.Enemies.Any());
             _gameplayModeChanger.SetExplorationMode();

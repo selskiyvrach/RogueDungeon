@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Common.Behaviours;
 using Common.Fsm;
-using Common.Time;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -10,7 +8,7 @@ namespace RogueDungeon.Enemies.HiveMind
 {
     public class HiveMindMoveEnemiesState : HiveMindState
     {
-        private readonly HiveMindContext _context;
+        private readonly HiveMind _context;
         private readonly HiveMindConfig _config;
         private readonly RoomLocalPositionsConfig _positionsConfig;
         
@@ -18,9 +16,7 @@ namespace RogueDungeon.Enemies.HiveMind
 
         private float _timePassed;
 
-        protected override bool IsSlackFrame => true;
-
-        public HiveMindMoveEnemiesState(HiveMindContext context, HiveMindConfig config, RoomLocalPositionsConfig positionsConfig) : base(context)
+        public HiveMindMoveEnemiesState(HiveMind context, HiveMindConfig config, RoomLocalPositionsConfig positionsConfig)
         {
             _context = context;
             _config = config;
@@ -30,6 +26,7 @@ namespace RogueDungeon.Enemies.HiveMind
         public override void Enter()
         {
             base.Enter();
+            _movements.Clear();
             _movements.AddRange(_context.EnemiesToMove.Select(n => new Movement
             {
                 Target = n.enemy,
@@ -40,9 +37,10 @@ namespace RogueDungeon.Enemies.HiveMind
             
             _context.EnemiesToMove.Clear();
             Assert.IsTrue(_movements.Any());
-            
+
             foreach (var movement in _movements) 
-                movement.Target.CombatPosition = EnemyPosition.ChangingPosition;
+                movement.Target.OccupiedPosition = movement.DestinationPosition;
+
             
             _timePassed = 0;
         }
@@ -50,23 +48,26 @@ namespace RogueDungeon.Enemies.HiveMind
         public override void Tick(float timeDelta)
         {
             base.Tick(timeDelta);
+            _context.SlackTime += timeDelta;
+            var moveDuration = _config.MoveDuration;
+            var halfMoveDuration = _config.MoveDuration / 2;
+            var oldNormTime = Mathf.Clamp01(_timePassed / moveDuration);
+            
             _timePassed += timeDelta;
-            var normTime = Mathf.Clamp01(_timePassed / _config.MoveFromPositionToPositionDuration);
-            foreach (var movement in _movements) 
-                movement.Target.WorldObject.LocalPosition = Vector2.Lerp(movement.StartCoordinates, movement.DestinationCoordinates, normTime);
-        }
+            var normTime = Mathf.Clamp01(_timePassed / moveDuration);
+            var passingMidPoint = oldNormTime <= halfMoveDuration && normTime >= halfMoveDuration;
 
-        public override void Exit()
-        {
-            base.Exit();
-            foreach (var n in _movements) 
-                n.Target.CombatPosition = n.DestinationPosition;
-            _movements.Clear();
+            foreach (var movement in _movements)
+            {
+                movement.Target.WorldObject.LocalPosition = Vector2.Lerp(movement.StartCoordinates, movement.DestinationCoordinates, normTime);
+                if(passingMidPoint)
+                    movement.Target.TargetablePosition = movement.DestinationPosition;
+            }
         }
 
         public override void CheckTransitions(ITypeBasedStateChanger stateChanger)
         {
-            if(_timePassed >= _config.MoveFromPositionToPositionDuration)
+            if(_timePassed >= _config.MoveDuration)
                 stateChanger.ChangeState<HiveMindIdleState>();
         }
     }

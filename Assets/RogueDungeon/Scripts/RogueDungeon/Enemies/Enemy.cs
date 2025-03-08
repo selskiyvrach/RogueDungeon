@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using Common.Fsm;
+using Common.Lifecycle;
 using Common.Time;
 using Common.Unity;
-using Common.UtilsDotNet;
 using RogueDungeon.Enemies.MoveSet;
 using UnityEngine;
 using UnityEngine.Assertions;
-using Behaviour = Common.Behaviours.Behaviour;
 
 namespace RogueDungeon.Enemies
 {
@@ -119,17 +117,19 @@ namespace RogueDungeon.Enemies
         // check for stun
     }
         
-    public class Enemy : Behaviour
+    public class Enemy : IInitializable, ITickable
     {
-        private EnemyMoveSetBehaviour _moveSetBehaviour;
+        private StateMachine _moveSetBehaviour;
         private readonly EnemyConfig _config;
         private float _currentHealth;
 
-        public EnemyPosition CombatPosition { get; set; }
+        public EnemyPosition TargetablePosition { get; set; }
+        public EnemyPosition OccupiedPosition { get; set; }
+        
         public ITwoDWorldObject WorldObject { get; }
         public bool IsAlive => _currentHealth > 0;
-        public IEnumerable<EnemyAttackMove> Attacks => _moveSetBehaviour.Moves.GetAll<EnemyAttackMove>();
-        public bool IsIdle => _moveSetBehaviour.IsIdle;
+        public bool IsIdle => throw new NotImplementedException();
+        public EnemyAttackMove[] Attacks => throw new NotImplementedException();
 
         public Enemy(EnemyConfig config, GameObject gameObject)
         {  
@@ -139,24 +139,18 @@ namespace RogueDungeon.Enemies
         }
 
         // creation step!
-        public void SetBehaviour(EnemyMoveSetBehaviour moveSetBehaviour)
+        public void SetBehaviour(StateMachine moveSetBehaviour)
         {
             Assert.IsNull(_moveSetBehaviour);
             Assert.IsNotNull(moveSetBehaviour);
             _moveSetBehaviour = moveSetBehaviour;
         }
 
-        public override void Enable()
-        {
-            base.Enable();
-            _moveSetBehaviour.Enable();
-        }
+        public void Tick(float deltaTime) => 
+            _moveSetBehaviour.Tick(deltaTime);
 
-        public override void Disable()
-        {
-            base.Disable();
-            _moveSetBehaviour.Disable();
-        }
+        public void Initialize() => 
+            _moveSetBehaviour.Initialize();
 
         public void Destroy() =>
             ((TwoDWorldObject)WorldObject).Destroy();
@@ -164,7 +158,9 @@ namespace RogueDungeon.Enemies
         public void TakeDamage(float damage) => 
             _currentHealth -= damage;
 
-        public void PerformMove(EnemyAttackMove move) => 
-            _moveSetBehaviour.PendingMove = move;
+        public void PerformMove(EnemyAttackMove move)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

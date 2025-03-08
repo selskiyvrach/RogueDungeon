@@ -2,12 +2,13 @@
 using Common.Unity;
 using RogueDungeon.Player;
 using UnityEngine;
-using StateMachineBehaviour = Common.Behaviours.StateMachineBehaviour;
 
 namespace PlayerMovement
 {
-    public class PlayerMovementBehaviour : StateMachineBehaviour, ITwoDWorldObject, IPlayerMovementBehaviour
+    public class PlayerMovement : ITwoDWorldObject, IPlayerMovementBehaviour
     {
+        private readonly StateMachine _stateMachine;
+        
         public TwoDWorldObject ObjectToMove { get; set; }
         
         public Vector2 LocalPosition
@@ -22,14 +23,14 @@ namespace PlayerMovement
             set => ObjectToMove.Rotation = value; 
         }
 
-        protected PlayerMovementBehaviour(StateMachine stateMachine) : base(stateMachine)
-        {
-        }
+        protected PlayerMovement(StateMachine stateMachine) => 
+            _stateMachine = stateMachine;
 
-        public override void Enable()
+        public void Initialize()
         {
-            ((TypeBasedTransitionStrategy)StateMachine.TransitionStrategy).SetStartState<TraversalIdleState>();
-            base.Enable();
         }
+        
+        public void Tick(float deltaTime) => 
+            _stateMachine.Tick(deltaTime);
     }
 }

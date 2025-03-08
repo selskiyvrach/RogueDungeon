@@ -24,7 +24,6 @@ namespace RogueDungeon.Enemies.MoveSet
                 return;
             
             _enemiesRegistry.UnregisterEnemy(_enemy);
-            _enemy.Disable();
             _enemy.Destroy();
             _enemy = null;
         }

@@ -1,8 +1,8 @@
-﻿using Common.Behaviours;
+﻿using Common.Lifecycle;
 
 namespace RogueDungeon.Input
 {
-    public interface IPlayerInput : IBehaviour
+    public interface IPlayerInput : ITickable
     {
         void SetFilter(InputFilter filter);
         bool HasInput(InputKey inputKey);

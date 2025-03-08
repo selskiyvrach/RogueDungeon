@@ -1,13 +1,13 @@
-﻿using Common.Unity;
+﻿using Common.Lifecycle;
+using Common.Unity;
 using RogueDungeon.Items;
 using RogueDungeon.Player.Behaviours.Dodge;
 using RogueDungeon.Player.Behaviours.Hands;
 using UnityEngine;
-using Behaviour = Common.Behaviours.Behaviour;
 
 namespace RogueDungeon.Player
 {
-    public class Player : Behaviour, IDodger
+    public class Player : IDodger, IInitializable, ITickable
     {
         private readonly IPlayerMovementBehaviour _levelTraverserBehaviour;
         private readonly PlayerConfig _config;
@@ -27,24 +27,20 @@ namespace RogueDungeon.Player
             _levelTraverserBehaviour.ObjectToMove = WorldObject;
         }
 
-        public override void Enable()
+        public void Initialize()
         {
-            base.Enable();
-            _levelTraverserBehaviour.Enable();
-            _playerHandsBehaviour.Enable();
+            _levelTraverserBehaviour.Initialize();
+            _playerHandsBehaviour.Initialize();
             ((IHandheldContext)_playerHandsBehaviour).IntendedItem = new Item(_config.DefaultWeapon); 
         }
 
-        public override void Disable()
-        {
-            base.Disable();
-            _levelTraverserBehaviour.Disable();
-            _playerHandsBehaviour.Disable();
-        }
-
-        public void TakeDamage(float damage)
-        {
+        public void TakeDamage(float damage) => 
             Debug.LogError("Player taking damage");
+
+        public void Tick(float deltaTime)
+        {
+            _levelTraverserBehaviour.Tick(deltaTime);
+            _playerHandsBehaviour.Tick(deltaTime);
         }
     }
 }

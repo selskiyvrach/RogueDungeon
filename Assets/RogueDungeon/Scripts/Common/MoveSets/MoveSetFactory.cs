@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Common.Fsm;
-using UnityEngine.Assertions;
 using Zenject;
 
 namespace Common.MoveSets
 {
-    public class MoveSetFactory : IFactory<MoveSetConfig, MoveSetBehaviour>
+    public class MoveSetFactory : IFactory<MoveSetConfig, StateMachine>
     {
         private readonly DiContainer _container;
 
         public MoveSetFactory(DiContainer container) => 
             _container = container;
 
-        public MoveSetBehaviour Create(MoveSetConfig config) =>
-            new(CreateMoves(config.Moves), config.FirstMove.Id);
-        
-        public TBehaviour Create<TBehaviour, TMove>(MoveSetConfig config) where TBehaviour : MoveSetBehaviour where TMove : Move => 
-            (TBehaviour)Activator.CreateInstance(typeof(TBehaviour), CreateMoves(config.Moves).Cast<TMove>(), config.FirstMove.Id);
+        public StateMachine Create(MoveSetConfig config) =>
+            new(new IdBasedTransitionStrategy(CreateMoves(config.Moves), config.FirstMove.Id));
 
         private IEnumerable<Move> CreateMoves(IEnumerable<MoveConfig> moveConfigs)
         {

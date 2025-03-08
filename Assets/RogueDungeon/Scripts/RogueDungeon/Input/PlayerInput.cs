@@ -1,28 +1,23 @@
 using System;
-using Common.Behaviours;
 using Common.UtilsDotNet;
 using UnityEngine;
 
 namespace RogueDungeon.Input
 {
-    internal class PlayerInput : TickableBehaviour, IPlayerInput
+    internal class PlayerInput : IPlayerInput
     {
-        private readonly InputMapConfig _inputMapConfig;
         private readonly InputMap _inputMap;
         private InputUnit _currentInput;
         private float _timeSinceReleased;
         private float _timeHeld;
 
-        public PlayerInput(InputMap inputMap, InputMapConfig inputMapConfig)
-        {
+        public PlayerInput(InputMap inputMap) => 
             _inputMap = inputMap;
-            _inputMapConfig = inputMapConfig;
-        }
 
-        protected override void Tick(float timeDelta)
+        public void Tick(float timeDelta)
         {
             UpdateCoyoteTime();
-            ReadCommands();
+            ReadCommands(timeDelta);
         }
 
         public bool HasInput(InputKey inputKey) => 
@@ -49,7 +44,7 @@ namespace RogueDungeon.Input
             _timeSinceReleased = Mathf.Infinity;
         }
 
-        private void ReadCommands()
+        private void ReadCommands(float timeDelta)
         {
             foreach (var unit in _inputMap.EnabledUnits)
             {
@@ -63,7 +58,7 @@ namespace RogueDungeon.Input
                     _timeHeld = 0;
                 }
                 else
-                    _timeHeld += Time.deltaTime;
+                    _timeHeld += timeDelta;
             }
         }
 

@@ -6,6 +6,5 @@
         Middle,
         Left,
         Right,
-        ChangingPosition = 100,
     }
 }

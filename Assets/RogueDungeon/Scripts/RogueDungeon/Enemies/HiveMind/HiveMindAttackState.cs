@@ -8,45 +8,46 @@ namespace RogueDungeon.Enemies.HiveMind
 {
     public class HiveMindAttackState : HiveMindState
     {
-        private readonly List<EnemyAttackMove> _attacksBuffer = new(); 
+        private readonly List<EnemyAttackMove> _attacksBuffer = new();
+        private readonly HiveMind _context;
         private readonly IEnemiesRegistry _enemiesRegistry;
-        private readonly HiveMindContext _hiveMindContext;
+        private readonly HiveMind _hiveMind;
         private Enemy _attacker;
-        protected override bool IsSlackFrame => false;
 
-        public HiveMindAttackState(HiveMindContext context, IEnemiesRegistry enemiesRegistry, HiveMindContext hiveMindContext) : base(context)
+        public HiveMindAttackState(HiveMind context, IEnemiesRegistry enemiesRegistry, HiveMind hiveMind)
         {
+            _context = context;
             _enemiesRegistry = enemiesRegistry;
-            _hiveMindContext = hiveMindContext;
+            _hiveMind = hiveMind;
         }
 
         public override void Enter()
         {
-            _hiveMindContext.SlackTime = 0;
+            _hiveMind.SlackTime = 0;
             base.Enter();
-            for (var i = 0; i < Context.AttackersQueue.Count; i++)
+            for (var i = 0; i < _context.AttackersQueue.Count; i++)
             {
-                var enemy = Context.AttackersQueue.Dequeue();
+                var enemy = _context.AttackersQueue.Dequeue();
                 if(_enemiesRegistry.Enemies.Any(n => n == enemy && n.IsAlive && n.IsIdle))
-                    Context.AttackersQueue.Enqueue(enemy);
+                    _context.AttackersQueue.Enqueue(enemy);
             }
             foreach (var registeredEnemy in _enemiesRegistry.Enemies)
             {
-                if(!Context.AttackersQueue.Contains(registeredEnemy) && registeredEnemy.IsAlive && registeredEnemy.IsIdle)
-                    Context.AttackersQueue.Enqueue(registeredEnemy);
+                if(!_context.AttackersQueue.Contains(registeredEnemy) && registeredEnemy.IsAlive && registeredEnemy.IsIdle)
+                    _context.AttackersQueue.Enqueue(registeredEnemy);
             }
             
-            var attemptsLeft = Context.AttackersQueue.Count;
+            var attemptsLeft = _context.AttackersQueue.Count;
             while (attemptsLeft-- > 0)
             {
-                var peek = Context.AttackersQueue.Peek().ThrowIfNull();
+                var peek = _context.AttackersQueue.Peek().ThrowIfNull();
                 _attacksBuffer.Clear();
-                _attacksBuffer.AddRange(peek.Attacks.Where(n => n.IsSuitableForPosition(peek.CombatPosition)));
+                _attacksBuffer.AddRange(peek.Attacks.Where(n => n.IsSuitableForPosition(peek.TargetablePosition)));
                 if(_attacksBuffer.Count == 0)
                     continue;
 
-                _attacker = Context.AttackersQueue.Dequeue();
-                Context.AttackersQueue.Enqueue(_attacker);
+                _attacker = _context.AttackersQueue.Dequeue();
+                _context.AttackersQueue.Enqueue(_attacker);
                 _attacker.PerformMove(_attacksBuffer.Random());
                 break;
             }

@@ -1,8 +1,7 @@
-﻿namespace Common.Behaviours
+﻿namespace Common.Lifecycle
 {
     public interface IBehaviour
     {
-        bool IsEnabled { get; }
         void Enable();
         void Disable();
     }
