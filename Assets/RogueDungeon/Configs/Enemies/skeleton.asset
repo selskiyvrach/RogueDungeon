@@ -15,5 +15,5 @@ MonoBehaviour:
   <Health>k__BackingField: 10
   <Prefab>k__BackingField: {fileID: 3537052854619438027, guid: ceb53294180329e48bbab23da185840e,
     type: 3}
-  <MoveSet>k__BackingField: {fileID: 11400000, guid: ae702235ffc773848881755152fc56a0,
+  <MoveSet>k__BackingField: {fileID: 11400000, guid: 2738874add92b1e4e94fa3f59c65bd57,
     type: 2}

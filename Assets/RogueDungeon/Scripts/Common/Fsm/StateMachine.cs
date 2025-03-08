@@ -36,7 +36,7 @@ namespace Common.Fsm
 
         public void ChangeState(IState newState)
         {
-            _logger?.Log($"[Fsm: '{DebugName}' ({_instanceId})]. {CurrentState} -> {newState}");
+            _logger?.Log($"[FsmName: {DebugName} FsmId: {_instanceId}]. {CurrentState} -> {newState}");
             (CurrentState as IExitableState)?.Exit();
             CurrentState = newState;
             if (!_transitionsHistory.Add(CurrentState))

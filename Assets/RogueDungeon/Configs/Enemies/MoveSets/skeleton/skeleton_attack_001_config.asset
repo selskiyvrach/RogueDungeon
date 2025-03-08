@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395c38bf22cc45c78ecd2735b41fa433, type: 3}
+  m_Name: skeleton_attack_001_config
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: attack
+  <AnimationConfigPicker>k__BackingField:
+    _animationType: 1
+    _animationClipConfig:
+      <Duration>k__BackingField: 1
+      <Clip>k__BackingField: {fileID: 0}
+    _spriteSheetAnimationConfig:
+      <Duration>k__BackingField: 1
+      <Sprites>k__BackingField:
+      - {fileID: -661027208, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: 21300000, guid: 8072d7fccdca95f4a8e1113e051a3edf, type: 3}
+      - {fileID: -860329356, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      <KeyFrames>k__BackingField:
+      - <Frame>k__BackingField: 1
+        <Name>k__BackingField: hit
+  <Transitions>k__BackingField: []
+  <Damage>k__BackingField: 10
+  <AttackDirection>k__BackingField: 1
+  <SuitableForPositions>k__BackingField: 0100000002000000
