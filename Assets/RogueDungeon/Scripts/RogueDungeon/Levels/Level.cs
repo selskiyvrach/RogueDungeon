@@ -1,15 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Common.Lifecycle;
 using Common.Unity;
 
 namespace RogueDungeon.Levels
 {
-    public class Level
+    public class Level : ITickable
     {
         private readonly Room[] _rooms;
+        private ITwoDWorldObject _levelTraverser;
         public IRoom StartingRoom { get; }
+        public IRoom CurrentRoom { get; set; }
         public IEnumerable<IRoom> Rooms => _rooms;
-        public ITwoDWorldObject LevelTraverser { get; set; }
+
+        public ITwoDWorldObject LevelTraverser
+        {
+            get => _levelTraverser;
+            set
+            {
+                _levelTraverser = value;
+                RefreshCurrentRoom();
+            }
+        }
 
         public Level(IRoom startingRoom, IEnumerable<Room> rooms)
         {
@@ -22,5 +34,11 @@ namespace RogueDungeon.Levels
             foreach (var room in _rooms) 
                 room.Initialize();
         }
+
+        public void Tick(float timeDelta) => 
+            CurrentRoom?.Tick(timeDelta);
+
+        public void RefreshCurrentRoom() => 
+            CurrentRoom = Rooms.FirstOrDefault(n => n.Coordinates == LevelTraverser.LocalPosition.Round());
     }
 }

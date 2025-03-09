@@ -1,6 +1,8 @@
-﻿namespace Common.Fsm
+﻿using Common.Lifecycle;
+
+namespace Common.Fsm
 {
-    public abstract class TimerState : IState, ITickableState, IEnterableState
+    public abstract class TimerState : IState, ITickable, IEnterableState
     {
         private float _timePassed;
         protected abstract float Duration { get; }

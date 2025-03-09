@@ -6,6 +6,5 @@ namespace PlayerMovement
     {
         [field: SerializeField] public float MoveDuration { get; private set; } = 1;
         [field: SerializeField] public float RotationDuration { get; private set; } = 1;
-        [field: SerializeField, Range(0.01f, 0.49f)] public float PositionOffsetFromTileCenter { get; private set; } = .5f;
     }
 }

@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using Common.Fsm;
+using Common.Lifecycle;
 
 namespace RogueDungeon.Levels
 {
-    public interface IRoomEvent
+    public interface IRoomEvent : ITickable, IEnterableState, IExitableState, IFinishable
     {
         RoomEventPriority Priority { get; }
-        IEnumerator ProcessEvent(Room room);
+        Room Room { set; }
     }
 }

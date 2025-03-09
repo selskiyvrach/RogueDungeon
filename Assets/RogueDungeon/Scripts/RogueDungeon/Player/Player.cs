@@ -1,6 +1,6 @@
 ﻿using Common.Lifecycle;
-using Common.Unity;
 using RogueDungeon.Items;
+using RogueDungeon.Levels;
 using RogueDungeon.Player.Behaviours.Dodge;
 using RogueDungeon.Player.Behaviours.Hands;
 using UnityEngine;
@@ -12,23 +12,28 @@ namespace RogueDungeon.Player
         private readonly IPlayerMovementBehaviour _levelTraverserBehaviour;
         private readonly PlayerConfig _config;
         private readonly PlayerHandsBehaviour _playerHandsBehaviour;
+        private readonly Level _level;
         public Transform CameraPovPoint { get; }
-        public TwoDWorldObject WorldObject { get; }
+        public PlayerPositionInTheMaze WorldObject { get; }
         public PlayerDodgeState DodgeState { get; set; }
         public bool IsAlive { get; }
 
-        public Player(PlayerConfig config, PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject, IPlayerMovementBehaviour levelTraverserBehaviour)
+        public Player(PlayerConfig config, PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject,
+            IPlayerMovementBehaviour levelTraverserBehaviour, Level level, PlayerPositionInTheMaze playerMazePosition)
         {
             _config = config;
             _playerHandsBehaviour = playerHandsBehaviour;
             _levelTraverserBehaviour = levelTraverserBehaviour;
-            WorldObject = new TwoDWorldObject(gameObject.gameObject);
+            _level = level;
+            WorldObject = playerMazePosition;
             CameraPovPoint = gameObject.CameraReferencePoint;
-            _levelTraverserBehaviour.ObjectToMove = WorldObject;
         }
 
         public void Initialize()
         {
+            WorldObject.LocalPosition = Vector3.zero;
+            WorldObject.Rotation = Vector2.down;
+            _level.LevelTraverser = WorldObject;
             _levelTraverserBehaviour.Initialize();
             _playerHandsBehaviour.Initialize();
             ((IHandheldContext)_playerHandsBehaviour).IntendedItem = new Item(_config.DefaultWeapon); 

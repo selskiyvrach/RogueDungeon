@@ -1,5 +1,6 @@
 ﻿using Common.Fsm;
 using Common.Unity;
+using RogueDungeon.Levels;
 using RogueDungeon.Player;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ namespace PlayerMovement
     {
         private readonly StateMachine _stateMachine;
         
-        public TwoDWorldObject ObjectToMove { get; set; }
+        // this is a hack to decouple player->behaviour->player dependency in creation time
+        public ITwoDWorldObject ObjectToMove { get; set; }
         
         public Vector2 LocalPosition
         {

@@ -1,14 +1,21 @@
-﻿using System.Collections;
+﻿using UnityEngine.Assertions;
 
 namespace RogueDungeon.Levels
 {
     public abstract class RoomEvent : IRoomEvent
     {
         public abstract RoomEventPriority Priority { get; }
+        public Room Room { get; set; }
+        public abstract bool IsFinished { get; }
 
-        public virtual IEnumerator ProcessEvent(Room room)
+        public virtual void Tick(float timeDelta)
         {
-            yield break;
         }
+
+        public virtual void Enter() => 
+            Assert.IsNotNull(Room);
+
+        public virtual void Exit() => 
+            Room = null;
     }
 }

@@ -6,13 +6,13 @@
         "GUID:7219b7caae824cf8a7e9cd2b004517a7",
         "GUID:994b5dc97368eb14e99f5db274da221c",
         "GUID:33ff481a4ab24ce7b1439aea6973eb1d",
-        "GUID:7ed30415c41e161439fcc22ea83cb3b9",
         "GUID:db840d0285d7440cbff943863f353d26",
         "GUID:acb9aa1ff2fc4cc297d84faa271ffca7",
         "GUID:cc8645a250564cfab03e49dbdc33c95d",
         "GUID:694f59623a13416e82dd84c3b2dcf008",
         "GUID:3c6591eac2634e0db5ea71ec276d62ff",
-        "Common.Lifecycle"
+        "GUID:f7908ab9e5464a33be2525137c117ec8",
+        "GUID:b4a932adf04e4c7f9a32442cf355e28c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

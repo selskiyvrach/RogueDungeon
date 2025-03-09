@@ -8,22 +8,20 @@ namespace PlayerMovement
 {
     public class TraversalIdleState : ITypeBasedTransitionableState
     {
-        private readonly ITwoDWorldObject _levelTraverser;
         private readonly IPlayerInput _input;
         private readonly Level _level;
 
-        public TraversalIdleState(IPlayerInput input, ITwoDWorldObject levelTraverser, Level level)
+        public TraversalIdleState(IPlayerInput input, Level level)
         {
             _input = input;
-            _levelTraverser = levelTraverser;
             _level = level;
         }
 
         public void CheckTransitions(ITypeBasedStateChanger stateChanger)
         {
             if (_input.HasInput(InputKey.MoveForward) && 
-                _level.Rooms.First(n => n.Coordinates == _levelTraverser.LocalPosition.Round()).AdjacentRooms.
-                    HasAdjacentRoom(_levelTraverser.Rotation.Round()))
+                _level.Rooms.First(n => n.Coordinates == _level.LevelTraverser.LocalPosition.Round()).AdjacentRooms.
+                    HasAdjacentRoom(_level.LevelTraverser.Rotation.Round()))
             {
                 stateChanger.ChangeState<MoveForwardState>();
             }

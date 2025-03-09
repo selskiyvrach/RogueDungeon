@@ -1,9 +1,10 @@
 ﻿using Common.Animations;
 using Common.Fsm;
+using Common.Lifecycle;
 
 namespace Common.AnimationBasedFsm
 {
-    public abstract class BoundToAnimationState : IState, IEnterableState, IExitableState, ITickableState
+    public abstract class BoundToAnimationState : IState, IEnterableState, IExitableState, ITickable
     {
         protected abstract IAnimation Animation { get; }
         public bool IsFinished => Animation.IsFinished;

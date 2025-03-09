@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common.Lifecycle;
 using Common.UtilsDotNet;
 
 namespace Common.Fsm
@@ -9,17 +10,16 @@ namespace Common.Fsm
         private readonly IStateTransitionStrategy _stateTransitionStrategy;
         private readonly ILogger _logger;
         private readonly HashSet<IState> _transitionsHistory = new();
-
-        private static int _instanceCount;
+        private readonly string _debugName;
         private readonly int _instanceId;
 
-        public IState CurrentState { get; private set; }
-        public string DebugName { get; set; }
+        private IState _currentState;
+        private static int _instanceCount;
 
         public StateMachine(IStateTransitionStrategy stateTransitionStrategy, string debugName = "", ILogger logger = null)
         {
             _stateTransitionStrategy = stateTransitionStrategy;
-            DebugName = debugName;
+            _debugName = debugName;
             _logger = logger ?? new DefaultLogger();
             _instanceId = _instanceCount++;
         }
@@ -29,26 +29,26 @@ namespace Common.Fsm
 
         public void Tick(float timeDelta)
         {
-            (CurrentState as ITickableState)?.Tick(timeDelta);
+            (_currentState as ITickable)?.Tick(timeDelta);
             _transitionsHistory.Clear();
             TryTransition();
         }
 
         public void ChangeState(IState newState)
         {
-            _logger?.Log($"[FsmName: {DebugName} FsmId: {_instanceId}]. {CurrentState} -> {newState}");
-            (CurrentState as IExitableState)?.Exit();
-            CurrentState = newState;
-            if (!_transitionsHistory.Add(CurrentState))
+            _logger?.Log($"[FsmName: {_debugName} FsmId: {_instanceId}]. {_currentState} -> {newState}");
+            (_currentState as IExitableState)?.Exit();
+            _currentState = newState;
+            if (!_transitionsHistory.Add(_currentState))
                 throw new InvalidOperationException("Infinite transitions loop detected: " + _transitionsHistory.JoinTypeNames());
 
-            (CurrentState as IEnterableState)?.Enter();
+            (_currentState as IEnterableState)?.Enter();
             TryTransition();
         }
 
         private void TryTransition()
         {
-            if(_stateTransitionStrategy.GetTransition(CurrentState) is {} state)
+            if(_stateTransitionStrategy.GetTransition(_currentState) is {} state)
                 ChangeState(state);
         }
     }

@@ -32,9 +32,13 @@ namespace Common.Unity
                 var dir = _gameObject.transform.forward;
                 return new Vector2(dir.x, dir.z);
             }
-            set => _gameObject.transform.forward = new Vector3(value.x, 0, value.y);
+            set
+            {
+                value = value.normalized;
+                _gameObject.transform.forward = new Vector3(value.x, 0, value.y);
+            }
         }
-        
+
         public TwoDWorldObject(GameObject gameObject) => 
             _gameObject = gameObject;
     }

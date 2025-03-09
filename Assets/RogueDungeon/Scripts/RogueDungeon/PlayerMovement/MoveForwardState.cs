@@ -11,11 +11,11 @@ namespace PlayerMovement
     {
         private readonly IPlayerInput _input;
         private readonly Level _level;
-        private Vector2Int _from;
-        private Vector2Int _to;
+        private Vector2 _from;
+        private Vector2 _to;
         protected override float Duration => Config.MoveDuration;
         
-        public MoveForwardState(ITwoDWorldObject levelTraverser, LevelTraverserConfig config, Level level, IPlayerInput input) : base(levelTraverser, config)
+        public MoveForwardState(Level level, LevelTraverserConfig config, IPlayerInput input) : base(level, config)
         {
             _level = level;
             _input = input;
@@ -26,18 +26,17 @@ namespace PlayerMovement
             base.Enter();
             _input.ConsumeInput(InputKey.MoveForward);
             _from = LevelTraverser.LocalPosition.Round();
-            _level.Rooms.First(n => n.Coordinates == _from).Exit();
+            _level.CurrentRoom.Exit();
             _to = _from + LevelTraverser.Rotation.Round();
         }
         
-        public void Exit() => 
-            _level.Rooms.First(n => n.Coordinates == LevelTraverser.LocalPosition.Round()).Enter();
-
-        protected override void SetValueNormalized(float value)
+        public void Exit()
         {
-            var from = GetPositionInTileWithOffset(_from);
-            var to = GetPositionInTileWithOffset(_to);
-            LevelTraverser.LocalPosition = Vector2.Lerp(from, to, value);
+            _level.RefreshCurrentRoom();
+            _level.CurrentRoom.Enter();
         }
+
+        protected override void SetValueNormalized(float value) => 
+            LevelTraverser.LocalPosition = Vector2.Lerp(_from, _to, value);
     }
 }

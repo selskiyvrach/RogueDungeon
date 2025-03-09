@@ -1,21 +1,24 @@
 ﻿using Common.Fsm;
+using Common.Lifecycle;
 using Common.Unity;
+using RogueDungeon.Levels;
 using UnityEngine;
 
 namespace PlayerMovement
 {
-    public abstract class TraversalState : ITypeBasedTransitionableState, IEnterableState, ITickableState
+    public abstract class TraversalState : ITypeBasedTransitionableState, IEnterableState, ITickable
     {
         private float _timePassed;
-        
+
+        private readonly Level _level;
         protected readonly LevelTraverserConfig Config;
         protected abstract float Duration { get; }
-        protected readonly ITwoDWorldObject LevelTraverser;
+        protected ITwoDWorldObject LevelTraverser => _level.LevelTraverser;
         public bool IsFinished => _timePassed >= Duration;
 
-        protected TraversalState(ITwoDWorldObject levelTraverser, LevelTraverserConfig config)
+        protected TraversalState(Level level, LevelTraverserConfig config)
         {
-            LevelTraverser = levelTraverser;
+            _level = level;
             Config = config;
         }
 
@@ -29,10 +32,6 @@ namespace PlayerMovement
         }
 
         protected abstract void SetValueNormalized(float value);
-
-        protected Vector2 GetPositionInTileWithOffset(Vector2Int targetTile) => 
-            targetTile + LevelTraverser.Rotation * -Config.PositionOffsetFromTileCenter;
-
 
         public void CheckTransitions(ITypeBasedStateChanger stateChanger)
         {

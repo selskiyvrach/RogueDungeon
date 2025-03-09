@@ -5,6 +5,5 @@ namespace RogueDungeon.Player
 {
     public interface IPlayerMovementBehaviour : IInitializable, ITickable
     {
-        TwoDWorldObject ObjectToMove { get; set; }
     }
 }

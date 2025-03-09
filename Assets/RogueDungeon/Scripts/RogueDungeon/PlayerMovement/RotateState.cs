@@ -1,6 +1,7 @@
 ﻿using System;
 using Common.Unity;
 using RogueDungeon.Input;
+using RogueDungeon.Levels;
 using UnityEngine;
 
 namespace PlayerMovement
@@ -12,7 +13,7 @@ namespace PlayerMovement
         private float _to;
         protected override float Duration => Config.RotationDuration;
 
-        public RotateState(ITwoDWorldObject levelTraverser, LevelTraverserConfig config, IPlayerInput input) : base(levelTraverser, config) => 
+        public RotateState(Level level, LevelTraverserConfig config, IPlayerInput input) : base(level, config) => 
             _input = input;
 
         public override void Enter()
@@ -44,7 +45,6 @@ namespace PlayerMovement
         {
             var angle = Mathf.LerpAngle(_from, _to, Mathf.Clamp01(value));
             LevelTraverser.Rotation = FromAngle(angle);
-            LevelTraverser.LocalPosition = GetPositionInTileWithOffset(LevelTraverser.LocalPosition.Round());
         }
 
         private static Vector2 FromAngle(float degrees) =>

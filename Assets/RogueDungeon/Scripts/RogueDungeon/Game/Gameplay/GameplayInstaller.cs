@@ -1,5 +1,4 @@
-﻿using System;
-using Common.UtilsZenject;
+﻿using Common.UtilsZenject;
 using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
 using RogueDungeon.Levels;

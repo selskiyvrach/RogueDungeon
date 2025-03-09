@@ -20,7 +20,7 @@ namespace RogueDungeon.Enemies
         public ITwoDWorldObject WorldObject { get; }
         public bool IsAlive => _currentHealth > 0;
         public bool IsIdle { get; set; }
-        public EnemyAttackMove[] Attacks => throw new NotImplementedException();
+        public EnemyAttackMove[] Attacks => Array.Empty<EnemyAttackMove>();
 
         public Enemy(EnemyConfig config, GameObject gameObject)
         {  

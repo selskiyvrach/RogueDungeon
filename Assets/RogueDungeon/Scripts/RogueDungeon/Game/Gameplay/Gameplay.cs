@@ -1,5 +1,4 @@
 ﻿using RogueDungeon.Camera;
-using RogueDungeon.Enemies.HiveMind;
 using RogueDungeon.Input;
 using RogueDungeon.Levels;
 using RogueDungeon.Player;
@@ -18,6 +17,7 @@ namespace RogueDungeon.Game.Gameplay
         private readonly IFactory<LevelConfig, Level> _levelFactory;
         
         private Player.Player _player;
+        private Level _level;
 
         public Gameplay(GameplayConfig config, IPlayerSpawner playerSpawner, IGameCamera camera, IFactory<LevelConfig, Level> levelFactory, IPlayerInput playerInput)
         {
@@ -30,10 +30,9 @@ namespace RogueDungeon.Game.Gameplay
 
         public void Initialize()
         {
-            var level = _levelFactory.Create(_config.LevelConfig);
+            _level = _levelFactory.Create(_config.LevelConfig);
             _player = _playerSpawner.Spawn();
-            level.LevelTraverser = _player.WorldObject;
-            level.Initialize();
+            _level.Initialize();
             _camera.Follow = _player.CameraPovPoint;
             _player.Initialize();
         }
@@ -42,6 +41,7 @@ namespace RogueDungeon.Game.Gameplay
         {
             _playerInput.Tick(timeDelta);
             _player.Tick(timeDelta);
+            _level.Tick(timeDelta);
         }
 
         public void SetExplorationMode()
