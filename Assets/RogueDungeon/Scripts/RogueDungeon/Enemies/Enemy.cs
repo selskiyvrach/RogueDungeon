@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Common.Fsm;
 using Common.Lifecycle;
 using Common.Unity;
@@ -19,8 +20,10 @@ namespace RogueDungeon.Enemies
         
         public ITwoDWorldObject WorldObject { get; }
         public bool IsAlive => _currentHealth > 0;
+        public bool IsReadyToBeDisposed { get; set; }
         public bool IsIdle { get; set; }
         public EnemyAttackMove[] Attacks => Array.Empty<EnemyAttackMove>();
+        public bool CanAttack => IsAlive && IsIdle && Attacks.Any(n => n.IsSuitableForPosition(OccupiedPosition));
 
         public Enemy(EnemyConfig config, GameObject gameObject)
         {  
@@ -40,8 +43,11 @@ namespace RogueDungeon.Enemies
         public void Tick(float deltaTime) => 
             _moveSetBehaviour.Tick(deltaTime);
 
-        public void Initialize() => 
+        public void Initialize()
+        {
+            TargetablePosition = OccupiedPosition;
             _moveSetBehaviour.Initialize();
+        }
 
         public void Destroy() =>
             ((TwoDWorldObject)WorldObject).Destroy();

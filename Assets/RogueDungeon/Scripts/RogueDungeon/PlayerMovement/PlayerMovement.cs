@@ -8,6 +8,7 @@ namespace PlayerMovement
 {
     public class PlayerMovement : ITwoDWorldObject, IPlayerMovementBehaviour
     {
+        private readonly Level _level;
         private readonly StateMachine _stateMachine;
         
         // this is a hack to decouple player->behaviour->player dependency in creation time
@@ -25,11 +26,18 @@ namespace PlayerMovement
             set => ObjectToMove.Rotation = value; 
         }
 
-        protected PlayerMovement(StateMachine stateMachine) => 
+        protected PlayerMovement(StateMachine stateMachine, Level level)
+        {
             _stateMachine = stateMachine;
+            _level = level;
+        }
 
-        public void Initialize() => 
+        public void Initialize()
+        {
+            _level.LevelTraverser.LocalPosition = _level.StartingRoom.Coordinates;
+            _level.LevelTraverser.Rotation = Vector2.up;
             _stateMachine.Initialize();
+        }
 
         public void Tick(float deltaTime) => 
             _stateMachine.Tick(deltaTime);

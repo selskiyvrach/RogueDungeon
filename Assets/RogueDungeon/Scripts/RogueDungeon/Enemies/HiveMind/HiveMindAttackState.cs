@@ -31,6 +31,7 @@ namespace RogueDungeon.Enemies.HiveMind
                 if(_enemiesRegistry.Enemies.Any(n => n == enemy && n.IsAlive && n.IsIdle))
                     _context.AttackersQueue.Enqueue(enemy);
             }
+            
             foreach (var registeredEnemy in _enemiesRegistry.Enemies)
             {
                 if(!_context.AttackersQueue.Contains(registeredEnemy) && registeredEnemy.IsAlive && registeredEnemy.IsIdle)

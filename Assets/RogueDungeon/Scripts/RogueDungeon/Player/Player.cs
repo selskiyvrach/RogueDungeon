@@ -31,8 +31,6 @@ namespace RogueDungeon.Player
 
         public void Initialize()
         {
-            WorldObject.LocalPosition = Vector3.zero;
-            WorldObject.Rotation = Vector2.down;
             _level.LevelTraverser = WorldObject;
             _levelTraverserBehaviour.Initialize();
             _playerHandsBehaviour.Initialize();

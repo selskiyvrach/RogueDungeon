@@ -7,11 +7,9 @@ namespace RogueDungeon.Enemies.HiveMind
     {
         private readonly HiveMindConfig _config;
         private readonly HiveMind _context;
-        private readonly IEnemiesRegistry _enemiesRegistry;
 
-        public HiveMindIdleState(IEnemiesRegistry enemiesRegistry, HiveMind context, HiveMindConfig config)
+        public HiveMindIdleState(HiveMind context, HiveMindConfig config)
         {
-            _enemiesRegistry = enemiesRegistry;
             _context = context;
             _config = config;
         }
@@ -24,14 +22,14 @@ namespace RogueDungeon.Enemies.HiveMind
 
         public override void CheckTransitions(ITypeBasedStateChanger stateChanger)
         {
-            var enemies = _enemiesRegistry.Enemies;
-            if (enemies.Any() && enemies.All(n => n.TargetablePosition is not EnemyPosition.Middle))
+            var enemies = _context.Enemies;
+            if (enemies.Any() && enemies.All(n => n.OccupiedPosition is not EnemyPosition.Middle))
             {
                 _context.EnemiesToMove.Add((enemies.First(), EnemyPosition.Middle));
                 stateChanger.ChangeState<HiveMindMoveEnemiesState>();
             }
 
-            if (_context.SlackTime >= _config.SlackTime && enemies.Any(n => n.IsIdle))
+            if (_context.SlackTime >= _config.SlackTime && enemies.Any(n => n.CanAttack))
                 stateChanger.ChangeState<HiveMindAttackState>();
         }
     }

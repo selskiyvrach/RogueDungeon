@@ -22,8 +22,17 @@ namespace RogueDungeon.Enemies.HiveMind
         public void Tick(float deltaTime)
         {
             _hiveMindBehaviour.Tick(deltaTime);
-            foreach (var enemy in Enemies) 
+            for (var i = Enemies.Count - 1; i >= 0; i--)
+            {
+                var enemy = Enemies[i];
+                if (enemy.IsReadyToBeDisposed)
+                {
+                    _enemiesRegistry.UnregisterEnemy(enemy);
+                    enemy.Destroy();
+                    continue;
+                }
                 enemy.Tick(deltaTime);
+            }
         }
 
         public void Initialize() => 
