@@ -15,5 +15,11 @@ MonoBehaviour:
   <Health>k__BackingField: 10
   <Prefab>k__BackingField: {fileID: 3537052854619438027, guid: ceb53294180329e48bbab23da185840e,
     type: 3}
-  <MoveSet>k__BackingField: {fileID: 11400000, guid: 2738874add92b1e4e94fa3f59c65bd57,
+  <IdleState>k__BackingField: {fileID: 11400000, guid: 6f12fe4953e45ac40975e5168878b85f,
     type: 2}
+  <BirthState>k__BackingField: {fileID: 11400000, guid: 5ce1058da79f47748b3c82d49a081b2e,
+    type: 2}
+  <DeathState>k__BackingField: {fileID: 11400000, guid: f3bb28d982d12eb4c978818c897cb6b0,
+    type: 2}
+  <OtherStates>k__BackingField:
+  - {fileID: 11400000, guid: 328d649ae9c107a4fb8578dee652b332, type: 2}

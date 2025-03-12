@@ -29,8 +29,8 @@ namespace RogueDungeon.Enemies.HiveMind
                 stateChanger.ChangeState<HiveMindMoveEnemiesState>();
             }
 
-            if (_context.SlackTime >= _config.SlackTime && enemies.Any(n => n.CanAttack))
-                stateChanger.ChangeState<HiveMindAttackState>();
+            // if (_context.SlackTime >= _config.SlackTime && _context.Enemies.Any(n => n.CanPerformAttackFromCurrentPosition(out var _)))
+            //     stateChanger.ChangeState<HiveMindIdleState>();
         }
     }
 }

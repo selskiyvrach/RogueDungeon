@@ -2,8 +2,8 @@
 
 namespace RogueDungeon.Enemies.MoveSet
 {
-    public class EnemyBirthConfig : EnemyMoveConfig
+    public class EnemyBirthConfig : EnemyStateConfig
     {
-        public override Type MoveType => typeof(EnemyBirthMove);
+        public override Type StateType => typeof(EnemyBirthState);
     }
 }

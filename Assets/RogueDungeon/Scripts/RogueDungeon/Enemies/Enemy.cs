@@ -1,17 +1,14 @@
-﻿using System;
-using System.Linq;
-using Common.Fsm;
-using Common.Lifecycle;
-using Common.Unity;
+﻿using Common.Unity;
 using RogueDungeon.Enemies.MoveSet;
 using UnityEngine;
-using UnityEngine.Assertions;
+using IInitializable = Common.Lifecycle.IInitializable;
+using ITickable = Common.Lifecycle.ITickable;
 
 namespace RogueDungeon.Enemies
 {
     public class Enemy : IInitializable, ITickable
     {
-        private StateMachine _moveSetBehaviour;
+        private readonly EnemyStateMachine _stateMachine;
         private readonly EnemyConfig _config;
         private float _currentHealth;
 
@@ -21,43 +18,38 @@ namespace RogueDungeon.Enemies
         public ITwoDWorldObject WorldObject { get; }
         public bool IsAlive => _currentHealth > 0;
         public bool IsReadyToBeDisposed { get; set; }
-        public bool IsIdle { get; set; }
-        public EnemyAttackMove[] Attacks => Array.Empty<EnemyAttackMove>();
-        public bool CanAttack => IsAlive && IsIdle && Attacks.Any(n => n.IsSuitableForPosition(OccupiedPosition));
-
-        public Enemy(EnemyConfig config, GameObject gameObject)
+        public bool IsIdle => _stateMachine.CurrentState is EnemyIdleState;
+        public EnemyStateConfig[] States => _config.OtherStates;
+        
+        public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine)
         {  
             WorldObject = new TwoDWorldObject(gameObject);
             _config = config;
+            _stateMachine = stateMachine;
             _currentHealth = _config.Health;
         }
 
-        // creation step!
-        public void SetBehaviour(StateMachine moveSetBehaviour)
-        {
-            Assert.IsNull(_moveSetBehaviour);
-            Assert.IsNotNull(moveSetBehaviour);
-            _moveSetBehaviour = moveSetBehaviour;
-        }
-
         public void Tick(float deltaTime) => 
-            _moveSetBehaviour.Tick(deltaTime);
+            _stateMachine.Tick(deltaTime);
 
         public void Initialize()
         {
             TargetablePosition = OccupiedPosition;
-            _moveSetBehaviour.Initialize();
+            _stateMachine.Initialize();
+            _stateMachine.TryStartState(_config.BirthState);
         }
 
         public void Destroy() =>
             ((TwoDWorldObject)WorldObject).Destroy();
 
-        public void TakeDamage(float damage) => 
-            _currentHealth -= damage;
-
-        public void PerformMove(EnemyAttackMove move)
+        public void TakeDamage(float damage)
         {
-            throw new NotImplementedException();
+            _currentHealth -= damage;
+            if(!IsAlive)
+                _stateMachine.TryStartState(_config.DeathState);
         }
+
+        public void PerformMove(EnemyStateConfig config) => 
+            _stateMachine.TryStartState(config);
     }
 }

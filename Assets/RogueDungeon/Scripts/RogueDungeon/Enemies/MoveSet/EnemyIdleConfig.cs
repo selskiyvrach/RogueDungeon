@@ -2,8 +2,8 @@
 
 namespace RogueDungeon.Enemies.MoveSet
 {
-    public class EnemyIdleConfig : EnemyMoveConfig
+    public class EnemyIdleConfig : EnemyStateConfig
     {
-        public override Type MoveType => typeof(EnemyIdleMove);
+        public override Type StateType => typeof(EnemyIdleState);
     }
 }

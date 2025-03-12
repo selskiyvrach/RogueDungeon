@@ -1,10 +1,14 @@
-﻿namespace RogueDungeon.Enemies
+﻿using System;
+
+namespace RogueDungeon.Enemies
 {
+    [Flags]
     public enum EnemyPosition
     {
-        None,
-        Middle,
-        Left,
-        Right,
+        None = 0,
+        Middle = 1,
+        Left = 2,
+        Right = 4,
+        All = Middle | Left | Right,
     }
 }

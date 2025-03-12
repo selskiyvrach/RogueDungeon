@@ -5,15 +5,13 @@ using RogueDungeon.Enemies.HiveMind;
 
 namespace RogueDungeon.Enemies.MoveSet
 {
-    public class EnemyDeathMove : EnemyMove
+    public class EnemyDeathState : EnemyState
     {
         private Enemy _enemy;
-        public EnemyDeathMove(EnemyMoveConfig config, IAnimation animation, Enemy enemy) : base(config, animation) => 
+
+        public EnemyDeathState(EnemyStateConfig config, IAnimation animation, Enemy enemy) : base(config, animation) => 
             _enemy = enemy;
 
-        protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && !_enemy.IsAlive;
-        
         public override void Tick(float timeDelta)
         {
             base.Tick(timeDelta);

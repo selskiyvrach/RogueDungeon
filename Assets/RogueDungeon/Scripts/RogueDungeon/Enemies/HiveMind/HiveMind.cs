@@ -10,7 +10,6 @@ namespace RogueDungeon.Enemies.HiveMind
 
         public List<Enemy> Enemies => _enemiesRegistry.Enemies;
         public List<(Enemy enemy, EnemyPosition destination)> EnemiesToMove { get; } = new(3);
-        public Queue<Enemy> AttackersQueue { get; } = new(3);
         public float SlackTime { get; set; }
 
         public HiveMind(IEnemiesRegistry enemiesRegistry) => 

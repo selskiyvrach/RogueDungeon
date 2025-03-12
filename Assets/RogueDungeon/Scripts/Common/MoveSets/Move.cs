@@ -8,18 +8,19 @@ namespace Common.MoveSets
     public class Move : BoundToAnimationState, IIdBasedTransitionableState
     {
         protected override IAnimation Animation { get; }
-        
+        protected sealed override bool IsLooping => Config.IsLooping;
+
         public MoveConfig Config { get; }
         public string Id => Config.Id;
         public Transition[] Transitions { get; set; }
-
+        
         protected Move(MoveConfig config, IAnimation animation)
         {
             Config = config;
             Animation = animation;
         }
 
-        public string GetTransitionStateId() => 
+        public virtual string GetTransitionStateId() => 
             Transitions.FirstOrDefault(n => (IsFinished || n.CanInterrupt) && n.Move.CanTransitionTo())?.Move.Id;
 
         protected virtual bool CanTransitionTo() => true;

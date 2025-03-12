@@ -1,5 +1,4 @@
 ﻿using Common.Animations;
-using Common.MoveSets;
 using Common.UtilsZenject;
 using RogueDungeon.Enemies.MoveSet;
 using UnityEngine;
@@ -17,8 +16,12 @@ namespace RogueDungeon.Enemies
             Container.InstanceSingle(gameObject);
             Container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
             Container.InstanceSingle<ISpriteSheetAnimationTarget>(_spriteSheetAnimationTarget);
+
+            var idleState = Container.Resolve<EnemyConfig>().IdleState;
+            Container.NewSingle<IFactory<EnemyStateConfig, EnemyState>, EnemyStatesFactory>();
+            Container.Bind<EnemyStateMachine>().FromNew().AsSingle().WithArguments(idleState);
+            
             Container.NewSingle<Enemy>();
-            Container.Resolve<Enemy>().SetBehaviour(new MoveSetFactory(Container).Create(Container.Resolve<EnemyConfig>().MoveSet));
         }
     }
 }

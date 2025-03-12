@@ -11,6 +11,7 @@ namespace Common.MoveSets
     public class MoveConfig : ScriptableObject
     {
         [field: SerializeField] public string Id { get; private set; }
+        [field: SerializeField] public bool IsLooping { get; private set; }
         [field: SerializeField, HideLabel] public AnimationConfigPicker AnimationConfigPicker { get; private set; }
         [field: SerializeField] public TransitionPicker[] Transitions { get; private set; }
 

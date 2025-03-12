@@ -4,10 +4,11 @@ using Common.Lifecycle;
 
 namespace Common.AnimationBasedFsm
 {
-    public abstract class BoundToAnimationState : IState, IEnterableState, IExitableState, ITickable
+    public abstract class BoundToAnimationState : IState, IEnterableState, IExitableState, ITickable, IFinishable
     {
-        protected abstract IAnimation Animation { get; }
-        public bool IsFinished => Animation.IsFinished;
+        protected abstract IAnimation Animation   { get; }
+        protected virtual bool IsLooping { get; }
+        public bool IsFinished => !IsLooping && Animation.IsFinished;
 
         public virtual void Enter()
         {
@@ -18,8 +19,13 @@ namespace Common.AnimationBasedFsm
         public virtual void Exit() => 
             Animation.OnEvent -= OnAnimationEvent;
 
-        public virtual void Tick(float timeDelta) => 
+        public virtual void Tick(float timeDelta)
+        {
+            if(IsLooping && Animation.IsFinished)
+                Animation.Play();
+            
             Animation.Tick(timeDelta);
+        }
 
         protected abstract void OnAnimationEvent(string name);
     }
