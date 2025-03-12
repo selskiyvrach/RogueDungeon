@@ -3,7 +3,7 @@ using Common.Animations;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RogueDungeon.Enemies.MoveSet
+namespace RogueDungeon.Enemies.States
 {
     public abstract class EnemyStateConfig : ScriptableObject
     {

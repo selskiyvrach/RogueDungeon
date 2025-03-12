@@ -1,7 +1,7 @@
 ﻿using Common.AnimationBasedFsm;
 using Common.Animations;
 
-namespace RogueDungeon.Enemies.MoveSet
+namespace RogueDungeon.Enemies.States
 {
     public class EnemyState : BoundToAnimationState
     {

@@ -1,7 +1,7 @@
 ﻿using Common.Animations;
 using RogueDungeon.Animations;
 
-namespace RogueDungeon.Enemies.MoveSet
+namespace RogueDungeon.Enemies.States
 {
     public class EnemyAttackState : EnemyState
     {

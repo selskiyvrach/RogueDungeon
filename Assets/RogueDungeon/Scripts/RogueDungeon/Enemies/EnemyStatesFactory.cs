@@ -1,4 +1,4 @@
-﻿using RogueDungeon.Enemies.MoveSet;
+﻿using RogueDungeon.Enemies.States;
 using Zenject;
 
 namespace RogueDungeon.Enemies

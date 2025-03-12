@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Enemies.MoveSet
+﻿namespace RogueDungeon.Enemies.States
 {
     public enum Priority
     {
@@ -6,6 +6,8 @@
         Idle = 1,
         
         Attack = 100,
+
+        Move = 800,
         
         Stun = 900,
         Birth = 998,

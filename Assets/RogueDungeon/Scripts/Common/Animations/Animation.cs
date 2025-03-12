@@ -11,6 +11,7 @@ namespace Common.Animations
         private float _timePassed;
 
         protected abstract AnimationEvent[] Events { get; }
+        public float Progress => Mathf.Clamp01(_timePassed / _config.Duration);
         public bool IsFinished => _timePassed >= _config.Duration;
         public event Action<string> OnEvent;
 

@@ -1,9 +1,6 @@
 ﻿using Common.Animations;
-using Common.Fsm;
-using Common.Time;
-using RogueDungeon.Enemies.HiveMind;
 
-namespace RogueDungeon.Enemies.MoveSet
+namespace RogueDungeon.Enemies.States
 {
     public class EnemyDeathState : EnemyState
     {

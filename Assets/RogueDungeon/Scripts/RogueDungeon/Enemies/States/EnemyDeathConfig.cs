@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RogueDungeon.Enemies.MoveSet
+namespace RogueDungeon.Enemies.States
 {
     public class EnemyDeathConfig : EnemyStateConfig
     {

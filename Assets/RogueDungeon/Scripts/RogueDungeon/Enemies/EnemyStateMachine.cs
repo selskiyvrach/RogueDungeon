@@ -1,33 +1,25 @@
 ﻿using Common.Fsm;
-using RogueDungeon.Enemies.MoveSet;
+using RogueDungeon.Enemies.States;
 using Zenject;
 using IInitializable = Common.Lifecycle.IInitializable;
 using ITickable = Common.Lifecycle.ITickable;
 
 namespace RogueDungeon.Enemies
 {
-    public class EnemyStateMachine : ITickable, IInitializable
+    public class EnemyStateMachine : ITickable
     {
-        private readonly IFactory<EnemyStateConfig, EnemyState> _statesFactory;
         private EnemyState _idleState;
-        private readonly EnemyIdleConfig _idleConfig;
         public EnemyState CurrentState { get; private set; }
 
-        public EnemyStateMachine(EnemyIdleConfig idleState, IFactory<EnemyStateConfig, EnemyState> statesFactory)
-        {
-            _statesFactory = statesFactory;
-            _idleConfig = idleState;
-        }
+        public void Initialize(EnemyState idleState) => 
+            ChangeState(_idleState = idleState);
 
-        public void Initialize() => 
-            ChangeState(_idleState = _statesFactory.Create(_idleConfig));
-
-        public bool TryStartState(EnemyStateConfig config)
+        public bool TryStartState(EnemyState state)
         {
-            if (config.Priority <= CurrentState.Priority)
+            if (state.Priority <= CurrentState.Priority)
                 return false;
             
-            ChangeState(_statesFactory.Create(config));
+            ChangeState(state);
             return true;
         }
 

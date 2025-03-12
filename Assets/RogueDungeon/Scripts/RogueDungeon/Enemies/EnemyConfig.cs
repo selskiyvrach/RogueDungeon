@@ -1,4 +1,4 @@
-﻿using RogueDungeon.Enemies.MoveSet;
+﻿using RogueDungeon.Enemies.States;
 using UnityEngine;
 
 namespace RogueDungeon.Enemies
@@ -10,6 +10,7 @@ namespace RogueDungeon.Enemies
         [field: SerializeField] public EnemyIdleConfig IdleState { get; private set; }
         [field: SerializeField] public EnemyBirthConfig BirthState { get; private set; }
         [field: SerializeField] public EnemyDeathConfig DeathState { get; private set; }
+        [field: SerializeField] public EnemyMoveConfig MoveState { get; set; }
         [field: SerializeField] public EnemyStateConfig[] OtherStates { get; private set; }
     }
 }
