@@ -131,7 +131,7 @@ TextureImporter:
         width: 72
         height: 72
       alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,7 +152,7 @@ TextureImporter:
         width: 72
         height: 72
       alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,7 +173,7 @@ TextureImporter:
         width: 72
         height: 72
       alignment: 9
-      pivot: {x: 0.5, y: 0.15}
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,6 +181,48 @@ TextureImporter:
       bones: []
       spriteID: 6972fa6f58296da4fb2f77012f7e0725
       internalID: -1088192750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeleton_idle_3
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 72
+        height: 72
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 075d8f57e239a3b4b87d0d248e1995f1
+      internalID: -1306198463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeleton_idle_4
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 0
+        width: 72
+        height: 72
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41785a58f230a4349a5a51edfc9aa88f
+      internalID: -1786852735
       vertices: []
       indices: 
       edges: []
@@ -199,6 +241,8 @@ TextureImporter:
       skeleton_idle_0: -661027208
       skeleton_idle_1: -860329356
       skeleton_idle_2: -1088192750
+      skeleton_idle_3: -1306198463
+      skeleton_idle_4: -1786852735
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -21,7 +21,7 @@ MonoBehaviour:
     type: 2}
   <DeathState>k__BackingField: {fileID: 11400000, guid: f3bb28d982d12eb4c978818c897cb6b0,
     type: 2}
-  <MoveState>k__BackingField: {fileID: 11400000, guid: fb800f0d6f58b1a42b738a3a4bd84b1a,
+  <MoveState>k__BackingField: {fileID: 11400000, guid: 19d7458ace2d6da42aa183314d2751b5,
     type: 2}
-  <OtherStates>k__BackingField:
+  <Moves>k__BackingField:
   - {fileID: 11400000, guid: 328d649ae9c107a4fb8578dee652b332, type: 2}

@@ -1,6 +1,10 @@
-﻿using Common.Unity;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Common.Unity;
+using ModestTree;
 using RogueDungeon.Enemies.States;
 using UnityEngine;
+using Assert = UnityEngine.Assertions.Assert;
 using IInitializable = Common.Lifecycle.IInitializable;
 using ITickable = Common.Lifecycle.ITickable;
 
@@ -20,8 +24,9 @@ namespace RogueDungeon.Enemies
         public bool IsAlive => _currentHealth > 0;
         public bool IsReadyToBeDisposed { get; set; }
         public bool IsIdle => _stateMachine.CurrentState is EnemyIdleState;
-        public EnemyStateConfig[] States => _config.OtherStates;
-        
+        public EnemyMoveConfig[] Moves => _config.Moves;
+        public bool IsDoingMove => Moves.Any(n => _stateMachine.CurrentState.Config == n);
+
         public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, EnemyStatesProvider statesProvider)
         {  
             WorldObject = new TwoDWorldObject(gameObject);
@@ -53,9 +58,21 @@ namespace RogueDungeon.Enemies
 
         public void ChangePosition(EnemyPosition position)
         {
-            var state = (EnemyMoveState)_statesProvider.GetState(_config.MoveState);
+            var state = (EnemyMovementState)_statesProvider.GetState(_config.MoveState);
             state.TargetPosition = position;
             _stateMachine.TryStartState(state);
+        }
+
+        public bool HasMovesForCurrentPosition(out IEnumerable<EnemyMoveConfig> moves)
+        {
+            moves = Moves.Where(n => (n.SuitableForPositions & OccupiedPosition) != 0);
+            return moves.Any();
+        }
+
+        public void StartMove(EnemyMoveConfig config)
+        {
+            Assert.IsTrue(Moves.Contains(config));
+            _stateMachine.TryStartState(_statesProvider.GetState(config));
         }
     }
 }

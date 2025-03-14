@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: axe_move_attack_execute_to_bottom_right
   m_EditorClassIdentifier: 
   <Id>k__BackingField: attack_execute_to_bottom_right
+  <IsLooping>k__BackingField: 0
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:

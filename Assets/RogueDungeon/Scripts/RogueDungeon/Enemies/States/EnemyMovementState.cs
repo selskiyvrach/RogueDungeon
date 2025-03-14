@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RogueDungeon.Enemies.States
 {
-    public class EnemyMoveState : EnemyState
+    public class EnemyMovementState : EnemyState
     {
         private readonly RoomLocalPositionsConfig _positionsConfig;
         private readonly Enemy _enemy;
@@ -11,7 +11,7 @@ namespace RogueDungeon.Enemies.States
         private Vector2 _startCoordinates;
         public EnemyPosition TargetPosition { get; set; }
 
-        protected EnemyMoveState(EnemyStateConfig config, IAnimation animation, Enemy enemy, RoomLocalPositionsConfig positionsConfig) : base(config, animation)
+        protected EnemyMovementState(EnemyStateConfig config, IAnimation animation, Enemy enemy, RoomLocalPositionsConfig positionsConfig) : base(config, animation)
         {
             _enemy = enemy;
             _positionsConfig = positionsConfig;

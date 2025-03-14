@@ -5,13 +5,13 @@ namespace RogueDungeon.Enemies.States
 {
     public class EnemyState : BoundToAnimationState
     {
-        private readonly EnemyStateConfig _config;
-        public Priority Priority => _config.Priority;
+        public EnemyStateConfig Config { get; }
+        public Priority Priority => Config.Priority;
         protected override IAnimation Animation { get; }
 
         protected EnemyState(EnemyStateConfig config, IAnimation animation)
         {
-            _config = config;
+            Config = config;
             Animation = animation;
         }
 
