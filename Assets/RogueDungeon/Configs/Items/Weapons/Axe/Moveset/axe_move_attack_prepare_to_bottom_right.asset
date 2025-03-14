@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: axe_move_attack_prepare_to_bottom_right
   m_EditorClassIdentifier: 
   <Id>k__BackingField: attack_prepare_to_bottom_right
+  <IsLooping>k__BackingField: 0
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:
-      <Duration>k__BackingField: 0.3
-      <Clip>k__BackingField: {fileID: 7400000, guid: ebd5ecfd2f4c8df40ad4b69fceb91bce,
+      <Duration>k__BackingField: 0.225
+      <Clip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
         type: 2}
     _spriteSheetAnimationConfig:
       <Duration>k__BackingField: 0
