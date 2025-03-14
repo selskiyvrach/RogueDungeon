@@ -1,4 +1,4 @@
-﻿namespace PlayerMovement
+﻿namespace RogueDungeon.Player.Behaviours.Movement
 {
     public enum Rotation
     {

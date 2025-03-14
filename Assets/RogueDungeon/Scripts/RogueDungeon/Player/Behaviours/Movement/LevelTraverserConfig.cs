@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PlayerMovement
+namespace RogueDungeon.Player.Behaviours.Movement
 {
     public class LevelTraverserConfig : ScriptableObject
     {

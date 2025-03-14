@@ -1,10 +1,9 @@
 ﻿using Common.Fsm;
 using Common.UtilsZenject;
-using RogueDungeon.Player;
 using UnityEngine;
 using Zenject;
 
-namespace PlayerMovement
+namespace RogueDungeon.Player.Behaviours.Movement
 {
     public class PlayerMovementBehaviourInstaller : MonoInstaller
     {

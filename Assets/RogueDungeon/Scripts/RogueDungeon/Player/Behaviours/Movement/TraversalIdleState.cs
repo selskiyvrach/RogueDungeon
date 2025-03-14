@@ -4,7 +4,7 @@ using Common.Unity;
 using RogueDungeon.Input;
 using RogueDungeon.Levels;
 
-namespace PlayerMovement
+namespace RogueDungeon.Player.Behaviours.Movement
 {
     public class TraversalIdleState : ITypeBasedTransitionableState
     {

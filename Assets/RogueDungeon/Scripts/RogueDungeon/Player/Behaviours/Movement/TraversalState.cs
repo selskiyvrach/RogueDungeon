@@ -2,9 +2,8 @@
 using Common.Lifecycle;
 using Common.Unity;
 using RogueDungeon.Levels;
-using UnityEngine;
 
-namespace PlayerMovement
+namespace RogueDungeon.Player.Behaviours.Movement
 {
     public abstract class TraversalState : ITypeBasedTransitionableState, IEnterableState, ITickable
     {

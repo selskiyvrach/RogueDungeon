@@ -4,7 +4,7 @@ using RogueDungeon.Input;
 using RogueDungeon.Levels;
 using UnityEngine;
 
-namespace PlayerMovement
+namespace RogueDungeon.Player.Behaviours.Movement
 {
     public class RotateState : TraversalState
     {

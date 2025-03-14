@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using Common.Fsm;
+﻿using Common.Fsm;
 using Common.Unity;
 using RogueDungeon.Input;
 using RogueDungeon.Levels;
 using UnityEngine;
 
-namespace PlayerMovement
+namespace RogueDungeon.Player.Behaviours.Movement
 {
     public class MoveForwardState : TraversalState, IExitableState
     {

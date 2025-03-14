@@ -42,16 +42,19 @@ namespace RogueDungeon.Game.Gameplay
             _playerInput.Tick(timeDelta);
             _player.Tick(timeDelta);
             _level.Tick(timeDelta);
+            if (!_player.IsAlive) 
+                HandleGameOver();
         }
 
-        public void SetExplorationMode()
+        private void HandleGameOver()
         {
+            throw new System.NotImplementedException();
+        }
+
+        public void SetExplorationMode() => 
             _playerInput.SetFilter(_config.ExplorationInputFilter);
-        }
 
-        public void SetCombatMode()
-        {
+        public void SetCombatMode() => 
             _playerInput.SetFilter(_config.CombatInputFilter);
-        }
     }
 }
