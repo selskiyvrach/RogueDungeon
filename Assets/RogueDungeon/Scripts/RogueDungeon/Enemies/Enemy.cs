@@ -19,7 +19,8 @@ namespace RogueDungeon.Enemies
 
         public EnemyPosition TargetablePosition { get; set; }
         public EnemyPosition OccupiedPosition { get; set; }
-        
+
+        public float CurrentAggression { get; set; }
         public ITwoDWorldObject WorldObject { get; }
         public bool IsAlive => _currentHealth > 0;
         public bool IsReadyToBeDisposed { get; set; }
@@ -44,6 +45,12 @@ namespace RogueDungeon.Enemies
             TargetablePosition = OccupiedPosition;
             _stateMachine.Initialize(_statesProvider.GetState(_config.IdleState));
             _stateMachine.TryStartState(_statesProvider.GetState(_config.BirthState));
+        }
+
+        public void TickBattleHeat(float battleHeatDelta)
+        {
+            if(!IsDoingMove)
+                CurrentAggression += _config.Aggression * battleHeatDelta;
         }
 
         public void Destroy() =>
@@ -72,6 +79,7 @@ namespace RogueDungeon.Enemies
         public void StartMove(EnemyMoveConfig config)
         {
             Assert.IsTrue(Moves.Contains(config));
+            CurrentAggression = 0;
             _stateMachine.TryStartState(_statesProvider.GetState(config));
         }
     }

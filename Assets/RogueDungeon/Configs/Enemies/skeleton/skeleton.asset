@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: skeleton
   m_EditorClassIdentifier: 
   <Health>k__BackingField: 10
+  <Aggression>k__BackingField: 0.5
   <Prefab>k__BackingField: {fileID: 3537052854619438027, guid: ceb53294180329e48bbab23da185840e,
     type: 3}
   <IdleState>k__BackingField: {fileID: 11400000, guid: 6f12fe4953e45ac40975e5168878b85f,

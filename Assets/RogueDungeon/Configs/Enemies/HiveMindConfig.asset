@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ba4b34f722497681c2093181cbcbbf, type: 3}
   m_Name: HiveMindConfig
   m_EditorClassIdentifier: 
-  <MoveFromPositionToPositionDuration>k__BackingField: 0.35
+  <BattleHeatFactorWhenTheresAnAttackGoing>k__BackingField: 0.5
+  <BattleHeatFactorPerExtraEnemy>k__BackingField: 0.75

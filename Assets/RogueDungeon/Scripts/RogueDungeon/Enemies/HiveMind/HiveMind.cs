@@ -3,17 +3,23 @@ using System.Linq;
 using Common.Lifecycle;
 using Common.UtilsDotNet;
 using RogueDungeon.Enemies.States;
+using UnityEngine;
+using Random = Common.UtilsDotNet.Random;
 
 namespace RogueDungeon.Enemies.HiveMind
 {
     public class HiveMind : IInitializable
     {
+        private readonly HiveMindConfig _config;
         private readonly IEnemiesRegistry _enemiesRegistry;
         private List<Enemy> _enemies => _enemiesRegistry.Enemies;
-        private readonly List<(Enemy enemy, IEnumerable<EnemyMoveConfig> moves)?> _buffer = new(3);
+        private readonly List<(Enemy enemy, IEnumerable<EnemyMoveConfig> moves)> _buffer = new(3);
 
-        public HiveMind(IEnemiesRegistry enemiesRegistry) => 
+        public HiveMind(IEnemiesRegistry enemiesRegistry, HiveMindConfig config)
+        {
             _enemiesRegistry = enemiesRegistry;
+            _config = config;
+        }
 
         public void Initialize()
         {
@@ -23,8 +29,18 @@ namespace RogueDungeon.Enemies.HiveMind
         {
             PruneDeadAndTickAlive(deltaTime);
             FillMiddlePositionIfEmpty();
+            TickBattleHeat(deltaTime);
             StartAttacks();
         }
+
+        private void TickBattleHeat(float timeDelta)
+        {
+            timeDelta *= Mathf.Pow(_config.BattleHeatFactorPerExtraEnemy, _enemies.Count - 1);
+            if (_enemies.Any(n => n.IsDoingMove))
+                timeDelta *= _config.BattleHeatFactorWhenTheresAnAttackGoing;
+            foreach (var enemy in _enemies)
+                enemy.TickBattleHeat(timeDelta);
+        } 
 
         private void StartAttacks()
         {
@@ -33,12 +49,15 @@ namespace RogueDungeon.Enemies.HiveMind
             {
                 if(enemy.IsDoingMove)
                     return;
-                if(enemy.IsIdle && enemy.HasMovesForCurrentPosition(out var moves))
+                if(enemy.IsIdle && enemy.CurrentAggression >= 1 && enemy.HasMovesForCurrentPosition(out var moves))
                     _buffer.Add((enemy, moves));
             }
 
-            var attacker = _buffer.RandomOrDefault();
-            attacker?.enemy.StartMove(attacker.Value.moves.ToList().RandomOrDefault());
+            if(!_buffer.Any())
+                return;
+            _buffer.Sort((a, b) => a.enemy.CurrentAggression.CompareTo(b.enemy.CurrentAggression));
+            var attacker = UnityEngine.Random.Range(0, 1) < 0.75f ? _buffer[^1] : _buffer[0];
+            attacker.enemy.StartMove(attacker.moves.ToList().RandomOrDefault());
         }
 
         private void FillMiddlePositionIfEmpty()
