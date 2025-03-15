@@ -13,22 +13,30 @@ namespace RogueDungeon.Player
         private readonly PlayerMovementBehaviour _movementBehaviour;
         private readonly PlayerHandsBehaviour _playerHandsBehaviour;
         private readonly PlayerPositionInTheMaze _mazeTraversalPointer;
+        private readonly IDodger _dodger;
         private readonly Level _level;
         
         private float _currentHealth;
-        
+
         public Transform CameraPovPoint { get; }
-        public PlayerDodgeState DodgeState { get; set; }
+
+        public PlayerDodgeState DodgeState
+        {
+            get => _dodger.DodgeState;
+            set => _dodger.DodgeState = value;
+        }
+
         public bool IsAlive => _currentHealth > 0;
 
         public Player(PlayerConfig config, PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject,
-            PlayerMovementBehaviour movementBehaviour, Level level, PlayerPositionInTheMaze playerMazePosition)
+            PlayerMovementBehaviour movementBehaviour, Level level, PlayerPositionInTheMaze playerMazePosition, IDodger dodger)
         {
             _config = config;
             _playerHandsBehaviour = playerHandsBehaviour;
             _movementBehaviour = movementBehaviour;
             _level = level;
             _mazeTraversalPointer = playerMazePosition;
+            _dodger = dodger;
             CameraPovPoint = gameObject.CameraReferencePoint;
         }
 

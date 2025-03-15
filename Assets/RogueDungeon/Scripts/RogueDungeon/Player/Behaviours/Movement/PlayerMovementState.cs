@@ -1,4 +1,5 @@
-﻿using Common.Animations;
+﻿using System.Linq;
+using Common.Animations;
 using Common.Unity;
 using RogueDungeon.Input;
 using RogueDungeon.Levels;
@@ -30,7 +31,15 @@ namespace RogueDungeon.Player.Behaviours.Movement
             _level.CurrentRoom.Enter();
         }
 
-        public override void Tick(float timeDelta) => 
+        public override void Tick(float timeDelta)
+        {
+            base.Tick(timeDelta);
             _level.LevelTraverser.LocalPosition = Vector2.Lerp(_from, _to, Animation.Progress);
+        }
+
+        protected override bool CanTransitionTo() =>
+            base.CanTransitionTo() && _level.Rooms
+                .First(n => n.Coordinates == _level.LevelTraverser.LocalPosition.Round()).AdjacentRooms
+                .HasAdjacentRoom(_level.LevelTraverser.Rotation.Round());
     }
 }

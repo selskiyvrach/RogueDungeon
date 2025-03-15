@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: 4261873495399062472}
   - component: {fileID: 3733405680008688721}
   - component: {fileID: 3401579970430071534}
-  - component: {fileID: 1129251976161846153}
   - component: {fileID: 6350304918856226592}
   - component: {fileID: 7052172994488636175}
   - component: {fileID: 191124158965303903}
@@ -141,7 +140,6 @@ MonoBehaviour:
   - {fileID: 191124158965303903}
   - {fileID: 3401579970430071534}
   - {fileID: 6350304918856226592}
-  - {fileID: 1129251976161846153}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -159,21 +157,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerGameObject: {fileID: 7052172994488636175}
   _config: {fileID: 11400000, guid: ffda6cccafe52c64c8ef8d6b257a2398, type: 2}
---- !u!114 &1129251976161846153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519540501769377305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9479eec1222542e294a2bfba016c9938, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animationClipTarget: {fileID: 3731265630743536219}
-  _dodgeMoveSetConfig: {fileID: 11400000, guid: 86d1eb421d4318e44b736900965b2ccb,
-    type: 2}
 --- !u!114 &6350304918856226592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,8 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c88883be7cb4af6b87108406b9ee624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelTraverserConfig: {fileID: 11400000, guid: 187d6cd8c9a911d47806151df8e5341b,
-    type: 2}
+  _moveSetConfig: {fileID: 11400000, guid: 86d1eb421d4318e44b736900965b2ccb, type: 2}
+  _animationClipTarget: {fileID: 3731265630743536219}
 --- !u!1 &763680708661238317
 GameObject:
   m_ObjectHideFlags: 0

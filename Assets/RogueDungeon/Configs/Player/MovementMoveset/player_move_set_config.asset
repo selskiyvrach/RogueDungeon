@@ -10,9 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1dbd9be4ec94c31ab850f925a1bf1f4, type: 3}
-  m_Name: DodgeMoveSetConfig
+  m_Name: player_move_set_config
   m_EditorClassIdentifier: 
+  <ExtendsConfigs>k__BackingField: []
   <MoveConfigs>k__BackingField:
   - {fileID: 11400000, guid: 4da00dd364801004d929dbbbaf91d019, type: 2}
   - {fileID: 11400000, guid: 8fd05c892f444ef4fa809065804031f7, type: 2}
   - {fileID: 11400000, guid: 6671d70ab2f02cb408989f01b3759618, type: 2}
+  - {fileID: 11400000, guid: cd0ec5f4a3ac079429d042db823dba25, type: 2}
+  - {fileID: 11400000, guid: 120bea24a818c304b8cd66088f5cc7fd, type: 2}
+  - {fileID: 11400000, guid: c78eb5b6d8f24e94dbd83a703b3d2e7e, type: 2}
+  - {fileID: 11400000, guid: d42732c89d8a53d4b811077a1c495c0f, type: 2}

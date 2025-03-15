@@ -9,15 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25ce51916abd4f9986c41f9f58eb1fd2, type: 3}
-  m_Name: DodgeLeftConfig
+  m_Script: {fileID: 11500000, guid: ec1fd19b69654b2f9023e70f2fdb74ce, type: 3}
+  m_Name: rotate_180_config
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: dodge_left
+  <Id>k__BackingField: rotate_180
+  <IsLooping>k__BackingField: 0
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:
-      <Duration>k__BackingField: 0.35
-      <Clip>k__BackingField: {fileID: 7400000, guid: d03a097b187bcee47a1c43c59faaed54,
+      <Duration>k__BackingField: 0.5
+      <Clip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
         type: 2}
     _spriteSheetAnimationConfig:
       <Duration>k__BackingField: 0
@@ -26,5 +27,5 @@ MonoBehaviour:
   <Transitions>k__BackingField:
   - <MoveId>k__BackingField: idle
     <CanInterrupt>k__BackingField: 0
-  <RequiredInputKey>k__BackingField: 450
-  <DodgeState>k__BackingField: 1
+  <RequiredInputKey>k__BackingField: 720
+  <RotationDegrees>k__BackingField: 180
