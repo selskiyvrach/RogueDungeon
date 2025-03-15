@@ -1,4 +1,4 @@
-﻿using Common.Fsm;
+﻿using Common.MoveSets;
 using Common.UtilsZenject;
 using UnityEngine;
 using Zenject;
@@ -7,18 +7,15 @@ namespace RogueDungeon.Player.Behaviours.Movement
 {
     public class PlayerMovementBehaviourInstaller : MonoInstaller
     {
-        [SerializeField] private LevelTraverserConfig _levelTraverserConfig;
+        [SerializeField] private MoveSetConfig _moveSetConfig;
 
         public override void InstallBindings()
         {
-            var levelTraverserContainer = Container.CreateSubContainer();
-            levelTraverserContainer.InstanceSingle(_levelTraverserConfig);
-            levelTraverserContainer.NewSingle<ITypeBasedStatesProvider, TypeBasedStatesProviderWithCache>();
-            levelTraverserContainer.NewSingleInterfacesAndSelf<TypeBasedTransitionStrategy>();
-            levelTraverserContainer.Resolve<TypeBasedTransitionStrategy>().SetStartState<TraversalIdleState>();
-            levelTraverserContainer.NewSingle<StateMachine>();
-            levelTraverserContainer.NewSingleInterfacesAndSelf<PlayerMovement>();
-            Container.Bind<IPlayerMovementBehaviour>().FromSubContainerResolve().ByInstance(levelTraverserContainer).AsSingle();
+            var container = Container.CreateSubContainer();
+            container.InstanceSingle(_moveSetConfig);
+            container.InstanceSingle(new MoveSetFactory(container).Create(_moveSetConfig));
+            container.NewSingleInterfacesAndSelf<PlayerMovementBehaviour>();
+            Container.Bind<PlayerMovementBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();
         }
     }
 }

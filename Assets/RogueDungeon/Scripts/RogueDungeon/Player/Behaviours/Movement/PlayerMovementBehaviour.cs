@@ -1,16 +1,15 @@
 ﻿using Common.Fsm;
-using Common.Unity;
 using RogueDungeon.Levels;
 using UnityEngine;
 
 namespace RogueDungeon.Player.Behaviours.Movement
 {
-    public class PlayerMovement : IPlayerMovementBehaviour
+    public class PlayerMovementBehaviour
     {
         private readonly Level _level;
         private readonly StateMachine _stateMachine;
 
-        protected PlayerMovement(StateMachine stateMachine, Level level)
+        protected PlayerMovementBehaviour(StateMachine stateMachine, Level level)
         {
             _stateMachine = stateMachine;
             _level = level;

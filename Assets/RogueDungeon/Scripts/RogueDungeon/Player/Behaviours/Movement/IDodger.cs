@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Player.Behaviours.Dodge
+﻿namespace RogueDungeon.Player.Behaviours.Movement
 {
     public interface IDodger
     {

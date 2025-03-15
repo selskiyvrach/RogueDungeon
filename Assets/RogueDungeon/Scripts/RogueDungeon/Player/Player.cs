@@ -1,9 +1,8 @@
-﻿using Common.Animations;
-using Common.Lifecycle;
+﻿using Common.Lifecycle;
 using RogueDungeon.Items;
 using RogueDungeon.Levels;
-using RogueDungeon.Player.Behaviours.Dodge;
 using RogueDungeon.Player.Behaviours.Hands;
+using RogueDungeon.Player.Behaviours.Movement;
 using UnityEngine;
 
 namespace RogueDungeon.Player
@@ -11,7 +10,7 @@ namespace RogueDungeon.Player
     public class Player : IDodger, IInitializable, ITickable
     {
         private readonly PlayerConfig _config;
-        private readonly IPlayerMovementBehaviour _levelTraverserBehaviour;
+        private readonly PlayerMovementBehaviour _movementBehaviour;
         private readonly PlayerHandsBehaviour _playerHandsBehaviour;
         private readonly PlayerPositionInTheMaze _mazeTraversalPointer;
         private readonly Level _level;
@@ -23,11 +22,11 @@ namespace RogueDungeon.Player
         public bool IsAlive => _currentHealth > 0;
 
         public Player(PlayerConfig config, PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject,
-            IPlayerMovementBehaviour levelTraverserBehaviour, Level level, PlayerPositionInTheMaze playerMazePosition)
+            PlayerMovementBehaviour movementBehaviour, Level level, PlayerPositionInTheMaze playerMazePosition)
         {
             _config = config;
             _playerHandsBehaviour = playerHandsBehaviour;
-            _levelTraverserBehaviour = levelTraverserBehaviour;
+            _movementBehaviour = movementBehaviour;
             _level = level;
             _mazeTraversalPointer = playerMazePosition;
             CameraPovPoint = gameObject.CameraReferencePoint;
@@ -36,7 +35,7 @@ namespace RogueDungeon.Player
         public void Initialize()
         {
             _level.LevelTraverser = _mazeTraversalPointer;
-            _levelTraverserBehaviour.Initialize();
+            _movementBehaviour.Initialize();
             _playerHandsBehaviour.Initialize();
             ((IHandheldContext)_playerHandsBehaviour).IntendedItem = new Item(_config.DefaultWeapon);
             _currentHealth = _config.Health;
@@ -49,7 +48,7 @@ namespace RogueDungeon.Player
         {
             if(!IsAlive)
                 return;
-            _levelTraverserBehaviour.Tick(deltaTime);
+            _movementBehaviour.Tick(deltaTime);
             _playerHandsBehaviour.Tick(deltaTime);
         }
     }
