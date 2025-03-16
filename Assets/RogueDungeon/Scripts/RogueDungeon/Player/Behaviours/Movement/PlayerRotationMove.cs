@@ -13,7 +13,7 @@ namespace RogueDungeon.Player.Behaviours.Movement
         private float _from;
         private float _to;
 
-        public PlayerRotationMove(Level level, PlayerRotationConfig config, IPlayerInput input, IAnimation animation) : base(config, animation, input)
+        public PlayerRotationMove(Level level, PlayerRotationConfig config, IPlayerInput playerInput, IAnimation animation) : base(config, animation, playerInput)
         {
             _rotationConfig = config;
             _level = level;

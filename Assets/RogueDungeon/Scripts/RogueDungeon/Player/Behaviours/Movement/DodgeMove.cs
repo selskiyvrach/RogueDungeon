@@ -8,7 +8,7 @@ namespace RogueDungeon.Player.Behaviours.Movement
         private readonly IDodger _dodger;
         private readonly DodgeMoveConfig _config;
 
-        public DodgeMove(IDodger dodger, DodgeMoveConfig config, IAnimation animation, IPlayerInput inputReader) : base(config, animation, inputReader)
+        public DodgeMove(IDodger dodger, DodgeMoveConfig config, IAnimation animation, IPlayerInput playerInput) : base(config, animation, playerInput)
         {
             _dodger = dodger;
             _config = config;

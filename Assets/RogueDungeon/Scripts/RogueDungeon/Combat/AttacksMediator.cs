@@ -43,8 +43,14 @@ namespace RogueDungeon.Combat
                 // miss
                 return;
             }
-            
-            player.TakeDamage(damage);
+
+            if (player.BlockerHandler.IsBlocking)
+            {
+                player.BlockerHandler.PerformBlock(damage, out var damageAfterBlock);
+                damage = damageAfterBlock;
+            }
+
+            player.TakeHitDamage(damage);
         }
     }
 }

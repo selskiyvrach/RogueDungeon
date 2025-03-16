@@ -15,21 +15,20 @@ namespace RogueDungeon.Player
         private readonly PlayerPositionInTheMaze _mazeTraversalPointer;
         private readonly IDodger _dodger;
         private readonly Level _level;
-        
+
         private float _currentHealth;
 
         public Transform CameraPovPoint { get; }
-
+        public PlayerBlockerHandler BlockerHandler { get; }
         public PlayerDodgeState DodgeState
         {
             get => _dodger.DodgeState;
             set => _dodger.DodgeState = value;
         }
-
         public bool IsAlive => _currentHealth > 0;
 
         public Player(PlayerConfig config, PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject,
-            PlayerMovementBehaviour movementBehaviour, Level level, PlayerPositionInTheMaze playerMazePosition, IDodger dodger)
+            PlayerMovementBehaviour movementBehaviour, Level level, PlayerPositionInTheMaze playerMazePosition, IDodger dodger, PlayerBlockerHandler blockerHandler)
         {
             _config = config;
             _playerHandsBehaviour = playerHandsBehaviour;
@@ -37,6 +36,7 @@ namespace RogueDungeon.Player
             _level = level;
             _mazeTraversalPointer = playerMazePosition;
             _dodger = dodger;
+            BlockerHandler = blockerHandler;
             CameraPovPoint = gameObject.CameraReferencePoint;
         }
 
@@ -49,7 +49,7 @@ namespace RogueDungeon.Player
             _currentHealth = _config.Health;
         }
 
-        public void TakeDamage(float damage) => 
+        public void TakeHitDamage(float damage) => 
             _currentHealth -= damage;
 
         public void Tick(float deltaTime)

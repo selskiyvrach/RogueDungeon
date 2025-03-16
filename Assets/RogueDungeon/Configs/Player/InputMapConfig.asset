@@ -12,10 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52bcafde5dcb45e1acbc9202368534c7, type: 3}
   m_Name: InputMapConfig
   m_EditorClassIdentifier: 
-  <CombatInputFilter>k__BackingField:
-    <AllowedKeys>k__BackingField: 64000000c201000090010000
-  <ExplorationInputFilter>k__BackingField:
-    <AllowedKeys>k__BackingField: 58020000bc020000c6020000d0020000
   <Units>k__BackingField:
   - <Key>k__BackingField: 100
     <KeyCode>k__BackingField: 323
@@ -45,3 +41,7 @@ MonoBehaviour:
     <KeyCode>k__BackingField: 115
     <State>k__BackingField: 0
     <CoyoteTime>k__BackingField: 0.15
+  - <Key>k__BackingField: 300
+    <KeyCode>k__BackingField: 324
+    <State>k__BackingField: 1
+    <CoyoteTime>k__BackingField: 0

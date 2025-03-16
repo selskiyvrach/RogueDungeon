@@ -13,7 +13,7 @@ namespace RogueDungeon.Player.Behaviours.Movement
         private Vector2 _from;
         private Vector2 _to;
         
-        public PlayerMovementState(Level level, PlayerMovementConfig config, IPlayerInput input, IAnimation animation) : base(config, animation, input) => 
+        public PlayerMovementState(Level level, PlayerMovementConfig config, IPlayerInput playerInput, IAnimation animation) : base(config, animation, playerInput) => 
             _level = level;
 
         public override void Enter()

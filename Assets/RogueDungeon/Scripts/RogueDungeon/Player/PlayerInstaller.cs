@@ -14,6 +14,7 @@ namespace RogueDungeon.Player
         {
             Container.InstanceSingle(_playerGameObject);
             Container.InstanceSingle(_config);
+            Container.NewSingle<PlayerBlockerHandler>();
             Container.Bind<PlayerPositionInTheMaze>().FromNew().AsSingle().WithArguments<ITwoDWorldObject>(new TwoDWorldObject(_playerGameObject.gameObject));
             Container.NewSingle<Player>();
         }
