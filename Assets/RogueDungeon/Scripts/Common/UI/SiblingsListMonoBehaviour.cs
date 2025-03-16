@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Common.UI.Commons
+namespace Common.UI
 {
     public abstract class SiblingsListMonoBehaviour<T> : MonoBehaviour, ISiblingsList<T> where T : Component
     {

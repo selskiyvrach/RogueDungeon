@@ -30,5 +30,5 @@ MonoBehaviour:
   - <MoveId>k__BackingField: attack_finish_from_bottom_left
     <CanInterrupt>k__BackingField: 0
   <JustAnimation>k__BackingField: 0
-  <Damage>k__BackingField: 15
+  <Damage>k__BackingField: 10
   <RequiredInput>k__BackingField: 0

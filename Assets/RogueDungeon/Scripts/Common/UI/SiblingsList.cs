@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Common.Unity;
 using UnityEngine;
 
-namespace Common.UI.Commons
+namespace Common.UI
  {
      public class SiblingsList<T> : ISiblingsList<T> where T : Component
      {

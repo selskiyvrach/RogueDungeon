@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Common.UI.Commons
+namespace Common.UI
 {
     [RequireComponent(typeof(Canvas))]
     [DisallowMultipleComponent]

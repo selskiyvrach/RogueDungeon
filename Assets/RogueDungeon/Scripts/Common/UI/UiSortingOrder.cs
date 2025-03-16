@@ -1,4 +1,4 @@
-﻿namespace Common.UI.Commons
+﻿namespace Common.UI
 {
     public enum UiSortingOrder
     {

@@ -1,10 +1,10 @@
 {
-    "name": "Common.UI",
+    "name": "RogueDungeon.UI",
     "rootNamespace": "",
     "references": [
-        "GUID:3c6591eac2634e0db5ea71ec276d62ff",
-        "GUID:738b47d9f2cb27348adbc363000ad406",
-        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
+        "GUID:f1adb21deaff4e84a0563d0b6a65275c",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:3af8c2bc10314dce8a3165b517e58815"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Characters;
 using Common.Unity;
 using ModestTree;
 using RogueDungeon.Enemies.States;
@@ -15,26 +16,25 @@ namespace RogueDungeon.Enemies
         private readonly EnemyStatesProvider _statesProvider;
         private readonly EnemyStateMachine _stateMachine;
         private readonly EnemyConfig _config;
-        private float _currentHealth;
 
         public EnemyPosition TargetablePosition { get; set; }
         public EnemyPosition OccupiedPosition { get; set; }
 
+        public Health Health { get; }
         public float CurrentAggression { get; set; }
         public ITwoDWorldObject WorldObject { get; }
-        public bool IsAlive => _currentHealth > 0;
         public bool IsReadyToBeDisposed { get; set; }
         public bool IsIdle => _stateMachine.CurrentState is EnemyIdleState;
         public EnemyMoveConfig[] Moves => _config.Moves;
         public bool IsDoingMove => Moves.Any(n => _stateMachine.CurrentState.Config == n);
 
-        public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, EnemyStatesProvider statesProvider)
+        public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, EnemyStatesProvider statesProvider, Health health)
         {  
             WorldObject = new TwoDWorldObject(gameObject);
             _config = config;
             _stateMachine = stateMachine;
             _statesProvider = statesProvider;
-            _currentHealth = _config.Health;
+            Health = health;
         }
 
         public void Tick(float deltaTime) => 
@@ -42,6 +42,8 @@ namespace RogueDungeon.Enemies
 
         public void Initialize()
         {
+            Health.Max = _config.Health;
+            Health.Current = _config.Health;
             TargetablePosition = OccupiedPosition;
             _stateMachine.Initialize(_statesProvider.GetState(_config.IdleState));
             _stateMachine.TryStartState(_statesProvider.GetState(_config.BirthState));
@@ -58,8 +60,8 @@ namespace RogueDungeon.Enemies
 
         public void TakeDamage(float damage)
         {
-            _currentHealth -= damage;
-            if(!IsAlive)
+            Health.Current -= damage;
+            if(!Health.IsAlive)
                 _stateMachine.TryStartState(_statesProvider.GetState(_config.DeathState));
         }
 

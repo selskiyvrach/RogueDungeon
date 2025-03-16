@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Common.UI.Commons
+namespace Common.UI
 {
     public interface ISiblingsList<out T> : IEnumerable<T> where T : Component
     {
