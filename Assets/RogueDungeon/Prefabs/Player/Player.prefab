@@ -138,9 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 191124158965303903}
   - {fileID: 3401579970430071534}
-  - {fileID: 6350304918856226592}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -158,6 +156,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerGameObject: {fileID: 7052172994488636175}
   _config: {fileID: 11400000, guid: ffda6cccafe52c64c8ef8d6b257a2398, type: 2}
+  _handsInstaller: {fileID: 6350304918856226592}
+  _movementBehaviourInstaller: {fileID: 191124158965303903}
 --- !u!114 &6350304918856226592
 MonoBehaviour:
   m_ObjectHideFlags: 0

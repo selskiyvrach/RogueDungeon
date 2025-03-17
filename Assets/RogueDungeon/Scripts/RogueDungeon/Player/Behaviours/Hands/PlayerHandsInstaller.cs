@@ -8,7 +8,7 @@ using Zenject;
 
 namespace RogueDungeon.Player.Behaviours.Hands
 {
-    public class PlayerHandsInstaller : MonoInstaller
+    public class PlayerHandsInstaller : MonoBehaviour
     {
         /// <summary>
         /// Sheath/Unsheath moveset
@@ -18,9 +18,9 @@ namespace RogueDungeon.Player.Behaviours.Hands
         [SerializeField] private AnimationClipTarget _handHeldItemAnimationsTarget;
         [SerializeField] private HandHeldItemPresenter _itemPresenter;
 
-        public override void InstallBindings()
+        public void Install(DiContainer diContainer)
         {
-            var container = Container.CreateSubContainer();
+            var container = diContainer.CreateSubContainer();
             // helps to break circular dependencies between hands and moves
             container.NewSingleInterfacesAndSelf<HandHeldContext>();
             
@@ -49,8 +49,7 @@ namespace RogueDungeon.Player.Behaviours.Hands
             container.NewSingle<PlayerHandsBehaviour>();
 
             var hands = container.Resolve<PlayerHandsBehaviour>();
-            Container.Bind<PlayerHandsBehaviour>().FromInstance(hands).AsSingle();
-            Container.Bind<IHandheldContext>().FromInstance(hands).AsSingle();
+            diContainer.Bind<PlayerHandsBehaviour>().FromInstance(hands).AsSingle();
         }
     }
 }

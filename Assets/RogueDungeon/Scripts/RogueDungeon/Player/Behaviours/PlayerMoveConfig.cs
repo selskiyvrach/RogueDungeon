@@ -10,10 +10,8 @@ namespace RogueDungeon.Player.Behaviours
         public override Type MoveType => typeof(PlayerMove);
     }
 
-    public enum EventHandlerType
+    public abstract class PlayerAttackBaseMoveConfig : PlayerMoveConfig
     {
-        None,
-        DodgeRight = 100,
-        DodgeLeft = 150,
+        [field: SerializeField] public bool IsUncancellable { get; private set; }
     }
 }

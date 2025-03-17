@@ -13,8 +13,8 @@ namespace Common.Fsm
         private readonly string _debugName;
         private readonly int _instanceId;
 
-        private IState _currentState;
         private static int _instanceCount;
+        public IState CurrentState { get; private set; }
 
         public StateMachine(IStateTransitionStrategy stateTransitionStrategy, string debugName = "", ILogger logger = null)
         {
@@ -29,26 +29,26 @@ namespace Common.Fsm
 
         public void Tick(float timeDelta)
         {
-            (_currentState as ITickable)?.Tick(timeDelta);
+            (CurrentState as ITickable)?.Tick(timeDelta);
             _transitionsHistory.Clear();
             TryTransition();
         }
 
         public void ChangeState(IState newState)
         {
-            _logger?.Log($"[FsmName: {_debugName} FsmId: {_instanceId}]. {_currentState} -> {newState}");
-            (_currentState as IExitableState)?.Exit();
-            _currentState = newState;
-            if (!_transitionsHistory.Add(_currentState))
+            _logger?.Log($"[FsmName: {_debugName} FsmId: {_instanceId}]. {CurrentState} -> {newState}");
+            (CurrentState as IExitableState)?.Exit();
+            CurrentState = newState;
+            if (!_transitionsHistory.Add(CurrentState))
                 throw new InvalidOperationException("Infinite transitions loop detected: " + _transitionsHistory.JoinTypeNames());
 
-            (_currentState as IEnterableState)?.Enter();
+            (CurrentState as IEnterableState)?.Enter();
             TryTransition();
         }
 
         private void TryTransition()
         {
-            if(_stateTransitionStrategy.GetTransition(_currentState) is {} state)
+            if(_stateTransitionStrategy.GetTransition(CurrentState) is {} state)
                 ChangeState(state);
         }
     }

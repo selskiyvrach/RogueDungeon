@@ -11,7 +11,7 @@ namespace RogueDungeon.Player.Behaviours.Hands
         private Item _intendedItem;
         private HandHeldItemPresenter _itemPresenter;
         private StateMachine _itemMoveSet;
-
+        
         Item IHandheldContext.CurrentItem
         {
             get => _args.HandHeldContext.CurrentItem;

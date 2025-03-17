@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3f2581f700c4fdc8e38fbc1d2d8107a, type: 3}
+  m_Script: {fileID: 11500000, guid: b9fcfd149c05463d93362f09987fd79f, type: 3}
   m_Name: axe_move_attack_prepare_to_bottom_right
   m_EditorClassIdentifier: 
   <Id>k__BackingField: attack_prepare_to_bottom_right
@@ -17,7 +17,7 @@ MonoBehaviour:
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:
-      <Duration>k__BackingField: 0.225
+      <Duration>k__BackingField: 0.25
       <Clip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
         type: 2}
     _spriteSheetAnimationConfig:
@@ -27,6 +27,5 @@ MonoBehaviour:
   <Transitions>k__BackingField:
   - <MoveId>k__BackingField: attack_execute_to_bottom_right
     <CanInterrupt>k__BackingField: 0
-  <JustAnimation>k__BackingField: 1
-  <Damage>k__BackingField: 0
-  <RequiredInput>k__BackingField: 100
+  <RequiredInputKey>k__BackingField: 100
+  <IsUncancellable>k__BackingField: 1

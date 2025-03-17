@@ -8,6 +8,8 @@ namespace RogueDungeon.Player.Behaviours.Movement
     {
         private readonly Level _level;
         private readonly StateMachine _stateMachine;
+        
+        public PlayerMove CurrentMove => (PlayerMove)_stateMachine.CurrentState;
 
         protected PlayerMovementBehaviour(StateMachine stateMachine, Level level)
         {

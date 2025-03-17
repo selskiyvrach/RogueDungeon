@@ -10,12 +10,12 @@ namespace RogueDungeon.Player
     public class Player : IDodger, IInitializable, ITickable
     {
         private readonly PlayerConfig _config;
-        private readonly PlayerMovementBehaviour _movementBehaviour;
-        private readonly PlayerHandsBehaviour _playerHandsBehaviour;
         private readonly PlayerPositionInTheMaze _mazeTraversalPointer;
         private readonly IDodger _dodger;
         private readonly Level _level;
-
+        
+        private PlayerMovementBehaviour _movementBehaviour;
+        private PlayerHandsBehaviour _playerHandsBehaviour;
         private float _currentHealth;
 
         public Transform CameraPovPoint { get; }
@@ -27,17 +27,20 @@ namespace RogueDungeon.Player
         }
         public bool IsAlive => _currentHealth > 0;
 
-        public Player(PlayerConfig config, PlayerHandsBehaviour playerHandsBehaviour, PlayerGameObject gameObject,
-            PlayerMovementBehaviour movementBehaviour, Level level, PlayerPositionInTheMaze playerMazePosition, IDodger dodger, PlayerBlockerHandler blockerHandler)
+        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IDodger dodger, PlayerBlockerHandler blockerHandler)
         {
             _config = config;
-            _playerHandsBehaviour = playerHandsBehaviour;
-            _movementBehaviour = movementBehaviour;
             _level = level;
             _mazeTraversalPointer = playerMazePosition;
             _dodger = dodger;
             BlockerHandler = blockerHandler;
             CameraPovPoint = gameObject.CameraReferencePoint;
+        }
+
+        public void SetBehaviours(PlayerHandsBehaviour handsBehaviour, PlayerMovementBehaviour movementBehaviour)
+        {
+            _playerHandsBehaviour = handsBehaviour;
+            _movementBehaviour = movementBehaviour;   
         }
 
         public void Initialize()

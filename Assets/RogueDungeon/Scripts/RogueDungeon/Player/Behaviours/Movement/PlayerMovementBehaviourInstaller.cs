@@ -6,20 +6,20 @@ using Zenject;
 
 namespace RogueDungeon.Player.Behaviours.Movement
 {
-    public class PlayerMovementBehaviourInstaller : MonoInstaller
+    public class PlayerMovementBehaviourInstaller : MonoBehaviour
     {
         [SerializeField] private MoveSetConfig _moveSetConfig;
         [SerializeField] private AnimationClipTarget _animationClipTarget;
 
-        public override void InstallBindings()
+        public void Install(DiContainer diContainer)
         {
-            Container.NewSingle<IDodger, DodgeContext>();
-            var container = Container.CreateSubContainer();
+            diContainer.NewSingle<IDodger, DodgeContext>();
+            var container = diContainer.CreateSubContainer();
             container.InstanceSingle(_moveSetConfig);
             container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
             container.InstanceSingle(new MoveSetFactory(container).Create(_moveSetConfig));
             container.NewSingleInterfacesAndSelf<PlayerMovementBehaviour>();
-            Container.Bind<PlayerMovementBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();
+            diContainer.Bind<PlayerMovementBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();
         }
     }
 }
