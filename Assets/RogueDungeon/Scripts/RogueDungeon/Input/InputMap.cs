@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Common.UtilsDotNet;
 
 namespace RogueDungeon.Input
 {
@@ -17,6 +18,7 @@ namespace RogueDungeon.Input
 
         public void SetFilter(InputFilter filter)
         {
+            _enabledUnits.Where(n => !filter.AllowedKeys.Contains(n.Key)).Foreach(n => n.ResetState());
             _enabledUnits.Clear();
             _enabledUnits.AddRange(filter == null 
                 ? _inputUnits 
