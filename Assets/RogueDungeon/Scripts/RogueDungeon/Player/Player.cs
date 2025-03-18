@@ -1,4 +1,5 @@
-﻿using Common.Lifecycle;
+﻿using Characters;
+using Common.Lifecycle;
 using RogueDungeon.Items;
 using RogueDungeon.Levels;
 using RogueDungeon.Player.Behaviours.Hands;
@@ -16,16 +17,15 @@ namespace RogueDungeon.Player
         
         private PlayerMovementBehaviour _movementBehaviour;
         private PlayerHandsBehaviour _playerHandsBehaviour;
-        private float _currentHealth;
 
         public Transform CameraPovPoint { get; }
         public PlayerBlockerHandler BlockerHandler { get; }
+        public Health Health { get; } = new();
         public PlayerDodgeState DodgeState
         {
             get => _dodger.DodgeState;
             set => _dodger.DodgeState = value;
         }
-        public bool IsAlive => _currentHealth > 0;
 
         public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IDodger dodger, PlayerBlockerHandler blockerHandler)
         {
@@ -45,19 +45,20 @@ namespace RogueDungeon.Player
 
         public void Initialize()
         {
+            Health.Max = _config.Health;
+            Health.Current = _config.Health;
             _level.LevelTraverser = _mazeTraversalPointer;
             _movementBehaviour.Initialize();
             _playerHandsBehaviour.Initialize();
             ((IHandheldContext)_playerHandsBehaviour).IntendedItem = new Item(_config.DefaultWeapon);
-            _currentHealth = _config.Health;
         }
 
         public void TakeHitDamage(float damage) => 
-            _currentHealth -= damage;
+            Health.Current -= damage;
 
         public void Tick(float deltaTime)
         {
-            if(!IsAlive)
+            if(!Health.IsAlive)
                 return;
             _movementBehaviour.Tick(deltaTime);
             _playerHandsBehaviour.Tick(deltaTime);

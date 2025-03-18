@@ -41,6 +41,10 @@ namespace RogueDungeon.Game.Gameplay
             Container.Bind<IPlayerSpawner>().To<PlayerSpawner>().FromNew().AsSingle()
                 .WithArguments(_playerConfig, _playerTransform);
             
+            // HUD
+            Container.InstanceSingle(_gameplayConfig.HudConfig);
+            Container.NewSingle<IFactory<GameplayHud>, GameplayHudFactory>();
+            
             // Gameplay
             Container.InstanceSingle(_gameplayConfig);
             Container.NewSingleInterfacesAndSelf<Gameplay>();

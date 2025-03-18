@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common.UtilsZenject;
+using UnityEngine;
 using Zenject;
 
 namespace RogueDungeon.Player
@@ -10,9 +11,13 @@ namespace RogueDungeon.Player
         public PlayerFactory(DiContainer container) => 
             _container = container;
 
-        public Player Create(PlayerConfig config, Transform parent) => 
-            _container
+        public Player Create(PlayerConfig config, Transform parent)
+        {
+            var player = _container
                 .InstantiatePrefab(config.Prefab, parent)
                 .GetComponent<Context>().Container.Resolve<Player>();
+            _container.InstanceSingle(player);
+            return player;
+        }
     }
 }

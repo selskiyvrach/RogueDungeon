@@ -3,7 +3,7 @@
     public class PlayerControlStateMediator
     {
         private readonly Player _player;
-        private bool CanPerformAnyAction => _player.IsAlive;
+        private bool CanPerformAnyAction => _player.Health.IsAlive;
 
         public bool IsDodging { private get; set; }
         public bool IsAttackInUncancellableState { private get; set; }

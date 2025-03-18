@@ -15,17 +15,19 @@ namespace RogueDungeon.Game.Gameplay
         private readonly IPlayerSpawner _playerSpawner;
         private readonly IGameCamera _camera;
         private readonly IFactory<LevelConfig, Level> _levelFactory;
+        private readonly IFactory<GameplayHud> _hudFactory;
         
         private Player.Player _player;
         private Level _level;
 
-        public Gameplay(GameplayConfig config, IPlayerSpawner playerSpawner, IGameCamera camera, IFactory<LevelConfig, Level> levelFactory, IPlayerInput playerInput)
+        public Gameplay(GameplayConfig config, IPlayerSpawner playerSpawner, IGameCamera camera, IFactory<LevelConfig, Level> levelFactory, IPlayerInput playerInput, IFactory<GameplayHud> hudFactory)
         {
             _config = config;
             _playerSpawner = playerSpawner;
             _camera = camera;
             _levelFactory = levelFactory;
             _playerInput = playerInput;
+            _hudFactory = hudFactory;
         }
 
         public void Initialize()
@@ -35,6 +37,7 @@ namespace RogueDungeon.Game.Gameplay
             _level.Initialize();
             _camera.Follow = _player.CameraPovPoint;
             _player.Initialize();
+            _hudFactory.Create();
         }
 
         public void Tick(float timeDelta)
@@ -42,7 +45,7 @@ namespace RogueDungeon.Game.Gameplay
             _playerInput.Tick(timeDelta);
             _player.Tick(timeDelta);
             _level.Tick(timeDelta);
-            if (!_player.IsAlive) 
+            if (!_player.Health.IsAlive) 
                 HandleGameOver();
         }
 

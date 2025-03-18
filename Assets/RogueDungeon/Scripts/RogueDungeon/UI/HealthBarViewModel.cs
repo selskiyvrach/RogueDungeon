@@ -4,26 +4,28 @@ using UniRx;
 
 namespace RogueDungeon.Scripts.RogueDungeon.UI
 {
-    public class HealthBarViewModel : IBarViewModel
+    public abstract class HealthBarViewModel : IBarViewModel
     {
-        private readonly IHealth _health;
+        protected readonly IHealth Health;
         public IReadOnlyReactiveProperty<float> Value { get; } = new ReactiveProperty<float>();
         public IReadOnlyReactiveProperty<bool> IsVisible { get; } = new ReactiveProperty<bool>();
 
-        public HealthBarViewModel(IHealth health)
+        protected HealthBarViewModel(IHealth health)
         {
-            _health = health;
-            _health.OnChanged += UpdateValue;
+            Health = health;
+            Health.OnChanged += UpdateValue;
             UpdateValue();
         }
 
         public void Dispose() => 
-            _health.OnChanged -= UpdateValue;
+            Health.OnChanged -= UpdateValue;
 
         private void UpdateValue()
         {
-            ((ReactiveProperty<float>)Value).Value = _health.Current / _health.Max;
-            ((ReactiveProperty<bool>)IsVisible).Value = _health.Current < _health.Max;
+            ((ReactiveProperty<float>)Value).Value = Health.Current / Health.Max;
+            UpdateVisibility();
         }
+
+        protected abstract void UpdateVisibility();
     }
 }

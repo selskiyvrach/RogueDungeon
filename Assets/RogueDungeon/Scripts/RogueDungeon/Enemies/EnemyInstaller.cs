@@ -9,26 +9,27 @@ using Zenject;
 
 namespace RogueDungeon.Enemies
 {
-    public class EnemyInstaller : MonoInstaller
+    public class EnemyInstaller : MonoBehaviour
     {
         [SerializeField] private AnimationClipTarget _animationClipTarget;
         [SerializeField] private SpriteSheetAnimationTarget _spriteSheetAnimationTarget;
         [SerializeField] private Bar _healthBar;
         
-        public override void InstallBindings()
+        public Enemy Install(DiContainer container)
         {
-            Container.InstanceSingle(gameObject);
-            Container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
-            Container.InstanceSingle<ISpriteSheetAnimationTarget>(_spriteSheetAnimationTarget);
-            Container.NewSingleInterfacesAndSelf<Health>();
-            Container.NewSingle<IFactory<EnemyStateConfig, EnemyState>, EnemyStatesFactory>();
-            Container.NewSingle<EnemyStatesProvider>();
-            Container.NewSingle<EnemyStateMachine>();
+            container.InstanceSingle(gameObject);
+            container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
+            container.InstanceSingle<ISpriteSheetAnimationTarget>(_spriteSheetAnimationTarget);
+            container.NewSingleInterfacesAndSelf<Health>();
+            container.NewSingle<IFactory<EnemyStateConfig, EnemyState>, EnemyStatesFactory>();
+            container.NewSingle<EnemyStatesProvider>();
+            container.NewSingle<EnemyStateMachine>();
+            container.NewSingle<Enemy>();
             
-            Container.NewSingle<IBarViewModel, HealthBarViewModel>();
-            Container.Inject(_healthBar);
-            
-            Container.NewSingle<Enemy>();
+            container.NewSingle<IBarViewModel, EnemyHealthBarViewModel>();
+            container.Inject(_healthBar);
+
+            return container.Resolve<Enemy>();
         }
     }
 }

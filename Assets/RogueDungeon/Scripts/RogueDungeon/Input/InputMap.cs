@@ -20,7 +20,7 @@ namespace RogueDungeon.Input
         {
             _enabledUnits.Where(n => !filter.AllowedKeys.Contains(n.Key)).Foreach(n => n.ResetState());
             _enabledUnits.Clear();
-            _enabledUnits.AddRange(filter == null 
+            _enabledUnits.AddRange(filter == null
                 ? _inputUnits 
                 : _inputUnits.Where(n => filter.AllowedKeys.Contains(n.Key)));
         }
