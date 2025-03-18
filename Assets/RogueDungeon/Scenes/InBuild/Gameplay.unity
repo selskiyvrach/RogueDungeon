@@ -391,6 +391,7 @@ MonoBehaviour:
   _levelRoot: {fileID: 1994701580}
   _roomLocalPositionsConfig: {fileID: 11400000, guid: e6e375d2dd9b39849ba8fcbaabb68b49,
     type: 2}
+  _barDeltaConfig: {fileID: 11400000, guid: b76f3c2a4b991bb45a46b6b83975bc9d, type: 2}
 --- !u!114 &1662126081
 MonoBehaviour:
   m_ObjectHideFlags: 0

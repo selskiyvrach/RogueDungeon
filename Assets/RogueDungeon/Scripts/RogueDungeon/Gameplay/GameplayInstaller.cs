@@ -1,4 +1,5 @@
-﻿using Common.UtilsZenject;
+﻿using Common.UI.Bars;
+using Common.UtilsZenject;
 using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
 using RogueDungeon.Levels;
@@ -16,10 +17,13 @@ namespace RogueDungeon.Game.Gameplay
         [SerializeField] private BattleField _battleField;
         [SerializeField] private Transform _levelRoot;
         [SerializeField] private RoomLocalPositionsConfig _roomLocalPositionsConfig;
+        [SerializeField] private BarDeltaConfig _barDeltaConfig;
         private Gameplay _gameplay;
 
         public override void InstallBindings()
         {
+            Container.InstanceSingle(_barDeltaConfig);
+            
             // Level
             Container.InstanceSingle(_roomLocalPositionsConfig);
             Container.InstanceSingle(_levelRoot);
