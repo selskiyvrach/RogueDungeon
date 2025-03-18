@@ -1,16 +1,17 @@
-﻿using UnityEngine.Assertions;
+﻿using UnityEngine;
+using UnityEngine.Assertions;
 using Zenject;
 
 namespace RogueDungeon.Items
 {
-    public class ItemPresenterFactory : IFactory<ItemConfig, HandHeldItemPresenter>
+    public class ItemPresenterFactory : IFactory<IItem, HandHeldItemPresenter>
     {
         private readonly HandHeldItemPresenter _itemPresenter;
 
         public ItemPresenterFactory(HandHeldItemPresenter itemPresenter) => 
             _itemPresenter = itemPresenter;
 
-        public HandHeldItemPresenter Create(ItemConfig param)
+        public HandHeldItemPresenter Create(IItem param)
         {
             Assert.IsTrue(_itemPresenter.IsReleased);
             _itemPresenter.IsReleased = false;

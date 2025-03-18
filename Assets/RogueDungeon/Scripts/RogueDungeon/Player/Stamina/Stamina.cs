@@ -39,6 +39,9 @@ namespace RogueDungeon.Player.Stamina
             OnChanged?.Invoke();
         }
 
+        public bool CanAfford(float amount) => 
+            Current > 1;
+
         public void Refill()
         {
             Current = Max;

@@ -16,9 +16,9 @@ MonoBehaviour:
   <StaminaConfig>k__BackingField:
     <Max>k__BackingField: 50
     <RechargeRate>k__BackingField: 15
-    <RechargeDelay>k__BackingField: 1
+    <RechargeDelay>k__BackingField: 0.5
   <PositionOffsetFromTileCenter>k__BackingField: 0.4
-  <DefaultWeapon>k__BackingField: {fileID: 11400000, guid: ef43aeec929d0004f8a730deaad85546,
+  <DefaultWeapon>k__BackingField: {fileID: 11400000, guid: 4b04777495ac5c145a6022faf79be800,
     type: 2}
   <Prefab>k__BackingField: {fileID: 3401579970430071534, guid: 0b1353be74b298141ba99669d9373a88,
     type: 3}

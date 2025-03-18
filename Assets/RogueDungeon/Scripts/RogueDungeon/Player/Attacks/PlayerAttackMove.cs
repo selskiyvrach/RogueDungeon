@@ -1,6 +1,7 @@
 ﻿using Common.Animations;
 using RogueDungeon.Animations;
 using RogueDungeon.Input;
+using RogueDungeon.Items;
 using RogueDungeon.Player;
 using UnityEngine;
 
@@ -9,16 +10,18 @@ namespace RogueDungeon.Weapons
     public class PlayerAttackMove : PlayerAttackBaseMove
     {
         private readonly IPlayerAttacksMediator _playerAttacksMediator;
+        private readonly IWeapon _weapon;
         private readonly PlayerControlStateMediator _playerControlStateMediator;
         private readonly PlayerAttackMoveConfig _config;
         private readonly IPlayerInput _input;
         
         public PlayerAttackMove(IPlayerInput input, PlayerAttackMoveConfig config, IAnimation animation, PlayerControlStateMediator playerControlStateMediator,
-            IPlayerAttacksMediator playerAttacksMediator, PlayerControlStateMediator controlStateMediator) : base(config, animation, input, controlStateMediator)
+            IPlayerAttacksMediator playerAttacksMediator, PlayerControlStateMediator controlStateMediator, IWeapon weapon) : base(config, animation, input, controlStateMediator)
         {
             _config = config;
             _playerControlStateMediator = playerControlStateMediator;
             _playerAttacksMediator = playerAttacksMediator;
+            _weapon = weapon;
             _input = input;
         }
 
@@ -41,7 +44,7 @@ namespace RogueDungeon.Weapons
             base.OnAnimationEvent(name);
             base.OnAnimationEvent(name);
             if (name == AnimationEventNames.Hit)
-                _playerAttacksMediator.MediatePlayerAttack(_config.Damage);
+                _playerAttacksMediator.MediatePlayerAttack(_weapon.Damage);
             else
                 Debug.LogError("Attack move lacks implementation for handling animation event: " + name);
         }

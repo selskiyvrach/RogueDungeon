@@ -31,6 +31,6 @@ namespace RogueDungeon.Player.Behaviours.Movement
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _playerControlState.CanDodge && _player.Stamina.Current >= _config.StaminaCost;
+            base.CanTransitionTo() && _playerControlState.CanDodge && _player.Stamina.CanAfford(_config.StaminaCost);
     }
 }

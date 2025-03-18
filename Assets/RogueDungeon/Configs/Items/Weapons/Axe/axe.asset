@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb74cae2a2ac4564924a6db33a731d54, type: 3}
-  m_Name: axe_config
+  m_Script: {fileID: 11500000, guid: 9be4e27dc40947749878beae91b7d42c, type: 3}
+  m_Name: axe
   m_EditorClassIdentifier: 
   <Sprite>k__BackingField: {fileID: 21300000, guid: 6548e0a1d1636f84b8059be3b6c7db87,
     type: 3}
   <MoveSetConfig>k__BackingField: {fileID: 11400000, guid: 95629d266fa9cc048be4357c8189e1b4,
     type: 2}
+  <Damage>k__BackingField: 10
+  <AttackStaminaCost>k__BackingField: 12
