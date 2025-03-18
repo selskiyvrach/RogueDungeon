@@ -35,6 +35,8 @@ namespace RogueDungeon.Enemies
             _stateMachine = stateMachine;
             _statesProvider = statesProvider;
             Health = health;
+            Health.Max = _config.Health;
+            Health.Current = _config.Health;
         }
 
         public void Tick(float deltaTime) => 
@@ -42,8 +44,6 @@ namespace RogueDungeon.Enemies
 
         public void Initialize()
         {
-            Health.Max = _config.Health;
-            Health.Current = _config.Health;
             TargetablePosition = OccupiedPosition;
             _stateMachine.Initialize(_statesProvider.GetState(_config.IdleState));
             _stateMachine.TryStartState(_statesProvider.GetState(_config.BirthState));

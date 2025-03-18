@@ -8,11 +8,10 @@ using UnityEngine;
 
 namespace RogueDungeon.Player
 {
-    public class Player : IDodger, IInitializable, ITickable
+    public class Player : IInitializable, ITickable
     {
         private readonly PlayerConfig _config;
         private readonly PlayerPositionInTheMaze _mazeTraversalPointer;
-        private readonly IDodger _dodger;
         private readonly Level _level;
         
         private PlayerMovementBehaviour _movementBehaviour;
@@ -22,18 +21,13 @@ namespace RogueDungeon.Player
         public PlayerBlockerHandler BlockerHandler { get; }
         public Health Health { get; } = new();
         public Stamina.Stamina Stamina { get; }
-        public PlayerDodgeState DodgeState
-        {
-            get => _dodger.DodgeState;
-            set => _dodger.DodgeState = value;
-        }
+        public PlayerDodgeState DodgeState { get; set; }
 
-        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IDodger dodger)
+        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition)
         {
             _config = config;
             _level = level;
             _mazeTraversalPointer = playerMazePosition;
-            _dodger = dodger;
             BlockerHandler = new PlayerBlockerHandler(this);
             CameraPovPoint = gameObject.CameraReferencePoint;
             Stamina = new Stamina.Stamina(_config.StaminaConfig);

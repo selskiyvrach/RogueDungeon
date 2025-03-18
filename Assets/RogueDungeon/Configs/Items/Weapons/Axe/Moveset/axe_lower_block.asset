@@ -17,7 +17,7 @@ MonoBehaviour:
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:
-      <Duration>k__BackingField: 0.25
+      <Duration>k__BackingField: 0.35
       <Clip>k__BackingField: {fileID: 7400000, guid: 875cdf2bf92b880409702a9608d8f131,
         type: 2}
     _spriteSheetAnimationConfig:

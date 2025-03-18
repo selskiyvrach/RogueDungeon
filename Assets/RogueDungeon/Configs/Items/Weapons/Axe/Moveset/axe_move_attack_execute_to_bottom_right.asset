@@ -25,8 +25,9 @@ MonoBehaviour:
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
+  - <MoveId>k__BackingField: attack_prepare_from_bottom_right_to_bottom_left
+    <CanInterrupt>k__BackingField: 0
   - <MoveId>k__BackingField: attack_finish_from_bottom_right
     <CanInterrupt>k__BackingField: 0
   <RequiredInputKey>k__BackingField: 0
   <IsUncancellable>k__BackingField: 1
-  <Damage>k__BackingField: 10

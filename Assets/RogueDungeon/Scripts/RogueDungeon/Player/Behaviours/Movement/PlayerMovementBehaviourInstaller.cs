@@ -13,7 +13,6 @@ namespace RogueDungeon.Player.Behaviours.Movement
 
         public void Install(DiContainer diContainer)
         {
-            diContainer.NewSingle<IDodger, DodgeContext>();
             var container = diContainer.CreateSubContainer();
             container.InstanceSingle(_moveSetConfig);
             container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
