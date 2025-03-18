@@ -6,12 +6,12 @@ namespace RogueDungeon.Player.Behaviours.Movement
     public class DodgeMove : PlayerMove
     {
         private readonly PlayerControlStateMediator _playerControlState;
-        private readonly IDodger _dodger;
+        private readonly Player _player;
         private readonly DodgeMoveConfig _config;
 
-        public DodgeMove(IDodger dodger, DodgeMoveConfig config, IAnimation animation, IPlayerInput playerInput, PlayerControlStateMediator playerControlState) : base(config, animation, playerInput)
+        public DodgeMove(Player player, DodgeMoveConfig config, IAnimation animation, IPlayerInput playerInput, PlayerControlStateMediator playerControlState) : base(config, animation, playerInput)
         {
-            _dodger = dodger;
+            _player = player;
             _config = config;
             _playerControlState = playerControlState;
         }
@@ -19,7 +19,8 @@ namespace RogueDungeon.Player.Behaviours.Movement
         public override void Enter()
         {
             base.Enter();
-            _dodger.DodgeState = _config.DodgeState;
+            _player.Stamina.Spend(_config.StaminaCost);
+            _player.DodgeState = _config.DodgeState;
             _playerControlState.IsDodging = _config.DodgeState != PlayerDodgeState.None;
         }
 
@@ -30,6 +31,6 @@ namespace RogueDungeon.Player.Behaviours.Movement
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _playerControlState.CanDodge;
+            base.CanTransitionTo() && _playerControlState.CanDodge && _player.Stamina.Current >= _config.StaminaCost;
     }
 }
