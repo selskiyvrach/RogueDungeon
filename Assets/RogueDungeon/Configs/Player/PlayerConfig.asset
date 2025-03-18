@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c87beb6689a4572a1d6b557c62ba68d, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
+  <Health>k__BackingField: 100
+  <StaminaConfig>k__BackingField:
+    <Max>k__BackingField: 50
+    <RechargeRate>k__BackingField: 15
+    <RechargeDelay>k__BackingField: 1
   <PositionOffsetFromTileCenter>k__BackingField: 0.4
   <DefaultWeapon>k__BackingField: {fileID: 11400000, guid: ef43aeec929d0004f8a730deaad85546,
     type: 2}

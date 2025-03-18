@@ -4,13 +4,13 @@ using UniRx;
 
 namespace RogueDungeon.Scripts.RogueDungeon.UI
 {
-    public abstract class HealthBarViewModel : IBarViewModel
+    public abstract class BarViewModel : IBarViewModel
     {
-        protected readonly IHealth Health;
+        protected readonly IResource Health;
         public IReadOnlyReactiveProperty<float> Value { get; } = new ReactiveProperty<float>();
         public IReadOnlyReactiveProperty<bool> IsVisible { get; } = new ReactiveProperty<bool>();
 
-        protected HealthBarViewModel(IHealth health)
+        protected BarViewModel(IResource health)
         {
             Health = health;
             Health.OnChanged += UpdateValue;

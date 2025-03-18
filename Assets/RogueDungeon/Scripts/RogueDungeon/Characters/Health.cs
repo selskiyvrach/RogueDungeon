@@ -2,7 +2,7 @@
 
 namespace Characters
 {
-    public class Health : IHealth
+    public class Health : IResource
     {
         private float _max;
         private float _current;

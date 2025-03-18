@@ -2,9 +2,9 @@
 
 namespace RogueDungeon.Scripts.RogueDungeon.UI
 {
-    public class PlayerHealthBarViewModel : BarViewModel
+    public class PlayerStaminaBarViewModel : BarViewModel
     {
-        public PlayerHealthBarViewModel(Player.Player player) : base(player.Health)
+        public PlayerStaminaBarViewModel(Player.Player player) : base(player.Stamina)
         {
         }
 

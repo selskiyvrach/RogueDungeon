@@ -26,7 +26,7 @@ namespace RogueDungeon.Enemies
             container.NewSingle<EnemyStateMachine>();
             container.NewSingle<Enemy>();
             
-            container.NewSingle<IBarViewModel, EnemyHealthBarViewModel>();
+            container.NewSingle<IBarViewModel, EnemyBarViewModel>();
             container.Inject(_healthBar);
 
             return container.Resolve<Enemy>();

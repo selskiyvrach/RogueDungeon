@@ -2,7 +2,7 @@
 
 namespace Characters
 {
-    public interface IHealth
+    public interface IResource
     {
         float Current { get; }
         float Max { get; }

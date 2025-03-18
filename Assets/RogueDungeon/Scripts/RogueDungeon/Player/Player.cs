@@ -21,6 +21,7 @@ namespace RogueDungeon.Player
         public Transform CameraPovPoint { get; }
         public PlayerBlockerHandler BlockerHandler { get; }
         public Health Health { get; } = new();
+        public Stamina.Stamina Stamina { get; }
         public PlayerDodgeState DodgeState
         {
             get => _dodger.DodgeState;
@@ -35,6 +36,7 @@ namespace RogueDungeon.Player
             _dodger = dodger;
             BlockerHandler = blockerHandler;
             CameraPovPoint = gameObject.CameraReferencePoint;
+            Stamina = new Stamina.Stamina(_config.StaminaConfig);
         }
 
         public void SetBehaviours(PlayerHandsBehaviour handsBehaviour, PlayerMovementBehaviour movementBehaviour)
@@ -45,6 +47,7 @@ namespace RogueDungeon.Player
 
         public void Initialize()
         {
+            Stamina.Refill();
             Health.Max = _config.Health;
             Health.Current = _config.Health;
             _level.LevelTraverser = _mazeTraversalPointer;
@@ -60,6 +63,7 @@ namespace RogueDungeon.Player
         {
             if(!Health.IsAlive)
                 return;
+            Stamina.Tick(deltaTime);
             _movementBehaviour.Tick(deltaTime);
             _playerHandsBehaviour.Tick(deltaTime);
         }

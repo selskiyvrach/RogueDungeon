@@ -13,7 +13,13 @@ namespace RogueDungeon.Game.Gameplay
         public void Install(DiContainer container)
         {
             container.NewSingle<IBarViewModel, PlayerHealthBarViewModel>();
-            container.Inject(_gameplayHud.PlayerHealthBar);
+            container.Inject(_gameplayHud.PlayerHealthBar, new []{ container.Resolve<IBarViewModel>()});
+            container.Unbind<IBarViewModel>();
+            
+            container.NewSingle<IBarViewModel, PlayerStaminaBarViewModel>();
+            container.Inject(_gameplayHud.PlayerStaminaBar, new []{ container.Resolve<IBarViewModel>()});
+            container.Unbind<IBarViewModel>();
+            
             container.InstanceSingle(_gameplayHud);
         }
     }
