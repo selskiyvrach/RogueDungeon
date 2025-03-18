@@ -7,18 +7,18 @@ namespace RogueDungeon.Weapons
 {
     public class PlayerAbsorbBlockImpactMove : PlayerMove
     {
-        private readonly PlayerBlockerHandler _blocker;
+        private readonly Player.Player _player;
 
-        protected PlayerAbsorbBlockImpactMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, PlayerBlockerHandler blocker) : base(config, animation, playerInput) => 
-            _blocker = blocker;
+        protected PlayerAbsorbBlockImpactMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player.Player player) : base(config, animation, playerInput) => 
+            _player = player;
 
         public override void Enter()
         {
             base.Enter();
-            _blocker.HasUnabsorbedImpact = false;
+            _player.BlockerHandler.HasUnabsorbedImpact = false;
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _blocker.HasUnabsorbedImpact;
+            base.CanTransitionTo() && _player.BlockerHandler.HasUnabsorbedImpact;
     }
 }

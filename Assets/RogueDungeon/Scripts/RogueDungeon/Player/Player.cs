@@ -28,13 +28,13 @@ namespace RogueDungeon.Player
             set => _dodger.DodgeState = value;
         }
 
-        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IDodger dodger, PlayerBlockerHandler blockerHandler)
+        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IDodger dodger)
         {
             _config = config;
             _level = level;
             _mazeTraversalPointer = playerMazePosition;
             _dodger = dodger;
-            BlockerHandler = blockerHandler;
+            BlockerHandler = new PlayerBlockerHandler(this);
             CameraPovPoint = gameObject.CameraReferencePoint;
             Stamina = new Stamina.Stamina(_config.StaminaConfig);
         }

@@ -8,24 +8,24 @@ namespace RogueDungeon.Weapons
     public class PlayerHoldBlockMove : PlayerMove
     {
         private readonly IPlayerInput _playerInput;
-        private readonly PlayerBlockerHandler _blocker;
+        private readonly Player.Player _player;
         
-        protected PlayerHoldBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, PlayerBlockerHandler blocker) : base(config, animation, playerInput)
+        protected PlayerHoldBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player.Player player) : base(config, animation, playerInput)
         {
             _playerInput = playerInput;
-            _blocker = blocker;
+            _player = player;
         }
 
         public override void Enter()
         {
             base.Enter();
-            _blocker.IsBlocking = true;
+            _player.BlockerHandler.IsBlocking = true;
         }
 
         public override void Exit()
         {
             base.Exit();
-            _blocker.IsBlocking = false;
+            _player.BlockerHandler.IsBlocking = false;
         }
 
         protected override bool CanTransitionTo() => 
