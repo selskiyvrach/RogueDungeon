@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace Characters
+﻿namespace RogueDungeon.Characters
 {
-    public interface IResource
+    public interface IResource : IReadOnlyResource
     {
-        float Current { get; }
-        float Max { get; }
-        event Action OnChanged;
+        void AddDelta(float value);
     }
 }

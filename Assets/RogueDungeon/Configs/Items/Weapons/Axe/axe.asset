@@ -17,4 +17,5 @@ MonoBehaviour:
   <MoveSetConfig>k__BackingField: {fileID: 11400000, guid: 95629d266fa9cc048be4357c8189e1b4,
     type: 2}
   <Damage>k__BackingField: 10
+  <PoiseDamage>k__BackingField: 20
   <AttackStaminaCost>k__BackingField: 12

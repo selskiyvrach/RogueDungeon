@@ -1,12 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RogueDungeon.Player.Stamina
+namespace RogueDungeon.Characters
 {
     [Serializable]
-    public class StaminaConfig
+    public class RechargeableResourceConfig : ResourceConfig
     {
-        [field: SerializeField] public float Max { get; private set; } = 100;
         [field: SerializeField] public float RechargeRate { get; private set; } = 20;
         [field: SerializeField] public float RechargeDelay { get; private set; } = 1;
     }

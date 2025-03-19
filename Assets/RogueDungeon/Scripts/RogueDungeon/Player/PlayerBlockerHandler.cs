@@ -16,7 +16,7 @@ namespace RogueDungeon.Player
         {
             HasUnabsorbedImpact = true;
             damageAfterBlocking = Mathf.Clamp(damage - _player.Stamina.Current, 0, float.PositiveInfinity);
-            _player.Stamina.Spend(damage);
+            _player.Stamina.AddDelta(- damage);
         }
     }
 }

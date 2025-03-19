@@ -44,7 +44,7 @@ namespace RogueDungeon.Weapons
             base.OnAnimationEvent(name);
             base.OnAnimationEvent(name);
             if (name == AnimationEventNames.Hit)
-                _playerAttacksMediator.MediatePlayerAttack(_weapon.Damage);
+                _playerAttacksMediator.MediatePlayerAttack(_weapon);
             else
                 Debug.LogError("Attack move lacks implementation for handling animation event: " + name);
         }

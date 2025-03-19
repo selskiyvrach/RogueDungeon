@@ -20,10 +20,10 @@ namespace RogueDungeon.Weapons
         public override void Enter()
         {
             base.Enter();   
-            _player.Stamina.Spend(_weapon.AttackStaminaCost);
+            _player.Stamina.AddDelta(-_weapon.AttackStaminaCost);
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _player.Stamina.CanAfford(_weapon.AttackStaminaCost);
+            base.CanTransitionTo() && _player.Stamina.Current > 1;
     }
 }

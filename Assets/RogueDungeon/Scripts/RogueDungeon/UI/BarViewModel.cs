@@ -1,16 +1,16 @@
-﻿using Characters;
-using Common.UI.Bars;
+﻿using Common.UI.Bars;
+using RogueDungeon.Characters;
 using UniRx;
 
 namespace RogueDungeon.Scripts.RogueDungeon.UI
 {
     public abstract class BarViewModel : IBarViewModel
     {
-        protected readonly IResource Health;
+        protected readonly IReadOnlyResource Health;
         public IReadOnlyReactiveProperty<float> Value { get; } = new ReactiveProperty<float>();
         public IReadOnlyReactiveProperty<bool> IsVisible { get; } = new ReactiveProperty<bool>();
 
-        protected BarViewModel(IResource health)
+        protected BarViewModel(IReadOnlyResource health)
         {
             Health = health;
             Health.OnChanged += UpdateValue;
@@ -23,9 +23,9 @@ namespace RogueDungeon.Scripts.RogueDungeon.UI
         private void UpdateValue()
         {
             ((ReactiveProperty<float>)Value).Value = Health.Current / Health.Max;
-            UpdateVisibility();
+            ((ReactiveProperty<bool>)IsVisible).Value = GetVisibility();
         }
 
-        protected abstract void UpdateVisibility();
+        protected virtual bool GetVisibility() => true;
     }
 }

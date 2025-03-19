@@ -2,6 +2,7 @@
 using Common.UtilsDotNet;
 using RogueDungeon.Enemies;
 using RogueDungeon.Enemies.HiveMind;
+using RogueDungeon.Items;
 using RogueDungeon.Player;
 
 namespace RogueDungeon.Combat
@@ -16,9 +17,8 @@ namespace RogueDungeon.Combat
             _enemiesRegistry = enemiesRegistry;
             _playerRegistry = playerRegistry;
         }
-
-
-        public void MediatePlayerAttack(float damage)
+        
+        public void MediatePlayerAttack(IWeapon weapon)
         {
             if (_enemiesRegistry.Enemies.FirstOrDefault(n => n.TargetablePosition == EnemyPosition.Middle) is not {} enemy)
             {
@@ -26,7 +26,7 @@ namespace RogueDungeon.Combat
                 return;
             }
 
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(weapon.Damage, weapon.PoiseDamage);
         }
 
         public void MediateEnemyAttack(float damage, EnemyAttackDirection attackDirection)

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Characters;
 using Common.Unity;
-using ModestTree;
+using RogueDungeon.Characters;
 using RogueDungeon.Enemies.States;
 using UnityEngine;
 using Assert = UnityEngine.Assertions.Assert;
@@ -20,27 +19,32 @@ namespace RogueDungeon.Enemies
         public EnemyPosition TargetablePosition { get; set; }
         public EnemyPosition OccupiedPosition { get; set; }
 
-        public Health Health { get; }
+        public Resource Health { get; }
+        public RechargeableResource Poise { get; }
         public float CurrentAggression { get; set; }
         public ITwoDWorldObject WorldObject { get; }
         public bool IsReadyToBeDisposed { get; set; }
         public bool IsIdle => _stateMachine.CurrentState is EnemyIdleState;
         public EnemyMoveConfig[] Moves => _config.Moves;
         public bool IsDoingMove => Moves.Any(n => _stateMachine.CurrentState.Config == n);
+        public bool IsAlive => Health.Current > 0;
 
-        public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, EnemyStatesProvider statesProvider, Health health)
+        public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, EnemyStatesProvider statesProvider)
         {  
             WorldObject = new TwoDWorldObject(gameObject);
             _config = config;
             _stateMachine = stateMachine;
             _statesProvider = statesProvider;
-            Health = health;
-            Health.Max = _config.Health;
-            Health.Current = _config.Health;
+            Health = new Resource(config.Health);
+            Poise = new RechargeableResource(config.Poise);
+            Health.Refill();
         }
 
-        public void Tick(float deltaTime) => 
+        public void Tick(float deltaTime)
+        {
+            Poise.Tick(deltaTime);
             _stateMachine.Tick(deltaTime);
+        }
 
         public void Initialize()
         {
@@ -58,11 +62,14 @@ namespace RogueDungeon.Enemies
         public void Destroy() =>
             ((TwoDWorldObject)WorldObject).Destroy();
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(float damage, float poiseDamage)
         {
-            Health.Current -= damage;
-            if(!Health.IsAlive)
+            Health.AddDelta(-damage);
+            Poise.AddDelta(poiseDamage);
+            if(!IsAlive)
                 _stateMachine.TryStartState(_statesProvider.GetState(_config.DeathState));
+            if(Poise.Current >= Poise.Max)
+                _stateMachine.TryStartState(_statesProvider.GetState(_config.StaggerState));
         }
 
         public void ChangePosition(EnemyPosition position)

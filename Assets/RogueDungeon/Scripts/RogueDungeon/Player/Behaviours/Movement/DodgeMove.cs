@@ -19,7 +19,7 @@ namespace RogueDungeon.Player.Behaviours.Movement
         public override void Enter()
         {
             base.Enter();
-            _player.Stamina.Spend(_config.StaminaCost);
+            _player.Stamina.AddDelta(- _config.StaminaCost);
             _player.DodgeState = _config.DodgeState;
             _playerControlState.IsDodging = _config.DodgeState != PlayerDodgeState.None;
         }
@@ -31,6 +31,6 @@ namespace RogueDungeon.Player.Behaviours.Movement
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _playerControlState.CanDodge && _player.Stamina.CanAfford(_config.StaminaCost);
+            base.CanTransitionTo() && _playerControlState.CanDodge && _player.Stamina.Current > 1;
     }
 }

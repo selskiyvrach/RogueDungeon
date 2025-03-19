@@ -1,5 +1,5 @@
-﻿using Characters;
-using Common.Lifecycle;
+﻿using Common.Lifecycle;
+using RogueDungeon.Characters;
 using RogueDungeon.Items;
 using RogueDungeon.Levels;
 using RogueDungeon.Player.Behaviours.Hands;
@@ -19,9 +19,10 @@ namespace RogueDungeon.Player
 
         public Transform CameraPovPoint { get; }
         public PlayerBlockerHandler BlockerHandler { get; }
-        public Health Health { get; } = new();
-        public Stamina.Stamina Stamina { get; }
+        public Resource Health { get; }
+        public RechargeableResource Stamina { get; }
         public PlayerDodgeState DodgeState { get; set; }
+        public bool IsAlive => Health.Current > 0;
 
         public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition)
         {
@@ -30,7 +31,10 @@ namespace RogueDungeon.Player
             _mazeTraversalPointer = playerMazePosition;
             BlockerHandler = new PlayerBlockerHandler(this);
             CameraPovPoint = gameObject.CameraReferencePoint;
-            Stamina = new Stamina.Stamina(_config.StaminaConfig);
+            Stamina = new RechargeableResource(_config.Stamina);
+            Health = new Resource(_config.Health);
+            Stamina.Refill();
+            Health.Refill();
         }
 
         public void SetBehaviours(PlayerHandsBehaviour handsBehaviour, PlayerMovementBehaviour movementBehaviour)
@@ -41,9 +45,6 @@ namespace RogueDungeon.Player
 
         public void Initialize()
         {
-            Stamina.Refill();
-            Health.Max = _config.Health;
-            Health.Current = _config.Health;
             _level.LevelTraverser = _mazeTraversalPointer;
             _movementBehaviour.Initialize();
             _playerHandsBehaviour.Initialize();
@@ -51,11 +52,11 @@ namespace RogueDungeon.Player
         }
 
         public void TakeHitDamage(float damage) => 
-            Health.Current -= damage;
+            Health.AddDelta(-damage);
 
         public void Tick(float deltaTime)
         {
-            if(!Health.IsAlive)
+            if(!IsAlive)
                 return;
             Stamina.Tick(deltaTime);
             _movementBehaviour.Tick(deltaTime);

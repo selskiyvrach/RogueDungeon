@@ -4,6 +4,7 @@
     {
         private readonly WeaponConfig _config;
         public float Damage => _config.Damage;
+        public float PoiseDamage => _config.PoiseDamage;
         public float AttackStaminaCost => _config.AttackStaminaCost;
 
         public Weapon(WeaponConfig config) : base(config) => 
@@ -12,7 +13,8 @@
 
     public interface IWeapon : IItem
     {
-        public float Damage { get; }
-        public float AttackStaminaCost { get; }
+        float Damage { get; }
+        float PoiseDamage { get; }
+        float AttackStaminaCost { get; }
     }
 }

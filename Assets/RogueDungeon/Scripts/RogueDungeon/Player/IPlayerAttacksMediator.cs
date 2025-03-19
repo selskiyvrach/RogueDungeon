@@ -1,7 +1,9 @@
-﻿namespace RogueDungeon.Player
+﻿using RogueDungeon.Items;
+
+namespace RogueDungeon.Player
 {
     public interface IPlayerAttacksMediator
     {
-        void MediatePlayerAttack(float damage);
+        void MediatePlayerAttack(IWeapon weapon);
     }
 }

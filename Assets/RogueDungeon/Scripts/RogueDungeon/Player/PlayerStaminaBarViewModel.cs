@@ -8,7 +8,7 @@ namespace RogueDungeon.Scripts.RogueDungeon.UI
         {
         }
 
-        protected override void UpdateVisibility() => 
+        protected override bool GetVisibility() => 
             ((ReactiveProperty<bool>)IsVisible).Value = true;
     }
 }

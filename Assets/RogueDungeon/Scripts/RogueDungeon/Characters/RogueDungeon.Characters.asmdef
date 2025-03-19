@@ -1,4 +1,4 @@
 ﻿{
   "name": "RogueDungeon.Characters",
-  "references":[ "GUID:f1adb21deaff4e84a0563d0b6a65275c" ]
+  "references":[ "GUID:f1adb21deaff4e84a0563d0b6a65275c", "GUID:f7908ab9e5464a33be2525137c117ec8" ]
 }

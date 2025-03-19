@@ -193,7 +193,7 @@ TextureImporter:
         y: 0
         width: 72
         height: 72
-      alignment: 9
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -214,7 +214,7 @@ TextureImporter:
         y: 0
         width: 72
         height: 72
-      alignment: 9
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -223,6 +223,69 @@ TextureImporter:
       bones: []
       spriteID: 41785a58f230a4349a5a51edfc9aa88f
       internalID: -1786852735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeleton_idle_5
+      rect:
+        serializedVersion: 2
+        x: 360
+        y: 0
+        width: 72
+        height: 72
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e2c8c73e06ea854fbb7b40d5655361e
+      internalID: 220247576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeleton_idle_6
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 0
+        width: 72
+        height: 72
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 540fe89a31dcf7148b24c8eb8d80a3aa
+      internalID: 1960310514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skeleton_idle_7
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 0
+        width: 72
+        height: 72
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f0abb5b51af8134ab04f6293661266b
+      internalID: 1681339826
       vertices: []
       indices: 
       edges: []
@@ -243,6 +306,9 @@ TextureImporter:
       skeleton_idle_2: -1088192750
       skeleton_idle_3: -1306198463
       skeleton_idle_4: -1786852735
+      skeleton_idle_5: 220247576
+      skeleton_idle_6: 1960310514
+      skeleton_idle_7: 1681339826
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
