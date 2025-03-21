@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25ce51916abd4f9986c41f9f58eb1fd2, type: 3}
-  m_Name: movement_idle
+  m_Name: player_idle
   m_EditorClassIdentifier: 
   <Id>k__BackingField: idle
   <IsLooping>k__BackingField: 0
@@ -25,6 +25,8 @@ MonoBehaviour:
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
+  - <MoveId>k__BackingField: death
+    <CanInterrupt>k__BackingField: 1
   - <MoveId>k__BackingField: dodge_right
     <CanInterrupt>k__BackingField: 1
   - <MoveId>k__BackingField: dodge_left
@@ -38,4 +40,5 @@ MonoBehaviour:
   - <MoveId>k__BackingField: rotate_180
     <CanInterrupt>k__BackingField: 1
   <RequiredInputKey>k__BackingField: 0
+  <StaminaCost>k__BackingField: 0
   <DodgeState>k__BackingField: 0

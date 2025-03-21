@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RogueDungeon.Player.Behaviours.Movement
+namespace RogueDungeon.Player.Behaviours.Common
 {
     public class DodgeMoveConfig : PlayerMoveConfig
     {

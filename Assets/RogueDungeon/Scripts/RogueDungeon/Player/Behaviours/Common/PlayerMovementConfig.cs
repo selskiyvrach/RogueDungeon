@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RogueDungeon.Player.Behaviours.Movement
+namespace RogueDungeon.Player.Behaviours.Common
 {
     public class PlayerMovementConfig : PlayerMoveConfig
     {

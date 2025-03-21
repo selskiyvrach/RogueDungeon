@@ -5,7 +5,7 @@ using RogueDungeon.Input;
 using RogueDungeon.Levels;
 using UnityEngine;
 
-namespace RogueDungeon.Player.Behaviours.Movement
+namespace RogueDungeon.Player.Behaviours.Common
 {
     public class PlayerMovementState : PlayerMove
     {

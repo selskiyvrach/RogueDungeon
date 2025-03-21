@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   <Health>k__BackingField:
-    <Max>k__BackingField: 100
+    <Max>k__BackingField: 30
   <Stamina>k__BackingField:
     <Max>k__BackingField: 50
     <RechargeRate>k__BackingField: 15

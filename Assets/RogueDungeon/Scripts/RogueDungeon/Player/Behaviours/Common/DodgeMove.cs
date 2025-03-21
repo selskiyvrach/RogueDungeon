@@ -1,7 +1,7 @@
 ﻿using Common.Animations;
 using RogueDungeon.Input;
 
-namespace RogueDungeon.Player.Behaviours.Movement
+namespace RogueDungeon.Player.Behaviours.Common
 {
     public class DodgeMove : PlayerMove
     {

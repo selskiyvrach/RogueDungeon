@@ -45,7 +45,7 @@ namespace RogueDungeon.Game.Gameplay
             _playerInput.Tick(timeDelta);
             _player.Tick(timeDelta);
             _level.Tick(timeDelta);
-            if (!_player.IsAlive) 
+            if (_player.IsReadyToBeDisposed) 
                 HandleGameOver();
         }
 

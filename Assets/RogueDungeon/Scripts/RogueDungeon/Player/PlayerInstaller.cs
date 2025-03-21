@@ -1,7 +1,7 @@
 ﻿using Common.Unity;
 using Common.UtilsZenject;
+using RogueDungeon.Player.Behaviours.Common;
 using RogueDungeon.Player.Behaviours.Hands;
-using RogueDungeon.Player.Behaviours.Movement;
 using UnityEngine;
 using Zenject;
 
@@ -12,7 +12,7 @@ namespace RogueDungeon.Player
         [SerializeField] private PlayerGameObject _playerGameObject;
         [SerializeField] private PlayerConfig _config;
         [SerializeField] private PlayerHandsInstaller _handsInstaller;
-        [SerializeField] private PlayerMovementBehaviourInstaller _movementBehaviourInstaller;
+        [SerializeField] private PlayerCommonBehaviourInstaller _commonBehaviourInstaller;
 
         public override void InstallBindings()
         {
@@ -24,10 +24,10 @@ namespace RogueDungeon.Player
             Container.NewSingle<PlayerControlStateMediator>();
             
             _handsInstaller.Install(Container);
-            _movementBehaviourInstaller.Install(Container);
+            _commonBehaviourInstaller.Install(Container);
 
             var hands = Container.Resolve<PlayerHandsBehaviour>();
-            var movement = Container.Resolve<PlayerMovementBehaviour>();
+            var movement = Container.Resolve<PlayerCommonBehaviour>();
             Container.Resolve<Player>().SetBehaviours(hands, movement);
         }
     }

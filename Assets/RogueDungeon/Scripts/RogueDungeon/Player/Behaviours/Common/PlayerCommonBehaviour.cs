@@ -2,16 +2,14 @@
 using RogueDungeon.Levels;
 using UnityEngine;
 
-namespace RogueDungeon.Player.Behaviours.Movement
+namespace RogueDungeon.Player.Behaviours.Common
 {
-    public class PlayerMovementBehaviour
+    public class PlayerCommonBehaviour
     {
         private readonly Level _level;
         private readonly StateMachine _stateMachine;
         
-        public PlayerMove CurrentMove => (PlayerMove)_stateMachine.CurrentState;
-
-        protected PlayerMovementBehaviour(StateMachine stateMachine, Level level)
+        protected PlayerCommonBehaviour(StateMachine stateMachine, Level level)
         {
             _stateMachine = stateMachine;
             _level = level;

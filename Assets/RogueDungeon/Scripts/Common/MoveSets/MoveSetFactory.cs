@@ -14,8 +14,8 @@ namespace Common.MoveSets
 
         public StateMachine Create(MoveSetConfig config) =>
             new(new IdBasedTransitionStrategy(CreateMoves(config.Moves), config.FirstMove.Id));
-  
-        private IEnumerable<Move> CreateMoves(IEnumerable<MoveConfig> moveConfigs)
+
+        public IEnumerable<Move> CreateMoves(IEnumerable<MoveConfig> moveConfigs)
         {
             var moves = moveConfigs.Select(n => Container.Instantiate(n.MoveType, new []{n, CreateAnimation(n)})).Cast<Move>().ToArray();
             CreateTransitions(moves);

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1dbd9be4ec94c31ab850f925a1bf1f4, type: 3}
-  m_Name: player_move_set_config
+  m_Name: player_common_move_set_config
   m_EditorClassIdentifier: 
   <ExtendsConfigs>k__BackingField: []
   <MoveConfigs>k__BackingField:
@@ -21,3 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 120bea24a818c304b8cd66088f5cc7fd, type: 2}
   - {fileID: 11400000, guid: c78eb5b6d8f24e94dbd83a703b3d2e7e, type: 2}
   - {fileID: 11400000, guid: d42732c89d8a53d4b811077a1c495c0f, type: 2}
+  - {fileID: 11400000, guid: 87702c4a49f7bee4384dfe980751778c, type: 2}

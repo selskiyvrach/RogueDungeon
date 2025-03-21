@@ -4,9 +4,9 @@ using Common.UtilsZenject;
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Player.Behaviours.Movement
+namespace RogueDungeon.Player.Behaviours.Common
 {
-    public class PlayerMovementBehaviourInstaller : MonoBehaviour
+    public class PlayerCommonBehaviourInstaller : MonoBehaviour
     {
         [SerializeField] private MoveSetConfig _moveSetConfig;
         [SerializeField] private AnimationClipTarget _animationClipTarget;
@@ -17,8 +17,8 @@ namespace RogueDungeon.Player.Behaviours.Movement
             container.InstanceSingle(_moveSetConfig);
             container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
             container.InstanceSingle(new MoveSetFactory(container).Create(_moveSetConfig));
-            container.NewSingleInterfacesAndSelf<PlayerMovementBehaviour>();
-            diContainer.Bind<PlayerMovementBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();
+            container.NewSingleInterfacesAndSelf<PlayerCommonBehaviour>();
+            diContainer.Bind<PlayerCommonBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();
         }
     }
 }

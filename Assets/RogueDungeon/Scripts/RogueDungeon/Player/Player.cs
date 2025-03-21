@@ -2,8 +2,8 @@
 using RogueDungeon.Characters;
 using RogueDungeon.Items;
 using RogueDungeon.Levels;
+using RogueDungeon.Player.Behaviours.Common;
 using RogueDungeon.Player.Behaviours.Hands;
-using RogueDungeon.Player.Behaviours.Movement;
 using UnityEngine;
 
 namespace RogueDungeon.Player
@@ -14,7 +14,7 @@ namespace RogueDungeon.Player
         private readonly PlayerPositionInTheMaze _mazeTraversalPointer;
         private readonly Level _level;
         
-        private PlayerMovementBehaviour _movementBehaviour;
+        private PlayerCommonBehaviour _commonBehaviour;
         private PlayerHandsBehaviour _playerHandsBehaviour;
 
         public Transform CameraPovPoint { get; }
@@ -22,6 +22,7 @@ namespace RogueDungeon.Player
         public Resource Health { get; }
         public RechargeableResource Stamina { get; }
         public PlayerDodgeState DodgeState { get; set; }
+        public bool IsReadyToBeDisposed { get; set; }
         public bool IsAlive => Health.Current > 0;
 
         public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition)
@@ -37,16 +38,16 @@ namespace RogueDungeon.Player
             Health.Refill();
         }
 
-        public void SetBehaviours(PlayerHandsBehaviour handsBehaviour, PlayerMovementBehaviour movementBehaviour)
+        public void SetBehaviours(PlayerHandsBehaviour handsBehaviour, PlayerCommonBehaviour commonBehaviour)
         {
             _playerHandsBehaviour = handsBehaviour;
-            _movementBehaviour = movementBehaviour;   
+            _commonBehaviour = commonBehaviour;   
         }
 
         public void Initialize()
         {
             _level.LevelTraverser = _mazeTraversalPointer;
-            _movementBehaviour.Initialize();
+            _commonBehaviour.Initialize();
             _playerHandsBehaviour.Initialize();
             ((IHandheldContext)_playerHandsBehaviour).IntendedItem = new Weapon(_config.DefaultWeapon);
         }
@@ -56,11 +57,11 @@ namespace RogueDungeon.Player
 
         public void Tick(float deltaTime)
         {
-            if(!IsAlive)
-                return;
-            Stamina.Tick(deltaTime);
-            _movementBehaviour.Tick(deltaTime);
-            _playerHandsBehaviour.Tick(deltaTime);
+            if(IsAlive)
+                Stamina.Tick(deltaTime);
+            _commonBehaviour.Tick(deltaTime);
+            if(IsAlive)
+                _playerHandsBehaviour.Tick(deltaTime);
         }
     }
 }
