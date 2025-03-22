@@ -15,7 +15,6 @@ namespace Common.UI.Bars
         private float _previousValue;
 
         public IReadOnlyReactiveProperty<float> Value { get; } = new ReactiveProperty<float>();
-        public IReadOnlyReactiveProperty<bool> IsVisible => _barViewModel.IsVisible;
 
         public BarDeltaViewModel(IBarViewModel barViewModel, BarDeltaConfig config)
         {

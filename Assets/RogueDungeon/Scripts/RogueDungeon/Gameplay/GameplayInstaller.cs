@@ -1,13 +1,14 @@
-﻿using Common.UI.Bars;
+﻿using Common.UI;
+using Common.UI.Bars;
 using Common.UtilsZenject;
 using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
 using RogueDungeon.Levels;
-using RogueDungeon.Player;
+using RogueDungeon.Player.Model;
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Game.Gameplay
+namespace Gameplay
 {
     public class GameplayInstaller : MonoInstaller
     {
@@ -17,13 +18,13 @@ namespace RogueDungeon.Game.Gameplay
         [SerializeField] private BattleField _battleField;
         [SerializeField] private Transform _levelRoot;
         [SerializeField] private RoomLocalPositionsConfig _roomLocalPositionsConfig;
+        [SerializeField] private ScreensSorter _screensSorter;
+        [SerializeField] private UiManagerConfig _config;
         [SerializeField] private BarDeltaConfig _barDeltaConfig;
         private Gameplay _gameplay;
 
         public override void InstallBindings()
         {
-            Container.InstanceSingle(_barDeltaConfig);
-            
             // Level
             Container.InstanceSingle(_roomLocalPositionsConfig);
             Container.InstanceSingle(_levelRoot);
@@ -45,9 +46,14 @@ namespace RogueDungeon.Game.Gameplay
             Container.Bind<IPlayerSpawner>().To<PlayerSpawner>().FromNew().AsSingle()
                 .WithArguments(_playerConfig, _playerTransform);
             
-            // HUD
-            Container.InstanceSingle(_gameplayConfig.HudConfig);
-            Container.NewSingle<IFactory<GameplayHud>, GameplayHudFactory>();
+            // UI
+            var uiContainer = Container.CreateSubContainer();
+            uiContainer.InstanceSingle(_barDeltaConfig);
+            uiContainer.InstanceSingle(_config);
+            uiContainer.InstanceSingle(_screensSorter);
+            uiContainer.NewSingle<UiFactory>();
+            uiContainer.NewSingle<GameplayUiManager>();
+            Container.Bind<GameplayUiManager>().FromSubContainerResolve().ByInstance(uiContainer).AsSingle();
             
             // Gameplay
             Container.InstanceSingle(_gameplayConfig);

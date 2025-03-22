@@ -2,7 +2,7 @@
 using RogueDungeon.Characters;
 using UniRx;
 
-namespace RogueDungeon.Scripts.RogueDungeon.UI
+namespace RogueDungeon.UI
 {
     public abstract class BarViewModel : IBarViewModel
     {

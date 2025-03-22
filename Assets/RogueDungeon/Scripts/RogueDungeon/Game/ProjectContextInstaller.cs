@@ -1,10 +1,14 @@
 ﻿using Common.SceneManagement;
+using Common.UI;
+using Common.UI.Bars;
 using Common.UI.LoadingScreen;
 using Common.Unity;
+using Common.UtilsDotNet;
 using Common.UtilsZenject;
 using RogueDungeon.Camera;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace RogueDungeon.Game
@@ -16,7 +20,7 @@ namespace RogueDungeon.Game
         [SerializeField] private EventSystem _eventSystemPrefab;
 
         private GameObject _gameRootObject;
-        
+
         public override void InstallBindings()
         {
             CreateRootObject();

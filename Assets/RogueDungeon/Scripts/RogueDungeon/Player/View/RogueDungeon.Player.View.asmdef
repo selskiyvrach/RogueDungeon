@@ -1,0 +1,17 @@
+{
+    "name": "RogueDungeon.Player.View",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1a9f07802a8b415985686ec934cfec37",
+        "GUID:f1adb21deaff4e84a0563d0b6a65275c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

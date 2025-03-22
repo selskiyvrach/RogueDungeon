@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff16dfa3d9e5493b9bfb476981c4477e, type: 3}
+  m_Name: UiManagerConfig
+  m_EditorClassIdentifier: 
+  <ScreenSorterPrefab>k__BackingField: {fileID: 6403538888298525169, guid: e365519d0c08d914aa4e5ced14050595,
+    type: 3}
+  <Screens>k__BackingField:
+  - {fileID: 7133907650912797201, guid: c86a7e34d539c7048b700e5c5daa0661, type: 3}

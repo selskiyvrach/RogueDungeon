@@ -4,6 +4,7 @@ using RogueDungeon.Enemies;
 using RogueDungeon.Enemies.HiveMind;
 using RogueDungeon.Items;
 using RogueDungeon.Player;
+using RogueDungeon.Player.Model;
 
 namespace RogueDungeon.Combat
 {

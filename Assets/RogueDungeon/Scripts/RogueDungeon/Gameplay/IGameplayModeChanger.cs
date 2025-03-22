@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Game.Gameplay
+﻿namespace Gameplay
 {
     public interface IGameplayModeChanger
     {

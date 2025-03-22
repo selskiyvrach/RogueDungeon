@@ -18,3 +18,4 @@ MonoBehaviour:
     type: 3}
   _eventSystemPrefab: {fileID: 4340473840694383706, guid: bdc31969160fe6345985bc3f21356030,
     type: 3}
+  _uiManagerConfig: {fileID: 11400000, guid: 97fe2f020ee82204e83237d4e045da6b, type: 2}

@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 5597829622956116569}
   - component: {fileID: 3734124045956160379}
   - component: {fileID: 3173973666323798113}
-  - component: {fileID: 1472572925403351919}
   - component: {fileID: 7133907650912797201}
+  - component: {fileID: 5692710043656074248}
+  - component: {fileID: 1224820839766572252}
   m_Layer: 5
   m_Name: GameplayHud
   m_TagString: Untagged
@@ -105,19 +106,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 55
---- !u!114 &1472572925403351919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3091436881617018123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13e5a1f84f124122920088f869a3d5d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameplayHud: {fileID: 7133907650912797201}
 --- !u!114 &7133907650912797201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,8 +118,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a904de0e2494747a9cd72b174ef2b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PlayerHealthBar>k__BackingField: {fileID: 7431324211217561946}
-  <PlayerStaminaBar>k__BackingField: {fileID: 7164925079729935238}
+  _canvas: {fileID: 5597829622956116569}
+--- !u!114 &5692710043656074248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3091436881617018123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14ac87dc63f4465af53d981555fe29a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerHealthBar: {fileID: 7431324211217561946}
+  _playerStaminaBar: {fileID: 7164925079729935238}
+--- !u!114 &1224820839766572252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3091436881617018123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 5692710043656074248}
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
 --- !u!1001 &2898559115043274736
 PrefabInstance:
   m_ObjectHideFlags: 0

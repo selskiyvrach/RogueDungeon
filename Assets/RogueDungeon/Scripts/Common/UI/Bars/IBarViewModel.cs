@@ -1,11 +1,9 @@
-﻿using System;
-using UniRx;
+﻿using UniRx;
 
 namespace Common.UI.Bars
 {
-    public interface IBarViewModel : IDisposable
+    public interface IBarViewModel : IUiElementViewModel
     {
         IReadOnlyReactiveProperty<float> Value { get; }
-        IReadOnlyReactiveProperty<bool> IsVisible { get; }
     }
 }

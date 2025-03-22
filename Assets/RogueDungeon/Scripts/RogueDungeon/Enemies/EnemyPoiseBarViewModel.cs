@@ -1,4 +1,5 @@
 ﻿using RogueDungeon.Enemies;
+using RogueDungeon.UI;
 
 namespace RogueDungeon.Scripts.RogueDungeon.UI
 {
