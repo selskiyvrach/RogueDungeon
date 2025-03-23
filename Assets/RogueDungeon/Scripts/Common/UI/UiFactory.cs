@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using UniRx;
+using UniRx.Triggers;
+using UnityEngine;
 using Zenject;
 
 namespace Common.UI
@@ -19,6 +21,7 @@ namespace Common.UI
             var screen = Object.Instantiate(prefab);
             screen.GetComponent<IUiRootInstaller>().Install(_container);
             _screensSorter.AddScreen(screen);
+            screen.OnDestroyAsObservable().Subscribe(_ => _screensSorter.RemoveScreen(screen));
             return screen;
         }
     }

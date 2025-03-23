@@ -15,12 +15,10 @@ namespace Gameplay
             _uiManagerConfig = uiManagerConfig;
         }
 
-        private void ShowGameOver()
-        {
-            throw new System.NotImplementedException();
-        }
+        public void Initialize() =>
+            Show<PlayerHud>();
 
-        public void Initialize() => 
-            _uiFactory.Create(_uiManagerConfig.Screens.First(n => n is PlayerHud));
+        public void Show<T>() where T : Screen => 
+            _uiFactory.Create(_uiManagerConfig.Screens.First(n => n is T));
     }
 }

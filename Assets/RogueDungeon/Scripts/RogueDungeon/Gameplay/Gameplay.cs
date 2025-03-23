@@ -20,6 +20,7 @@ namespace Gameplay
 
         private Player _player;
         private Level _level;
+        private bool _playerHasDied;
         
         public Gameplay(GameplayConfig config, IPlayerSpawner playerSpawner, IGameCamera camera, IFactory<LevelConfig, Level> levelFactory, IPlayerInput playerInput, GameplayUiManager uiManager)
         {
@@ -46,6 +47,11 @@ namespace Gameplay
             _playerInput.Tick(timeDelta);
             _player.Tick(timeDelta);
             _level.Tick(timeDelta);
+            
+            if (!_player.IsReadyToBeDisposed || _playerHasDied) 
+                return;
+            _playerHasDied = true;
+            _uiManager.Show<GameOverScreen>();
         }
 
         public void SetExplorationMode() => 

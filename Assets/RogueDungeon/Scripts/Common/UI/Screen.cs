@@ -2,9 +2,14 @@
 
 namespace Common.UI
 {
+    [RequireComponent(typeof(Canvas))]
     public class Screen : UiElement
     {
-        [SerializeField] private Canvas _canvas;
-        public int SortingOrder => _canvas.sortingOrder;
+        [SerializeField, HideInInspector] protected Canvas Canvas;
+
+        protected virtual void OnValidate() => 
+            Canvas ??= GetComponent<Canvas>();
+
+        public int SortingOrder => Canvas.sortingOrder;
     }
 }
