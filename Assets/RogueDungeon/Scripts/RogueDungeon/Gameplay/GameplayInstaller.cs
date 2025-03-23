@@ -47,8 +47,9 @@ namespace Gameplay
                 .WithArguments(_playerConfig, _playerTransform);
             
             // UI
+            // gonna need it in enemy uis as well
+            Container.InstanceSingle(_barDeltaConfig);
             var uiContainer = Container.CreateSubContainer();
-            uiContainer.InstanceSingle(_barDeltaConfig);
             uiContainer.InstanceSingle(_config);
             uiContainer.InstanceSingle(_screensSorter);
             uiContainer.NewSingle<UiFactory>();

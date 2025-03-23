@@ -20,9 +20,7 @@ namespace Gameplay
             throw new System.NotImplementedException();
         }
 
-        public void Initialize()
-        {
+        public void Initialize() => 
             _uiFactory.Create(_uiManagerConfig.Screens.First(n => n is PlayerHud));
-        }
     }
 }

@@ -10,7 +10,7 @@ namespace Common.UI.Bars
         private IBarViewModel _viewModel;
 
         [Inject]
-        public virtual void Construct(IBarViewModel viewModel, BarDeltaConfig deltaConfig)
+        public void Construct(IBarViewModel viewModel, BarDeltaConfig deltaConfig)
         {
             _viewModel = viewModel;
             _viewModel.Value.Subscribe(SetValue).AddTo(gameObject);

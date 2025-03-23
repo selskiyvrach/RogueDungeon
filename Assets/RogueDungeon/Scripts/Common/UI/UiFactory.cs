@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using UnityEngine;
+using Zenject;
 
 namespace Common.UI
 {
@@ -15,9 +16,15 @@ namespace Common.UI
 
         public T Create<T>(T prefab) where T : Screen
         {
-            var screen = _container.InstantiatePrefab(prefab).GetComponent<T>();
+            var screen = Object.Instantiate(prefab);
+            screen.GetComponent<IUiRootInstaller>().Install(_container);
             _screensSorter.AddScreen(screen);
             return screen;
         }
+    }
+
+    public interface IUiRootInstaller
+    {
+        void Install(DiContainer container);
     }
 }
