@@ -19,13 +19,23 @@ MonoBehaviour:
       <Duration>k__BackingField: 1
       <Clip>k__BackingField: {fileID: 0}
     _spriteSheetAnimationConfig:
-      <Duration>k__BackingField: 1
+      <Duration>k__BackingField: 1.5
       <Sprites>k__BackingField:
       - {fileID: 1960310514, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
       - {fileID: 1681339826, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
       <KeyFrames>k__BackingField:
       - <Frame>k__BackingField: 1
         <Name>k__BackingField: hit
+  <AdditionalAnimations>k__BackingField:
+  - _animationType: 0
+    _animationClipConfig:
+      <Duration>k__BackingField: 1.5
+      <Clip>k__BackingField: {fileID: 7400000, guid: 62ebe95b58b43064bbd6ac25b5e5492b,
+        type: 2}
+    _spriteSheetAnimationConfig:
+      <Duration>k__BackingField: 0
+      <Sprites>k__BackingField: []
+      <KeyFrames>k__BackingField: []
   <SuitableForPositions>k__BackingField: 278447237
   <Damage>k__BackingField: 10
   <AttackDirection>k__BackingField: 2

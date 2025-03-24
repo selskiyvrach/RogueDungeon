@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6697689468392923431}
-  - component: {fileID: 1074642515017699369}
   - component: {fileID: 3537052854619438027}
   m_Layer: 0
   m_Name: enemy
@@ -35,24 +34,6 @@ Transform:
   - {fileID: 2478161036397325163}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1074642515017699369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5140967821313990019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
-  _monoInstallers:
-  - {fileID: 0}
-  _installerPrefabs: []
-  _autoRun: 1
-  _kernel: {fileID: 0}
 --- !u!114 &3537052854619438027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +255,7 @@ Animation:
   - {fileID: 7400000, guid: f1ca005f2be838843ab128f69f8796d9, type: 2}
   - {fileID: 7400000, guid: 76c293bd796f6194599084b2d15a0f13, type: 2}
   - {fileID: 7400000, guid: 338da7f47b95e6646909bc715d00bbfa, type: 2}
+  - {fileID: 7400000, guid: 62ebe95b58b43064bbd6ac25b5e5492b, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0

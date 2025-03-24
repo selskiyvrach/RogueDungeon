@@ -54,5 +54,10 @@ namespace Common.UtilsDotNet
                 action?.Invoke(n);
                 return n;
             });
+
+        public static IEnumerable<T> AsEnumerable<T>(this T item)
+        {
+            yield return item;
+        }
     }
 }
