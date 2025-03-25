@@ -11,6 +11,7 @@ namespace RogueDungeon.Enemies
     public class EnemyInstaller : MonoBehaviour
     {
         [SerializeField] private AnimationClipTarget _animationClipTarget;
+        [SerializeField] private AnimationClipTarget _hitEffectTarget;
         [SerializeField] private SpriteSheetAnimationTarget _spriteSheetAnimationTarget;
         [SerializeField] private Bar _healthBar;
         [SerializeField] private Bar _poiseBar;
@@ -23,6 +24,10 @@ namespace RogueDungeon.Enemies
             container.NewSingle<IFactory<EnemyStateConfig, EnemyState>, EnemyStatesFactory>();
             container.NewSingle<EnemyStatesProvider>();
             container.NewSingle<EnemyStateMachine>();
+            
+            var config = container.Resolve<EnemyConfig>().HitImpactAnimation.Config;
+            container.InstanceSingle(container.Instantiate<EnemyImpactAnimator>(new[] { container.Instantiate(config.AnimationType, new object[]{config, _hitEffectTarget})}));
+            
             container.NewSingle<Enemy>();
             
             container.NewSingle<IBarViewModel, EnemyHealthBarViewModel>();

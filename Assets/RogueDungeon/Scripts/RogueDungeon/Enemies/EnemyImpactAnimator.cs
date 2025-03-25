@@ -1,0 +1,33 @@
+﻿using Common.Animations;
+using Common.Lifecycle;
+
+namespace RogueDungeon.Enemies
+{
+    public class EnemyImpactAnimator : ITickable
+    {
+        private readonly IAnimation _animation;
+        private bool _isPlaying;
+
+        public EnemyImpactAnimator(IAnimation enemy) => 
+            _animation = enemy;
+
+        public void Tick(float timeDelta)
+        {
+            if(!_isPlaying)
+                return;
+            
+            _animation.Tick(timeDelta);
+            if(_animation.IsFinished)
+                _isPlaying = false;
+        }
+
+        public void OnHit()
+        {
+            if(_isPlaying)
+                return;
+            
+            _animation.Play();
+            _isPlaying = true;
+        }
+    }
+}

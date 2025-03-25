@@ -19,6 +19,16 @@ MonoBehaviour:
     <RechargeRate>k__BackingField: 1
     <RechargeDelay>k__BackingField: 1
   <Aggression>k__BackingField: 0.8
+  <HitImpactAnimation>k__BackingField:
+    _animationType: 0
+    _animationClipConfig:
+      <Duration>k__BackingField: 0.15
+      <Clip>k__BackingField: {fileID: 7400000, guid: 98e93a14115059347b2eb8a7853260d6,
+        type: 2}
+    _spriteSheetAnimationConfig:
+      <Duration>k__BackingField: 0
+      <Sprites>k__BackingField: []
+      <KeyFrames>k__BackingField: []
   <Prefab>k__BackingField: {fileID: 3537052854619438027, guid: ceb53294180329e48bbab23da185840e,
     type: 3}
   <IdleState>k__BackingField: {fileID: 11400000, guid: 6f12fe4953e45ac40975e5168878b85f,

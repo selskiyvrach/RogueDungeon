@@ -26,16 +26,7 @@ MonoBehaviour:
       <KeyFrames>k__BackingField:
       - <Frame>k__BackingField: 1
         <Name>k__BackingField: hit
-  <AdditionalAnimations>k__BackingField:
-  - _animationType: 0
-    _animationClipConfig:
-      <Duration>k__BackingField: 1.5
-      <Clip>k__BackingField: {fileID: 7400000, guid: 62ebe95b58b43064bbd6ac25b5e5492b,
-        type: 2}
-    _spriteSheetAnimationConfig:
-      <Duration>k__BackingField: 0
-      <Sprites>k__BackingField: []
-      <KeyFrames>k__BackingField: []
+  <AdditionalAnimations>k__BackingField: []
   <SuitableForPositions>k__BackingField: 278447235
   <Damage>k__BackingField: 10
   <AttackDirection>k__BackingField: 1

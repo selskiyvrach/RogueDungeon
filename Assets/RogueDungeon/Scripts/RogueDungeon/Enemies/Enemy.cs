@@ -4,6 +4,7 @@ using Common.Unity;
 using RogueDungeon.Characters;
 using RogueDungeon.Enemies.States;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using Assert = UnityEngine.Assertions.Assert;
 using IInitializable = Common.Lifecycle.IInitializable;
 using ITickable = Common.Lifecycle.ITickable;
@@ -15,6 +16,7 @@ namespace RogueDungeon.Enemies
         private readonly EnemyStatesProvider _statesProvider;
         private readonly EnemyStateMachine _stateMachine;
         private readonly EnemyConfig _config;
+        private readonly EnemyImpactAnimator _impactAnimator;
 
         public EnemyPosition TargetablePosition { get; set; }
         public EnemyPosition OccupiedPosition { get; set; }
@@ -29,12 +31,13 @@ namespace RogueDungeon.Enemies
         public bool IsDoingMove => Moves.Any(n => _stateMachine.CurrentState.Config == n);
         public bool IsAlive => Health.Current > 0;
 
-        public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, EnemyStatesProvider statesProvider)
+        public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, EnemyStatesProvider statesProvider, EnemyImpactAnimator impactAnimator)
         {  
             WorldObject = new TwoDWorldObject(gameObject);
             _config = config;
             _stateMachine = stateMachine;
             _statesProvider = statesProvider;
+            _impactAnimator = impactAnimator;
             Health = new Resource(config.Health);
             Poise = new RechargeableResource(config.Poise);
             Health.Refill();
@@ -45,6 +48,7 @@ namespace RogueDungeon.Enemies
         {
             Poise.Tick(deltaTime);
             _stateMachine.Tick(deltaTime);
+            _impactAnimator.Tick(deltaTime);
         }
 
         public void Initialize()
@@ -71,6 +75,8 @@ namespace RogueDungeon.Enemies
                 _stateMachine.TryStartState(_statesProvider.GetState(_config.DeathState));
             if(Poise.Current == 0)
                 _stateMachine.TryStartState(_statesProvider.GetState(_config.StaggerState));
+            if(damage > 0 || poiseDamage > 0)
+                _impactAnimator.OnHit();
         }
 
         public void ChangePosition(EnemyPosition position)
