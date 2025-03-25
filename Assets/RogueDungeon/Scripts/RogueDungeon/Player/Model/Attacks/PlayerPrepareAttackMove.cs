@@ -23,6 +23,6 @@ namespace RogueDungeon.Player.Model.Attacks
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _player.Stamina.Current > 1;
+            base.CanTransitionTo() && _player.Stamina.Current >= _weapon.AttackStaminaCost;
     }
 }

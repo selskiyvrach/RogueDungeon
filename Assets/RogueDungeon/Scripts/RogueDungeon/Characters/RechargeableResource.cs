@@ -13,6 +13,9 @@ namespace RogueDungeon.Characters
 
         public override void AddDelta(float value)
         {
+            if(value == 0)
+                return;
+            
             base.AddDelta(value);
             if(_config.RechargeRate > 0 != value > 0)
                 _timeSinceSpent = 0;

@@ -38,6 +38,7 @@ namespace RogueDungeon.Enemies
             Health = new Resource(config.Health);
             Poise = new RechargeableResource(config.Poise);
             Health.Refill();
+            Poise.Refill();
         }
 
         public void Tick(float deltaTime)
@@ -65,10 +66,10 @@ namespace RogueDungeon.Enemies
         public void TakeDamage(float damage, float poiseDamage)
         {
             Health.AddDelta(-damage);
-            Poise.AddDelta(poiseDamage);
+            Poise.AddDelta(-poiseDamage);
             if(!IsAlive)
                 _stateMachine.TryStartState(_statesProvider.GetState(_config.DeathState));
-            if(Poise.Current >= Poise.Max)
+            if(Poise.Current == 0)
                 _stateMachine.TryStartState(_statesProvider.GetState(_config.StaggerState));
         }
 

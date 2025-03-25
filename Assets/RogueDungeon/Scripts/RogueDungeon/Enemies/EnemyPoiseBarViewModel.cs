@@ -8,5 +8,8 @@ namespace RogueDungeon.Scripts.RogueDungeon.UI
         public EnemyPoiseBarViewModel(Enemy enemy) : base(enemy.Poise)
         {
         }
+
+        protected override float GetValue() => 
+            1 - base.GetValue();
     }
 }

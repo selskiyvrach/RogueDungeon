@@ -15,8 +15,8 @@ MonoBehaviour:
   <Health>k__BackingField:
     <Max>k__BackingField: 50
   <Poise>k__BackingField:
-    <Max>k__BackingField: 15
-    <RechargeRate>k__BackingField: -3.5
+    <Max>k__BackingField: 50
+    <RechargeRate>k__BackingField: 1
     <RechargeDelay>k__BackingField: 1
   <Aggression>k__BackingField: 0.8
   <Prefab>k__BackingField: {fileID: 3537052854619438027, guid: ceb53294180329e48bbab23da185840e,
