@@ -14,7 +14,6 @@ namespace RogueDungeon.Enemies
         [SerializeField] private AnimationClipTarget _hitEffectTarget;
         [SerializeField] private SpriteSheetAnimationTarget _spriteSheetAnimationTarget;
         [SerializeField] private Bar _healthBar;
-        [SerializeField] private Bar _poiseBar;
         
         public Enemy Install(DiContainer container)
         {
@@ -33,10 +32,6 @@ namespace RogueDungeon.Enemies
             container.NewSingle<IBarViewModel, EnemyHealthBarViewModel>();
             container.Inject(_healthBar);
             container.Unbind<IBarViewModel>();
-
-            container.NewSingle<IBarViewModel, EnemyPoiseBarViewModel>();
-            container.Inject(_poiseBar);
-            container.Unbind<IBarViewModel>();            
 
             return container.Resolve<Enemy>();
         }
