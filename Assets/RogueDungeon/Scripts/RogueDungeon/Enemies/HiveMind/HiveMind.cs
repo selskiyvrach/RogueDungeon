@@ -57,7 +57,7 @@ namespace RogueDungeon.Enemies.HiveMind
                 return;
             _buffer.Sort((a, b) => a.enemy.CurrentAggression.CompareTo(b.enemy.CurrentAggression));
             var attacker = UnityEngine.Random.Range(0, 1) < 0.75f ? _buffer[^1] : _buffer[0];
-            attacker.enemy.StartMove(attacker.moves.ToList().RandomOrDefault());
+            attacker.enemy.StartMove(attacker.moves.ToList().Random());
         }
 
         private void FillMiddlePositionIfEmpty()

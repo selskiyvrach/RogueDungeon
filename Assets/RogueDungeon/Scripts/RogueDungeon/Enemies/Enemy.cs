@@ -15,31 +15,32 @@ namespace RogueDungeon.Enemies
     {
         private readonly EnemyStatesProvider _statesProvider;
         private readonly EnemyStateMachine _stateMachine;
-        private readonly EnemyConfig _config;
         private readonly EnemyImpactAnimator _impactAnimator;
 
+        public EnemyConfig Config { get; }
         public EnemyPosition TargetablePosition { get; set; }
         public EnemyPosition OccupiedPosition { get; set; }
-
+        public EnemyCombo CurrentCombo { get; }
         public Resource Health { get; }
         public RechargeableResource Poise { get; }
-        public float CurrentAggression { get; set; }
         public ITwoDWorldObject WorldObject { get; }
         public bool IsReadyToBeDisposed { get; set; }
         public bool IsIdle => _stateMachine.CurrentState is EnemyIdleState;
-        public EnemyMoveConfig[] Moves => _config.Moves;
+        public bool IsStaggeredOrDead => !IsAlive || _stateMachine.CurrentState is EnemyStaggerState;
+        public EnemyMoveConfig[] Moves => Config.Moves;
         public bool IsDoingMove => Moves.Any(n => _stateMachine.CurrentState.Config == n);
         public bool IsAlive => Health.Current > 0;
 
         public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, EnemyStatesProvider statesProvider, EnemyImpactAnimator impactAnimator)
         {  
             WorldObject = new TwoDWorldObject(gameObject);
-            _config = config;
+            Config = config;
             _stateMachine = stateMachine;
             _statesProvider = statesProvider;
             _impactAnimator = impactAnimator;
             Health = new Resource(config.Health);
             Poise = new RechargeableResource(config.Poise);
+            CurrentCombo = new EnemyCombo(this);
             Health.Refill();
             Poise.Refill();
         }
@@ -47,6 +48,7 @@ namespace RogueDungeon.Enemies
         public void Tick(float deltaTime)
         {
             Poise.Tick(deltaTime);
+            CurrentCombo.Tick(deltaTime);
             _stateMachine.Tick(deltaTime);
             _impactAnimator.Tick(deltaTime);
         }
@@ -54,14 +56,8 @@ namespace RogueDungeon.Enemies
         public void Initialize()
         {
             TargetablePosition = OccupiedPosition;
-            _stateMachine.Initialize(_statesProvider.GetState(_config.IdleState));
-            _stateMachine.TryStartState(_statesProvider.GetState(_config.BirthState));
-        }
-
-        public void TickBattleHeat(float battleHeatDelta)
-        {
-            if(!IsDoingMove)
-                CurrentAggression += _config.Aggression * battleHeatDelta;
+            _stateMachine.Initialize(_statesProvider.GetState(Config.IdleState));
+            _stateMachine.TryStartState(_statesProvider.GetState(Config.BirthState));
         }
 
         public void Destroy() =>
@@ -71,32 +67,27 @@ namespace RogueDungeon.Enemies
         {
             Health.AddDelta(-damage);
             Poise.AddDelta(-poiseDamage);
-            if(!IsAlive)
-                _stateMachine.TryStartState(_statesProvider.GetState(_config.DeathState));
-            if(Poise.Current == 0)
-                _stateMachine.TryStartState(_statesProvider.GetState(_config.StaggerState));
+            if (!IsAlive) 
+                _stateMachine.TryStartState(_statesProvider.GetState(Config.DeathState));
+
+            if (Poise.Current == 0) 
+                _stateMachine.TryStartState(_statesProvider.GetState(Config.StaggerState));
+
             if(damage > 0 || poiseDamage > 0)
                 _impactAnimator.OnHit();
         }
 
         public void ChangePosition(EnemyPosition position)
         {
-            var state = (EnemyMovementState)_statesProvider.GetState(_config.MoveState);
+            var state = (EnemyMovementState)_statesProvider.GetState(Config.MoveState);
             state.TargetPosition = position;
             _stateMachine.TryStartState(state);
         }
 
-        public bool HasMovesForCurrentPosition(out IEnumerable<EnemyMoveConfig> moves)
-        {
-            moves = Moves.Where(n => (n.SuitableForPositions & OccupiedPosition) != 0);
-            return moves.Any();
-        }
+        public bool HasMovesForCurrentPosition(out IEnumerable<EnemyMoveConfig> moves) => 
+            (moves = Moves.Where(n => (n.SuitableForPositions & OccupiedPosition) != 0)).Any();
 
-        public void StartMove(EnemyMoveConfig config)
-        {
-            Assert.IsTrue(Moves.Contains(config));
-            CurrentAggression = 0;
+        public void StartMove(EnemyMoveConfig config) => 
             _stateMachine.TryStartState(_statesProvider.GetState(config));
-        }
     }
 }

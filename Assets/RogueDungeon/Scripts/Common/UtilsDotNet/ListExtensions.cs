@@ -5,8 +5,8 @@ namespace Common.UtilsDotNet
 {
     public static class ListExtensions
     {
-        public static T RandomOrDefault<T>(this IList<T> source) => 
-            source.Count == 0 ? default : source[UnityEngine.Random.Range(0, source.Count)];
+        public static T Random<T>(this IList<T> source) => 
+            source[UnityEngine.Random.Range(0, source.Count)];
 
         public static List<T> With<T>(this List<T> list, T element)
         {
