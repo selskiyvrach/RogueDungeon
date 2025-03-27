@@ -3,25 +3,26 @@ using Common.MoveSets;
 
 namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
-    public class SheathMove : HandHeldMove
+    public class SheathMove : HandsState
     {
-        public SheathMove(IHandheldContext context, MoveConfig config, IAnimation animation) : base(context, config, animation)
-        {
-        }
-        
+        private readonly PlayerHandBehaviour _handBehaviour;
+
+        public SheathMove(PlayerHandBehaviour handBehaviour, MoveConfig config, IAnimation animation) : base(config, animation) => 
+            _handBehaviour = handBehaviour;
+
         public override void Enter()
         {
             base.Enter();
-            Context.SetCurrentItemInteractable(false);
+            _handBehaviour.SetItemMoveSetActive(false);
         }
 
         public override void Exit()
         {
             base.Exit();
-            Context.CurrentItem = null;
+            _handBehaviour.CurrentItem = null;
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && Context.CurrentItem != null && Context.CurrentItem != Context.IntendedItem;
+            base.CanTransitionTo() && _handBehaviour.CurrentItem != null && _handBehaviour.CurrentItem != _handBehaviour.IntendedItem;
     }
 }

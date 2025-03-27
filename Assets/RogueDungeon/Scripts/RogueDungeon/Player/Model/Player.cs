@@ -49,7 +49,7 @@ namespace RogueDungeon.Player.Model
             _level.LevelTraverser = _mazeTraversalPointer;
             _commonBehaviour.Initialize();
             _playerHandsBehaviour.Initialize();
-            ((IHandheldContext)_playerHandsBehaviour).IntendedItem = new Weapon(_config.DefaultWeapon);
+            _playerHandsBehaviour.RightHand.IntendedItem = new Weapon(_config.DefaultWeapon);
         }
 
         public void TakeHitDamage(float damage) => 

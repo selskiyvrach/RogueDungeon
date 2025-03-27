@@ -3,9 +3,9 @@ using Common.MoveSets;
 
 namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
-    public class HandHeldIdle : HandsState
+    public abstract class HandsState : Move
     {
-        public HandHeldIdle(MoveConfig config, IAnimation animation) : base(config, animation)
+        protected HandsState(MoveConfig config, IAnimation animation) : base(config, animation)
         {
         }
     }

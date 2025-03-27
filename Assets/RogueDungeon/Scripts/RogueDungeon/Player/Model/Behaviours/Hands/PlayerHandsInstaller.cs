@@ -10,40 +10,48 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
     public class PlayerHandsInstaller : MonoBehaviour
     {
-        /// <summary>
-        /// Sheath/Unsheath moveset
-        /// </summary>
         [SerializeField] private MoveSetConfig _sheathUnsheathMoveSetConfig;
-        [SerializeField] private AnimationClipTarget _handsAnimationsTarget;
-        [SerializeField] private AnimationClipTarget _handHeldItemAnimationsTarget;
-        [SerializeField] private HandHeldItemPresenter _itemPresenter;
+        
+        [SerializeField] private AnimationClipTarget _rightHandAnimationTarget;
+        [SerializeField] private AnimationClipTarget _rightHandItemAnimationTarget;
+        [SerializeField] private HandHeldItemPresenter _rightHandItemPresenter;
+        
+        [SerializeField] private AnimationClipTarget _leftHandAnimationTarget;
+        [SerializeField] private AnimationClipTarget _leftHandItemAnimationTarget;
+        [SerializeField] private HandHeldItemPresenter _leftHandItemPresenter;
 
         public void Install(DiContainer diContainer)
         {
             var container = diContainer.CreateSubContainer();
-            // helps to break circular dependencies between hands and moves
-            container.NewSingleInterfacesAndSelf<HandHeldContext>();
+            var rightHand = CreateHandBehaviour(container, _rightHandAnimationTarget, _rightHandItemAnimationTarget, _rightHandItemPresenter);
+            var leftHand = CreateHandBehaviour(container, _leftHandAnimationTarget, _leftHandItemAnimationTarget, _leftHandItemPresenter);
             
-            container.InstanceSingle(_itemPresenter);
+            container.Bind<PlayerHandsBehaviour>().AsSingle().WithArguments(rightHand, leftHand);
+            diContainer.Bind<PlayerHandsBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();
+        }
+
+        private PlayerHandBehaviour CreateHandBehaviour(DiContainer diContainer, AnimationClipTarget handAnimationTarget, AnimationClipTarget itemAnimationTarget, HandHeldItemPresenter itemPresenter)
+        {
+            var container = diContainer.CreateSubContainer();
+            container.NewSingle<PlayerHandBehaviour>();
+            
+            container.InstanceSingle(itemPresenter);
             container.NewSingle<IFactory<IItem, HandHeldItemPresenter>, ItemPresenterFactory>();
             
             // moveset factory for items
             var itemMovesetFactoryContainer = container.CreateSubContainer();
-            itemMovesetFactoryContainer.InstanceSingle<IAnimationClipTarget>(_handHeldItemAnimationsTarget);
+            itemMovesetFactoryContainer.InstanceSingle<IAnimationClipTarget>(itemAnimationTarget);
             itemMovesetFactoryContainer.NewSingle<ItemMoveSetFactory>();
             
             // unsheath moveset
             var unsheathMoveSetContainer = container.CreateSubContainer();
-            unsheathMoveSetContainer.InstanceSingle<IAnimationClipTarget>(_handsAnimationsTarget);
+            unsheathMoveSetContainer.InstanceSingle<IAnimationClipTarget>(handAnimationTarget);
             unsheathMoveSetContainer.InstanceSingle(new MoveSetFactory(unsheathMoveSetContainer).Create(_sheathUnsheathMoveSetConfig));
             
-            var handsContainer = container.CreateSubContainer();
-            handsContainer.InstanceSingle(itemMovesetFactoryContainer.Resolve<ItemMoveSetFactory>());
-            handsContainer.InstanceSingle(unsheathMoveSetContainer.Resolve<StateMachine>());
-            handsContainer.NewSingle<PlayerHandsBehaviour>();
-
-            var hands = handsContainer.Resolve<PlayerHandsBehaviour>();
-            diContainer.Bind<PlayerHandsBehaviour>().FromInstance(hands).AsSingle();
+            container.InstanceSingle(itemMovesetFactoryContainer.Resolve<ItemMoveSetFactory>());
+            var hand = container.Resolve<PlayerHandBehaviour>();
+            hand.SetUnsheathBehaviour(unsheathMoveSetContainer.Resolve<StateMachine>());
+            return hand;
         }
     }
 }

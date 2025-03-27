@@ -28,5 +28,5 @@ MonoBehaviour:
   - <MoveId>k__BackingField: idle
     <CanInterrupt>k__BackingField: 0
   <RequiredInputKey>k__BackingField: 400
-  <StaminaCost>k__BackingField: 0
+  <StaminaCost>k__BackingField: 5
   <DodgeState>k__BackingField: 2

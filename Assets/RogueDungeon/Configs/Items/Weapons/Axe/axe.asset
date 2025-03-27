@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be4e27dc40947749878beae91b7d42c, type: 3}
   m_Name: axe
   m_EditorClassIdentifier: 
+  <BlockStaminaCostMultiplier>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 21300000, guid: 94efb4f28a3964746b50b3dbe98c57cc,
     type: 3}
   <MoveSetConfig>k__BackingField: {fileID: 11400000, guid: 95629d266fa9cc048be4357c8189e1b4,

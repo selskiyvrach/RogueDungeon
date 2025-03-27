@@ -1,5 +1,6 @@
 ﻿using Common.Animations;
 using RogueDungeon.Input;
+using RogueDungeon.Items;
 using RogueDungeon.Player.Model.Behaviours;
 
 namespace RogueDungeon.Player.Model.Attacks
@@ -8,23 +9,27 @@ namespace RogueDungeon.Player.Model.Attacks
     {
         private readonly IPlayerInput _playerInput;
         private readonly Player _player;
+        private readonly IItem _item;
         
-        protected PlayerHoldBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player) : base(config, animation, playerInput)
+        protected PlayerHoldBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player, IItem item) : base(config, animation, playerInput)
         {
             _playerInput = playerInput;
             _player = player;
+            _item = item;
         }
 
         public override void Enter()
         {
             base.Enter();
             _player.BlockerHandler.IsBlocking = true;
+            _player.BlockerHandler.BlockingItem = _item;
         }
 
         public override void Exit()
         {
             base.Exit();
             _player.BlockerHandler.IsBlocking = false;
+            _player.BlockerHandler.BlockingItem = null;
         }
 
         protected override bool CanTransitionTo() => 

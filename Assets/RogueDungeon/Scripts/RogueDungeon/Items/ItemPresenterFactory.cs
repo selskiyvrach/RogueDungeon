@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.Assertions;
+﻿using UnityEngine.Assertions;
 using Zenject;
 
 namespace RogueDungeon.Items
