@@ -43,7 +43,6 @@ namespace RogueDungeon.Levels
             
             _battleField.Position = Room.Coordinates;
             _battleField.Direction = _level.LevelTraverser.Rotation.Round();
-            _hiveMind.Initialize();
             
             if(_config.MiddleEnemy is {} middleEnemy)
                 _enemySpawner.Spawn(middleEnemy, EnemyPosition.Middle);

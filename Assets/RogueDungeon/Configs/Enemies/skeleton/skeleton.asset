@@ -18,7 +18,6 @@ MonoBehaviour:
     <Max>k__BackingField: 50
     <RechargeRate>k__BackingField: 1
     <RechargeDelay>k__BackingField: 1
-  <Aggression>k__BackingField: 0.8
   <HitImpactAnimation>k__BackingField:
     _animationType: 0
     _animationClipConfig:
@@ -44,3 +43,5 @@ MonoBehaviour:
   <Moves>k__BackingField:
   - {fileID: 11400000, guid: 328d649ae9c107a4fb8578dee652b332, type: 2}
   - {fileID: 11400000, guid: 4f447fe1484e52a48949a4dd27c48f16, type: 2}
+  <ChillTime>k__BackingField: 2
+  <FrontLineComboLength>k__BackingField: {x: 2, y: 2}

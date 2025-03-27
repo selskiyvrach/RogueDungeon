@@ -14,11 +14,8 @@ namespace RogueDungeon.Enemies
         private readonly List<EnemyMoveConfig> _movesPool = new();
         private int _currentMoveIndex;
 
-        private EnemyConfig.ComboPerPositionInfo _currentPositionComboInfo => _enemy.Config.Combos.First(n => n.Position == _enemy.OccupiedPosition);
-        
         public bool IsRunning { get; private set; }
         public float TimeChilling { get; private set; }
-        public float TargetChillTime => _currentPositionComboInfo.ChillTime;
         
         public EnemyCombo(Enemy enemy) => 
             _enemy = enemy;
@@ -31,14 +28,20 @@ namespace RogueDungeon.Enemies
                 return;
             }
 
-            if(_enemy.IsStaggeredOrDead)
+            if (_enemy.IsStaggeredOrDead)
+            {
                 Cancel();
+                return;
+            }
 
             if (!_enemy.IsIdle)
                 return;
-            
-            if(_currentMoveIndex >= _moves.Count)
+
+            if (_currentMoveIndex >= _moves.Count)
+            {
                 Cancel();
+                return;
+            }
                 
             _enemy.StartMove(_moves[_currentMoveIndex++]);
         }
@@ -50,18 +53,30 @@ namespace RogueDungeon.Enemies
 
             _moves.Clear();
             _movesPool.Clear();
-            _movesPool.AddRange(moves);
-            var count = _currentPositionComboInfo.ComboCount;
-            var movesCount = Random.Range(count.x, count.y + 1);
-            while(_moves.Count < movesCount)
-                _moves.Add(_movesPool.Random());
+            
+            var targetMovesCount = _enemy.OccupiedPosition == EnemyPosition.Middle 
+                ? Random.Range(_enemy.Config.FrontLineComboLength.x, _enemy.Config.FrontLineComboLength.y + 1) 
+                : 1;
+            
+            while (_moves.Count < targetMovesCount)
+            {
+                if (!_movesPool.Any())
+                {
+                    _movesPool.AddRange(moves);
+                    _movesPool.Shuffle();
+                }
+                _moves.AddRange(_movesPool, targetMovesCount - _moves.Count);
+                _movesPool.Clear();
+            }
             
             IsRunning = true;
-            TimeChilling = 0;
             _currentMoveIndex = 0;
         }
 
-        private void Cancel() => 
+        private void Cancel()
+        {
             IsRunning = false;
+            TimeChilling = 0;
+        }
     }
 }

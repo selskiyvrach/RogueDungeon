@@ -8,6 +8,16 @@ namespace Common.UtilsDotNet
         public static T Random<T>(this IList<T> source) => 
             source[UnityEngine.Random.Range(0, source.Count)];
 
+        public static void AddRange<T>(this ICollection<T> source, IEnumerable<T> items, int count)
+        {
+            foreach (var item in items)
+            {
+                if (count-- == 0)
+                    return;
+                source.Add(item);
+            }
+        }
+
         public static List<T> With<T>(this List<T> list, T element)
         {
             list.Add(element);

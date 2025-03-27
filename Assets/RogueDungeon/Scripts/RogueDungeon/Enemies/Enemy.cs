@@ -26,6 +26,7 @@ namespace RogueDungeon.Enemies
         public ITwoDWorldObject WorldObject { get; }
         public bool IsReadyToBeDisposed { get; set; }
         public bool IsIdle => _stateMachine.CurrentState is EnemyIdleState;
+        public bool IsMoving => _stateMachine.CurrentState is EnemyMovementState;
         public bool IsStaggeredOrDead => !IsAlive || _stateMachine.CurrentState is EnemyStaggerState;
         public EnemyMoveConfig[] Moves => Config.Moves;
         public bool IsDoingMove => Moves.Any(n => _stateMachine.CurrentState.Config == n);
