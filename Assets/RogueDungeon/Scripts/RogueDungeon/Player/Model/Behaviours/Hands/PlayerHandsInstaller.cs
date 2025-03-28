@@ -33,22 +33,24 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         private PlayerHandBehaviour CreateHandBehaviour(DiContainer diContainer, AnimationClipTarget handAnimationTarget, AnimationClipTarget itemAnimationTarget, HandHeldItemPresenter itemPresenter)
         {
             var container = diContainer.CreateSubContainer();
-            container.NewSingle<PlayerHandBehaviour>();
-            
-            container.InstanceSingle(itemPresenter);
-            container.NewSingle<IFactory<IItem, HandHeldItemPresenter>, ItemPresenterFactory>();
             
             // moveset factory for items
             var itemMovesetFactoryContainer = container.CreateSubContainer();
             itemMovesetFactoryContainer.InstanceSingle<IAnimationClipTarget>(itemAnimationTarget);
             itemMovesetFactoryContainer.NewSingle<ItemMoveSetFactory>();
             
+            // item presenter
+            container.Bind<IFactory<IItem, HandHeldItemPresenter>>().To<ItemPresenterFactory>().AsSingle().WithArguments(itemPresenter);
+            
+            // hand
+            var factory = itemMovesetFactoryContainer.Resolve<ItemMoveSetFactory>();
+            container.Bind<PlayerHandBehaviour>().AsSingle().WithArguments(new object[]{ factory });
+            
             // unsheath moveset
             var unsheathMoveSetContainer = container.CreateSubContainer();
             unsheathMoveSetContainer.InstanceSingle<IAnimationClipTarget>(handAnimationTarget);
             unsheathMoveSetContainer.InstanceSingle(new MoveSetFactory(unsheathMoveSetContainer).Create(_sheathUnsheathMoveSetConfig));
             
-            container.InstanceSingle(itemMovesetFactoryContainer.Resolve<ItemMoveSetFactory>());
             var hand = container.Resolve<PlayerHandBehaviour>();
             hand.SetUnsheathBehaviour(unsheathMoveSetContainer.Resolve<StateMachine>());
             return hand;

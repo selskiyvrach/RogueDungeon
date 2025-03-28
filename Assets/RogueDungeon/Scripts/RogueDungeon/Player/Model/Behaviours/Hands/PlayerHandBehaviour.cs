@@ -19,14 +19,21 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         public IItem CurrentItem
         {
             get => _currentItem;
-            set => _currentItem = value;
+            set
+            {
+                _currentItem = value;
+                if (_currentItem != null)
+                    _itemPresenter = _presenterFactory.Create(_currentItem);
+                else
+                {
+                    _itemPresenter.Release();
+                    _itemPresenter = null;
+                    DeleteItemMoveSet();
+                }
+            }
         }
 
-        public IItem IntendedItem
-        {
-            get => _currentItem;
-            set => _currentItem = value;
-        }
+        public IItem IntendedItem { get; set; }
 
         public PlayerHandBehaviour(IFactory<IItem, HandHeldItemPresenter> presenterFactory, ItemMoveSetFactory moveSetFactory)
         {
@@ -39,19 +46,6 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
 
         public void Initialize() => 
             _unsheathMoveSet.Initialize();
-
-        public void SetCurrentItem(Item value)
-        {
-            _currentItem = value;
-            if (_currentItem != null)
-                _itemPresenter = _presenterFactory.Create(_currentItem);
-            else
-            {
-                _itemPresenter.Release();
-                _itemPresenter = null;
-                DeleteItemMoveSet();
-            }
-        }
 
         public void SetItemMoveSetActive(bool value)
         {
