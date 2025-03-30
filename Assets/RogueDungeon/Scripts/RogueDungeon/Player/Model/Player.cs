@@ -50,6 +50,7 @@ namespace RogueDungeon.Player.Model
             _commonBehaviour.Initialize();
             _playerHandsBehaviour.Initialize();
             _playerHandsBehaviour.RightHand.IntendedItem = new Weapon(_config.DefaultWeapon);
+            // _playerHandsBehaviour.LeftHand.IntendedItem = new Shield(_config.DefaultShield);
         }
 
         public void TakeHitDamage(float damage) => 

@@ -1,17 +1,29 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 
 namespace RogueDungeon.Camera
 {
     public class GameCamera : MonoBehaviour, IGameCamera
     {
-        [field: SerializeField] public UnityEngine.Camera Camera { get; private set; }
-        [field: SerializeField] public Transform Follow { get; set; }
+        [SerializeField] private Transform _effectsRoot;
+        [SerializeField] private UnityEngine.Camera _camera;
+        private Tweener _effectTween;
 
+        public Transform Follow { get; set; }
+        
         private void LateUpdate()
         {
-            if (Follow == null) return;
+            if (Follow == null) 
+                return;
+            
             transform.rotation = Follow.rotation;
             transform.position = Follow.position;
+        }
+
+        public void KickPosition(Vector3 punch, float duration)
+        {
+            _effectTween?.Kill(complete: true);
+            _effectTween = _effectsRoot.DOPunchPosition(punch, duration).OnComplete(() => _effectTween = null);
         }
     }
 }

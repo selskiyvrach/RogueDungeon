@@ -21,6 +21,7 @@ namespace Gameplay
         [SerializeField] private ScreensSorter _screensSorter;
         [SerializeField] private UiManagerConfig _config;
         [SerializeField] private BarDeltaConfig _barDeltaConfig;
+        [SerializeField] private CombatFeedbackConfig _feedbackConfig;
         private Gameplay _gameplay;
 
         public override void InstallBindings()
@@ -33,6 +34,8 @@ namespace Gameplay
             Container.NewSingle<IFactory<LevelConfig, Level>, LevelFactory>();
             
             // Combat
+            Container.InstanceSingle(_feedbackConfig);
+            Container.NewSingle<CombatFeedbackPlayer>();
             Container.NewSingleInterfaces<AttacksMediator>();
             Container.NewSingleInterfaces<CombatantsRegistry>();
             

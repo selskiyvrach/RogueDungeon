@@ -3,7 +3,6 @@ using Common.UtilsDotNet;
 using RogueDungeon.Enemies;
 using RogueDungeon.Enemies.HiveMind;
 using RogueDungeon.Items;
-using RogueDungeon.Player;
 using RogueDungeon.Player.Model;
 
 namespace RogueDungeon.Combat
@@ -12,11 +11,13 @@ namespace RogueDungeon.Combat
     {
         private readonly IEnemiesRegistry _enemiesRegistry;
         private readonly IPlayerRegistry _playerRegistry;
+        private readonly CombatFeedbackPlayer _combatFeedbackPlayer;
 
-        public AttacksMediator(IEnemiesRegistry enemiesRegistry, IPlayerRegistry playerRegistry)
+        public AttacksMediator(IEnemiesRegistry enemiesRegistry, IPlayerRegistry playerRegistry, CombatFeedbackPlayer combatFeedbackPlayer)
         {
             _enemiesRegistry = enemiesRegistry;
             _playerRegistry = playerRegistry;
+            _combatFeedbackPlayer = combatFeedbackPlayer;
         }
         
         public void MediatePlayerAttack(IWeapon weapon)
@@ -28,6 +29,7 @@ namespace RogueDungeon.Combat
             }
 
             enemy.TakeDamage(weapon.Damage, weapon.PoiseDamage);
+            _combatFeedbackPlayer.OnHit();
         }
 
         public void MediateEnemyAttack(float damage, EnemyAttackDirection attackDirection)
@@ -52,6 +54,7 @@ namespace RogueDungeon.Combat
             }
 
             player.TakeHitDamage(damage);
+            _combatFeedbackPlayer.OnHit();
         }
     }
 }

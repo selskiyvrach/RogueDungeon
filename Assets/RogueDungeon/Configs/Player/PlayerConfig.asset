@@ -21,5 +21,7 @@ MonoBehaviour:
   <PositionOffsetFromTileCenter>k__BackingField: 0.4
   <DefaultWeapon>k__BackingField: {fileID: 11400000, guid: 4b04777495ac5c145a6022faf79be800,
     type: 2}
+  <DefaultShield>k__BackingField: {fileID: 11400000, guid: 68b3849591033494c90d41d21ccd4e41,
+    type: 2}
   <Prefab>k__BackingField: {fileID: 3401579970430071534, guid: 0b1353be74b298141ba99669d9373a88,
     type: 3}

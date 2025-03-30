@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8308036b73284115aad83f4ceb29f86a, type: 3}
+  m_Name: roundShoeld_lower_block
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: lower_block
+  <IsLooping>k__BackingField: 0
+  <AnimationConfigPicker>k__BackingField:
+    _animationType: 0
+    _animationClipConfig:
+      <Duration>k__BackingField: 0.25
+      <Clip>k__BackingField: {fileID: 7400000, guid: 875cdf2bf92b880409702a9608d8f131,
+        type: 2}
+    _spriteSheetAnimationConfig:
+      <Duration>k__BackingField: 0
+      <Sprites>k__BackingField: []
+      <KeyFrames>k__BackingField: []
+  <Transitions>k__BackingField:
+  - <MoveId>k__BackingField: idle
+    <CanInterrupt>k__BackingField: 0
+  <RequiredInputKey>k__BackingField: 0

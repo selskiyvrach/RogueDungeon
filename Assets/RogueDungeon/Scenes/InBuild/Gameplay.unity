@@ -394,6 +394,7 @@ MonoBehaviour:
   _screensSorter: {fileID: 1761104574}
   _config: {fileID: 11400000, guid: 97fe2f020ee82204e83237d4e045da6b, type: 2}
   _barDeltaConfig: {fileID: 11400000, guid: b76f3c2a4b991bb45a46b6b83975bc9d, type: 2}
+  _feedbackConfig: {fileID: 11400000, guid: ed1dc9694c7e88e45b3378cc7d854693, type: 2}
 --- !u!114 &1662126081
 MonoBehaviour:
   m_ObjectHideFlags: 0

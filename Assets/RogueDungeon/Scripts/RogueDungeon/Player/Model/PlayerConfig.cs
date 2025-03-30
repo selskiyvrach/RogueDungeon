@@ -11,6 +11,7 @@ namespace RogueDungeon.Player.Model
         [field: SerializeField, InlineProperty] public RechargeableResourceConfig Stamina { get; private set; }
         [field: SerializeField, Range(0.01f, 0.49f)] public float PositionOffsetFromTileCenter { get; private set; } = .35f;
         [field: SerializeField] public WeaponConfig DefaultWeapon { get; private set; }
+        [field: SerializeField] public ShieldConfig DefaultShield { get; private set; }
         [field: SerializeField] public PlayerInstaller Prefab { get; private set; }
     }
 }
