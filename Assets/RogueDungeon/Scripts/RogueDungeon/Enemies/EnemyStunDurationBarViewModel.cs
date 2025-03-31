@@ -5,13 +5,14 @@ using RogueDungeon.Enemies;
 using RogueDungeon.Enemies.States;
 using RogueDungeon.UI;
 using UniRx;
+using UnityEngine;
 
 namespace RogueDungeon.Scripts.RogueDungeon.UI
 {
     public class EnemyStunDurationBarViewModel : BarViewModel, IReadOnlyResource, IHideableUiElement 
     {
         private readonly Enemy _enemy;
-        public float Current => (_enemy.CurrentState as EnemyStunState)?.Current ?? 0;
+        public float Current => _enemy.CurrentState is EnemyStunState ? Max : 0;
         public float Max => (_enemy.CurrentState as EnemyStunState)?.Max ?? float.MaxValue;
         public IReadOnlyReactiveProperty<bool> IsVisible { get; } = new ReactiveProperty<bool>();
         public event Action OnChanged;

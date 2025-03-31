@@ -19,7 +19,7 @@ MonoBehaviour:
       <Duration>k__BackingField: 0
       <Clip>k__BackingField: {fileID: 0}
     _spriteSheetAnimationConfig:
-      <Duration>k__BackingField: 2
+      <Duration>k__BackingField: 3
       <Sprites>k__BackingField:
       - {fileID: 220247576, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
       <KeyFrames>k__BackingField: []
