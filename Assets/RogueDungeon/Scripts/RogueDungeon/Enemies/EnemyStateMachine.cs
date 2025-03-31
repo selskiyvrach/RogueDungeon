@@ -1,4 +1,5 @@
-﻿using Common.Fsm;
+﻿using System;
+using Common.Fsm;
 using RogueDungeon.Enemies.States;
 using Zenject;
 using IInitializable = Common.Lifecycle.IInitializable;
@@ -10,6 +11,7 @@ namespace RogueDungeon.Enemies
     {
         private EnemyState _idleState;
         public EnemyState CurrentState { get; private set; }
+        public event Action<EnemyState, EnemyState> OnStateChanged;
 
         public void Initialize(EnemyState idleState) => 
             ChangeState(_idleState = idleState);
@@ -18,10 +20,13 @@ namespace RogueDungeon.Enemies
         {
             if (state.Priority <= CurrentState.Priority)
                 return false;
+            StartState(state);
             
-            ChangeState(state);
             return true;
         }
+        
+        public void StartState(EnemyState state) => 
+            ChangeState(state);
 
         public void Tick(float timeDelta)
         {
@@ -32,9 +37,11 @@ namespace RogueDungeon.Enemies
 
         private void ChangeState(EnemyState state)
         {
+            var previousState = CurrentState;
             (CurrentState as IExitableState)?.Exit();
             CurrentState = state;
             (CurrentState as IEnterableState)?.Enter();
+            OnStateChanged?.Invoke(previousState, CurrentState);
         }
     }
 }

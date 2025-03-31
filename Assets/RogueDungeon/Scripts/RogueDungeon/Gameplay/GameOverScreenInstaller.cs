@@ -1,17 +1,13 @@
-﻿using System;
-using Common.UI;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Gameplay
 {
-    public class GameOverScreenInstaller : MonoBehaviour, IUiRootInstaller
+    public class GameOverScreenInstaller : MonoInstaller
     {
         [SerializeField] private GameOverScreen _gameOverScreen;
-        
-        public void Install(DiContainer container)
-        {
-            container.Inject(_gameOverScreen, new object[]{ new Action(() => container.Resolve<Gameplay>().Restart())});
-        }
+
+        public override void InstallBindings() => 
+            _gameOverScreen.Construct(Container.Resolve<Gameplay>());
     }
 }

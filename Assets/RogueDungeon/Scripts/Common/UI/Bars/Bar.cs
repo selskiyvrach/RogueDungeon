@@ -1,20 +1,16 @@
 ﻿using UniRx;
-using UnityEngine;
-using Zenject;
 
 namespace Common.UI.Bars
 {
     public abstract class Bar : UiElement
     {
-        [field: SerializeField] public Bar _deltaBar;
-        private IBarViewModel _viewModel;
+        private IBarViewModel ViewModel { get; set; }
 
-        [Inject]
-        public void Construct(IBarViewModel viewModel, BarDeltaConfig deltaConfig)
+        public void Construct(IBarViewModel viewModel)
         {
-            _viewModel = viewModel;
-            _viewModel.Value.Subscribe(SetValue).AddTo(gameObject);
-            _deltaBar?.Construct(new BarDeltaViewModel(viewModel, deltaConfig), deltaConfig);
+            base.Construct(viewModel);
+            ViewModel = viewModel;
+            ViewModel.Value.Subscribe(SetValue).AddTo(gameObject);
         }
         
         protected abstract void SetValue(float value);

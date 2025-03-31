@@ -29,20 +29,13 @@ namespace Common.UI.Bars
             _tickSub?.Dispose();
             if (float.IsNaN(Value.Value))
             {
-                
+                Debug.LogError("Value is NaN");
+                return;
             }
             if (value > Value.Value)
             {
                 ((ReactiveProperty<float>)Value).Value = _barViewModel.Value.Value;
-                if (float.IsNaN(Value.Value))
-                {
-                
-                }
                 return;
-            }
-            if (float.IsNaN(Value.Value))
-            {
-                
             }
 
             _timeSinceChange = 0;
@@ -56,16 +49,7 @@ namespace Common.UI.Bars
             if(_timeSinceChange <= _config.Delay)
                 return;
             var timeSinceDelay = _timeSinceChange - _config.Delay;
-            if (float.IsNaN(Value.Value))
-            {
-                
-            }
             ((ReactiveProperty<float>)Value).Value = Mathf.Lerp(_previousValue, _barViewModel.Value.Value, Mathf.Clamp01(timeSinceDelay / _config.CatchDuration));
-            if (float.IsNaN(Value.Value))
-            {
-                
-            }
-            
             if(timeSinceDelay > _config.CatchDuration)
                 _tickSub.Dispose();
         }

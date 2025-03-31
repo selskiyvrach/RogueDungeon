@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Common.UI
+namespace RogueDungeon.UI
 {
     public class UiManagerConfig : ScriptableObject
     {

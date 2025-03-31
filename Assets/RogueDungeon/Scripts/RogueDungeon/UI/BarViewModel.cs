@@ -6,26 +6,30 @@ namespace RogueDungeon.UI
 {
     public abstract class BarViewModel : IBarViewModel
     {
-        protected readonly IReadOnlyResource Resource;
+        private IReadOnlyResource _resource;
         public IReadOnlyReactiveProperty<float> Value { get; } = new ReactiveProperty<float>();
-        public IReadOnlyReactiveProperty<bool> IsVisible { get; } = new ReactiveProperty<bool>();
 
-        protected BarViewModel(IReadOnlyResource resource)
+        protected BarViewModel(IReadOnlyResource resource) => 
+            SetResource(resource);
+
+        protected BarViewModel()
         {
-            Resource = resource;
-            Resource.OnChanged += UpdateValue;
+        }
+
+        protected void SetResource(IReadOnlyResource resource)
+        {
+            _resource = resource;
+            _resource.OnChanged += UpdateValue;
             UpdateValue();
         }
 
-        private void UpdateValue()
-        {
+        private void UpdateValue() => 
             ((ReactiveProperty<float>)Value).Value = GetValue();
-            ((ReactiveProperty<bool>)IsVisible).Value = GetVisibility();
-        }
 
         protected virtual float GetValue() => 
-            Resource.Current / Resource.Max;
+            _resource.Current / _resource.Max;
 
-        protected virtual bool GetVisibility() => true;
+        public void Dispose() => 
+            _resource.OnChanged -= UpdateValue;
     }
 }

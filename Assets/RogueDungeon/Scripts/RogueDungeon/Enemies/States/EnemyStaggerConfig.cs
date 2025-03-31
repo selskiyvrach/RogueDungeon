@@ -4,6 +4,6 @@ namespace RogueDungeon.Enemies.States
 {
     public class EnemyStaggerConfig : EnemyStateConfig
     {
-        public override Type StateType => typeof(EnemyStaggerState);
+        public override Type StateType => typeof(EnemyStunState);
     }
 }

@@ -22,6 +22,5 @@ MonoBehaviour:
       <Duration>k__BackingField: 2
       <Sprites>k__BackingField:
       - {fileID: 220247576, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
-      - {fileID: 220247576, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
       <KeyFrames>k__BackingField: []
   <AdditionalAnimations>k__BackingField: []

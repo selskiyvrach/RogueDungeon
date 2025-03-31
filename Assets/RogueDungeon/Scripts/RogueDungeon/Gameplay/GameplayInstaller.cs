@@ -5,6 +5,7 @@ using RogueDungeon.Combat;
 using RogueDungeon.Enemies;
 using RogueDungeon.Levels;
 using RogueDungeon.Player.Model;
+using RogueDungeon.UI;
 using UnityEngine;
 using Zenject;
 

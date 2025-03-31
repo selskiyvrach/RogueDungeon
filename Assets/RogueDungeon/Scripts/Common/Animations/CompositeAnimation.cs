@@ -8,6 +8,7 @@ namespace Common.Animations
     {
         private readonly IAnimation[] _animations;
 
+        public float Duration => _animations.Max(n => n.Duration);
         public float Progress => _animations.Min(n => n.Progress);
         public bool IsFinished => _animations.All(n => n.IsFinished);
         public event Action<string> OnEvent;

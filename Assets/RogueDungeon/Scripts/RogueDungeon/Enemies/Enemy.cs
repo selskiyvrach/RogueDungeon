@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common.Unity;
 using RogueDungeon.Characters;
@@ -25,11 +26,13 @@ namespace RogueDungeon.Enemies
         public RechargeableResource Poise { get; }
         public ITwoDWorldObject WorldObject { get; }
         public bool IsReadyToBeDisposed { get; set; }
-        public bool IsIdle => _stateMachine.CurrentState is EnemyIdleState;
-        public bool IsMoving => _stateMachine.CurrentState is EnemyMovementState;
-        public bool IsStaggeredOrDead => !IsAlive || _stateMachine.CurrentState is EnemyStaggerState;
+        public bool IsIdle => CurrentState is EnemyIdleState;
+        public bool IsMoving => CurrentState is EnemyMovementState;
+        public bool IsStaggered => CurrentState is EnemyStunState;
+        public EnemyState CurrentState => _stateMachine.CurrentState;
+        public bool IsStaggeredOrDead => !IsAlive || IsStaggered;
         public EnemyMoveConfig[] Moves => Config.Moves;
-        public bool IsDoingMove => Moves.Any(n => _stateMachine.CurrentState.Config == n);
+        public event Action<EnemyState, EnemyState> OnStateChanged { add => _stateMachine.OnStateChanged += value; remove => _stateMachine.OnStateChanged -= value; }
         public bool IsAlive => Health.Current > 0;
 
         public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, EnemyStatesProvider statesProvider, EnemyImpactAnimator impactAnimator)
@@ -66,6 +69,12 @@ namespace RogueDungeon.Enemies
 
         public void TakeDamage(float damage, float poiseDamage)
         {
+            if (IsStaggered)
+            {
+                _stateMachine.StartState(_statesProvider.GetState(Config.IdleState));
+                damage *= 2;
+            }
+            
             Health.AddDelta(-damage);
             Poise.AddDelta(-poiseDamage);
             if (!IsAlive) 

@@ -1,27 +1,24 @@
-﻿using System;
-using RogueDungeon.UI;
+﻿using RogueDungeon.UI;
 using UnityEngine;
-using Zenject;
 using Screen = RogueDungeon.UI.Screen;
 
 namespace Gameplay
 {
     public class GameOverScreen : Screen
     {
-        private Action _callback;
+        private Gameplay _gameplay;
 
         protected override DrawOrder DrawOrder => DrawOrder.GameOver;
 
-        [Inject]
-        public void Construct(Action onAnyButtonClicked) => 
-            _callback = onAnyButtonClicked;
+        public void Construct(Gameplay gameplay) =>
+            _gameplay = gameplay;
 
         private void Update()
         {
-            if (!Input.anyKeyDown) 
+            if (!Input.anyKeyDown)
                 return;
-            
-            _callback?.Invoke();
+
+            _gameplay.Restart();
             Destroy();
         }
     }

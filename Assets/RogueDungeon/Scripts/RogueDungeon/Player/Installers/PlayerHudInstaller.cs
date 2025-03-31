@@ -1,20 +1,29 @@
-﻿using Common.UI;
-using Common.UI.Bars;
+﻿using Common.UI.Bars;
 using Player.ViewModel;
 using UnityEngine;
 using Zenject;
 
 namespace Player.Installers
 {
-    public class PlayerHudInstaller : MonoBehaviour, IUiRootInstaller
+    public class PlayerHudInstaller : MonoInstaller
     {
         [SerializeField] private Bar _playerHealthBar;
+        [SerializeField] private Bar _playerHealthBarDelta;
+        
         [SerializeField] private Bar _playerStaminaBar;
+        [SerializeField] private Bar _playerStaminaBarDelta;
 
-        public void Install(DiContainer container)
+        public override void InstallBindings()
         {
-            container.Inject(_playerHealthBar, new []{ container.Instantiate<PlayerHealthBarViewModel>()});
-            container.Inject(_playerStaminaBar, new []{ container.Instantiate<PlayerStaminaBarViewModel>()});
+            var deltaConfig = Container.Resolve<BarDeltaConfig>();
+            
+            var healthBarViewModel = Container.Instantiate<PlayerHealthBarViewModel>();
+            _playerHealthBar.Construct(healthBarViewModel);
+            _playerHealthBarDelta.Construct(new BarDeltaViewModel(healthBarViewModel, deltaConfig));
+            
+            var staminaBarViewModel = Container.Instantiate<PlayerStaminaBarViewModel>();
+            _playerStaminaBar.Construct(staminaBarViewModel);
+            _playerStaminaBarDelta.Construct(new BarDeltaViewModel(staminaBarViewModel, deltaConfig));
         }
     }
 }

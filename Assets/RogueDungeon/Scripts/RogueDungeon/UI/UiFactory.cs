@@ -1,9 +1,10 @@
-﻿using UniRx;
+﻿using Common.UI;
+using Common.UtilsDotNet;
+using UniRx;
 using UniRx.Triggers;
-using UnityEngine;
 using Zenject;
 
-namespace Common.UI
+namespace RogueDungeon.UI
 {
     public class UiFactory
     {
@@ -16,18 +17,12 @@ namespace Common.UI
             _screensSorter = screensSorter;
         }
 
-        public T Create<T>(T prefab) where T : Screen
+        public T Create<T>(T prefab) where T : Screen 
         {
-            var screen = Object.Instantiate(prefab);
-            screen.GetComponent<IUiRootInstaller>().Install(_container);
+            var screen = _container.InstantiatePrefab(prefab).GetComponent<T>().ThrowIfNull();
             _screensSorter.AddScreen(screen);
             screen.OnDestroyAsObservable().Subscribe(_ => _screensSorter.RemoveScreen(screen));
             return screen;
         }
-    }
-
-    public interface IUiRootInstaller
-    {
-        void Install(DiContainer container);
     }
 }

@@ -8,8 +8,5 @@ namespace Player.ViewModel
         public PlayerHealthBarViewModel(RogueDungeon.Player.Model.Player player) : base(player.Health)
         {
         }
-
-        protected override bool GetVisibility() => 
-            ((ReactiveProperty<bool>)IsVisible).Value = true;
     }
 }

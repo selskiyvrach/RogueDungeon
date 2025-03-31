@@ -1,6 +1,8 @@
-﻿namespace Common.UI
+﻿using System;
+
+namespace Common.UI
 {
-    public interface IUiElementViewModel
+    public interface IUiElementViewModel : IDisposable
     {
     }
 }
