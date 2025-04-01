@@ -160,6 +160,11 @@ Animation:
   - {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558, type: 2}
   - {fileID: 7400000, guid: 299abe5caa1d19e4fa0fb1b4b40ed348, type: 2}
   - {fileID: 7400000, guid: 50ec383904a8e6e4dae3ef350840fa7b, type: 2}
+  - {fileID: 7400000, guid: 68e5bc22fb7b0264ea033a75b6e76c13, type: 2}
+  - {fileID: 7400000, guid: a51785613bebe2c4fa224d38cbf78141, type: 2}
+  - {fileID: 7400000, guid: 340f7d11625e61446bf3b4d731c02cb1, type: 2}
+  - {fileID: 7400000, guid: 9da9c1d370bd1844582759928cf4b63e, type: 2}
+  - {fileID: 7400000, guid: 508872e0a0eb9d4468fbde5b89a724b6, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0

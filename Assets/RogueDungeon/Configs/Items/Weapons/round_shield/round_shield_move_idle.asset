@@ -9,28 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3f2581f700c4fdc8e38fbc1d2d8107a, type: 3}
+  m_Script: {fileID: 11500000, guid: 3747c8b0fc6a44e0a9ac539a46f1ade9, type: 3}
   m_Name: round_shield_move_idle
   m_EditorClassIdentifier: 
   <Id>k__BackingField: idle
-  <IsLooping>k__BackingField: 0
+  <IsLooping>k__BackingField: 1
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:
       <Duration>k__BackingField: 1
-      <Clip>k__BackingField: {fileID: 7400000, guid: 3d24f20c33be8ec4e81301440a91097f,
+      <Clip>k__BackingField: {fileID: 7400000, guid: 68e5bc22fb7b0264ea033a75b6e76c13,
         type: 2}
     _spriteSheetAnimationConfig:
       <Duration>k__BackingField: 0
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
-  - <MoveId>k__BackingField: attack_prepare_to_bottom_left
-    <CanInterrupt>k__BackingField: 1
   - <MoveId>k__BackingField: raise_block
     <CanInterrupt>k__BackingField: 1
-  - <MoveId>k__BackingField: idle
-    <CanInterrupt>k__BackingField: 0
-  <JustAnimation>k__BackingField: 1
-  <Damage>k__BackingField: 0
-  <RequiredInput>k__BackingField: 0
+  <RequiredInputKey>k__BackingField: 0

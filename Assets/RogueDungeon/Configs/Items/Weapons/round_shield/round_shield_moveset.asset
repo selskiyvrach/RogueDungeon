@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ExtendsConfigs>k__BackingField: []
   <MoveConfigs>k__BackingField:
-  - {fileID: 11400000, guid: ac001386a3468b64c87f5a5f584a80f8, type: 2}
+  - {fileID: 11400000, guid: c88d2fe1f606fc743b8c4965bb617401, type: 2}
   - {fileID: 11400000, guid: 219c1418f5420e344b9bea087a94efc6, type: 2}
   - {fileID: 11400000, guid: f1af6cb697955bd43b70d68afb44c7f5, type: 2}
   - {fileID: 11400000, guid: e518fc976669ade46a2916a56bae258b, type: 2}
+  - {fileID: 11400000, guid: 57c5081885ee2f54e8a84ef27bd63e91, type: 2}

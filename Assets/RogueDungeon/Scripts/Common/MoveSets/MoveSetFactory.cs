@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common.Fsm;
 using Zenject;
@@ -27,8 +28,16 @@ namespace Common.MoveSets
 
         private void CreateTransitions(Move[] moves)
         {
-            foreach (var move in moves) 
-                move.Transitions = move.Config.Transitions.Select(n => new Transition(moves.First(m => m.Id == n.MoveId), n.CanInterrupt)).ToArray();
+            try
+            {
+                foreach (var move in moves) 
+                    move.Transitions = move.Config.Transitions.Select(n => new Transition(moves.First(m => m.Id == n.MoveId), n.CanInterrupt)).ToArray();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
