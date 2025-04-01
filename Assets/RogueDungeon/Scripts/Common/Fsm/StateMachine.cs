@@ -37,11 +37,11 @@ namespace Common.Fsm
         public void ChangeState(IState newState)
         {
             _logger?.Log($"[FsmName: {_debugName} FsmId: {_instanceId}]. {CurrentState} -> {newState}");
+            if (!_transitionsHistory.Add(newState))
+                throw new InvalidOperationException("Infinite transitions loop detected: " + _transitionsHistory.JoinTypeNames());
+            
             (CurrentState as IExitableState)?.Exit();
             CurrentState = newState;
-            if (!_transitionsHistory.Add(CurrentState))
-                throw new InvalidOperationException("Infinite transitions loop detected: " + _transitionsHistory.JoinTypeNames());
-
             (CurrentState as IEnterableState)?.Enter();
             TryTransition();
         }

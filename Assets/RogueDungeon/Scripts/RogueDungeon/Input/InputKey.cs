@@ -15,6 +15,9 @@
         Unsheath = 500,
         Sheath = 550,
         
+        CycleLeftArmItems = 575,
+        CycleRightArmItems = 576,
+        
         MoveForward = 600,
         
         TurnLeft = 700,

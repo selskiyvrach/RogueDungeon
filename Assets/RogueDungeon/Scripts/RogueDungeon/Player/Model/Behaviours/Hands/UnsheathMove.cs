@@ -5,10 +5,14 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
     public class UnsheathMove : HandsState
     {
+        private readonly PlayerHandsBehaviour _hands;
         private readonly PlayerHandBehaviour _handBehaviour;
 
-        public UnsheathMove(PlayerHandBehaviour handBehaviour, MoveConfig config, IAnimation animation) : base(config, animation) => 
+        public UnsheathMove(PlayerHandBehaviour handBehaviour, MoveConfig config, IAnimation animation, PlayerHandsBehaviour hands) : base(config, animation)
+        {
             _handBehaviour = handBehaviour;
+            _hands = hands;
+        }
 
         public override void Enter()
         {
@@ -23,7 +27,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _handBehaviour.CurrentItem == null && _handBehaviour.IntendedItem != null;
+            base.CanTransitionTo() && _hands.OtherHand(_handBehaviour).IsIdle && _handBehaviour.CurrentItem == null && _handBehaviour.IntendedItem != null;
             
     }
 }

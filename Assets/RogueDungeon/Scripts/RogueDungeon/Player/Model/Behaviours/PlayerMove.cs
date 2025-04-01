@@ -3,7 +3,7 @@ using Common.MoveSets;
 using RogueDungeon.Input;
 
 namespace RogueDungeon.Player.Model.Behaviours
-{
+{ 
     public class PlayerMove : Move
     {
         private readonly PlayerMoveConfig _config;

@@ -8,10 +8,10 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
     {
         private readonly IFactory<IItem, HandHeldItemPresenter> _presenterFactory;
         private readonly ItemMoveSetFactory _moveSetFactory;
-        
+
         private IItem _currentItem;
         private IItem _intendedMainHandItem;
-        
+
         private HandHeldItemPresenter _itemPresenter;
         private StateMachine _itemMoveSet;
         private StateMachine _unsheathMoveSet;
@@ -32,8 +32,8 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
                 }
             }
         }
-
         public IItem IntendedItem { get; set; }
+        public bool IsIdle => _unsheathMoveSet.CurrentState is HandHeldIdle && (_currentItem is null || _itemMoveSet.CurrentState is IIdBasedTransitionableState { Id: "idle" });
 
         public PlayerHandBehaviour(IFactory<IItem, HandHeldItemPresenter> presenterFactory, ItemMoveSetFactory moveSetFactory)
         {

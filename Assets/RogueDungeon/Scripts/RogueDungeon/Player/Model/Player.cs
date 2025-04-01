@@ -1,5 +1,6 @@
 ﻿using Common.Lifecycle;
 using RogueDungeon.Characters;
+using RogueDungeon.Input;
 using RogueDungeon.Items;
 using RogueDungeon.Levels;
 using RogueDungeon.Player.Model.Behaviours.Common;
@@ -13,10 +14,11 @@ namespace RogueDungeon.Player.Model
         private readonly PlayerConfig _config;
         private readonly PlayerPositionInTheMaze _mazeTraversalPointer;
         private readonly Level _level;
+        private readonly IPlayerInput _input;
         
         private PlayerCommonBehaviour _commonBehaviour;
-        private PlayerHandsBehaviour _playerHandsBehaviour;
 
+        public PlayerHandsBehaviour Hands { get; private set; }
         public Transform CameraPovPoint { get; }
         public PlayerBlockerHandler BlockerHandler { get; }
         public Resource Health { get; }
@@ -25,11 +27,12 @@ namespace RogueDungeon.Player.Model
         public bool IsReadyToBeDisposed { get; set; }
         public bool IsAlive => Health.Current > 0;
 
-        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition)
+        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input)
         {
             _config = config;
             _level = level;
             _mazeTraversalPointer = playerMazePosition;
+            _input = input;
             BlockerHandler = new PlayerBlockerHandler(this);
             CameraPovPoint = gameObject.CameraReferencePoint;
             Stamina = new RechargeableResource(_config.Stamina);
@@ -40,7 +43,7 @@ namespace RogueDungeon.Player.Model
 
         public void SetBehaviours(PlayerHandsBehaviour handsBehaviour, PlayerCommonBehaviour commonBehaviour)
         {
-            _playerHandsBehaviour = handsBehaviour;
+            Hands = handsBehaviour;
             _commonBehaviour = commonBehaviour;   
         }
 
@@ -48,9 +51,7 @@ namespace RogueDungeon.Player.Model
         {
             _level.LevelTraverser = _mazeTraversalPointer;
             _commonBehaviour.Initialize();
-            _playerHandsBehaviour.Initialize();
-            _playerHandsBehaviour.RightHand.IntendedItem = new Weapon(_config.DefaultWeapon);
-            _playerHandsBehaviour.LeftHand.IntendedItem = new Shield(_config.DefaultShield);
+            Hands.Initialize();
         }
 
         public void TakeHitDamage(float damage) => 
@@ -58,11 +59,25 @@ namespace RogueDungeon.Player.Model
 
         public void Tick(float deltaTime)
         {
+            if (IsAlive)
+            {
+                if (_input.HasInput(InputKey.CycleLeftArmItems))
+                {
+                    Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Shield(_config.DefaultShield);
+                    _input.ConsumeInput(InputKey.CycleLeftArmItems);
+                }
+                if (_input.HasInput(InputKey.CycleRightArmItems))
+                {
+                    Hands.RightHand.IntendedItem = Hands.RightHand.IntendedItem != null ? null : new Weapon(_config.DefaultWeapon);
+                    _input.ConsumeInput(InputKey.CycleRightArmItems);
+                }
+            }
+
             if(IsAlive)
                 Stamina.Tick(deltaTime);
             _commonBehaviour.Tick(deltaTime);
             if(IsAlive)
-                _playerHandsBehaviour.Tick(deltaTime);
+                Hands.Tick(deltaTime);
         }
     }
 }

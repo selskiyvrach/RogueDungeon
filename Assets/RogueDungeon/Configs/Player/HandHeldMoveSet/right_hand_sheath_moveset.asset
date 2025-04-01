@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1dbd9be4ec94c31ab850f925a1bf1f4, type: 3}
-  m_Name: HandHeldMoveSetConfig
+  m_Name: right_hand_sheath_moveset
   m_EditorClassIdentifier: 
   <MoveConfigs>k__BackingField:
   - {fileID: 11400000, guid: 1a0cf6c1f0fc9bb48b1bd4bced852479, type: 2}

@@ -9,24 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dd924064fc6434f85551ced13c9f5b3, type: 3}
-  m_Name: round_shield_raise_block
+  m_Script: {fileID: 11500000, guid: 7180787e09084838b5dd771dc8f2b1d7, type: 3}
+  m_Name: left_unsheath
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: raise_block
+  <Id>k__BackingField: unsheath
   <IsLooping>k__BackingField: 0
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:
-      <Duration>k__BackingField: 0.15
-      <Clip>k__BackingField: {fileID: 7400000, guid: a51785613bebe2c4fa224d38cbf78141,
+      <Duration>k__BackingField: 0.35
+      <Clip>k__BackingField: {fileID: 7400000, guid: a87fd47ea727dd84e9dec00e225df05a,
         type: 2}
     _spriteSheetAnimationConfig:
       <Duration>k__BackingField: 0
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
-  - <MoveId>k__BackingField: hold_block
+  - <MoveId>k__BackingField: idle
     <CanInterrupt>k__BackingField: 0
-  - <MoveId>k__BackingField: lower_block
-    <CanInterrupt>k__BackingField: 0
-  <RequiredInputKey>k__BackingField: 300

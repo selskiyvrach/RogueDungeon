@@ -165,6 +165,8 @@ Animation:
   - {fileID: 7400000, guid: 340f7d11625e61446bf3b4d731c02cb1, type: 2}
   - {fileID: 7400000, guid: 9da9c1d370bd1844582759928cf4b63e, type: 2}
   - {fileID: 7400000, guid: 508872e0a0eb9d4468fbde5b89a724b6, type: 2}
+  - {fileID: 7400000, guid: a87fd47ea727dd84e9dec00e225df05a, type: 2}
+  - {fileID: 7400000, guid: 329b8750e38f8cb4c99488f7bc535d1e, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -255,11 +257,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc892ba942c4bfbabed5afc7a064ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sheathUnsheathMoveSetConfig: {fileID: 11400000, guid: cb570c68ba95b2f4388154ff2f3e5467,
+  _sheathUnsheathRightHand: {fileID: 11400000, guid: cb570c68ba95b2f4388154ff2f3e5467,
     type: 2}
   _rightHandAnimationTarget: {fileID: 6837211064720091311}
   _rightHandItemAnimationTarget: {fileID: 6837211064720091311}
   _rightHandItemPresenter: {fileID: 914613258679922615}
+  _sheathUnsheathLeftHand: {fileID: 11400000, guid: 94def90112ebca04e8249eb227eaeaae,
+    type: 2}
   _leftHandAnimationTarget: {fileID: 8628519994899730907}
   _leftHandItemAnimationTarget: {fileID: 8628519994899730907}
   _leftHandItemPresenter: {fileID: 194158540539788350}
@@ -708,7 +712,7 @@ Transform:
   m_Children:
   - {fileID: 5574706449729908437}
   m_Father: {fileID: 179385766103444239}
-  m_LocalEulerAnglesHint: {x: 0, y: 135, z: 0}
+  m_LocalEulerAnglesHint: {x: -41.24215, y: 106.41265, z: 65.533615}
 --- !u!1 &8028034847407804422
 GameObject:
   m_ObjectHideFlags: 0

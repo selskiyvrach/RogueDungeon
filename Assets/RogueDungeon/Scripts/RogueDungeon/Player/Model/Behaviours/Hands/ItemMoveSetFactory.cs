@@ -19,7 +19,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             
             foreach (var interfaceType in item.GetType().GetInterfaces())
             {
-                Container.Bind(interfaceType).FromInstance(item).AsSingle();
+                Container.Bind(interfaceType).FromInstance(item).AsCached();
                 _boundInterfaces.Add(interfaceType);
             }
         }

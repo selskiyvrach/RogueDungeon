@@ -1,11 +1,13 @@
-﻿namespace RogueDungeon.Player.Model.Behaviours.Hands
+﻿using RogueDungeon.Items;
+
+namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
     public class PlayerHandsBehaviour 
     {
-        public PlayerHandBehaviour RightHand {get; }
-        public PlayerHandBehaviour LeftHand {get; }
+        public PlayerHandBehaviour RightHand { get; private set; }
+        public PlayerHandBehaviour LeftHand { get; private set; }
 
-        public PlayerHandsBehaviour(PlayerHandBehaviour rightHandBehaviour, PlayerHandBehaviour leftHandBehaviour)
+        public void SetBehaviours(PlayerHandBehaviour rightHandBehaviour, PlayerHandBehaviour leftHandBehaviour)
         {
             RightHand = rightHandBehaviour;
             LeftHand = leftHandBehaviour;
@@ -22,5 +24,18 @@
             RightHand.Tick(deltaTime);
             LeftHand.Tick(deltaTime);
         }
+        
+        public PlayerHandBehaviour OppositeHand(IItem item) => 
+            item == RightHand.CurrentItem 
+                ? LeftHand 
+                : RightHand;
+        
+        public PlayerHandBehaviour ThisHand(IItem item) => 
+            item == RightHand.CurrentItem 
+                ? RightHand 
+                : LeftHand;
+
+        public PlayerHandBehaviour OtherHand(PlayerHandBehaviour handBehaviour) => 
+            handBehaviour == RightHand ? LeftHand : RightHand;
     }
 }

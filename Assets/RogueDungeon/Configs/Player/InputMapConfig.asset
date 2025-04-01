@@ -45,3 +45,11 @@ MonoBehaviour:
     <KeyCode>k__BackingField: 324
     <State>k__BackingField: 1
     <CoyoteTime>k__BackingField: 0
+  - <Key>k__BackingField: 575
+    <KeyCode>k__BackingField: 49
+    <State>k__BackingField: 0
+    <CoyoteTime>k__BackingField: 0.25
+  - <Key>k__BackingField: 576
+    <KeyCode>k__BackingField: 50
+    <State>k__BackingField: 0
+    <CoyoteTime>k__BackingField: 0.25

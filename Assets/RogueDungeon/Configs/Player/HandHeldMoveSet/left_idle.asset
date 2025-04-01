@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7180787e09084838b5dd771dc8f2b1d7, type: 3}
-  m_Name: HandHeldSheathConfig
+  m_Name: left_idle
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: sheath
+  <Id>k__BackingField: idle
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:
-      <Duration>k__BackingField: 0.5
-      <Clip>k__BackingField: {fileID: 7400000, guid: 0fc197a58775c2a4aaecb3493cd730e1,
+      <Duration>k__BackingField: 1
+      <Clip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
         type: 2}
     _spriteSheetAnimationConfig:
       <Duration>k__BackingField: 0
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
   <Transitions>k__BackingField:
-  - <MoveId>k__BackingField: idle
-    <CanInterrupt>k__BackingField: 0
+  - <MoveId>k__BackingField: sheath
+    <CanInterrupt>k__BackingField: 1
+  - <MoveId>k__BackingField: unsheath
+    <CanInterrupt>k__BackingField: 1

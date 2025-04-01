@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: axe_move_idle
   m_EditorClassIdentifier: 
   <Id>k__BackingField: idle
-  <IsLooping>k__BackingField: 0
+  <IsLooping>k__BackingField: 1
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:
@@ -29,8 +29,5 @@ MonoBehaviour:
     <CanInterrupt>k__BackingField: 1
   - <MoveId>k__BackingField: raise_block
     <CanInterrupt>k__BackingField: 1
-  - <MoveId>k__BackingField: idle
-    <CanInterrupt>k__BackingField: 0
-  <JustAnimation>k__BackingField: 1
-  <Damage>k__BackingField: 0
-  <RequiredInput>k__BackingField: 0
+  <RequiredInputKey>k__BackingField: 0
+  <IsUncancellable>k__BackingField: 0
