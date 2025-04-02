@@ -5,8 +5,6 @@ using Common.Unity;
 using RogueDungeon.Characters;
 using RogueDungeon.Enemies.States;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-using Assert = UnityEngine.Assertions.Assert;
 using IInitializable = Common.Lifecycle.IInitializable;
 using ITickable = Common.Lifecycle.ITickable;
 
@@ -28,9 +26,9 @@ namespace RogueDungeon.Enemies
         public bool IsReadyToBeDisposed { get; set; }
         public bool IsIdle => CurrentState is EnemyIdleState;
         public bool IsMoving => CurrentState is EnemyMovementState;
-        public bool IsStaggered => CurrentState is EnemyStunState;
+        public bool IsStunned => CurrentState is EnemyStunState;
         public EnemyState CurrentState => _stateMachine.CurrentState;
-        public bool IsStaggeredOrDead => !IsAlive || IsStaggered;
+        public bool IsStunnedOrDead => !IsAlive || IsStunned;
         public EnemyMoveConfig[] Moves => Config.Moves;
         public event Action<EnemyState, EnemyState> OnStateChanged { add => _stateMachine.OnStateChanged += value; remove => _stateMachine.OnStateChanged -= value; }
         public bool IsAlive => Health.Current > 0;
@@ -69,7 +67,7 @@ namespace RogueDungeon.Enemies
 
         public void TakeDamage(float damage, float poiseDamage)
         {
-            if (IsStaggered)
+            if (IsStunned)
             {
                 _stateMachine.StartState(_statesProvider.GetState(Config.IdleState));
                 damage *= 2;

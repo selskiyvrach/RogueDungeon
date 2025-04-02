@@ -20,12 +20,16 @@ namespace RogueDungeon.Player.Model
 
         public PlayerHandsBehaviour Hands { get; private set; }
         public Transform CameraPovPoint { get; }
-        public PlayerBlockerHandler BlockerHandler { get; }
         public Resource Health { get; }
         public RechargeableResource Stamina { get; }
         public PlayerDodgeState DodgeState { get; set; }
         public bool IsReadyToBeDisposed { get; set; }
         public bool IsAlive => Health.Current > 0;
+        public float DoubleGripDamageBonus => _config.DoubleGripDamageBonus;
+        public float DoubleGripBlockBonus => _config.DoubleGripBlockBonus;
+        public bool HasUnabsorbedBlockImpact { get; set; }
+        public IItem BlockingItem { get; set; }
+        public bool IsBlocking { get; set; }
 
         public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input)
         {
@@ -33,7 +37,6 @@ namespace RogueDungeon.Player.Model
             _level = level;
             _mazeTraversalPointer = playerMazePosition;
             _input = input;
-            BlockerHandler = new PlayerBlockerHandler(this);
             CameraPovPoint = gameObject.CameraReferencePoint;
             Stamina = new RechargeableResource(_config.Stamina);
             Health = new Resource(_config.Health);
@@ -53,9 +56,6 @@ namespace RogueDungeon.Player.Model
             _commonBehaviour.Initialize();
             Hands.Initialize();
         }
-
-        public void TakeHitDamage(float damage) => 
-            Health.AddDelta(-damage);
 
         public void Tick(float deltaTime)
         {

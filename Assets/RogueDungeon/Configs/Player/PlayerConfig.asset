@@ -25,3 +25,5 @@ MonoBehaviour:
     type: 2}
   <Prefab>k__BackingField: {fileID: 3401579970430071534, guid: 0b1353be74b298141ba99669d9373a88,
     type: 3}
+  <DoubleGripDamageBonus>k__BackingField: 1.5
+  <DoubleGripBlockBonus>k__BackingField: 1.5

@@ -21,15 +21,15 @@ namespace RogueDungeon.Player.Model.Attacks
         public override void Enter()
         {
             base.Enter();
-            _player.BlockerHandler.IsBlocking = true;
-            _player.BlockerHandler.BlockingItem = _item;
+            _player.IsBlocking = true;
+            _player.BlockingItem = _item;
         }
 
         public override void Exit()
         {
             base.Exit();
-            _player.BlockerHandler.IsBlocking = false;
-            _player.BlockerHandler.BlockingItem = null;
+            _player.IsBlocking = false;
+            _player.BlockingItem = null;
         }
 
         protected override bool CanTransitionTo() => 

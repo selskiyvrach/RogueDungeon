@@ -22,15 +22,15 @@ namespace RogueDungeon.Enemies
 
         public void Tick(float timeDelta)
         {
+            if (_enemy.IsStunnedOrDead)
+            {
+                Cancel();
+                return;
+            }
+            
             if (!IsRunning)
             {
                 TimeChilling += timeDelta;
-                return;
-            }
-
-            if (_enemy.IsStaggeredOrDead)
-            {
-                Cancel();
                 return;
             }
 

@@ -6,6 +6,8 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
     {
         public PlayerHandBehaviour RightHand { get; private set; }
         public PlayerHandBehaviour LeftHand { get; private set; }
+ 
+        public bool IsDoubleGrip => RightHand.CurrentItem == null || LeftHand.CurrentItem == null;
 
         public void SetBehaviours(PlayerHandBehaviour rightHandBehaviour, PlayerHandBehaviour leftHandBehaviour)
         {
@@ -24,12 +26,12 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             RightHand.Tick(deltaTime);
             LeftHand.Tick(deltaTime);
         }
-        
+
         public PlayerHandBehaviour OppositeHand(IItem item) => 
             item == RightHand.CurrentItem 
                 ? LeftHand 
                 : RightHand;
-        
+
         public PlayerHandBehaviour ThisHand(IItem item) => 
             item == RightHand.CurrentItem 
                 ? RightHand 

@@ -4,6 +4,7 @@ using RogueDungeon.Enemies;
 using RogueDungeon.Enemies.HiveMind;
 using RogueDungeon.Items;
 using RogueDungeon.Player.Model;
+using UnityEngine;
 
 namespace RogueDungeon.Combat
 {
@@ -28,7 +29,9 @@ namespace RogueDungeon.Combat
                 return;
             }
 
-            enemy.TakeDamage(weapon.Damage, weapon.PoiseDamage);
+            var modifier = _playerRegistry.Player.Hands.IsDoubleGrip ? _playerRegistry.Player.DoubleGripDamageBonus : 1f;
+
+            enemy.TakeDamage(weapon.Damage * modifier, weapon.PoiseDamage * modifier);
             _combatFeedbackPlayer.OnHit();
         }
 
@@ -47,13 +50,20 @@ namespace RogueDungeon.Combat
                 return;
             }
 
-            if (player.BlockerHandler.IsBlocking)
+            if (player is { IsBlocking: true})
             {
-                player.BlockerHandler.PerformBlock(damage, out var damageAfterBlock);
-                damage = damageAfterBlock;
+                player.HasUnabsorbedBlockImpact = true;
+                var doubleGripBonus =
+                    player.Hands.IsDoubleGrip && player.Hands.ThisHand(player.BlockingItem) == player.Hands.LeftHand
+                        ? player.DoubleGripBlockBonus
+                        : 1;
+            
+                var staminaCost = damage * player.BlockingItem.BlockStaminaCostMultiplier / doubleGripBonus;
+                player.Stamina.AddDelta(- staminaCost);
+                damage = Mathf.Clamp(damage - player.Stamina.Current / player.BlockingItem.BlockStaminaCostMultiplier, 0, float.PositiveInfinity);
             }
 
-            player.TakeHitDamage(damage);
+            player.Health.AddDelta(- damage);
             _combatFeedbackPlayer.OnHit();
         }
     }

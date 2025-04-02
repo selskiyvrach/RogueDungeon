@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76854cd9ab984926a34d408448fa5b13, type: 3}
   m_Name: RoomLocalPositionsConfig
   m_EditorClassIdentifier: 
-  <MiddleEnemyPos>k__BackingField: {x: 0, y: -0.13}
+  <MiddleEnemyPos>k__BackingField: {x: 0, y: -0.15}
   <LeftEnemyPos>k__BackingField: {x: -0.25, y: 0.113}
   <RightEnemyPos>k__BackingField: {x: 0.25, y: 0.113}

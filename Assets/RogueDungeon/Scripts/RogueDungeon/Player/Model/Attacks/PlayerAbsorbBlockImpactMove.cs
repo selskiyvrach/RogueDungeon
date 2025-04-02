@@ -14,10 +14,10 @@ namespace RogueDungeon.Player.Model.Attacks
         public override void Enter()
         {
             base.Enter();
-            _player.BlockerHandler.HasUnabsorbedImpact = false;
+            _player.HasUnabsorbedBlockImpact = false;
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _player.BlockerHandler.HasUnabsorbedImpact;
+            base.CanTransitionTo() && _player.HasUnabsorbedBlockImpact;
     }
 }

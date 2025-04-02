@@ -41,7 +41,6 @@ namespace RogueDungeon.Player.Model.Attacks
         protected override void OnAnimationEvent(string name)
         {
             base.OnAnimationEvent(name);
-            base.OnAnimationEvent(name);
             if (name == AnimationEventNames.Hit)
                 _playerAttacksMediator.MediatePlayerAttack(_weapon);
             else
