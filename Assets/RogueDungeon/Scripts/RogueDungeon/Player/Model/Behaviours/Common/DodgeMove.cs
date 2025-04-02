@@ -1,4 +1,5 @@
-﻿using Common.Animations;
+﻿using System;
+using Common.Animations;
 using RogueDungeon.Input;
 
 namespace RogueDungeon.Player.Model.Behaviours.Common
@@ -8,6 +9,14 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         private readonly PlayerControlStateMediator _playerControlState;
         private readonly Player _player;
         private readonly DodgeMoveConfig _config;
+
+        protected override InputKey RequiredKey => _config.DodgeState switch
+        {
+            PlayerDodgeState.None => InputKey.None,
+            PlayerDodgeState.DodgingLeft => InputKey.DodgeLeft,
+            PlayerDodgeState.DodgingRight => InputKey.DodgeRight,
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
         public DodgeMove(Player player, DodgeMoveConfig config, IAnimation animation, IPlayerInput playerInput, PlayerControlStateMediator playerControlState) : base(config, animation, playerInput)
         {

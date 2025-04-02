@@ -3,7 +3,7 @@ using RogueDungeon.Player.Model.Behaviours;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
-    public class PlayerAttackMoveConfig : PlayerAttackBaseMoveConfig
+    public class PlayerAttackMoveConfig : PlayerMoveConfig
     {
         public override Type MoveType => typeof(PlayerAttackMove);
     }

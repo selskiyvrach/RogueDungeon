@@ -6,12 +6,6 @@ namespace RogueDungeon.Player.Model.Behaviours
 {
     public class PlayerMoveConfig : MoveConfig
     {
-        [field: SerializeField] public Input.InputKey RequiredInputKey { get; private set; }
         public override Type MoveType => typeof(PlayerMove);
-    }
-
-    public abstract class PlayerAttackBaseMoveConfig : PlayerMoveConfig
-    {
-        [field: SerializeField] public bool IsUncancellable { get; private set; }
     }
 }

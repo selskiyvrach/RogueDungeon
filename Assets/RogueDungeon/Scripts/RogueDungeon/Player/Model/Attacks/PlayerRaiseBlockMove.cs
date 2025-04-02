@@ -10,7 +10,9 @@ namespace RogueDungeon.Player.Model.Attacks
     {
         private readonly IItem _item;
         private readonly PlayerHandsBehaviour _hands;
-        
+
+        protected override InputKey RequiredKey => InputKey.Block;
+
         protected PlayerRaiseBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, PlayerHandsBehaviour hands, IItem item) : base(config, animation, playerInput)
         {
             _hands = hands;
@@ -18,7 +20,6 @@ namespace RogueDungeon.Player.Model.Attacks
         }
 
         protected override bool CanTransitionTo() =>
-            base.CanTransitionTo() && (_hands.ThisHand(_item) == _hands.LeftHand && _hands.RightHand.IsIdle ||
-                                       _hands.LeftHand.CurrentItem == null);
+            base.CanTransitionTo() && _hands.IsDedicatedBlockingItem(_item);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Common.Animations;
+﻿using System;
+using Common.Animations;
 using Common.Unity;
 using RogueDungeon.Input;
 using RogueDungeon.Levels;
@@ -12,6 +13,14 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         private readonly Level _level;
         private float _from;
         private float _to;
+
+        protected override InputKey RequiredKey => _rotationConfig.RotationDegrees switch
+        {
+            90 => InputKey.TurnLeft,
+            -90 => InputKey.TurnRight,
+            180 => InputKey.TurnAround,
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
         public PlayerRotationMove(Level level, PlayerRotationConfig config, IPlayerInput playerInput, IAnimation animation) : base(config, animation, playerInput)
         {

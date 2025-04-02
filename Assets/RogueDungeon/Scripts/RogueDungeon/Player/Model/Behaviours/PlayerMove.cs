@@ -6,23 +6,21 @@ namespace RogueDungeon.Player.Model.Behaviours
 { 
     public class PlayerMove : Move
     {
-        private readonly PlayerMoveConfig _config;
         private readonly IPlayerInput _playerInput;
+        
+        protected virtual InputKey RequiredKey => InputKey.None;
 
-        protected PlayerMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput) : base(config, animation)
-        {
-            _config = config;
+        protected PlayerMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput) : base(config, animation) => 
             _playerInput = playerInput;
-        }
 
         public override void Enter()
         {
-            if(_config.RequiredInputKey is not InputKey.None)
-                _playerInput.ConsumeInput(_config.RequiredInputKey);
+            if(RequiredKey is not InputKey.None)
+                _playerInput.ConsumeInput(RequiredKey);
             base.Enter();
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && (_config.RequiredInputKey is InputKey.None || _playerInput.HasInput(_config.RequiredInputKey));
+            base.CanTransitionTo() && (RequiredKey is InputKey.None || _playerInput.HasInput(RequiredKey));
     }
 }

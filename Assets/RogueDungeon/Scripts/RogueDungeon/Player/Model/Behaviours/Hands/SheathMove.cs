@@ -27,6 +27,6 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _hands.OtherHand(_handBehaviour).IsIdle && _handBehaviour.CurrentItem != null && _handBehaviour.CurrentItem != _handBehaviour.IntendedItem;
+            base.CanTransitionTo() && _hands.OppositeHand(_handBehaviour).IsIdle && _handBehaviour.CurrentItem != null && _handBehaviour.CurrentItem != _handBehaviour.IntendedItem;
     }
 }

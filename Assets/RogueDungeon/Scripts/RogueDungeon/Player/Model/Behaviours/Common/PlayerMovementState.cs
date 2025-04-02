@@ -12,7 +12,9 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         private readonly Level _level;
         private Vector2 _from;
         private Vector2 _to;
-        
+
+        protected override InputKey RequiredKey => InputKey.MoveForward;
+
         public PlayerMovementState(Level level, PlayerMovementConfig config, IPlayerInput playerInput, IAnimation animation) : base(config, animation, playerInput) => 
             _level = level;
 
