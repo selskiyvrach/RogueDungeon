@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Common.Animations
 {
@@ -11,6 +12,7 @@ namespace Common.Animations
 
         public AnimationEvent(float time, string name)
         {
+            Assert.IsTrue(time is >= 0 and <= 1);
             Time = time;
             Name = name;
         }

@@ -15,5 +15,8 @@ namespace RogueDungeon.Player.Model
         [field: SerializeField] public PlayerInstaller Prefab { get; private set; }
         [field: SerializeField] public float DoubleGripDamageBonus { get; private set;} = 1.5f;
         [field: SerializeField] public float DoubleGripBlockBonus { get; private set;} = 1.5f;
+        [field: SerializeField] public float DeathAnimationDuration { get; private set; } = 2f;
+        [field: SerializeField] public float DodgeDuration { get; private set; }
+        [field: SerializeField] public float MovementActionDuration { get; private set; } = .5f;
     }
 }

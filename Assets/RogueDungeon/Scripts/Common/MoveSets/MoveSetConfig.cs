@@ -10,13 +10,20 @@ namespace Common.MoveSets
         [field: SerializeField] public T[] MoveConfigs { get; private set; }
 
         public override IEnumerable<MoveConfig> Moves => MoveConfigs;
-    } 
+    }
 
-    public abstract class MoveSetConfig : ScriptableObject
+    public interface IMoveSetConfig
+    {
+        string FirstMoveId { get; }
+        IEnumerable<MoveCreationArgs> MovesCreationArgs { get; }
+    }
+
+    public abstract class MoveSetConfig : ScriptableObject, IMoveSetConfig
     {
         [field: SerializeField] public MoveSetConfig[] ExtendsConfigs { get; private set; }
         public string DebugName => name;
-        public abstract IEnumerable<MoveConfig> Moves { get; }
-        public virtual MoveConfig FirstMove => ExtendsConfigs.IsNullOrEmpty() ? Moves.First() : ExtendsConfigs.First().Moves.First();
+        public virtual IEnumerable<MoveConfig> Moves { get; }
+        public virtual string FirstMoveId => (ExtendsConfigs.IsNullOrEmpty() ? Moves.First() : ExtendsConfigs.First().Moves.First()).Id;
+        public virtual IEnumerable<MoveCreationArgs> MovesCreationArgs => Moves.Select(n => n.ToCreationArgs());
     }
 }

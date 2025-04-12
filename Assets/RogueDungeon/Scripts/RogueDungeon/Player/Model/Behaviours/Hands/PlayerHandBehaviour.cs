@@ -58,7 +58,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         private void CreateItemMoveSet()
         {
             _moveSetFactory.BindItem(_currentItem);
-            _itemMoveSet = _moveSetFactory.Create(_currentItem.MoveSetConfig);
+            _itemMoveSet = _moveSetFactory.Create(_currentItem.Config);
             _itemMoveSet.Initialize();
         }
 

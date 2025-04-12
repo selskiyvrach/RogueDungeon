@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Common.Animations
 {
     [Serializable]
-    public class SpriteSheetAnimationConfig : AnimationConfigWithDuration
+    public class SpriteSheetAnimationConfig : AnimationConfig
     {
         [PreviewField(70, ObjectFieldAlignment.Center)]
         [field: SerializeField, ListDrawerSettings(ShowFoldout = false)] public Sprite[] Sprites {get; private set;}

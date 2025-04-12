@@ -5,6 +5,6 @@ namespace RogueDungeon.Player.Model.Attacks
 {
     public class PlayerPrepareAttackMoveConfig : PlayerMoveConfig
     {
-        public override Type MoveType => typeof(PlayerPrepareAttackMove);
+        public override Type MoveType => typeof(ItemPrepareAttackMove);
     }
 }

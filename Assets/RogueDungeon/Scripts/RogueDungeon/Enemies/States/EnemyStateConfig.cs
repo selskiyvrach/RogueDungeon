@@ -7,6 +7,7 @@ namespace RogueDungeon.Enemies.States
 {
     public abstract class EnemyStateConfig : ScriptableObject
     {
+        [field: SerializeField] public float Duration { get; private set; }
         [field: SerializeField] public Priority Priority { get; private set; }
         [field: SerializeField, HideLabel] public AnimationConfigPicker AnimationConfigPicker { get; private set; }
         [field: SerializeField, HideLabel] public AnimationConfigPicker[] AdditionalAnimations { get; private set; }

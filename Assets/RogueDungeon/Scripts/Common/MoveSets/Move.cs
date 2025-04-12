@@ -5,7 +5,7 @@ using Common.Fsm;
 
 namespace Common.MoveSets
 {
-    public class Move : BoundToAnimationState, IIdBasedTransitionableState
+    public abstract class Move : BoundToAnimationState, IIdBasedTransitionableState
     {
         protected override IAnimation Animation { get; }
         protected sealed override bool IsLooping => Config.IsLooping;

@@ -8,7 +8,6 @@ namespace Common.Animations
     {
         private readonly IAnimation[] _animations;
 
-        public float Duration => _animations.Max(n => n.Duration);
         public float Progress => _animations.Min(n => n.Progress);
         public bool IsFinished => _animations.All(n => n.IsFinished);
         public event Action<string> OnEvent;
@@ -26,10 +25,10 @@ namespace Common.Animations
             }
         }
 
-        public void Tick(float deltaTime)
+        public void TickNormalizedTime(float delta)
         {
             foreach (var animation in _animations) 
-                animation.Tick(deltaTime);
+                animation.TickNormalizedTime(delta);
         }
 
         private void RaiseEvent(string obj) => 

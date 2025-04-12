@@ -10,7 +10,9 @@ namespace RogueDungeon.Player.Model.Attacks
         private readonly IPlayerInput _playerInput;
         private readonly Player _player;
         private readonly IItem _item;
-        
+
+        protected override float Duration => _item.Config.HoldBlockAnimationDuration;
+
         protected PlayerHoldBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player, IItem item) : base(config, animation, playerInput)
         {
             _playerInput = playerInput;

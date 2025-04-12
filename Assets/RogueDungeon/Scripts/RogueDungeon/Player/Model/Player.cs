@@ -11,13 +11,13 @@ namespace RogueDungeon.Player.Model
 {
     public class Player : IInitializable, ITickable
     {
-        private readonly PlayerConfig _config;
         private readonly PlayerPositionInTheMaze _mazeTraversalPointer;
         private readonly Level _level;
         private readonly IPlayerInput _input;
         
         private PlayerCommonBehaviour _commonBehaviour;
 
+        public PlayerConfig Config { get; }
         public PlayerHandsBehaviour Hands { get; private set; }
         public Transform CameraPovPoint { get; }
         public Resource Health { get; }
@@ -25,21 +25,21 @@ namespace RogueDungeon.Player.Model
         public PlayerDodgeState DodgeState { get; set; }
         public bool IsReadyToBeDisposed { get; set; }
         public bool IsAlive => Health.Current > 0;
-        public float DoubleGripDamageBonus => _config.DoubleGripDamageBonus;
-        public float DoubleGripBlockBonus => _config.DoubleGripBlockBonus;
+        public float DoubleGripDamageBonus => Config.DoubleGripDamageBonus;
+        public float DoubleGripBlockBonus => Config.DoubleGripBlockBonus;
         public bool HasUnabsorbedBlockImpact { get; set; }
         public IItem BlockingItem { get; set; }
         public bool IsBlocking { get; set; }
 
         public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input)
         {
-            _config = config;
+            Config = config;
             _level = level;
             _mazeTraversalPointer = playerMazePosition;
             _input = input;
             CameraPovPoint = gameObject.CameraReferencePoint;
-            Stamina = new RechargeableResource(_config.Stamina);
-            Health = new Resource(_config.Health);
+            Stamina = new RechargeableResource(Config.Stamina);
+            Health = new Resource(Config.Health);
             Stamina.Refill();
             Health.Refill();
         }
@@ -63,12 +63,12 @@ namespace RogueDungeon.Player.Model
             {
                 if (_input.HasInput(InputKey.CycleLeftArmItems))
                 {
-                    Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Shield(_config.DefaultShield);
+                    Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Shield(Config.DefaultShield);
                     _input.ConsumeInput(InputKey.CycleLeftArmItems);
                 }
                 if (_input.HasInput(InputKey.CycleRightArmItems))
                 {
-                    Hands.RightHand.IntendedItem = Hands.RightHand.IntendedItem != null ? null : new Weapon(_config.DefaultWeapon);
+                    Hands.RightHand.IntendedItem = Hands.RightHand.IntendedItem != null ? null : new Weapon(Config.DefaultWeapon);
                     _input.ConsumeInput(InputKey.CycleRightArmItems);
                 }
             }

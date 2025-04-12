@@ -7,37 +7,40 @@ namespace Common.Animations
 {
     public abstract class Animation : IAnimation
     {
-        private readonly AnimationConfigWithDuration _config;
-        private float _timePassed;
-
+        private readonly AnimationConfig _config;
+        private float _progress;
         protected abstract AnimationEvent[] Events { get; }
-        public float Duration => _config.Duration;
-        public float Progress => Mathf.Clamp01(_timePassed / Duration);
-        public bool IsFinished => _timePassed >= _config.Duration;
+
+        public float Progress
+        {
+            get => _progress;
+            private set => _progress = Mathf.Clamp01(value);
+        }
+
+        public bool IsFinished => Progress >= 1f;
         public event Action<string> OnEvent;
 
-        protected Animation(AnimationConfigWithDuration config) => 
+        protected Animation(AnimationConfig config) => 
             _config = config;
 
         public virtual void Play()
         {
-            _timePassed = 0;
+            Progress = 0f;
             ApplyAnimation(0);
         }
 
-        public void Tick(float timeDelta)
+        public void TickNormalizedTime(float delta)
         {
             if(IsFinished)
                 return;
             
-            var lastFrameTime = _timePassed;
-            _timePassed += timeDelta;
-            ApplyAnimation(Mathf.Clamp01(_timePassed / _config.Duration));
+            var lastFrameTime = Progress;
+            Progress += delta;
+            ApplyAnimation(Progress);
             
             foreach (var e in Events ?? Enumerable.Empty<AnimationEvent>())
             {
-                Assert.IsTrue(e.Time >= 0 && e.Time <= _config.Duration);
-                if(e.Time > lastFrameTime && e.Time < _timePassed)
+                if(e.Time > lastFrameTime && e.Time <= Progress)
                     OnEvent?.Invoke(e.Name);
             }
         }

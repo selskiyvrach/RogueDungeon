@@ -5,7 +5,9 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
     public class HandHeldIdle : HandsState
     {
-        public HandHeldIdle(MoveConfig config, IAnimation animation) : base(config, animation)
+        protected override float Duration => 1;
+
+        public HandHeldIdle(HandHeldMoveConfig config, IAnimation animation) : base(config, animation)
         {
         }
     }

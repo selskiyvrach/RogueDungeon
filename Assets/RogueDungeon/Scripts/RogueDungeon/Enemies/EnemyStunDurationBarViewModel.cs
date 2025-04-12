@@ -13,7 +13,7 @@ namespace RogueDungeon.Scripts.RogueDungeon.UI
     {
         private readonly Enemy _enemy;
         public float Current => _enemy.CurrentState is EnemyStunState ? Max : 0;
-        public float Max => (_enemy.CurrentState as EnemyStunState)?.Max ?? float.MaxValue;
+        public float Max => 1;
         public IReadOnlyReactiveProperty<bool> IsVisible { get; } = new ReactiveProperty<bool>();
         public event Action OnChanged;
 

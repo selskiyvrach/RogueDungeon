@@ -4,8 +4,14 @@ using UnityEngine;
 namespace Common.MoveSets
 {
     [Serializable]
-    public class TransitionPicker
+    public struct TransitionPicker
     {
+        public TransitionPicker(string moveId, bool canInterrupt = false)
+        {
+            MoveId = moveId;
+            CanInterrupt = canInterrupt;
+        }
+
         [field: SerializeField] public string MoveId { get; private set; }
         [field: SerializeField] public bool CanInterrupt { get; private set; }
     }

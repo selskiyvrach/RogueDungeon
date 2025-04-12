@@ -41,6 +41,6 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             handBehaviour == RightHand ? LeftHand : RightHand;
 
         public bool IsDedicatedBlockingItem(IItem item) => 
-            IsDoubleGrip || OppositeHand(item).CurrentItem.BlockStaminaCostMultiplier >= item.BlockStaminaCostMultiplier;
+            IsDoubleGrip || OppositeHand(item).CurrentItem.Config.BlockStaminaCostMultiplier >= item.Config.BlockStaminaCostMultiplier;
     }
 }

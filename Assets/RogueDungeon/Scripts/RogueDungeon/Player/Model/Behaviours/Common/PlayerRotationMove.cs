@@ -9,10 +9,12 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
 {
     public class PlayerRotationMove : PlayerMove
     {
+        private readonly Player _player;
         private readonly PlayerRotationConfig _rotationConfig;
         private readonly Level _level;
         private float _from;
         private float _to;
+        protected override float Duration => _player.Config.MovementActionDuration;
 
         protected override InputKey RequiredKey => _rotationConfig.RotationDegrees switch
         {
@@ -22,11 +24,13 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        public PlayerRotationMove(Level level, PlayerRotationConfig config, IPlayerInput playerInput, IAnimation animation) : base(config, animation, playerInput)
+        public PlayerRotationMove(Player player, Level level, PlayerRotationConfig config, IPlayerInput playerInput, IAnimation animation) : base(config, animation, playerInput)
         {
+            _player = player;
             _rotationConfig = config;
             _level = level;
         }
+
 
         public override void Enter()
         {

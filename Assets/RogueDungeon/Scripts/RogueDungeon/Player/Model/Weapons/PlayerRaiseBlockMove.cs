@@ -12,6 +12,8 @@ namespace RogueDungeon.Player.Model.Attacks
         private readonly PlayerHandsBehaviour _hands;
 
         protected override InputKey RequiredKey => InputKey.Block;
+        protected override float Duration => _item.Config.RaiseBlockDuration;
+
 
         protected PlayerRaiseBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, PlayerHandsBehaviour hands, IItem item) : base(config, animation, playerInput)
         {

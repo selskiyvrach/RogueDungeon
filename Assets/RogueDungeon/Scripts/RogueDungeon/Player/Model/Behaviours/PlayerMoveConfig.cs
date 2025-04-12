@@ -1,11 +1,8 @@
-﻿using System;
-using Common.MoveSets;
-using UnityEngine;
+﻿using Common.MoveSets;
 
 namespace RogueDungeon.Player.Model.Behaviours
 {
-    public class PlayerMoveConfig : MoveConfig
+    public abstract class PlayerMoveConfig : MoveConfig
     {
-        public override Type MoveType => typeof(PlayerMove);
     }
 }

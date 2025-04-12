@@ -4,11 +4,9 @@ using RogueDungeon.Characters;
 
 namespace RogueDungeon.Enemies.States
 {
-    public class EnemyStunState : EnemyState, IReadOnlyResource
+    public class EnemyStunState : EnemyState
     {
         private readonly Enemy _enemy;
-        public float Current => (1 - Animation.Progress) * Max;
-        public float Max => Animation.Duration;
         public event Action OnChanged;
         
         protected EnemyStunState(EnemyStateConfig config, IAnimation animation, Enemy enemy) : base(config, animation) => 

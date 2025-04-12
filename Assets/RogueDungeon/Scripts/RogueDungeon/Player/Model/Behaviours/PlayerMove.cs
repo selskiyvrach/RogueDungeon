@@ -4,7 +4,7 @@ using RogueDungeon.Input;
 
 namespace RogueDungeon.Player.Model.Behaviours
 { 
-    public class PlayerMove : Move
+    public abstract class PlayerMove : Move
     {
         private readonly IPlayerInput _playerInput;
         

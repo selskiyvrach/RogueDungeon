@@ -8,13 +8,15 @@ using UnityEngine;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
-    public class PlayerAttackMove : PlayerMove
+    public class ItemExecuteAttackMove : PlayerMove
     {
         private readonly IPlayerAttacksMediator _playerAttacksMediator;
         private readonly IWeapon _weapon;
         private readonly PlayerControlStateMediator _playerControlStateMediator;
-        
-        public PlayerAttackMove(IPlayerInput input, PlayerAttackMoveConfig config, IAnimation animation, PlayerControlStateMediator playerControlStateMediator,
+
+        protected override float Duration => ((WeaponConfig)_weapon.Config).AttackExecuteDuration;
+
+        public ItemExecuteAttackMove(IPlayerInput input, PlayerAttackMoveConfig config, IAnimation animation, PlayerControlStateMediator playerControlStateMediator,
             IPlayerAttacksMediator playerAttacksMediator, IWeapon weapon) : base(config, animation, input)
         {
             _playerControlStateMediator = playerControlStateMediator;

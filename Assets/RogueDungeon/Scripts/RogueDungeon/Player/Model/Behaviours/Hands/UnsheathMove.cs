@@ -8,7 +8,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         private readonly PlayerHandsBehaviour _hands;
         private readonly PlayerHandBehaviour _handBehaviour;
 
-        public UnsheathMove(PlayerHandBehaviour handBehaviour, MoveConfig config, IAnimation animation, PlayerHandsBehaviour hands) : base(config, animation)
+        public UnsheathMove(PlayerHandBehaviour handBehaviour, HandHeldMoveConfig config, IAnimation animation, PlayerHandsBehaviour hands) : base(config, animation)
         {
             _handBehaviour = handBehaviour;
             _hands = hands;

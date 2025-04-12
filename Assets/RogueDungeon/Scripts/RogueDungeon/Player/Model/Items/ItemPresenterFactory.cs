@@ -14,7 +14,7 @@ namespace RogueDungeon.Items
         {
             Assert.IsTrue(_itemPresenter.IsReleased);
             _itemPresenter.IsReleased = false;
-            _itemPresenter.Sprite = param.Sprite;
+            _itemPresenter.Sprite = param.Config.Sprite;
             return _itemPresenter;
         }
     }

@@ -9,6 +9,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         private readonly PlayerControlStateMediator _playerControlState;
         private readonly Player _player;
         private readonly DodgeMoveConfig _config;
+        protected override float Duration => _player.Config.DodgeDuration;
 
         protected override InputKey RequiredKey => _config.DodgeState switch
         {

@@ -8,7 +8,7 @@ using AnimationEvent = Common.Animations.AnimationEvent;
 
 namespace Common.MoveSets
 {
-    public class MoveConfig : ScriptableObject
+    public abstract class MoveConfig : ScriptableObject
     {
         [field: SerializeField] public string Id { get; private set; }
         [field: SerializeField] public bool IsLooping { get; private set; }
@@ -16,5 +16,8 @@ namespace Common.MoveSets
         [field: SerializeField] public TransitionPicker[] Transitions { get; private set; }
 
         public virtual Type MoveType { get; } = typeof(Move);
+
+        public MoveCreationArgs ToCreationArgs() => 
+            new(Id, MoveType, this, AnimationConfigPicker.Config, Transitions);
     }
 }

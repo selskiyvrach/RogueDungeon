@@ -14,7 +14,7 @@ namespace Common.Animations
         {
             _spriteSheetAnimationTarget = spriteSheetAnimationTarget;
             _config = config;
-            Events = config.KeyFrames.Select(n => new AnimationEvent(n.Frame / (float)config.Sprites.Length * config.Duration, n.Name)).ToArray();
+            Events = config.KeyFrames.Select(n => new AnimationEvent(n.Frame / (float)config.Sprites.Length, n.Name)).ToArray();
         }
 
         protected override void ApplyAnimation(float timeNormalized)

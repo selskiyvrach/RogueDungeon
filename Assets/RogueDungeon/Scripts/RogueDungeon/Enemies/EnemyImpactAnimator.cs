@@ -16,7 +16,7 @@ namespace RogueDungeon.Enemies
             if(!_isPlaying)
                 return;
             
-            _animation.Tick(timeDelta);
+            _animation.TickNormalizedTime(timeDelta);
             if(_animation.IsFinished)
                 _isPlaying = false;
         }

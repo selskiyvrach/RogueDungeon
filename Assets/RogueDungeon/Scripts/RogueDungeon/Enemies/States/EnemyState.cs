@@ -3,11 +3,12 @@ using Common.Animations;
 
 namespace RogueDungeon.Enemies.States
 {
-    public class EnemyState : BoundToAnimationState
+    public abstract class EnemyState : BoundToAnimationState
     {
         public EnemyStateConfig Config { get; }
         public Priority Priority => Config.Priority;
         protected override IAnimation Animation { get; }
+        protected override float Duration => Config.Duration;
 
         protected EnemyState(EnemyStateConfig config, IAnimation animation)
         {
