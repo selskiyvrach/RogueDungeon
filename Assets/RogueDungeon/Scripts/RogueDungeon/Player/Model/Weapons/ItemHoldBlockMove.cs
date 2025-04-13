@@ -5,15 +5,15 @@ using RogueDungeon.Player.Model.Behaviours;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
-    public class PlayerHoldBlockMove : PlayerMove
+    public class ItemHoldBlockMove : PlayerMove
     {
         private readonly IPlayerInput _playerInput;
         private readonly Player _player;
         private readonly IItem _item;
-
         protected override float Duration => _item.Config.HoldBlockAnimationDuration;
+        protected override bool IsLooping => true;
 
-        protected PlayerHoldBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player, IItem item) : base(config, animation, playerInput)
+        protected ItemHoldBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player, IItem item) : base(config, animation, playerInput)
         {
             _playerInput = playerInput;
             _player = player;

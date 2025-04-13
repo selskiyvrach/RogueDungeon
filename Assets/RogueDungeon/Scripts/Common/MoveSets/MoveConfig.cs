@@ -18,6 +18,6 @@ namespace Common.MoveSets
         public virtual Type MoveType { get; } = typeof(Move);
 
         public MoveCreationArgs ToCreationArgs() => 
-            new(Id, MoveType, this, AnimationConfigPicker.Config, Transitions);
+            new(Id, MoveType, AnimationConfigPicker.Config, Transitions);
     }
 }

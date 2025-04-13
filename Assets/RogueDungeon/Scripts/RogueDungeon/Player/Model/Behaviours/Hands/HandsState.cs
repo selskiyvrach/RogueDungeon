@@ -8,7 +8,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         private readonly HandHeldMoveConfig _config;
         protected override float Duration => _config.Duration;
 
-        protected HandsState(HandHeldMoveConfig config, IAnimation animation) : base(config, animation) => 
+        protected HandsState(HandHeldMoveConfig config, IAnimation animation) : base(config.Id, animation) => 
             _config = config;
     }
 }

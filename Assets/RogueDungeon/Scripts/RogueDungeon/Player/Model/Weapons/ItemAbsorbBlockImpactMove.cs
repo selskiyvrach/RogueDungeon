@@ -5,14 +5,14 @@ using RogueDungeon.Player.Model.Behaviours;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
-    public class PlayerAbsorbBlockImpactMove : PlayerMove
+    public class ItemAbsorbBlockImpactMove : PlayerMove
     {
         private readonly IItem _item;
         private readonly Player _player;
 
         protected override float Duration => _item.Config.BlockImpactAbsorptionDuration;
 
-        protected PlayerAbsorbBlockImpactMove(IItem item, PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player) : base(config, animation, playerInput)
+        protected ItemAbsorbBlockImpactMove(IItem item, PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player) : base(config, animation, playerInput)
         {
             _item = item;
             _player = player;

@@ -6,7 +6,7 @@ using RogueDungeon.Player.Model.Behaviours.Hands;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
-    public class PlayerRaiseBlockMove : PlayerMove
+    public class ItemRaiseBlockMove : PlayerMove
     {
         private readonly IItem _item;
         private readonly PlayerHandsBehaviour _hands;
@@ -15,7 +15,7 @@ namespace RogueDungeon.Player.Model.Attacks
         protected override float Duration => _item.Config.RaiseBlockDuration;
 
 
-        protected PlayerRaiseBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, PlayerHandsBehaviour hands, IItem item) : base(config, animation, playerInput)
+        protected ItemRaiseBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, PlayerHandsBehaviour hands, IItem item) : base(config, animation, playerInput)
         {
             _hands = hands;
             _item = item;

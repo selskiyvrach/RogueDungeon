@@ -5,6 +5,6 @@ namespace RogueDungeon.Player.Model.Attacks
 {
     public class PlayerAbsorbBlockImpactMoveConfig : PlayerMoveConfig
     {
-        public override Type MoveType => typeof(PlayerAbsorbBlockImpactMove);
+        public override Type MoveType => typeof(ItemAbsorbBlockImpactMove);
     }
 }

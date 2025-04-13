@@ -10,7 +10,7 @@ namespace RogueDungeon.Player.Model.Behaviours
         
         protected virtual InputKey RequiredKey => InputKey.None;
 
-        protected PlayerMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput) : base(config, animation) => 
+        protected PlayerMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput) : base(config.Id, animation) => 
             _playerInput = playerInput;
 
         public override void Enter()

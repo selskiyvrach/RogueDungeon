@@ -17,18 +17,19 @@ namespace Common.MoveSets
 
         public IEnumerable<Move> CreateMoves(IEnumerable<MoveCreationArgs> moveConfigs)
         {
-            var moves = moveConfigs.Select(n => Container.Instantiate(n.MoveType, new []{n.MoveConstructorArgs, CreateAnimation(n)})).Cast<Move>().ToArray();
-            CreateTransitions(moves);
+            var configs = moveConfigs.ToArray();
+            var moves = configs.Select(n => Container.Instantiate(n.MoveType, new []{CreateAnimation(n)})).Cast<Move>().ToArray();
+            CreateTransitions(moves, configs);
             return moves;
         }
 
         private object CreateAnimation(MoveCreationArgs n) => 
             Container.Instantiate(n.AnimationConfig.AnimationType, new object[]{n.AnimationConfig});
 
-        private void CreateTransitions(Move[] moves)
+        private void CreateTransitions(Move[] moves, MoveCreationArgs[] configs)
         {
-            foreach (var move in moves) 
-                move.Transitions = move.Config.Transitions.Select(n => new Transition(moves.First(m => m.Id == n.MoveId), n.CanInterrupt)).ToArray();
+            for (var i = 0; i < moves.Length; i++) 
+                moves[i].Transitions = configs[i].Transitions.Select(n => new Transition(moves.First(m => m.Id == n.MoveId), n.CanInterrupt)).ToArray();
         }
     }
 }

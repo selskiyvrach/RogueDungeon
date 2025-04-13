@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Common.Animations;
 using Common.MoveSets;
 using RogueDungeon.Player.Model.Attacks;
+using RogueDungeon.Player.Model.Behaviours.Hands;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -40,26 +42,36 @@ namespace RogueDungeon.Items
         [field: BoxGroup("Durations"), SerializeField] public float HoldBlockAnimationDuration { get; private set; } = 1;
         [field: BoxGroup("Durations"), SerializeField] public float BlockImpactAbsorptionDuration { get; private set; } = .25f;
 
-        [BoxGroup("Common"), SerializeField] private AnimationConfigPicker _idleAnimation;
-        [BoxGroup("Common"), SerializeField] private AnimationConfigPicker _sheathAnimation;
-        [BoxGroup("Common"), SerializeField] private AnimationConfigPicker _unsheatAnimation;
-        
-        [BoxGroup("Block") ,SerializeField] private AnimationConfigPicker _raiseBlockAnimation;
-        [BoxGroup("Block") ,SerializeField] private AnimationConfigPicker _lowerBlockAnimation;
-        [BoxGroup("Block") ,SerializeField] private AnimationConfigPicker _holdBlockAnimation;
-        [BoxGroup("Block") ,SerializeField] private AnimationConfigPicker _absorbBlockImpactAnimation;
+        [BoxGroup("Common"), SerializeField] private ItemAnimationConfig _idleAnimation;
+        [BoxGroup("Common"), SerializeField] private ItemAnimationConfig _sheathAnimation;
+        [BoxGroup("Common"), SerializeField] private ItemAnimationConfig _unsheatAnimation;
+        [BoxGroup("Block"), SerializeField] private ItemAnimationConfig _raiseBlockAnimation;
+        [BoxGroup("Block"), SerializeField] private ItemAnimationConfig _lowerBlockAnimation;
+        [BoxGroup("Block"), SerializeField] private ItemAnimationConfig _holdBlockAnimation;
+        [BoxGroup("Block"), SerializeField] private ItemAnimationConfig _absorbBlockImpactAnimation;
         
         public string FirstMoveId => Names.UNSHEATH;
         
-        public IEnumerable<MoveCreationArgs> MovesCreationArgs => new MoveCreationArgs[]
+        public virtual IEnumerable<MoveCreationArgs> MovesCreationArgs => new MoveCreationArgs[]
         {
-            new(Names.IDLE, typeof(ItemIdleMove), this, _idleAnimation.Config, TransitionsFromIdle),
+            new(Names.UNSHEATH, typeof(UnsheathMove), _unsheatAnimation, new []{new TransitionPicker(Names.IDLE)}),
+            new(Names.IDLE, typeof(ItemIdleMove), _idleAnimation, TransitionsFromIdle),
+            new(Names.SHEATH, typeof(SheathMove), _sheathAnimation, Array.Empty<TransitionPicker>()),
+            
+            new(Names.BLOCK_RAISE, typeof(ItemRaiseBlockMove), _raiseBlockAnimation, new []{new TransitionPicker(Names.BLOCK_HOLD)}),
+            new(Names.BLOCK_HOLD, typeof(ItemHoldBlockMove), _holdBlockAnimation, new TransitionPicker[]
+            {
+                new(Names.BLOCK_ABSORB_IMPACT, canInterrupt: true), 
+                new(Names.BLOCK_LOWER, canInterrupt: true),
+            }),
+            new(Names.BLOCK_ABSORB_IMPACT, typeof(ItemAbsorbBlockImpactMove), _absorbBlockImpactAnimation, new TransitionPicker[]{new(Names.BLOCK_HOLD)}),
+            new(Names.BLOCK_LOWER, typeof(ItemLowerBlockMove), _lowerBlockAnimation, new TransitionPicker[]{new(Names.IDLE)}),
         };
 
         protected virtual IEnumerable<TransitionPicker> TransitionsFromIdle => new TransitionPicker[]
         {
             new(Names.BLOCK_RAISE, canInterrupt: true),
-            new(Names.FIRST_ATTACK_PREPARE, canInterrupt: true),
+            new(Names.SHEATH, canInterrupt: true),
         };
     }
 }

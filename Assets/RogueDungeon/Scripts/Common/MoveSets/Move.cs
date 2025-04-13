@@ -2,21 +2,20 @@
 using Common.AnimationBasedFsm;
 using Common.Animations;
 using Common.Fsm;
+using UnityEditor.Build;
 
 namespace Common.MoveSets
 {
     public abstract class Move : BoundToAnimationState, IIdBasedTransitionableState
     {
         protected override IAnimation Animation { get; }
-        protected sealed override bool IsLooping => Config.IsLooping;
 
-        public MoveConfig Config { get; }
-        public string Id => Config.Id;
+        public string Id { get; }
         public Transition[] Transitions { get; set; }
         
-        protected Move(MoveConfig config, IAnimation animation)
+        protected Move(string id, IAnimation animation)
         {
-            Config = config;
+            Id = id;
             Animation = animation;
         }
 
