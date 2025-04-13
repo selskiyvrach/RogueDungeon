@@ -1,4 +1,6 @@
-﻿using DG.Tweening;
+﻿using System.Linq;
+using Common.Animations;
+using DG.Tweening;
 using UnityEngine;
 using Animation = Common.Animations.Animation;
 using AnimationEvent = Common.Animations.AnimationEvent;
@@ -7,24 +9,24 @@ namespace RogueDungeon.Items
 {
     public class ItemAnimation : Animation
     {
-        private readonly Transform _target;
         private readonly ItemAnimationConfig _config;
-        private Sequence _tweener;
+        private readonly Sequence _tweener;
         
         protected override AnimationEvent[] Events => _config.Events;
-        public ItemAnimation(Transform target, ItemAnimationConfig config) : base(config)
+        public ItemAnimation(IAnimationClipTarget target, ItemAnimationConfig config) : base(config)
         {
-            _target = target;
             _config = config;
-        }
-
-        public override void Play()
-        {
-            base.Play();
-            _tweener?.Kill(true);
+            
             _tweener = DOTween.Sequence();
-            _tweener.Append(_target.DOLocalMove(_config.EndPosition, 1));
-            _tweener.Join(_target.DOLocalRotate(_config.EndRotation, 1));
+            var keyframes = _config.KeyFrames.OrderBy(n => n.Time).ToArray();
+            var peviousTime = 0f;
+            foreach (var keyframe in keyframes)
+            {
+                var time = keyframe.Time - peviousTime;
+                _tweener.Append(target.GameObject.transform.DOLocalMove(keyframe.Position, time));
+                _tweener.Join(target.GameObject.transform.DOLocalRotate(keyframe.Rotation, time));
+                peviousTime = keyframe.Time;
+            }
         }
 
         protected override void ApplyAnimation(float timeNormalized) => 

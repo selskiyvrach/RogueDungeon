@@ -6,7 +6,7 @@ using RogueDungeon.Player.Model.Behaviours.Hands;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
-    public class ItemPrepareAttackMove : PlayerMove
+    public class ItemPrepareAttackMove : PlayerInputMove
     {
         private readonly PlayerHandsBehaviour _hands;
         private readonly Player _player;
@@ -14,10 +14,9 @@ namespace RogueDungeon.Player.Model.Attacks
         protected override float Duration => ((WeaponConfig)_weapon.Config).PrepareAttackDuration;
 
         protected override InputKey RequiredKey => _hands.ThisHand(_weapon) == _hands.RightHand ? InputKey.UseRightHandItem : InputKey.UseLeftHandItem;
-
-
-        protected ItemPrepareAttackMove(PlayerPrepareAttackMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player, IWeapon weapon, PlayerHandsBehaviour hands) 
-            : base(config, animation, playerInput)
+        
+        protected ItemPrepareAttackMove(IAnimation animation, IPlayerInput playerInput, Player player, IWeapon weapon, PlayerHandsBehaviour hands) 
+            : base(ItemConfig.Names.FIRST_ATTACK_PREPARE, animation, playerInput)
         {
             _player = player;
             _weapon = weapon;

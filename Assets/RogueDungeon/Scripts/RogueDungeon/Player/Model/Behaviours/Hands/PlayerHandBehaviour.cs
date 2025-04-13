@@ -1,11 +1,14 @@
 ﻿using Common.Fsm;
 using RogueDungeon.Items;
+using RogueDungeon.Player.Model.Attacks;
 using Zenject;
+using ITickable = Common.Lifecycle.ITickable;
 
 namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
-    public class PlayerHandBehaviour
+    public class PlayerHandBehaviour : ITickable
     {
+        private readonly PlayerHandsBehaviour _playerHandsBehaviour;
         private readonly IFactory<IItem, HandHeldItemPresenter> _presenterFactory;
         private readonly ItemMoveSetFactory _moveSetFactory;
 
@@ -14,7 +17,6 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
 
         private HandHeldItemPresenter _itemPresenter;
         private StateMachine _itemMoveSet;
-        private StateMachine _unsheathMoveSet;
 
         public IItem CurrentItem
         {
@@ -23,7 +25,10 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             {
                 _currentItem = value;
                 if (_currentItem != null)
+                {
                     _itemPresenter = _presenterFactory.Create(_currentItem);
+                    CreateItemMoveSet();
+                }
                 else
                 {
                     _itemPresenter.Release();
@@ -33,28 +38,15 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             }
         }
         public IItem IntendedItem { get; set; }
-        public bool IsIdle => _unsheathMoveSet.CurrentState is HandHeldIdle && (_currentItem is null || _itemMoveSet.CurrentState is IIdBasedTransitionableState { Id: "idle" });
+        public bool IsIdle => _currentItem is null || _itemMoveSet.CurrentState is ItemIdleMove;
 
-        public PlayerHandBehaviour(IFactory<IItem, HandHeldItemPresenter> presenterFactory, ItemMoveSetFactory moveSetFactory)
+        public PlayerHandBehaviour(IFactory<IItem, HandHeldItemPresenter> presenterFactory, ItemMoveSetFactory moveSetFactory, PlayerHandsBehaviour playerHandsBehaviour)
         {
             _presenterFactory = presenterFactory;
             _moveSetFactory = moveSetFactory;
+            _playerHandsBehaviour = playerHandsBehaviour;
         }
-
-        public void SetUnsheathBehaviour(StateMachine unsheathMoveSet) => 
-            _unsheathMoveSet = unsheathMoveSet;
-
-        public void Initialize() => 
-            _unsheathMoveSet.Initialize();
-
-        public void SetItemMoveSetActive(bool value)
-        {
-            if(value)
-                CreateItemMoveSet();
-            else
-                DeleteItemMoveSet();
-        }
-
+        
         private void CreateItemMoveSet()
         {
             _moveSetFactory.BindItem(_currentItem);
@@ -71,7 +63,8 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         public void Tick(float deltaTime)
         {
             _itemMoveSet?.Tick(deltaTime);
-            _unsheathMoveSet.Tick(deltaTime);
+            if(CurrentItem == null && IntendedItem != null && _playerHandsBehaviour.OppositeHand(this).IsIdle)
+                CurrentItem = IntendedItem; 
         }
     }
 }

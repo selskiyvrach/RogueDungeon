@@ -7,7 +7,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         public PlayerHandBehaviour RightHand { get; private set; }
         public PlayerHandBehaviour LeftHand { get; private set; }
  
-        public bool IsDoubleGrip => RightHand.CurrentItem == null || LeftHand.CurrentItem == null;
+        public bool IsDoubleGrip => (RightHand.CurrentItem == null || LeftHand.CurrentItem == null) && (RightHand.CurrentItem ?? LeftHand.CurrentItem) != null;
 
         public void SetBehaviours(PlayerHandBehaviour rightHandBehaviour, PlayerHandBehaviour leftHandBehaviour)
         {
@@ -17,8 +17,6 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
 
         public void Initialize()
         {
-            RightHand.Initialize();
-            LeftHand.Initialize();
         }
 
         public void Tick(float deltaTime)

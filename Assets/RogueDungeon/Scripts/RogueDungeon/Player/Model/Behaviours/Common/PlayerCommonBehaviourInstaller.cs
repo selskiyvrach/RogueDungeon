@@ -16,6 +16,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             var container = diContainer.CreateSubContainer();
             container.InstanceSingle(_moveSetConfig);
             container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
+            // remove move configs from dodge moves
             container.InstanceSingle(new MoveSetFactory(container).Create(_moveSetConfig));
             container.NewSingleInterfacesAndSelf<PlayerCommonBehaviour>();
             diContainer.Bind<PlayerCommonBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();

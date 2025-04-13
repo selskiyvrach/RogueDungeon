@@ -1,5 +1,4 @@
 ﻿using Common.Animations;
-using RogueDungeon.Input;
 
 namespace RogueDungeon.Player.Model.Behaviours.Common
 {
@@ -8,7 +7,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         private readonly Player _player;
         protected override float Duration => _player.Config.DeathAnimationDuration;
 
-        protected DeathMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player) : base(config, animation, playerInput) => 
+        protected DeathMove(IAnimation animation, Player player) : base(Names.DEATH, animation) => 
             _player = player;
 
         public override void Tick(float timeDelta)

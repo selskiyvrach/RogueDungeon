@@ -12,8 +12,7 @@ namespace RogueDungeon.Player.Model.Attacks
         private readonly IItem _item;
         protected override float Duration => _item.Config.HoldBlockAnimationDuration;
         protected override bool IsLooping => true;
-
-        protected ItemHoldBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player, IItem item) : base(config, animation, playerInput)
+        protected ItemHoldBlockMove(PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player, IItem item) : base(ItemConfig.Names.BLOCK_HOLD, animation)
         {
             _playerInput = playerInput;
             _player = player;

@@ -3,7 +3,6 @@ using RogueDungeon.Animations;
 using RogueDungeon.Input;
 using RogueDungeon.Items;
 using RogueDungeon.Player.Model.Behaviours;
-using RogueDungeon.Player.Model.Behaviours.Hands;
 using UnityEngine;
 
 namespace RogueDungeon.Player.Model.Attacks
@@ -16,8 +15,9 @@ namespace RogueDungeon.Player.Model.Attacks
 
         protected override float Duration => ((WeaponConfig)_weapon.Config).AttackExecuteDuration;
 
+        // prepare, execute, transition and recover moves require ids being passed via constructor since they are the same types for different attacks in succession
         public ItemExecuteAttackMove(IPlayerInput input, PlayerAttackMoveConfig config, IAnimation animation, PlayerControlStateMediator playerControlStateMediator,
-            IPlayerAttacksMediator playerAttacksMediator, IWeapon weapon) : base(config, animation, input)
+            IPlayerAttacksMediator playerAttacksMediator, IWeapon weapon) : base(Names, animation, input)
         {
             _playerControlStateMediator = playerControlStateMediator;
             _playerAttacksMediator = playerAttacksMediator;

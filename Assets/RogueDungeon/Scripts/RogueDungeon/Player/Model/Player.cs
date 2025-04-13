@@ -30,6 +30,7 @@ namespace RogueDungeon.Player.Model
         public bool HasUnabsorbedBlockImpact { get; set; }
         public IItem BlockingItem { get; set; }
         public bool IsBlocking { get; set; }
+        public float DodgeStaminaCost => Config.DodgeStaminaCost;
 
         public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input)
         {

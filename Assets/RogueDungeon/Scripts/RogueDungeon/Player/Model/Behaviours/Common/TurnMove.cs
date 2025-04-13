@@ -1,5 +1,4 @@
-﻿using System;
-using Common.Animations;
+﻿using Common.Animations;
 using Common.Unity;
 using RogueDungeon.Input;
 using RogueDungeon.Levels;
@@ -7,36 +6,26 @@ using UnityEngine;
 
 namespace RogueDungeon.Player.Model.Behaviours.Common
 {
-    public class PlayerRotationMove : PlayerMove
+    public abstract class TurnMove : PlayerInputMove
     {
         private readonly Player _player;
-        private readonly PlayerRotationConfig _rotationConfig;
         private readonly Level _level;
         private float _from;
         private float _to;
         protected override float Duration => _player.Config.MovementActionDuration;
+        protected abstract float RotationDegrees { get; }
 
-        protected override InputKey RequiredKey => _rotationConfig.RotationDegrees switch
-        {
-            90 => InputKey.TurnLeft,
-            -90 => InputKey.TurnRight,
-            180 => InputKey.TurnAround,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        public PlayerRotationMove(Player player, Level level, PlayerRotationConfig config, IPlayerInput playerInput, IAnimation animation) : base(config, animation, playerInput)
+        protected TurnMove(Player player, Level level, IPlayerInput playerInput, IAnimation animation, string id) : base(id, animation, playerInput)
         {
             _player = player;
-            _rotationConfig = config;
             _level = level;
         }
-
-
+        
         public override void Enter()
         {
             base.Enter();
             _from = _level.LevelTraverser.Rotation.Round().Degrees();
-            _to = _from + _rotationConfig.RotationDegrees;
+            _to = _from + RotationDegrees;
             _to %= 360;
         }
 

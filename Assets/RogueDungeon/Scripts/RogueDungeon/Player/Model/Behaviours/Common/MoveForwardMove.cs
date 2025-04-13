@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RogueDungeon.Player.Model.Behaviours.Common
 {
-    public class PlayerMovementState : PlayerMove
+    public class MoveForwardMove : PlayerInputMove
     {
         private readonly Player _player;
         private readonly Level _level;
@@ -15,10 +15,9 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         private Vector2 _to;
 
         protected override InputKey RequiredKey => InputKey.MoveForward;
-
         protected override float Duration => _player.Config.MovementActionDuration;
 
-        public PlayerMovementState(Player player, Level level, PlayerMovementConfig config, IPlayerInput playerInput, IAnimation animation) : base(config, animation, playerInput)
+        public MoveForwardMove(Player player, Level level, IPlayerInput playerInput, IAnimation animation) : base(Names.MOVE_FORWARD, animation, playerInput)
         {
             _player = player;
             _level = level;

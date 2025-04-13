@@ -1,37 +1,28 @@
-﻿using System;
-using Common.Animations;
+﻿using Common.Animations;
 using RogueDungeon.Input;
 
 namespace RogueDungeon.Player.Model.Behaviours.Common
 {
-    public class DodgeMove : PlayerMove
+    public abstract class DodgeMove : PlayerInputMove
     {
         private readonly PlayerControlStateMediator _playerControlState;
         private readonly Player _player;
-        private readonly DodgeMoveConfig _config;
+        protected abstract PlayerDodgeState DodgeState { get; }
         protected override float Duration => _player.Config.DodgeDuration;
 
-        protected override InputKey RequiredKey => _config.DodgeState switch
-        {
-            PlayerDodgeState.None => InputKey.None,
-            PlayerDodgeState.DodgingLeft => InputKey.DodgeLeft,
-            PlayerDodgeState.DodgingRight => InputKey.DodgeRight,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        public DodgeMove(Player player, DodgeMoveConfig config, IAnimation animation, IPlayerInput playerInput, PlayerControlStateMediator playerControlState) : base(config, animation, playerInput)
+        protected DodgeMove(Player player, IAnimation animation, IPlayerInput playerInput,
+            PlayerControlStateMediator playerControlState, string id) : base(id, animation, playerInput)
         {
             _player = player;
-            _config = config;
             _playerControlState = playerControlState;
         }
 
         public override void Enter()
         {
             base.Enter();
-            _player.Stamina.AddDelta(- _config.StaminaCost);
-            _player.DodgeState = _config.DodgeState;
-            _playerControlState.IsDodging = _config.DodgeState != PlayerDodgeState.None;
+            _player.Stamina.AddDelta(- _player.DodgeStaminaCost);
+            _player.DodgeState = DodgeState;
+            _playerControlState.IsDodging = DodgeState != PlayerDodgeState.None;
         }
 
         public override void Exit()
@@ -41,6 +32,6 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _playerControlState.CanDodge && _player.Stamina.Current >= _config.StaminaCost;
+            base.CanTransitionTo() && _playerControlState.CanDodge && _player.Stamina.Current >= _player.DodgeStaminaCost;
     }
 }

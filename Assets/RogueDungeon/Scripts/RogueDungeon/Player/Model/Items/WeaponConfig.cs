@@ -32,7 +32,7 @@ namespace RogueDungeon.Items
         {
             // first attack
             new(Names.FIRST_ATTACK_PREPARE, typeof(ItemPrepareAttackMove), _firstAttackPrepareAnimation, new TransitionPicker[]{new (Names.FIRST_ATTACK_EXECUTE)}),
-            new(Names.FIRST_ATTACK_EXECUTE, typeof(ItemExecuteAttackMove), _firstAttackExecuteAnimation, new TransitionPicker[]
+            new(Names.FIRST_ATTACK_EXECUTE, typeof(ItemExecuteAttackMove), _firstAttackExecuteAnimation, new TransitionPicker[]  
             {
                 new (Names.FIRST_TO_SECOND_ATTACK_TRANSITION),
                 new (Names.FIRST_ATTACK_RECOVER),
