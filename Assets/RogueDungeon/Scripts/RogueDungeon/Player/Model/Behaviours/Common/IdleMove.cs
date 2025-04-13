@@ -7,7 +7,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         private readonly Player _player;
         protected override float Duration => _player.Config.IdleAnimationDuration; 
 
-        public IdleMove(Player player, IAnimation animation) : base(Names.IDLE, animation) => 
+        public IdleMove(Player player, IAnimation animation, string id) : base(id, animation) => 
             _player = player;
     }
 }

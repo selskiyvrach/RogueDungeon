@@ -7,8 +7,9 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
     {
         protected override InputKey RequiredKey => InputKey.DodgeRight;
         protected override PlayerDodgeState DodgeState => PlayerDodgeState.DodgingRight;
-        public DodgeRightMove(Player player, IAnimation animation, IPlayerInput playerInput, PlayerControlStateMediator playerControlState) : 
-            base(player, animation, playerInput, playerControlState, Names.DODGE_RIGHT)
+        public DodgeRightMove(Player player, IAnimation animation, IPlayerInput playerInput,
+            PlayerControlStateMediator playerControlState, string id) : 
+            base(player, animation, playerInput, playerControlState, id)
         {
         }
 

@@ -184,7 +184,6 @@ GameObject:
   - component: {fileID: 3401579970430071534}
   - component: {fileID: 6350304918856226592}
   - component: {fileID: 7052172994488636175}
-  - component: {fileID: 191124158965303903}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -244,7 +243,7 @@ MonoBehaviour:
   _playerGameObject: {fileID: 7052172994488636175}
   _config: {fileID: 11400000, guid: ffda6cccafe52c64c8ef8d6b257a2398, type: 2}
   _handsInstaller: {fileID: 6350304918856226592}
-  _commonBehaviourInstaller: {fileID: 191124158965303903}
+  _animationTarget: {fileID: 4846713095619811523}
 --- !u!114 &6350304918856226592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,15 +256,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc892ba942c4bfbabed5afc7a064ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sheathUnsheathRightHand: {fileID: 11400000, guid: cb570c68ba95b2f4388154ff2f3e5467,
-    type: 2}
   _rightHandAnimationTarget: {fileID: 6837211064720091311}
-  _rightHandItemAnimationTarget: {fileID: 6837211064720091311}
   _rightHandItemPresenter: {fileID: 914613258679922615}
-  _sheathUnsheathLeftHand: {fileID: 11400000, guid: 94def90112ebca04e8249eb227eaeaae,
-    type: 2}
   _leftHandAnimationTarget: {fileID: 8628519994899730907}
-  _leftHandItemAnimationTarget: {fileID: 8628519994899730907}
   _leftHandItemPresenter: {fileID: 194158540539788350}
 --- !u!114 &7052172994488636175
 MonoBehaviour:
@@ -280,20 +273,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CameraReferencePoint>k__BackingField: {fileID: 7437003320940221867}
---- !u!114 &191124158965303903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519540501769377305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c88883be7cb4af6b87108406b9ee624, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSetConfig: {fileID: 11400000, guid: 86d1eb421d4318e44b736900965b2ccb, type: 2}
-  _animationClipTarget: {fileID: 4846713095619811523}
 --- !u!1 &763680708661238317
 GameObject:
   m_ObjectHideFlags: 0

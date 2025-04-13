@@ -10,7 +10,7 @@ namespace RogueDungeon.Player.Model.Attacks
         private readonly IItem _item;
         protected override float Duration => _item.Config.IdleAnimationDuration;
 
-        public ItemIdleMove(IItem item, PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput) : base(config, animation, playerInput) => 
+        public ItemIdleMove(IItem item, IAnimation animation, string id) : base(id, animation) => 
             _item = item;
     }
 }

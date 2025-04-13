@@ -12,7 +12,7 @@ namespace RogueDungeon.Player.Model.Attacks
 
         protected override float Duration => _item.Config.BlockImpactAbsorptionDuration;
 
-        protected ItemAbsorbBlockImpactMove(IItem item, PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput, Player player) : base(config, animation, playerInput)
+        protected ItemAbsorbBlockImpactMove(IItem item, IAnimation animation, Player player, string id) : base(id, animation)
         {
             _item = item;
             _player = player;

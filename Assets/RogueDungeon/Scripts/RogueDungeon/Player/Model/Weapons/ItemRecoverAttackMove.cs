@@ -11,8 +11,7 @@ namespace RogueDungeon.Player.Model.Attacks
         private readonly PlayerControlStateMediator _controlStateMediator;
         protected override float Duration => ((WeaponConfig)_weapon.Config).AttackRecoveryDuration;
 
-        protected ItemRecoverAttackMove(IWeapon weapon, PlayerFinishAttackMoveConfig config, IAnimation animation, IPlayerInput playerInput, 
-            PlayerControlStateMediator controlStateMediator) : base(config, animation, playerInput)
+        protected ItemRecoverAttackMove(IWeapon weapon, IAnimation animation, PlayerControlStateMediator controlStateMediator, string id) : base(id, animation)
         {
             _weapon = weapon;
             _controlStateMediator = controlStateMediator;

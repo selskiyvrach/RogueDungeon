@@ -15,7 +15,7 @@ namespace RogueDungeon.Player.Model
         private readonly Level _level;
         private readonly IPlayerInput _input;
         
-        private PlayerCommonBehaviour _commonBehaviour;
+        private PlayerBehaviour _behaviour;
 
         public PlayerConfig Config { get; }
         public PlayerHandsBehaviour Hands { get; private set; }
@@ -45,16 +45,16 @@ namespace RogueDungeon.Player.Model
             Health.Refill();
         }
 
-        public void SetBehaviours(PlayerHandsBehaviour handsBehaviour, PlayerCommonBehaviour commonBehaviour)
+        public void SetBehaviours(PlayerHandsBehaviour handsBehaviour, PlayerBehaviour behaviour)
         {
             Hands = handsBehaviour;
-            _commonBehaviour = commonBehaviour;   
+            _behaviour = behaviour;   
         }
 
         public void Initialize()
         {
             _level.LevelTraverser = _mazeTraversalPointer;
-            _commonBehaviour.Initialize();
+            _behaviour.Initialize();
             Hands.Initialize();
         }
 
@@ -76,7 +76,7 @@ namespace RogueDungeon.Player.Model
 
             if(IsAlive)
                 Stamina.Tick(deltaTime);
-            _commonBehaviour.Tick(deltaTime);
+            _behaviour.Tick(deltaTime);
             if(IsAlive)
                 Hands.Tick(deltaTime);
         }

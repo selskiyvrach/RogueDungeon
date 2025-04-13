@@ -31,6 +31,7 @@ namespace RogueDungeon.Items
         public override IEnumerable<MoveCreationArgs> MovesCreationArgs => base.MovesCreationArgs.Concat(new MoveCreationArgs[]
         {
             // first attack
+            // need to pass "first attack" id somehow
             new(Names.FIRST_ATTACK_PREPARE, typeof(ItemPrepareAttackMove), _firstAttackPrepareAnimation, new TransitionPicker[]{new (Names.FIRST_ATTACK_EXECUTE)}),
             new(Names.FIRST_ATTACK_EXECUTE, typeof(ItemExecuteAttackMove), _firstAttackExecuteAnimation, new TransitionPicker[]  
             {

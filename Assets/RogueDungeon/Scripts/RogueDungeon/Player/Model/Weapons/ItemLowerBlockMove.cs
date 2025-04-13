@@ -12,7 +12,7 @@ namespace RogueDungeon.Player.Model.Attacks
 
         protected override float Duration => _item.Config.LowerBlockDuration;
 
-        protected ItemLowerBlockMove(IItem item, PlayerMoveConfig config, IAnimation animation, IPlayerInput playerInput) : base(config, animation, playerInput)
+        protected ItemLowerBlockMove(IItem item, IAnimation animation, IPlayerInput playerInput, string id) : base(id, animation)
         {
             _item = item;
             _playerInput = playerInput;

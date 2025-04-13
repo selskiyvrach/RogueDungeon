@@ -7,7 +7,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         private readonly Player _player;
         protected override float Duration => _player.Config.DeathAnimationDuration;
 
-        protected DeathMove(IAnimation animation, Player player) : base(Names.DEATH, animation) => 
+        protected DeathMove(IAnimation animation, Player player,string id) : base(id, animation) => 
             _player = player;
 
         public override void Tick(float timeDelta)

@@ -27,3 +27,28 @@ MonoBehaviour:
     type: 3}
   <DoubleGripDamageBonus>k__BackingField: 1.5
   <DoubleGripBlockBonus>k__BackingField: 1.5
+  <DeathAnimationDuration>k__BackingField: 2
+  <DodgeDuration>k__BackingField: 0
+  <MovementActionDuration>k__BackingField: 0.5
+  <IdleAnimationDuration>k__BackingField: 1
+  <DodgeStaminaCost>k__BackingField: 10
+  <BirthAnimationDuration>k__BackingField: 1
+  <MoveSetConfig>k__BackingField:
+    _idleAnimation:
+      <Clip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+        type: 2}
+    _birthAnimation:
+      <Clip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+        type: 2}
+    _deathAnimation:
+      <Clip>k__BackingField: {fileID: 7400000, guid: 50ec383904a8e6e4dae3ef350840fa7b,
+        type: 2}
+    _walkAnimation:
+      <Clip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
+        type: 2}
+    _dodgeLeftAnimation:
+      <Clip>k__BackingField: {fileID: 7400000, guid: d03a097b187bcee47a1c43c59faaed54,
+        type: 2}
+    _dodgeRightAnimation:
+      <Clip>k__BackingField: {fileID: 7400000, guid: ac484037d2f63874bb98bd5c34abcbc1,
+        type: 2}

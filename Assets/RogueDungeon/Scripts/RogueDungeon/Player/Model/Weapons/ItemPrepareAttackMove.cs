@@ -13,7 +13,9 @@ namespace RogueDungeon.Player.Model.Attacks
         private readonly IWeapon _weapon;
         protected override float Duration => ((WeaponConfig)_weapon.Config).PrepareAttackDuration;
 
-        protected override InputKey RequiredKey => _hands.ThisHand(_weapon) == _hands.RightHand ? InputKey.UseRightHandItem : InputKey.UseLeftHandItem;
+        protected override InputKey RequiredKey => _hands.ThisHand(_weapon) == _hands.RightHand 
+            ? InputKey.UseRightHandItem 
+            : InputKey.UseLeftHandItem;
         
         protected ItemPrepareAttackMove(IAnimation animation, IPlayerInput playerInput, Player player, IWeapon weapon, PlayerHandsBehaviour hands) 
             : base(ItemConfig.Names.FIRST_ATTACK_PREPARE, animation, playerInput)

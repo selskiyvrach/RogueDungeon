@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace RogueDungeon.Player.Model.Behaviours.Common
 {
-    public class PlayerCommonBehaviour
+    public class PlayerBehaviour
     {
         private readonly Level _level;
         private readonly StateMachine _stateMachine;
         
-        protected PlayerCommonBehaviour(StateMachine stateMachine, Level level)
+        protected PlayerBehaviour(StateMachine stateMachine, Level level)
         {
             _stateMachine = stateMachine;
             _level = level;

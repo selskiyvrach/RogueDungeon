@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Common.Animations;
 using Common.MoveSets;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,12 +11,25 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
     [Serializable]
     public class PlayerMoveSetConfig : IMoveSetConfig
     {
-        [SerializeField] private AnimationClipAdapterConfig _idleAnimation;
-        [SerializeField] private AnimationClipAdapterConfig _birthAnimation;
-        [SerializeField] private AnimationClipAdapterConfig _deathAnimation;
-        [SerializeField] private AnimationClipAdapterConfig _walkAnimation;
-        [SerializeField] private AnimationClipAdapterConfig _dodgeLeftAnimation;
-        [SerializeField] private AnimationClipAdapterConfig _dodgeRightAnimation;
+        public static class Names
+        {
+            public const string IDLE = "idle";
+            public const string BIRTH = "birth";
+            public const string DEATH = "death";
+            public const string DODGE_LEFT = "dodge_left";
+            public const string DODGE_RIGHT = "dodge_right";
+            public const string MOVE_FORWARD = "move_forward";
+            public const string TURN_LEFT = "turn_left";
+            public const string TURN_RIGHT = "turn_right";
+            public const string TURN_AROUND = "turn_around";
+        }
+        
+        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _idleAnimation;
+        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _birthAnimation;
+        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _deathAnimation;
+        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _walkAnimation;
+        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _dodgeLeftAnimation;
+        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _dodgeRightAnimation;
         
         public string FirstMoveId => Names.BIRTH;
         public IEnumerable<MoveCreationArgs> MovesCreationArgs => new MoveCreationArgs[]

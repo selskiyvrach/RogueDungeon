@@ -1,4 +1,6 @@
-﻿using Common.Unity;
+﻿using Common.Animations;
+using Common.MoveSets;
+using Common.Unity;
 using Common.UtilsZenject;
 using RogueDungeon.Player.Model.Behaviours.Common;
 using RogueDungeon.Player.Model.Behaviours.Hands;
@@ -12,7 +14,7 @@ namespace RogueDungeon.Player.Model
         [SerializeField] private PlayerGameObject _playerGameObject;
         [SerializeField] private PlayerConfig _config;
         [SerializeField] private PlayerHandsInstaller _handsInstaller;
-        [SerializeField] private PlayerCommonBehaviourInstaller _commonBehaviourInstaller;
+        [SerializeField] private AnimationClipTarget _animationTarget;
 
         public override void InstallBindings()
         {
@@ -24,10 +26,13 @@ namespace RogueDungeon.Player.Model
             Container.NewSingle<PlayerControlStateMediator>();
             
             _handsInstaller.Install(Container);
-            _commonBehaviourInstaller.Install(Container);
+            
+            Container.InstanceSingle<IAnimationClipTarget>(_animationTarget);
+            Container.InstanceSingle(new MoveSetFactory(Container).Create(_config.MoveSetConfig));
+            Container.Bind<PlayerBehaviour>().AsSingle();
 
             var hands = Container.Resolve<PlayerHandsBehaviour>();
-            var movement = Container.Resolve<PlayerCommonBehaviour>();
+            var movement = Container.Resolve<PlayerBehaviour>();
             Container.Resolve<Player>().SetBehaviours(hands, movement);
         }
     }
