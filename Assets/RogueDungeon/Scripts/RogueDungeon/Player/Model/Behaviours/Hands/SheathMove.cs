@@ -4,14 +4,14 @@ using RogueDungeon.Items;
 
 namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
-    public class SheathMove : HandsState
+    public class SheathMove : PlayerMove
     {
         private readonly IItem _item;
         private readonly PlayerHandsBehaviour _hands;
         private readonly PlayerHandBehaviour _handBehaviour;
-
-        public SheathMove(PlayerHandBehaviour handBehaviour, IAnimation animation, PlayerHandsBehaviour hands,
-            HandHeldMoveConfig config, IItem item) : base(config, animation)
+        protected override float Duration => _item.Config.UnsheathDuration;
+        
+        public SheathMove(PlayerHandBehaviour handBehaviour, IAnimation animation, PlayerHandsBehaviour hands, string id, IItem item) : base(id, animation)
         {
             _handBehaviour = handBehaviour;
             _hands = hands;

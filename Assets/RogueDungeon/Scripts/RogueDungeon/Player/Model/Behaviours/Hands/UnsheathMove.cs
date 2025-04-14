@@ -1,17 +1,17 @@
 ﻿using Common.Animations;
 using Common.MoveSets;
+using RogueDungeon.Items;
 
 namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
-    public class UnsheathMove : HandsState
+    public class UnsheathMove : PlayerMove
     {
-        private readonly PlayerHandsBehaviour _hands;
-        private readonly PlayerHandBehaviour _handBehaviour;
+        private readonly IItem _item;
+        protected override float Duration => _item.UnsheathDuration;
 
-        public UnsheathMove(PlayerHandBehaviour handBehaviour, HandHeldMoveConfig config, IAnimation animation, PlayerHandsBehaviour hands) : base(config, animation)
+        public UnsheathMove(string id, IAnimation animation, IItem item) : base(id, animation)
         {
-            _handBehaviour = handBehaviour;
-            _hands = hands;
+            _item = item;
         }
     }
 }

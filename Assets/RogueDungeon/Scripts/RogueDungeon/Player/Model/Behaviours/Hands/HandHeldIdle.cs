@@ -1,14 +1,14 @@
 ﻿using Common.Animations;
 using Common.MoveSets;
+using RogueDungeon.Items;
 
 namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
-    public class HandHeldIdle : HandsState
+    public class HandHeldIdle : PlayerMove
     {
-        protected override float Duration => 1;
-
-        public HandHeldIdle(HandHeldMoveConfig config, IAnimation animation) : base(config, animation)
-        {
-        }
+        private readonly IItem _item;
+        protected override float Duration => _item.Config.IdleAnimationDuration;
+        public HandHeldIdle(string id, IAnimation animation, IItem item) : base(id, animation) => 
+            _item = item;
     }
 }

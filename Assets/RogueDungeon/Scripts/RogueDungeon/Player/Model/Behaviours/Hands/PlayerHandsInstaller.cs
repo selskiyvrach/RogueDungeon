@@ -1,6 +1,4 @@
 ﻿using Common.Animations;
-using Common.Fsm;
-using Common.MoveSets;
 using Common.UtilsZenject;
 using RogueDungeon.Items;
 using UnityEngine;

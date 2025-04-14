@@ -12,11 +12,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be4e27dc40947749878beae91b7d42c, type: 3}
   m_Name: axe
   m_EditorClassIdentifier: 
-  <BlockStaminaCostMultiplier>k__BackingField: 2
+  _baseConfig: {fileID: 0}
   <Sprite>k__BackingField: {fileID: 21300000, guid: 94efb4f28a3964746b50b3dbe98c57cc,
     type: 3}
-  <MoveSetConfig>k__BackingField: {fileID: 11400000, guid: 95629d266fa9cc048be4357c8189e1b4,
-    type: 2}
+  <IdleAnimationDuration>k__BackingField: 1
+  <BlockStaminaCostMultiplier>k__BackingField: 2
+  <RaiseBlockDuration>k__BackingField: 0.25
+  <LowerBlockDuration>k__BackingField: 0.25
+  <HoldBlockAnimationDuration>k__BackingField: 1
+  <BlockImpactAbsorptionDuration>k__BackingField: 0.25
+  <UnsheathDuration>k__BackingField: 0.5
+  _idleAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _sheathAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _unsheathAnimation:
+    <KeyFrames>k__BackingField:
+    - <Time>k__BackingField: 0
+      <Position>k__BackingField: {x: 0.07, y: -0.2, z: 0.11}
+      <Rotation>k__BackingField: {x: 0, y: 45, z: 99}
+    - <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0.07, y: -0.07, z: 0.11}
+      <Rotation>k__BackingField: {x: 0, y: 45, z: 0}
+    <Events>k__BackingField: []
+  _raiseBlockAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _lowerBlockAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _holdBlockAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _absorbBlockImpactAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
   <Damage>k__BackingField: 10
   <PoiseDamage>k__BackingField: 20
   <AttackStaminaCost>k__BackingField: 12
+  <PrepareAttackDuration>k__BackingField: 0.25
+  <AttackExecuteDuration>k__BackingField: 0.25
+  <AttackRecoveryDuration>k__BackingField: 0.25
+  <TransitionBetweenAttacksDuration>k__BackingField: 0.25
+  _firstAttackPrepareAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _firstAttackExecuteAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _firstAttackRecoverAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _firstToSecondAttackTransitionAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _secondAttackExecuteAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _secondAttackRecoverAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _secondToFirstAttackTransitionAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []

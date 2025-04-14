@@ -14,7 +14,8 @@ namespace RogueDungeon.Player.Model.Attacks
         protected override InputKey RequiredKey => InputKey.Block;
         protected override float Duration => _item.Config.RaiseBlockDuration;
 
-        protected ItemRaiseBlockMove(IAnimation animation, IPlayerInput playerInput, PlayerHandsBehaviour hands, IItem item) : base(ItemConfig.Names.BLOCK_RAISE, animation, playerInput)
+        protected ItemRaiseBlockMove(IAnimation animation, IPlayerInput playerInput, PlayerHandsBehaviour hands,
+            IItem item, string id) : base(id, animation, playerInput)
         {
             _hands = hands;
             _item = item;

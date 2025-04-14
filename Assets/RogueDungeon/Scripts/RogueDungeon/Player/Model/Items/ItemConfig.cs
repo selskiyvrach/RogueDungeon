@@ -41,20 +41,22 @@ namespace RogueDungeon.Items
         [field: BoxGroup("Durations"), SerializeField] public float LowerBlockDuration { get; private set; } = .25f;
         [field: BoxGroup("Durations"), SerializeField] public float HoldBlockAnimationDuration { get; private set; } = 1;
         [field: BoxGroup("Durations"), SerializeField] public float BlockImpactAbsorptionDuration { get; private set; } = .25f;
+        [field: BoxGroup("Durations"), SerializeField] public float UnsheathDuration { get; private set; } = .5f;
 
         [BoxGroup("Common"), SerializeField] private ItemAnimationConfig _idleAnimation;
         [BoxGroup("Common"), SerializeField] private ItemAnimationConfig _sheathAnimation;
-        [BoxGroup("Common"), SerializeField] private ItemAnimationConfig _unsheatAnimation;
+        [BoxGroup("Common"), SerializeField] private ItemAnimationConfig _unsheathAnimation;
         [BoxGroup("Block"), SerializeField] private ItemAnimationConfig _raiseBlockAnimation;
         [BoxGroup("Block"), SerializeField] private ItemAnimationConfig _lowerBlockAnimation;
         [BoxGroup("Block"), SerializeField] private ItemAnimationConfig _holdBlockAnimation;
         [BoxGroup("Block"), SerializeField] private ItemAnimationConfig _absorbBlockImpactAnimation;
-        
+
         public string FirstMoveId => Names.UNSHEATH;
-        
+
+
         public virtual IEnumerable<MoveCreationArgs> MovesCreationArgs => new MoveCreationArgs[]
         {
-            new(Names.UNSHEATH, typeof(UnsheathMove), _unsheatAnimation, new []{new TransitionPicker(Names.IDLE)}),
+            new(Names.UNSHEATH, typeof(UnsheathMove), _unsheathAnimation, new []{new TransitionPicker(Names.IDLE)}),
             new(Names.IDLE, typeof(ItemIdleMove), _idleAnimation, TransitionsFromIdle),
             new(Names.SHEATH, typeof(SheathMove), _sheathAnimation, Array.Empty<TransitionPicker>()),
             

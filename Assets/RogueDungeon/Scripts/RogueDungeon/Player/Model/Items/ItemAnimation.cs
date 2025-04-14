@@ -29,7 +29,10 @@ namespace RogueDungeon.Items
             }
         }
 
-        protected override void ApplyAnimation(float timeNormalized) => 
-            _tweener.Goto(_tweener.Duration() * timeNormalized, true);
+        protected override void ApplyAnimation(float timeNormalized)
+        {
+            var position = _tweener.Duration() * timeNormalized; 
+            _tweener.Goto(position, true);
+        }
     }
 }

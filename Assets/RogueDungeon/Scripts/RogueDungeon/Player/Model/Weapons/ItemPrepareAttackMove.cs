@@ -17,8 +17,8 @@ namespace RogueDungeon.Player.Model.Attacks
             ? InputKey.UseRightHandItem 
             : InputKey.UseLeftHandItem;
         
-        protected ItemPrepareAttackMove(IAnimation animation, IPlayerInput playerInput, Player player, IWeapon weapon, PlayerHandsBehaviour hands) 
-            : base(ItemConfig.Names.FIRST_ATTACK_PREPARE, animation, playerInput)
+        protected ItemPrepareAttackMove(IAnimation animation, IPlayerInput playerInput, Player player, IWeapon weapon, PlayerHandsBehaviour hands, string id) 
+            : base(id, animation, playerInput)
         {
             _player = player;
             _weapon = weapon;
