@@ -7,14 +7,12 @@ namespace RogueDungeon.Player.Model.Attacks
 {
     public class ItemHoldBlockMove : PlayerMove
     {
-        private readonly IPlayerInput _playerInput;
         private readonly Player _player;
         private readonly IItem _item;
         protected override float Duration => _item.Config.HoldBlockAnimationDuration;
         protected override bool IsLooping => true;
-        protected ItemHoldBlockMove(IAnimation animation, IPlayerInput playerInput, Player player, IItem item, string id) : base(id, animation)
+        protected ItemHoldBlockMove(IAnimation animation, Player player, IItem item, string id) : base(id, animation)
         {
-            _playerInput = playerInput;
             _player = player;
             _item = item;
         }
@@ -32,8 +30,5 @@ namespace RogueDungeon.Player.Model.Attacks
             _player.IsBlocking = false;
             _player.BlockingItem = null;
         }
-
-        protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _playerInput.HasInput(InputKey.Block);
     }
 }

@@ -32,8 +32,6 @@ namespace RogueDungeon.Items
             public const string SECOND_ATTACK_RECOVER = "second_attack_recover";
         }
 
-        [SerializeField] private ItemMoveSetConfig _baseConfig;
-
         [field: SerializeField] public Sprite Sprite { get; private set; }
         [field: BoxGroup("Durations"), SerializeField] public float IdleAnimationDuration { get; private set; } = 1f;
         [field: BoxGroup("Durations"), SerializeField] public float BlockStaminaCostMultiplier { get; private set; } = 1;
@@ -53,7 +51,6 @@ namespace RogueDungeon.Items
 
         public string FirstMoveId => Names.UNSHEATH;
 
-
         public virtual IEnumerable<MoveCreationArgs> MovesCreationArgs => new MoveCreationArgs[]
         {
             new(Names.UNSHEATH, typeof(UnsheathMove), _unsheathAnimation, new []{new TransitionPicker(Names.IDLE)}),
@@ -63,7 +60,7 @@ namespace RogueDungeon.Items
             new(Names.BLOCK_RAISE, typeof(ItemRaiseBlockMove), _raiseBlockAnimation, new []{new TransitionPicker(Names.BLOCK_HOLD)}),
             new(Names.BLOCK_HOLD, typeof(ItemHoldBlockMove), _holdBlockAnimation, new TransitionPicker[]
             {
-                new(Names.BLOCK_ABSORB_IMPACT, canInterrupt: true), 
+                new(Names.BLOCK_ABSORB_IMPACT, canInterrupt: true),
                 new(Names.BLOCK_LOWER, canInterrupt: true),
             }),
             new(Names.BLOCK_ABSORB_IMPACT, typeof(ItemAbsorbBlockImpactMove), _absorbBlockImpactAnimation, new TransitionPicker[]{new(Names.BLOCK_HOLD)}),
