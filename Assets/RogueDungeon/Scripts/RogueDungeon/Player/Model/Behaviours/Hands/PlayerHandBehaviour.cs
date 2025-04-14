@@ -63,7 +63,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         public void Tick(float deltaTime)
         {
             _itemMoveSet?.Tick(deltaTime);
-            if(CurrentItem == null && IntendedItem != null && _playerHandsBehaviour.OppositeHand(this).IsIdle)
+            if(CurrentItem == null && IntendedItem != null /* && _playerHandsBehaviour.OppositeHand(this).IsIdle */)
                 CurrentItem = IntendedItem; 
         }
     }
