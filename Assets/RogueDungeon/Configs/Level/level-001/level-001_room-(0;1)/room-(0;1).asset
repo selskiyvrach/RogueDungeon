@@ -15,5 +15,4 @@ MonoBehaviour:
   <Prefab>k__BackingField: {fileID: 970510922816897162, guid: f73c48686ccaafb4bbc9c77411d884e7,
     type: 3}
   <Coordinates>k__BackingField: {x: 0, y: 1}
-  <EventConfigs>k__BackingField:
-  - {fileID: 11400000, guid: defc6f88e57c04d48bb220d5250d8e34, type: 2}
+  <EventConfigs>k__BackingField: []
