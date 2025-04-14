@@ -12,8 +12,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4e45619d244910bb7a386194b5f05d, type: 3}
   m_Name: round_shield
   m_EditorClassIdentifier: RogueDungeon.Items:RogueDungeon.Items:ShieldConfig
-  <BlockStaminaCostMultiplier>k__BackingField: 1
+  _baseConfig: {fileID: 0}
   <Sprite>k__BackingField: {fileID: 21300000, guid: 6a5153b72b8a9b844b7aa62411bcddf5,
     type: 3}
-  <MoveSetConfig>k__BackingField: {fileID: 11400000, guid: 673ae0dbfece3b9429ed992fa877ff26,
-    type: 2}
+  <IdleAnimationDuration>k__BackingField: 1
+  <BlockStaminaCostMultiplier>k__BackingField: 1
+  <RaiseBlockDuration>k__BackingField: 0.25
+  <LowerBlockDuration>k__BackingField: 0.25
+  <HoldBlockAnimationDuration>k__BackingField: 1
+  <BlockImpactAbsorptionDuration>k__BackingField: 0.25
+  <UnsheathDuration>k__BackingField: 0.5
+  _idleAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _sheathAnimation:
+    <KeyFrames>k__BackingField:
+    - <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: -140, z: -90}
+    <Events>k__BackingField: []
+  _unsheathAnimation:
+    <KeyFrames>k__BackingField:
+    - <Time>k__BackingField: 0
+      <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: -140, z: -90}
+    - <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: -140, z: 0}
+    <Events>k__BackingField: []
+  _raiseBlockAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _lowerBlockAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _holdBlockAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _absorbBlockImpactAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []

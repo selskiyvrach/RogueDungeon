@@ -209,9 +209,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc892ba942c4bfbabed5afc7a064ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rightHandAnimationTarget: {fileID: 4071871760199244629}
+  _rightHandAnimationTarget: {fileID: 1126435537792123335}
   _rightHandItemPresenter: {fileID: 914613258679922615}
-  _leftHandAnimationTarget: {fileID: 4446059952962543575}
+  _leftHandAnimationTarget: {fileID: 8146479277568227852}
   _leftHandItemPresenter: {fileID: 194158540539788350}
 --- !u!114 &7052172994488636175
 MonoBehaviour:
@@ -235,7 +235,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3991863009305808172}
-  - component: {fileID: 4071871760199244629}
+  - component: {fileID: 1126435537792123335}
   m_Layer: 0
   m_Name: RightHandAnimated
   m_TagString: Untagged
@@ -259,7 +259,7 @@ Transform:
   - {fileID: 223113274195559467}
   m_Father: {fileID: 4197611888345524155}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4071871760199244629
+--- !u!114 &1126435537792123335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -268,10 +268,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 763680708661238317}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 499c2ebaf2044e8685c80662c989e651, type: 3}
+  m_Script: {fileID: 11500000, guid: 58608f848d514b909483861471f982a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GameObject>k__BackingField: {fileID: 763680708661238317}
+  <IsRightHand>k__BackingField: 1
 --- !u!1 &1149463439587793621
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,7 +591,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5887688475595984723}
-  - component: {fileID: 4446059952962543575}
+  - component: {fileID: 8146479277568227852}
   m_Layer: 0
   m_Name: LeftHandAnimated
   m_TagString: Untagged
@@ -615,7 +615,7 @@ Transform:
   - {fileID: 5574706449729908437}
   m_Father: {fileID: 179385766103444239}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4446059952962543575
+--- !u!114 &8146479277568227852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -624,10 +624,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7256226385034947154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 499c2ebaf2044e8685c80662c989e651, type: 3}
+  m_Script: {fileID: 11500000, guid: 58608f848d514b909483861471f982a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GameObject>k__BackingField: {fileID: 7256226385034947154}
+  <IsRightHand>k__BackingField: 0
 --- !u!1 &8028034847407804422
 GameObject:
   m_ObjectHideFlags: 0

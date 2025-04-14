@@ -1,5 +1,4 @@
-﻿using Common.Animations;
-using Common.UtilsZenject;
+﻿using Common.UtilsZenject;
 using RogueDungeon.Items;
 using UnityEngine;
 using Zenject;
@@ -8,10 +7,10 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
     public class PlayerHandsInstaller : MonoBehaviour
     {
-        [SerializeField] private AnimationClipTarget _rightHandAnimationTarget;
+        [SerializeField] private ItemAnimationClipTarget _rightHandAnimationTarget;
         [SerializeField] private HandHeldItemPresenter _rightHandItemPresenter;
         
-        [SerializeField] private AnimationClipTarget _leftHandAnimationTarget;
+        [SerializeField] private ItemAnimationClipTarget _leftHandAnimationTarget;
         [SerializeField] private HandHeldItemPresenter _leftHandItemPresenter;
 
         public void Install(DiContainer diContainer)
@@ -25,12 +24,12 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             diContainer.Bind<PlayerHandsBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();
         }
 
-        private PlayerHandBehaviour CreateHandBehaviour(DiContainer diContainer, AnimationClipTarget itemAnimationTarget, HandHeldItemPresenter itemPresenter)
+        private PlayerHandBehaviour CreateHandBehaviour(DiContainer diContainer, ItemAnimationClipTarget itemAnimationTarget, HandHeldItemPresenter itemPresenter)
         {
             var container = diContainer.CreateSubContainer();
             container.NewSingle<PlayerHandBehaviour>();
             container.InstanceSingle(itemPresenter);
-            container.InstanceSingle<IAnimationClipTarget>(itemAnimationTarget);
+            container.InstanceSingle(itemAnimationTarget);
             container.NewSingle<IFactory<IItem, HandHeldItemPresenter>, ItemPresenterFactory>();
             container.NewSingle<ItemMoveSetFactory>();
             return container.Resolve<PlayerHandBehaviour>();
