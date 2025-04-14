@@ -9,9 +9,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         private readonly IItem _item;
         protected override float Duration => _item.UnsheathDuration;
 
-        public UnsheathMove(string id, IAnimation animation, IItem item) : base(id, animation)
-        {
+        public UnsheathMove(string id, IAnimation animation, IItem item) : base(id, animation) => 
             _item = item;
-        }
     }
 }

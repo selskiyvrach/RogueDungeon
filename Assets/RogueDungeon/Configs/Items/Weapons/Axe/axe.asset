@@ -26,16 +26,19 @@ MonoBehaviour:
     <KeyFrames>k__BackingField: []
     <Events>k__BackingField: []
   _sheathAnimation:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 90, z: 90}
     <Events>k__BackingField: []
   _unsheathAnimation:
     <KeyFrames>k__BackingField:
     - <Time>k__BackingField: 0
-      <Position>k__BackingField: {x: 0.07, y: -0.2, z: 0.11}
-      <Rotation>k__BackingField: {x: 0, y: 45, z: 99}
+      <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 90, z: 90}
     - <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: 0.07, y: -0.07, z: 0.11}
-      <Rotation>k__BackingField: {x: 0, y: 45, z: 0}
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 90, z: 0}
     <Events>k__BackingField: []
   _raiseBlockAnimation:
     <KeyFrames>k__BackingField: []
