@@ -2,23 +2,34 @@
 using RogueDungeon.Input;
 using RogueDungeon.Items;
 using RogueDungeon.Player.Model.Behaviours;
+using RogueDungeon.Player.Model.Behaviours.Hands;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
     public class ItemLowerBlockMove : PlayerMove
     {
+        private readonly IPlayerInput _input;
+        private readonly PlayerHandsBehaviour _hands;
         private readonly IItem _item;
-        private readonly IPlayerInput _playerInput;
 
         protected override float Duration => _item.Config.LowerBlockDuration;
 
-        protected ItemLowerBlockMove(IItem item, IAnimation animation, IPlayerInput playerInput, string id) : base(id, animation)
+        protected ItemLowerBlockMove(IItem item, IAnimation animation, string id, PlayerHandsBehaviour hands, IPlayerInput input) : base(id, animation)
         {
             _item = item;
-            _playerInput = playerInput;
+            _hands = hands;
+            _input = input;
         }
 
-        protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && !_playerInput.HasInput(InputKey.Block);
+        protected override bool CanTransitionTo()
+        {
+            if (_hands.IsDedicatedToBlock(_item) && !_input.IsInputUp(InputKey.Block))
+                return false;
+            
+            if(_item is Shield && !_input.IsInputUp(_hands.UseItemInput(_item)))
+                return false;
+            
+            return base.CanTransitionTo();
+        }
     }
 }

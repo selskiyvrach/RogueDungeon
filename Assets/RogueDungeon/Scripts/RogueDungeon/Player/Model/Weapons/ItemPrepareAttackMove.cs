@@ -16,7 +16,7 @@ namespace RogueDungeon.Player.Model.Attacks
         protected override InputKey RequiredKey => _hands.ThisHand(_weapon) == _hands.RightHand 
             ? InputKey.UseRightHandItem 
             : InputKey.UseLeftHandItem;
-        
+
         protected ItemPrepareAttackMove(IAnimation animation, IPlayerInput playerInput, Player player, IWeapon weapon, PlayerHandsBehaviour hands, string id) 
             : base(id, animation, playerInput)
         {

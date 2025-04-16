@@ -64,12 +64,12 @@ namespace RogueDungeon.Player.Model
             {
                 if (_input.HasInput(InputKey.CycleLeftArmItems))
                 {
-                    Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Shield(Config.DefaultShield);
+                    Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Weapon(Config.DefaultWeapon);
                     _input.ConsumeInput(InputKey.CycleLeftArmItems);
                 }
                 if (_input.HasInput(InputKey.CycleRightArmItems))
                 {
-                    Hands.RightHand.IntendedItem = Hands.RightHand.IntendedItem != null ? null : new Shield(Config.DefaultShield);
+                    Hands.RightHand.IntendedItem = Hands.RightHand.IntendedItem != null ? null : new Weapon(Config.DefaultWeapon);
                     _input.ConsumeInput(InputKey.CycleRightArmItems);
                 }
             }

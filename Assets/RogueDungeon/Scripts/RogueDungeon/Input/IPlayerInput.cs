@@ -6,6 +6,7 @@ namespace RogueDungeon.Input
     {
         void SetFilter(InputFilter filter);
         bool HasInput(InputKey inputKey);
+        bool IsInputUp(InputKey inputKey);
         void ConsumeInput(InputKey inputKey);
     }
 }

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be4e27dc40947749878beae91b7d42c, type: 3}
   m_Name: axe
   m_EditorClassIdentifier: 
-  _baseConfig: {fileID: 0}
   <Sprite>k__BackingField: {fileID: 21300000, guid: 94efb4f28a3964746b50b3dbe98c57cc,
     type: 3}
   <IdleAnimationDuration>k__BackingField: 1
@@ -29,16 +28,16 @@ MonoBehaviour:
     <KeyFrames>k__BackingField:
     - <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
-      <Rotation>k__BackingField: {x: 0, y: 90, z: 90}
+      <Rotation>k__BackingField: {x: 0, y: -90, z: -90}
     <Events>k__BackingField: []
   _unsheathAnimation:
     <KeyFrames>k__BackingField:
     - <Time>k__BackingField: 0
       <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
-      <Rotation>k__BackingField: {x: 0, y: 90, z: 90}
+      <Rotation>k__BackingField: {x: 0, y: -90, z: -90}
     - <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: 0, z: 0}
-      <Rotation>k__BackingField: {x: 0, y: 90, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: -90, z: 0}
     <Events>k__BackingField: []
   _raiseBlockAnimation:
     <KeyFrames>k__BackingField: []

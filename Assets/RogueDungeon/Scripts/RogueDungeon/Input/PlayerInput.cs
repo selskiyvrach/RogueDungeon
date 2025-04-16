@@ -17,7 +17,10 @@ namespace RogueDungeon.Input
         }
 
         public bool HasInput(InputKey inputKey) => 
-            _inputMap.EnabledUnits.Any(u => u.Key == inputKey && u.IsReceived);
+            _inputMap.EnabledUnits.Any(u => u.Key == inputKey && u.IsReceived());
+
+        public bool IsInputUp(InputKey inputKey) => 
+            _inputMap.EnabledUnits.Any(u => u.Key == inputKey && u.IsCurrentlyUp());
 
         public void SetFilter(InputFilter filter) => 
             _inputMap.SetFilter(filter);

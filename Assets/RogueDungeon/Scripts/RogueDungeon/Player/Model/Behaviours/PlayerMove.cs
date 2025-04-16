@@ -1,6 +1,8 @@
 ﻿using Common.Animations;
 using Common.MoveSets;
 using RogueDungeon.Input;
+using RogueDungeon.Items;
+using RogueDungeon.Player.Model.Behaviours.Hands;
 
 namespace RogueDungeon.Player.Model.Behaviours
 { 

@@ -16,7 +16,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
 
         protected override InputKey RequiredKey => InputKey.MoveForward;
         protected override float Duration => _player.Config.MovementActionDuration;
-
+        
         public MoveForwardMove(Player player, Level level, IPlayerInput playerInput, IAnimation animation, string id) : base(id, animation, playerInput)
         {
             _player = player;
