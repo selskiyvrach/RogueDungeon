@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using Common.Animations;
-using DG.Tweening;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Assertions;
 using Animation = Common.Animations.Animation;
 using AnimationEvent = Common.Animations.AnimationEvent;
 
@@ -11,48 +9,89 @@ namespace RogueDungeon.Items
     {
         private readonly ItemAnimationConfig _config;
         private readonly ItemAnimationClipTarget _target;
+        private readonly KeyFrame[] _keyframes;
+        private readonly bool _hasNoStartingFrame;
         
-        private Sequence _tweener;
+        private Vector3 _fromRotation;
+        private Vector3 _toRotation;
+        private Vector3 _fromPosition;
+        private Vector3 _toPosition;
+        private float _prevTimeNormalized;
+        private int _frameIndex;
 
         protected override AnimationEvent[] Events => _config.Events;
+        
         public ItemAnimation(ItemAnimationClipTarget target, ItemAnimationConfig config) : base(config)
         {
             _config = config;
             _target = target;
+            if (_config.KeyFrames.Length == 0)
+                return;
+            
+            _keyframes = new KeyFrame[Mathf.Max(2, _config.KeyFrames.Length)];
+            
+            _hasNoStartingFrame = _config.KeyFrames.Length == 1;
+            Assert.IsTrue(_config.KeyFrames[^1].Time == 1, "No final keyframe found!");
         }
 
         public override void Play()
         {
-            if(_config.KeyFrames.Length == 0) 
-                return;
-            
-            _tweener?.Kill();
-            _tweener = DOTween.Sequence();
-            var keyframes = _config.KeyFrames.OrderBy(n => n.Time).ToArray();
-            var peviousTime = 0f;
-            foreach (var keyframe in keyframes)
+            if (_config.KeyFrames.Length == 0)
             {
-                var time = keyframe.Time - peviousTime;
-                _tweener.Append(_target.gameObject.transform.DOLocalMove(_target.IsRightHand ? keyframe.Position : FlipPosition(keyframe.Position), time).SetEase(Ease.InOutQuad));
-                _tweener.Join(_target.gameObject.transform.DOLocalRotate(_target.IsRightHand ? keyframe.Rotation : FlipRotation(keyframe.Rotation), time).SetEase(Ease.InOutQuad));
-                peviousTime = keyframe.Time;
+                base.Play();
+                return;
             }
+            
+            if(_hasNoStartingFrame)
+                _keyframes[0] = new KeyFrame(0, _target.LocalPosition, _target.LocalRotation);
+            // not baked so I can tweak the values in runtime
+            for (var i = _hasNoStartingFrame ? 1 : 0; i < _keyframes.Length; i++)
+                _keyframes[i] = _config.KeyFrames[_hasNoStartingFrame ? i - 1 : i];
+            
+            _prevTimeNormalized = 0;
             base.Play();
         }
 
-        private Vector3 FlipRotation(Vector3 rotation) => 
-            new(rotation.x, -rotation.y, -rotation.z);
-
-        private Vector3 FlipPosition(Vector3 pos) => 
-            new(pos.x * -1, pos.y, pos.z);
-
         protected override void ApplyAnimation(float timeNormalized)
         {
-            if(_tweener == null)
+            if(_config.KeyFrames.Length == 0)
                 return;
             
-            var position = _tweener.Duration() * timeNormalized; 
-            _tweener.Goto(position, true);
+            float? normTimeBetweenKeyframes = null;
+            for (var i = 0; i < _keyframes.Length; i++)
+            {
+                if (normTimeBetweenKeyframes == null && timeNormalized >= _keyframes[i].Time) 
+                    normTimeBetweenKeyframes = timeNormalized < 1 
+                        ? (timeNormalized - _keyframes[i].Time) / (_keyframes[i + 1].Time - _keyframes[i].Time) 
+                        : 1;
+
+                // find just passed keyframe
+                if (_prevTimeNormalized < _keyframes[i].Time && timeNormalized >= _keyframes[i].Time) 
+                    continue;
+
+                // grab its values as start values
+                _fromRotation = _keyframes[i].Rotation;
+                _fromPosition = _keyframes[i].Position;
+
+                // if it's not the last one - grab target values
+                if (i < _keyframes.Length - 1)
+                {
+                    _toRotation = _keyframes[i + 1].Rotation;
+                    _toPosition = _keyframes[i + 1].Position;
+                }
+
+                break;
+            }
+
+            _target.LocalPosition = Vector3.Lerp(_fromPosition, _toPosition, (float)normTimeBetweenKeyframes);
+            _target.LocalRotation = Vector3.Lerp(_fromRotation, _toRotation, (float)normTimeBetweenKeyframes);
+            _prevTimeNormalized = timeNormalized;
         }
+
+        private Vector3 FlipRotation(Vector3 rotation) => 
+            new(rotation.x, -rotation.y + 180, rotation.z);
+
+        private Vector3 FlipPosition(Vector3 pos) => 
+            new(-pos.x, pos.y, pos.z);
     }
 }

@@ -28,22 +28,28 @@ MonoBehaviour:
     <KeyFrames>k__BackingField:
     - <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
-      <Rotation>k__BackingField: {x: 0, y: -90, z: -90}
+      <Rotation>k__BackingField: {x: 0, y: 60, z: 90}
     <Events>k__BackingField: []
   _unsheathAnimation:
     <KeyFrames>k__BackingField:
     - <Time>k__BackingField: 0
       <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
-      <Rotation>k__BackingField: {x: 0, y: -90, z: -90}
+      <Rotation>k__BackingField: {x: 0, y: 60, z: 90}
     - <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: 0, z: 0}
-      <Rotation>k__BackingField: {x: 0, y: -90, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 60, z: 0}
     <Events>k__BackingField: []
   _raiseBlockAnimation:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
+      <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
     <Events>k__BackingField: []
   _lowerBlockAnimation:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: -0.01, z: -0.03}
+      <Rotation>k__BackingField: {x: 0, y: 60, z: 0}
     <Events>k__BackingField: []
   _holdBlockAnimation:
     <KeyFrames>k__BackingField: []
@@ -55,17 +61,26 @@ MonoBehaviour:
   <PoiseDamage>k__BackingField: 20
   <AttackStaminaCost>k__BackingField: 12
   <PrepareAttackDuration>k__BackingField: 0.25
-  <AttackExecuteDuration>k__BackingField: 0.25
+  <AttackExecuteDuration>k__BackingField: 0.5
   <AttackRecoveryDuration>k__BackingField: 0.25
   <TransitionBetweenAttacksDuration>k__BackingField: 0.25
   _firstAttackPrepareAnimation:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0.09, y: 0.15, z: 0.02}
+      <Rotation>k__BackingField: {x: 15, y: 60, z: -45}
     <Events>k__BackingField: []
   _firstAttackExecuteAnimation:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: -0.255, y: -0.121, z: 0.02}
+      <Rotation>k__BackingField: {x: 35, y: 60, z: -215}
     <Events>k__BackingField: []
   _firstAttackRecoverAnimation:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 60, z: 0}
     <Events>k__BackingField: []
   _firstToSecondAttackTransitionAnimation:
     <KeyFrames>k__BackingField: []
