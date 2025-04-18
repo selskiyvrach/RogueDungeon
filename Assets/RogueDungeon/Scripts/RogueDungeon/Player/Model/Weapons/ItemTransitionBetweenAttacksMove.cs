@@ -8,18 +8,29 @@ namespace RogueDungeon.Player.Model.Attacks
 {
     public class ItemTransitionBetweenAttacksMove : PlayerInputMove
     {
+        private readonly Player _player;
         private readonly PlayerHandsBehaviour _hands;
-        private readonly IWeapon _item;
-        protected override float Duration => ((WeaponConfig)_item.Config).TransitionBetweenAttacksDuration;
+        private readonly IWeapon _weapon;
+        protected override float Duration => ((WeaponConfig)_weapon.Config).TransitionBetweenAttacksDuration;
 
-        protected override InputKey RequiredKey => _hands.ThisHand(_item) == _hands.RightHand 
+        protected override InputKey RequiredKey => _hands.ThisHand(_weapon) == _hands.RightHand 
             ? InputKey.UseRightHandItem 
             : InputKey.UseLeftHandItem;
 
-        public ItemTransitionBetweenAttacksMove(IWeapon item, IAnimation animation, IPlayerInput playerInput, string id, PlayerHandsBehaviour hands) : base(id, animation, playerInput)
+        public ItemTransitionBetweenAttacksMove(IWeapon weapon, IAnimation animation, IPlayerInput playerInput, string id, PlayerHandsBehaviour hands, Player player) : base(id, animation, playerInput)
         {
-            _item = item;
+            _weapon = weapon;
             _hands = hands;
+            _player = player;
         }
+
+        public override void Enter()
+        {
+            base.Enter();
+            _player.Stamina.AddDelta(- _weapon.AttackStaminaCost);
+        }
+
+        protected override bool CanTransitionTo() => 
+            base.CanTransitionTo() && _player.Stamina.Current >= _weapon.AttackStaminaCost;
     }
 }

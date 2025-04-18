@@ -21,14 +21,14 @@ MonoBehaviour:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: 0.09, y: 0.15, z: 0.02}
-      <Rotation>k__BackingField: {x: 15, y: 90, z: -45}
+      <Position>k__BackingField: {x: 0.15, y: 0.2, z: 0.02}
+      <Rotation>k__BackingField: {x: 15, y: 90, z: -90}
     <Events>k__BackingField: []
   <FirstAttackExecuteAnimation>k__BackingField:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: -0.255, y: -0.121, z: 0.02}
+      <Position>k__BackingField: {x: -0.27, y: -0.121, z: 0.02}
       <Rotation>k__BackingField: {x: 35, y: 90, z: 180}
     <Events>k__BackingField: []
   <FirstAttackRecoverAnimation>k__BackingField:
@@ -39,14 +39,30 @@ MonoBehaviour:
       <Rotation>k__BackingField: {x: 0, y: 90, z: 0}
     <Events>k__BackingField: []
   <FirstToSecondAttackTransitionAnimation>k__BackingField:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: -0.3, y: 0.2, z: 0.02}
+      <Rotation>k__BackingField: {x: -15, y: 90, z: -90}
     <Events>k__BackingField: []
   <SecondAttackExecuteAnimation>k__BackingField:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0.11, y: -0.121, z: 0.02}
+      <Rotation>k__BackingField: {x: -35, y: 90, z: 180}
     <Events>k__BackingField: []
   <SecondAttackRecoverAnimation>k__BackingField:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 1
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 90, z: 0}
     <Events>k__BackingField: []
   <SecondToFirstAttackTransitionAnimation>k__BackingField:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0.09, y: 0.15, z: 0.02}
+      <Rotation>k__BackingField: {x: 15, y: 90, z: -45}
     <Events>k__BackingField: []

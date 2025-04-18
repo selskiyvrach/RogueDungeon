@@ -32,6 +32,6 @@ namespace RogueDungeon.Player.Model.Attacks
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _player.Stamina.Current >= _weapon.AttackStaminaCost && (_player.Hands.IsDoubleGrip || _player.Hands.OppositeHand(_weapon).IsIdle);
+            base.CanTransitionTo() && _player.Stamina.Current >= _weapon.AttackStaminaCost;
     }
 }
