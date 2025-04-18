@@ -23,10 +23,10 @@ namespace RogueDungeon.Player.Model.Attacks
 
         protected override bool CanTransitionTo()
         {
-            if (_hands.IsDedicatedToBlock(_item) && !_input.IsHeld(InputKey.Block))
+            if (_hands.IsDedicatedToBlock(_item) && _input.IsHeld(InputKey.Block))
                 return false;
             
-            if(_item is Shield && !_input.IsHeld(_hands.UseItemInput(_item)))
+            if(_item is Shield && _input.IsHeld(_hands.UseItemInput(_item)))
                 return false;
             
             return base.CanTransitionTo();

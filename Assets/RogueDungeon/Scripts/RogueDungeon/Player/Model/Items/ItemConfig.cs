@@ -42,7 +42,8 @@ namespace RogueDungeon.Items
         [field: BoxGroup("Durations"), SerializeField] public float HoldBlockAnimationDuration { get; private set; } = 1;
         [field: BoxGroup("Durations"), SerializeField] public float BlockImpactAbsorptionDuration { get; private set; } = .25f;
         [field: BoxGroup("Durations"), SerializeField] public float UnsheathDuration { get; private set; } = .5f;
-        
+
+        [HideLabel, BoxGroup(nameof(_returnToIdleAnimationConfig)), SerializeField] protected ItemAnimationConfig _returnToIdleAnimationConfig;
         [BoxGroup("Animations"), SerializeField] private BasicAnimationsConfig _basicAnimationsConfig;
         [BoxGroup("Animations"), SerializeField] private BlockAnimationsConfig _blockAnimationsConfig;
         
@@ -61,7 +62,7 @@ namespace RogueDungeon.Items
                 new(Names.BLOCK_LOWER, canInterrupt: true),
             }),
             new(Names.BLOCK_ABSORB_IMPACT, typeof(ItemAbsorbBlockImpactMove), _blockAnimationsConfig.AbsorbBlockImpactAnimation, new TransitionPicker[]{new(Names.BLOCK_HOLD)}),
-            new(Names.BLOCK_LOWER, typeof(ItemLowerBlockMove), _blockAnimationsConfig.LowerBlockAnimation, new TransitionPicker[]{new(Names.IDLE)}),
+            new(Names.BLOCK_LOWER, typeof(ItemLowerBlockMove), _returnToIdleAnimationConfig, new TransitionPicker[]{new(Names.IDLE)}),
         };
 
         protected virtual IEnumerable<TransitionPicker> TransitionsFromIdle => new TransitionPicker[]

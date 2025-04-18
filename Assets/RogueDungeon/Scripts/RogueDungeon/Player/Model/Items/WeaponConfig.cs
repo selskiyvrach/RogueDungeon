@@ -31,7 +31,7 @@ namespace RogueDungeon.Items
                 new (Names.FIRST_TO_SECOND_ATTACK_TRANSITION),
                 new (Names.FIRST_ATTACK_RECOVER),
             }),
-            new(Names.FIRST_ATTACK_RECOVER, typeof(ItemRecoverAttackMove), _attackAnimations.FirstAttackRecoverAnimation, new TransitionPicker[]{ new (Names.IDLE)}),
+            new(Names.FIRST_ATTACK_RECOVER, typeof(ItemRecoverAttackMove), _returnToIdleAnimationConfig, new TransitionPicker[]{ new (Names.IDLE)}),
             new(Names.FIRST_TO_SECOND_ATTACK_TRANSITION, typeof(ItemTransitionBetweenAttacksMove), _attackAnimations.FirstToSecondAttackTransitionAnimation, new TransitionPicker[]
             {
                 new (Names.SECOND_ATTACK_EXECUTE),
@@ -43,7 +43,7 @@ namespace RogueDungeon.Items
                 new (Names.SECOND_TO_FIRST_ATTACK_TRANSITION),
                 new (Names.SECOND_ATTACK_RECOVER),
             }),
-            new(Names.SECOND_ATTACK_RECOVER, typeof(ItemRecoverAttackMove), _attackAnimations.SecondAttackRecoverAnimation, new TransitionPicker[]{ new (Names.IDLE)}),
+            new(Names.SECOND_ATTACK_RECOVER, typeof(ItemRecoverAttackMove), _returnToIdleAnimationConfig, new TransitionPicker[]{ new (Names.IDLE)}),
             new(Names.SECOND_TO_FIRST_ATTACK_TRANSITION, typeof(ItemTransitionBetweenAttacksMove), _attackAnimations.SecondToFirstAttackTransitionAnimation, new TransitionPicker[]
             {
                 new (Names.FIRST_ATTACK_EXECUTE),
