@@ -8,7 +8,6 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
     public class PlayerHandBehaviour : ITickable
     {
-        private readonly PlayerHandsBehaviour _playerHandsBehaviour;
         private readonly IFactory<IItem, HandHeldItemPresenter> _presenterFactory;
         private readonly ItemMoveSetFactory _moveSetFactory;
 
@@ -40,11 +39,10 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         public IItem IntendedItem { get; set; }
         public bool IsIdle => _currentItem is null || _itemMoveSet.CurrentState is ItemIdleMove;
 
-        public PlayerHandBehaviour(IFactory<IItem, HandHeldItemPresenter> presenterFactory, ItemMoveSetFactory moveSetFactory, PlayerHandsBehaviour playerHandsBehaviour)
+        public PlayerHandBehaviour(IFactory<IItem, HandHeldItemPresenter> presenterFactory, ItemMoveSetFactory moveSetFactory)
         {
             _presenterFactory = presenterFactory;
             _moveSetFactory = moveSetFactory;
-            _playerHandsBehaviour = playerHandsBehaviour;
         }
         
         private void CreateItemMoveSet()

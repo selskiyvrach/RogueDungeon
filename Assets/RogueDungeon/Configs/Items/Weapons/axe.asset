@@ -26,28 +26,33 @@ MonoBehaviour:
     <Events>k__BackingField: []
   _sheathAnimation:
     <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 1
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 60, z: 90}
     <Events>k__BackingField: []
   _unsheathAnimation:
     <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 0
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 0
       <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 60, z: 90}
-    - <Time>k__BackingField: 1
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 60, z: 0}
     <Events>k__BackingField: []
   _raiseBlockAnimation:
     <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 1
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
       <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
       <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
     <Events>k__BackingField: []
   _lowerBlockAnimation:
     <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 1
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: -0.01, z: -0.03}
       <Rotation>k__BackingField: {x: 0, y: 60, z: 0}
     <Events>k__BackingField: []
@@ -57,6 +62,10 @@ MonoBehaviour:
   _absorbBlockImpactAnimation:
     <KeyFrames>k__BackingField: []
     <Events>k__BackingField: []
+  _basicAnimationsConfig: {fileID: 11400000, guid: d0c2e9d7550a1d24b8e0d531044361dc,
+    type: 2}
+  _blockAnimationsConfig: {fileID: 11400000, guid: f04b3703d3fe5344082e8607cfa76605,
+    type: 2}
   <Damage>k__BackingField: 10
   <PoiseDamage>k__BackingField: 20
   <AttackStaminaCost>k__BackingField: 12
@@ -66,19 +75,22 @@ MonoBehaviour:
   <TransitionBetweenAttacksDuration>k__BackingField: 0.25
   _firstAttackPrepareAnimation:
     <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 1
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0.09, y: 0.15, z: 0.02}
       <Rotation>k__BackingField: {x: 15, y: 60, z: -45}
     <Events>k__BackingField: []
   _firstAttackExecuteAnimation:
     <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 1
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
       <Position>k__BackingField: {x: -0.255, y: -0.121, z: 0.02}
       <Rotation>k__BackingField: {x: 35, y: 60, z: -215}
     <Events>k__BackingField: []
   _firstAttackRecoverAnimation:
     <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 1
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 60, z: 0}
     <Events>k__BackingField: []
@@ -94,3 +106,4 @@ MonoBehaviour:
   _secondToFirstAttackTransitionAnimation:
     <KeyFrames>k__BackingField: []
     <Events>k__BackingField: []
+  _attackAnimations: {fileID: 11400000, guid: bbaba336350afb14f9433945c7224ef7, type: 2}

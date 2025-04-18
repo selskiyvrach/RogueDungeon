@@ -21,51 +21,7 @@ MonoBehaviour:
   <HoldBlockAnimationDuration>k__BackingField: 1
   <BlockImpactAbsorptionDuration>k__BackingField: 0.25
   <UnsheathDuration>k__BackingField: 0.5
-  _idleAnimation:
-    <KeyFrames>k__BackingField: []
-    <Events>k__BackingField: []
-  _sheathAnimation:
-    <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
-      <Rotation>k__BackingField: {x: 0, y: 15, z: 90}
-    <Events>k__BackingField: []
-  _unsheathAnimation:
-    <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 0
-      <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
-      <Rotation>k__BackingField: {x: 0, y: 15, z: 90}
-    - <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: 0, y: -0.01, z: -0.03}
-      <Rotation>k__BackingField: {x: 0, y: 60, z: 0}
-    <Events>k__BackingField: []
-  _raiseBlockAnimation:
-    <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
-      <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
-    <Events>k__BackingField: []
-  _lowerBlockAnimation:
-    <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: 0, y: -0.01, z: -0.03}
-      <Rotation>k__BackingField: {x: 0, y: 60, z: 0}
-    <Events>k__BackingField: []
-  _holdBlockAnimation:
-    <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 0
-      <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
-      <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
-    <Events>k__BackingField: []
-  _absorbBlockImpactAnimation:
-    <KeyFrames>k__BackingField:
-    - <Time>k__BackingField: 0
-      <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
-      <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
-    - <Time>k__BackingField: 0.2
-      <Position>k__BackingField: {x: -0.07, y: 0.01, z: -0.06}
-      <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
-    - <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
-      <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
-    <Events>k__BackingField: []
+  _basicAnimationsConfig: {fileID: 11400000, guid: ef4c3152f4d444040af1a319fae42667,
+    type: 2}
+  _blockAnimationsConfig: {fileID: 11400000, guid: 4be73a321105f634c8b7b95283a6bdd7,
+    type: 2}

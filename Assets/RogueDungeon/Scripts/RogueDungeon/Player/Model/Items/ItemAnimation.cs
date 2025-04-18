@@ -83,15 +83,15 @@ namespace RogueDungeon.Items
                 break;
             }
 
-            _target.LocalPosition = Vector3.Lerp(_fromPosition, _toPosition, (float)normTimeBetweenKeyframes);
-            _target.LocalRotation = Vector3.Lerp(_fromRotation, _toRotation, (float)normTimeBetweenKeyframes);
+            _target.LocalPosition = Vector3.Lerp(GetProperHandPosition(_fromPosition), GetProperHandPosition(_toPosition), (float)normTimeBetweenKeyframes);
+            _target.LocalRotation = Vector3.Lerp(GetProperHandRotation(_fromRotation), GetProperHandRotation(_toRotation), (float)normTimeBetweenKeyframes);
             _prevTimeNormalized = timeNormalized;
         }
 
-        private Vector3 FlipRotation(Vector3 rotation) => 
-            new(rotation.x, -rotation.y + 180, rotation.z);
+        private Vector3 GetProperHandRotation(Vector3 rotation) => 
+            _target.IsRightHand ? rotation : new Vector3(rotation.x, -rotation.y + 180, rotation.z);
 
-        private Vector3 FlipPosition(Vector3 pos) => 
-            new(-pos.x, pos.y, pos.z);
+        private Vector3 GetProperHandPosition(Vector3 pos) => 
+            _target.IsRightHand ? pos : new Vector3(-pos.x, pos.y, pos.z);
     }
 }

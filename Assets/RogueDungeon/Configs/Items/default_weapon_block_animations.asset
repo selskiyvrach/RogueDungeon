@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dc65761b5ad430c9012dbc137e0dc8c, type: 3}
+  m_Name: default_weapon_block_animations
+  m_EditorClassIdentifier: 
+  <DefaultIdlePosition>k__BackingField:
+    <KeyframeType>k__BackingField: 0
+    <Time>k__BackingField: 0
+    <Position>k__BackingField: {x: 0, y: 0, z: 0}
+    <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+  <RaiseBlockAnimation>k__BackingField:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  <LowerBlockAnimation>k__BackingField:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  <HoldBlockAnimation>k__BackingField:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  <AbsorbBlockImpactAnimation>k__BackingField:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
