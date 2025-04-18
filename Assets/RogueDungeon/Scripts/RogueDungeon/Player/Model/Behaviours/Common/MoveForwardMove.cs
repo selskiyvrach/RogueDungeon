@@ -9,19 +9,23 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
 {
     public class MoveForwardMove : PlayerInputMove
     {
+        private readonly IPlayerInput _input;
         private readonly Player _player;
         private readonly Level _level;
         private Vector2 _from;
         private Vector2 _to;
 
-        protected override InputKey RequiredKey => InputKey.MoveForward;
         protected override float Duration => _player.Config.MovementActionDuration;
-        
-        public MoveForwardMove(Player player, Level level, IPlayerInput playerInput, IAnimation animation, string id) : base(id, animation, playerInput)
+        protected override InputKey RequiredKey => InputKey.MoveForward;
+        protected override RequiredState State => RequiredState.DownOrHeld;
+
+        public MoveForwardMove(Player player, Level level, IPlayerInput playerInput, IAnimation animation, string id, IPlayerInput input) : base(id, animation, playerInput)
         {
             _player = player;
             _level = level;
+            _input = input;
         }
+
 
         public override void Enter()
         {

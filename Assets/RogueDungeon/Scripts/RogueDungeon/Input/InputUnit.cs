@@ -18,8 +18,8 @@ namespace RogueDungeon.Input
         public bool IsReceived() =>
             UnityEngine.Input.GetKeyDown(KeyCode) || _timeSincePressed <= .5f;
 
-        public bool IsCurrentlyUp() => 
-            !UnityEngine.Input.GetKey(KeyCode);
+        public bool IsHeld() => 
+            UnityEngine.Input.GetKey(KeyCode);
 
         public void Tick(float timeDelta)
         {

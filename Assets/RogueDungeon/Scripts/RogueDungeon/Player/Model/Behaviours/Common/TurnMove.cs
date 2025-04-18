@@ -14,6 +14,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         private float _to;
         protected override float Duration => _player.Config.MovementActionDuration;
         protected abstract float RotationDegrees { get; }
+        protected override RequiredState State => RequiredState.DownOrHeld;
 
         protected TurnMove(Player player, Level level, IPlayerInput playerInput, IAnimation animation, string id) : base(id, animation, playerInput)
         {

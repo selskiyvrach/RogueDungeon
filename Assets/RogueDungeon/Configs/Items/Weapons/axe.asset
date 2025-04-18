@@ -29,7 +29,7 @@ MonoBehaviour:
   <PoiseDamage>k__BackingField: 20
   <AttackStaminaCost>k__BackingField: 12
   <PrepareAttackDuration>k__BackingField: 0.45
-  <AttackExecuteDuration>k__BackingField: 0.25
+  <AttackExecuteDuration>k__BackingField: 0.2
   <AttackRecoveryDuration>k__BackingField: 0.25
   <TransitionBetweenAttacksDuration>k__BackingField: 0.35
   _attackAnimations: {fileID: 11400000, guid: bbaba336350afb14f9433945c7224ef7, type: 2}

@@ -5,8 +5,8 @@ namespace RogueDungeon.Input
     public interface IPlayerInput : ITickable
     {
         void SetFilter(InputFilter filter);
-        bool HasInput(InputKey inputKey);
-        bool IsInputUp(InputKey inputKey);
+        bool IsDown(InputKey inputKey);
+        bool IsHeld(InputKey inputKey);
         void ConsumeInput(InputKey inputKey);
     }
 }

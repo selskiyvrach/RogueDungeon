@@ -16,18 +16,18 @@ namespace RogueDungeon.Input
                 unit.Tick(timeDelta);
         }
 
-        public bool HasInput(InputKey inputKey) => 
+        public bool IsDown(InputKey inputKey) => 
             _inputMap.EnabledUnits.Any(u => u.Key == inputKey && u.IsReceived());
 
-        public bool IsInputUp(InputKey inputKey) => 
-            _inputMap.EnabledUnits.Any(u => u.Key == inputKey && u.IsCurrentlyUp());
+        public bool IsHeld(InputKey inputKey) => 
+            _inputMap.EnabledUnits.Any(u => u.Key == inputKey && u.IsHeld());
 
         public void SetFilter(InputFilter filter) => 
             _inputMap.SetFilter(filter);
 
         public void ConsumeInput(InputKey inputKey)
         {
-            if (!HasInput(inputKey))
+            if (!IsDown(inputKey))
                 throw new InvalidOperationException($"Cannot consume command of a wrong type: {inputKey}");
 
             _inputMap.EnabledUnits.First(n => n.Key == inputKey).ResetState();

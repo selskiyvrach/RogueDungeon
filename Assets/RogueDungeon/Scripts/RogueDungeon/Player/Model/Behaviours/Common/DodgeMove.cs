@@ -8,6 +8,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         private readonly PlayerControlStateMediator _playerControlState;
         private readonly Player _player;
         protected abstract PlayerDodgeState DodgeState { get; }
+        protected sealed override RequiredState State => RequiredState.Down;
         protected override float Duration => _player.Config.DodgeDuration;
 
         protected DodgeMove(Player player, IAnimation animation, IPlayerInput playerInput,

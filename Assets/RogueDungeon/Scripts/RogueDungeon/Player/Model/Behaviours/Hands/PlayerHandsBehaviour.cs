@@ -68,7 +68,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             if (item is Shield && OppositeHand(item).CurrentItem is not Shield)
                 return true;
 
-            if (OppositeHand(item).CurrentItem is null && _playerInput.HasInput(UseItemInput(item)))
+            if (OppositeHand(item).CurrentItem is null && _playerInput.IsDown(UseItemInput(item)))
                 return true;
             
             return IsDualWieldingSameTypeItems() && !IsInRightHand(item) || IsDoubleGrip;

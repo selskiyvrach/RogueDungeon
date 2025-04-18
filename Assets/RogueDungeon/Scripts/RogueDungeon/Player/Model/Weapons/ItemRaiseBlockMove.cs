@@ -25,8 +25,8 @@ namespace RogueDungeon.Player.Model.Attacks
 
         protected override bool CanTransitionTo()
         {
-            var isShieldWithUseItemInput = _item is Shield && (_input.HasInput(_hands.UseItemInput(_item)) || !_input.IsInputUp(_hands.UseItemInput(_item)));
-            var isDedicatedBlockerWithBlockInput = _hands.IsDedicatedToBlock(_item) && (_input.HasInput(InputKey.Block) || !_input.IsInputUp(InputKey.Block));
+            var isShieldWithUseItemInput = _item is Shield && (_input.IsDown(_hands.UseItemInput(_item)) || !_input.IsHeld(_hands.UseItemInput(_item)));
+            var isDedicatedBlockerWithBlockInput = _hands.IsDedicatedToBlock(_item) && (_input.IsDown(InputKey.Block) || !_input.IsHeld(InputKey.Block));
             return  base.CanTransitionTo() && (isShieldWithUseItemInput || isDedicatedBlockerWithBlockInput);
         }
     }
