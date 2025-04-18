@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <DefaultIdlePosition>k__BackingField:
     <KeyframeType>k__BackingField: 0
-    <Time>k__BackingField: 0
-    <Position>k__BackingField: {x: 0, y: 0, z: 0}
-    <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    <Time>k__BackingField: 1
+    <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
+    <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
   <RaiseBlockAnimation>k__BackingField:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
@@ -24,17 +24,10 @@ MonoBehaviour:
       <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
       <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
     <Events>k__BackingField: []
-  <LowerBlockAnimation>k__BackingField:
-    <KeyFrames>k__BackingField:
-    - <KeyframeType>k__BackingField: 1
-      <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: 0, y: 0, z: 0}
-      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
-    <Events>k__BackingField: []
   <HoldBlockAnimation>k__BackingField:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
-      <Time>k__BackingField: 0
+      <Time>k__BackingField: 1
       <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
       <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
     <Events>k__BackingField: []

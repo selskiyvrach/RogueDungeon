@@ -64,7 +64,7 @@ namespace RogueDungeon.Player.Model
             {
                 if (_input.IsDown(InputKey.CycleLeftArmItems))
                 {
-                    Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Weapon(Config.DefaultWeapon);
+                    Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Shield(Config.DefaultShield);
                     _input.ConsumeInput(InputKey.CycleLeftArmItems);
                 }
                 if (_input.IsDown(InputKey.CycleRightArmItems))

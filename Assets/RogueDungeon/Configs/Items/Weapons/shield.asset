@@ -21,6 +21,13 @@ MonoBehaviour:
   <HoldBlockAnimationDuration>k__BackingField: 1
   <BlockImpactAbsorptionDuration>k__BackingField: 0.25
   <UnsheathDuration>k__BackingField: 0.5
+  _returnToIdleAnimationConfig:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: -0.01, z: -0.03}
+      <Rotation>k__BackingField: {x: 0, y: 15, z: 0}
+    <Events>k__BackingField: []
   _basicAnimationsConfig: {fileID: 11400000, guid: ef4c3152f4d444040af1a319fae42667,
     type: 2}
   _blockAnimationsConfig: {fileID: 11400000, guid: 4be73a321105f634c8b7b95283a6bdd7,

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Assertions;
 using Animation = Common.Animations.Animation;
 using AnimationEvent = Common.Animations.AnimationEvent;
@@ -30,8 +31,17 @@ namespace RogueDungeon.Items
             
             _hasNoStartingFrame = _config.KeyFrames[0].Time > 0;
             _keyframes = new KeyFrame[_config.KeyFrames.Length > 0 ? _config.KeyFrames.Length + (_hasNoStartingFrame ? 1 : 0) : 0];
-            
-            Assert.IsTrue(_config.KeyFrames[^1].Time == 1, "No final keyframe found!");
+
+            try
+            {
+
+                Assert.IsTrue(_config.KeyFrames[^1].Time == 1, "No final keyframe found!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public override void Play()
