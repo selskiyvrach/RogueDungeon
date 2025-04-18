@@ -43,7 +43,7 @@ namespace RogueDungeon.Items
             }
             
             if(_hasNoStartingFrame)
-                _keyframes[0] = new KeyFrame(0, _target.LocalPosition, _target.LocalRotation);
+                _keyframes[0] = new KeyFrame(0, GetProperHandPosition(_target.LocalPosition), GetProperHandRotation(_target.LocalRotation));
             // not baked so I can tweak the values in runtime
             for (var i = _hasNoStartingFrame ? 1 : 0; i < _keyframes.Length; i++)
                 _keyframes[i] = _config.KeyFrames[_hasNoStartingFrame ? i - 1 : i];
@@ -89,7 +89,7 @@ namespace RogueDungeon.Items
         }
 
         private Vector3 GetProperHandRotation(Vector3 rotation) => 
-            _target.IsRightHand ? rotation : new Vector3(rotation.x, -rotation.y + 180, rotation.z);
+            _target.IsRightHand ? rotation : new Vector3(-rotation.x, -rotation.y + 180, rotation.z);
 
         private Vector3 GetProperHandPosition(Vector3 pos) => 
             _target.IsRightHand ? pos : new Vector3(-pos.x, pos.y, pos.z);
