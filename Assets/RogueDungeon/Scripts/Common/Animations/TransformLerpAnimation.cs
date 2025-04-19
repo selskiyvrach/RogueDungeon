@@ -70,8 +70,6 @@ namespace Common.Animations
                     ? 1
                     : (timeNormalized - fromFrame.Value.Time) / (toFrame.Value.Time - fromFrame.Value.Time);
             
-            Debug.Log("norm time: " + normTimeBetweenKeyframes);
-            
             _target.LocalPosition = Vector3.Lerp(GetProperHandPosition(fromFrame.Value.Position), GetProperHandPosition(toFrame.Value.Position), normTimeBetweenKeyframes);
             _target.LocalRotation = Vector3.Lerp(GetProperHandRotation(fromFrame.Value.Rotation), GetProperHandRotation(toFrame.Value.Rotation), normTimeBetweenKeyframes);
         }

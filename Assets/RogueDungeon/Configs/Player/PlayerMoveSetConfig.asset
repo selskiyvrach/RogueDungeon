@@ -57,8 +57,24 @@ MonoBehaviour:
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     <Events>k__BackingField: []
   _dodgeLeftAnimation:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 0.3
+      <Position>k__BackingField: {x: -0.2, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    - <KeyframeType>k__BackingField: 1
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     <Events>k__BackingField: []
   _dodgeRightAnimation:
-    <KeyFrames>k__BackingField: []
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 0.3
+      <Position>k__BackingField: {x: 0.2, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    - <KeyframeType>k__BackingField: 1
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     <Events>k__BackingField: []

@@ -23,13 +23,12 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             base.Enter();
             _player.Stamina.AddDelta(- _player.DodgeStaminaCost);
             _player.DodgeState = DodgeState;
-            _playerControlState.IsDodging = DodgeState != PlayerDodgeState.None;
         }
 
         public override void Exit()
         {
+            _player.DodgeState = PlayerDodgeState.None;
             base.Exit();
-            _playerControlState.IsDodging = false;
         }
 
         protected override bool CanTransitionTo() => 

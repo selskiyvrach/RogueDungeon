@@ -1,5 +1,4 @@
-﻿using System;
-using RogueDungeon.Input;
+﻿using RogueDungeon.Input;
 using RogueDungeon.Items;
 
 namespace RogueDungeon.Player.Model.Behaviours.Hands
@@ -9,8 +8,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         private readonly IPlayerInput _playerInput;
 
         public PlayerHandBehaviour RightHand { get; private set; }
-
-        public PlayerHandBehaviour LeftHand { get; private set; }
+        public PlayerHandBehaviour LeftHand { get; private set; } 
 
         public bool IsDoubleGrip => (RightHand.CurrentItem == null || LeftHand.CurrentItem == null) && (RightHand.CurrentItem ?? LeftHand.CurrentItem) != null;
 
