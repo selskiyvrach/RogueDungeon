@@ -1,12 +1,13 @@
-﻿using Sirenix.OdinInspector;
+﻿using Common.Animations;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace RogueDungeon.Items
 {
-    public class BlockAnimationsConfig : ItemAnimationsConfig
+    public class BlockAnimationsConfig : TransformAnimationsConfig
     {
-        [field: HideLabel, BoxGroup(nameof(RaiseBlockAnimation)), SerializeField] public ItemAnimationConfig RaiseBlockAnimation {get; private set;}
-        [field: HideLabel, BoxGroup(nameof(HoldBlockAnimation)), SerializeField] public ItemAnimationConfig HoldBlockAnimation {get; private set;}
-        [field: HideLabel, BoxGroup(nameof(AbsorbBlockImpactAnimation)), SerializeField] public ItemAnimationConfig AbsorbBlockImpactAnimation {get; private set;}
+        [field: HideLabel, BoxGroup(nameof(RaiseBlockAnimation)), SerializeField] public TransformAnimationConfig RaiseBlockAnimation {get; private set;}
+        [field: HideLabel, BoxGroup(nameof(HoldBlockAnimation)), SerializeField] public TransformAnimationConfig HoldBlockAnimation {get; private set;}
+        [field: HideLabel, BoxGroup(nameof(AbsorbBlockImpactAnimation)), SerializeField] public TransformAnimationConfig AbsorbBlockImpactAnimation {get; private set;}
     }
 }

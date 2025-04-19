@@ -1,17 +1,15 @@
 ﻿using System;
-using Common.Animations;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using AnimationEvent = Common.Animations.AnimationEvent;
 
-namespace RogueDungeon.Items
+namespace Common.Animations
 {
     [Serializable]
-    public class ItemAnimationConfig : AnimationConfig
+    public class TransformAnimationConfig : AnimationConfig
     {
         [field: SerializeField] public KeyFrame[] KeyFrames { get; private set; }
         [field: SerializeField] public AnimationEvent[] Events { get; private set; }
-        public override Type AnimationType => typeof(ItemAnimation);
+        public override Type AnimationType => typeof(TransformLerpAnimation);
     }
 
     [Serializable]
@@ -35,5 +33,8 @@ namespace RogueDungeon.Items
         [field: Range(0, 1), SerializeField] public float Time { get; private set; }
         [field: HideIf("@KeyframeType == Type.DefaultIdlePosition"), SerializeField] public Vector3 Position { get; private set; }
         [field: HideIf("@KeyframeType == Type.DefaultIdlePosition"), SerializeField] public Vector3 Rotation { get; private set; }
+
+        public override string ToString() => 
+            $"Time: {Time:0.00}, Pos: {Position}, Rot: {Rotation}";
     }
 }

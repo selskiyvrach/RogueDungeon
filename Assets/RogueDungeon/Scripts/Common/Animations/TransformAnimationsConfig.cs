@@ -4,24 +4,24 @@ using System.Reflection;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RogueDungeon.Items
+namespace Common.Animations
 {
-    public abstract class ItemAnimationsConfig : ScriptableObject
+    public abstract class TransformAnimationsConfig : ScriptableObject
     {
         [field: HideLabel, BoxGroup(nameof(DefaultIdlePosition)), SerializeField] public KeyFrame DefaultIdlePosition { get; private set; }
         
         private void OnValidate()
         {
-            var animationConfigs = new List<ItemAnimationConfig>();
+            var animationConfigs = new List<TransformAnimationConfig>();
             var type = GetType();
 
             while (type != null && type != typeof(MonoBehaviour))
             {
                 var fields = type
                     .GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
-                    .Where(f => typeof(ItemAnimationConfig).IsAssignableFrom(f.FieldType))
+                    .Where(f => typeof(TransformAnimationConfig).IsAssignableFrom(f.FieldType))
                     .Select(f => f.GetValue(this))
-                    .OfType<ItemAnimationConfig>();
+                    .OfType<TransformAnimationConfig>();
 
                 animationConfigs.AddRange(fields);
                 type = type.BaseType;

@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 
-namespace RogueDungeon.Items
+namespace Common.Animations
 {
-    public class ItemAnimationClipTarget : MonoBehaviour
+    public class TransformAnimationTarget : MonoBehaviour
     {
         private Vector3 _localRotation;
         
-        [field: SerializeField] public bool IsRightHand { get; private set; }
-
         private void Awake() => 
             _localRotation = transform.localRotation.eulerAngles;
 

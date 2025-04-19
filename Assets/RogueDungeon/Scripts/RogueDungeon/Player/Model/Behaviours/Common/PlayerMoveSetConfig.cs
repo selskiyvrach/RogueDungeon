@@ -8,8 +8,7 @@ using UnityEngine.Serialization;
 
 namespace RogueDungeon.Player.Model.Behaviours.Common
 {
-    [Serializable]
-    public class PlayerMoveSetConfig : IMoveSetConfig
+    public class PlayerMoveSetConfig : TransformAnimationsConfig, IMoveSetConfig
     {
         public static class Names
         {
@@ -24,12 +23,13 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             public const string TURN_AROUND = "turn_around";
         }
         
-        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _idleAnimation;
-        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _birthAnimation;
-        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _deathAnimation;
-        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _walkAnimation;
-        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _dodgeLeftAnimation;
-        [SerializeField, InlineProperty(LabelWidth = 1)] private AnimationClipAdapterConfig _dodgeRightAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_idleAnimation))] private TransformAnimationConfig _idleAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_birthAnimation))] private TransformAnimationConfig _birthAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_deathAnimation))] private TransformAnimationConfig _deathAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_walkAnimation))] private TransformAnimationConfig _walkAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_turnAnimation))] private TransformAnimationConfig _turnAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_dodgeLeftAnimation))] private TransformAnimationConfig _dodgeLeftAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_dodgeRightAnimation))] private TransformAnimationConfig _dodgeRightAnimation;
         
         public string FirstMoveId => Names.BIRTH;
         public IEnumerable<MoveCreationArgs> MovesCreationArgs => new MoveCreationArgs[]
@@ -51,9 +51,9 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             new (Names.DODGE_RIGHT, typeof(DodgeRightMove), _dodgeRightAnimation, new TransitionPicker[] { new(Names.IDLE)}),
             
             new (Names.MOVE_FORWARD, typeof(MoveForwardMove), _walkAnimation, MovementTransitions),
-            new (Names.TURN_LEFT, typeof(TurnLeftMove), _walkAnimation, MovementTransitions),
-            new (Names.TURN_RIGHT, typeof(TurnRightMove), _walkAnimation, MovementTransitions),
-            new (Names.TURN_AROUND, typeof(TurnAroundMove), _walkAnimation, MovementTransitions),
+            new (Names.TURN_LEFT, typeof(TurnLeftMove), _turnAnimation, MovementTransitions),
+            new (Names.TURN_RIGHT, typeof(TurnRightMove), _turnAnimation, MovementTransitions),
+            new (Names.TURN_AROUND, typeof(TurnAroundMove), _turnAnimation, MovementTransitions),
         };
 
         private static TransitionPicker[] MovementTransitions = {

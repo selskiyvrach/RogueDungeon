@@ -14,7 +14,7 @@ namespace RogueDungeon.Player.Model
         [SerializeField] private PlayerGameObject _playerGameObject;
         [SerializeField] private PlayerConfig _config;
         [SerializeField] private PlayerHandsInstaller _handsInstaller;
-        [SerializeField] private AnimationClipTarget _animationTarget;
+        [SerializeField] private TransformAnimationTarget _animationTarget;
 
         public override void InstallBindings()
         {
@@ -27,7 +27,7 @@ namespace RogueDungeon.Player.Model
             
             _handsInstaller.Install(Container);
             
-            Container.InstanceSingle<IAnimationClipTarget>(_animationTarget);
+            Container.InstanceSingle(_animationTarget);
             Container.InstanceSingle(new MoveSetFactory(Container).Create(_config.MoveSetConfig));
             Container.Bind<PlayerBehaviour>().AsSingle();
 

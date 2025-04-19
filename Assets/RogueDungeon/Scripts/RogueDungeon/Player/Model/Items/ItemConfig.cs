@@ -43,7 +43,7 @@ namespace RogueDungeon.Items
         [field: BoxGroup("Durations"), SerializeField] public float BlockImpactAbsorptionDuration { get; private set; } = .25f;
         [field: BoxGroup("Durations"), SerializeField] public float UnsheathDuration { get; private set; } = .5f;
 
-        [HideLabel, BoxGroup(nameof(_returnToIdleAnimationConfig)), SerializeField] protected ItemAnimationConfig _returnToIdleAnimationConfig;
+        [HideLabel, BoxGroup(nameof(_returnToIdleAnimationConfig)), SerializeField] protected TransformAnimationConfig _returnToIdleAnimationConfig;
         [BoxGroup("Animations"), SerializeField] private BasicAnimationsConfig _basicAnimationsConfig;
         [BoxGroup("Animations"), SerializeField] private BlockAnimationsConfig _blockAnimationsConfig;
         

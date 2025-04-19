@@ -17,7 +17,7 @@ MonoBehaviour:
   <Stamina>k__BackingField:
     <Max>k__BackingField: 50
     <RechargeRate>k__BackingField: 15
-    <RechargeDelay>k__BackingField: 0.5
+    <RechargeDelay>k__BackingField: 0.35
   <PositionOffsetFromTileCenter>k__BackingField: 0.4
   <DefaultWeapon>k__BackingField: {fileID: 11400000, guid: 4b04777495ac5c145a6022faf79be800,
     type: 2}
@@ -25,30 +25,13 @@ MonoBehaviour:
     type: 2}
   <Prefab>k__BackingField: {fileID: 3401579970430071534, guid: 0b1353be74b298141ba99669d9373a88,
     type: 3}
-  <DoubleGripDamageBonus>k__BackingField: 1.5
-  <DoubleGripBlockBonus>k__BackingField: 1.5
+  <DoubleGripDamageBonus>k__BackingField: 1.2
+  <DoubleGripBlockBonus>k__BackingField: 1.2
   <DeathAnimationDuration>k__BackingField: 2
   <DodgeDuration>k__BackingField: 0
   <MovementActionDuration>k__BackingField: 0.75
   <IdleAnimationDuration>k__BackingField: 1
-  <DodgeStaminaCost>k__BackingField: 10
+  <DodgeStaminaCost>k__BackingField: 5
   <BirthAnimationDuration>k__BackingField: 1
-  <MoveSetConfig>k__BackingField:
-    _idleAnimation:
-      <Clip>k__BackingField: {fileID: 7400000, guid: bb219e32f63701a41bc07772d1c298de,
-        type: 2}
-    _birthAnimation:
-      <Clip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
-        type: 2}
-    _deathAnimation:
-      <Clip>k__BackingField: {fileID: 7400000, guid: 50ec383904a8e6e4dae3ef350840fa7b,
-        type: 2}
-    _walkAnimation:
-      <Clip>k__BackingField: {fileID: 7400000, guid: 8456f9fea6e706347aa2f915d6c80f6f,
-        type: 2}
-    _dodgeLeftAnimation:
-      <Clip>k__BackingField: {fileID: 7400000, guid: d03a097b187bcee47a1c43c59faaed54,
-        type: 2}
-    _dodgeRightAnimation:
-      <Clip>k__BackingField: {fileID: 7400000, guid: ac484037d2f63874bb98bd5c34abcbc1,
-        type: 2}
+  <MoveSetConfig>k__BackingField: {fileID: 11400000, guid: 39a0b052f1fec214d9f0f501772db943,
+    type: 2}
