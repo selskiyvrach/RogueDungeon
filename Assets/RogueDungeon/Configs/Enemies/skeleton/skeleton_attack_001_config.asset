@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395c38bf22cc45c78ecd2735b41fa433, type: 3}
   m_Name: skeleton_attack_001_config
   m_EditorClassIdentifier: 
+  <Duration>k__BackingField: 2
   <Priority>k__BackingField: 100
   <AnimationConfigPicker>k__BackingField:
     _animationType: 1
     _animationClipConfig:
-      <Duration>k__BackingField: 1
       <Clip>k__BackingField: {fileID: 0}
     _spriteSheetAnimationConfig:
-      <Duration>k__BackingField: 1.5
       <Sprites>k__BackingField:
       - {fileID: -1306198463, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
       - {fileID: -1786852735, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}

@@ -50,17 +50,16 @@ namespace RogueDungeon.Combat
                 return;
             }
 
-            if (player is { IsBlocking: true})
+            if (player is { BlockingItem: {} shield})
             {
                 player.HasUnabsorbedBlockImpact = true;
-                var doubleGripBonus =
-                    player.Hands.IsDoubleGrip && player.Hands.ThisHand(player.BlockingItem) == player.Hands.LeftHand
-                        ? player.DoubleGripBlockBonus
-                        : 1;
+                var doubleGripBonus = player.Hands.IsDoubleGrip 
+                    ? player.DoubleGripBlockBonus
+                    : 1;
             
-                var staminaCost = damage * player.BlockingItem.BlockStaminaCostMultiplier / doubleGripBonus;
+                var staminaCost = damage * shield.BlockStaminaCostMultiplier / doubleGripBonus;
+                damage = Mathf.Max(0, staminaCost - player.Stamina.Current) / shield.BlockStaminaCostMultiplier; 
                 player.Stamina.AddDelta(- staminaCost);
-                damage = Mathf.Clamp(damage - player.Stamina.Current / player.BlockingItem.BlockStaminaCostMultiplier, 0, float.PositiveInfinity);
             }
 
             player.Health.AddDelta(- damage);

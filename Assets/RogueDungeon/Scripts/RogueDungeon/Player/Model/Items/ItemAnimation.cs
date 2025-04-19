@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 using Animation = Common.Animations.Animation;
 using AnimationEvent = Common.Animations.AnimationEvent;
@@ -80,7 +79,6 @@ namespace RogueDungeon.Items
                     _toRotation = _keyframes[i + 1].Rotation;
                     _toPosition = _keyframes[i + 1].Position;
                 }
-
                 break;
             }
 

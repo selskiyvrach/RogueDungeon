@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -7,8 +8,8 @@ namespace Common.Animations
     [Serializable]
     public struct AnimationEvent
     {
-        [field: SerializeField] public float Time { get; private set; }
-        [field: SerializeField] public string Name { get; private set; }
+        [field:HorizontalGroup, SerializeField] public string Name { get; private set; }
+        [field:HorizontalGroup, Range(0, 1), SerializeField] public float Time { get; private set; }
 
         public AnimationEvent(float time, string name)
         {

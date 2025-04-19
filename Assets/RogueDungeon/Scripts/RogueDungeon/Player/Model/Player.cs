@@ -29,7 +29,6 @@ namespace RogueDungeon.Player.Model
         public float DoubleGripBlockBonus => Config.DoubleGripBlockBonus;
         public bool HasUnabsorbedBlockImpact { get; set; }
         public IItem BlockingItem { get; set; }
-        public bool IsBlocking { get; set; }
         public float DodgeStaminaCost => Config.DodgeStaminaCost;
 
         public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input)
@@ -64,7 +63,7 @@ namespace RogueDungeon.Player.Model
             {
                 if (_input.IsDown(InputKey.CycleLeftArmItems))
                 {
-                    Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Shield(Config.DefaultShield);
+                    Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Weapon(Config.DefaultWeapon);
                     _input.ConsumeInput(InputKey.CycleLeftArmItems);
                 }
                 if (_input.IsDown(InputKey.CycleRightArmItems))
