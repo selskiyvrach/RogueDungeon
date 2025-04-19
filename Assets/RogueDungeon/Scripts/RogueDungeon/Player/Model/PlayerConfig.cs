@@ -20,6 +20,8 @@ namespace RogueDungeon.Player.Model
         [field: SerializeField] public float DeathAnimationDuration { get; private set; } = 2f;
         [field: SerializeField] public float DodgeDuration { get; private set; }
         [field: SerializeField] public float MovementActionDuration { get; private set; } = .5f;
+        [field: SerializeField] public float TurnDuration { get; private set; } = .5f;
+        [field: SerializeField] public float TurnAroundDuration { get; private set; } = .75f;
         [field: SerializeField] public float IdleAnimationDuration { get; private set; } = 1f;
         [field: SerializeField] public float DodgeStaminaCost { get; private set; } = 10f;
         [field: SerializeField] public float BirthAnimationDuration { get; private set; } = 1f;

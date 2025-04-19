@@ -53,7 +53,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             new (Names.MOVE_FORWARD, typeof(MoveForwardMove), _walkAnimation, MovementTransitions),
             new (Names.TURN_LEFT, typeof(TurnLeftMove), _turnAnimation, MovementTransitions),
             new (Names.TURN_RIGHT, typeof(TurnRightMove), _turnAnimation, MovementTransitions),
-            new (Names.TURN_AROUND, typeof(TurnAroundMove), _turnAnimation, MovementTransitions),
+            new (Names.TURN_AROUND, typeof(TurnAroundMove), _walkAnimation, MovementTransitions),
         };
 
         private static TransitionPicker[] MovementTransitions = {
