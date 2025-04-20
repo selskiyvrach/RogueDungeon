@@ -17,14 +17,25 @@ MonoBehaviour:
     <Time>k__BackingField: 1
     <Position>k__BackingField: {x: 0, y: 0, z: 0}
     <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
-  _idleAnimation:
-    <KeyFrames>k__BackingField: []
-    <Events>k__BackingField: []
   _birthAnimation:
     <KeyFrames>k__BackingField: []
     <Events>k__BackingField: []
   _deathAnimation:
     <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _idleAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _handsIdleAnimation:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 0.5
+      <Position>k__BackingField: {x: 0, y: 0.0025, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     <Events>k__BackingField: []
   _walkAnimation:
     <KeyFrames>k__BackingField:
@@ -45,6 +56,25 @@ MonoBehaviour:
       <Position>k__BackingField: {x: 0, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     <Events>k__BackingField: []
+  _handsWalkAnimation:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 0.25
+      <Position>k__BackingField: {x: 0, y: -0.03, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 0.5
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 0.75
+      <Position>k__BackingField: {x: 0, y: -0.03, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    <Events>k__BackingField: []
   _turnAnimation:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
@@ -56,13 +86,35 @@ MonoBehaviour:
       <Position>k__BackingField: {x: 0, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     <Events>k__BackingField: []
+  _handsTurnAnimation:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 0.5
+      <Position>k__BackingField: {x: 0, y: -0.03, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    <Events>k__BackingField: []
   _dodgeLeftAnimation:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 0.3
-      <Position>k__BackingField: {x: -0.2, y: 0, z: 0}
+      <Position>k__BackingField: {x: -0.25, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     - <KeyframeType>k__BackingField: 1
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    <Events>k__BackingField: []
+  _handsDodgeLeftAnimation:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 0.4
+      <Position>k__BackingField: {x: -0.02, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
@@ -71,9 +123,20 @@ MonoBehaviour:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 0.3
-      <Position>k__BackingField: {x: 0.2, y: 0, z: 0}
+      <Position>k__BackingField: {x: 0.25, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     - <KeyframeType>k__BackingField: 1
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    <Events>k__BackingField: []
+  _handsDodgeRightAnimation:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 0.4
+      <Position>k__BackingField: {x: 0.02, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}

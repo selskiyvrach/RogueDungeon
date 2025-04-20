@@ -25,9 +25,11 @@ namespace RogueDungeon.Enemies
             Container.NewSingle<IFactory<EnemyStateConfig, EnemyState>, EnemyStatesFactory>();
             Container.NewSingle<EnemyStatesProvider>();
             Container.NewSingle<EnemyStateMachine>();
-            
+
             var config = Container.Resolve<EnemyConfig>().HitImpactAnimation.Config;
-            Container.InstanceSingle(Container.Instantiate<EnemyImpactAnimator>(new[] { Container.Instantiate(config.AnimationType, new object[]{config, _hitEffectTarget})}));
+            var effectsContainer = Container.CreateSubContainer();
+            effectsContainer.InstanceSingle(_hitEffectTarget);
+            Container.InstanceSingle(effectsContainer.Instantiate<EnemyImpactAnimator>(new[] { config.Create(effectsContainer)}));
             
             Container.NewSingle<Enemy>();
 

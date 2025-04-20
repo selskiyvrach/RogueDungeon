@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using Zenject;
 
 namespace Common.Animations
 {
     [Serializable]
     public abstract class AnimationConfig
     {
-        public abstract Type AnimationType { get; }
+        public abstract IAnimation Create(DiContainer container);
     }
 }

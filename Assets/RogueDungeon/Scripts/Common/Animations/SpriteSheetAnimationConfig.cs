@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace Common.Animations
 {
@@ -13,6 +12,7 @@ namespace Common.Animations
         [field: SerializeField, ListDrawerSettings(ShowFoldout = false)] public Sprite[] Sprites {get; private set;}
         [field: SerializeField, ListDrawerSettings(ShowFoldout = false)] public FrameEvent[] KeyFrames {get; private set;}
         
-        public override Type AnimationType => typeof(SpriteSheetAnimation);
+        public override IAnimation Create(DiContainer container) => 
+            (SpriteSheetAnimation)container.Instantiate(typeof(SpriteSheetAnimation), new object[]{ this});
     }
 }

@@ -23,19 +23,24 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             public const string TURN_AROUND = "turn_around";
         }
         
-        [SerializeField, HideLabel, BoxGroup(nameof(_idleAnimation))] private TransformAnimationConfig _idleAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_birthAnimation))] private TransformAnimationConfig _birthAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_deathAnimation))] private TransformAnimationConfig _deathAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_idleAnimation))] private TransformAnimationConfig _idleAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_handsIdleAnimation))] private TransformAnimationConfig _handsIdleAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_walkAnimation))] private TransformAnimationConfig _walkAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_handsWalkAnimation))] private TransformAnimationConfig _handsWalkAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_turnAnimation))] private TransformAnimationConfig _turnAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_handsTurnAnimation))] private TransformAnimationConfig _handsTurnAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_dodgeLeftAnimation))] private TransformAnimationConfig _dodgeLeftAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_handsDodgeLeftAnimation))] private TransformAnimationConfig _handsDodgeLeftAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_dodgeRightAnimation))] private TransformAnimationConfig _dodgeRightAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_handsDodgeRightAnimation))] private TransformAnimationConfig _handsDodgeRightAnimation;
         
         public string FirstMoveId => Names.BIRTH;
         public IEnumerable<MoveCreationArgs> MovesCreationArgs => new MoveCreationArgs[]
         {
             new (Names.BIRTH, typeof(BirthMove), _birthAnimation, new TransitionPicker[] { new(Names.IDLE)}),
-            new (Names.IDLE, typeof(IdleMove), _idleAnimation, new TransitionPicker[]
+            new (Names.IDLE, typeof(IdleMove), new MultiItemTransformAnimationConfig((null, _idleAnimation), ("hands", _handsIdleAnimation)), new TransitionPicker[]
             {
                 new(Names.DEATH, canInterrupt: true),
                 new(Names.MOVE_FORWARD, canInterrupt: true),
@@ -47,13 +52,13 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             }),
             new (Names.DEATH, typeof(DeathMove), _deathAnimation, Array.Empty<TransitionPicker>()),
             
-            new (Names.DODGE_LEFT, typeof(DodgeLeftMove), _dodgeLeftAnimation, new TransitionPicker[] { new(Names.IDLE)}),
-            new (Names.DODGE_RIGHT, typeof(DodgeRightMove), _dodgeRightAnimation, new TransitionPicker[] { new(Names.IDLE)}),
+            new (Names.DODGE_LEFT, typeof(DodgeLeftMove), new MultiItemTransformAnimationConfig((null, _dodgeLeftAnimation), ("hands", _handsDodgeLeftAnimation)), new TransitionPicker[] { new(Names.IDLE)}),
+            new (Names.DODGE_RIGHT, typeof(DodgeRightMove), new MultiItemTransformAnimationConfig((null, _dodgeRightAnimation), ("hands", _handsDodgeRightAnimation)), new TransitionPicker[] { new(Names.IDLE)}),
             
-            new (Names.MOVE_FORWARD, typeof(MoveForwardMove), _walkAnimation, MovementTransitions),
-            new (Names.TURN_LEFT, typeof(TurnLeftMove), _turnAnimation, MovementTransitions),
-            new (Names.TURN_RIGHT, typeof(TurnRightMove), _turnAnimation, MovementTransitions),
-            new (Names.TURN_AROUND, typeof(TurnAroundMove), _walkAnimation, MovementTransitions),
+            new (Names.MOVE_FORWARD, typeof(MoveForwardMove), new MultiItemTransformAnimationConfig((null, _walkAnimation), ("hands", _handsWalkAnimation)), MovementTransitions),
+            new (Names.TURN_LEFT, typeof(TurnLeftMove), new MultiItemTransformAnimationConfig((null, _turnAnimation), ("hands", _handsTurnAnimation)), MovementTransitions),
+            new (Names.TURN_RIGHT, typeof(TurnRightMove), new MultiItemTransformAnimationConfig((null, _turnAnimation), ("hands", _handsTurnAnimation)), MovementTransitions),
+            new (Names.TURN_AROUND, typeof(TurnAroundMove), new MultiItemTransformAnimationConfig((null, _walkAnimation), ("hands", _handsWalkAnimation)), MovementTransitions),
         };
 
         private static TransitionPicker[] MovementTransitions = {

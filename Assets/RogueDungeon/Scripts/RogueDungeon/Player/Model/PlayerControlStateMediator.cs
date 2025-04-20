@@ -4,7 +4,6 @@
     {
         private readonly Player _player;
         private bool CanPerformAnyAction => _player.IsAlive;
-
         public bool IsDodging => _player.DodgeState != PlayerDodgeState.None;
         public bool IsAttackInUncancellableState { private get; set; }
         public bool CanAttack => CanPerformAnyAction && !IsDodging;

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Common.Animations
 {
@@ -8,6 +8,7 @@ namespace Common.Animations
     public class AnimationClipAdapterConfig : AnimationConfig
     {
         [field: SerializeField] public AnimationClip Clip { get; private set; }
-        public override Type AnimationType => typeof(AnimationClipAdapter);
+        public override IAnimation Create(DiContainer container) => 
+            (AnimationClipAdapter)container.Instantiate(typeof(AnimationClipAdapter), new object[]{this});
     }
 }

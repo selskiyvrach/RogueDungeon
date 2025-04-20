@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Common.Animations
 {
     public class TransformLerpAnimation : Animation
     {
+        private readonly AnimationCurve _curve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
         private readonly TransformAnimationConfig _config;
         private readonly TransformAnimationTarget _target;
         private readonly KeyFrame[] _keyframes;
@@ -70,6 +70,7 @@ namespace Common.Animations
                     ? 1
                     : (timeNormalized - fromFrame.Value.Time) / (toFrame.Value.Time - fromFrame.Value.Time);
             
+            normTimeBetweenKeyframes = _curve.Evaluate(normTimeBetweenKeyframes);
             _target.LocalPosition = Vector3.Lerp(GetProperHandPosition(fromFrame.Value.Position), GetProperHandPosition(toFrame.Value.Position), normTimeBetweenKeyframes);
             _target.LocalRotation = Vector3.Lerp(GetProperHandRotation(fromFrame.Value.Rotation), GetProperHandRotation(toFrame.Value.Rotation), normTimeBetweenKeyframes);
         }

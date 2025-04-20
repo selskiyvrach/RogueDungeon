@@ -28,11 +28,11 @@ MonoBehaviour:
   <DoubleGripDamageBonus>k__BackingField: 1.2
   <DoubleGripBlockBonus>k__BackingField: 1.2
   <DeathAnimationDuration>k__BackingField: 2
-  <DodgeDuration>k__BackingField: 0.5
+  <DodgeDuration>k__BackingField: 0.75
   <MovementActionDuration>k__BackingField: 0.75
   <TurnDuration>k__BackingField: 0.5
   <TurnAroundDuration>k__BackingField: 0.75
-  <IdleAnimationDuration>k__BackingField: 1
+  <IdleAnimationDuration>k__BackingField: 1.5
   <DodgeStaminaCost>k__BackingField: 5
   <BirthAnimationDuration>k__BackingField: 1
   <MoveSetConfig>k__BackingField: {fileID: 11400000, guid: 39a0b052f1fec214d9f0f501772db943,

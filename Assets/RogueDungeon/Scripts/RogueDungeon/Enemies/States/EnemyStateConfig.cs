@@ -10,7 +10,6 @@ namespace RogueDungeon.Enemies.States
         [field: SerializeField] public float Duration { get; private set; }
         [field: SerializeField] public Priority Priority { get; private set; }
         [field: SerializeField, HideLabel] public AnimationConfigPicker AnimationConfigPicker { get; private set; }
-        [field: SerializeField, HideLabel] public AnimationConfigPicker[] AdditionalAnimations { get; private set; }
         public virtual Type StateType => typeof(EnemyState);
     }
 }
