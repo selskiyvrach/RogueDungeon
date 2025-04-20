@@ -15,8 +15,8 @@ MonoBehaviour:
   <DefaultIdlePosition>k__BackingField:
     <KeyframeType>k__BackingField: 0
     <Time>k__BackingField: 1
-    <Position>k__BackingField: {x: 0, y: 0.03, z: -0.03}
-    <Rotation>k__BackingField: {x: 0, y: 15, z: 0}
+    <Position>k__BackingField: {x: -0.025, y: 0.03, z: -0.02}
+    <Rotation>k__BackingField: {x: 35, y: 15, z: 0}
   <IdleAnimation>k__BackingField:
     <KeyFrames>k__BackingField: []
     <Events>k__BackingField: []
@@ -35,6 +35,6 @@ MonoBehaviour:
       <Rotation>k__BackingField: {x: 0, y: 15, z: 90}
     - <KeyframeType>k__BackingField: 1
       <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: 0, y: 0.03, z: -0.03}
-      <Rotation>k__BackingField: {x: 0, y: 15, z: 0}
+      <Position>k__BackingField: {x: -0.025, y: 0.03, z: -0.02}
+      <Rotation>k__BackingField: {x: 35, y: 15, z: 0}
     <Events>k__BackingField: []

@@ -26,7 +26,7 @@ MonoBehaviour:
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: 0.3, z: -0.03}
-      <Rotation>k__BackingField: {x: 0, y: 15, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
     <Events>k__BackingField: []
   _basicAnimationsConfig: {fileID: 11400000, guid: 7568b445016bc794889616f64400afaa,
     type: 2}
