@@ -14,6 +14,7 @@ namespace RogueDungeon.Player.Model
         [field: SerializeField, Range(0.01f, 0.49f)] public float PositionOffsetFromTileCenter { get; private set; } = .35f;
         [field: SerializeField] public WeaponConfig DefaultWeapon { get; private set; }
         [field: SerializeField] public ShieldConfig DefaultShield { get; private set; }
+        [field: SerializeField] public MapItemConfig MapItemConfig { get; private set; }
         [field: SerializeField] public PlayerInstaller Prefab { get; private set; }
         [field: SerializeField] public float DoubleGripDamageBonus { get; private set;} = 1.2f;
         [field: SerializeField] public float DoubleGripBlockBonus { get; private set;} = 1.2f;

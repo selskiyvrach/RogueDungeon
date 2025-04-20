@@ -23,6 +23,8 @@ MonoBehaviour:
     type: 2}
   <DefaultShield>k__BackingField: {fileID: 11400000, guid: 68b3849591033494c90d41d21ccd4e41,
     type: 2}
+  <MapItemConfig>k__BackingField: {fileID: 11400000, guid: da2eadcd71e0438448d02a02b86a0e5d,
+    type: 2}
   <Prefab>k__BackingField: {fileID: 3401579970430071534, guid: 0b1353be74b298141ba99669d9373a88,
     type: 3}
   <DoubleGripDamageBonus>k__BackingField: 1.2
@@ -32,7 +34,7 @@ MonoBehaviour:
   <MovementActionDuration>k__BackingField: 0.75
   <TurnDuration>k__BackingField: 0.5
   <TurnAroundDuration>k__BackingField: 0.75
-  <IdleAnimationDuration>k__BackingField: 1.5
+  <IdleAnimationDuration>k__BackingField: 1.2
   <DodgeStaminaCost>k__BackingField: 5
   <BirthAnimationDuration>k__BackingField: 1
   <MoveSetConfig>k__BackingField: {fileID: 11400000, guid: 39a0b052f1fec214d9f0f501772db943,

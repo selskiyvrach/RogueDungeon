@@ -9,13 +9,32 @@ using UnityEngine;
 
 namespace RogueDungeon.Player.Model
 {
+    // player modes
+        // hands + movement
+        // inventory + movement (sit action)
+        // map + movement
+        
+    // player actions
+        // open map
+            // create map item in the right hand as an intentional one
+            // save previous item
+            // when map removed - set the previous one as the intended one
+            // when use button pressed - gets the map closer
+        // open inventory
+            // maybe create a two-handed item as well?
+        
+    // movement - sit down action, keep sitting, stand up
+        // sitting down + laying down the bag
+    
+    
     public class Player : IInitializable, ITickable
     {
         private readonly PlayerPositionInTheMaze _mazeTraversalPointer;
         private readonly Level _level;
         private readonly IPlayerInput _input;
         
-        private PlayerBehaviour _behaviour;
+        private PlayerBehaviour Movement;
+        private IItem _previousRightHandItem;
 
         public PlayerConfig Config { get; }
         public PlayerHandsBehaviour Hands { get; private set; }
@@ -47,13 +66,13 @@ namespace RogueDungeon.Player.Model
         public void SetBehaviours(PlayerHandsBehaviour handsBehaviour, PlayerBehaviour behaviour)
         {
             Hands = handsBehaviour;
-            _behaviour = behaviour;   
+            Movement = behaviour;   
         }
 
         public void Initialize()
         {
             _level.LevelTraverser = _mazeTraversalPointer;
-            _behaviour.Initialize();
+            Movement.Initialize();
             Hands.Initialize();
         }
 
@@ -71,11 +90,22 @@ namespace RogueDungeon.Player.Model
                     Hands.RightHand.IntendedItem = Hands.RightHand.IntendedItem != null ? null : new Weapon(Config.DefaultWeapon);
                     _input.ConsumeInput(InputKey.CycleRightArmItems);
                 }
+                if (_input.IsDown(InputKey.OpenMap) && Hands.RightHand.CurrentItem is not Map)
+                {
+                    _previousRightHandItem = Hands.RightHand.CurrentItem;
+                    Hands.RightHand.IntendedItem = new Map(Config.MapItemConfig);
+                    _input.ConsumeInput(InputKey.OpenMap);
+                }
+                else if (_input.IsDown(InputKey.OpenMap) && Hands.RightHand.CurrentItem is Map)
+                {
+                    Hands.RightHand.IntendedItem = _previousRightHandItem;
+                    _input.ConsumeInput(InputKey.OpenMap);
+                }
             }
 
             if(IsAlive)
                 Stamina.Tick(deltaTime);
-            _behaviour.Tick(deltaTime);
+            Movement.Tick(deltaTime);
             if(IsAlive)
                 Hands.Tick(deltaTime);
         }

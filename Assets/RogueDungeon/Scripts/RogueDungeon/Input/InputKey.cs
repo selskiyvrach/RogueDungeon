@@ -12,6 +12,8 @@
         DodgeRight = 400,
         DodgeLeft = 450,
         
+        OpenMap = 500,
+        
         CycleLeftArmItems = 575,
         CycleRightArmItems = 576,
         

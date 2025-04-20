@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571e5d1f3bad463882de81f7f2f9fe79, type: 3}
+  m_Name: map
+  m_EditorClassIdentifier: 
+  <Sprite>k__BackingField: {fileID: 21300000, guid: a444f7f43cbf6b24f804a980a0425a06,
+    type: 3}
+  <IdleAnimationDuration>k__BackingField: 1
+  <BlockStaminaCostMultiplier>k__BackingField: 3
+  <RaiseBlockDuration>k__BackingField: 0.25
+  <LowerBlockDuration>k__BackingField: 0.25
+  <HoldBlockAnimationDuration>k__BackingField: 1
+  <BlockImpactAbsorptionDuration>k__BackingField: 0.25
+  <UnsheathDuration>k__BackingField: 0.5
+  _returnToIdleAnimationConfig:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0.3, z: -0.03}
+      <Rotation>k__BackingField: {x: 0, y: 15, z: 0}
+    <Events>k__BackingField: []
+  _basicAnimationsConfig: {fileID: 11400000, guid: 7568b445016bc794889616f64400afaa,
+    type: 2}
+  _blockAnimationsConfig: {fileID: 11400000, guid: 4be73a321105f634c8b7b95283a6bdd7,
+    type: 2}
