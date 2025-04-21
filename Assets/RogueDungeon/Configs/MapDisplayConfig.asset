@@ -20,5 +20,7 @@ MonoBehaviour:
     type: 3}
   <LJoint>k__BackingField: {fileID: -112536809, guid: 36fbef84c9424034dac1b6a1cb5541a2,
     type: 3}
-  <PlayerMarker>k__BackingField: {fileID: 412593996, guid: 36fbef84c9424034dac1b6a1cb5541a2,
+  <PlayerMarkerPrefab>k__BackingField: {fileID: 1485731228517222174, guid: 8b1b79204fc13d747affa150e214b5b2,
+    type: 3}
+  <TilePrefab>k__BackingField: {fileID: 5174392122902676818, guid: e647912e047c86e44bb4cf316113bed2,
     type: 3}
