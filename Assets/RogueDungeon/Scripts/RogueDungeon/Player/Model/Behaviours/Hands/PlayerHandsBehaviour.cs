@@ -55,8 +55,16 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         public bool IsDedicatedToBlock(IItem item)
         {
             var thisPriority = (item as IBlockingItem)?.BlockingTier ?? BlockingTier.None;
+            if(thisPriority == BlockingTier.None)
+                return false;
+            if (IsDoubleGrip)
+                return true;
+            
             var otherPriority = (OppositeHand(item).CurrentItem as IBlockingItem)?.BlockingTier ?? BlockingTier.None;
-            return thisPriority > otherPriority || IsDoubleGrip || ThisHand(item) == LeftHand;
+            if (thisPriority == otherPriority)
+                return ThisHand(item) == LeftHand;
+            
+            return thisPriority > otherPriority;
         }
     }
 }
