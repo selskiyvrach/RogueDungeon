@@ -1,5 +1,6 @@
 ﻿using System;
 using Common.Animations;
+using Common.UtilsDotNet;
 using RogueDungeon.Items;
 using RogueDungeon.Player.Model.Behaviours;
 
@@ -8,13 +9,13 @@ namespace RogueDungeon.Player.Model.Attacks
     public class ItemHoldBlockMove : PlayerMove
     {
         private readonly Player _player;
-        private readonly IItem _item;
-        protected override float Duration => _item.Config.HoldBlockAnimationDuration;
+        private readonly IBlockingItem _item;
+        protected override float Duration => ((BlockingItemConfig)_item.Config).HoldBlockAnimationDuration;
         protected override bool IsLooping => true;
-        protected ItemHoldBlockMove(IAnimation animation, Player player, IItem item, string id) : base(id, animation)
+        protected ItemHoldBlockMove(IAnimation animation, Player player, IBlockingItem item, string id) : base(id, animation)
         {
             _player = player;
-            _item = item;
+            _item = item.ThrowIfNull();
         }
 
         public override void Enter()

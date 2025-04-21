@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace RogueDungeon.Items
 {
-    public class WeaponConfig : ItemConfig
+    public class WeaponConfig : BlockingItemConfig
     {
         [field: BoxGroup("Stamina"), SerializeField] public float Damage { get; private set; } = 10;
         [field: BoxGroup("Damage"), SerializeField] public float PoiseDamage { get; private set; } = 10;

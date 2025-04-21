@@ -6,12 +6,15 @@
         public float Damage => _config.Damage;
         public float PoiseDamage => _config.PoiseDamage;
         public float AttackStaminaCost => _config.AttackStaminaCost;
+        public BlockingTier BlockingTier => BlockingTier.Second;
+        public float BlockStaminaCostMultiplier => _config.BlockStaminaCostMultiplier;
 
         public Weapon(WeaponConfig config) : base(config) => 
             _config = config;
+
     }
 
-    public interface IWeapon : IItem
+    public interface IWeapon : IBlockingItem
     {
         float Damage { get; }
         float PoiseDamage { get; }

@@ -3,7 +3,6 @@ using RogueDungeon.Input;
 using RogueDungeon.Items;
 using RogueDungeon.Player.Model.Behaviours;
 using RogueDungeon.Player.Model.Behaviours.Hands;
-using UnityEngine;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
@@ -13,7 +12,7 @@ namespace RogueDungeon.Player.Model.Attacks
         private readonly PlayerHandsBehaviour _hands;
         private readonly IPlayerInput _input;
 
-        protected override float Duration => _item.Config.RaiseBlockDuration;
+        protected override float Duration => ((BlockingItemConfig)_item.Config).RaiseBlockDuration;
 
         protected ItemRaiseBlockMove(IAnimation animation, PlayerHandsBehaviour hands,
             IItem item, string id, IPlayerInput input) : base(id, animation)

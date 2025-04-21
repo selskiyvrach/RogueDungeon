@@ -47,7 +47,7 @@ namespace RogueDungeon.Player.Model
         public float DoubleGripDamageBonus => Config.DoubleGripDamageBonus;
         public float DoubleGripBlockBonus => Config.DoubleGripBlockBonus;
         public bool HasUnabsorbedBlockImpact { get; set; }
-        public IItem BlockingItem { get; set; }
+        public IBlockingItem BlockingItem { get; set; }
         public float DodgeStaminaCost => Config.DodgeStaminaCost;
 
         public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input)

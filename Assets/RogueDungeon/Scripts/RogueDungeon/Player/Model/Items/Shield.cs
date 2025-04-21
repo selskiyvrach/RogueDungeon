@@ -1,9 +1,16 @@
 ﻿namespace RogueDungeon.Items
 {
-    public class Shield : Item
+    public class Shield : Item, IShield
     {
-        public Shield(ShieldConfig config) : base(config)
-        {
-        }
+        public BlockingItemConfig Config { get; }
+        public BlockingTier BlockingTier => BlockingTier.First;
+        public float BlockStaminaCostMultiplier => Config.BlockStaminaCostMultiplier;
+        
+        public Shield(ShieldConfig config) : base(config) => 
+            Config = config;
+    }
+
+    public interface IShield : IBlockingItem
+    {
     }
 }

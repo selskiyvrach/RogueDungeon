@@ -1,6 +1,6 @@
 ﻿namespace RogueDungeon.Items
 {
-    public class ShieldConfig : ItemConfig
+    public class ShieldConfig : BlockingItemConfig
     {
     }
 }

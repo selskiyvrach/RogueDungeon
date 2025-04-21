@@ -51,25 +51,12 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             IsInRightHand(item)
                 ? InputKey.UseRightHandItem
                 : InputKey.UseLeftHandItem;
-
-        public bool IsDualWieldingSameTypeItems() => 
-            IsDualWieldingShields() || IsDualWieldingWeapons();
-
-        public bool IsDualWieldingShields() => 
-            RightHand.CurrentItem is Shield && LeftHand.CurrentItem is Shield;
-
-        public bool IsDualWieldingWeapons() => 
-            RightHand.CurrentItem is Weapon && LeftHand.CurrentItem is Weapon;
-
+        
         public bool IsDedicatedToBlock(IItem item)
         {
-            if (item is Shield && OppositeHand(item).CurrentItem is not Shield)
-                return true;
-
-            if (OppositeHand(item).CurrentItem is null && _playerInput.IsDown(UseItemInput(item)))
-                return true;
-            
-            return IsDualWieldingSameTypeItems() && !IsInRightHand(item) || IsDoubleGrip;
+            var thisPriority = (item as IBlockingItem)?.BlockingTier ?? BlockingTier.None;
+            var otherPriority = (OppositeHand(item).CurrentItem as IBlockingItem)?.BlockingTier ?? BlockingTier.None;
+            return thisPriority > otherPriority || IsDoubleGrip;
         }
     }
 }

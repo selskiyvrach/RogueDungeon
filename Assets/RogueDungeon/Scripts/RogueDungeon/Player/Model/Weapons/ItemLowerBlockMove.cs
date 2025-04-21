@@ -13,7 +13,7 @@ namespace RogueDungeon.Player.Model.Attacks
         private readonly PlayerHandsBehaviour _hands;
         private readonly IItem _item;
 
-        protected override float Duration => _item.Config.LowerBlockDuration;
+        protected override float Duration => ((BlockingItemConfig)_item.Config).LowerBlockDuration;
 
         protected ItemLowerBlockMove(IItem item, IAnimation animation, string id, PlayerHandsBehaviour hands, IPlayerInput input, Player player) : base(id, animation)
         {
