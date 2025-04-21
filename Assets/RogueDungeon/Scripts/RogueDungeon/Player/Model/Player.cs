@@ -43,6 +43,7 @@ namespace RogueDungeon.Player.Model
         public RechargeableResource Stamina { get; }
         public PlayerDodgeState DodgeState { get; set; }
         public bool IsReadyToBeDisposed { get; set; }
+        public bool IsHoldingBreath { get; set; }
         public bool IsAlive => Health.Current > 0;
         public float DoubleGripDamageBonus => Config.DoubleGripDamageBonus;
         public float DoubleGripBlockBonus => Config.DoubleGripBlockBonus;

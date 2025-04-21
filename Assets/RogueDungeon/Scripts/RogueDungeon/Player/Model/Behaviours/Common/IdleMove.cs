@@ -10,5 +10,11 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
 
         public IdleMove(Player player, IAnimation animation, string id) : base(id, animation) => 
             _player = player;
+
+        public override void Tick(float timeDelta)
+        {
+            if(!_player.IsHoldingBreath)
+                base.Tick(timeDelta);
+        }
     }
 }

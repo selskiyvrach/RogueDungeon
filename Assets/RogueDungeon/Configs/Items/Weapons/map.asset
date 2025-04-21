@@ -15,20 +15,26 @@ MonoBehaviour:
   <Sprite>k__BackingField: {fileID: 21300000, guid: a444f7f43cbf6b24f804a980a0425a06,
     type: 3}
   <IdleAnimationDuration>k__BackingField: 1
-  <BlockStaminaCostMultiplier>k__BackingField: 3
-  <RaiseBlockDuration>k__BackingField: 0.25
-  <LowerBlockDuration>k__BackingField: 0.25
-  <HoldBlockAnimationDuration>k__BackingField: 1
-  <BlockImpactAbsorptionDuration>k__BackingField: 0.25
   <UnsheathDuration>k__BackingField: 0.5
   _returnToIdleAnimationConfig:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: 0, y: 0.3, z: -0.03}
-      <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
+      <Position>k__BackingField: {x: 0, y: 0, z: 0.01}
+      <Rotation>k__BackingField: {x: 0, y: 25, z: 0}
     <Events>k__BackingField: []
   _basicAnimationsConfig: {fileID: 11400000, guid: 7568b445016bc794889616f64400afaa,
     type: 2}
-  _blockAnimationsConfig: {fileID: 11400000, guid: 4be73a321105f634c8b7b95283a6bdd7,
-    type: 2}
+  <RaiseMapDuration>k__BackingField: 0.25
+  <LowerMapDuration>k__BackingField: 0.25
+  <HoldMapAnimationDuration>k__BackingField: 1
+  <RaiseMapAnimation>k__BackingField:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: -0.075, y: 0.0475, z: -0.07}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    <Events>k__BackingField: []
+  <HoldMapAnimation>k__BackingField:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []

@@ -22,5 +22,7 @@
         TurnLeft = 700,
         TurnRight = 710,
         TurnAround = 720,
+        
+        Esc = 10000,
     }
 }
