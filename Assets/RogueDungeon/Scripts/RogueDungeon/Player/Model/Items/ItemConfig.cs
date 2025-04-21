@@ -7,11 +7,13 @@ using RogueDungeon.Player.Model.Attacks;
 using RogueDungeon.Player.Model.Behaviours.Hands;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Zenject;
 
 namespace RogueDungeon.Items
 {
     public abstract class ItemConfig : ScriptableObject, IMoveSetConfig
     {
+        [field: SerializeField] public HandHeldItemPresenter ItemPresenterPrefab { get; private set; }
         [field: SerializeField] public Sprite Sprite { get; private set; }
         [field: BoxGroup("Durations"), SerializeField] public float IdleAnimationDuration { get; private set; } = 1f;
         [field: BoxGroup("Durations"), SerializeField] public float UnsheathDuration { get; private set; } = .5f;

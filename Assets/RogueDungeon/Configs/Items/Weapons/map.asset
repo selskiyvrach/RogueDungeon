@@ -32,8 +32,8 @@ MonoBehaviour:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: -0.075, y: 0.0475, z: -0.07}
-      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+      <Position>k__BackingField: {x: -0.075, y: 0.0485, z: -0.07}
+      <Rotation>k__BackingField: {x: 5, y: 0, z: 0}
     <Events>k__BackingField: []
   <HoldMapAnimation>k__BackingField:
     <KeyFrames>k__BackingField: []

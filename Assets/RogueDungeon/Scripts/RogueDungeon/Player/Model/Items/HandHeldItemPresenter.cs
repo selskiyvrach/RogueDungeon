@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zenject;
 
 namespace RogueDungeon.Items
 {
@@ -6,17 +7,8 @@ namespace RogueDungeon.Items
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
-        public bool IsReleased { get; set; } = true;
-
-        public Sprite Sprite { set => _spriteRenderer.sprite = value; }
-
-        private void Awake() => 
-            Release();
-
-        public void Release()
-        {
-            Sprite = null;
-            IsReleased = true;
-        }
+        [Inject]
+        public void Construct(IItem item) => 
+            _spriteRenderer.sprite = item.Config.Sprite;
     }
 }

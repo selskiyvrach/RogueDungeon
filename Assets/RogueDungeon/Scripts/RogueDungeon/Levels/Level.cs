@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common.Lifecycle;
 using Common.Unity;
@@ -10,7 +11,8 @@ namespace RogueDungeon.Levels
         private readonly Room[] _rooms;
         private ITwoDWorldObject _levelTraverser;
         public IRoom StartingRoom { get; }
-        public IRoom CurrentRoom { get; set; }
+        public IRoom CurrentRoom { get; private set; }
+        public event Action OnChangedRoom;
         public IEnumerable<IRoom> Rooms => _rooms;
 
         public ITwoDWorldObject LevelTraverser
@@ -38,7 +40,13 @@ namespace RogueDungeon.Levels
         public void Tick(float timeDelta) => 
             CurrentRoom?.Tick(timeDelta);
 
-        public void RefreshCurrentRoom() => 
-            CurrentRoom = Rooms.FirstOrDefault(n => n.Coordinates == LevelTraverser.LocalPosition.Round());
+        public void RefreshCurrentRoom()
+        {
+            var newRoom = Rooms.FirstOrDefault(n => n.Coordinates == LevelTraverser.LocalPosition.Round());
+            if(newRoom == CurrentRoom)
+                return;
+            CurrentRoom = newRoom;
+            OnChangedRoom?.Invoke();
+        }
     }
 }

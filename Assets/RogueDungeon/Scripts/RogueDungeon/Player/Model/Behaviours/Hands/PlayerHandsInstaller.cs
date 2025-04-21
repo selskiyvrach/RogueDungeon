@@ -1,4 +1,5 @@
 ﻿using Common.Animations;
+using Common.MoveSets;
 using Common.UtilsZenject;
 using RogueDungeon.Items;
 using UnityEngine;
@@ -9,30 +10,30 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
     public class PlayerHandsInstaller : MonoBehaviour
     {
         [SerializeField] private TransformAnimationTarget _rightHandAnimationTarget;
-        [SerializeField] private HandHeldItemPresenter _rightHandItemPresenter;
+        [SerializeField] private Transform _rightHandItemParent;
         
         [SerializeField] private TransformAnimationTarget _leftHandAnimationTarget;
-        [SerializeField] private HandHeldItemPresenter _leftHandItemPresenter;
+        [SerializeField] private Transform _leftHandItemParent;
 
         public void Install(DiContainer diContainer)
         {
             var container = diContainer.CreateSubContainer();
             container.Bind<PlayerHandsBehaviour>().AsSingle();
-            var rightHand = CreateHandBehaviour(container, _rightHandAnimationTarget, _rightHandItemPresenter);
-            var leftHand = CreateHandBehaviour(container, _leftHandAnimationTarget, _leftHandItemPresenter);
+            var rightHand = CreateHandBehaviour(container, _rightHandAnimationTarget, _rightHandItemParent);
+            var leftHand = CreateHandBehaviour(container, _leftHandAnimationTarget, _leftHandItemParent);
             
             container.Resolve<PlayerHandsBehaviour>().SetBehaviours(rightHand, leftHand);
             diContainer.Bind<PlayerHandsBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();
         }
 
-        private PlayerHandBehaviour CreateHandBehaviour(DiContainer diContainer, TransformAnimationTarget transformAnimationTarget, HandHeldItemPresenter itemPresenter)
+        private PlayerHandBehaviour CreateHandBehaviour(DiContainer diContainer, TransformAnimationTarget transformAnimationTarget, Transform parent)
         {
             var container = diContainer.CreateSubContainer();
-            container.NewSingle<PlayerHandBehaviour>();
-            container.InstanceSingle(itemPresenter);
+            container.InstanceSingle(parent);
             container.InstanceSingle(transformAnimationTarget);
-            container.NewSingle<IFactory<IItem, HandHeldItemPresenter>, ItemPresenterFactory>();
-            container.NewSingle<ItemMoveSetFactory>();
+            container.NewSingle<MoveSetFactory>();
+            container.NewSingle<HandheldItemFactory>();
+            container.NewSingle<PlayerHandBehaviour>();
             return container.Resolve<PlayerHandBehaviour>();
         }
     }

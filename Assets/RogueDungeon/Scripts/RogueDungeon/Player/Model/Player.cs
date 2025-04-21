@@ -91,13 +91,13 @@ namespace RogueDungeon.Player.Model
                     Hands.RightHand.IntendedItem = Hands.RightHand.IntendedItem != null ? null : new Shield(Config.DefaultShield);
                     _input.ConsumeInput(InputKey.CycleRightArmItems);
                 }
-                if (_input.IsDown(InputKey.OpenMap) && Hands.RightHand.CurrentItem is not Map)
+                if (_input.IsDown(InputKey.OpenMap) && Hands.RightHand.CurrentItem is not Items.Map)
                 {
                     _previousRightHandItem = Hands.RightHand.CurrentItem;
-                    Hands.RightHand.IntendedItem = new Map(Config.MapItemConfig);
+                    Hands.RightHand.IntendedItem = new Items.Map(Config.MapItemConfig);
                     _input.ConsumeInput(InputKey.OpenMap);
                 }
-                else if (_input.IsDown(InputKey.OpenMap) && Hands.RightHand.CurrentItem is Map)
+                else if (_input.IsDown(InputKey.OpenMap) && Hands.RightHand.CurrentItem is Items.Map)
                 {
                     Hands.RightHand.IntendedItem = _previousRightHandItem;
                     _input.ConsumeInput(InputKey.OpenMap);
