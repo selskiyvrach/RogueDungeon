@@ -2,8 +2,9 @@
 {
     public class Map : Item
     {
-        public Map(ItemConfig config) : base(config)
-        {
-        }
+        private readonly MapItemConfig _config;
+        
+        public Map(MapItemConfig config) : base(config) => 
+            _config = config;
     }
 }
