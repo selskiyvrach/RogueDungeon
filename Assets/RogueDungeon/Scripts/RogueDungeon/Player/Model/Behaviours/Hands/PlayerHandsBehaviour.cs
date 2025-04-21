@@ -56,7 +56,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         {
             var thisPriority = (item as IBlockingItem)?.BlockingTier ?? BlockingTier.None;
             var otherPriority = (OppositeHand(item).CurrentItem as IBlockingItem)?.BlockingTier ?? BlockingTier.None;
-            return thisPriority > otherPriority || IsDoubleGrip;
+            return thisPriority > otherPriority || IsDoubleGrip || ThisHand(item) == LeftHand;
         }
     }
 }
