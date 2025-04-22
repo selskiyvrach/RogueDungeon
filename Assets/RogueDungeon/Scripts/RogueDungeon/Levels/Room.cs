@@ -15,6 +15,7 @@ namespace RogueDungeon.Levels
 
         public Vector2Int Coordinates => _config.Coordinates;
         public AdjacentRooms AdjacentRooms { get; set; }
+        public bool CanLeave => _events.Count == 0;
 
         public Room(RoomConfig config, IFactory<RoomEventConfig, IRoomEvent> roomEventFactory)
         {

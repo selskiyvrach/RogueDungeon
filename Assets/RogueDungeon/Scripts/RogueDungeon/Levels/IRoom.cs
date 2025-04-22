@@ -8,6 +8,7 @@ namespace RogueDungeon.Levels
     {
         Vector2Int Coordinates { get; }
         AdjacentRooms AdjacentRooms { get; }
+        bool CanLeave { get; }
         void AddEvent(IRoomEvent roomEvent);
     }
 }

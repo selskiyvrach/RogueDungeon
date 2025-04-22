@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RogueDungeon.Player.Model.Behaviours.Common
 {
-    public abstract class TurnMove : PlayerInputMove
+    public abstract class TurnMove : PlayerRoomMovementMove
     {
         private readonly Player _player;
         private readonly Level _level;
@@ -16,7 +16,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         protected abstract float RotationDegrees { get; }
         protected override RequiredState State => RequiredState.DownOrHeld;
 
-        protected TurnMove(Player player, Level level, IPlayerInput playerInput, IAnimation animation, string id) : base(id, animation, playerInput)
+        protected TurnMove(Player player, Level level, IPlayerInput playerInput, IAnimation animation, string id) : base(level, id, animation, playerInput)
         {
             _player = player;
             _level = level;

@@ -7,9 +7,8 @@ using UnityEngine;
 
 namespace RogueDungeon.Player.Model.Behaviours.Common
 {
-    public class MoveForwardMove : PlayerInputMove
+    public class MoveForwardMove : PlayerRoomMovementMove
     {
-        private readonly IPlayerInput _input;
         private readonly Player _player;
         private readonly Level _level;
         private Vector2 _from;
@@ -19,14 +18,12 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         protected override InputKey RequiredKey => InputKey.MoveForward;
         protected override RequiredState State => RequiredState.DownOrHeld;
 
-        public MoveForwardMove(Player player, Level level, IPlayerInput playerInput, IAnimation animation, string id, IPlayerInput input) : base(id, animation, playerInput)
+        public MoveForwardMove(Player player, Level level, IPlayerInput playerInput, IAnimation animation, string id) : base(level, id, animation, playerInput)
         {
             _player = player;
             _level = level;
-            _input = input;
         }
-
-
+        
         public override void Enter()
         {
             base.Enter();
@@ -35,17 +32,15 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             _to = _from + _level.LevelTraverser.Rotation.Round();
         }
         
-        public override void Exit()
-        {
-            base.Exit();
-            _level.RefreshCurrentRoom();
-            _level.CurrentRoom.Enter();
-        }
-
         public override void Tick(float timeDelta)
         {
             base.Tick(timeDelta);
             _level.LevelTraverser.LocalPosition = Vector2.Lerp(_from, _to, Animation.Progress);
+            if(!IsFinished)
+                return;
+            
+            _level.RefreshCurrentRoom();
+            _level.CurrentRoom.Enter();
         }
 
         protected override bool CanTransitionTo() =>
