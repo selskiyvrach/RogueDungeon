@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   <Health>k__BackingField:
-    <Max>k__BackingField: 10
+    <Max>k__BackingField: 35
   <Stamina>k__BackingField:
     <Max>k__BackingField: 50
     <RechargeRate>k__BackingField: 15
@@ -36,6 +36,6 @@ MonoBehaviour:
   <TurnAroundDuration>k__BackingField: 0.75
   <IdleAnimationDuration>k__BackingField: 1.2
   <DodgeStaminaCost>k__BackingField: 5
-  <BirthAnimationDuration>k__BackingField: 1
+  <BirthAnimationDuration>k__BackingField: 0.5
   <MoveSetConfig>k__BackingField: {fileID: 11400000, guid: 39a0b052f1fec214d9f0f501772db943,
     type: 2}
