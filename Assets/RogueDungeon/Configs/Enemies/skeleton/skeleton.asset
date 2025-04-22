@@ -130,7 +130,7 @@ MonoBehaviour:
       - {fileID: -1786852735, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
       - {fileID: -1786852735, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
       <KeyFrames>k__BackingField:
-      - <Frame>k__BackingField: 4
+      - <Frame>k__BackingField: 3
         <Name>k__BackingField: hit
   <IdleAnimationDuration>k__BackingField: 1
   <StaggerDuration>k__BackingField: 2
