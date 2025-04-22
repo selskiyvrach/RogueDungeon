@@ -15,13 +15,16 @@ namespace Common.MoveSets
         public StateMachine Create(IMoveSetConfig config) =>
             new(new IdBasedTransitionStrategy(CreateMoves(config.MovesCreationArgs), config.FirstMoveId));
 
-        private IEnumerable<Move> CreateMoves(IEnumerable<MoveCreationArgs> moveConfigs)
+        public IEnumerable<Move> CreateMoves(IEnumerable<MoveCreationArgs> moveConfigs)
         {
             var configs = moveConfigs.ToArray();
-            var moves = configs.Select(n => Container.Instantiate(n.MoveType, n.ExtraArguments.Append(n.Id).Append(n.AnimationConfig.Create(Container)))).Cast<Move>().ToArray();
+            var moves = configs.Select(CreateMove).ToArray();
             CreateTransitions(moves, configs);
             return moves;
         }
+
+        public Move CreateMove(MoveCreationArgs n) => 
+            (Move)Container.Instantiate(n.MoveType, n.ExtraArguments.Append(n.Id).Append(n.AnimationConfig.Create(Container)));
 
         private void CreateTransitions(Move[] moves, MoveCreationArgs[] configs)
         {

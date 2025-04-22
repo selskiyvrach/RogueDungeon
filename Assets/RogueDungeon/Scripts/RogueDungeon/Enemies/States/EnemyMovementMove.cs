@@ -3,15 +3,16 @@ using UnityEngine;
 
 namespace RogueDungeon.Enemies.States
 {
-    public class EnemyMovementState : EnemyState
+    public class EnemyMovementMove : EnemyMove
     {
         private readonly RoomLocalPositionsConfig _positionsConfig;
         private readonly Enemy _enemy;
         private Vector2 _destinationCoordinates;
         private Vector2 _startCoordinates;
         public EnemyPosition TargetPosition { get; set; }
+        protected override float Duration => _enemy.Config.ChangePositionDuration;
 
-        protected EnemyMovementState(EnemyStateConfig config, IAnimation animation, Enemy enemy, RoomLocalPositionsConfig positionsConfig) : base(config, animation)
+        protected EnemyMovementMove(IAnimation animation, Enemy enemy, RoomLocalPositionsConfig positionsConfig, string id) : base(animation, id)
         {
             _enemy = enemy;
             _positionsConfig = positionsConfig;
@@ -39,5 +40,7 @@ namespace RogueDungeon.Enemies.States
             base.Tick(timeDelta);
             _enemy.WorldObject.LocalPosition = Vector2.Lerp(_startCoordinates, _destinationCoordinates, Animation.Progress);
         }
+
+        public override Priority Priority { get; }
     }
 }

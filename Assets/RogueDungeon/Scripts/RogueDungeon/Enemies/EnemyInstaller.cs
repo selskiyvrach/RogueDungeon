@@ -1,4 +1,5 @@
 ﻿using Common.Animations;
+using Common.MoveSets;
 using Common.UI.Bars;
 using Common.UtilsZenject;
 using RogueDungeon.Enemies.States;
@@ -22,7 +23,8 @@ namespace RogueDungeon.Enemies
             Container.InstanceSingle(gameObject);
             Container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
             Container.InstanceSingle<ISpriteSheetAnimationTarget>(_spriteSheetAnimationTarget);
-            Container.NewSingle<IFactory<EnemyStateConfig, EnemyState>, EnemyStatesFactory>();
+            Container.NewSingle<MoveSetFactory>();
+            Container.NewSingle<IFactory<string, EnemyMove>, EnemyStatesFactory>();
             Container.NewSingle<EnemyStatesProvider>();
             Container.NewSingle<EnemyStateMachine>();
 

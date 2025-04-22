@@ -9,7 +9,7 @@
 
         Move = 800,
         
-        Stun = 900,
+        Stagger = 900,
         Birth = 998,
         Death = 999,
     }

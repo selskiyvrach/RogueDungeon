@@ -2,12 +2,15 @@
 
 namespace RogueDungeon.Enemies.States
 {
-    public class EnemyDeathState : EnemyState
+    public class EnemyDeathMove : EnemyMove
     {
         private Enemy _enemy;
+        public override Priority Priority => Priority.Death;
+        protected override float Duration => _enemy.Config.DeathAnimationDuration;
 
-        public EnemyDeathState(EnemyStateConfig config, IAnimation animation, Enemy enemy) : base(config, animation) => 
+        public EnemyDeathMove(IAnimation animation, Enemy enemy, string id) : base(animation, id) => 
             _enemy = enemy;
+
 
         public override void Tick(float timeDelta)
         {

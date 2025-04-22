@@ -6,17 +6,17 @@ namespace RogueDungeon.Enemies
 {
     public class EnemyStatesProvider
     {
-        private readonly IFactory<EnemyStateConfig, EnemyState> _statesFactory;
-        private readonly Dictionary<EnemyStateConfig, EnemyState> _cache = new();
+        private readonly IFactory<string, EnemyMove> _statesFactory;
+        private readonly Dictionary<string, EnemyMove> _cache = new();
 
-        public EnemyStatesProvider(IFactory<EnemyStateConfig, EnemyState> statesFactory) => 
+        public EnemyStatesProvider(IFactory<string, EnemyMove> statesFactory) => 
             _statesFactory = statesFactory;
 
-        public EnemyState GetState(EnemyStateConfig config)
+        public EnemyMove GetState(string name)
         {
-            if(!_cache.ContainsKey(config))
-                _cache.Add(config, _statesFactory.Create(config));
-            return _cache[config];
+            if(!_cache.ContainsKey(name))
+                _cache.Add(name, _statesFactory.Create(name));
+            return _cache[name];
         }
     }
 }

@@ -4,12 +4,14 @@ using RogueDungeon.Characters;
 
 namespace RogueDungeon.Enemies.States
 {
-    public class EnemyStunState : EnemyState
+    public class EnemyStaggerMove : EnemyMove
     {
         private readonly Enemy _enemy;
+        protected override float Duration => _enemy.Config.StaggerDuration;
+        public override Priority Priority => Priority.Stagger;
         public event Action OnChanged;
-        
-        protected EnemyStunState(EnemyStateConfig config, IAnimation animation, Enemy enemy) : base(config, animation) => 
+
+        protected EnemyStaggerMove(IAnimation animation, Enemy enemy, string id) : base(animation, id) => 
             _enemy = enemy;
 
         public override void Enter()

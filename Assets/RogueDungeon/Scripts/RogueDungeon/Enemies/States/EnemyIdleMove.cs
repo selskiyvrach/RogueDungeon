@@ -2,17 +2,17 @@
 
 namespace RogueDungeon.Enemies.States
 {
-    public class EnemyIdleState : EnemyState
+    public class EnemyIdleMove : EnemyMove
     {
         private readonly Enemy _enemy;
-        private readonly EnemyStateConfig _config;
         protected override bool IsLooping => true;
+        public override Priority Priority => Priority.Idle;
+        protected override float Duration => _enemy.Config.IdleAnimationDuration;
 
-        public EnemyIdleState(EnemyStateConfig config, IAnimation animation, Enemy enemy) : base(config, animation)
-        {
-            _config = config;
+
+        public EnemyIdleMove(IAnimation animation, Enemy enemy, string id) : base(animation, id) => 
             _enemy = enemy;
-        }
+
 
         public override void Enter()
         {

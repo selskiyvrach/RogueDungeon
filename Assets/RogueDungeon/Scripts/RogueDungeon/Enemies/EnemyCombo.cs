@@ -10,8 +10,8 @@ namespace RogueDungeon.Enemies
     public class EnemyCombo : ITickable
     {
         private readonly Enemy _enemy;
-        private readonly List<EnemyMoveConfig> _moves = new();
-        private readonly List<EnemyMoveConfig> _movesPool = new();
+        private readonly List<EnemyAttackMoveConfig> _moves = new();
+        private readonly List<EnemyAttackMoveConfig> _movesPool = new();
         private int _currentMoveIndex;
 
         public bool IsRunning { get; private set; }
@@ -43,12 +43,12 @@ namespace RogueDungeon.Enemies
                 return;
             }
                 
-            _enemy.StartMove(_moves[_currentMoveIndex++]);
+            _enemy.StartMove(_moves[_currentMoveIndex++].Name);
         }
 
         public void StartNewCombo()
         {
-            if(!_enemy.HasMovesForCurrentPosition(out var moves))
+            if(!_enemy.HasAttacksForCurrentPosition(out var moves))
                 return;
 
             _moves.Clear();

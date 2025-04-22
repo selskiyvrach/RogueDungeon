@@ -34,10 +34,10 @@ namespace RogueDungeon.Enemies
         public bool IsIdle { get; set; }
         public bool IsMoving { get; set; }
         public bool IsStunned { get; set; }
-        public EnemyState CurrentState => _stateMachine.CurrentState;
+        public EnemyMove CurrentMove => _stateMachine.CurrentMove;
         public bool IsStunnedOrDead => !IsAlive || IsStunned;
-        public EnemyMoveConfig[] Moves => Config.Moves;
-        public event Action<EnemyState, EnemyState> OnStateChanged { add => _stateMachine.OnStateChanged += value; remove => _stateMachine.OnStateChanged -= value; }
+        public EnemyAttackMoveConfig[] Attacks => Config.Attacks;
+        public event Action<EnemyMove, EnemyMove> OnStateChanged { add => _stateMachine.OnStateChanged += value; remove => _stateMachine.OnStateChanged -= value; }
         public bool IsAlive => Health.Current > 0;
 
         public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, EnemyStatesProvider statesProvider, EnemyImpactAnimator impactAnimator)
@@ -65,8 +65,8 @@ namespace RogueDungeon.Enemies
         public void Initialize()
         {
             TargetablePosition = OccupiedPosition;
-            _stateMachine.Initialize(_statesProvider.GetState(Config.IdleState));
-            _stateMachine.TryStartState(_statesProvider.GetState(Config.BirthState));
+            _stateMachine.Initialize(_statesProvider.GetState(MoveNames.IDLE));
+            _stateMachine.TryStartState(_statesProvider.GetState(MoveNames.BIRTH));
         }
 
         public void Destroy() =>
@@ -77,7 +77,7 @@ namespace RogueDungeon.Enemies
             var severity = HitSeverity.Regular;
             if (IsStunned)
             {
-                _stateMachine.StartState(_statesProvider.GetState(Config.IdleState));
+                _stateMachine.StartState(_statesProvider.GetState(MoveNames.IDLE));
                 damage *= 2;
                 severity = HitSeverity.Critical;
             }
@@ -85,10 +85,10 @@ namespace RogueDungeon.Enemies
             Health.AddDelta(-damage);
             Poise.AddDelta(-poiseDamage);
             if (!IsAlive) 
-                _stateMachine.TryStartState(_statesProvider.GetState(Config.DeathState));
+                _stateMachine.TryStartState(_statesProvider.GetState(MoveNames.DEATH));
 
             if (Poise.Current == 0) 
-                _stateMachine.TryStartState(_statesProvider.GetState(Config.StaggerState));
+                _stateMachine.TryStartState(_statesProvider.GetState(MoveNames.STAGGER));
 
             if(damage > 0 || poiseDamage > 0)
                 _impactAnimator.OnHit();
@@ -98,19 +98,15 @@ namespace RogueDungeon.Enemies
 
         public void ChangePosition(EnemyPosition position)
         {
-            var state = (EnemyMovementState)_statesProvider.GetState(Config.MoveState);
+            var state = (EnemyMovementMove)_statesProvider.GetState(MoveNames.MOVE);
             state.TargetPosition = position;
             _stateMachine.TryStartState(state);
         }
 
-        public bool HasMovesForCurrentPosition(out IEnumerable<EnemyMoveConfig> moves) => 
-            (moves = Moves.Where(n => (n.SuitableForPositions & OccupiedPosition) != 0)).Any();
+        public bool HasAttacksForCurrentPosition(out IEnumerable<EnemyAttackMoveConfig> moves) => 
+            (moves = Attacks.Where(n => (n.SuitableForPositions & OccupiedPosition) != 0)).Any();
 
-        // move config - serializable
-        // base enemy moves config
-        // not move config, but an animation and an id to call its creation
-        
-        public void StartMove(EnemyMoveConfig config) => 
-            _stateMachine.TryStartState(_statesProvider.GetState(config));
+        public void StartMove(string name) => 
+            _stateMachine.TryStartState(_statesProvider.GetState(name));
     }
 }

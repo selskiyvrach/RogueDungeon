@@ -9,39 +9,39 @@ namespace RogueDungeon.Enemies
 {
     public class EnemyStateMachine : ITickable
     {
-        private EnemyState _idleState;
-        public EnemyState CurrentState { get; private set; }
-        public event Action<EnemyState, EnemyState> OnStateChanged;
+        private EnemyMove _idleMove;
+        public EnemyMove CurrentMove { get; private set; }
+        public event Action<EnemyMove, EnemyMove> OnStateChanged;
 
-        public void Initialize(EnemyState idleState) => 
-            ChangeState(_idleState = idleState);
+        public void Initialize(EnemyMove idleMove) => 
+            ChangeState(_idleMove = idleMove);
 
-        public bool TryStartState(EnemyState state)
+        public bool TryStartState(EnemyMove move)
         {
-            if (state.Priority <= CurrentState.Priority)
+            if (move.Priority <= CurrentMove.Priority)
                 return false;
-            StartState(state);
+            StartState(move);
             
             return true;
         }
         
-        public void StartState(EnemyState state) => 
-            ChangeState(state);
+        public void StartState(EnemyMove move) => 
+            ChangeState(move);
 
         public void Tick(float timeDelta)
         {
-            CurrentState.Tick(timeDelta);
-            if(CurrentState.IsFinished)
-                ChangeState(_idleState);
+            CurrentMove.Tick(timeDelta);
+            if(CurrentMove.IsFinished)
+                ChangeState(_idleMove);
         }
 
-        private void ChangeState(EnemyState state)
+        private void ChangeState(EnemyMove move)
         {
-            var previousState = CurrentState;
-            (CurrentState as IExitableState)?.Exit();
-            CurrentState = state;
-            (CurrentState as IEnterableState)?.Enter();
-            OnStateChanged?.Invoke(previousState, CurrentState);
+            var previousState = CurrentMove;
+            (CurrentMove as IExitableState)?.Exit();
+            CurrentMove = move;
+            (CurrentMove as IEnterableState)?.Enter();
+            OnStateChanged?.Invoke(previousState, CurrentMove);
         }
     }
 }

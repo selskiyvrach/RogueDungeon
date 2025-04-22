@@ -1,16 +1,21 @@
-﻿using RogueDungeon.Enemies.States;
+﻿using Common.MoveSets;
+using RogueDungeon.Enemies.States;
 using Zenject;
 
 namespace RogueDungeon.Enemies
 {
-    public class EnemyStatesFactory : IFactory<EnemyStateConfig, EnemyState>
+    public class EnemyStatesFactory : IFactory<string, EnemyMove>
     {
-        private readonly DiContainer _container;
+        private readonly MoveSetFactory _moveSetFactory;
+        private readonly EnemyConfig _config;
 
-        public EnemyStatesFactory(DiContainer container) => 
-            _container = container;
+        public EnemyStatesFactory(EnemyConfig config, MoveSetFactory moveSetFactory)
+        {
+            _config = config;
+            _moveSetFactory = moveSetFactory;
+        }
 
-        public EnemyState Create(EnemyStateConfig config) => 
-            (EnemyState)_container.Instantiate(config.StateType, new object[] { config, config.AnimationConfigPicker.Config.Create(_container) } );
+        public EnemyMove Create(string name) =>
+            (EnemyMove)_moveSetFactory.CreateMove(_config.GetMoveArgs(name));
     }
 }

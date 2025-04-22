@@ -17,9 +17,9 @@ namespace RogueDungeon.Levels
             _roomFactory = roomFactory;
         }
 
-        public Level Create(LevelConfig config)
+        public Level Create(LevelConfig param1)
         {
-            var rooms = config.Rooms.Select(n => _roomFactory.Create(n)).ToDictionary(n => n.Coordinates, n => n);
+            var rooms = param1.Rooms.Select(n => _roomFactory.Create(n)).ToDictionary(n => n.Coordinates, n => n);
             foreach (var room in rooms.Values)
             {
                 var adjacentRooms = new List<Room>(4);

@@ -9,7 +9,7 @@ namespace RogueDungeon.Levels
         public RoomEventFactory(DiContainer container) => 
             _container = container;
 
-        public IRoomEvent Create(RoomEventConfig config) => 
-            (IRoomEvent)_container.Instantiate(config.EventType, new []{config});
+        public IRoomEvent Create(RoomEventConfig param1) => 
+            (IRoomEvent)_container.Instantiate(param1.EventType, new []{param1});
     }
 }
