@@ -88,6 +88,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68145b40bf57476abebd2bb91dea47de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &673582557950080925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4733339902541538577}
+  - component: {fileID: 4875433814302603697}
+  m_Layer: 0
+  m_Name: body_animated
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4733339902541538577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673582557950080925}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7016143151553866320}
+  m_Father: {fileID: 3975331005568549079}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4875433814302603697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673582557950080925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58608f848d514b909483861471f982a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2380912206485001566
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +164,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7016143151553866320}
+  - {fileID: 4733339902541538577}
   m_Father: {fileID: 6697689468392923431}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!111 &3935021693463133337
@@ -492,6 +537,7 @@ MonoBehaviour:
   _animationClipTarget: {fileID: 4511428795101559773}
   _hitEffectTarget: {fileID: 7615437388774707213}
   _spriteSheetAnimationTarget: {fileID: 7902273964972670759}
+  _transformAnimationTarget: {fileID: 4875433814302603697}
   _healthBar: {fileID: 5412871427023341029}
   _healthBarDelta: {fileID: 136673012329259205}
   _stunDurationBar: {fileID: 1818740459558486296}
@@ -849,7 +895,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3975331005568549079}
+  m_Father: {fileID: 4733339902541538577}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4273855377420537768
 SpriteRenderer:

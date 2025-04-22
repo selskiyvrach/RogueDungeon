@@ -8,8 +8,7 @@ namespace Common.Animations
     [Serializable]
     public class SpriteSheetAnimationConfig : AnimationConfig
     {
-        [PreviewField(70, ObjectFieldAlignment.Center)]
-        [field: SerializeField, ListDrawerSettings(ShowFoldout = false)] public Sprite[] Sprites {get; private set;}
+        [field:PreviewField(70, ObjectFieldAlignment.Center), SerializeField, ListDrawerSettings(ShowFoldout = false)] public Sprite[] Sprites {get; private set;}
         [field: SerializeField, ListDrawerSettings(ShowFoldout = false)] public FrameEvent[] KeyFrames {get; private set;}
         
         public override IAnimation Create(DiContainer container) => 

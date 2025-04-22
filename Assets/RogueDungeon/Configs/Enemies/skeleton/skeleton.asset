@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ed74386d7a747b9aeaf57072b194a36, type: 3}
   m_Name: skeleton
   m_EditorClassIdentifier: 
+  <Prefab>k__BackingField: {fileID: 3537052854619438027, guid: ceb53294180329e48bbab23da185840e,
+    type: 3}
   <Health>k__BackingField:
     <Max>k__BackingField: 65
   <Poise>k__BackingField:
@@ -21,27 +23,117 @@ MonoBehaviour:
   <HitImpactAnimation>k__BackingField:
     _animationType: 0
     _animationClipConfig:
-      <Duration>k__BackingField: 0.15
       <Clip>k__BackingField: {fileID: 7400000, guid: 98e93a14115059347b2eb8a7853260d6,
         type: 2}
     _spriteSheetAnimationConfig:
-      <Duration>k__BackingField: 0
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []
-  <Prefab>k__BackingField: {fileID: 3537052854619438027, guid: ceb53294180329e48bbab23da185840e,
-    type: 3}
-  <IdleState>k__BackingField: {fileID: 11400000, guid: 6f12fe4953e45ac40975e5168878b85f,
-    type: 2}
-  <StaggerState>k__BackingField: {fileID: 11400000, guid: 7f96aa98c5bac9e4a8e93fc44b48d470,
-    type: 2}
-  <BirthState>k__BackingField: {fileID: 11400000, guid: 5ce1058da79f47748b3c82d49a081b2e,
-    type: 2}
-  <DeathState>k__BackingField: {fileID: 11400000, guid: f3bb28d982d12eb4c978818c897cb6b0,
-    type: 2}
-  <MoveState>k__BackingField: {fileID: 11400000, guid: 19d7458ace2d6da42aa183314d2751b5,
-    type: 2}
-  <Moves>k__BackingField:
-  - {fileID: 11400000, guid: 328d649ae9c107a4fb8578dee652b332, type: 2}
-  - {fileID: 11400000, guid: 4f447fe1484e52a48949a4dd27c48f16, type: 2}
+    _transformAnimationConfig:
+      <KeyFrames>k__BackingField: []
+      <Events>k__BackingField: []
   <ChillTime>k__BackingField: 2
   <FrontLineComboLength>k__BackingField: {x: 2, y: 2}
+  <IdleState>k__BackingField:
+    _animationType: 1
+    _animationClipConfig:
+      <Clip>k__BackingField: {fileID: 0}
+    _spriteSheetAnimationConfig:
+      <Sprites>k__BackingField:
+      - {fileID: -661027208, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: -860329356, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: -1088192750, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: -860329356, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      <KeyFrames>k__BackingField: []
+    _transformAnimationConfig:
+      <KeyFrames>k__BackingField: []
+      <Events>k__BackingField: []
+  <StaggerState>k__BackingField:
+    _animationType: 1
+    _animationClipConfig:
+      <Clip>k__BackingField: {fileID: 0}
+    _spriteSheetAnimationConfig:
+      <Sprites>k__BackingField:
+      - {fileID: 220247576, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      <KeyFrames>k__BackingField: []
+    _transformAnimationConfig:
+      <KeyFrames>k__BackingField: []
+      <Events>k__BackingField: []
+  <BirthState>k__BackingField:
+    _animationType: 2
+    _animationClipConfig:
+      <Clip>k__BackingField: {fileID: 0}
+    _spriteSheetAnimationConfig:
+      <Sprites>k__BackingField: []
+      <KeyFrames>k__BackingField: []
+    _transformAnimationConfig:
+      <KeyFrames>k__BackingField:
+      - <KeyframeType>k__BackingField: 0
+        <Time>k__BackingField: 0
+        <Position>k__BackingField: {x: 0, y: -0.25, z: 0}
+        <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+      - <KeyframeType>k__BackingField: 0
+        <Time>k__BackingField: 1
+        <Position>k__BackingField: {x: 0, y: 0, z: 0}
+        <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+      <Events>k__BackingField: []
+  <DeathState>k__BackingField:
+    _animationType: 2
+    _animationClipConfig:
+      <Clip>k__BackingField: {fileID: 0}
+    _spriteSheetAnimationConfig:
+      <Sprites>k__BackingField: []
+      <KeyFrames>k__BackingField: []
+    _transformAnimationConfig:
+      <KeyFrames>k__BackingField:
+      - <KeyframeType>k__BackingField: 0
+        <Time>k__BackingField: 1
+        <Position>k__BackingField: {x: 0, y: -0.25, z: 0}
+        <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+      <Events>k__BackingField: []
+  <MoveState>k__BackingField:
+    _animationType: 2
+    _animationClipConfig:
+      <Clip>k__BackingField: {fileID: 0}
+    _spriteSheetAnimationConfig:
+      <Sprites>k__BackingField: []
+      <KeyFrames>k__BackingField: []
+    _transformAnimationConfig:
+      <KeyFrames>k__BackingField:
+      - <KeyframeType>k__BackingField: 0
+        <Time>k__BackingField: 0.25
+        <Position>k__BackingField: {x: 0, y: 0.02, z: 0}
+        <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+      - <KeyframeType>k__BackingField: 0
+        <Time>k__BackingField: 0.5
+        <Position>k__BackingField: {x: 0, y: 0, z: 0}
+        <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+      - <KeyframeType>k__BackingField: 0
+        <Time>k__BackingField: 0.75
+        <Position>k__BackingField: {x: 0, y: 0.02, z: 0}
+        <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+      - <KeyframeType>k__BackingField: 0
+        <Time>k__BackingField: 1
+        <Position>k__BackingField: {x: 0, y: 0, z: 0}
+        <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+      <Events>k__BackingField: []
+  <Attacks>k__BackingField:
+  - <Name>k__BackingField: attack_left
+    <SuitableForPositions>k__BackingField: 1
+    <Duration>k__BackingField: 1.25
+    <Damage>k__BackingField: 10
+    <Direction>k__BackingField: 1
+    <Animation>k__BackingField:
+      <Sprites>k__BackingField:
+      - {fileID: -860329356, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: -1306198463, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: -1306198463, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: -1786852735, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      - {fileID: -1786852735, guid: 061f3b9ecc603e44a82561ff90c006aa, type: 3}
+      <KeyFrames>k__BackingField:
+      - <Frame>k__BackingField: 4
+        <Name>k__BackingField: hit
+  <IdleAnimationDuration>k__BackingField: 1
+  <StaggerDuration>k__BackingField: 2
+  <BirthAnimationDuration>k__BackingField: 0.25
+  <ChangePositionDuration>k__BackingField: 0.5
+  <DeathAnimationDuration>k__BackingField: 0.25

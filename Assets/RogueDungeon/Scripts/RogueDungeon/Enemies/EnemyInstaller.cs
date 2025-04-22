@@ -14,6 +14,7 @@ namespace RogueDungeon.Enemies
         [SerializeField] private AnimationClipTarget _animationClipTarget;
         [SerializeField] private AnimationClipTarget _hitEffectTarget;
         [SerializeField] private SpriteSheetAnimationTarget _spriteSheetAnimationTarget;
+        [SerializeField] private TransformAnimationTarget _transformAnimationTarget;
         [SerializeField] private Bar _healthBar;
         [SerializeField] private Bar _healthBarDelta;
         [SerializeField] private Bar _stunDurationBar;
@@ -23,6 +24,7 @@ namespace RogueDungeon.Enemies
             Container.InstanceSingle(gameObject);
             Container.InstanceSingle<IAnimationClipTarget>(_animationClipTarget);
             Container.InstanceSingle<ISpriteSheetAnimationTarget>(_spriteSheetAnimationTarget);
+            Container.InstanceSingle(_transformAnimationTarget);
             Container.NewSingle<MoveSetFactory>();
             Container.NewSingle<IFactory<string, EnemyMove>, EnemyStatesFactory>();
             Container.NewSingle<EnemyStatesProvider>();
