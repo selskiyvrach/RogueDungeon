@@ -101,7 +101,7 @@ MonoBehaviour:
       <KeyFrames>k__BackingField:
       - <KeyframeType>k__BackingField: 0
         <Time>k__BackingField: 0.25
-        <Position>k__BackingField: {x: 0, y: 0.02, z: 0}
+        <Position>k__BackingField: {x: 0, y: 0.005, z: 0}
         <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
       - <KeyframeType>k__BackingField: 0
         <Time>k__BackingField: 0.5
@@ -109,7 +109,7 @@ MonoBehaviour:
         <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
       - <KeyframeType>k__BackingField: 0
         <Time>k__BackingField: 0.75
-        <Position>k__BackingField: {x: 0, y: 0.02, z: 0}
+        <Position>k__BackingField: {x: 0, y: 0.005, z: 0}
         <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
       - <KeyframeType>k__BackingField: 0
         <Time>k__BackingField: 1
@@ -118,7 +118,7 @@ MonoBehaviour:
       <Events>k__BackingField: []
   <Attacks>k__BackingField:
   - <Name>k__BackingField: attack_left
-    <SuitableForPositions>k__BackingField: 1
+    <SuitableForPositions>k__BackingField: 3
     <Duration>k__BackingField: 1.25
     <Damage>k__BackingField: 10
     <Direction>k__BackingField: 1

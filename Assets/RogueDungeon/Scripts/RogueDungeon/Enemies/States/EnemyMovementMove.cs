@@ -11,7 +11,8 @@ namespace RogueDungeon.Enemies.States
         private Vector2 _startCoordinates;
         public EnemyPosition TargetPosition { get; set; }
         protected override float Duration => _enemy.Config.ChangePositionDuration;
-
+        public override Priority Priority => Priority.Move;
+        
         protected EnemyMovementMove(IAnimation animation, Enemy enemy, RoomLocalPositionsConfig positionsConfig, string id) : base(animation, id)
         {
             _enemy = enemy;
@@ -40,7 +41,5 @@ namespace RogueDungeon.Enemies.States
             base.Tick(timeDelta);
             _enemy.WorldObject.LocalPosition = Vector2.Lerp(_startCoordinates, _destinationCoordinates, Animation.Progress);
         }
-
-        public override Priority Priority { get; }
     }
 }
