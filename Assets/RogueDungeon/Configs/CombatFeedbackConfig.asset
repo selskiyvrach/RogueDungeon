@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a9cfbb768e141d9aebc138b0c8a1e34, type: 3}
   m_Name: CombatFeedbackConfig
   m_EditorClassIdentifier: 
-  <OnHitCameraPunch>k__BackingField: {x: 0.003, y: 0.003, z: 0.003}
-  <OnHitCameraPunchDuration>k__BackingField: 0.25
+  <OnHitCameraPunch>k__BackingField: 0.0025
+  <OnHitCameraPunchDuration>k__BackingField: 0.3
+  <OnCriticalHitCameraPunch>k__BackingField: 0.005
+  <OnCriticalHitCameraShakeDuration>k__BackingField: 0.5

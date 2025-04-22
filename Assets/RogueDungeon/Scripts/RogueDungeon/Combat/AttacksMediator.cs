@@ -31,8 +31,8 @@ namespace RogueDungeon.Combat
 
             var modifier = _playerRegistry.Player.Hands.IsDoubleGrip ? _playerRegistry.Player.DoubleGripDamageBonus : 1f;
 
-            enemy.TakeDamage(weapon.Damage * modifier, weapon.PoiseDamage * modifier);
-            _combatFeedbackPlayer.OnHit();
+            var severity = enemy.TakeDamage(weapon.Damage * modifier, weapon.PoiseDamage * modifier);
+            _combatFeedbackPlayer.OnHit(severity);
         }
 
         public void MediateEnemyAttack(float damage, EnemyAttackDirection attackDirection)
@@ -63,7 +63,7 @@ namespace RogueDungeon.Combat
             }
 
             player.Health.AddDelta(- damage);
-            _combatFeedbackPlayer.OnHit();
+            _combatFeedbackPlayer.OnHit(HitSeverity.Regular);
         }
     }
 }

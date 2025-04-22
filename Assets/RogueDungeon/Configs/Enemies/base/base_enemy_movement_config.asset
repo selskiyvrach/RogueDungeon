@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8556f8effb2441378be9d9012c9e916c, type: 3}
   m_Name: base_enemy_movement_config
   m_EditorClassIdentifier: 
+  <Duration>k__BackingField: 0.5
   <Priority>k__BackingField: 800
   <AnimationConfigPicker>k__BackingField:
     _animationType: 0
     _animationClipConfig:
-      <Duration>k__BackingField: 0.35
       <Clip>k__BackingField: {fileID: 7400000, guid: 06c946bd7b7d20341b0eb08d13a19558,
         type: 2}
     _spriteSheetAnimationConfig:
-      <Duration>k__BackingField: 0
       <Sprites>k__BackingField: []
       <KeyFrames>k__BackingField: []

@@ -1,4 +1,7 @@
-﻿using RogueDungeon.Camera;
+﻿using System;
+using RogueDungeon.Camera;
+using RogueDungeon.Enemies;
+using UnityEngine;
 
 namespace RogueDungeon.Combat
 {
@@ -6,6 +9,8 @@ namespace RogueDungeon.Combat
     {
         private readonly IGameCamera _gameCamera;
         private readonly CombatFeedbackConfig _config;
+        private float _lastTime = float.NegativeInfinity;
+        private HitSeverity _lastSeverity = HitSeverity.Regular;
 
         public CombatFeedbackPlayer(IGameCamera gameCamera, CombatFeedbackConfig config)
         {
@@ -13,7 +18,24 @@ namespace RogueDungeon.Combat
             _config = config;
         }
 
-        public void OnHit() => 
-            _gameCamera.KickPosition(_config.OnHitCameraPunch, _config.OnHitCameraPunchDuration);
+        public void OnHit(HitSeverity severity)
+        {
+            switch (severity)
+            {
+                case HitSeverity.Regular:
+                    if(_lastSeverity == HitSeverity.Critical && Time.time - _lastTime < _config.OnCriticalHitCameraShakeDuration * .75)
+                        break;
+                    _gameCamera.KickPosition(Vector3.one * _config.OnHitCameraPunch, _config.OnHitCameraPunchDuration);
+                    break;
+                case HitSeverity.Critical:
+                    _gameCamera.KickPosition(Vector3.one * _config.OnCriticalHitCameraPunch, _config.OnCriticalHitCameraShakeDuration);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(severity), severity, null);
+            }
+
+            _lastTime = Time.time;
+            _lastSeverity = severity;
+        }
     }
 }

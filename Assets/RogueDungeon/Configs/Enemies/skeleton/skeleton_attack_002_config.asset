@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395c38bf22cc45c78ecd2735b41fa433, type: 3}
   m_Name: skeleton_attack_002_config
   m_EditorClassIdentifier: 
-  <Duration>k__BackingField: 2
+  <Duration>k__BackingField: 1.5
   <Priority>k__BackingField: 100
   <AnimationConfigPicker>k__BackingField:
     _animationType: 1
@@ -25,7 +25,6 @@ MonoBehaviour:
       <KeyFrames>k__BackingField:
       - <Frame>k__BackingField: 1
         <Name>k__BackingField: hit
-  <AdditionalAnimations>k__BackingField: []
   <SuitableForPositions>k__BackingField: 278447237
   <Damage>k__BackingField: 10
   <AttackDirection>k__BackingField: 2

@@ -10,6 +10,13 @@ using ITickable = Common.Lifecycle.ITickable;
 
 namespace RogueDungeon.Enemies
 {
+    public enum HitSeverity
+    {
+        None,
+        Regular,
+        Critical,
+    }
+
     public class Enemy : IInitializable, ITickable
     {
         private readonly EnemyStatesProvider _statesProvider;
@@ -65,12 +72,14 @@ namespace RogueDungeon.Enemies
         public void Destroy() =>
             ((TwoDWorldObject)WorldObject).Destroy();
 
-        public void TakeDamage(float damage, float poiseDamage)
+        public HitSeverity TakeDamage(float damage, float poiseDamage)
         {
+            var severity = HitSeverity.Regular;
             if (IsStunned)
             {
                 _stateMachine.StartState(_statesProvider.GetState(Config.IdleState));
                 damage *= 2;
+                severity = HitSeverity.Critical;
             }
             
             Health.AddDelta(-damage);
@@ -83,6 +92,8 @@ namespace RogueDungeon.Enemies
 
             if(damage > 0 || poiseDamage > 0)
                 _impactAnimator.OnHit();
+            
+            return severity;
         }
 
         public void ChangePosition(EnemyPosition position)

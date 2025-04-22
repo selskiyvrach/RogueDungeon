@@ -4,7 +4,9 @@ namespace RogueDungeon.Combat
 {
     public class CombatFeedbackConfig : ScriptableObject
     {
-        [field: SerializeField] public Vector3 OnHitCameraPunch { get; private set; }
+        [field: SerializeField] public float OnHitCameraPunch { get; private set; }
         [field: SerializeField] public float OnHitCameraPunchDuration { get; private set; }
+        [field: SerializeField] public float OnCriticalHitCameraPunch { get; private set; }
+        [field: SerializeField] public float OnCriticalHitCameraShakeDuration { get; private set; }
     }
 }
