@@ -13,8 +13,18 @@ MonoBehaviour:
   m_Name: level-001_config
   m_EditorClassIdentifier: 
   <Rooms>k__BackingField:
-  - {fileID: 11400000, guid: dd2377cf50245a34d867a6c15bb41a9c, type: 2}
   - {fileID: 11400000, guid: 6cd0dda9b0bfc8548a4bbdfaf57ed85b, type: 2}
   - {fileID: 11400000, guid: f57bd5e1fb9d6ae42ac79dd56662583b, type: 2}
+  - {fileID: 11400000, guid: dd2377cf50245a34d867a6c15bb41a9c, type: 2}
   - {fileID: 11400000, guid: a8f4ee0e5c31f2c44bf9f94034055ca5, type: 2}
+  - {fileID: 11400000, guid: f8c1247852f316c4b8a4fcba857f404e, type: 2}
+  - {fileID: 11400000, guid: 8ed2ccd7a9d48564a8eb88f5ae8163ec, type: 2}
+  - {fileID: 11400000, guid: 71857c41b2c894d48adab55762d61e9a, type: 2}
+  - {fileID: 11400000, guid: 0e6db33f6af122f429a82288a1ab65be, type: 2}
+  - {fileID: 11400000, guid: abb2a3cf33685a945a30df0cdcc13ed1, type: 2}
   - {fileID: 11400000, guid: 17b0b098e39ea5240bb221eb8a812c1a, type: 2}
+  - {fileID: 11400000, guid: 2fa11c1b0f67afb46a7b89521e1e2b5e, type: 2}
+  - {fileID: 11400000, guid: 5dca670ac8267824aa941cdcbc560173, type: 2}
+  - {fileID: 11400000, guid: 692c2c2e0b5a6e4468cd38cf2663ab12, type: 2}
+  - {fileID: 11400000, guid: 0bccb7423f2215f4cb9fc3d06fc18ee2, type: 2}
+  - {fileID: 11400000, guid: 80684b4f4c14ddf44824534ae79ce205, type: 2}

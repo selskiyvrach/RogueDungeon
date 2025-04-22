@@ -11,8 +11,9 @@ namespace RogueDungeon.Map
         private readonly List<SpriteRenderer> _tiles = new();
         
         [SerializeField] private MapDisplayConfig _config;
-        private SpriteRenderer _playerMarker;
+        [SerializeField] private Transform _mapElementsParent;
         
+        private SpriteRenderer _playerMarker;
         private Level _level;
 
         [Inject]
@@ -20,7 +21,7 @@ namespace RogueDungeon.Map
         {
             _level = level;
             _level.OnChangedRoom += RepaintMap;
-            _playerMarker = Instantiate(_config.PlayerMarkerPrefab, transform);
+            _playerMarker = Instantiate(_config.PlayerMarkerPrefab, _mapElementsParent);
             RepaintMap();
         }
 
@@ -30,13 +31,15 @@ namespace RogueDungeon.Map
             foreach (var room in _level.Rooms)
             {
                 if(i == _tiles.Count)
-                    _tiles.Add(Instantiate(_config.TilePrefab, transform));
+                    _tiles.Add(Instantiate(_config.TilePrefab, _mapElementsParent));
                 SetupTile(_tiles[i], room);
                 _tiles[i].sortingOrder = 1;
                 i++;
             }
             _playerMarker.transform.localPosition = new Vector3(_level.CurrentRoom.Coordinates.x, _level.CurrentRoom.Coordinates.y) * _config.TileSpacing;
             _playerMarker.sortingOrder = 2;
+
+            CenterMap();
         }
 
         private void SetupTile(SpriteRenderer tile, IRoom room)
@@ -114,6 +117,31 @@ namespace RogueDungeon.Map
                 else if (hasLeft && hasUp)
                     tile.transform.localRotation = Quaternion.Euler(0, 0, 90);
             }
+        }
+
+        private void CenterMap()
+        {
+            var topExtent = 0f;
+            var bottomExtent = 0f;
+            var leftExtent = 0f;
+            var rightExtent = 0f;
+            
+            foreach (var tile in _tiles)
+            {
+                var position = tile.transform.localPosition;
+                
+                if(position.y > topExtent)
+                    topExtent = position.y;
+                if(position.y < bottomExtent)
+                    bottomExtent = position.y;
+                if(position.x > rightExtent)
+                    rightExtent = position.x;
+                if(position.x < leftExtent)
+                    leftExtent = position.x;
+            }
+            
+            var offset = new Vector3(- (rightExtent + leftExtent) / 2,- (topExtent + bottomExtent) / 2, 0);
+            _mapElementsParent.localPosition = offset;
         }
     }
 }
