@@ -21,8 +21,13 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             public const string TURN_LEFT = "turn_left";
             public const string TURN_RIGHT = "turn_right";
             public const string TURN_AROUND = "turn_around";
+            public const string INVENTORY_OPEN = "inventory_open";
+            public const string INVENTORY_KEEP_OPEN = "inventory_keep_open";
+            public const string INVENTORY_CLOSE = "inventory_close";
         }
-        
+        [SerializeField, HideLabel, BoxGroup(nameof(_toIdleAnimation))] private TransformAnimationConfig _toIdleAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_hideHandsAnimation))] private TransformAnimationConfig _hideHandsAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_showHandsAnimation))] private TransformAnimationConfig _showHandsAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_birthAnimation))] private TransformAnimationConfig _birthAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_deathAnimation))] private TransformAnimationConfig _deathAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_idleAnimation))] private TransformAnimationConfig _idleAnimation;
@@ -35,6 +40,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         [SerializeField, HideLabel, BoxGroup(nameof(_handsDodgeLeftAnimation))] private TransformAnimationConfig _handsDodgeLeftAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_dodgeRightAnimation))] private TransformAnimationConfig _dodgeRightAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_handsDodgeRightAnimation))] private TransformAnimationConfig _handsDodgeRightAnimation;
+        [SerializeField, HideLabel, BoxGroup(nameof(_openInventoryAnimation))] private TransformAnimationConfig _openInventoryAnimation;
         
         public string FirstMoveId => Names.BIRTH;
         public IEnumerable<MoveCreationArgs> MovesCreationArgs => new MoveCreationArgs[]
@@ -43,6 +49,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             new (Names.IDLE, typeof(IdleMove), new MultiItemTransformAnimationConfig((null, _idleAnimation), ("hands", _handsIdleAnimation)), new TransitionPicker[]
             {
                 new(Names.DEATH, canInterrupt: true),
+                new(Names.INVENTORY_OPEN, canInterrupt: true),
                 new(Names.MOVE_FORWARD, canInterrupt: true),
                 new(Names.TURN_LEFT, canInterrupt: true),
                 new(Names.TURN_RIGHT, canInterrupt: true),
@@ -59,6 +66,10 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             new (Names.TURN_LEFT, typeof(TurnLeftMove), new MultiItemTransformAnimationConfig((null, _turnAnimation), ("hands", _handsTurnAnimation)), MovementTransitions),
             new (Names.TURN_RIGHT, typeof(TurnRightMove), new MultiItemTransformAnimationConfig((null, _turnAnimation), ("hands", _handsTurnAnimation)), MovementTransitions),
             new (Names.TURN_AROUND, typeof(TurnAroundMove), new MultiItemTransformAnimationConfig((null, _walkAnimation), ("hands", _handsWalkAnimation)), MovementTransitions),
+            
+            new (Names.INVENTORY_OPEN, typeof(InventoryOpenMove), new MultiItemTransformAnimationConfig((null, _openInventoryAnimation), ("hands", _hideHandsAnimation)), new TransitionPicker[]{new(Names.INVENTORY_KEEP_OPEN)}),
+            new (Names.INVENTORY_KEEP_OPEN, typeof(InventoryKeepOpenMove), _openInventoryAnimation, new TransitionPicker[]{new(Names.INVENTORY_CLOSE)}),
+            new (Names.INVENTORY_CLOSE, typeof(InventoryCloseMove),  new MultiItemTransformAnimationConfig((null, _toIdleAnimation), ("hands", _showHandsAnimation)), new TransitionPicker[]{new(Names.IDLE)}),
         };
 
         private static TransitionPicker[] MovementTransitions = {

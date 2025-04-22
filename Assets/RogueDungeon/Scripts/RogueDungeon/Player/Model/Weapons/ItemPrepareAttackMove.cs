@@ -6,7 +6,7 @@ using RogueDungeon.Player.Model.Behaviours.Hands;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
-    public class ItemPrepareAttackMove : PlayerInputMove
+    public class ItemPrepareAttackMove : ItemMove
     {
         private readonly PlayerHandsBehaviour _hands;
         private readonly Player _player;
@@ -20,7 +20,7 @@ namespace RogueDungeon.Player.Model.Attacks
         protected override RequiredState State => RequiredState.Down;
 
         protected ItemPrepareAttackMove(IAnimation animation, IPlayerInput playerInput, Player player, IWeapon weapon, PlayerHandsBehaviour hands, string id) 
-            : base(id, animation, playerInput)
+            : base(id, animation, hands, playerInput)
         {
             _player = player;
             _weapon = weapon;

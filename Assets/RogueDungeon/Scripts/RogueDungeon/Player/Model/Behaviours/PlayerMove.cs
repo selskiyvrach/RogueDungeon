@@ -1,5 +1,6 @@
 ﻿using Common.Animations;
 using Common.MoveSets;
+using RogueDungeon.Player.Model.Behaviours.Common;
 
 namespace RogueDungeon.Player.Model.Behaviours
 { 

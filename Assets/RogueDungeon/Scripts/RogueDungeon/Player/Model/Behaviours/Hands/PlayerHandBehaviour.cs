@@ -1,8 +1,6 @@
-﻿using Common.Fsm;
-using RogueDungeon.Items;
+﻿using RogueDungeon.Items;
 using RogueDungeon.Player.Model.Attacks;
-using UnityEngine.XR;
-using Zenject;
+using UnityEngine.Assertions;
 using ITickable = Common.Lifecycle.ITickable;
 
 namespace RogueDungeon.Player.Model.Behaviours.Hands
@@ -12,13 +10,18 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         private readonly HandheldItemFactory _factory;
 
         private IItem _currentItem;
-        private IItem _intendedMainHandItem;
+        private IItem _intendedItem;
+        public bool IsLocked { get; set; }
 
         public IItem CurrentItem
         {
             get => _currentItem;
             set
             {
+                Assert.IsFalse(IsLocked);
+                if(IsLocked)
+                    return;
+                
                 if (value != null)
                 {
                     _factory.Create(value);
@@ -30,7 +33,19 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
                 _currentItem = value;
             }
         }
-        public IItem IntendedItem { get; set; }
+
+        public IItem IntendedItem
+        {
+            get => _intendedItem;
+            set
+            {
+                Assert.IsFalse(IsLocked);
+                if(!IsLocked)
+                    _intendedItem = value;
+            }
+        }
+
+        public bool IsIdleOrEmpty => _currentItem == null || _currentItem.Moveset.CurrentState is ItemIdleMove;
 
         public PlayerHandBehaviour(HandheldItemFactory factory) => 
             _factory = factory;

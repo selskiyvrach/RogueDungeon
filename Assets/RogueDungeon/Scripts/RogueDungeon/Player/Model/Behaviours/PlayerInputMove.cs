@@ -18,20 +18,21 @@ namespace RogueDungeon.Player.Model.Behaviours
         private readonly IPlayerInput _playerInput;
 
         protected abstract InputKey RequiredKey { get; }
-        protected abstract RequiredState State { get; } 
+        protected abstract RequiredState State { get; }
+        private bool _skip => RequiredKey == InputKey.None && State == RequiredState.None;
 
         protected PlayerInputMove(string id, IAnimation animation, IPlayerInput playerInput) : base(id, animation) => 
             _playerInput = playerInput;
 
         public override void Enter()
         {
-            if(_playerInput.IsDown(RequiredKey))
+            if(!_skip && _playerInput.IsDown(RequiredKey))
                 _playerInput.ConsumeInput(RequiredKey);
             base.Enter();
         }
 
         protected override bool CanTransitionTo() =>
-            base.CanTransitionTo() && State switch
+            base.CanTransitionTo() && _skip || State switch
             {
                 RequiredState.Down => _playerInput.IsDown(RequiredKey),
                 RequiredState.Held => _playerInput.IsHeld(RequiredKey),

@@ -9,24 +9,6 @@ using UnityEngine;
 
 namespace RogueDungeon.Player.Model
 {
-    // player modes
-        // hands + movement
-        // inventory + movement (sit action)
-        // map + movement
-        
-    // player actions
-        // open map
-            // create map item in the right hand as an intentional one
-            // save previous item
-            // when map removed - set the previous one as the intended one
-            // when use button pressed - gets the map closer
-        // open inventory
-            // maybe create a two-handed item as well?
-        
-    // movement - sit down action, keep sitting, stand up
-        // sitting down + laying down the bag
-    
-    
     public class Player : IInitializable, ITickable
     {
         private readonly PlayerPositionInTheMaze _mazeTraversalPointer;
@@ -75,6 +57,7 @@ namespace RogueDungeon.Player.Model
             _level.LevelTraverser = _mazeTraversalPointer;
             Movement.Initialize();
             Hands.Initialize();
+            Hands.Enable();
         }
 
         public void Tick(float deltaTime)

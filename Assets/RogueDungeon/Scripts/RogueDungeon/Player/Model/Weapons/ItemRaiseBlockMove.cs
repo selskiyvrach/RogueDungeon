@@ -1,12 +1,11 @@
 ﻿using Common.Animations;
 using RogueDungeon.Input;
 using RogueDungeon.Items;
-using RogueDungeon.Player.Model.Behaviours;
 using RogueDungeon.Player.Model.Behaviours.Hands;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
-    public class ItemRaiseBlockMove : PlayerMove
+    public class ItemRaiseBlockMove : ItemMove
     {
         private readonly IItem _item;
         private readonly PlayerHandsBehaviour _hands;
@@ -15,7 +14,7 @@ namespace RogueDungeon.Player.Model.Attacks
         protected override float Duration => ((BlockingItemConfig)_item.Config).RaiseBlockDuration;
 
         protected ItemRaiseBlockMove(IAnimation animation, PlayerHandsBehaviour hands,
-            IItem item, string id, IPlayerInput input) : base(id, animation)
+            IItem item, string id, IPlayerInput input) : base(id, animation, hands, input)
         {
             _hands = hands;
             _item = item;

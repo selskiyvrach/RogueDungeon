@@ -17,6 +17,27 @@ MonoBehaviour:
     <Time>k__BackingField: 1
     <Position>k__BackingField: {x: 0, y: 0, z: 0}
     <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+  _toIdleAnimation:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 1
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    <Events>k__BackingField: []
+  _hideHandsAnimation:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: -0.02, z: 0}
+      <Rotation>k__BackingField: {x: 90, y: 0, z: 0}
+    <Events>k__BackingField: []
+  _showHandsAnimation:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    <Events>k__BackingField: []
   _birthAnimation:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
@@ -160,4 +181,11 @@ MonoBehaviour:
       <Time>k__BackingField: 1
       <Position>k__BackingField: {x: 0, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
+    <Events>k__BackingField: []
+  _openInventoryAnimation:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: -0.1, z: 0}
+      <Rotation>k__BackingField: {x: 45, y: 0, z: 0}
     <Events>k__BackingField: []

@@ -1,12 +1,11 @@
 ﻿using Common.Animations;
 using RogueDungeon.Input;
 using RogueDungeon.Items;
-using RogueDungeon.Player.Model.Behaviours;
 using RogueDungeon.Player.Model.Behaviours.Hands;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
-    public class ItemTransitionBetweenAttacksMove : PlayerInputMove
+    public class ItemTransitionBetweenAttacksMove : ItemMove
     {
         private readonly Player _player;
         private readonly PlayerHandsBehaviour _hands;
@@ -19,7 +18,7 @@ namespace RogueDungeon.Player.Model.Attacks
 
         protected override RequiredState State => RequiredState.Down;
 
-        public ItemTransitionBetweenAttacksMove(IWeapon weapon, IAnimation animation, IPlayerInput playerInput, string id, PlayerHandsBehaviour hands, Player player) : base(id, animation, playerInput)
+        public ItemTransitionBetweenAttacksMove(IWeapon weapon, IAnimation animation, IPlayerInput playerInput, string id, PlayerHandsBehaviour hands, Player player) : base(id, animation, hands, playerInput)
         {
             _weapon = weapon;
             _hands = hands;

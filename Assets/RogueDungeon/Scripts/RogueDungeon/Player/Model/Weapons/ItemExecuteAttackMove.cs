@@ -1,12 +1,14 @@
 ﻿using Common.Animations;
 using RogueDungeon.Animations;
+using RogueDungeon.Input;
 using RogueDungeon.Items;
 using RogueDungeon.Player.Model.Behaviours;
+using RogueDungeon.Player.Model.Behaviours.Hands;
 using UnityEngine;
 
 namespace RogueDungeon.Player.Model.Attacks
 {
-    public class ItemExecuteAttackMove : PlayerMove
+    public class ItemExecuteAttackMove : ItemMove
     {
         private readonly IPlayerAttacksMediator _playerAttacksMediator;
         private readonly IWeapon _weapon;
@@ -16,7 +18,8 @@ namespace RogueDungeon.Player.Model.Attacks
 
         public ItemExecuteAttackMove(IAnimation animation,
             PlayerControlStateMediator playerControlStateMediator,
-            IPlayerAttacksMediator playerAttacksMediator, IWeapon weapon, string id) : base(id, animation)
+            IPlayerAttacksMediator playerAttacksMediator, IWeapon weapon, string id, PlayerHandsBehaviour hands,
+            IPlayerInput input) : base(id, animation, hands, input)
         {
             _playerControlStateMediator = playerControlStateMediator;
             _playerAttacksMediator = playerAttacksMediator;

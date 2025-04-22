@@ -24,5 +24,7 @@
         TurnAround = 720,
         
         Esc = 10000,
+        
+        Inventory = 11000,
     }
 }

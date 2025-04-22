@@ -1,19 +1,17 @@
 ﻿using RogueDungeon.Input;
 using RogueDungeon.Items;
+using UnityEngine.Assertions;
 
 namespace RogueDungeon.Player.Model.Behaviours.Hands
 {
     public class PlayerHandsBehaviour 
     {
-        private readonly IPlayerInput _playerInput;
-
+        public bool TransitionsLocked { get; private set; }
         public PlayerHandBehaviour RightHand { get; private set; }
-        public PlayerHandBehaviour LeftHand { get; private set; } 
+        public PlayerHandBehaviour LeftHand { get; private set; }
 
         public bool IsDoubleGrip => (RightHand.CurrentItem == null || LeftHand.CurrentItem == null) && (RightHand.CurrentItem ?? LeftHand.CurrentItem) != null;
-
-        public PlayerHandsBehaviour(IPlayerInput playerInput) => 
-            _playerInput = playerInput;
+        public bool IsIdle => RightHand.IsIdleOrEmpty && LeftHand.IsIdleOrEmpty;
 
         public void SetBehaviours(PlayerHandBehaviour rightHandBehaviour, PlayerHandBehaviour leftHandBehaviour)
         {
@@ -30,6 +28,15 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             RightHand.Tick(deltaTime);
             LeftHand.Tick(deltaTime);
         }
+        
+        public void Disable()
+        {
+            Assert.IsTrue(IsIdle);
+            TransitionsLocked = LeftHand.IsLocked = RightHand.IsLocked = true;
+        }
+
+        public void Enable() => 
+            TransitionsLocked = LeftHand.IsLocked = RightHand.IsLocked = false;
 
         public PlayerHandBehaviour OppositeHand(IItem item) => 
             item == RightHand.CurrentItem 
@@ -43,7 +50,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
 
         public PlayerHandBehaviour OppositeHand(PlayerHandBehaviour handBehaviour) => 
             handBehaviour == RightHand ? LeftHand : RightHand;
-        
+
         public bool IsInRightHand(IItem item) => 
             item == RightHand.CurrentItem;
 
@@ -51,7 +58,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             IsInRightHand(item)
                 ? InputKey.UseRightHandItem
                 : InputKey.UseLeftHandItem;
-        
+
         public bool IsDedicatedToBlock(IItem item)
         {
             var thisPriority = (item as IBlockingItem)?.BlockingTier ?? BlockingTier.None;
