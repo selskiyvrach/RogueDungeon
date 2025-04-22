@@ -16,6 +16,7 @@ namespace RogueDungeon.Enemies.States
         {
             base.Enter();
             OnChanged?.Invoke();
+            _enemy.IsStunned = true;
         }
 
         public override void Exit()
@@ -23,6 +24,7 @@ namespace RogueDungeon.Enemies.States
             base.Exit();
             _enemy.Poise.Refill();
             OnChanged?.Invoke();
+            _enemy.IsStunned = false;
         }
 
         public override void Tick(float timeDelta)

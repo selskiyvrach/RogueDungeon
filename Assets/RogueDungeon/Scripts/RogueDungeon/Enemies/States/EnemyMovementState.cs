@@ -24,12 +24,14 @@ namespace RogueDungeon.Enemies.States
             _startCoordinates = _enemy.WorldObject.LocalPosition;
             _enemy.OccupiedPosition = TargetPosition;
             _enemy.TargetablePosition = EnemyPosition.None;
+            _enemy.IsMoving = true;
         }
 
         public override void Exit()
         {
             base.Exit();
             _enemy.TargetablePosition = _enemy.OccupiedPosition;
+            _enemy.IsMoving = false;
         }
 
         public override void Tick(float timeDelta)

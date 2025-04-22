@@ -13,21 +13,21 @@ namespace RogueDungeon.Enemies
 
         public void Tick(float timeDelta)
         {
-            if(!_isPlaying)
-                return;
-            
-            _animation.TickNormalizedTime(timeDelta * 4);
-            if(_animation.IsFinished)
-                _isPlaying = false;
+            // if(!_isPlaying)
+            //     return;
+            //
+            // _animation.TickNormalizedTime(timeDelta * 4);
+            // if(_animation.IsFinished)
+            //     _isPlaying = false;
         }
 
         public void OnHit()
         {
-            if(_isPlaying)
-                return;
-            
-            _animation.Play();
-            _isPlaying = true;
+            // if(_isPlaying)
+            //     return;
+            //
+            // _animation.Play();
+            // _isPlaying = true;
         }
     }
 }

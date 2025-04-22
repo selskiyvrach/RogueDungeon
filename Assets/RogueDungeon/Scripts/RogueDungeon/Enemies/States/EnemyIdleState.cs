@@ -13,5 +13,17 @@ namespace RogueDungeon.Enemies.States
             _config = config;
             _enemy = enemy;
         }
+
+        public override void Enter()
+        {
+            base.Enter();
+            _enemy.IsIdle = true;
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            _enemy.IsIdle = false;
+        }
     }
 }

@@ -31,9 +31,9 @@ namespace RogueDungeon.Enemies
         public RechargeableResource Poise { get; }
         public ITwoDWorldObject WorldObject { get; }
         public bool IsReadyToBeDisposed { get; set; }
-        public bool IsIdle => CurrentState is EnemyIdleState;
-        public bool IsMoving => CurrentState is EnemyMovementState;
-        public bool IsStunned => CurrentState is EnemyStunState;
+        public bool IsIdle { get; set; }
+        public bool IsMoving { get; set; }
+        public bool IsStunned { get; set; }
         public EnemyState CurrentState => _stateMachine.CurrentState;
         public bool IsStunnedOrDead => !IsAlive || IsStunned;
         public EnemyMoveConfig[] Moves => Config.Moves;
@@ -106,6 +106,10 @@ namespace RogueDungeon.Enemies
         public bool HasMovesForCurrentPosition(out IEnumerable<EnemyMoveConfig> moves) => 
             (moves = Moves.Where(n => (n.SuitableForPositions & OccupiedPosition) != 0)).Any();
 
+        // move config - serializable
+        // base enemy moves config
+        // not move config, but an animation and an id to call its creation
+        
         public void StartMove(EnemyMoveConfig config) => 
             _stateMachine.TryStartState(_statesProvider.GetState(config));
     }
