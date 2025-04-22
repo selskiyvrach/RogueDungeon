@@ -57,7 +57,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
                 new(Names.DODGE_LEFT, canInterrupt: true),
                 new(Names.DODGE_RIGHT, canInterrupt: true),
             }),
-            new (Names.DEATH, typeof(DeathMove), _deathAnimation, Array.Empty<TransitionPicker>()),
+            new (Names.DEATH, typeof(DeathMove), new MultiItemTransformAnimationConfig((null, _deathAnimation), ("hands", _hideHandsAnimation)), Array.Empty<TransitionPicker>()),
             
             new (Names.DODGE_LEFT, typeof(DodgeLeftMove), new MultiItemTransformAnimationConfig((null, _dodgeLeftAnimation), ("hands", _handsDodgeLeftAnimation)), new TransitionPicker[] { new(Names.IDLE)}),
             new (Names.DODGE_RIGHT, typeof(DodgeRightMove), new MultiItemTransformAnimationConfig((null, _dodgeRightAnimation), ("hands", _handsDodgeRightAnimation)), new TransitionPicker[] { new(Names.IDLE)}),

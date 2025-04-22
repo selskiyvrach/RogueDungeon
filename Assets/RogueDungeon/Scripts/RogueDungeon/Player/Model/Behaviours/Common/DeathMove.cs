@@ -10,6 +10,12 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         protected DeathMove(IAnimation animation, Player player,string id) : base(id, animation) => 
             _player = player;
 
+        public override void Enter()
+        {
+            base.Enter();
+            _player.Hands.Disable(force: true);
+        }
+
         public override void Tick(float timeDelta)
         {
             base.Tick(timeDelta);

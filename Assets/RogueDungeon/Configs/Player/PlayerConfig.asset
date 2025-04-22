@@ -37,5 +37,6 @@ MonoBehaviour:
   <IdleAnimationDuration>k__BackingField: 1.2
   <DodgeStaminaCost>k__BackingField: 5
   <BirthAnimationDuration>k__BackingField: 0.5
+  <OpenInventoryDuration>k__BackingField: 0.5
   <MoveSetConfig>k__BackingField: {fileID: 11400000, guid: 39a0b052f1fec214d9f0f501772db943,
     type: 2}

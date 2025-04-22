@@ -29,9 +29,9 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             LeftHand.Tick(deltaTime);
         }
         
-        public void Disable()
+        public void Disable(bool force = false)
         {
-            Assert.IsTrue(IsIdle);
+            Assert.IsTrue(force || IsIdle);
             TransitionsLocked = LeftHand.IsLocked = RightHand.IsLocked = true;
         }
 
