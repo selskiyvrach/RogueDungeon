@@ -24,7 +24,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         public override void Tick(float timeDelta)
         {
             base.Tick(timeDelta);
-            if (_inventoryIsOpen || Animation.Progress < .5f) 
+            if (_inventoryIsOpen || Animation.Progress < .3f)
                 return;
             
             _player.WorldInventory.Unpack();

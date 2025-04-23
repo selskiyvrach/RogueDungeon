@@ -22,7 +22,13 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
                 _input.ConsumeInput(InputKey.Inventory);
             if(_input.IsDown(InputKey.Esc))
                 _input.ConsumeInput(InputKey.Esc);
-            _player.WorldInventory.Pack();
+        }
+
+        public override void Tick(float timeDelta)
+        {
+            base.Tick(timeDelta);
+            if(Animation.Progress > .3f && _player.WorldInventory.IsOpen)
+                _player.WorldInventory.Pack();
         }
 
         public override void Exit()

@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace RogueDungeon.Player.Model.Inventory
@@ -32,6 +31,8 @@ namespace RogueDungeon.Player.Model.Inventory
                 _animationPlayTime = 0;
             }
         }
+        
+        public bool IsOpen => _state == State.Open;
 
         private void Awake()
         {
