@@ -1,4 +1,6 @@
-﻿using RogueDungeon.Camera;
+﻿using Common.Unity;
+using RogueDungeon.Camera;
+using RogueDungeon.Levels;
 using UnityEngine;
 using Zenject;
 
@@ -11,11 +13,15 @@ namespace RogueDungeon.Player.Model.Inventory
         private WorldInventoryItem _currentItem;
         private Vector3 _lastMousePosition;
         private IGameCamera _camera;
+        private Level _level;
         public bool IsOpen => _animator.State == WorldInventoryAnimator.AnimatorState.Open;
 
         [Inject]
-        public void Construct(IGameCamera gameCamera) => 
+        public void Construct(IGameCamera gameCamera, Level level)
+        {
+            _level = level;
             _camera = gameCamera;
+        }
 
         public void Unpack() => 
             _animator.Unpack();
@@ -37,24 +43,41 @@ namespace RogueDungeon.Player.Model.Inventory
 
             ScanForItems();
             DragItems();
-            _lastMousePosition = UnityEngine.Input.mousePosition;
         }
 
         private void DragItems()
         {
             if(_currentItem == null)
                 return;
-            
-            if (_currentItem.IsBeingDragged && UnityEngine.Input.GetMouseButtonUp(0))
+
+            if (_currentItem.IsBeingDragged && UnityEngine.Input.GetMouseButtonUp(0)) 
                 _currentItem.IsBeingDragged = false;
-            
-            if(!_currentItem.IsBeingDragged && UnityEngine.Input.GetMouseButtonDown(0))
+
+            if (!_currentItem.IsBeingDragged && UnityEngine.Input.GetMouseButtonDown(0))
+            {
                 _currentItem.IsBeingDragged = true;
+                _lastMousePosition = UnityEngine.Input.mousePosition;
+            }
 
             if (_currentItem.IsBeingDragged)
             {
                 var delta = UnityEngine.Input.mousePosition - _lastMousePosition;
-                _currentItem.transform.position += new Vector3(delta.x, 0, delta.y) * 0.001f;
+                _currentItem.Position += RotateDelta(delta) * 0.001f;
+            }
+            
+            _lastMousePosition = UnityEngine.Input.mousePosition;
+            return;
+
+            Vector2 RotateDelta(Vector2 delta)
+            {
+                var playerRotation = _level.LevelTraverser.Rotation.Round(); 
+                return playerRotation == Vector2Int.up 
+                    ? new Vector2(delta.x, delta.y) 
+                    : playerRotation == Vector2Int.down 
+                        ? new Vector2(-delta.x, -delta.y) 
+                        : playerRotation == Vector2Int.left 
+                            ? new Vector2(-delta.y, delta.x) 
+                            : new Vector2(delta.y,- delta.x);
             }
         }
 
