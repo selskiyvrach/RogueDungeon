@@ -5,6 +5,7 @@ using RogueDungeon.Items;
 using RogueDungeon.Levels;
 using RogueDungeon.Player.Model.Behaviours.Common;
 using RogueDungeon.Player.Model.Behaviours.Hands;
+using RogueDungeon.Player.Model.Inventory;
 using UnityEngine;
 
 namespace RogueDungeon.Player.Model
@@ -32,13 +33,15 @@ namespace RogueDungeon.Player.Model
         public bool HasUnabsorbedBlockImpact { get; set; }
         public IBlockingItem BlockingItem { get; set; }
         public float DodgeStaminaCost => Config.DodgeStaminaCost;
+        public WorldInventory WorldInventory { get; }
 
-        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input)
+        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input, WorldInventory worldInventory)
         {
             Config = config;
             _level = level;
             _mazeTraversalPointer = playerMazePosition;
             _input = input;
+            WorldInventory = worldInventory;
             CameraPovPoint = gameObject.CameraReferencePoint;
             Stamina = new RechargeableResource(Config.Stamina);
             Health = new Resource(Config.Health);
@@ -87,11 +90,15 @@ namespace RogueDungeon.Player.Model
                 }
             }
 
+            // TODO: figure out wtf is going on with IsAlive checks here
             if(IsAlive)
                 Stamina.Tick(deltaTime);
             Movement.Tick(deltaTime);
-            if(IsAlive)
+            if (IsAlive)
+            {
                 Hands.Tick(deltaTime);
+                WorldInventory.Tick(deltaTime);
+            }
         }
     }
 }

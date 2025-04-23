@@ -4,6 +4,7 @@ using Common.Unity;
 using Common.UtilsZenject;
 using RogueDungeon.Player.Model.Behaviours.Common;
 using RogueDungeon.Player.Model.Behaviours.Hands;
+using RogueDungeon.Player.Model.Inventory;
 using UnityEngine;
 using Zenject;
 
@@ -12,6 +13,7 @@ namespace RogueDungeon.Player.Model
     public class PlayerInstaller : MonoInstaller
     {
         [SerializeField] private PlayerGameObject _playerGameObject;
+        [SerializeField] private WorldInventory _inventory;
         [SerializeField] private PlayerConfig _config;
         [SerializeField] private PlayerHandsInstaller _handsInstaller;
         [SerializeField] private TransformAnimationTarget _bodyAnimationTarget;
@@ -21,6 +23,7 @@ namespace RogueDungeon.Player.Model
         {
             Container.InstanceSingle(_playerGameObject);
             Container.InstanceSingle(_config);
+            Container.InstanceSingle(_inventory);
             Container.Bind<PlayerPositionInTheMaze>().FromNew().AsSingle().WithArguments<ITwoDWorldObject>(new TwoDWorldObject(_playerGameObject.gameObject));
             Container.NewSingle<Player>();
 

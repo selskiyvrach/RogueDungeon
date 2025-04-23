@@ -22,6 +22,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
                 _input.ConsumeInput(InputKey.Inventory);
             if(_input.IsDown(InputKey.Esc))
                 _input.ConsumeInput(InputKey.Esc);
+            _player.WorldInventory.Pack();
         }
 
         public override void Exit()

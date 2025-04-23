@@ -185,11 +185,11 @@ MonoBehaviour:
   _openInventoryAnimation:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 1
-      <Time>k__BackingField: 0.3
+      <Time>k__BackingField: 0
       <Position>k__BackingField: {x: 0, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: 0, y: -0.05, z: 0}
+      <Position>k__BackingField: {x: 0, y: -0.05, z: 0.05}
       <Rotation>k__BackingField: {x: 45, y: 0, z: 0}
     <Events>k__BackingField: []
