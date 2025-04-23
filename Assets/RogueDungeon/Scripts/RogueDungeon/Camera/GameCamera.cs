@@ -10,6 +10,7 @@ namespace RogueDungeon.Camera
         private Tweener _effectTween;
 
         public Transform Follow { get; set; }
+        public Ray MouseRay => _camera.ScreenPointToRay(Input.mousePosition);
         
         private void LateUpdate()
         {
