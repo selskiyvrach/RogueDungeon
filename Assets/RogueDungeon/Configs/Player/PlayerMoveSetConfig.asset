@@ -193,3 +193,6 @@ MonoBehaviour:
       <Position>k__BackingField: {x: 0, y: -0.05, z: 0.05}
       <Rotation>k__BackingField: {x: 45, y: 0, z: 0}
     <Events>k__BackingField: []
+  _keepInventoryOpenAnimation:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
