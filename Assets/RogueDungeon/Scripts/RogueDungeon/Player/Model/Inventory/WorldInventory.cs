@@ -11,7 +11,6 @@ namespace RogueDungeon.Player.Model.Inventory
         [SerializeField] private WorldInventoryAnimator _animator;
         private static readonly RaycastHit[] Hits = new RaycastHit[10];
         private WorldInventoryItem _currentItem;
-        private Vector3 _lastMousePosition;
         private IGameCamera _camera;
         private Level _level;
         public bool IsOpen => _animator.State == WorldInventoryAnimator.AnimatorState.Open;
@@ -42,10 +41,10 @@ namespace RogueDungeon.Player.Model.Inventory
                 return;
 
             ScanForItems();
-            DragItems();
+            DragItem();
         }
 
-        private void DragItems()
+        private void DragItem()
         {
             if(_currentItem == null)
                 return;
@@ -53,19 +52,26 @@ namespace RogueDungeon.Player.Model.Inventory
             if (_currentItem.IsBeingDragged && UnityEngine.Input.GetMouseButtonUp(0)) 
                 _currentItem.IsBeingDragged = false;
 
-            if (!_currentItem.IsBeingDragged && UnityEngine.Input.GetMouseButtonDown(0))
-            {
+            if (!_currentItem.IsBeingDragged && UnityEngine.Input.GetMouseButtonDown(0)) 
                 _currentItem.IsBeingDragged = true;
-                _lastMousePosition = UnityEngine.Input.mousePosition;
-            }
 
             if (_currentItem.IsBeingDragged)
             {
-                var delta = UnityEngine.Input.mousePosition - _lastMousePosition;
-                _currentItem.Position += RotateDelta(delta) * 0.001f;
+                // item is placed at the cursor position
+                // shadow is placed at the current legal position
+                
+                // what is the cursor position 
+                    // raycast from screen pos to the inventory canvas background ("DraggableSpace")
+                    // stays at the last pos if no legal space found this frame
+
+                    if (Physics.Raycast(_camera.MouseRay, out RaycastHit hit, 100f,
+                            LayerMask.GetMask("DraggableSpace")))
+                    {
+                        _currentItem.Position = hit.point;
+                        Debug.Log($"Point: {hit.point}, Pos: {_currentItem.Position}");
+                    }
+
             }
-            
-            _lastMousePosition = UnityEngine.Input.mousePosition;
             return;
 
             Vector2 RotateDelta(Vector2 delta)
@@ -86,7 +92,7 @@ namespace RogueDungeon.Player.Model.Inventory
             if(_currentItem?.IsBeingDragged ?? false)
                 return;
             
-            var hitCount = Physics.RaycastNonAlloc(_camera.MouseRay, Hits, 10f, LayerMask.GetMask("Default"));
+            var hitCount = Physics.RaycastNonAlloc(_camera.MouseRay, Hits, 10f, LayerMask.GetMask("Draggables"));
             if (hitCount == 0)
             {
                 if (_currentItem == null) 
