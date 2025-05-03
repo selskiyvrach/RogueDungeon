@@ -1,5 +1,4 @@
-﻿using Common.Unity;
-using RogueDungeon.Camera;
+﻿using RogueDungeon.Camera;
 using RogueDungeon.Levels;
 using UnityEngine;
 using Zenject;
@@ -55,36 +54,14 @@ namespace RogueDungeon.Player.Model.Inventory
             if (!_currentItem.IsBeingDragged && UnityEngine.Input.GetMouseButtonDown(0)) 
                 _currentItem.IsBeingDragged = true;
 
-            if (_currentItem.IsBeingDragged)
-            {
-                // item is placed at the cursor position
-                // shadow is placed at the current legal position
-                
-                // what is the cursor position 
-                    // raycast from screen pos to the inventory canvas background ("DraggableSpace")
-                    // stays at the last pos if no legal space found this frame
-
-                    if (Physics.Raycast(_camera.MouseRay, out RaycastHit hit, 100f,
-                            LayerMask.GetMask("DraggableSpace")))
-                    {
-                        _currentItem.Position = hit.point;
-                        Debug.Log($"Point: {hit.point}, Pos: {_currentItem.Position}");
-                    }
-
-            }
-            return;
-
-            Vector2 RotateDelta(Vector2 delta)
-            {
-                var playerRotation = _level.LevelTraverser.Rotation.Round(); 
-                return playerRotation == Vector2Int.up 
-                    ? new Vector2(delta.x, delta.y) 
-                    : playerRotation == Vector2Int.down 
-                        ? new Vector2(-delta.x, -delta.y) 
-                        : playerRotation == Vector2Int.left 
-                            ? new Vector2(-delta.y, delta.x) 
-                            : new Vector2(delta.y,- delta.x);
-            }
+            if (!_currentItem.IsBeingDragged) 
+                return;
+            
+            if (Physics.Raycast(_camera.MouseRay, out RaycastHit draggableSpaceHit, 10f, LayerMask.GetMask("DraggableSpace"))) 
+                _currentItem.Position = draggableSpaceHit.point;
+            
+            if (Physics.Raycast(_camera.MouseRay, out RaycastHit placeableSpaceHit, 10f, LayerMask.GetMask("PlaceableSpace"))) 
+                _currentItem.ProjectedPosition = placeableSpaceHit.collider.GetComponent<PlaceablePlace>().GetCuredPosition(placeableSpaceHit.point);
         }
 
         private void ScanForItems()
