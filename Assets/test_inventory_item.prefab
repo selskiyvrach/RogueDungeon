@@ -70,6 +70,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _item: {fileID: 5231346244136313160}
   _shadow: {fileID: 8441942785852939145}
+  _legalPositionShadowColor: {r: 0, g: 0, b: 0, a: 0.5882353}
+  _illegalPositionShadowColor: {r: 0.2735849, g: 0, b: 0, a: 0.29411766}
 --- !u!1 &3201196637450845081
 GameObject:
   m_ObjectHideFlags: 0

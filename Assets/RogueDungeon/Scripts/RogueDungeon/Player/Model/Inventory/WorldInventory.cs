@@ -56,12 +56,20 @@ namespace RogueDungeon.Player.Model.Inventory
 
             if (!_currentItem.IsBeingDragged) 
                 return;
-            
-            if (Physics.Raycast(_camera.MouseRay, out RaycastHit draggableSpaceHit, 10f, LayerMask.GetMask("DraggableSpace"))) 
+    
+            if (Physics.Raycast(_camera.MouseRay, out RaycastHit draggableSpaceHit, 10f, LayerMask.GetMask("DraggableSpace")))
                 _currentItem.Position = draggableSpaceHit.point;
-            
-            if (Physics.Raycast(_camera.MouseRay, out RaycastHit placeableSpaceHit, 10f, LayerMask.GetMask("PlaceableSpace"))) 
-                _currentItem.ProjectedPosition = placeableSpaceHit.collider.GetComponent<PlaceablePlace>().GetCuredPosition(placeableSpaceHit.point);
+
+            if (Physics.Raycast(_camera.MouseRay, out RaycastHit placeableSpaceHit, 10f, LayerMask.GetMask("PlaceableSpace")))
+            {
+                _currentItem.ProjectedPosition = placeableSpaceHit.collider.GetComponent<PlaceablePlace>().GetCuredPosition(placeableSpaceHit.point, out var canBePlaced);
+                _currentItem.IsCurrentPositionLegal = canBePlaced;
+            }
+            else
+            {
+                _currentItem.ProjectedPosition = _currentItem.Position;
+                _currentItem.IsCurrentPositionLegal = false;
+            }
         }
 
         private void ScanForItems()
