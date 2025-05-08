@@ -1,11 +1,14 @@
 using System;
 using System.Linq;
+using UnityEngine;
 
 namespace RogueDungeon.Input
 {
     internal class PlayerInput : IPlayerInput
     {
         private readonly InputMap _inputMap;
+
+        public Vector2 CursorPos => UnityEngine.Input.mousePosition;
 
         public PlayerInput(InputMap inputMap) => 
             _inputMap = inputMap;

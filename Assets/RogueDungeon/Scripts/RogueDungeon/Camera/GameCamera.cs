@@ -9,6 +9,7 @@ namespace RogueDungeon.Camera
         [SerializeField] private UnityEngine.Camera _camera;
         private Tweener _effectTween;
 
+        public UnityEngine.Camera Camera => _camera;
         public Transform Follow { get; set; }
         public Ray MouseRay => _camera.ScreenPointToRay(Input.mousePosition);
         

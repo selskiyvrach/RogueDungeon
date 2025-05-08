@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common.UtilsDotNet;
+using UnityEngine;
 using Zenject;
 
 namespace RogueDungeon.Levels
@@ -16,9 +17,8 @@ namespace RogueDungeon.Levels
 
         public Room Create(RoomConfig param1)
         {
-            var presenter = Object.Instantiate(param1.Prefab, _parent);
-            var room = _container.Instantiate<Room>(new object[]{ param1});
-            presenter.transform.localPosition = new Vector3(room.Coordinates.x, 0, room.Coordinates.y);
+            var presenter = _container.InstantiatePrefab(param1.Prefab, _parent).GetComponent<RoomPresenter>().ThrowIfNull();
+            var room = _container.Instantiate<Room>(new object[]{ param1, presenter });
             return room;
         }
     }

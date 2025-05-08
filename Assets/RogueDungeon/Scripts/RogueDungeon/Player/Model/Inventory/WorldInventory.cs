@@ -1,4 +1,7 @@
-﻿using RogueDungeon.Camera;
+﻿using System.Linq;
+using Common.UtilsDotNet;
+using RogueDungeon.Camera;
+using RogueDungeon.Input;
 using RogueDungeon.Levels;
 using UnityEngine;
 using Zenject;
@@ -7,24 +10,40 @@ namespace RogueDungeon.Player.Model.Inventory
 {
     public class WorldInventory : MonoBehaviour
     {
-        [SerializeField] private WorldInventoryAnimator _animator;
-        private static readonly RaycastHit[] Hits = new RaycastHit[10];
+        [SerializeField] private Canvas _inventoryCanvas;
+        [SerializeField] private RectTransform _inventoryRect;
+        [SerializeField, HideInInspector] private WorldInventoryAnimator _animator;
+        [SerializeField, HideInInspector] private PlaceablePlace[] _placeablePlaces;
+        
+        private Level _level;
         private WorldInventoryItem _currentItem;
         private IGameCamera _camera;
-        private Level _level;
+        private IPlayerInput _input;
+        private PlaceablePlace _lootArea;
         public bool IsOpen => _animator.State == WorldInventoryAnimator.AnimatorState.Open;
 
         [Inject]
-        public void Construct(IGameCamera gameCamera, Level level)
+        public void Construct(IPlayerInput input, IGameCamera gameCamera, Level level)
         {
+            _input = input;
             _level = level;
             _camera = gameCamera;
+            _inventoryCanvas.worldCamera = _camera.Camera;
         }
 
-        public void Unpack() => 
-            _animator.Unpack();
+        private void OnValidate()
+        {
+            _animator = GetComponent<WorldInventoryAnimator>();
+            _placeablePlaces = GetComponentsInChildren<PlaceablePlace>();
+        }
 
-        public void Pack() => 
+        public void Unpack()
+        {
+            _lootArea = _level.CurrentRoom.Presenter.LootArea.GetComponentInChildren<PlaceablePlace>().ThrowIfNull();
+            _animator.Unpack();
+        }
+
+        public void Pack() =>
             _animator.Pack();
 
         public void Tick(float timeDelta)
@@ -38,7 +57,7 @@ namespace RogueDungeon.Player.Model.Inventory
             
             if(!IsOpen)
                 return;
-
+            
             ScanForItems();
             DragItem();
         }
@@ -48,28 +67,37 @@ namespace RogueDungeon.Player.Model.Inventory
             if(_currentItem == null)
                 return;
 
-            if (_currentItem.IsBeingDragged && UnityEngine.Input.GetMouseButtonUp(0)) 
+            if (_currentItem.IsBeingDragged && !_input.IsHeld(InputKey.DragItem)) 
                 _currentItem.IsBeingDragged = false;
 
-            if (!_currentItem.IsBeingDragged && UnityEngine.Input.GetMouseButtonDown(0)) 
+            if (!_currentItem.IsBeingDragged && _input.IsDown(InputKey.DragItem))
+            {
+                _input.ConsumeInput(InputKey.DragItem);
                 _currentItem.IsBeingDragged = true;
+            }
 
             if (!_currentItem.IsBeingDragged) 
                 return;
     
-            if (Physics.Raycast(_camera.MouseRay, out RaycastHit draggableSpaceHit, 10f, LayerMask.GetMask("DraggableSpace")))
-                _currentItem.Position = draggableSpaceHit.point;
+            if(RectTransformUtility.RectangleContainsScreenPoint(_inventoryRect, _input.CursorPos, _camera.Camera) && 
+               RectTransformUtility.ScreenPointToWorldPointInRectangle(_inventoryRect, _input.CursorPos, _camera.Camera, out Vector3 uiWorldPoint))
+                _currentItem.Position = uiWorldPoint;
+            
+            if(_placeablePlaces.Any(TryProjectOnPlaceablePlace) || TryProjectOnPlaceablePlace(_lootArea))
+                return;
 
-            if (Physics.Raycast(_camera.MouseRay, out RaycastHit placeableSpaceHit, 10f, LayerMask.GetMask("PlaceableSpace")))
-            {
-                _currentItem.ProjectedPosition = placeableSpaceHit.collider.GetComponent<PlaceablePlace>().GetCuredPosition(placeableSpaceHit.point, out var canBePlaced);
-                _currentItem.IsCurrentPositionLegal = canBePlaced;
-            }
-            else
-            {
-                _currentItem.ProjectedPosition = _currentItem.Position;
-                _currentItem.IsCurrentPositionLegal = false;
-            }
+            _currentItem.ProjectedPosition = _currentItem.Position;
+            _currentItem.IsCurrentPositionLegal = false;
+        }
+
+        private bool TryProjectOnPlaceablePlace(PlaceablePlace place)
+        {
+            if(!place.TryProjectItem(_currentItem, _input.CursorPos, out var worldPos, out var canBePlaced))
+                return false;
+                
+            _currentItem.ProjectedPosition = worldPos;
+            _currentItem.IsCurrentPositionLegal = canBePlaced;
+            return true;
         }
 
         private void ScanForItems()
@@ -77,8 +105,9 @@ namespace RogueDungeon.Player.Model.Inventory
             if(_currentItem?.IsBeingDragged ?? false)
                 return;
             
-            var hitCount = Physics.RaycastNonAlloc(_camera.MouseRay, Hits, 10f, LayerMask.GetMask("Draggables"));
-            if (hitCount == 0)
+            var newItem = _lootArea.ScanForItem(_input.CursorPos) ?? _placeablePlaces.Select(n => n.ScanForItem(_input.CursorPos)).FirstOrDefault(n => n != null);
+            
+            if (newItem == null)
             {
                 if (_currentItem == null) 
                     return;
@@ -89,21 +118,6 @@ namespace RogueDungeon.Player.Model.Inventory
                 return;
             }
             
-            var pointerDirection = _camera.MouseRay.direction;
-            var closest = Hits[0];
-            var closestDot = 0f;
-            for (var i = 0; i < hitCount; i++)
-            {
-                var itemDirection = (Hits[i].collider.transform.position - _camera.MouseRay.origin).normalized;
-                var dot = Vector3.Dot(pointerDirection, itemDirection);
-                if (dot < closestDot) 
-                    continue;
-                
-                closestDot = dot;
-                closest = Hits[i];
-            }
-
-            var newItem = closest.collider.gameObject.GetComponent<WorldInventoryItem>();
             if(_currentItem == newItem)
                 return;
 

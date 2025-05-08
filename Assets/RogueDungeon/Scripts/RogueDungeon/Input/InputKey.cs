@@ -26,5 +26,6 @@
         Esc = 10000,
         
         Inventory = 11000,
+        DragItem = 11100,
     }
 }

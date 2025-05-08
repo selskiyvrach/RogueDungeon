@@ -16,11 +16,14 @@ namespace RogueDungeon.Levels
         public Vector2Int Coordinates => _config.Coordinates;
         public AdjacentRooms AdjacentRooms { get; set; }
         public bool CanLeave => _events.Count == 0;
+        public RoomPresenter Presenter { get; }
 
-        public Room(RoomConfig config, IFactory<RoomEventConfig, IRoomEvent> roomEventFactory)
+        public Room(RoomConfig config, IFactory<RoomEventConfig, IRoomEvent> roomEventFactory, RoomPresenter presenter)
         {
             _config = config;
             _roomEventFactory = roomEventFactory;
+            Presenter = presenter;
+            Presenter.transform.localPosition = new Vector3(Coordinates.x, 0, Coordinates.y);
         }
 
         public void Initialize() => 

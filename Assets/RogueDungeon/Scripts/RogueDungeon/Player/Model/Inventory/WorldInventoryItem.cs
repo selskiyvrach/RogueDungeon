@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace RogueDungeon.Player.Model.Inventory
 {
     public class WorldInventoryItem : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer _item;
-        [SerializeField] private SpriteRenderer _shadow;
+        [SerializeField] private Image _item;
+        [SerializeField] private Image _shadow;
         [SerializeField] private Color _legalPositionShadowColor;
         [SerializeField] private Color _illegalPositionShadowColor;
         
@@ -51,7 +52,7 @@ namespace RogueDungeon.Player.Model.Inventory
                     return;
                 
                 _isPointedAtBackingField = value;
-                _item.transform.localPosition = Vector3.back * GetVerticalOffset();
+                _item.transform.localPosition = Vector3.back * GetVerticalOffset() / transform.lossyScale.y;
             }
         }
 
@@ -63,7 +64,7 @@ namespace RogueDungeon.Player.Model.Inventory
                 if(_isBeingDraggedBackingField == value)
                     return;
                 _isBeingDraggedBackingField = value;
-                _item.transform.localPosition = Vector3.back * GetVerticalOffset();
+                _item.transform.localPosition = Vector3.back * GetVerticalOffset()/ transform.lossyScale.y;
                 
                 if(_isBeingDraggedBackingField)
                     return;
@@ -75,7 +76,7 @@ namespace RogueDungeon.Player.Model.Inventory
         }
 
         private void Start() => 
-            _item.transform.localPosition = Vector3.back * GetVerticalOffset();
+            _item.transform.localPosition = Vector3.back * GetVerticalOffset() / transform.lossyScale.y;
 
         private float GetVerticalOffset()
         {

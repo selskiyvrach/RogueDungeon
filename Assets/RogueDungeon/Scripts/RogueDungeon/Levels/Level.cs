@@ -10,10 +10,10 @@ namespace RogueDungeon.Levels
     {
         private readonly Room[] _rooms;
         private ITwoDWorldObject _levelTraverser;
-        public IRoom StartingRoom { get; }
-        public IRoom CurrentRoom { get; private set; }
+        public Room StartingRoom { get; }
+        public Room CurrentRoom { get; private set; }
         public event Action OnChangedRoom;
-        public IEnumerable<IRoom> Rooms => _rooms;
+        public IEnumerable<Room> Rooms => _rooms;
 
         public ITwoDWorldObject LevelTraverser
         {
@@ -25,7 +25,7 @@ namespace RogueDungeon.Levels
             }
         }
 
-        public Level(IRoom startingRoom, IEnumerable<Room> rooms)
+        public Level(Room startingRoom, IEnumerable<Room> rooms)
         {
             StartingRoom = startingRoom;
             _rooms = rooms.ToArray();
