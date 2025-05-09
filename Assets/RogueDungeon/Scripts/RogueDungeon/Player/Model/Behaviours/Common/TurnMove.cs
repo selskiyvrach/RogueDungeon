@@ -25,7 +25,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         public override void Enter()
         {
             base.Enter();
-            _from = _level.LevelTraverser.Rotation.Round().Degrees();
+            _from = _level.LevelTraverser.Rotation2D.Round().Degrees();
             _to = _from + RotationDegrees;
             _to %= 360;
         }
@@ -34,7 +34,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         {
             base.Tick(timeDelta);
             var angle = Mathf.LerpAngle(_from, _to, Animation.Progress);
-            _level.LevelTraverser.Rotation = FromAngle(angle);
+            _level.LevelTraverser.Rotation2D = FromAngle(angle);
         }
 
         private static Vector2 FromAngle(float degrees) =>

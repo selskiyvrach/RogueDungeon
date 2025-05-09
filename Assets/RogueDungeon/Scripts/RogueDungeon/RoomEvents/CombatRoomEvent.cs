@@ -42,7 +42,7 @@ namespace RogueDungeon.Levels
             _gameplayModeChanger.SetCombatMode();
             
             _battleField.Position = Room.Coordinates;
-            _battleField.Direction = _level.LevelTraverser.Rotation.Round();
+            _battleField.Direction = _level.LevelTraverser.Rotation2D.Round();
             
             if(_config.MiddleEnemy is {} middleEnemy)
                 _enemySpawner.Spawn(middleEnemy, EnemyPosition.Middle);

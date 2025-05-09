@@ -5,7 +5,7 @@ namespace Common.Unity
     public interface ITwoDWorldObject
     {
         Vector2 LocalPosition { get; set; }
-        Vector2 Rotation { get; set; }
+        Vector2 Rotation2D { get; set; }
     }
     
     public class TwoDWorldObject : ITwoDWorldObject
@@ -25,7 +25,7 @@ namespace Common.Unity
             set => _gameObject.transform.localPosition = new Vector3(value.x, 0, value.y);
         }
 
-        public Vector2 Rotation
+        public Vector2 Rotation2D
         {
             get
             {

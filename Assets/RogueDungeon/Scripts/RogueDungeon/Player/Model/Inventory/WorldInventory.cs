@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Common.Unity;
 using Common.UtilsDotNet;
 using RogueDungeon.Camera;
 using RogueDungeon.Input;
@@ -74,11 +75,13 @@ namespace RogueDungeon.Player.Model.Inventory
             {
                 _input.ConsumeInput(InputKey.DragItem);
                 _currentItem.IsBeingDragged = true;
+                var rot = _level.LevelTraverser.Rotation2D.Round();
+                _currentItem.SetRotation(rot == Vector2Int.up ? 90f : rot == Vector2Int.left ? 180 : rot == Vector2Int.down ? 270 : 0);
             }
 
             if (!_currentItem.IsBeingDragged) 
                 return;
-    
+            
             if(RectTransformUtility.RectangleContainsScreenPoint(_inventoryRect, _input.CursorPos, _camera.Camera) && 
                RectTransformUtility.ScreenPointToWorldPointInRectangle(_inventoryRect, _input.CursorPos, _camera.Camera, out Vector3 uiWorldPoint))
                 _currentItem.Position = uiWorldPoint;
@@ -97,6 +100,8 @@ namespace RogueDungeon.Player.Model.Inventory
                 
             _currentItem.ProjectedPosition = worldPos;
             _currentItem.IsCurrentPositionLegal = canBePlaced;
+            if (_currentItem.IsCurrentPositionLegal)
+                _currentItem.LastLegalPlace = place;
             return true;
         }
 

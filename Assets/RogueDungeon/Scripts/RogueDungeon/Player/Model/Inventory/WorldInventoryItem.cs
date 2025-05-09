@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using Common.Unity;
+using Common.UtilsDotNet;
+using RogueDungeon.Items;
+using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace RogueDungeon.Player.Model.Inventory
@@ -26,6 +30,8 @@ namespace RogueDungeon.Player.Model.Inventory
             get => _shadow.transform.position;
             set => _shadow.transform.position = value;
         }
+
+        public PlaceablePlace LastLegalPlace { get; set; }
 
         public bool IsCurrentPositionLegal
         {
@@ -65,18 +71,43 @@ namespace RogueDungeon.Player.Model.Inventory
                     return;
                 _isBeingDraggedBackingField = value;
                 _item.transform.localPosition = Vector3.back * GetVerticalOffset()/ transform.lossyScale.y;
-                
-                if(_isBeingDraggedBackingField)
+
+                if (_isBeingDraggedBackingField)
                     return;
 
+                transform.SetParent(LastLegalPlace.transform);
                 transform.position = _lastLegalPosition;
                 _shadow.transform.localPosition = Vector3.zero;
                 IsCurrentPositionLegal = true;
             }
         }
 
+        // [Inject]
+        [Button]
+        private void Construct(ItemConfig config)
+        {
+            var sprite = config.Sprite;
+            _item.sprite = sprite;
+            _shadow.sprite = sprite; 
+            
+            var containerSize = (Vector2)config.Size * 50;
+            ((RectTransform)transform).sizeDelta = containerSize;
+            
+            var spriteAspect = sprite.texture.AspectRatio();
+
+            var finalSize = spriteAspect > containerSize.AspectRatio()
+                ? new Vector2(containerSize.x, containerSize.x / spriteAspect) 
+                : new Vector2(containerSize.y * spriteAspect, containerSize.y);
+            
+            _item.rectTransform.sizeDelta = finalSize;
+            _shadow.rectTransform.sizeDelta = finalSize;
+        }
+
         private void Start() => 
             _item.transform.localPosition = Vector3.back * GetVerticalOffset() / transform.lossyScale.y;
+
+        public void SetRotation(float rotation) => 
+            transform.localRotation = Quaternion.Euler(0, 0, rotation);
 
         private float GetVerticalOffset()
         {

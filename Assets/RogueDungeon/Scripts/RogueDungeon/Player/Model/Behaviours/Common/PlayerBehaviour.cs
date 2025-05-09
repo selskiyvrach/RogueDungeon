@@ -18,7 +18,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         public void Initialize()
         {
             _level.LevelTraverser.LocalPosition = _level.StartingRoom.Coordinates;
-            _level.LevelTraverser.Rotation = Vector2.up;
+            _level.LevelTraverser.Rotation2D = Vector2.up;
             _stateMachine.Initialize();
         }
 

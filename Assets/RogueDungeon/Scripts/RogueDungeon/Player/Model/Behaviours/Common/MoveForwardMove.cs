@@ -29,7 +29,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
             base.Enter();
             _from = _level.LevelTraverser.LocalPosition.Round();
             _level.CurrentRoom.Exit();
-            _to = _from + _level.LevelTraverser.Rotation.Round();
+            _to = _from + _level.LevelTraverser.Rotation2D.Round();
         }
         
         public override void Tick(float timeDelta)
@@ -46,6 +46,6 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         protected override bool CanTransitionTo() =>
             base.CanTransitionTo() && _level.Rooms
                 .First(n => n.Coordinates == _level.LevelTraverser.LocalPosition.Round()).AdjacentRooms
-                .HasAdjacentRoom(_level.LevelTraverser.Rotation.Round());
+                .HasAdjacentRoom(_level.LevelTraverser.Rotation2D.Round());
     }
 }

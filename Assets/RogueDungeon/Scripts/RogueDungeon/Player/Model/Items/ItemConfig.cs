@@ -13,6 +13,7 @@ namespace RogueDungeon.Items
 {
     public abstract class ItemConfig : ScriptableObject, IMoveSetConfig
     {
+        [field: SerializeField] public Vector2Int Size { get; private set; } = new(1, 1);
         [field: SerializeField] public HandHeldItemPresenter ItemPresenterPrefab { get; private set; }
         [field: SerializeField] public Sprite Sprite { get; private set; }
         [field: BoxGroup("Durations"), SerializeField] public float IdleAnimationDuration { get; private set; } = 1f;

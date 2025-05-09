@@ -45,6 +45,9 @@ namespace Gameplay
             Container.NewSingleInterfaces<EnemyFactory>();
             Container.NewSingleInterfaces<EnemySpawner>().WithArguments(_battleField.transform);
             
+            // Items
+            
+            
             // Player
             Container.NewSingleInterfaces<PlayerFactory>();
             Container.Bind<IPlayerSpawner>().To<PlayerSpawner>().FromNew().AsSingle()

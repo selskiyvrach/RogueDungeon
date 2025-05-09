@@ -18,5 +18,8 @@ namespace Common.Unity
 
         public static float Degrees(this Vector2Int v) => 
             Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        
+        public static float AspectRatio(this Vector2 v) =>
+            v.x / v.y;
     }
 } 

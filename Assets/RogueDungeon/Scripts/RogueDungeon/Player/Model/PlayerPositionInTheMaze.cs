@@ -18,13 +18,13 @@ namespace RogueDungeon.Player.Model
             }
         }
 
-        public Vector2 Rotation
+        public Vector2 Rotation2D
         {
-            get => _targetObject.Rotation;
+            get => _targetObject.Rotation2D;
             set
             {
                 var position = LocalPosition;
-                _targetObject.Rotation = value;
+                _targetObject.Rotation2D = value;
                 // refresh position
                 LocalPosition = position;
             }
@@ -37,6 +37,6 @@ namespace RogueDungeon.Player.Model
         }
 
         private Vector2 GetOffset() => 
-            Rotation * -_playerConfig.PositionOffsetFromTileCenter;
+            Rotation2D * -_playerConfig.PositionOffsetFromTileCenter;
     }
 }
