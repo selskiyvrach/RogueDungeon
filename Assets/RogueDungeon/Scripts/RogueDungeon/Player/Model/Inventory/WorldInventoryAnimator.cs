@@ -35,7 +35,7 @@ namespace RogueDungeon.Player.Model.Inventory
         private void Awake()
         {
             State = AnimatorState.Closed;
-            _config.OpenAnimation.SampleAnimation(_animationRootObject, 0);
+            // _config.OpenAnimation.SampleAnimation(_animationRootObject, 0);
         }
 
         public void Unpack()

@@ -13,7 +13,7 @@ namespace RogueDungeon.Player.Model.Inventory
     {
         [SerializeField] private Canvas _inventoryCanvas;
         [SerializeField] private RectTransform _inventoryRect;
-        [SerializeField, HideInInspector] private WorldInventoryAnimator _animator;
+        // [SerializeField, HideInInspector] private WorldInventoryAnimator _animator;
         [SerializeField, HideInInspector] private PlaceablePlace[] _placeablePlaces;
         
         private Level _level;
@@ -21,7 +21,8 @@ namespace RogueDungeon.Player.Model.Inventory
         private IGameCamera _camera;
         private IPlayerInput _input;
         private PlaceablePlace _lootArea;
-        public bool IsOpen => _animator.State == WorldInventoryAnimator.AnimatorState.Open;
+        // public bool IsOpen => _animator.State == WorldInventoryAnimator.AnimatorState.Open;
+        public bool IsOpen { get; set; }
 
         [Inject]
         public void Construct(IPlayerInput input, IGameCamera gameCamera, Level level)
@@ -34,27 +35,31 @@ namespace RogueDungeon.Player.Model.Inventory
 
         private void OnValidate()
         {
-            _animator = GetComponent<WorldInventoryAnimator>();
+            // _animator = GetComponent<WorldInventoryAnimator>();
             _placeablePlaces = GetComponentsInChildren<PlaceablePlace>();
         }
 
         public void Unpack()
         {
             _lootArea = _level.CurrentRoom.Presenter.LootArea.GetComponentInChildren<PlaceablePlace>().ThrowIfNull();
-            _animator.Unpack();
+            IsOpen = true;
+            // _animator.Unpack();
         }
 
-        public void Pack() =>
-            _animator.Pack();
+        public void Pack()
+        {
+            IsOpen = false;
+        // _animator.Pack();
+        }
 
         public void Tick(float timeDelta)
         {
-            if (_animator.State is WorldInventoryAnimator.AnimatorState.Opening
-                or WorldInventoryAnimator.AnimatorState.Closing)
-            {
-                _animator.Tick(timeDelta);
-                return;
-            }
+            // if (_animator.State is WorldInventoryAnimator.AnimatorState.Opening
+            //     or WorldInventoryAnimator.AnimatorState.Closing)
+            // {
+            //     _animator.Tick(timeDelta);
+            //     return;
+            // }
             
             if(!IsOpen)
                 return;

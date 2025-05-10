@@ -27,8 +27,6 @@ namespace RogueDungeon.Player.Model.Inventory
         
         [SerializeField] private Type _type;
         [SerializeField, HideInInspector] private GraphicRaycaster _raycaster;
-        [SerializeField, ShowIf("@_type==Type.Grid")] private Vector2Int _size;
-        [SerializeField, ShowIf("@_type==Type.Grid")] private GameObject _cellPrefab;
         [SerializeField, ShowIf("@_type==Type.Grid")] private GridLayoutGroup _gridLayout;
         private UnityEngine.Camera _camera;
         private PointerEventData _pointer;
@@ -36,15 +34,19 @@ namespace RogueDungeon.Player.Model.Inventory
 
         [field: SerializeField, HideInInspector] public RectTransform RectTransform { get; private set; }
 
+        public float CellSize => _type switch
+        {
+            Type.Plain => 70,
+            Type.Slot or Type.Grid => 90,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
         [Inject]
         private void Construct(EventSystem eventSystem, IGameCamera gameCamera)
         {
             _camera = gameCamera.Camera;
             _eventSystem = eventSystem;
             _pointer = new PointerEventData(_eventSystem);
-            
-            if(_type == Type.Grid)
-                FillGrid();
         }
 
         private void OnValidate()
@@ -78,7 +80,8 @@ namespace RogueDungeon.Player.Model.Inventory
 
         private Vector3 GetGridProjection(WorldInventoryItem item, Vector3 worldPoint)
         {
-            return new Vector3();
+            
+            return worldPoint;
         }
 
         public WorldInventoryItem ScanForItem(Vector3 screenPos)
@@ -111,17 +114,6 @@ namespace RogueDungeon.Player.Model.Inventory
                 closest = item;
             }
             return closest;
-        }
-
-        private void FillGrid()
-        {
-            var cellCount = _size.x * _size.y;
-            for (var i = 0; i < cellCount; i++) 
-                Instantiate(_cellPrefab, _gridLayout.transform);
-
-            var areaSize = _gridLayout.GetComponent<RectTransform>().sizeDelta;
-            var cellSize = new Vector2(areaSize.x / _size.x, areaSize.y / _size.y);
-            _gridLayout.cellSize = cellSize;
         }
     }
 }

@@ -18,6 +18,7 @@ namespace RogueDungeon.Player.Model.Inventory
         private bool _isBeingDraggedBackingField;
         private bool _isCurrentPositionLegalBackingField;
         private Vector3 _lastLegalPosition;
+        private PlaceablePlace _lastLegalPlace;
 
         public Vector3 Position
         {
@@ -31,7 +32,18 @@ namespace RogueDungeon.Player.Model.Inventory
             set => _shadow.transform.position = value;
         }
 
-        public PlaceablePlace LastLegalPlace { get; set; }
+        public PlaceablePlace LastLegalPlace
+        {
+            get => _lastLegalPlace;
+            set
+            {
+                if(_lastLegalPlace == value)
+                    return;
+                
+                _lastLegalPlace = value;
+                SetSize(_lastLegalPlace.CellSize);
+            }
+        }
 
         public bool IsCurrentPositionLegal
         {
@@ -90,10 +102,15 @@ namespace RogueDungeon.Player.Model.Inventory
             _item.sprite = sprite;
             _shadow.sprite = sprite; 
             
-            var containerSize = (Vector2)config.Size * 50;
+            // SetSize();
+        }
+
+        private void SetSize(float cellSize)
+        {
+            var containerSize = new Vector2(2, 3) * cellSize;
             ((RectTransform)transform).sizeDelta = containerSize;
             
-            var spriteAspect = sprite.texture.AspectRatio();
+            var spriteAspect = _item.sprite.rect.width / _item.sprite.rect.height;
 
             var finalSize = spriteAspect > containerSize.AspectRatio()
                 ? new Vector2(containerSize.x, containerSize.x / spriteAspect) 
@@ -105,9 +122,6 @@ namespace RogueDungeon.Player.Model.Inventory
 
         private void Start() => 
             _item.transform.localPosition = Vector3.back * GetVerticalOffset() / transform.lossyScale.y;
-
-        public void SetRotation(float rotation) => 
-            transform.localRotation = Quaternion.Euler(0, 0, rotation);
 
         private float GetVerticalOffset()
         {
