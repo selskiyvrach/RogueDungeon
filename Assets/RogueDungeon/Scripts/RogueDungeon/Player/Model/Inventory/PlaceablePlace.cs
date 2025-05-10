@@ -36,8 +36,8 @@ namespace RogueDungeon.Player.Model.Inventory
 
         public float CellSize => _type switch
         {
-            Type.Plain => 70,
-            Type.Slot or Type.Grid => 90,
+            Type.Plain => 30,
+            Type.Slot or Type.Grid => 20,
             _ => throw new ArgumentOutOfRangeException()
         };
 

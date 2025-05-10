@@ -190,8 +190,8 @@ MonoBehaviour:
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: 0, y: -0.05, z: 0.05}
-      <Rotation>k__BackingField: {x: 42.5, y: 0, z: 0}
+      <Position>k__BackingField: {x: 0, y: -0.035, z: 0.15}
+      <Rotation>k__BackingField: {x: 47, y: 0, z: 0}
     <Events>k__BackingField: []
   _keepInventoryOpenAnimation:
     <KeyFrames>k__BackingField: []

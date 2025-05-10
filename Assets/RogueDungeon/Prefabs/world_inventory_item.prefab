@@ -54,8 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _item: {fileID: 1523352450832919681}
   _shadow: {fileID: 5191131650719046296}
-  _legalPositionShadowColor: {r: 0, g: 0, b: 0, a: 0.5882353}
-  _illegalPositionShadowColor: {r: 0.5, g: 0, b: 0, a: 1}
+  _legalPositionShadowColor: {r: 0, g: 0, b: 0, a: 1}
+  _illegalPositionShadowColor: {r: 0.6226415, g: 0, b: 0, a: 1}
 --- !u!222 &1155226063684189043
 CanvasRenderer:
   m_ObjectHideFlags: 0

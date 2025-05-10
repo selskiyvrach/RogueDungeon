@@ -105,6 +105,9 @@ namespace RogueDungeon.Player.Model.Inventory
             // SetSize();
         }
 
+        private void Start() => 
+            _item.transform.localPosition = Vector3.back * GetVerticalOffset() / transform.lossyScale.y;
+
         private void SetSize(float cellSize)
         {
             var containerSize = new Vector2(2, 3) * cellSize;
@@ -120,14 +123,11 @@ namespace RogueDungeon.Player.Model.Inventory
             _shadow.rectTransform.sizeDelta = finalSize;
         }
 
-        private void Start() => 
-            _item.transform.localPosition = Vector3.back * GetVerticalOffset() / transform.lossyScale.y;
-
         private float GetVerticalOffset()
         {
-            var offset = .0025f;
+            var offset = .0035f;
             if (IsPointedAt || IsBeingDragged)
-                offset += .005f;
+                offset += .0065f;
             return offset;
         }
     }
