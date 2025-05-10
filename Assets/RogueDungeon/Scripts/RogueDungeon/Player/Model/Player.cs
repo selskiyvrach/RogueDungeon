@@ -65,39 +65,35 @@ namespace RogueDungeon.Player.Model
 
         public void Tick(float deltaTime)
         {
-            if (IsAlive)
-            {
-                if (_input.IsDown(InputKey.CycleLeftArmItems))
-                {
-                    Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Weapon(Config.DefaultWeapon);
-                    _input.ConsumeInput(InputKey.CycleLeftArmItems);
-                }
-                if (_input.IsDown(InputKey.CycleRightArmItems))
-                {
-                    Hands.RightHand.IntendedItem = Hands.RightHand.IntendedItem != null ? null : new Shield(Config.DefaultShield);
-                    _input.ConsumeInput(InputKey.CycleRightArmItems);
-                }
-                if (_input.IsDown(InputKey.OpenMap) && Hands.RightHand.CurrentItem is not Items.Map)
-                {
-                    _previousRightHandItem = Hands.RightHand.CurrentItem;
-                    Hands.RightHand.IntendedItem = new Items.Map(Config.MapItemConfig);
-                    _input.ConsumeInput(InputKey.OpenMap);
-                }
-                else if (_input.IsDown(InputKey.OpenMap) && Hands.RightHand.CurrentItem is Items.Map)
-                {
-                    Hands.RightHand.IntendedItem = _previousRightHandItem;
-                    _input.ConsumeInput(InputKey.OpenMap);
-                }
-            }
-
-            // TODO: figure out wtf is going on with IsAlive checks here
-            if(IsAlive)
-                Stamina.Tick(deltaTime);
             Movement.Tick(deltaTime);
-            if (IsAlive)
+            
+            if (!IsAlive) 
+                return;
+            
+            Hands.Tick(deltaTime);
+            WorldInventory.Tick(deltaTime);
+            Stamina.Tick(deltaTime);
+            
+            if (_input.IsDown(InputKey.CycleLeftArmItems))
             {
-                Hands.Tick(deltaTime);
-                WorldInventory.Tick(deltaTime);
+                Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Weapon(Config.DefaultWeapon);
+                _input.ConsumeInput(InputKey.CycleLeftArmItems);
+            }
+            if (_input.IsDown(InputKey.CycleRightArmItems))
+            {
+                Hands.RightHand.IntendedItem = Hands.RightHand.IntendedItem != null ? null : new Shield(Config.DefaultShield);
+                _input.ConsumeInput(InputKey.CycleRightArmItems);
+            }
+            if (_input.IsDown(InputKey.OpenMap) && Hands.RightHand.CurrentItem is not Items.Map)
+            {
+                _previousRightHandItem = Hands.RightHand.CurrentItem;
+                Hands.RightHand.IntendedItem = new Items.Map(Config.MapItemConfig);
+                _input.ConsumeInput(InputKey.OpenMap);
+            }
+            else if (_input.IsDown(InputKey.OpenMap) && Hands.RightHand.CurrentItem is Items.Map)
+            {
+                Hands.RightHand.IntendedItem = _previousRightHandItem;
+                _input.ConsumeInput(InputKey.OpenMap);
             }
         }
     }

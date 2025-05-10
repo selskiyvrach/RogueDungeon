@@ -74,9 +74,9 @@ namespace RogueDungeon.Player.Model.Inventory
             if (!_currentItem.IsBeingDragged && _input.IsDown(InputKey.DragItem))
             {
                 _input.ConsumeInput(InputKey.DragItem);
+                _currentItem.transform.SetParent(_inventoryCanvas.transform);
+                _currentItem.transform.localRotation = Quaternion.Euler(0, 0, 0);
                 _currentItem.IsBeingDragged = true;
-                var rot = _level.LevelTraverser.Rotation2D.Round();
-                _currentItem.SetRotation(rot == Vector2Int.up ? 90f : rot == Vector2Int.left ? 180 : rot == Vector2Int.down ? 270 : 0);
             }
 
             if (!_currentItem.IsBeingDragged) 

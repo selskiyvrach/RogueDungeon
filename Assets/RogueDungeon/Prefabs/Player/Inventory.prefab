@@ -3761,6 +3761,11 @@ PrefabInstance:
       propertyPath: _raycaster
       value: 
       objectReference: {fileID: 8344188749282191943}
+    - target: {fileID: 8607621353739496797, guid: 2571e9026cff05340919196e6b311ad3,
+        type: 3}
+      propertyPath: m_Name
+      value: ivnentory_space
+      objectReference: {fileID: 0}
     - target: {fileID: 8648109908793469803, guid: 2571e9026cff05340919196e6b311ad3,
         type: 3}
       propertyPath: m_AnchorMax.y
