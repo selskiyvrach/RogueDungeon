@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common.Unity;
 using Common.UtilsDotNet;
 using RogueDungeon.Camera;
 using Sirenix.OdinInspector;
@@ -37,7 +38,8 @@ namespace RogueDungeon.Player.Model.Inventory
         public float CellSize => _type switch
         {
             Type.Plain => 30,
-            Type.Slot or Type.Grid => 20,
+            Type.Slot => 20,
+            Type.Grid => _gridLayout.cellSize.x,
             _ => throw new ArgumentOutOfRangeException()
         };
 
@@ -72,16 +74,37 @@ namespace RogueDungeon.Player.Model.Inventory
             {
                 Type.Plain => point,
                 Type.Slot => transform.position,
-                Type.Grid => GetGridProjection(item, point),
+                Type.Grid => GetGridProjection(item, screenPos),
                 _ => throw new ArgumentOutOfRangeException()
             };
             return true;
         }
 
-        private Vector3 GetGridProjection(WorldInventoryItem item, Vector3 worldPoint)
+        private Vector3 GetGridProjection(WorldInventoryItem item, Vector3 screenPos)
         {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(RectTransform, screenPos, _camera, out var localPoint);
+            localPoint += RectTransform.sizeDelta / 2f;
             
-            return worldPoint;
+            _gridLayout.GetRowsAndColumns(out var rows, out var columns);
+            var cellRow = Mathf.FloorToInt( (1 - localPoint.y / RectTransform.sizeDelta.y) * rows);
+            var cellColumn = Mathf.FloorToInt(localPoint.x / RectTransform.sizeDelta.x * columns);
+
+            var row = -1;
+            var column = -1;
+            var cellPos = Vector3.zero;
+            foreach (var child in _gridLayout.transform.GetDirectChildren<RectTransform>())
+            {
+                column++;
+                column %= columns;
+                if (column == 0)
+                    row++;
+                var cellInQuestion = row == cellRow && column == cellColumn;
+                child.GetComponentInChildren<Image>().enabled = cellInQuestion;
+                if(cellInQuestion)
+                    cellPos = child.position;
+            }
+            Debug.Log($"Cell pos is {cellPos}");
+            return cellPos;
         }
 
         public WorldInventoryItem ScanForItem(Vector3 screenPos)
