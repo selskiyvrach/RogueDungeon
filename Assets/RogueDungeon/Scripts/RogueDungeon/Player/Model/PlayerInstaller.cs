@@ -13,7 +13,7 @@ namespace RogueDungeon.Player.Model
     public class PlayerInstaller : MonoInstaller
     {
         [SerializeField] private PlayerGameObject _playerGameObject;
-        [SerializeField] private WorldInventory _inventory;
+        [SerializeField] private InventoryView _inventoryPrefab;
         [SerializeField] private PlayerConfig _config;
         [SerializeField] private PlayerHandsInstaller _handsInstaller;
         [SerializeField] private TransformAnimationTarget _bodyAnimationTarget;
@@ -21,9 +21,10 @@ namespace RogueDungeon.Player.Model
 
         public override void InstallBindings()
         {
+            Container.NewSingle<Inventory.Inventory>();
             Container.InstanceSingle(_playerGameObject);
             Container.InstanceSingle(_config);
-            Container.InstanceSingle(_inventory);
+            Container.InstantiatePrefab(_inventoryPrefab, transform);
             Container.Bind<PlayerPositionInTheMaze>().FromNew().AsSingle().WithArguments<ITwoDWorldObject>(new TwoDWorldObject(_playerGameObject.gameObject));
             Container.NewSingle<Player>();
 

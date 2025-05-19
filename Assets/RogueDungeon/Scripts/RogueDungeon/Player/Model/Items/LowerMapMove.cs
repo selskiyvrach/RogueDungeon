@@ -21,12 +21,11 @@ namespace RogueDungeon.Items
 
         public override void Enter()
         {
-            if(_playerInput.IsDown(_hands.UseItemInput(_map)))
-                _playerInput.ConsumeInput(_hands.UseItemInput(_map));
+            _playerInput.GetKey(_hands.UseItemInput(_map)).Reset();
             base.Enter();
         }
 
-        protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && (_playerInput.IsDown(InputKey.Esc) || _playerInput.IsDown(_hands.UseItemInput(_map)));
+        protected override bool CanTransitionTo() =>
+            base.CanTransitionTo() && (_playerInput.GetKey(InputKey.Esc).IsDown || _playerInput.GetKey(_hands.UseItemInput(_map)).IsDown);
     }
 }

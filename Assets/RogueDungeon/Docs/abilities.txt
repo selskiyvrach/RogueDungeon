@@ -1,0 +1,20 @@
+﻿Abilities
+
+Weapon mastery (0-3)
++ 10% weapon damage
+
+Pack Mule (0-3)
+- 15% stamina reduction from equipment weight
+
+Literacy (0-2)
+- 20% book reading time
+
+Craftsmanship (0-1)
++ 20% repairing speed
+    Armorer (0-3)
+    + 10% armor repair speed
+    Weapon smith (0-3)
+    + 10% weapon repair speed 
+        
+Cooking (0-3)
++ 10% time provided by food 

@@ -9,6 +9,7 @@ namespace RogueDungeon.Input
         private readonly InputUnit[] _inputUnits;
         private readonly List<InputUnit> _enabledUnits = new();
         public IEnumerable<InputUnit> EnabledUnits => _enabledUnits;
+        public IEnumerable<InputUnit> AllUnits => _inputUnits;
 
         public InputMap(InputMapConfig config)
         {
@@ -18,7 +19,7 @@ namespace RogueDungeon.Input
 
         public void SetFilter(InputFilter filter)
         {
-            _enabledUnits.Where(n => !filter.AllowedKeys.Contains(n.Key)).Foreach(n => n.ResetState());
+            _enabledUnits.Where(n => !filter.AllowedKeys.Contains(n.Key)).Foreach(n => n.Reset());
             _enabledUnits.Clear();
             _enabledUnits.AddRange(filter == null
                 ? _inputUnits 

@@ -44,10 +44,6 @@ namespace RogueDungeon.Items
                 new (Names.SECOND_ATTACK_RECOVER),
             }),
             new(Names.SECOND_ATTACK_RECOVER, typeof(ItemRecoverAttackMove), _returnToIdleAnimationConfig, new TransitionPicker[]{ new (Names.IDLE)}),
-            new(Names.SECOND_TO_FIRST_ATTACK_TRANSITION, typeof(ItemTransitionBetweenAttacksMove), _attackAnimations.SecondToFirstAttackTransitionAnimation, new TransitionPicker[]
-            {
-                new (Names.FIRST_ATTACK_EXECUTE),
-            }),
         });
     }
 }

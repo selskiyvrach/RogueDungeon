@@ -11,6 +11,7 @@ namespace RogueDungeon.Player.Model.Attacks
         private readonly IPlayerInput _input;
         private readonly PlayerHandsBehaviour _hands;
         private readonly IItem _item;
+        private readonly InputUnit _blockKey;
 
         protected override float Duration => ((BlockingItemConfig)_item.Config).LowerBlockDuration;
 
@@ -20,6 +21,7 @@ namespace RogueDungeon.Player.Model.Attacks
             _hands = hands;
             _input = input;
             _player = player;
+            _blockKey = _input.GetKey(InputKey.Block);
         }
 
         public override void Enter()
@@ -31,10 +33,10 @@ namespace RogueDungeon.Player.Model.Attacks
 
         protected override bool CanTransitionTo()
         {
-            if (_hands.IsDedicatedToBlock(_item) && _input.IsHeld(InputKey.Block))
+            if (_hands.IsDedicatedToBlock(_item) && _blockKey.IsHeld)
                 return false;
             
-            if(_item is Shield && _input.IsHeld(_hands.UseItemInput(_item)))
+            if(_item is Shield && _input.GetKey(_hands.UseItemInput(_item)).IsHeld)
                 return false;
             
             return base.CanTransitionTo();

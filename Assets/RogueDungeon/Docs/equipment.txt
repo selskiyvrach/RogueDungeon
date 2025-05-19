@@ -1,0 +1,4 @@
+﻿
+
+Weight
+- 1 stamina per kilo equipped

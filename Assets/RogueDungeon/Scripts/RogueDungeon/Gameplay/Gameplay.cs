@@ -9,7 +9,7 @@ using ITickable = Common.Lifecycle.ITickable;
 
 namespace Gameplay
 {
-    public class Gameplay : IInitializable, IGameplayModeChanger, ITickable
+    public class Gameplay : IInitializable, ITickable
     {
         private readonly IPlayerInput _playerInput;
         private readonly GameplayUiManager _uiManager;
@@ -53,12 +53,6 @@ namespace Gameplay
             _playerHasDied = true;
             _uiManager.Show<GameOverScreen>();
         }
-
-        public void SetExplorationMode() => 
-            _playerInput.SetFilter(_config.ExplorationInputFilter);
-
-        public void SetCombatMode() => 
-            _playerInput.SetFilter(_config.CombatInputFilter);
         
         public void Restart() => 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

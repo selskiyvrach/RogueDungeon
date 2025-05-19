@@ -26,18 +26,21 @@ namespace RogueDungeon.Player.Model.Behaviours
 
         public override void Enter()
         {
-            if(!_skip && _playerInput.IsDown(RequiredKey))
-                _playerInput.ConsumeInput(RequiredKey);
+            if (!_skip)
+                _playerInput.GetKey(RequiredKey).Reset();
             base.Enter();
         }
 
-        protected override bool CanTransitionTo() =>
-            base.CanTransitionTo() && _skip || State switch
+        protected override bool CanTransitionTo()
+        {
+            var inputUnit = _playerInput.GetKey(RequiredKey);
+            return base.CanTransitionTo() && _skip || State switch
             {
-                RequiredState.Down => _playerInput.IsDown(RequiredKey),
-                RequiredState.Held => _playerInput.IsHeld(RequiredKey),
-                RequiredState.DownOrHeld => _playerInput.IsDown(RequiredKey) || _playerInput.IsHeld(RequiredKey),
+                RequiredState.Down => inputUnit.IsDown,
+                RequiredState.Held => inputUnit.IsHeld,
+                RequiredState.DownOrHeld => inputUnit.IsDown || inputUnit.IsHeld,
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
     }
 }

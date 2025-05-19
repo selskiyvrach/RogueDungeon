@@ -8,32 +8,26 @@ namespace RogueDungeon.Input
     {
         private readonly InputMap _inputMap;
 
-        public Vector2 CursorPos => UnityEngine.Input.mousePosition;
+        public Vector2 CursorPos { get; private set; }
+        public event Action OnCursorMoved; 
 
         public PlayerInput(InputMap inputMap) => 
             _inputMap = inputMap;
 
         public void Tick(float timeDelta)
         {
+            var newCursorPos = (Vector2)UnityEngine.Input.mousePosition;
+            if (CursorPos != newCursorPos)
+            {
+                CursorPos = newCursorPos;
+                OnCursorMoved?.Invoke();
+            }
+
             foreach (var unit in _inputMap.EnabledUnits) 
                 unit.Tick(timeDelta);
         }
 
-        public bool IsDown(InputKey inputKey) => 
-            _inputMap.EnabledUnits.Any(u => u.Key == inputKey && u.IsReceived());
-
-        public bool IsHeld(InputKey inputKey) => 
-            _inputMap.EnabledUnits.Any(u => u.Key == inputKey && u.IsHeld());
-
-        public void SetFilter(InputFilter filter) => 
-            _inputMap.SetFilter(filter);
-
-        public void ConsumeInput(InputKey inputKey)
-        {
-            if (!IsDown(inputKey))
-                throw new InvalidOperationException($"Cannot consume command of a wrong type: {inputKey}");
-
-            _inputMap.EnabledUnits.First(n => n.Key == inputKey).ResetState();
-        }
+        public InputUnit GetKey(InputKey key) => 
+            _inputMap.AllUnits.First(n => n.Key == key);
     }
 }

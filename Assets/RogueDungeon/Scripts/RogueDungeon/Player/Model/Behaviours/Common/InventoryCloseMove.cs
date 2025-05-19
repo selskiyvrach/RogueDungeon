@@ -6,22 +6,22 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
     public class InventoryCloseMove : PlayerMove
     {
         private readonly Player _player;
-        private readonly IPlayerInput _input;
+        private readonly InputUnit _inventoryKey;
+        private readonly InputUnit _escKey;
         protected override float Duration => _player.Config.OpenInventoryDuration;
         
         public InventoryCloseMove(string id, IAnimation animation, Player player, IPlayerInput input) : base(id, animation)
         {
             _player = player;
-            _input = input;
+            _inventoryKey = input.GetKey(InputKey.Inventory);
+            _escKey = input.GetKey(InputKey.Esc);
         }
 
         public override void Enter()
         {
             base.Enter();
-            if(_input.IsDown(InputKey.Inventory))
-                _input.ConsumeInput(InputKey.Inventory);
-            if(_input.IsDown(InputKey.Esc))
-                _input.ConsumeInput(InputKey.Esc);
+            _inventoryKey.Reset();
+            _escKey.Reset();
         }
 
         public override void Tick(float timeDelta)
@@ -38,6 +38,6 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && (_input.IsDown(InputKey.Inventory) || _input.IsDown(InputKey.Esc));
+            base.CanTransitionTo() && (_inventoryKey.IsDown || _escKey.IsDown);
     }
 }

@@ -1,0 +1,10 @@
+﻿Character Attributes
+
+Base stats: 
+30 hp 
+30 stamina 
+1 food per hour
+
+Constitution:
+Size (0-3) +10 hp, +30% food per hour
+Muscularity (0-3) +20% weapon damage, -20% stamina

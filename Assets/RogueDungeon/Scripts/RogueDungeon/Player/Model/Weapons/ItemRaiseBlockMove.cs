@@ -10,6 +10,7 @@ namespace RogueDungeon.Player.Model.Attacks
         private readonly IItem _item;
         private readonly PlayerHandsBehaviour _hands;
         private readonly IPlayerInput _input;
+        private readonly InputUnit _blockKey;
 
         protected override float Duration => ((BlockingItemConfig)_item.Config).RaiseBlockDuration;
 
@@ -19,21 +20,23 @@ namespace RogueDungeon.Player.Model.Attacks
             _hands = hands;
             _item = item;
             _input = input;
+            _blockKey = _input.GetKey(InputKey.Block);
         }
 
         public override void Enter()
         {
-            if(_input.IsDown(InputKey.Block))
-                _input.ConsumeInput(InputKey.Block);
-            if(_item is Shield && _input.IsDown(_hands.UseItemInput(_item)))
-                _input.ConsumeInput(_hands.UseItemInput(_item));
+            _blockKey.Reset();
+            var itemKey = _input.GetKey(_hands.UseItemInput(_item));
+            if(_item is Shield && itemKey.IsDown)
+                itemKey.Reset();
             base.Enter();
         }
 
         protected override bool CanTransitionTo()
         {
-            var isShieldWithUseItemInput = _item is Shield && (_input.IsDown(_hands.UseItemInput(_item)) || _input.IsHeld(_hands.UseItemInput(_item)));
-            var isDedicatedBlockerWithBlockInput = _hands.IsDedicatedToBlock(_item) && (_input.IsDown(InputKey.Block) || _input.IsHeld(InputKey.Block));
+            var itemKey = _input.GetKey(_hands.UseItemInput(_item));
+            var isShieldWithUseItemInput = _item is Shield && (itemKey.IsDown || itemKey.IsHeld);
+            var isDedicatedBlockerWithBlockInput = _hands.IsDedicatedToBlock(_item) && (_blockKey.IsDown || _blockKey.IsHeld);
             return  base.CanTransitionTo() && (isShieldWithUseItemInput || isDedicatedBlockerWithBlockInput);
         }
     }

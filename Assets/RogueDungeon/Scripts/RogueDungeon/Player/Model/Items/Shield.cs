@@ -2,6 +2,7 @@
 {
     public class Shield : Item, IShield
     {
+        public EquipmentType EquipmentType => EquipmentType.Handheld;
         public BlockingItemConfig Config { get; }
         public BlockingTier BlockingTier => BlockingTier.First;
         public float BlockStaminaCostMultiplier => Config.BlockStaminaCostMultiplier;
