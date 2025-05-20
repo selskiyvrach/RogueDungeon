@@ -21,7 +21,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         
         private readonly List<Type> _boundInterfaces = new();
         
-        private IItem _boundItem;
+        private IHandheldItem _boundItem;
 
         public HandheldItemFactory(DiContainer container, MoveSetFactory moveSetFactory, Transform parent)
         {
@@ -30,7 +30,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             _parent = parent;
         }
         
-        public void Create(IItem item)
+        public void Create(IHandheldItem item)
         {
             Assert.IsTrue(_boundInterfaces.Count == 0, "Previous item has not been unbound!");
             Assert.IsNull(_boundItem);
@@ -47,7 +47,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             _boundItem = item;
         }
 
-        public void Destroy(IItem item)
+        public void Destroy(IHandheldItem item)
         {
             Assert.IsNotNull(item.Presenter);
             Assert.IsNotNull(item.Moveset);

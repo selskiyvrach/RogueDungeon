@@ -4,6 +4,7 @@ using RogueDungeon.Camera;
 using RogueDungeon.Input;
 using RogueDungeon.Levels;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace RogueDungeon.Player.Model.Inventory
@@ -13,7 +14,7 @@ namespace RogueDungeon.Player.Model.Inventory
         [SerializeField] private Canvas _inventoryCanvas;
         [SerializeField] private RectTransform _inventoryRect;
         [SerializeField, HideInInspector] private WorldInventoryAnimator _animator;
-        [SerializeField, HideInInspector] private ItemContainer[] _placeablePlaces;
+        [SerializeField, HideInInspector] private ItemContainer[] _containers;
         
         private Level _level;
         private ItemView _currentItem;
@@ -38,7 +39,7 @@ namespace RogueDungeon.Player.Model.Inventory
         private void OnValidate()
         {
             _animator = GetComponent<WorldInventoryAnimator>();
-            _placeablePlaces = GetComponentsInChildren<ItemContainer>();
+            _containers = GetComponentsInChildren<ItemContainer>();
         }
 
         public void Unpack()

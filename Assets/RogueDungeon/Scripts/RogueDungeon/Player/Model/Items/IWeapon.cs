@@ -1,6 +1,6 @@
 ﻿namespace RogueDungeon.Items
 {
-    public class Weapon : Item, IWeapon 
+    public class Weapon : HandheldItem, IWeapon 
     {
         private readonly WeaponConfig _config;
         public float Damage => _config.Damage;

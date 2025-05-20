@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace RogueDungeon.Player.Model.Inventory
 {
-    public class ItemDragger : IItemParent
+    public class ItemDragger
     {
         private readonly InputUnit _dragButton;
         private readonly IPlayerInput _input;
         private readonly IGameCamera _gameCamera;
-        private readonly IEnumerable<ItemContainerBase> _containers;
+        private readonly IEnumerable<ItemContainer> _containers;
         private readonly RectTransform _draggableSpaceRect;
         
         private ICommand _extractItemCommand;
@@ -20,10 +20,7 @@ namespace RogueDungeon.Player.Model.Inventory
         private ItemContainer _hoveredContainer;
         private ICommand _insertItemCommand;
 
-        Transform IItemParent.ParentObject => _draggableSpaceRect;
-        float IItemParent.CellSize => 30;
-
-        public ItemDragger(IPlayerInput input, IGameCamera gameCamera, IEnumerable<ItemContainerBase> containers, RectTransform draggableSpaceRect)
+        public ItemDragger(IPlayerInput input, IGameCamera gameCamera, IEnumerable<ItemContainer> containers, RectTransform draggableSpaceRect)
         {
             _input = input;
             _gameCamera = gameCamera;
@@ -122,7 +119,8 @@ namespace RogueDungeon.Player.Model.Inventory
             _extractItemCommand.Execute();
             _draggedItem = _hoveredItem;
             UnhoverItem();
-            _draggedItem.SetParent(this);
+            _draggedItem.SetParent(_draggableSpaceRect);
+            _draggedItem.SetCellSize(30);
             _draggedItem.SetIsBeingDragged(true);
             DetectHoveredContainer();
         }

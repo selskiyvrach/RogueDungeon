@@ -8,24 +8,37 @@ namespace RogueDungeon.Player.Model.Inventory
 {
     public class GridSpace
     {
-        private readonly Vector2Int _size;
         private readonly int[,] _occupiedCells;
-        private readonly List<GridSpaceItem> _items = new(20);
+        private readonly HashSet<GridSpaceItem> _items = new(17);
+        private readonly int _rows;
+        private readonly int _columns;
 
-        public GridSpace()
+        public GridSpace(int columns, int rows)
         {
-            var size = new Vector2Int(10, 5);
-            _size = size;
-            _occupiedCells = new int[size.x, size.y];
+            _columns = columns;
+            _rows = rows;
+            _occupiedCells = new int[columns, rows];
             for (var i = 0; i < _occupiedCells.GetLength(0); i++)
             for (var j = 0; j < _occupiedCells.GetLength(1); j++)
                 _occupiedCells[i, j] = -1;
         }
         
         public bool ContainedInSpace(GridSpaceItem item) => 
-            item.Position.x + item.Size.x <= _size.x && item.Position.y + item.Size.y <= _size.y;
+            item.Position.x + item.Size.x <= _columns && item.Position.y + item.Size.y <= _rows;
+        
+        public bool ContainedInSpace(int column, int row) => 
+            column < _columns && row < _rows;
 
-        public bool IntersectsWithNoMoreThanOneItem(GridSpaceItem item, out int intersectedItemId)
+        public bool HasItem(int column, int row, out GridSpaceItem item)
+        {
+            item = default;
+            if(_occupiedCells[column, row] == -1)
+                return false;
+            item = GetItem(_occupiedCells[column, row]);
+            return true;
+        }
+
+        public bool IntersectsWithOneOrLessItems(GridSpaceItem item, out int intersectedItemId)
         {
             intersectedItemId = -1;
             foreach (var cell in item.CoveredCells)
@@ -41,28 +54,40 @@ namespace RogueDungeon.Player.Model.Inventory
             return true;
         }
 
-        public void Place(GridSpaceItem item)
+        public bool Insert(GridSpaceItem item)
         {
-            Assert.IsTrue(IntersectsWithNoMoreThanOneItem(item, out int _));
-            Assert.IsFalse(_items.Any(n => n.Id == item.Id));
+            if (!_items.Add(item))
+                return false;
             
-            _items.Add(item);
-            foreach (var cell in item.CoveredCells) 
-                _occupiedCells[cell.x, cell.y] = item.Id;
-        }
-        
-        public void Remove(int id)
-        {
-            for (var i = 0; i < _items.Count; i++)
+            foreach (var cell in item.CoveredCells)
             {
-                if(_items[i].Id != id)
+                if(_occupiedCells[cell.x, cell.y] != -1)
+                    return false;
+                _occupiedCells[cell.x, cell.y] = item.Id;
+            }
+            return true;
+        }
+
+        public GridSpaceItem GetItem(int id) => 
+            _items.FirstOrDefault(i => i.Id == id);
+
+        public bool Remove(int id)
+        {
+            var itemToRemove = (GridSpaceItem)default;
+            foreach (var item in _items)
+            {
+                if(item.Id != id)
                     continue;
-                foreach (var cell in _items[i].CoveredCells) 
-                    _occupiedCells[cell.x, cell.y] = -1;    
-                _items.RemoveAt(i);
+                itemToRemove = item;
                 break;
             }
-            Debug.LogError($"Item with id '{id}' not found");
+            if(!_items.Remove(itemToRemove))
+                return false;
+            
+            foreach (var cell in itemToRemove.CoveredCells) 
+                _occupiedCells[cell.x, cell.y] = -1;
+            
+            return true;
         }
     }
 }

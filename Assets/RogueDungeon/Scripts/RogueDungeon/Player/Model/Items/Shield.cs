@@ -1,6 +1,6 @@
 ﻿namespace RogueDungeon.Items
 {
-    public class Shield : Item, IShield
+    public class Shield : HandheldItem, IShield
     {
         public EquipmentType EquipmentType => EquipmentType.Handheld;
         public BlockingItemConfig Config { get; }

@@ -1,6 +1,6 @@
 ﻿namespace RogueDungeon.Items
 {
-    public class Map : Item
+    public class Map : HandheldItem
     {
         private readonly MapItemConfig _config;
         

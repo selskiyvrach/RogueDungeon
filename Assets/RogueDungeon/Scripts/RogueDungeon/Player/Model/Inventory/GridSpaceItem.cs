@@ -19,10 +19,11 @@ namespace RogueDungeon.Player.Model.Inventory
             }
         }
 
-        public GridSpaceItem(int id, Vector2Int size) : this()
+        public GridSpaceItem(int id, Vector2Int size, Vector2Int position) : this()
         {
             Id = id;
             Size = size;
+            Position = position;
         }
     }
 }

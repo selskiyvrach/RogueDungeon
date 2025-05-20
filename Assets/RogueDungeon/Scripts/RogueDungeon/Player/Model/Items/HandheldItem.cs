@@ -6,9 +6,13 @@ namespace RogueDungeon.Items
     {
         int InstanceId { get; }
         ItemConfig Config { get; }
+    }
+
+    public interface IHandheldItem : IItem
+    {
         float UnsheathDuration { get; }
-        HandHeldItemPresenter Presenter { get; set; }
         StateMachine Moveset { get; set; }
+        HandHeldItemPresenter Presenter { get; set; }
     }
 
     public enum EquipmentType
@@ -32,8 +36,8 @@ namespace RogueDungeon.Items
         Second, 
         First, 
     }
-    
-    public class Item : IItem
+
+    public class HandheldItem : IHandheldItem
     {
         private static int _idCounter;
         public int InstanceId { get; }
@@ -42,7 +46,7 @@ namespace RogueDungeon.Items
         public HandHeldItemPresenter Presenter { get; set; }
         public StateMachine Moveset { get; set; }
 
-        protected Item(ItemConfig config)
+        protected HandheldItem(ItemConfig config)
         {
             Config = config;
             InstanceId = _idCounter++;

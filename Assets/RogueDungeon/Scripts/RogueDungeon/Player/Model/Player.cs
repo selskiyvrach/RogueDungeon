@@ -17,7 +17,7 @@ namespace RogueDungeon.Player.Model
         private readonly IPlayerInput _input;
         
         private PlayerBehaviour Movement;
-        private IItem _previousRightHandItem;
+        private IHandheldItem _previousRightHandItem;
 
         public PlayerConfig Config { get; }
         public PlayerHandsBehaviour Hands { get; private set; }

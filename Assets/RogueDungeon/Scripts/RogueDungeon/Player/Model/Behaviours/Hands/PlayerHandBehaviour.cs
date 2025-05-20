@@ -9,11 +9,11 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
     {
         private readonly HandheldItemFactory _factory;
 
-        private IItem _currentItem;
-        private IItem _intendedItem;
+        private IHandheldItem _currentItem;
+        private IHandheldItem _intendedItem;
         public bool IsLocked { get; set; }
 
-        public IItem CurrentItem
+        public IHandheldItem CurrentItem
         {
             get => _currentItem;
             set
@@ -34,7 +34,7 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             }
         }
 
-        public IItem IntendedItem
+        public IHandheldItem IntendedItem
         {
             get => _intendedItem;
             set

@@ -13,31 +13,36 @@ namespace RogueDungeon.Player.Model.Inventory
         [SerializeField] private Color _legalPositionShadowColor;
         [SerializeField] private Color _illegalPositionShadowColor;
 
-        private IItemViewModel _item;
+        private IItemViewModel _viewModel;
         private bool _isBeingPointedAt;
         private bool _isBeingDragged;
 
         public Vector2 Size => ((RectTransform)transform).sizeDelta;
         public bool IsBeingDragged => _isBeingDragged;
         public Vector3 WorldPosition => _itemImage.transform.position - Vector3.up * GetVerticalOffset();
+        public int InstanceId => _viewModel.InstanceId;
+        public Vector2Int SizeInCells => _viewModel.Size;
 
         [Inject]
         private void Construct(IItemViewModel item)
         {
-            _item = item;
+            _viewModel = item;
             _itemImage.sprite = item.Sprite;
-            _shadow.sprite = item.Sprite; 
+            _shadow.sprite = item.Sprite;
             UpdateVerticalOffset();
         }
+
+        public bool IsEquippableIntoSlotType(SlotType slotType) => 
+            _viewModel.IsEquippableIntoSlotType(slotType);
 
         public void SetPosition(Vector3 value) => 
             _itemImage.transform.position = value + Vector3.up * GetVerticalOffset();
 
-        public void SetProjectionPosition(Vector3 value) => 
-            _shadow.transform.position = value;
-
-        public void SetIsCurrentPositionLegal(bool value) => 
-            _shadow.color = value ? _legalPositionShadowColor : _illegalPositionShadowColor;
+        public void SetupProjection(Vector3 pos, bool isPositionLegal)
+        {
+            _shadow.transform.position = pos;
+            _shadow.color = isPositionLegal ? _legalPositionShadowColor : _illegalPositionShadowColor;
+        }
 
         public void SetIsBeingDragged(bool value)
         {
@@ -45,15 +50,12 @@ namespace RogueDungeon.Player.Model.Inventory
             UpdateVerticalOffset();
         }
 
-        public void SetParent(IItemParent parent)
-        {
-            transform.SetParent(parent.ParentObject, worldPositionStays: true);
-            SetCellSize(parent.CellSize);
-        }
+        public void SetParent(Transform parent) => 
+            transform.SetParent(parent, worldPositionStays: true);
 
-        private void SetCellSize(float value)
+        public void SetCellSize(float value)
         {
-            var containerSize = (Vector2)_item.Size * value;
+            var containerSize = (Vector2)_viewModel.Size * value;
             ((RectTransform)transform).sizeDelta = containerSize;
             
             var spriteAspect = _itemImage.sprite.rect.AspectRatio();
