@@ -66,15 +66,15 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         {
             _factory = factory;
             _playerInput = playerInput;
-            _cycleItemsKey = _playerInput.GetKey(IsRightHand ? InputKey.CycleRightArmItems : InputKey.CycleLeftArmItems);
-            _inventory = inventory;
             IsRightHand = isRightHand;
+            _inventory = inventory;
             _slots = new[]
             {
                 IsRightHand ? SlotType.HandheldRight1 : SlotType.HandheldLeft1,
                 IsRightHand ? SlotType.HandheldRight2 : SlotType.HandheldLeft2,
                 IsRightHand ? SlotType.HandheldRight3 : SlotType.HandheldLeft3,
             };
+            _cycleItemsKey = _playerInput.GetKey(IsRightHand ? InputKey.CycleRightArmItems : InputKey.CycleLeftArmItems);
         }
 
         public void Tick(float deltaTime)
@@ -96,7 +96,9 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
             var attemtps = _slots.Length;
             while (attemtps-- > 0)
             {
-                if (GetItem(++_currentItemIndex) is not { } item)
+                _currentItemIndex++;
+                _currentItemIndex %= attemtps;
+                if (GetItem(_currentItemIndex) is not { } item)
                     continue;
                 IntendedItem = item;
                 break;
@@ -104,6 +106,6 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         }
 
         private IHandheldItem GetItem(int index) =>
-            (IHandheldItem)_inventory.GetItem(_slots[index]);
+            _inventory.GetItem(_slots[index]) as IHandheldItem;
     }
 }
