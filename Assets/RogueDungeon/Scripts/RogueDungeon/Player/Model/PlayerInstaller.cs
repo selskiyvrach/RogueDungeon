@@ -22,9 +22,11 @@ namespace RogueDungeon.Player.Model
         public override void InstallBindings()
         {
             Container.NewSingle<Inventory.Inventory>();
+            // Container.NewSingle<IInventoryViewModel, InventoryViewModel>();
             Container.InstanceSingle(_playerGameObject);
             Container.InstanceSingle(_config);
-            Container.InstantiatePrefab(_inventoryPrefab, transform);
+            var inventoryView = Container.InstantiatePrefabForComponent<InventoryView>(_inventoryPrefab, transform);
+            Container.InstanceSingle(inventoryView);
             Container.Bind<PlayerPositionInTheMaze>().FromNew().AsSingle().WithArguments<ITwoDWorldObject>(new TwoDWorldObject(_playerGameObject.gameObject));
             Container.NewSingle<Player>();
 

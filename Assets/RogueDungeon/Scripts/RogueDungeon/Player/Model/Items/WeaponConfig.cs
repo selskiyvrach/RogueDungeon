@@ -40,7 +40,6 @@ namespace RogueDungeon.Items
             // second attack
             new(Names.SECOND_ATTACK_EXECUTE, typeof(ItemExecuteAttackMove), _attackAnimations.SecondAttackExecuteAnimation, new TransitionPicker[]
             {
-                new (Names.SECOND_TO_FIRST_ATTACK_TRANSITION),
                 new (Names.SECOND_ATTACK_RECOVER),
             }),
             new(Names.SECOND_ATTACK_RECOVER, typeof(ItemRecoverAttackMove), _returnToIdleAnimationConfig, new TransitionPicker[]{ new (Names.IDLE)}),

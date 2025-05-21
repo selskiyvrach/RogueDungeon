@@ -17,7 +17,6 @@
         public const string FIRST_ATTACK_RECOVER = "first_attack_recover";
         
         public const string SECOND_ATTACK_EXECUTE = "second_attack_execute";
-        public const string SECOND_TO_FIRST_ATTACK_TRANSITION = "second_to_first_attack_transition";
         public const string SECOND_ATTACK_RECOVER = "second_attack_recover";
         
         public const string MAP_RAISE = "map_raise";

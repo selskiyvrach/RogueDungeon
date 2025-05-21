@@ -27,9 +27,9 @@ namespace RogueDungeon.Player.Model.Inventory
         public bool IsOpen => _animator.State == WorldInventoryAnimator.AnimatorState.Open;
 
         [Inject]
-        public void Construct(IPlayerInput input, IGameCamera gameCamera, Level level, IInventoryViewModel inventory)
+        public void Construct(IPlayerInput input, IGameCamera gameCamera, Level level/*, IInventoryViewModel inventory*/)
         {
-            _inventory = inventory;
+            // _inventory = inventory;
             _input = input;
             _level = level;
             _camera = gameCamera;

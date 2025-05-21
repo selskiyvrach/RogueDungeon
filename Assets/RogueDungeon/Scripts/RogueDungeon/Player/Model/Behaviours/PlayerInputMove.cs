@@ -33,7 +33,7 @@ namespace RogueDungeon.Player.Model.Behaviours
 
         protected override bool CanTransitionTo()
         {
-            var inputUnit = _playerInput.GetKey(RequiredKey);
+            var inputUnit = _skip ? null : _playerInput.GetKey(RequiredKey);
             return base.CanTransitionTo() && _skip || State switch
             {
                 RequiredState.Down => inputUnit.IsDown,

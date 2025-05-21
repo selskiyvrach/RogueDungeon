@@ -61,6 +61,10 @@ namespace RogueDungeon.Player.Model
         {
             _level.LevelTraverser = _mazeTraversalPointer;
             Movement.Initialize();
+            Inventory.Equip(new Weapon(Config.DefaultWeapon), SlotType.HandheldLeft1);
+            Inventory.Equip(new Shield(Config.DefaultShield), SlotType.HandheldLeft2);
+            Inventory.Equip(new Weapon(Config.DefaultWeapon), SlotType.HandheldRight1);
+            Inventory.Equip(new Shield(Config.DefaultShield), SlotType.HandheldRight2);
             Hands.Initialize();
             Hands.Enable();
         }
@@ -76,16 +80,6 @@ namespace RogueDungeon.Player.Model
             WorldInventory.Tick(deltaTime);
             Stamina.Tick(deltaTime);
             
-            if (_input.GetKey(InputKey.CycleLeftArmItems).IsDown)
-            {
-                Hands.LeftHand.IntendedItem = Hands.LeftHand.IntendedItem != null ? null : new Weapon(Config.DefaultWeapon);
-                _input.GetKey(InputKey.CycleLeftArmItems).Reset();
-            }
-            if (_input.GetKey(InputKey.CycleRightArmItems).IsDown)
-            {
-                Hands.RightHand.IntendedItem = Hands.RightHand.IntendedItem != null ? null : new Shield(Config.DefaultShield);
-                _input.GetKey(InputKey.CycleRightArmItems).Reset();
-            }
             if (_input.GetKey(InputKey.OpenMap).IsDown && Hands.RightHand.CurrentItem is not Items.Map)
             {
                 _previousRightHandItem = Hands.RightHand.CurrentItem;

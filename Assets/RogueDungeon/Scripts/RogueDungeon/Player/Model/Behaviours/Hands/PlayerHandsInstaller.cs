@@ -1,7 +1,6 @@
 ﻿using Common.Animations;
 using Common.MoveSets;
 using Common.UtilsZenject;
-using RogueDungeon.Items;
 using UnityEngine;
 using Zenject;
 
@@ -19,16 +18,17 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         {
             var container = diContainer.CreateSubContainer();
             container.Bind<PlayerHandsBehaviour>().AsSingle();
-            var rightHand = CreateHandBehaviour(container, _rightHandAnimationTarget, _rightHandItemParent);
-            var leftHand = CreateHandBehaviour(container, _leftHandAnimationTarget, _leftHandItemParent);
+            var rightHand = CreateHandBehaviour(container, _rightHandAnimationTarget, _rightHandItemParent, isRightHand: true);
+            var leftHand = CreateHandBehaviour(container, _leftHandAnimationTarget, _leftHandItemParent, isRightHand: false);
             
             container.Resolve<PlayerHandsBehaviour>().SetBehaviours(rightHand, leftHand);
             diContainer.Bind<PlayerHandsBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();
         }
 
-        private PlayerHandBehaviour CreateHandBehaviour(DiContainer diContainer, TransformAnimationTarget transformAnimationTarget, Transform parent)
+        private PlayerHandBehaviour CreateHandBehaviour(DiContainer diContainer, TransformAnimationTarget transformAnimationTarget, Transform parent, bool isRightHand)
         {
             var container = diContainer.CreateSubContainer();
+            container.InstanceSingle(isRightHand);
             container.InstanceSingle(parent);
             container.InstanceSingle(transformAnimationTarget);
             container.NewSingle<MoveSetFactory>();

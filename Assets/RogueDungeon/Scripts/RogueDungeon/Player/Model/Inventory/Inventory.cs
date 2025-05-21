@@ -13,8 +13,11 @@ namespace RogueDungeon.Player.Model.Inventory
         private readonly Dictionary<SlotType, IItem> _slots = new();
         private readonly Dictionary<Vector2Int, IItem> _backpackItems = new();
         
-        public Inventory() =>
-            Enum.GetNames(typeof(SlotType)).Where(n => n != nameof(SlotType.None)).Foreach(n => _slots.Add(Enum.Parse<SlotType>(n), null));
+        public Inventory()
+        {
+            foreach (var name in Enum.GetNames(typeof(SlotType))) 
+                _slots.Add(Enum.Parse<SlotType>(name), null);
+        }
 
         public IEnumerable<KeyValuePair<Vector2Int, IItem>> GetBackpackItems() => _backpackItems;
 

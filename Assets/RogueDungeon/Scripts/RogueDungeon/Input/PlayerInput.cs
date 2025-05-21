@@ -14,6 +14,9 @@ namespace RogueDungeon.Input
         public PlayerInput(InputMap inputMap) => 
             _inputMap = inputMap;
 
+        public InputUnit GetKey(InputKey key) => 
+            _inputMap.AllUnits.First(n => n.Key == key);
+
         public void Tick(float timeDelta)
         {
             var newCursorPos = (Vector2)UnityEngine.Input.mousePosition;
@@ -26,8 +29,5 @@ namespace RogueDungeon.Input
             foreach (var unit in _inputMap.EnabledUnits) 
                 unit.Tick(timeDelta);
         }
-
-        public InputUnit GetKey(InputKey key) => 
-            _inputMap.AllUnits.First(n => n.Key == key);
     }
 }

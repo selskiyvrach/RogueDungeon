@@ -8,7 +8,6 @@ namespace RogueDungeon.Levels
 {
     public class CombatRoomEvent : RoomEvent
     {
-        private readonly IGameplayModeChanger _gameplayModeChanger;
         private readonly BattleField _battleField;
         private readonly CombatRoomEventConfig _config;
         private readonly IEnemiesRegistry _enemiesRegistry;
@@ -19,14 +18,13 @@ namespace RogueDungeon.Levels
         public override RoomEventPriority Priority => RoomEventPriority.Combat;
         public override bool IsFinished => _enemiesRegistry.Enemies.Count == 0;
 
-        public CombatRoomEvent(IEnemiesRegistry enemiesRegistry, CombatRoomEventConfig config, IEnemySpawner enemySpawner, BattleField battleField, Level level, IGameplayModeChanger gameplayModeChanger, HiveMind hiveMind)
+        public CombatRoomEvent(IEnemiesRegistry enemiesRegistry, CombatRoomEventConfig config, IEnemySpawner enemySpawner, BattleField battleField, Level level, HiveMind hiveMind)
         {
             _enemiesRegistry = enemiesRegistry;
             _config = config;
             _enemySpawner = enemySpawner;
             _battleField = battleField;
             _level = level;
-            _gameplayModeChanger = gameplayModeChanger;
             _hiveMind = hiveMind;
         }
 
@@ -39,7 +37,6 @@ namespace RogueDungeon.Levels
         public override void Enter()
         {
             base.Enter();
-            _gameplayModeChanger.SetCombatMode();
             
             _battleField.Position = Room.Coordinates;
             _battleField.Direction = _level.LevelTraverser.Rotation2D.Round();
@@ -53,12 +50,6 @@ namespace RogueDungeon.Levels
             
             foreach (var enemy in _enemiesRegistry.Enemies) 
                 enemy.Initialize();
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-            _gameplayModeChanger.SetExplorationMode();
         }
     }
 }
