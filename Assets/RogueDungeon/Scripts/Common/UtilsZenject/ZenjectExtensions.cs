@@ -59,7 +59,7 @@ namespace Common.UtilsZenject
         
         public static ConcreteIdArgConditionCopyNonLazyBinder NewSingle<T>(this DiContainer container) =>
             container.NewSingle<T, T>();
-
+        
         public static IfNotBoundBinder NewSingleNonLazy<T>(this DiContainer container) =>
             container.NewSingleNonLazy<T, T>();
         

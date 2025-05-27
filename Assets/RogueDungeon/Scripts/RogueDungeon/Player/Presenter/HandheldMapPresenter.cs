@@ -27,6 +27,12 @@ namespace RogueDungeon.Scripts.RogueDungeon.Player.Presenter
                 hasRight: n.AdjacentRooms.HasAdjacentRoom(Vector2Int.right), 
                 n.Coordinates));
 
+        public HandheldMapPresenter(Level level, HandheldMapView mapView)
+        {
+            _level = level;
+            _mapView = mapView;
+        }
+
         public void Show() => 
             _mapView.Show(this);
 

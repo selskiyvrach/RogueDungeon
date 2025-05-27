@@ -19,6 +19,8 @@ namespace Player.Installers
         [SerializeField] private TransformAnimationTarget _leftHandAnimationTarget;
         [SerializeField] private HandHeldItemView _leftHandItemView;
         [SerializeField] private HandheldMapView _leftHandMapView;
+        private DiContainer _rightHandContainer;
+        private DiContainer _leftHandContainer;
 
         public void Install(DiContainer diContainer)
         {
@@ -29,6 +31,12 @@ namespace Player.Installers
             
             container.Resolve<PlayerHandsBehaviour>().SetBehaviours(rightHand, leftHand);
             diContainer.Bind<PlayerHandsBehaviour>().FromSubContainerResolve().ByInstance(container).AsSingle();
+        }
+
+        public void Initialize()
+        {
+            _leftHandContainer.Resolve<HandPresenter>();
+            _rightHandContainer.Resolve<HandPresenter>();
         }
 
         private HandBehaviour CreateHandBehaviour(DiContainer diContainer, TransformAnimationTarget animTarget, HandHeldItemView itemView, HandheldMapView mapView, bool isRightHand)
@@ -46,6 +54,10 @@ namespace Player.Installers
             container.NewSingle<ItemMoveSetFactory>();
             container.NewSingleInterfacesAndSelf<HandBehaviour>();
             container.NewSingle<HandPresenter>();
+            if(isRightHand)
+                _rightHandContainer = container;
+            else
+                _leftHandContainer = container;
             return container.Resolve<HandBehaviour>();
         }
     }

@@ -43,6 +43,7 @@ namespace Player.Installers
             var hands = Container.Resolve<PlayerHandsBehaviour>();
             var movement = Container.Resolve<PlayerBehaviour>();
             Container.Resolve<Model.Player>().SetBehaviours(hands, movement);
+            _handsInstaller.Initialize();
         }
 
         private void InstallInventory()
