@@ -1,7 +1,6 @@
-﻿using RogueDungeon.Enemies;
-using RogueDungeon.UI;
+﻿using UI;
 
-namespace RogueDungeon.Scripts.RogueDungeon.UI
+namespace Enemies
 {
     public class EnemyHealthBarViewModel : BarViewModel
     {

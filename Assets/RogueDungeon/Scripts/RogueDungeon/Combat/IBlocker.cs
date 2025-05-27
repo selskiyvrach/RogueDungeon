@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Combat
+﻿namespace Combat
 {
     
 }

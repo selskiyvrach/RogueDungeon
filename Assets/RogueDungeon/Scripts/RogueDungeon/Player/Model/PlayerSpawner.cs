@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Player.Model
+namespace Player.Model
 {
     public class PlayerSpawner : IPlayerSpawner
     {

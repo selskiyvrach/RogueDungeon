@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Levels
+namespace Levels
 {
     public class RoomFactory : IFactory<RoomConfig, Room>
     {
@@ -17,7 +17,7 @@ namespace RogueDungeon.Levels
 
         public Room Create(RoomConfig param1)
         {
-            var presenter = _container.InstantiatePrefab(param1.Prefab, _parent).GetComponent<RoomPresenter>().ThrowIfNull();
+            var presenter = _container.InstantiatePrefab(param1.Prefab, _parent).GetComponent<RoomGameObject>().ThrowIfNull();
             var room = _container.Instantiate<Room>(new object[]{ param1, presenter });
             return room;
         }

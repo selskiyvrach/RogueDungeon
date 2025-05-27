@@ -1,7 +1,7 @@
-﻿using Common.Animations;
-using RogueDungeon.Animations;
+﻿using Animations;
+using Common.Animations;
 
-namespace RogueDungeon.Enemies.States
+namespace Enemies.States
 {
     public class EnemyAttackMove : EnemyMove
     {

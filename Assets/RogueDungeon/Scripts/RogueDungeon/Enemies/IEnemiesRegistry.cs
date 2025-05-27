@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RogueDungeon.Enemies.HiveMind
+namespace Enemies
 {
     public interface IEnemiesRegistry
     {

@@ -1,6 +1,6 @@
 ﻿using Common.UI;
 
-namespace RogueDungeon.UI
+namespace UI
 {
     public abstract class Screen : Common.UI.Screen
     {

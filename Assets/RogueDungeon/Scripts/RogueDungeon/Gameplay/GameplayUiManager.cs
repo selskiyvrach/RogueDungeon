@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using RogueDungeon.Player.View;
-using RogueDungeon.UI;
+using Player.View;
+using UI;
 using Screen = Common.UI.Screen;
 
 namespace Gameplay

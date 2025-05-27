@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RogueDungeon.Combat
+namespace Combat
 {
     public class CombatFeedbackConfig : ScriptableObject
     {

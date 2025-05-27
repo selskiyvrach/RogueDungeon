@@ -2,7 +2,7 @@
 using Common.Lifecycle;
 using UnityEngine;
 
-namespace RogueDungeon.Input
+namespace Input
 {
     public interface IPlayerInput : ITickable
     {

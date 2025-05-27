@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Localization
+﻿namespace Localization
 {
     public static class Aliases
     {

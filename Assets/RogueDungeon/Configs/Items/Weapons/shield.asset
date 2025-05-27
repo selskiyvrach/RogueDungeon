@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4e45619d244910bb7a386194b5f05d, type: 3}
   m_Name: shield
   m_EditorClassIdentifier: RogueDungeon.Items:RogueDungeon.Items:ShieldConfig
+  <Size>k__BackingField: {x: 1, y: 1}
   <ItemPresenterPrefab>k__BackingField: {fileID: 5016818609395961182, guid: 9b45dabc3a429f841b709d55df835362,
+    type: 3}
+  <WorldInventoryPrefab>k__BackingField: {fileID: 4492978322308353209, guid: 9b45dabc3a429f841b709d55df835362,
     type: 3}
   <Sprite>k__BackingField: {fileID: 21300000, guid: 6a5153b72b8a9b844b7aa62411bcddf5,
     type: 3}

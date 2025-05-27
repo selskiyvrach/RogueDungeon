@@ -1,6 +1,6 @@
 ﻿using Common.Animations;
 
-namespace RogueDungeon.Enemies.States
+namespace Enemies.States
 {
     public class EnemyIdleMove : EnemyMove
     {

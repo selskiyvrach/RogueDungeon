@@ -1,9 +1,8 @@
 ﻿using System;
 using Sirenix.OdinInspector;
-using UnityEditor.Build;
 using UnityEngine;
 
-namespace RogueDungeon.Input
+namespace Input
 {
     [Serializable]
     public class InputUnit

@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace RogueDungeon.Camera
+namespace Camera
 {
     public class GameCamera : MonoBehaviour, IGameCamera
     {

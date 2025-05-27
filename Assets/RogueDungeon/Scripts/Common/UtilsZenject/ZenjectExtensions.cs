@@ -1,9 +1,38 @@
-﻿using Zenject;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Zenject;
 
 namespace Common.UtilsZenject
 {
     public static class ZenjectExtensions
     {
+        /// <summary>
+        /// Handles interfaces and base classes unlike zenject bindInterfacesAndSelf since the latter does not call GetType on the received object, using the type it has been passed as
+        /// </summary>
+        public static void BindAllInterfacesAndBaseClasses<T>(this DiContainer container, T instance)
+        {
+            var actualType = instance.GetType();
+            var interfaces = actualType.GetInterfaces();
+            var baseTypes = GetBaseTypes(actualType);
+
+            foreach (var type in interfaces.Concat(baseTypes)) 
+                container.Bind(type).FromInstance(instance).AsCached();
+
+            container.Bind(actualType).FromInstance(instance).AsCached();
+            return;
+
+            IEnumerable<Type> GetBaseTypes(Type type)
+            {
+                type = type.BaseType;
+                while (type != null && type != typeof(object))
+                {
+                    yield return type;
+                    type = type.BaseType;
+                }
+            }
+        }
+        
         public static ConcreteIdArgConditionCopyNonLazyBinder InstanceSingle<TAs, TTo>(this DiContainer container, TTo instance) where TTo : TAs => 
             container.Bind<TAs>().To<TTo>().FromInstance(instance).AsSingle();
 

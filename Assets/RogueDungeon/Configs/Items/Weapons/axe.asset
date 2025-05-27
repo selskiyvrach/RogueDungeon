@@ -15,6 +15,8 @@ MonoBehaviour:
   <Size>k__BackingField: {x: 2, y: 3}
   <ItemPresenterPrefab>k__BackingField: {fileID: 5016818609395961182, guid: 9b45dabc3a429f841b709d55df835362,
     type: 3}
+  <WorldInventoryPrefab>k__BackingField: {fileID: 4492978322308353209, guid: 9b45dabc3a429f841b709d55df835362,
+    type: 3}
   <Sprite>k__BackingField: {fileID: -1325982165, guid: 94efb4f28a3964746b50b3dbe98c57cc,
     type: 3}
   <IdleAnimationDuration>k__BackingField: 1

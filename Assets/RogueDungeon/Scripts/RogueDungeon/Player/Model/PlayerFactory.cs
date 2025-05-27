@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Player.Model
+namespace Player.Model
 {
     public class PlayerFactory : IFactory<PlayerConfig, Transform, Player>
     {

@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using Characters;
 using Common.Animations;
 using Common.MoveSets;
-using RogueDungeon.Characters;
-using RogueDungeon.Enemies.States;
+using Enemies.States;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public static class MoveNames
     {

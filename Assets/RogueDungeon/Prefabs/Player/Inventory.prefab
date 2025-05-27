@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7638042981970443495}
   - component: {fileID: 5962718435694381443}
-  - component: {fileID: 7879488294609937868}
   - component: {fileID: 528967307020502725}
   - component: {fileID: 2299669521290291972}
   - component: {fileID: 4175828205759453537}
+  - component: {fileID: 4868064637974319084}
   m_Layer: 8
   m_Name: equipment_slot (5)
   m_TagString: Untagged
@@ -48,23 +48,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794664059932233634}
   m_CullTransparentMesh: 1
---- !u!114 &7879488294609937868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 794664059932233634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ef16bc59d24e03a0b0013b9af1563e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _type: 2
-  _raycaster: {fileID: 4175828205759453537}
-  _gridLayout: {fileID: 0}
-  <RectTransform>k__BackingField: {fileID: 7638042981970443495}
-  <SlotType>k__BackingField: 0
 --- !u!114 &528967307020502725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,6 +118,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 503
+--- !u!114 &4868064637974319084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794664059932233634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611f16aae9b44f0595bbacd4238db671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cellSize: 30
+  _slotType: 1
 --- !u!1 &1263739326081005836
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +254,7 @@ GameObject:
   - component: {fileID: 3201969777706602514}
   - component: {fileID: 7863730609914402514}
   - component: {fileID: 8044765992166591980}
-  - component: {fileID: 7485113299308739665}
+  - component: {fileID: 4921946857732944086}
   m_Layer: 0
   m_Name: ivnentory_space
   m_TagString: Untagged
@@ -333,7 +330,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 503
---- !u!114 &7485113299308739665
+--- !u!114 &4921946857732944086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -342,14 +339,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1949300806022903527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ef16bc59d24e03a0b0013b9af1563e, type: 3}
+  m_Script: {fileID: 11500000, guid: e1e40745907c4f2cb442bce75ba486ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 3
-  _raycaster: {fileID: 8044765992166591980}
   _gridLayout: {fileID: 7807545043660867706}
-  <RectTransform>k__BackingField: {fileID: 1835462677088615282}
-  <SlotType>k__BackingField: 0
 --- !u!1 &3914587214649344737
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,12 +392,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventoryCanvas: {fileID: 884065912500494088}
   _inventoryRect: {fileID: 3886684666969447885}
-  _placeablePlaces:
-  - {fileID: 1051472350039925869}
-  - {fileID: 1590786617897491039}
-  - {fileID: 1976549895589762597}
-  - {fileID: 7879488294609937868}
-  - {fileID: 7485113299308739665}
+  _animator: {fileID: 1110730294034850141}
+  _containers:
+  - {fileID: 219408697550213865}
+  - {fileID: 8780217358710583269}
+  - {fileID: 6089502641118448064}
+  - {fileID: 4868064637974319084}
+  - {fileID: 4921946857732944086}
 --- !u!114 &1110730294034850141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,10 +439,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5339690447932222129}
   - component: {fileID: 5651052697938117189}
-  - component: {fileID: 1590786617897491039}
   - component: {fileID: 4431649870141537034}
   - component: {fileID: 5497411249411373225}
   - component: {fileID: 4992894109875112159}
+  - component: {fileID: 8780217358710583269}
   m_Layer: 8
   m_Name: equipment_slot (1)
   m_TagString: Untagged
@@ -483,23 +477,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4483635779238409109}
   m_CullTransparentMesh: 1
---- !u!114 &1590786617897491039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4483635779238409109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ef16bc59d24e03a0b0013b9af1563e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _type: 2
-  _raycaster: {fileID: 4992894109875112159}
-  _gridLayout: {fileID: 0}
-  <RectTransform>k__BackingField: {fileID: 5339690447932222129}
-  <SlotType>k__BackingField: 0
 --- !u!114 &4431649870141537034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,6 +547,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 503
+--- !u!114 &8780217358710583269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4483635779238409109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611f16aae9b44f0595bbacd4238db671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cellSize: 30
+  _slotType: 20
 --- !u!1 &6051596692272869704
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,10 +571,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8532614582603355101}
   - component: {fileID: 114547620130355013}
-  - component: {fileID: 1976549895589762597}
   - component: {fileID: 8767871473855578319}
   - component: {fileID: 3727874552711014489}
   - component: {fileID: 3175881306500720826}
+  - component: {fileID: 6089502641118448064}
   m_Layer: 8
   m_Name: equipment_slot (2)
   m_TagString: Untagged
@@ -618,23 +609,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6051596692272869704}
   m_CullTransparentMesh: 1
---- !u!114 &1976549895589762597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6051596692272869704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ef16bc59d24e03a0b0013b9af1563e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _type: 2
-  _raycaster: {fileID: 3175881306500720826}
-  _gridLayout: {fileID: 0}
-  <RectTransform>k__BackingField: {fileID: 8532614582603355101}
-  <SlotType>k__BackingField: 0
 --- !u!114 &8767871473855578319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,6 +679,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 503
+--- !u!114 &6089502641118448064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6051596692272869704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611f16aae9b44f0595bbacd4238db671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cellSize: 30
+  _slotType: 10
 --- !u!1 &7774304557595793663
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,10 +703,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1442010594510225306}
   - component: {fileID: 5408804402643501174}
-  - component: {fileID: 1051472350039925869}
   - component: {fileID: 2663086032182999731}
   - component: {fileID: 7535148806141280850}
   - component: {fileID: 8377783066295557652}
+  - component: {fileID: 219408697550213865}
   m_Layer: 8
   m_Name: equipment_slot (3)
   m_TagString: Untagged
@@ -753,23 +741,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7774304557595793663}
   m_CullTransparentMesh: 1
---- !u!114 &1051472350039925869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7774304557595793663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74ef16bc59d24e03a0b0013b9af1563e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _type: 2
-  _raycaster: {fileID: 8377783066295557652}
-  _gridLayout: {fileID: 0}
-  <RectTransform>k__BackingField: {fileID: 1442010594510225306}
-  <SlotType>k__BackingField: 0
 --- !u!114 &2663086032182999731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,6 +811,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 503
+--- !u!114 &219408697550213865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7774304557595793663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611f16aae9b44f0595bbacd4238db671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cellSize: 30
+  _slotType: 2
 --- !u!1 &8114194268172694952
 GameObject:
   m_ObjectHideFlags: 0

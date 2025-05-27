@@ -1,0 +1,4 @@
+﻿{
+  "name": "Items.VIew",
+  "references":[ "GUID:79d80b9db33c44689e04e627a46de626", "GUID:0d8beb7f090555447a6cf5ce9e54dbb4" ]
+}

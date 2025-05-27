@@ -1,11 +1,11 @@
-﻿using Common.UI;
+﻿using Combat;
+using Common.UI;
 using Common.UI.Bars;
 using Common.UtilsZenject;
-using RogueDungeon.Combat;
-using RogueDungeon.Enemies;
-using RogueDungeon.Levels;
-using RogueDungeon.Player.Model;
-using RogueDungeon.UI;
+using Enemies;
+using Levels;
+using Player.Model;
+using UI;
 using UnityEngine;
 using Zenject;
 

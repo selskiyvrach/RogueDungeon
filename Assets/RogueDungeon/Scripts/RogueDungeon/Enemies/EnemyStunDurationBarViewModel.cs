@@ -1,13 +1,11 @@
 ﻿using System;
+using Characters;
 using Common.UI;
-using RogueDungeon.Characters;
-using RogueDungeon.Enemies;
-using RogueDungeon.Enemies.States;
-using RogueDungeon.UI;
+using Enemies.States;
+using UI;
 using UniRx;
-using UnityEngine;
 
-namespace RogueDungeon.Scripts.RogueDungeon.UI
+namespace Enemies
 {
     public class EnemyStunDurationBarViewModel : BarViewModel, IReadOnlyResource, IHideableUiElement 
     {

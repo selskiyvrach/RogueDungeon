@@ -4,7 +4,7 @@ using UniRx;
 using UniRx.Triggers;
 using Zenject;
 
-namespace RogueDungeon.UI
+namespace UI
 {
     public class UiFactory
     {

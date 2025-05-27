@@ -1,6 +1,6 @@
 ﻿using Common.Lifecycle;
 
-namespace RogueDungeon.Characters
+namespace Characters
 {
     public class RechargeableResource : Resource, ITickable
     {

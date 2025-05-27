@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public readonly struct EnemyFactoryArgs
     {

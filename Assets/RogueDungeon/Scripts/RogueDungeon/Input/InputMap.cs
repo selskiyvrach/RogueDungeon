@@ -2,7 +2,7 @@
 using System.Linq;
 using Common.UtilsDotNet;
 
-namespace RogueDungeon.Input
+namespace Input
 {
     public class InputMap
     {

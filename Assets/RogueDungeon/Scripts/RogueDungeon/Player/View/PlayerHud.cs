@@ -1,6 +1,6 @@
-﻿using RogueDungeon.UI;
+﻿using UI;
 
-namespace RogueDungeon.Player.View
+namespace Player.View
 {
     public class PlayerHud : Screen
     {

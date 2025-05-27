@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Enemies.HiveMind
+namespace Enemies.HiveMind
 {
     public class HiveMindInstaller : MonoInstaller
     {

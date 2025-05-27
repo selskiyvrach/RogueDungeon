@@ -1,8 +1,8 @@
-﻿using Common.UI.Bars;
-using RogueDungeon.Characters;
+﻿using Characters;
+using Common.UI.Bars;
 using UniRx;
 
-namespace RogueDungeon.UI
+namespace UI
 {
     public abstract class BarViewModel : IBarViewModel
     {

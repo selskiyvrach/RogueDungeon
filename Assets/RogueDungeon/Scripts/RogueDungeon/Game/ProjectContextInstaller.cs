@@ -1,17 +1,13 @@
-﻿using Common.SceneManagement;
-using Common.UI;
-using Common.UI.Bars;
+﻿using Camera;
+using Common.SceneManagement;
 using Common.UI.LoadingScreen;
-using Common.Unity;
-using Common.UtilsDotNet;
+using Common.UtilsUnity;
 using Common.UtilsZenject;
-using RogueDungeon.Camera;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using Zenject;
 
-namespace RogueDungeon.Game
+namespace Game
 {
     public class ProjectContextInstaller : ScriptableObjectInstaller
     {

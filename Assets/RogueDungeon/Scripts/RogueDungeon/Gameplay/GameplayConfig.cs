@@ -1,6 +1,6 @@
-﻿using RogueDungeon.Enemies;
-using RogueDungeon.Input;
-using RogueDungeon.Levels;
+﻿using Enemies;
+using Input;
+using Levels;
 using UnityEngine;
 
 namespace Gameplay

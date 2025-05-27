@@ -1,8 +1,8 @@
 ﻿using Common.Fsm;
-using RogueDungeon.Levels;
+using Levels;
 using UnityEngine;
 
-namespace RogueDungeon.Player.Model.Behaviours.Common
+namespace Player.Model.Behaviours.Common
 {
     public class PlayerBehaviour
     {

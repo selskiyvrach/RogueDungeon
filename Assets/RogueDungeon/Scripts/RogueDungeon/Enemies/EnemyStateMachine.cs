@@ -1,11 +1,9 @@
 ﻿using System;
 using Common.Fsm;
-using RogueDungeon.Enemies.States;
-using Zenject;
-using IInitializable = Common.Lifecycle.IInitializable;
+using Enemies.States;
 using ITickable = Common.Lifecycle.ITickable;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public class EnemyStateMachine : ITickable
     {

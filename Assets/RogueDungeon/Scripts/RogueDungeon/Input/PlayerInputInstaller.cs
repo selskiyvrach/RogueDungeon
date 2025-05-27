@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Input
+namespace Input
 {
     public class PlayerInputInstaller : MonoInstaller
     {

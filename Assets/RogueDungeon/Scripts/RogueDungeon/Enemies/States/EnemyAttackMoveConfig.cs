@@ -3,7 +3,7 @@ using Common.Animations;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RogueDungeon.Enemies.States
+namespace Enemies.States
 {
     [Serializable]
     public class EnemyAttackMoveConfig

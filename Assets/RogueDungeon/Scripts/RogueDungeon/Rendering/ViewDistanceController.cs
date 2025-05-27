@@ -1,7 +1,7 @@
-﻿using RogueDungeon.Camera;
+﻿using Camera;
 using UnityEngine;
 
-namespace RogueDungeon
+namespace Rendering
 {
     public class ViewDistanceController : MonoBehaviour
     {

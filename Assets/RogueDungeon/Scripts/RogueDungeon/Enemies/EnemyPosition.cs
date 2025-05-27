@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     [Flags]
     public enum EnemyPosition

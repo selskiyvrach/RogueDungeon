@@ -2,7 +2,7 @@
 using Common.Lifecycle;
 using UnityEngine;
 
-namespace RogueDungeon.Levels
+namespace Levels
 {
     public interface IRoom : IEnterableState, IExitableState, ITickable
     {

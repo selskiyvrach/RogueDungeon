@@ -1,12 +1,14 @@
-﻿using Common.Animations;
-using RogueDungeon.Input;
+﻿using System;
+using Animations;
+using Common.Animations;
+using Input;
+using Moves;
 
-namespace RogueDungeon.Player.Model.Behaviours.Common
+namespace Player.Model.Behaviours.Common
 {
     public class InventoryOpenMove : PlayerInputMove
     {
         private readonly Player _player;
-        private bool _inventoryIsOpen;
         protected override float Duration => _player.Config.OpenInventoryDuration; 
         protected override InputKey RequiredKey => InputKey.Inventory;
         protected override RequiredState State => RequiredState.Down;
@@ -18,17 +20,15 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         {
             base.Enter();
             _player.Hands.Disable();
-            _inventoryIsOpen = false;
         }
 
-        public override void Tick(float timeDelta)
+        protected override void OnAnimationEvent(string name)
         {
-            base.Tick(timeDelta);
-            if (_inventoryIsOpen || Animation.Progress < .3f)
-                return;
-            
-            _player.WorldInventory.Unpack();
-            _inventoryIsOpen = true;
+            base.OnAnimationEvent(name);
+            if (name == AnimationEventNames.DRAW_INVENTORY)
+                _player.ShowInventory();
+            else
+                throw new ArgumentException();
         }
 
         protected override bool CanTransitionTo() => 

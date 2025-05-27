@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public class RoomLocalPositionsConfig : ScriptableObject
     {

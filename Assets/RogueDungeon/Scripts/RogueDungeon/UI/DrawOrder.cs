@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.UI
+﻿namespace UI
 {
     public enum DrawOrder
     {

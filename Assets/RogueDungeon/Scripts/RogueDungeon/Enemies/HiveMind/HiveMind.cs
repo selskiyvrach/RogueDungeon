@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using RogueDungeon.Enemies.States;
-using UnityEngine;
-using Random = Common.UtilsDotNet.Random;
 
-namespace RogueDungeon.Enemies.HiveMind
+namespace Enemies.HiveMind
 {
     public class HiveMind
     {

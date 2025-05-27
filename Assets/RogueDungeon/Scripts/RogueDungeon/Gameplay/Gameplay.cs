@@ -1,7 +1,7 @@
-﻿using RogueDungeon.Camera;
-using RogueDungeon.Input;
-using RogueDungeon.Levels;
-using RogueDungeon.Player.Model;
+﻿using Camera;
+using Input;
+using Levels;
+using Player.Model;
 using UnityEngine.SceneManagement;
 using Zenject;
 using IInitializable = Common.Lifecycle.IInitializable;
@@ -18,7 +18,7 @@ namespace Gameplay
         private readonly IGameCamera _camera;
         private readonly IFactory<LevelConfig, Level> _levelFactory;
 
-        private Player _player;
+        private Player.Model.Player _player;
         private Level _level;
         private bool _playerHasDied;
         

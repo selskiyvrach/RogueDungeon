@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Enemies.States
+﻿namespace Enemies.States
 {
     public enum Priority
     {

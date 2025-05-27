@@ -2,12 +2,11 @@
 using Common.MoveSets;
 using Common.UI.Bars;
 using Common.UtilsZenject;
-using RogueDungeon.Enemies.States;
-using RogueDungeon.Scripts.RogueDungeon.UI;
+using Enemies.States;
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public class EnemyInstaller : MonoInstaller
     {

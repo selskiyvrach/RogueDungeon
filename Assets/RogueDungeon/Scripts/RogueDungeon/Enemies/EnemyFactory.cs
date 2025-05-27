@@ -1,8 +1,7 @@
 ﻿using Common.UtilsZenject;
-using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public class EnemyFactory : IFactory<EnemyFactoryArgs, Enemy>
     {

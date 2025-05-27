@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Levels
+﻿namespace Levels
 {
     public enum RoomEventPriority
     {

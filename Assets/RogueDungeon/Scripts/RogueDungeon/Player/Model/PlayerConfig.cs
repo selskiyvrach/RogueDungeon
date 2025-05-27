@@ -1,11 +1,10 @@
-﻿using Common.MoveSets;
-using RogueDungeon.Characters;
-using RogueDungeon.Items;
-using RogueDungeon.Player.Model.Behaviours.Common;
+﻿using Characters;
+using Player.Model.Behaviours.Common;
+using RogueDungeon.Items.Model.Configs;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RogueDungeon.Player.Model
+namespace Player.Model
 {
     public class PlayerConfig : ScriptableObject
     {
@@ -15,7 +14,7 @@ namespace RogueDungeon.Player.Model
         [field: SerializeField] public WeaponConfig DefaultWeapon { get; private set; }
         [field: SerializeField] public ShieldConfig DefaultShield { get; private set; }
         [field: SerializeField] public MapItemConfig MapItemConfig { get; private set; }
-        [field: SerializeField] public PlayerInstaller Prefab { get; private set; }
+        [field: SerializeField] public GameObject Prefab { get; private set; }
         [field: SerializeField] public float DoubleGripDamageBonus { get; private set;} = 1.2f;
         [field: SerializeField] public float DoubleGripBlockBonus { get; private set;} = 1.2f;
         [field: SerializeField] public float DeathAnimationDuration { get; private set; } = 2f;

@@ -1,6 +1,6 @@
-﻿using RogueDungeon.Items;
+﻿using RogueDungeon.Items.Model;
 
-namespace RogueDungeon.Player.Model
+namespace Player.Model
 {
     public interface IPlayerAttacksMediator
     {

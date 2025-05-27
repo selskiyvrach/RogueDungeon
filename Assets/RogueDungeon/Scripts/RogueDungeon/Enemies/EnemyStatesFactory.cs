@@ -1,8 +1,8 @@
 ﻿using Common.MoveSets;
-using RogueDungeon.Enemies.States;
+using Enemies.States;
 using Zenject;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public class EnemyStatesFactory : IFactory<string, EnemyMove>
     {

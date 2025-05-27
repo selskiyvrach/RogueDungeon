@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RogueDungeon.Characters
+namespace Characters
 {
     [Serializable]
     public class RechargeableResourceConfig : ResourceConfig

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RogueDungeon.Player.Model
+namespace Player.Model
 {
     public class PlayerGameObject : MonoBehaviour
     {

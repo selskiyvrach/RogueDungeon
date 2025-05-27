@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RogueDungeon.Characters
+namespace Characters
 {
     public interface IReadOnlyResource
     {

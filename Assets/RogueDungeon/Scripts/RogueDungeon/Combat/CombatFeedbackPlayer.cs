@@ -1,9 +1,9 @@
 ﻿using System;
-using RogueDungeon.Camera;
-using RogueDungeon.Enemies;
+using Camera;
+using Enemies;
 using UnityEngine;
 
-namespace RogueDungeon.Combat
+namespace Combat
 {
     public class CombatFeedbackPlayer
     {

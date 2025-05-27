@@ -3,7 +3,7 @@ using System.Linq;
 using Common.Lifecycle;
 using Common.UtilsDotNet;
 
-namespace RogueDungeon.Enemies.HiveMind
+namespace Enemies.HiveMind
 {
     public class HiveMindCombo : ITickable
     {

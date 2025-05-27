@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace RogueDungeon.Levels
+namespace Levels
 {
     public class RoomEventFactory : IFactory<RoomEventConfig, IRoomEvent>
     {

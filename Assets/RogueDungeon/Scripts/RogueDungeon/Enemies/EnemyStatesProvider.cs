@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using RogueDungeon.Enemies.States;
+using Enemies.States;
 using Zenject;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public class EnemyStatesProvider
     {

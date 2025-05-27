@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using RogueDungeon.Enemies;
-using RogueDungeon.Enemies.HiveMind;
-using RogueDungeon.Player;
-using RogueDungeon.Player.Model;
+using Enemies;
+using Player.Model;
 
-namespace RogueDungeon.Combat
+namespace Combat
 {
     public class CombatantsRegistry : IEnemiesRegistry, IPlayerRegistry
     {

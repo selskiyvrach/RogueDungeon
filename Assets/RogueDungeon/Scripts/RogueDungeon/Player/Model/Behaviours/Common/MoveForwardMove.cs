@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using Common.Animations;
-using Common.Unity;
-using RogueDungeon.Input;
-using RogueDungeon.Levels;
+using Common.UtilsUnity;
+using Input;
+using Levels;
 using UnityEngine;
 
-namespace RogueDungeon.Player.Model.Behaviours.Common
+namespace Player.Model.Behaviours.Common
 {
     public class MoveForwardMove : PlayerRoomMovementMove
     {

@@ -1,8 +1,8 @@
 ﻿using Common.Animations;
-using RogueDungeon.Input;
-using RogueDungeon.Levels;
+using Input;
+using Levels;
 
-namespace RogueDungeon.Player.Model.Behaviours.Common
+namespace Player.Model.Behaviours.Common
 {
     public class TurnLeftMove : TurnMove
     {

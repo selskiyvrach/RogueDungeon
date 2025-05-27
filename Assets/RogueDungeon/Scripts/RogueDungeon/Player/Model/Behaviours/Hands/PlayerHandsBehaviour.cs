@@ -1,23 +1,23 @@
-﻿using RogueDungeon.Input;
-using RogueDungeon.Items;
+﻿using Input;
+using RogueDungeon.Items.Model;
 using UnityEngine.Assertions;
 
-namespace RogueDungeon.Player.Model.Behaviours.Hands
+namespace Player.Model.Behaviours.Hands
 {
     public class PlayerHandsBehaviour 
     {
-        private Inventory.Inventory _inventory;
+        private Inventory.Model.Inventory _inventory;
 
         public bool TransitionsLocked { get; private set; }
-        public PlayerHandBehaviour RightHand { get; private set; }
-        public PlayerHandBehaviour LeftHand { get; private set; }
+        public HandBehaviour RightHand { get; private set; }
+        public HandBehaviour LeftHand { get; private set; }
         public bool IsDoubleGrip => (RightHand.CurrentItem == null || LeftHand.CurrentItem == null) && (RightHand.CurrentItem ?? LeftHand.CurrentItem) != null;
         public bool IsIdle => RightHand.IsIdleOrEmpty && LeftHand.IsIdleOrEmpty;
 
-        public PlayerHandsBehaviour(Inventory.Inventory inventory) => 
+        public PlayerHandsBehaviour(Inventory.Model.Inventory inventory) => 
             _inventory = inventory;
 
-        public void SetBehaviours(PlayerHandBehaviour rightHandBehaviour, PlayerHandBehaviour leftHandBehaviour)
+        public void SetBehaviours(HandBehaviour rightHandBehaviour, HandBehaviour leftHandBehaviour)
         {
             RightHand = rightHandBehaviour;
             LeftHand = leftHandBehaviour;
@@ -44,17 +44,17 @@ namespace RogueDungeon.Player.Model.Behaviours.Hands
         public void Enable() => 
             TransitionsLocked = LeftHand.IsLocked = RightHand.IsLocked = false;
 
-        public PlayerHandBehaviour OppositeHand(IItem item) => 
+        public HandBehaviour OppositeHand(IItem item) => 
             item == RightHand.CurrentItem 
                 ? LeftHand 
                 : RightHand;
 
-        public PlayerHandBehaviour ThisHand(IItem item) => 
+        public HandBehaviour ThisHand(IItem item) => 
             item == RightHand.CurrentItem 
                 ? RightHand 
                 : LeftHand;
 
-        public PlayerHandBehaviour OppositeHand(PlayerHandBehaviour handBehaviour) => 
+        public HandBehaviour OppositeHand(HandBehaviour handBehaviour) => 
             handBehaviour == RightHand ? LeftHand : RightHand;
 
         public bool IsInRightHand(IItem item) => 

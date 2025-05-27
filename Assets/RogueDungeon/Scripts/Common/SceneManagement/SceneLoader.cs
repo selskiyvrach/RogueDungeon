@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Threading.Tasks;
-using Common.Unity;
+using Common.UtilsUnity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

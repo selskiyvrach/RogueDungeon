@@ -1,6 +1,6 @@
 ﻿using Common.Animations;
 
-namespace RogueDungeon.Player.Model.Behaviours.Common
+namespace Player.Model.Behaviours.Common
 {
     public class DeathMove : PlayerMove
     {

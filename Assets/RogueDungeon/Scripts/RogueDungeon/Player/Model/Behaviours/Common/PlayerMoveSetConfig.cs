@@ -4,9 +4,8 @@ using Common.Animations;
 using Common.MoveSets;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace RogueDungeon.Player.Model.Behaviours.Common
+namespace Player.Model.Behaviours.Common
 {
     public class PlayerMoveSetConfig : TransformAnimationsConfig, IMoveSetConfig
     {

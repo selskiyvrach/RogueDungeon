@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Common.Lifecycle;
-using Common.Unity;
+using Common.UtilsUnity;
 
-namespace RogueDungeon.Levels
+namespace Levels
 {
     public class Level : ITickable
     {

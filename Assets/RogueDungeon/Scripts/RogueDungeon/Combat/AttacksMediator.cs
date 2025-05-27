@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using Common.UtilsDotNet;
-using RogueDungeon.Enemies;
-using RogueDungeon.Enemies.HiveMind;
-using RogueDungeon.Items;
-using RogueDungeon.Player.Model;
+using Enemies;
+using Player.Model;
+using RogueDungeon.Items.Model;
 using UnityEngine;
 
-namespace RogueDungeon.Combat
+namespace Combat
 {
     public class AttacksMediator : IPlayerAttacksMediator, IEnemyAttacksMediator
     {

@@ -1,14 +1,15 @@
-﻿using Common.Lifecycle;
-using RogueDungeon.Characters;
-using RogueDungeon.Input;
-using RogueDungeon.Items;
-using RogueDungeon.Levels;
-using RogueDungeon.Player.Model.Behaviours.Common;
-using RogueDungeon.Player.Model.Behaviours.Hands;
-using RogueDungeon.Player.Model.Inventory;
+﻿using System;
+using Characters;
+using Common.Lifecycle;
+using Input;
+using Inventory.Shared;
+using Levels;
+using Player.Model.Behaviours.Common;
+using Player.Model.Behaviours.Hands;
+using RogueDungeon.Items.Model;
 using UnityEngine;
 
-namespace RogueDungeon.Player.Model
+namespace Player.Model
 {
     public class Player : IInitializable, ITickable
     {
@@ -33,16 +34,15 @@ namespace RogueDungeon.Player.Model
         public bool HasUnabsorbedBlockImpact { get; set; }
         public IBlockingItem BlockingItem { get; set; }
         public float DodgeStaminaCost => Config.DodgeStaminaCost;
-        public InventoryView WorldInventory { get; }
-        public Inventory.Inventory Inventory { get; }
+        public Inventory.Model.Inventory Inventory { get; }
+        public event Action OnShowInventoryRequested;
 
-        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input, InventoryView worldInventory, Inventory.Inventory inventory)
+        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input, Inventory.Model.Inventory inventory)
         {
             Config = config;
             _level = level;
             _mazeTraversalPointer = playerMazePosition;
             _input = input;
-            WorldInventory = worldInventory;
             Inventory = inventory;
             CameraPovPoint = gameObject.CameraReferencePoint;
             Stamina = new RechargeableResource(Config.Stamina);
@@ -72,25 +72,29 @@ namespace RogueDungeon.Player.Model
         public void Tick(float deltaTime)
         {
             Movement.Tick(deltaTime);
-            
-            if (!IsAlive) 
+
+            if (!IsAlive)
                 return;
-            
+
             Hands.Tick(deltaTime);
-            WorldInventory.Tick(deltaTime);
             Stamina.Tick(deltaTime);
             
-            if (_input.GetKey(InputKey.OpenMap).IsDown && Hands.RightHand.CurrentItem is not Items.Map)
+            if (_input.GetKey(InputKey.OpenMap).IsDown && Hands.RightHand.CurrentItem is not Map)
             {
                 _previousRightHandItem = Hands.RightHand.CurrentItem;
-                Hands.RightHand.IntendedItem = new Items.Map(Config.MapItemConfig);
+                Hands.RightHand.IntendedItem = new Map(Config.MapItemConfig);
                 _input.GetKey(InputKey.OpenMap).Reset();
             }
-            else if (_input.GetKey(InputKey.OpenMap).IsDown && Hands.RightHand.CurrentItem is Items.Map)
+            else if (_input.GetKey(InputKey.OpenMap).IsDown && Hands.RightHand.CurrentItem is Map)
             {
                 Hands.RightHand.IntendedItem = _previousRightHandItem;
                 _input.GetKey(InputKey.OpenMap).Reset();
             }
+        }
+
+        public void ShowInventory()
+        {
+            OnShowInventoryRequested.Invoke();
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Characters
+﻿namespace Characters
 {
     public interface IResource : IReadOnlyResource
     {

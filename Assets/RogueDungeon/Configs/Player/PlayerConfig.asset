@@ -25,7 +25,7 @@ MonoBehaviour:
     type: 2}
   <MapItemConfig>k__BackingField: {fileID: 11400000, guid: da2eadcd71e0438448d02a02b86a0e5d,
     type: 2}
-  <Prefab>k__BackingField: {fileID: 3401579970430071534, guid: 0b1353be74b298141ba99669d9373a88,
+  <Prefab>k__BackingField: {fileID: 519540501769377305, guid: 0b1353be74b298141ba99669d9373a88,
     type: 3}
   <DoubleGripDamageBonus>k__BackingField: 1.2
   <DoubleGripBlockBonus>k__BackingField: 1.2

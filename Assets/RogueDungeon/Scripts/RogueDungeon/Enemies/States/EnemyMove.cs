@@ -1,7 +1,7 @@
 ﻿using Common.Animations;
 using Common.MoveSets;
 
-namespace RogueDungeon.Enemies.States
+namespace Enemies.States
 {
     public abstract class EnemyMove : Move
     {

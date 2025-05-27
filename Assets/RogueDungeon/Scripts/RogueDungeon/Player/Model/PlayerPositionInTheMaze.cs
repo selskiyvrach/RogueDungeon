@@ -1,7 +1,7 @@
-﻿using Common.Unity;
+﻿using Common.UtilsUnity;
 using UnityEngine;
 
-namespace RogueDungeon.Player.Model
+namespace Player.Model
 {
     public class PlayerPositionInTheMaze : ITwoDWorldObject
     {

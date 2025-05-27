@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Common.Unity
+namespace Common.UtilsUnity
 {
     public static class Vector2Extensions
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RogueDungeon.Input
+namespace Input
 {
     public class InputMapConfig : ScriptableObject
     {

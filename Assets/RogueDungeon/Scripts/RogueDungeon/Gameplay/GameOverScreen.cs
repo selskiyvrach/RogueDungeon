@@ -1,10 +1,11 @@
-﻿using RogueDungeon.UI;
+﻿using UI;
 using UnityEngine;
-using Screen = RogueDungeon.UI.Screen;
+using Screen = UI.Screen;
+using UI_Screen = UI.Screen;
 
 namespace Gameplay
 {
-    public class GameOverScreen : Screen
+    public class GameOverScreen : UI_Screen
     {
         private Gameplay _gameplay;
 
@@ -15,7 +16,7 @@ namespace Gameplay
 
         private void Update()
         {
-            if (!Input.anyKeyDown)
+            if (!UnityEngine.Input.anyKeyDown)
                 return;
 
             _gameplay.Restart();

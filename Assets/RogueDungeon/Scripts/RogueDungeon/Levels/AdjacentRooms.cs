@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace RogueDungeon.Levels
+namespace Levels
 {
     public class AdjacentRooms
     {

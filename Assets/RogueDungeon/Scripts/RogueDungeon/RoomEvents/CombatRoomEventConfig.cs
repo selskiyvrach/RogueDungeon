@@ -1,8 +1,9 @@
 ﻿using System;
-using RogueDungeon.Enemies;
+using Enemies;
+using Levels;
 using UnityEngine;
 
-namespace RogueDungeon.Levels
+namespace RoomEvents
 {
     public class CombatRoomEventConfig : RoomEventConfig
     {

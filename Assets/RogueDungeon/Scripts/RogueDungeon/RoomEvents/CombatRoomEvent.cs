@@ -1,10 +1,10 @@
-﻿using Common.Unity;
-using Gameplay;
-using RogueDungeon.Combat;
-using RogueDungeon.Enemies;
-using RogueDungeon.Enemies.HiveMind;
+﻿using Combat;
+using Common.UtilsUnity;
+using Enemies;
+using Enemies.HiveMind;
+using Levels;
 
-namespace RogueDungeon.Levels
+namespace RoomEvents
 {
     public class CombatRoomEvent : RoomEvent
     {

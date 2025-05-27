@@ -1,6 +1,6 @@
 ﻿using UnityEngine.Assertions;
 
-namespace RogueDungeon.Levels
+namespace Levels
 {
     public abstract class RoomEvent : IRoomEvent
     {

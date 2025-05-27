@@ -1,9 +1,9 @@
 ﻿using System;
-using RogueDungeon.Camera;
+using Camera;
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.UI
+namespace UI
 {
     [RequireComponent(typeof(Canvas))]
     public class WorldCanvas : MonoBehaviour

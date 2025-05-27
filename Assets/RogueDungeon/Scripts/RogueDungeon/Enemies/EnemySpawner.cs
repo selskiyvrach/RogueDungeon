@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
-using RogueDungeon.Enemies.HiveMind;
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public class EnemySpawner : IEnemySpawner
     {

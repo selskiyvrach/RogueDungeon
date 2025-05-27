@@ -1,7 +1,7 @@
 ﻿using Common.Animations;
 using Common.Lifecycle;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public class EnemyImpactAnimator : ITickable
     {

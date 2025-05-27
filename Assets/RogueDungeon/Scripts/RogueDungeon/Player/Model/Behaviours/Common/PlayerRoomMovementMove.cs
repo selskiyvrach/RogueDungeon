@@ -1,8 +1,9 @@
 ﻿using Common.Animations;
-using RogueDungeon.Input;
-using RogueDungeon.Levels;
+using Input;
+using Levels;
+using Moves;
 
-namespace RogueDungeon.Player.Model.Behaviours.Common
+namespace Player.Model.Behaviours.Common
 {
     public abstract class PlayerRoomMovementMove : PlayerInputMove
     {

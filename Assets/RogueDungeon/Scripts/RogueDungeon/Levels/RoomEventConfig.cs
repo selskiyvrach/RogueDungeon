@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RogueDungeon.Levels
+namespace Levels
 {
     public abstract class RoomEventConfig : ScriptableObject
     {

@@ -7,8 +7,8 @@ namespace Common.MoveSets
 {
     public class MoveSetFactory : IFactory<IMoveSetConfig, StateMachine>
     {
-        protected readonly DiContainer Container;
-        
+        public DiContainer Container { get; set; }
+
         public MoveSetFactory(DiContainer container) => 
             Container = container;
 

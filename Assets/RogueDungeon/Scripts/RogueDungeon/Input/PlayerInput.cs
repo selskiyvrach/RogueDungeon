@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-namespace RogueDungeon.Input
+namespace Input
 {
     internal class PlayerInput : IPlayerInput
     {

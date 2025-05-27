@@ -4,7 +4,7 @@ using Common.UtilsZenject;
 using UnityEngine;
 using Zenject;
 
-namespace RogueDungeon.Levels
+namespace Levels
 {
     public class LevelFactory : IFactory<LevelConfig, Level>
     {

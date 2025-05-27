@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Enemies
+﻿namespace Enemies
 {
     public enum EnemyAttackDirection
     {

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Common.Unity;
-using RogueDungeon.Characters;
-using RogueDungeon.Enemies.States;
+using Characters;
+using Common.UtilsUnity;
+using Enemies.States;
 using UnityEngine;
 using IInitializable = Common.Lifecycle.IInitializable;
 using ITickable = Common.Lifecycle.ITickable;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public enum HitSeverity
     {

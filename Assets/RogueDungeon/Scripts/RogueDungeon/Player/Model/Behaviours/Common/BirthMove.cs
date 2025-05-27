@@ -1,8 +1,9 @@
 ﻿using Common.Animations;
+using Common.MoveSets;
 
-namespace RogueDungeon.Player.Model.Behaviours.Common
+namespace Player.Model.Behaviours.Common
 {
-    public class BirthMove : PlayerMove
+    public class BirthMove : Move
     {
         private readonly Player _player;
         protected override float Duration => _player.Config.BirthAnimationDuration;

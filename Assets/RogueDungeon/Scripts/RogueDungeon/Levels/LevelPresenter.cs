@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RogueDungeon.Levels
+namespace Levels
 {
     public class LevelPresenter : MonoBehaviour
     {

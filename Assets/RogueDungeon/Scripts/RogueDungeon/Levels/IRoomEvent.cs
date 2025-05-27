@@ -1,7 +1,7 @@
 ﻿using Common.Fsm;
 using Common.Lifecycle;
 
-namespace RogueDungeon.Levels
+namespace Levels
 {
     public interface IRoomEvent : ITickable, IEnterableState, IExitableState, IFinishable
     {

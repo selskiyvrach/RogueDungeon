@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RogueDungeon.Enemies.HiveMind
+namespace Enemies.HiveMind
 {
     public struct Movement
     {

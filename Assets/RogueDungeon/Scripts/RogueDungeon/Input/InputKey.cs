@@ -1,4 +1,4 @@
-﻿namespace RogueDungeon.Input
+﻿namespace Input
 {
     public enum InputKey
     {

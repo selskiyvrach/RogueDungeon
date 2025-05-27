@@ -2,10 +2,10 @@
 using System.Linq;
 using Common.Lifecycle;
 using Common.UtilsDotNet;
-using RogueDungeon.Enemies.States;
+using Enemies.States;
 using Random = UnityEngine.Random;
 
-namespace RogueDungeon.Enemies
+namespace Enemies
 {
     public class EnemyCombo : ITickable
     {

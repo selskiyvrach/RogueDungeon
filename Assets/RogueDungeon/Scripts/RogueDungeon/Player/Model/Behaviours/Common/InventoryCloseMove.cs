@@ -1,7 +1,7 @@
 ﻿using Common.Animations;
-using RogueDungeon.Input;
+using Input;
 
-namespace RogueDungeon.Player.Model.Behaviours.Common
+namespace Player.Model.Behaviours.Common
 {
     public class InventoryCloseMove : PlayerMove
     {
@@ -27,8 +27,8 @@ namespace RogueDungeon.Player.Model.Behaviours.Common
         public override void Tick(float timeDelta)
         {
             base.Tick(timeDelta);
-            if(Animation.Progress > .3f && _player.WorldInventory.IsOpen)
-                _player.WorldInventory.Pack();
+            // if(Animation.Progress > .3f && _player.WorldInventory.IsOpen)
+            //     _player.WorldInventory.Pack();
         }
 
         public override void Exit()

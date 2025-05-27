@@ -1,8 +1,7 @@
 ﻿using System;
 using Common.Animations;
-using RogueDungeon.Characters;
 
-namespace RogueDungeon.Enemies.States
+namespace Enemies.States
 {
     public class EnemyStaggerMove : EnemyMove
     {
