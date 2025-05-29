@@ -1,25 +1,30 @@
 ﻿using UnityEngine;
+using System.Linq;
 
 namespace Common.UI.Bars
 {
     public class DottedBar : Bar
     {
         [SerializeField] private ShowHideHandler[] _elements;
-        
-        protected override void SetValue(float value)
+
+        public override float Value
         {
-            for (var i = 0; i < _elements.Length; i++)
+            get => (float)_elements.Count(n => n.IsShown) / _elements.Length;
+            set
             {
-                var element = _elements[i];
-                var enable = i / (float)_elements.Length < value;
-                
-                if (element.IsShown == enable) 
-                    continue;
-                
-                if(enable)
-                    element.Show();
-                else
-                    element.Hide();
+                for (var i = 0; i < _elements.Length; i++)
+                {
+                    var element = _elements[i];
+                    var enable = i / (float)_elements.Length < value;
+                    
+                    if (element.IsShown == enable) 
+                        continue;
+                    
+                    if(enable)
+                        element.Show();
+                    else
+                        element.Hide();
+                }
             }
         }
     }

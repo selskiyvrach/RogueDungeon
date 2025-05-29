@@ -105,6 +105,7 @@ MonoBehaviour:
   _handsInstaller: {fileID: 6350304918856226592}
   _bodyAnimationTarget: {fileID: 3570815851020885173}
   _handsAnimationTarget: {fileID: 1913945203232716033}
+  _hud: {fileID: 7133907650912797201, guid: c86a7e34d539c7048b700e5c5daa0661, type: 3}
 --- !u!114 &6350304918856226592
 MonoBehaviour:
   m_ObjectHideFlags: 0

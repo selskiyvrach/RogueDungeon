@@ -9,7 +9,7 @@ namespace Player.Model.Behaviours.Common
 {
     public class MoveForwardMove : PlayerRoomMovementMove
     {
-        private readonly Player _player;
+        private readonly PlayerModel _player;
         private readonly Level _level;
         private Vector2 _from;
         private Vector2 _to;
@@ -18,7 +18,7 @@ namespace Player.Model.Behaviours.Common
         protected override InputKey RequiredKey => InputKey.MoveForward;
         protected override RequiredState State => RequiredState.DownOrHeld;
 
-        public MoveForwardMove(Player player, Level level, IPlayerInput playerInput, IAnimation animation, string id) : base(level, id, animation, playerInput)
+        public MoveForwardMove(PlayerModel player, Level level, IPlayerInput playerInput, IAnimation animation, string id) : base(level, id, animation, playerInput)
         {
             _player = player;
             _level = level;

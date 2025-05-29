@@ -3,11 +3,14 @@ using UnityEngine.UI;
 
 namespace Common.UI.Bars
 {
-    public class ImageFillBar :  Bar
+    public class ImageFillBar : Bar
     {
         [SerializeField] private Image _image;
         
-        protected override void SetValue(float value) => 
-            _image.fillAmount = value;
+        public override float Value
+        {
+            get => _image.fillAmount;
+            set => _image.fillAmount = value;
+        }
     }
 }

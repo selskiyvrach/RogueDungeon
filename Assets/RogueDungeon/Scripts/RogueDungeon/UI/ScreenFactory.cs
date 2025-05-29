@@ -6,12 +6,12 @@ using Zenject;
 
 namespace UI
 {
-    public class UiFactory
+    public class ScreenFactory
     {
         private readonly ScreensSorter _screensSorter;
         private readonly DiContainer _container;
 
-        public UiFactory(DiContainer container, ScreensSorter screensSorter)
+        public ScreenFactory(DiContainer container, ScreensSorter screensSorter)
         {
             _container = container;
             _screensSorter = screensSorter;

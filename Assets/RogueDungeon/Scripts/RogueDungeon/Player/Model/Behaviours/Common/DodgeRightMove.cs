@@ -7,7 +7,7 @@ namespace Player.Model.Behaviours.Common
     {
         protected override InputKey RequiredKey => InputKey.DodgeRight;
         protected override PlayerDodgeState DodgeState => PlayerDodgeState.DodgingRight;
-        public DodgeRightMove(Player player, IAnimation animation, IPlayerInput playerInput,
+        public DodgeRightMove(PlayerModel player, IAnimation animation, IPlayerInput playerInput,
             PlayerControlStateMediator playerControlState, string id) : 
             base(player, animation, playerInput, playerControlState, id)
         {

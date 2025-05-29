@@ -7,14 +7,14 @@ using UnityEngine.Assertions;
 
 namespace Inventory.Model
 {
-    public class Inventory
+    public class InventoryModel
     {
         private readonly Dictionary<SlotType, IItem> _slots = new();
         private readonly Dictionary<Vector2Int, IItem> _backpackItems = new();
         
         public IInventoryInteractor InventoryInteractor { get; set; }
         
-        public Inventory()
+        public InventoryModel()
         {
             foreach (var name in Enum.GetNames(typeof(SlotType))) 
                 _slots.Add(Enum.Parse<SlotType>(name), null);

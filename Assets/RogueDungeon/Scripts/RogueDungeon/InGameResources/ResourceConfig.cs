@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Characters
+namespace InGameResources
 {
     [Serializable]
     public class ResourceConfig

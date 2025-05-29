@@ -9,14 +9,14 @@ namespace Inventory.Presenter
     public class InventoryPresenter : IInventoryInteractor, IInventoryInfoProvider
     {
         private readonly Level _level;
-        private Model.Inventory _model;
+        private Model.InventoryModel _model;
         private InventoryView _view;
         private readonly WorldInventoryItemFactory _itemFactory;
 
         private readonly Dictionary<SlotType, InventoryItemView> _slotItemsCache = new();
 
         // late initialization since model and view depend on the this. interfaces
-        public void Construct(Model.Inventory model, InventoryView view)
+        public void Construct(Model.InventoryModel model, InventoryView view)
         {
             _model = model;
             _view = view;

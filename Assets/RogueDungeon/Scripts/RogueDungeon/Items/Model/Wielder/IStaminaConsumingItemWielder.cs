@@ -1,4 +1,4 @@
-﻿using Characters;
+﻿using InGameResources;
 
 namespace RogueDungeon.Items.Model
 {

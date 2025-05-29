@@ -18,7 +18,7 @@ namespace Gameplay
         private readonly IGameCamera _camera;
         private readonly IFactory<LevelConfig, Level> _levelFactory;
 
-        private Player.Model.Player _player;
+        private PlayerModel _player;
         private Level _level;
         private bool _playerHasDied;
         

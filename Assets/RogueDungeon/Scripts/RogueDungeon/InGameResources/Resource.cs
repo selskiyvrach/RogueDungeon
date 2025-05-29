@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Characters
+namespace InGameResources
 {
     public class Resource : IResource
     {

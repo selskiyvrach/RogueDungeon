@@ -1,4 +1,4 @@
-﻿namespace Characters
+﻿namespace InGameResources
 {
     public interface IResource : IReadOnlyResource
     {

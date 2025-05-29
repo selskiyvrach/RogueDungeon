@@ -2,6 +2,7 @@
 using Common.MoveSets;
 using Common.UtilsUnity;
 using Common.UtilsZenject;
+using Inventory.Model;
 using Inventory.Presenter;
 using Inventory.View;
 using Player.Model;
@@ -28,7 +29,7 @@ namespace Player.Installers
             Container.InstanceSingle(_playerGameObject);
             Container.InstanceSingle(_config);
             Container.Bind<PlayerPositionInTheMaze>().FromNew().AsSingle().WithArguments<ITwoDWorldObject>(new TwoDWorldObject(_playerGameObject.gameObject));
-            Container.NewSingleInterfacesAndSelf<Model.Player>();
+            Container.NewSingleInterfacesAndSelf<PlayerModel>();
 
             Container.NewSingle<PlayerControlStateMediator>();
             Container.NewSingleInterfaces<ItemWielderFacade>();
@@ -42,17 +43,18 @@ namespace Player.Installers
 
             var hands = Container.Resolve<PlayerHandsBehaviour>();
             var movement = Container.Resolve<PlayerBehaviour>();
-            Container.Resolve<Model.Player>().SetBehaviours(hands, movement);
+            var player = Container.Resolve<PlayerModel>(); 
+            player.SetBehaviours(hands, movement);
             _handsInstaller.Initialize();
         }
 
         private void InstallInventory()
         {
             Container.NewSingleInterfacesAndSelf<InventoryPresenter>();
-            Container.NewSingle<Inventory.Model.Inventory>();
+            Container.NewSingle<InventoryModel>();
             Container.NewSingle<WorldInventoryItemFactory>();
             Container.InstanceSingle(_inventoryView);
-            Container.Resolve<InventoryPresenter>().Construct(Container.Resolve<Inventory.Model.Inventory>(), Container.Resolve<InventoryView>());
+            Container.Resolve<InventoryPresenter>().Construct(Container.Resolve<InventoryModel>(), Container.Resolve<InventoryView>());
         }
     }
 }

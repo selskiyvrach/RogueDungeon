@@ -14,7 +14,7 @@ namespace Player.Model.Behaviours.Hands
     {
         private readonly ItemMoveSetFactory _moveSetFactory;
         private readonly IPlayerInput _playerInput;
-        private readonly Inventory.Model.Inventory _inventory;
+        private readonly Inventory.Model.InventoryModel _inventory;
         private readonly SlotType[] _slots;
         private readonly InputUnit _cycleItemsKey;
 
@@ -66,7 +66,7 @@ namespace Player.Model.Behaviours.Hands
 
         public bool IsIdleOrEmpty => _currentItem == null || _currentItemMoveset.CurrentState is ItemIdleMove;
 
-        public HandBehaviour(IPlayerInput playerInput, Inventory.Model.Inventory inventory, bool isRightHand, ItemMoveSetFactory moveSetFactory)
+        public HandBehaviour(IPlayerInput playerInput, Inventory.Model.InventoryModel inventory, bool isRightHand, ItemMoveSetFactory moveSetFactory)
         {
             _playerInput = playerInput;
             IsRightHand = isRightHand;

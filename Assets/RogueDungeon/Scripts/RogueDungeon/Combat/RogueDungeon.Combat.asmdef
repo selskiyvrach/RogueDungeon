@@ -10,7 +10,8 @@
         "GUID:acb9aa1ff2fc4cc297d84faa271ffca7",
         "GUID:3af8c2bc10314dce8a3165b517e58815",
         "GUID:21798d26f29f4463b44e43b8cd212769",
-        "GUID:976a9a77fee046199f0532d087095dd7"
+        "GUID:976a9a77fee046199f0532d087095dd7",
+        "RogueDungeon.InGameResources"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

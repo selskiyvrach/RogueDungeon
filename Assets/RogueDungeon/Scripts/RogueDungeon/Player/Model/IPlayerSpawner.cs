@@ -2,6 +2,6 @@
 {
     public interface IPlayerSpawner
     {
-        Player Spawn();
+        PlayerModel Spawn();
     }
 }

@@ -30,7 +30,7 @@ namespace RogueDungeon.Scripts.RogueDungeon.Player.Presenter
         public HandheldMapPresenter(Level level, HandheldMapView mapView)
         {
             _level = level;
-            _mapView = mapView;
+            _mapView = mapView; 
         }
 
         public void Show() => 

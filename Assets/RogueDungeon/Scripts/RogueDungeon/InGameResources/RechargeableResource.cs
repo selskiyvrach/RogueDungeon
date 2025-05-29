@@ -1,6 +1,6 @@
 ﻿using Common.Lifecycle;
 
-namespace Characters
+namespace InGameResources
 {
     public class RechargeableResource : Resource, ITickable
     {

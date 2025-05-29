@@ -6,7 +6,7 @@ namespace Player.Model.Behaviours.Hands
 {
     public class PlayerHandsBehaviour 
     {
-        private Inventory.Model.Inventory _inventory;
+        private Inventory.Model.InventoryModel _inventory;
 
         public bool TransitionsLocked { get; private set; }
         public HandBehaviour RightHand { get; private set; }
@@ -14,7 +14,7 @@ namespace Player.Model.Behaviours.Hands
         public bool IsDoubleGrip => (RightHand.CurrentItem == null || LeftHand.CurrentItem == null) && (RightHand.CurrentItem ?? LeftHand.CurrentItem) != null;
         public bool IsIdle => RightHand.IsIdleOrEmpty && LeftHand.IsIdleOrEmpty;
 
-        public PlayerHandsBehaviour(Inventory.Model.Inventory inventory) => 
+        public PlayerHandsBehaviour(Inventory.Model.InventoryModel inventory) => 
             _inventory = inventory;
 
         public void SetBehaviours(HandBehaviour rightHandBehaviour, HandBehaviour leftHandBehaviour)

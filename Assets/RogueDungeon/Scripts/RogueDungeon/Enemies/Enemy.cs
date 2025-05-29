@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Characters;
 using Common.UtilsUnity;
 using Enemies.States;
+using InGameResources;
 using UnityEngine;
 using IInitializable = Common.Lifecycle.IInitializable;
 using ITickable = Common.Lifecycle.ITickable;

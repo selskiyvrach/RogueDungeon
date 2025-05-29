@@ -7,12 +7,12 @@ namespace Player.Model.Behaviours.Common
     public abstract class DodgeMove : PlayerInputMove
     {
         private readonly PlayerControlStateMediator _playerControlState;
-        private readonly Player _player;
+        private readonly PlayerModel _player;
         protected abstract PlayerDodgeState DodgeState { get; }
         protected sealed override RequiredState State => RequiredState.Down;
         protected override float Duration => _player.Config.DodgeDuration;
 
-        protected DodgeMove(Player player, IAnimation animation, IPlayerInput playerInput,
+        protected DodgeMove(PlayerModel player, IAnimation animation, IPlayerInput playerInput,
             PlayerControlStateMediator playerControlState, string id) : base(id, animation, playerInput)
         {
             _player = player;

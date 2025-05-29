@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: GameplayUiConfig
   m_EditorClassIdentifier: 
   <Screens>k__BackingField:
-  - {fileID: 7133907650912797201, guid: c86a7e34d539c7048b700e5c5daa0661, type: 3}
   - {fileID: 7040444371704315673, guid: 8057b05bc83e8d0458a9acfee333de45, type: 3}

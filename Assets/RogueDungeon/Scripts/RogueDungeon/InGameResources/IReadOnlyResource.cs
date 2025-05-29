@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Characters
+namespace InGameResources
 {
     public interface IReadOnlyResource
     {

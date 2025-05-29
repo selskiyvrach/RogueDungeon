@@ -1,4 +1,4 @@
-﻿using Characters;
+﻿using InGameResources;
 using Player.Model.Behaviours.Common;
 using RogueDungeon.Items.Model.Configs;
 using Sirenix.OdinInspector;

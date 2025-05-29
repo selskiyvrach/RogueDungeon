@@ -7,9 +7,9 @@ namespace Combat
 {
     public class CombatantsRegistry : IEnemiesRegistry, IPlayerRegistry
     {
-        private Player.Model.Player _player;
+        private Player.Model.PlayerModel _player;
 
-        public Player.Model.Player Player
+        public Player.Model.PlayerModel Player
         {
             get => _player;
             set

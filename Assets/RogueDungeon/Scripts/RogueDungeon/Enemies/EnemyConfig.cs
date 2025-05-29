@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Characters;
 using Common.Animations;
 using Common.MoveSets;
 using Enemies.States;
+using InGameResources;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

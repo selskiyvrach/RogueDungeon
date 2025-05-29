@@ -24,7 +24,8 @@
         "GUID:664d3a55970942ba88cb11c2906062a3",
         "GUID:a7f13fcb823e4fb89a491a01731699f1",
         "GUID:976a9a77fee046199f0532d087095dd7",
-        "RogueDungeon.Moves"
+        "RogueDungeon.Moves",
+        "RogueDungeon.InGameResources"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

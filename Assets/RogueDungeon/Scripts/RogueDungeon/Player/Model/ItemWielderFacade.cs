@@ -1,4 +1,4 @@
-﻿using Characters;
+﻿using InGameResources;
 using Input;
 using RogueDungeon.Items.Model;
 
@@ -8,7 +8,7 @@ namespace Player.Model
     {
         private readonly IPlayerAttacksMediator _attacksMediator;
         private readonly PlayerControlStateMediator _controlState;
-        private readonly Player _player;
+        private readonly PlayerModel _player;
 
         public bool ItemTransitionsAreLocked => _player.Hands.TransitionsLocked;
         public IResource Stamina => _player.Stamina;
@@ -32,7 +32,7 @@ namespace Player.Model
             set => _player.BlockingItem = value;
         }
 
-        public ItemWielderFacade(Player player, PlayerControlStateMediator controlState, IPlayerAttacksMediator attacksMediator)
+        public ItemWielderFacade(PlayerModel player, PlayerControlStateMediator controlState, IPlayerAttacksMediator attacksMediator)
         {
             _player = player;
             _controlState = controlState;

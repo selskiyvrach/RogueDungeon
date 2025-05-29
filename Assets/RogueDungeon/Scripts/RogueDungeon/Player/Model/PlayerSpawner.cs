@@ -6,11 +6,11 @@ namespace Player.Model
     public class PlayerSpawner : IPlayerSpawner
     {
         private readonly IPlayerRegistry _playerRegistry;
-        private readonly IFactory<PlayerConfig, Transform, Player> _factory;
+        private readonly IFactory<PlayerConfig, Transform, PlayerModel> _factory;
         private readonly Transform _playerParent;
         private readonly PlayerConfig _config;
 
-        public PlayerSpawner(IPlayerRegistry playerRegistry, IFactory<PlayerConfig, Transform, Player> factory, Transform playerParent, PlayerConfig config)
+        public PlayerSpawner(IPlayerRegistry playerRegistry, IFactory<PlayerConfig, Transform, PlayerModel> factory, Transform playerParent, PlayerConfig config)
         {
             _playerRegistry = playerRegistry;
             _factory = factory;
@@ -18,7 +18,7 @@ namespace Player.Model
             _config = config;
         }
 
-        public Player Spawn()
+        public PlayerModel Spawn()
         {
             var player = _factory.Create(_config, _playerParent);
             

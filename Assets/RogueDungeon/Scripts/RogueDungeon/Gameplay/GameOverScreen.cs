@@ -1,11 +1,8 @@
 ﻿using UI;
-using UnityEngine;
-using Screen = UI.Screen;
-using UI_Screen = UI.Screen;
 
 namespace Gameplay
 {
-    public class GameOverScreen : UI_Screen
+    public class GameOverScreen : Screen
     {
         private Gameplay _gameplay;
 
@@ -20,7 +17,6 @@ namespace Gameplay
                 return;
 
             _gameplay.Restart();
-            Destroy();
         }
     }
 }

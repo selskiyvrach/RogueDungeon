@@ -59,7 +59,7 @@ namespace Gameplay
             var uiContainer = Container.CreateSubContainer();
             uiContainer.InstanceSingle(_config);
             uiContainer.InstanceSingle(_screensSorter);
-            uiContainer.NewSingle<UiFactory>();
+            uiContainer.NewSingle<ScreenFactory>();
             uiContainer.NewSingle<GameplayUiManager>();
             Container.Bind<GameplayUiManager>().FromSubContainerResolve().ByInstance(uiContainer).AsSingle();
             

@@ -5,12 +5,12 @@ namespace Player.Model.Behaviours.Common
 {
     public class InventoryCloseMove : PlayerMove
     {
-        private readonly Player _player;
+        private readonly PlayerModel _player;
         private readonly InputUnit _inventoryKey;
         private readonly InputUnit _escKey;
         protected override float Duration => _player.Config.OpenInventoryDuration;
         
-        public InventoryCloseMove(string id, IAnimation animation, Player player, IPlayerInput input) : base(id, animation)
+        public InventoryCloseMove(string id, IAnimation animation, PlayerModel player, IPlayerInput input) : base(id, animation)
         {
             _player = player;
             _inventoryKey = input.GetKey(InputKey.Inventory);

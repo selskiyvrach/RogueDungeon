@@ -1,6 +1,6 @@
 ﻿using System;
-using Characters;
 using Common.Lifecycle;
+using InGameResources;
 using Input;
 using Inventory.Shared;
 using Levels;
@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Player.Model
 {
-    public class Player : IInitializable, ITickable
+    public class PlayerModel : IInitializable, ITickable
     {
         private readonly PlayerPositionInTheMaze _mazeTraversalPointer;
         private readonly Level _level;
@@ -34,10 +34,10 @@ namespace Player.Model
         public bool HasUnabsorbedBlockImpact { get; set; }
         public IBlockingItem BlockingItem { get; set; }
         public float DodgeStaminaCost => Config.DodgeStaminaCost;
-        public Inventory.Model.Inventory Inventory { get; }
+        public Inventory.Model.InventoryModel Inventory { get; }
         public event Action OnShowInventoryRequested;
 
-        public Player(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input, Inventory.Model.Inventory inventory)
+        public PlayerModel(PlayerConfig config, PlayerGameObject gameObject, Level level, PlayerPositionInTheMaze playerMazePosition, IPlayerInput input, Inventory.Model.InventoryModel inventory)
         {
             Config = config;
             _level = level;

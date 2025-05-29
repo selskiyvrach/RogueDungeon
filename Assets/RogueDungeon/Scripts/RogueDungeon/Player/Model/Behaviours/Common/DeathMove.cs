@@ -4,10 +4,10 @@ namespace Player.Model.Behaviours.Common
 {
     public class DeathMove : PlayerMove
     {
-        private readonly Player _player;
+        private readonly PlayerModel _player;
         protected override float Duration => _player.Config.DeathAnimationDuration;
 
-        protected DeathMove(IAnimation animation, Player player,string id) : base(id, animation) => 
+        protected DeathMove(IAnimation animation, PlayerModel player,string id) : base(id, animation) => 
             _player = player;
 
         public override void Enter()

@@ -1,18 +1,9 @@
-﻿using UniRx;
+﻿using UnityEngine;
 
 namespace Common.UI.Bars
 {
-    public abstract class Bar : UiElement
+    public abstract class Bar : MonoBehaviour, IBar
     {
-        private IBarViewModel ViewModel { get; set; }
-
-        public void Construct(IBarViewModel viewModel)
-        {
-            base.Construct(viewModel);
-            ViewModel = viewModel;
-            ViewModel.Value.Subscribe(SetValue).AddTo(gameObject);
-        }
-        
-        protected abstract void SetValue(float value);
+        public abstract float Value { get; set; }
     }
 }

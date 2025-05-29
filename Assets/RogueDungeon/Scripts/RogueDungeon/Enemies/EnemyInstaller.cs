@@ -35,11 +35,6 @@ namespace Enemies
             Container.InstanceSingle(effectsContainer.Instantiate<EnemyImpactAnimator>(new[] { config.Create(effectsContainer)}));
             
             Container.NewSingle<Enemy>();
-
-            var hpViewModel = Container.Instantiate<EnemyHealthBarViewModel>();
-            _healthBar.Construct(hpViewModel);
-            _healthBarDelta.Construct(new BarDeltaViewModel(hpViewModel, Container.Resolve<BarDeltaConfig>()));
-            _stunDurationBar.Construct(Container.Instantiate<EnemyStunDurationBarViewModel>());
         }
     }
 }
