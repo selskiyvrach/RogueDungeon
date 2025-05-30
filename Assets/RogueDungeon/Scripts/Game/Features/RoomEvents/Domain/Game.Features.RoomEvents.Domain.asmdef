@@ -1,0 +1,16 @@
+{
+    "name": "Game.Features.RoomEvents.Domain",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3c6591eac2634e0db5ea71ec276d62ff"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

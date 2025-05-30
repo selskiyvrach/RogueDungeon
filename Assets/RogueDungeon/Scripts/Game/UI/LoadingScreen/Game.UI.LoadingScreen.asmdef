@@ -1,0 +1,16 @@
+{
+    "name": "Game.UI.LoadingScreen",
+    "rootNamespace": "",
+    "references": [
+        "GUID:738b47d9f2cb27348adbc363000ad406"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

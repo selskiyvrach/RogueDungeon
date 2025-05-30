@@ -1,0 +1,19 @@
+{
+    "name": "Game.Features.Enemies.Domain",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f7908ab9e5464a33be2525137c117ec8",
+        "GUID:56316acafb484b999a91fbaf7d4fff95",
+        "GUID:16603f163f524af7842af7f70b9aaa92",
+        "GUID:b4a932adf04e4c7f9a32442cf355e28c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

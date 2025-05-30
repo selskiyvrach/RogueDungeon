@@ -1,0 +1,17 @@
+{
+    "name": "Game.Features.Combat.Domain",
+    "rootNamespace": "",
+    "references": [
+        "GUID:bf976f4fa76a4895a31ae9a9d493a745",
+        "Libs.Utils.Dotnet"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

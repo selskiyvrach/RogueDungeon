@@ -1,0 +1,7 @@
+﻿namespace Libs.Fsm
+{
+    public interface ILogger
+    {
+        void Log(string message);
+    }
+}

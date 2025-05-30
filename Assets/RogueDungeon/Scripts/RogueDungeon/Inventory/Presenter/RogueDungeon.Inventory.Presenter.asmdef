@@ -1,4 +1,0 @@
-﻿{
-  "name": "RogueDungeon.Inventory.Presenter",
-  "references":[ "RogueDungeon.Inventory.View", "RogueDungeon.Items", "RogueDungeon.Player.Shared", "RogueDungeon.Inventory.Model", "Zenject", "UtilsZenject", "RogueDungeon.Levels", "RogueDungeon.UI", "Items.Model" ]
-}

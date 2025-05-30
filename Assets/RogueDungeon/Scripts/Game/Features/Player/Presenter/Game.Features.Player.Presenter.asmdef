@@ -1,0 +1,20 @@
+{
+    "name": "Game.Features.Player.Presenter",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:f1adb21deaff4e84a0563d0b6a65275c",
+        "GUID:f7908ab9e5464a33be2525137c117ec8",
+        "GUID:994b5dc97368eb14e99f5db274da221c",
+        "GUID:4534244bc47449a8bd10d070a9bef9e5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,4 +1,0 @@
-﻿{
-  "name": "RogueDungeon.Inventory.Model",
-  "references":[ "RogueDungeon.Player.Shared", "RogueDungeon.Items", "Items.Model" ]
-}

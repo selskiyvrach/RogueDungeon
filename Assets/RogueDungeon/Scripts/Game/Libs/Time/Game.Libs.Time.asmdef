@@ -1,0 +1,19 @@
+{
+    "name": "Game.Libs.Time",
+    "rootNamespace": "",
+    "references": [
+        "GUID:34e812e582ac4704b9b415ce28b7272a",
+        "GUID:f7908ab9e5464a33be2525137c117ec8",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:7219b7caae824cf8a7e9cd2b004517a7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

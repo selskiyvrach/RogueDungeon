@@ -1,0 +1,16 @@
+{
+    "name": "Game.Features.Inventory.Domain",
+    "rootNamespace": "",
+    "references": [
+        "GUID:652976ea72144da19abb8a62abfeb865"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

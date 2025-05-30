@@ -1,0 +1,9 @@
+﻿using UnityEngine;
+
+namespace Libs.UI.Bars
+{
+    public abstract class Bar : MonoBehaviour, IBar
+    {
+        public abstract float Value { get; set; }
+    }
+}
