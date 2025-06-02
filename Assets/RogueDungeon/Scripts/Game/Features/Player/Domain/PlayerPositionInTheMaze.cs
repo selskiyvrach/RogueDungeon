@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Libs.WorldObjects;
+using UnityEngine;
 
 namespace Game.Features.Player.Domain
 {

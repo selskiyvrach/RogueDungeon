@@ -2,6 +2,8 @@
     "name": "Game.Features.Combat.Adapters",
     "rootNamespace": "",
     "references": [
+        "GUID:7761ce9d22744c49934dd39ac0388277",
+        "GUID:21a64b1207034c6cb72679ef7153ff18"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

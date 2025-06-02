@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Libs.Utils.DotNet;
-using RogueDungeon.Scripts.Game.Features.Inventory.View;
 using UnityEngine;
 
 namespace Game.Features.Inventory.View

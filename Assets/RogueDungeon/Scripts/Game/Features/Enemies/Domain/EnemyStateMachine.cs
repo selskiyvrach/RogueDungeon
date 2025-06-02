@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Features.Enemies.Domain.Moves;
+using Libs.Fsm;
 using Libs.Lifecycle;
 
 namespace Game.Features.Enemies.Domain

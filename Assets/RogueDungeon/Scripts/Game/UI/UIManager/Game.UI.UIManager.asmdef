@@ -2,6 +2,7 @@
     "name": "Game.UI.UIManager",
     "rootNamespace": "",
     "references": [
+        "GUID:390759c542ca4716b1286d57daa4f6d4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

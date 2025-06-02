@@ -1,8 +1,4 @@
 ﻿using System;
-using Game.Features.Inventory.Shared;
-using Game.Features.Items.Domain;
-using Game.Features.Items.Domain.Moves;
-using Game.Features.Items.Domain.Wielder;
 using Game.Libs.Input;
 using Libs.Fsm;
 using Libs.Lifecycle;
@@ -10,50 +6,44 @@ using UnityEngine.Assertions;
 
 namespace Game.Features.Player.Domain.Behaviours.Hands
 {
-    public class HandBehaviour : ITickable, IInitializable, IItemSwapper
+    public class HandBehaviour : ITickable, IInitializable
     {
-        private readonly ItemMoveSetFactory _moveSetFactory;
+        private readonly IInventory _inventory;
         private readonly IPlayerInput _playerInput;
-        private readonly Inventory.Domain.Inventory _inventory;
-        private readonly SlotType[] _slots;
         private readonly InputUnit _cycleItemsKey;
 
         private int _currentItemIndex;
 
         private StateMachine _currentItemMoveset;
-        private IHandheldItem _currentItem;
-        private IHandheldItem _intendedItem;
+        private IItem _currentItem;
+        private IItem _intendedItem;
         public event Action OnCurrentItemChanged;
 
         public bool IsRightHand { get; }
         public bool IsLocked { get; set; }
 
-        public IHandheldItem CurrentItem
+        public IItem CurrentItem
         {
             get => _currentItem;
             set
             {
                 Assert.IsFalse(IsLocked);
+                
                 if(IsLocked)
                     return;
                 
                 if (value == _currentItem)
                     return;
-                
-                _currentItem = value;
-                if (_currentItem != null)
-                {
-                    _currentItemMoveset = _moveSetFactory.Create(_currentItem);
-                    _currentItemMoveset.Initialize();
-                }
-                else
-                    _currentItemMoveset = null;
 
+                _currentItem?.DisableMoveset();
+                _currentItem = value;
+                _currentItem?.EnableMoveset();
+                
                 OnCurrentItemChanged?.Invoke();
             }
         }
 
-        public IHandheldItem IntendedItem
+        public IItem IntendedItem
         {
             get => _intendedItem;
             set
@@ -64,21 +54,19 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
             }
         }
 
-        public bool IsIdleOrEmpty => _currentItem == null || _currentItemMoveset.CurrentState is ItemIdleMove;
+        public bool IsIdleOrEmpty => _currentItem == null || _currentItem.IsIdle;
 
-        public HandBehaviour(IPlayerInput playerInput, Inventory.Domain.Inventory inventory, bool isRightHand, ItemMoveSetFactory moveSetFactory)
+        public HandBehaviour(IPlayerInput playerInput, bool isRightHand)
         {
             _playerInput = playerInput;
             IsRightHand = isRightHand;
-            _moveSetFactory = moveSetFactory;
-            _inventory = inventory;
-            _slots = new[]
-            {
-                IsRightHand ? SlotType.HandheldRight1 : SlotType.HandheldLeft1,
-                IsRightHand ? SlotType.HandheldRight2 : SlotType.HandheldLeft2,
-                IsRightHand ? SlotType.HandheldRight3 : SlotType.HandheldLeft3,
-            };
             _cycleItemsKey = _playerInput.GetKey(IsRightHand ? InputKey.CycleRightArmItems : InputKey.CycleLeftArmItems);
+        }
+
+        public void Initialize()
+        {
+            IntendedItem = _inventory.GetEquippedItem(isRightHand: IsRightHand);
+            _cycleItemsKey.OnDown += NextItem;
         }
 
         public void Tick(float deltaTime)
@@ -88,28 +76,11 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
                 CurrentItem = IntendedItem; 
         }
 
-        public void Initialize()
-        {
-            IntendedItem = GetItem(_currentItemIndex);
-            _cycleItemsKey.OnDown += NextItem;
-        }
-
         private void NextItem()
         {
             _cycleItemsKey.Reset();
-            var attempts = _slots.Length;
-            while (attempts-- > 0)
-            {
-                _currentItemIndex++;
-                _currentItemIndex %= attempts;
-                if (GetItem(_currentItemIndex) is not { } item)
-                    continue;
-                IntendedItem = item;
-                break;
-            }
+            _inventory.CycleEquippedItem(isRightHand: IsRightHand);
+            IntendedItem = _inventory.GetEquippedItem(isRightHand: IsRightHand);
         }
-
-        private IHandheldItem GetItem(int index) =>
-            _inventory.GetItem(_slots[index]) as IHandheldItem;
     }
 }

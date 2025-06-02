@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Game.Features.Enemies.Domain.Moves;
+using Game.Libs.InGameResources;
+using Libs.Animations;
+using Libs.Movesets;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

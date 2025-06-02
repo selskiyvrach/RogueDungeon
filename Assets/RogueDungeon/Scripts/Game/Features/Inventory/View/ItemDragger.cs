@@ -2,7 +2,6 @@
 using System.Linq;
 using Game.Libs.Camera;
 using Game.Libs.Input;
-using RogueDungeon.Scripts.Game.Features.Inventory.View;
 using UnityEngine;
 
 namespace Game.Features.Inventory.View

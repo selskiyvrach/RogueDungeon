@@ -1,5 +1,4 @@
-﻿using Game.Features.Items.Domain.Configs;
-using Game.Features.Player.Domain.Behaviours.Common;
+﻿using Game.Features.Player.Domain.Behaviours.Common;
 using Game.Libs.InGameResources;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -11,9 +10,6 @@ namespace Game.Features.Player.Domain
         [field: SerializeField, InlineProperty] public ResourceConfig Health { get; private set; }
         [field: SerializeField, InlineProperty] public RechargeableResourceConfig Stamina { get; private set; }
         [field: SerializeField, Range(0.01f, 0.49f)] public float PositionOffsetFromTileCenter { get; private set; } = .35f;
-        [field: SerializeField] public WeaponConfig DefaultWeapon { get; private set; }
-        [field: SerializeField] public ShieldConfig DefaultShield { get; private set; }
-        [field: SerializeField] public MapItemConfig MapItemConfig { get; private set; }
         [field: SerializeField] public GameObject Prefab { get; private set; }
         [field: SerializeField] public float DoubleGripDamageBonus { get; private set;} = 1.2f;
         [field: SerializeField] public float DoubleGripBlockBonus { get; private set;} = 1.2f;

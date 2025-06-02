@@ -1,4 +1,8 @@
-﻿namespace Game.Features.Enemies.Factory
+﻿using Game.Features.Enemies.Domain;
+using Libs.Utils.Zenject;
+using Zenject;
+
+namespace Game.Features.Enemies.Factory
 {
     public class EnemyFactory : IFactory<EnemyFactoryArgs, Enemy>
     {

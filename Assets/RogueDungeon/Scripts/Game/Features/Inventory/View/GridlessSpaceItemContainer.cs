@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Game.Libs.Camera;
 using Libs.Pools;
 using Libs.Utils.DotNet;
-using RogueDungeon.Scripts.Game.Features.Inventory.View;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

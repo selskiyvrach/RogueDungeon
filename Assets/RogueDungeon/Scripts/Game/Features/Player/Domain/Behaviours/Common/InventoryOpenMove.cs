@@ -8,12 +8,12 @@ namespace Game.Features.Player.Domain.Behaviours.Common
 {
     public class InventoryOpenMove : PlayerInputMove
     {
-        private readonly PlayerModel _player;
+        private readonly Player _player;
         protected override float Duration => _player.Config.OpenInventoryDuration; 
         protected override InputKey RequiredKey => InputKey.Inventory;
         protected override RequiredState State => RequiredState.Down;
         
-        public InventoryOpenMove(string id, IAnimation animation, IPlayerInput playerInput, PlayerModel player) : base(id, animation, playerInput) => 
+        public InventoryOpenMove(string id, IAnimation animation, IPlayerInput playerInput, Player player) : base(id, animation, playerInput) => 
             _player = player;
 
         public override void Enter()

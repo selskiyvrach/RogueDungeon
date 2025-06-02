@@ -1,31 +1,30 @@
-﻿using Game.Features.Levels;
-using Game.Features.Levels.Domain;
-using Game.Libs.Input;
+﻿using Game.Libs.Input;
 using Libs.Animations;
+using Libs.Utils.Unity;
 using UnityEngine;
 
 namespace Game.Features.Player.Domain.Behaviours.Common
 {
     public abstract class TurnMove : PlayerRoomMovementMove
     {
-        private readonly PlayerModel _player;
-        private readonly Level _level;
+        private readonly Player _player;
+        private readonly ILevelTraverser _levelTraverser;
         private float _from;
         private float _to;
         protected override float Duration => _player.Config.MovementActionDuration;
         protected abstract float RotationDegrees { get; }
         protected override RequiredState State => RequiredState.DownOrHeld;
 
-        protected TurnMove(PlayerModel player, Level level, IPlayerInput playerInput, IAnimation animation, string id) : base(level, id, animation, playerInput)
+        protected TurnMove(Player player, ILevelTraverser levelTraverser, IPlayerInput playerInput, IAnimation animation, string id) : base(levelTraverser, id, animation, playerInput)
         {
             _player = player;
-            _level = level;
+            _levelTraverser = levelTraverser;
         }
         
         public override void Enter()
         {
             base.Enter();
-            _from = _level.LevelTraverser.Rotation2D.Round().Degrees();
+            _from = _levelTraverser.GridRotation.Degrees();
             _to = _from + RotationDegrees;
             _to %= 360;
         }
@@ -34,7 +33,7 @@ namespace Game.Features.Player.Domain.Behaviours.Common
         {
             base.Tick(timeDelta);
             var angle = Mathf.LerpAngle(_from, _to, Animation.Progress);
-            _level.LevelTraverser.Rotation2D = FromAngle(angle);
+            _levelTraverser.RealRotation = FromAngle(angle);
         }
 
         private static Vector2 FromAngle(float degrees) =>

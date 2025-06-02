@@ -1,4 +1,5 @@
 ﻿using Game.Features.Enemies.Domain.HiveMind;
+using Libs.Utils.Zenject;
 using UnityEngine;
 using Zenject;
 

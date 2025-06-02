@@ -7,7 +7,9 @@
         "GUID:3c6591eac2634e0db5ea71ec276d62ff",
         "GUID:add48cab99d34099ba6c34276c61ec5f",
         "GUID:f7908ab9e5464a33be2525137c117ec8",
-        "Libs.Utils.Dotnet"
+        "GUID:acb9aa1ff2fc4cc297d84faa271ffca7",
+        "GUID:652976ea72144da19abb8a62abfeb865",
+        "GUID:694f59623a13416e82dd84c3b2dcf008"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

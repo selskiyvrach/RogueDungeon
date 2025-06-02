@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Game.Features.Levels;
-using Game.Features.Levels.Domain;
-using Game.Libs.Input;
+﻿using Game.Libs.Input;
 using Libs.Animations;
 using UnityEngine;
 
@@ -9,43 +6,43 @@ namespace Game.Features.Player.Domain.Behaviours.Common
 {
     public class MoveForwardMove : PlayerRoomMovementMove
     {
-        private readonly PlayerModel _player;
-        private readonly Level _level;
-        private Vector2 _from;
-        private Vector2 _to;
+        private readonly Player _player;
+        private readonly ILevelTraverser _levelTraverser;
+        private readonly ILevelRoomsInfoProvider _levelRoomsInfoProvider;
+        private Vector2Int _from;
+        private Vector2Int _to;
 
         protected override float Duration => _player.Config.MovementActionDuration;
         protected override InputKey RequiredKey => InputKey.MoveForward;
         protected override RequiredState State => RequiredState.DownOrHeld;
 
-        public MoveForwardMove(PlayerModel player, Level level, IPlayerInput playerInput, IAnimation animation, string id) : base(level, id, animation, playerInput)
+        public MoveForwardMove(Player player, ILevelTraverser levelTraverser, IPlayerInput playerInput, IAnimation animation, string id, ILevelRoomsInfoProvider levelRoomsInfoProvider) : base(levelTraverser, id, animation, playerInput)
         {
             _player = player;
-            _level = level;
+            _levelTraverser = levelTraverser;
+            _levelRoomsInfoProvider = levelRoomsInfoProvider;
         }
         
         public override void Enter()
         {
             base.Enter();
-            _from = _level.LevelTraverser.LocalPosition.Round();
-            _level.CurrentRoom.Exit();
-            _to = _from + _level.LevelTraverser.Rotation2D.Round();
+            _from = _levelTraverser.GridPosition;
+            _levelRoomsInfoProvider.GetRoom(_levelTraverser.GridPosition).Exit();
+            _to = _from + _levelTraverser.GridRotation;
         }
         
         public override void Tick(float timeDelta)
         {
             base.Tick(timeDelta);
-            _level.LevelTraverser.LocalPosition = Vector2.Lerp(_from, _to, Animation.Progress);
+            _levelTraverser.RealPosition = Vector2.Lerp(_from, _to, Animation.Progress);
             if(!IsFinished)
                 return;
             
-            _level.RefreshCurrentRoom();
-            _level.CurrentRoom.Enter();
+            _levelTraverser.GridPosition = _to;
+            _levelRoomsInfoProvider.GetRoom(_levelTraverser.GridPosition).Enter();
         }
 
         protected override bool CanTransitionTo() =>
-            base.CanTransitionTo() && _level.Rooms
-                .First(n => n.Coordinates == _level.LevelTraverser.LocalPosition.Round()).AdjacentRooms
-                .HasAdjacentRoom(_level.LevelTraverser.Rotation2D.Round());
+            base.CanTransitionTo() && _levelRoomsInfoProvider.GetRoom(_levelTraverser.GridPosition).HasAdjacentRoom(_levelTraverser.GridRotation);
     }
 }

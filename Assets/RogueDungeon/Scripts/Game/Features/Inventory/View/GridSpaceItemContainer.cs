@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Libs.Camera;
+using Libs.GridSpace;
 using Libs.Pools;
 using Libs.Utils.DotNet;
-using RogueDungeon.Scripts.Game.Features.Inventory.View;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

@@ -3,7 +3,7 @@
     "rootNamespace": "",
     "references": [
         "GUID:bf976f4fa76a4895a31ae9a9d493a745",
-        "Libs.Utils.Dotnet"
+        "GUID:77e5dc28b93645bf94888976f3a50c7b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

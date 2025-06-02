@@ -1,0 +1,20 @@
+{
+    "name": "Game.Features.Inventory.Installers",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:7219b7caae824cf8a7e9cd2b004517a7",
+        "GUID:a7f13fcb823e4fb89a491a01731699f1",
+        "GUID:fd6835187f9b42b0a264440d3b047cd4",
+        "GUID:81e3e17f3fe94c6d8393287318f98b6e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

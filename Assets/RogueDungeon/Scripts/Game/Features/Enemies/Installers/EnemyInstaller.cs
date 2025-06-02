@@ -1,6 +1,9 @@
 ﻿using Game.Features.Enemies.Domain;
 using Game.Features.Enemies.Domain.Moves;
 using Game.Features.Enemies.Factory;
+using Libs.Animations;
+using Libs.Movesets;
+using Libs.UI.Bars;
 using Libs.Utils.Zenject;
 using UnityEngine;
 using Zenject;
@@ -13,9 +16,9 @@ namespace Game.Features.Enemies.Installers
         [SerializeField] private AnimationClipTarget _hitEffectTarget;
         [SerializeField] private SpriteSheetAnimationTarget _spriteSheetAnimationTarget;
         [SerializeField] private TransformAnimationTarget _transformAnimationTarget;
-        [SerializeField] private CheatSheet.Bar _healthBar;
-        [SerializeField] private CheatSheet.Bar _healthBarDelta;
-        [SerializeField] private CheatSheet.Bar _stunDurationBar;
+        [SerializeField] private Bar _healthBar;
+        [SerializeField] private Bar _healthBarDelta;
+        [SerializeField] private Bar _stunDurationBar;
 
         public override void InstallBindings()
         {

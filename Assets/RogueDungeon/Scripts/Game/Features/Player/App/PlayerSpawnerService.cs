@@ -10,12 +10,13 @@ namespace Game.Features.Player.App
     public class PlayerSpawner : IPlayerSpawnerService, IPlayerDespawnerService
     {
         private readonly IFactory<ITickable, TickOrder, ObjectTicker> _tickerFactory;
-        private readonly IFactory<PlayerConfig, Transform, PlayerModel> _factory;
+        private readonly IFactory<PlayerConfig, Transform, Domain.Player> _factory;
         private readonly PlayerConfig _config;
         private readonly Transform _playerParent;
-        private PlayerModel _player;
+        private Domain.Player _player;
+        private ObjectTicker _ticker;
 
-        public PlayerSpawner(IFactory<PlayerConfig, Transform, PlayerModel> factory, Transform playerParent, PlayerConfig config, 
+        public PlayerSpawner(IFactory<PlayerConfig, Transform, Domain.Player> factory, Transform playerParent, PlayerConfig config, 
             IFactory<ITickable, TickOrder, ObjectTicker> tickerFactory)
         {
             _factory = factory;

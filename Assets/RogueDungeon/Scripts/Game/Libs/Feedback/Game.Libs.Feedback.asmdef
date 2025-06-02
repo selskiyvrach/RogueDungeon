@@ -2,6 +2,7 @@
     "name": "Game.Libs.Feedback",
     "rootNamespace": "",
     "references": [
+        "GUID:acb9aa1ff2fc4cc297d84faa271ffca7"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

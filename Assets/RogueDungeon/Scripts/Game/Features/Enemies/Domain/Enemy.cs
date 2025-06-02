@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Features.Enemies.Domain.Moves;
+using Game.Libs.InGameResources;
+using Game.Libs.WorldObjects;
+using Libs.Lifecycle;
 using UnityEngine;
 
 namespace Game.Features.Enemies.Domain
@@ -15,7 +18,7 @@ namespace Game.Features.Enemies.Domain
 
     public class Enemy : IInitializable, ITickable
     {
-        private readonly EnemyStatesProvider _statesProvider;
+        private readonly IEnemyStatesProvider _statesProvider;
         private readonly EnemyStateMachine _stateMachine;
         private readonly EnemyImpactAnimator _impactAnimator;
 
@@ -36,7 +39,7 @@ namespace Game.Features.Enemies.Domain
         public event Action<EnemyMove, EnemyMove> OnStateChanged { add => _stateMachine.OnStateChanged += value; remove => _stateMachine.OnStateChanged -= value; }
         public bool IsAlive => Health.Current > 0;
 
-        public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, EnemyStatesProvider statesProvider, EnemyImpactAnimator impactAnimator)
+        public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, IEnemyStatesProvider statesProvider, EnemyImpactAnimator impactAnimator)
         {  
             WorldObject = new TwoDWorldObject(gameObject);
             Config = config;

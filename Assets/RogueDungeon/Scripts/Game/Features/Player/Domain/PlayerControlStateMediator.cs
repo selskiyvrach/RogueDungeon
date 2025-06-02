@@ -2,14 +2,14 @@
 {
     public class PlayerControlStateMediator
     {
-        private readonly PlayerModel _player;
+        private readonly Player _player;
         private bool CanPerformAnyAction => _player.IsAlive;
-        public bool IsDodging => _player.DodgeState != PlayerDodgeState.None;
+        public bool IsDodging => _player.DodgeState != DodgeState.None;
         public bool IsAttackInUncancellableState { private get; set; }
         public bool CanAttack => CanPerformAnyAction && !IsDodging;
         public bool CanDodge => CanPerformAnyAction && !IsAttackInUncancellableState;
 
-        public PlayerControlStateMediator(PlayerModel player) => 
+        public PlayerControlStateMediator(Player player) => 
             _player = player;
     }
 }

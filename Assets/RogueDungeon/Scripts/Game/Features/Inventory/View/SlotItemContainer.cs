@@ -1,6 +1,5 @@
 ﻿using System;
 using Libs.Pools;
-using RogueDungeon.Scripts.Game.Features.Inventory.View;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Zenject;
