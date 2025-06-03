@@ -1,0 +1,22 @@
+{
+    "name": "Game.Features.Player.Composition",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fb76617b1f3943eba7633abd19e7f280",
+        "GUID:994b5dc97368eb14e99f5db274da221c",
+        "GUID:887ef2cee1944fc496b7b84f864b3b32",
+        "GUID:561af9d663014b93a576fb4aaea75f54",
+        "GUID:56316acafb484b999a91fbaf7d4fff95",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:7219b7caae824cf8a7e9cd2b004517a7"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

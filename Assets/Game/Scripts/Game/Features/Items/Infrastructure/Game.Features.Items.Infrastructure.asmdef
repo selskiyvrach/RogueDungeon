@@ -1,0 +1,21 @@
+{
+    "name": "Game.Features.Items.Infrastructure",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:b4a932adf04e4c7f9a32442cf355e28c",
+        "GUID:79d80b9db33c44689e04e627a46de626",
+        "GUID:7219b7caae824cf8a7e9cd2b004517a7",
+        "GUID:976a9a77fee046199f0532d087095dd7",
+        "GUID:56316acafb484b999a91fbaf7d4fff95"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

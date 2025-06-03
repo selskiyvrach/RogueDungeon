@@ -1,0 +1,16 @@
+{
+    "name": "Game.Features.Gameplay.App",
+    "rootNamespace": "",
+    "references": [
+        "GUID:14f6dd6ee4754b7895daee848e99bfcc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
