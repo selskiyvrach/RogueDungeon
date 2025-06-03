@@ -1,18 +1,15 @@
 ﻿using System;
 using Game.Features.Player.Domain.Behaviours.Hands;
 using Game.Libs.InGameResources;
-using Game.Libs.Input;
 using Libs.Fsm;
 using Libs.Lifecycle;
-using UnityEngine;
 
 namespace Game.Features.Player.Domain
 {
     public class Player : IInitializable, ITickable, IDisposable
     {
-        private StateMachine _movement;
-
-        public PlayerConfig Config { get; }
+        private StateMachine _movementStateMachine;
+        public IPlayerConfig Config { get; }
         public PlayerHandsBehaviour Hands { get; private set; }
         public Resource Health { get; }
         public RechargeableResource Stamina { get; }
@@ -26,7 +23,7 @@ namespace Game.Features.Player.Domain
         public IBlockingItem BlockingItem { get; set; }
         public float DodgeStaminaCost => Config.DodgeStaminaCost;
 
-        public Player(PlayerConfig config)
+        public Player(IPlayerConfig config)
         {
             Config = config;
             Stamina = new RechargeableResource(Config.Stamina);
@@ -35,28 +32,28 @@ namespace Game.Features.Player.Domain
             Health.Refill();
         }
 
-        public void SetBehaviours(PlayerHandsBehaviour handsBehaviour, StateMachine movementBehaviour)
+        public void SetBehaviours(/*PlayerHandsBehaviour handsBehaviour,*/ StateMachine movementBehaviour)
         {
-            Hands = handsBehaviour;
-            _movement = movementBehaviour; 
+            // Hands = handsBehaviour;
+            _movementStateMachine = movementBehaviour; 
         }
 
         public void Initialize()
         {
-            _movement.Initialize();
-            Hands.Initialize();
-            Hands.Enable();
+            _movementStateMachine.Initialize();
+            // Hands.Initialize();
+            // Hands.Enable();
         }
 
         public void Tick(float deltaTime)
         {
-            _movement.Tick(deltaTime);
+            _movementStateMachine.Tick(deltaTime);
 
             if (!IsAlive)
                 return;
 
-            Hands.Tick(deltaTime);
-            Stamina.Tick(deltaTime);
+            // Hands.Tick(deltaTime);
+            // Stamina.Tick(deltaTime);
         }
 
         public void ShowInventory()
@@ -65,7 +62,7 @@ namespace Game.Features.Player.Domain
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

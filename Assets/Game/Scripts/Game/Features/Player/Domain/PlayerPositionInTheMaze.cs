@@ -6,7 +6,7 @@ namespace Game.Features.Player.Domain
     public class PlayerPositionInTheMaze : ITwoDWorldObject
     {
         private readonly ITwoDWorldObject _targetObject;
-        private readonly PlayerConfig _playerConfig;
+        private readonly IPlayerInMazeConfig _playerConfig;
 
         public Vector2 LocalPosition
         {
@@ -30,7 +30,7 @@ namespace Game.Features.Player.Domain
             }
         }
 
-        public PlayerPositionInTheMaze(ITwoDWorldObject targetObject, PlayerConfig playerConfig)
+        public PlayerPositionInTheMaze(ITwoDWorldObject targetObject, IPlayerInMazeConfig playerConfig)
         {
             _targetObject = targetObject;
             _playerConfig = playerConfig;

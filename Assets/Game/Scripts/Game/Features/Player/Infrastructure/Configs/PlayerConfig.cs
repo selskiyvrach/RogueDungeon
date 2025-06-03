@@ -1,11 +1,12 @@
-﻿using Game.Features.Player.Domain.Behaviours.CommonMoveset;
+﻿using Game.Features.Player.Domain;
+using Game.Features.Player.Domain.Behaviours.CommonMoveset;
 using Game.Libs.InGameResources;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Features.Player.Domain
+namespace Game.Features.Player.Infrastructure.Configs
 {
-    public class PlayerConfig : ScriptableObject
+    public class PlayerConfig : ScriptableObject, IPlayerConfig
     {
         [field: SerializeField, InlineProperty] public ResourceConfig Health { get; private set; }
         [field: SerializeField, InlineProperty] public RechargeableResourceConfig Stamina { get; private set; }

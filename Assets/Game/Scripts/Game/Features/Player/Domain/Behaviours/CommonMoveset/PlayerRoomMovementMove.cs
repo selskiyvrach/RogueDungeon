@@ -14,9 +14,4 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
         protected override bool CanTransitionTo() => 
             base.CanTransitionTo() && _canLeaveReader.CanLeave;
     }
-
-    public interface ICurrentRoomCanLeaveReader
-    {
-        bool CanLeave { get; }
-    }
 }
