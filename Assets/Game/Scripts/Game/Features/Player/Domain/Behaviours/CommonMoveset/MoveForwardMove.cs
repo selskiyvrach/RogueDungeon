@@ -28,14 +28,14 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
         {
             base.Enter();
             _from = _levelTraverser.GridPosition;
-            _levelTraverser.OnLeavingRoom(_levelTraverser.GridPosition);
+            _levelTraverser.OnExitingRoom(_levelTraverser.GridPosition);
             _to = _from + _levelTraverser.GridRotation;
         }
         
         public override void Tick(float timeDelta)
         {
             base.Tick(timeDelta);
-            _levelTraverser.RealPosition = Vector2.Lerp(_from, _to, Animation.Progress);
+            _levelTraverser.BlendedGridPosition = Vector2.Lerp(_from, _to, Animation.Progress);
             if(!IsFinished)
                 return;
             

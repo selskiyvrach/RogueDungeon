@@ -15,8 +15,9 @@ namespace Game.Features.Player.Infrastructure.Installers
 
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<PlayerConfig>().FromInstance(_config).AsSingle();
             Container.BindInterfacesAndSelfTo<LevelTraverserContext>().FromNew().AsSingle();
-            Container.Bind<IFactory<Transform, Domain.Player>>().To<PlayerInstanceFactory>().AsSingle().WithArguments(new object[]{_config});
+            Container.Bind<IFactory<Transform, Domain.Player>>().To<PlayerInstanceFactory>().AsSingle();
             Container.Bind<PlayerSpawner>().AsSingle().WithArguments(new object[]{_parent});
             
             Container.Bind<SpawnPlayerOnGameplayStartedUseCase>().AsSingle().NonLazy();

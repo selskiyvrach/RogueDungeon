@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Game.Features.Player.Infrastructure.Configs
 {
-    public class PlayerConfig : ScriptableObject, IPlayerConfig
+    public class PlayerConfig : ScriptableObject, IPlayerConfig, IPlayerInMazeConfig
     {
         [field: SerializeField, InlineProperty] public ResourceConfig Health { get; private set; }
         [field: SerializeField, InlineProperty] public RechargeableResourceConfig Stamina { get; private set; }

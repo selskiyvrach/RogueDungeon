@@ -1,4 +1,5 @@
 ﻿using Game.Features.Player.App.ViewInterfaces;
+using Game.Features.Player.Domain;
 using Game.Features.Player.Domain.Behaviours.CommonMoveset;
 
 namespace Game.Features.Player.App.Presenters

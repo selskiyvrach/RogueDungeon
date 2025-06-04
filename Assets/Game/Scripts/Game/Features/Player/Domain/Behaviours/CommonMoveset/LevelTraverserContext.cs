@@ -6,18 +6,26 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
 {
     public class LevelTraverserContext : ILevelTraverser, IRoomsInfoProvider
     {
-        private Vector2 _realPosition;
+        private readonly IPlayerInMazeConfig _playerInMazeConfig;
+        private Vector2 _blendedGridPosition;
         private Vector2 _realRotation;
-        public bool CanLeave { get; set; } = true;
+        private Vector2 _offsetFromRoomCenter;
 
-        public Vector2 RealPosition
+        public LevelTraverserContext(IPlayerInMazeConfig playerInMazeConfig) => 
+            _playerInMazeConfig = playerInMazeConfig;
+
+        public bool CanLeave { get; set; } = true;
+        
+        public Vector2 RealPosition => _blendedGridPosition + _offsetFromRoomCenter;
+
+        public Vector2 BlendedGridPosition
         {
-            get => _realPosition;
+            get => _blendedGridPosition;
             set
             {
-                if(value == _realPosition)
+                if(value == _blendedGridPosition)
                     return;
-                _realPosition = value; 
+                _blendedGridPosition = value; 
                 OnRealPositionChanged?.Invoke();
             }
         }
@@ -30,7 +38,9 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
                 if(value == _realRotation)
                     return;
                 _realRotation = value;
+                _offsetFromRoomCenter = _realRotation.normalized * - _playerInMazeConfig.PositionOffsetFromTileCenter;
                 OnRealRotationChanged?.Invoke();
+                OnRealPositionChanged?.Invoke();
             }
         }
 
@@ -42,7 +52,7 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
         public event Action OnRealRotationChanged;
         public HashSet<Vector2Int> ExistingRooms { private get; set; }
         
-        public void OnLeavingRoom(Vector2Int coordinates) => 
+        public void OnExitingRoom(Vector2Int coordinates) => 
             OnRoomExited?.Invoke(coordinates);
 
         public void OnEnteringRoom(Vector2Int coordinates) => 
