@@ -1,4 +1,5 @@
-﻿using Libs.Utils.Zenject;
+﻿using Game.Libs.Time;
+using Libs.Utils.Zenject;
 using UnityEngine;
 using Zenject;
 
@@ -15,7 +16,12 @@ namespace Game.Libs.Input
             container.NewSingleInterfacesAndSelf<InputMap>();
             container.NewSingleInterfacesAndSelf<PlayerInput>();
             
-            Container.Bind<IPlayerInput>().FromSubContainerResolve().ByInstance(container).AsSingle();
+            Container.Bind<IPlayerInput>().FromMethod(() =>
+            {
+                var input = container.Resolve<IPlayerInput>();
+                container.Resolve<IGameTime>().StartTicking(input, TickOrder.Input);
+                return input;
+            });
         }
     }
 }
