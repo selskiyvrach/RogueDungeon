@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4180b03dfb0f4b3694bfa868e6ed0326, type: 3}
   m_Name: room_0-7
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 970510922816897162, guid: f73c48686ccaafb4bbc9c77411d884e7,
-    type: 3}
   <Coordinates>k__BackingField: {x: 0, y: 7}
-  <EventConfigs>k__BackingField: []
+  <Prefab>k__BackingField: {fileID: 6621873733563358463, guid: f73c48686ccaafb4bbc9c77411d884e7,
+    type: 3}

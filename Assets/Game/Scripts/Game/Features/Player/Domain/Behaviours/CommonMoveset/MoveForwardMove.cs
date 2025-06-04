@@ -1,5 +1,6 @@
 ﻿using Game.Libs.Input;
 using Libs.Animations;
+using Libs.Utils.Unity;
 using UnityEngine;
 
 namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
@@ -8,7 +9,7 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
     {
         private readonly Player _player;
         private readonly ILevelTraverser _levelTraverser;
-        private readonly ILevelRoomsInfoProvider _levelRoomsInfoProvider;
+        private readonly IRoomsInfoProvider _levelRoomsInfoProvider;
         private Vector2Int _from;
         private Vector2Int _to;
 
@@ -16,7 +17,7 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
         protected override InputKey RequiredKey => InputKey.MoveForward;
         protected override RequiredState State => RequiredState.DownOrHeld;
 
-        public MoveForwardMove(Player player, ILevelTraverser levelTraverser, IPlayerInput playerInput, IAnimation animation, string id, ILevelRoomsInfoProvider levelRoomsInfoProvider) : base(levelTraverser, id, animation, playerInput)
+        public MoveForwardMove(Player player, ILevelTraverser levelTraverser, IPlayerInput playerInput, IAnimation animation, string id, IRoomsInfoProvider levelRoomsInfoProvider) : base(levelTraverser, id, animation, playerInput)
         {
             _player = player;
             _levelTraverser = levelTraverser;
@@ -27,7 +28,7 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
         {
             base.Enter();
             _from = _levelTraverser.GridPosition;
-            _levelRoomsInfoProvider.GetRoom(_levelTraverser.GridPosition).Exit();
+            _levelTraverser.OnLeavingRoom(_levelTraverser.GridPosition);
             _to = _from + _levelTraverser.GridRotation;
         }
         
@@ -39,10 +40,14 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
                 return;
             
             _levelTraverser.GridPosition = _to;
-            _levelRoomsInfoProvider.GetRoom(_levelTraverser.GridPosition).Enter();
+            _levelTraverser.OnEnteringRoom(_levelTraverser.GridPosition);
         }
 
-        protected override bool CanTransitionTo() =>
-            base.CanTransitionTo() && _levelRoomsInfoProvider.GetRoom(_levelTraverser.GridPosition).HasAdjacentRoom(_levelTraverser.GridRotation);
+        protected override bool CanTransitionTo()
+        {
+            var canBase = base.CanTransitionTo();
+            var roomExists = _levelRoomsInfoProvider.RoomExists(_levelTraverser.GridPosition + _levelTraverser.GridRotation);
+            return canBase && roomExists;
+        }
     }
 }

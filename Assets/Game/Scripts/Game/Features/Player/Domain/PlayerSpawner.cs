@@ -1,4 +1,5 @@
-﻿using Game.Libs.Time;
+﻿using System;
+using Game.Libs.Time;
 using ModestTree;
 using UnityEngine;
 using Zenject;
@@ -12,6 +13,8 @@ namespace Game.Features.Player.Domain
         private readonly Transform _parent;
         
         private Player _playerInstance;
+        public event Action OnPlayerSpawned;
+        public event Action OnPlayerDespawned;
 
         public PlayerSpawner(IFactory<Transform, Player> factory, IGameTime time, Transform playerParent)
         {
@@ -26,6 +29,7 @@ namespace Game.Features.Player.Domain
             _playerInstance = _factory.Create(_parent);
             _playerInstance.Initialize();
             _time.StartTicking(_playerInstance, TickOrder.Player);
+            OnPlayerSpawned?.Invoke();
         }
 
         public void DespawnPlayer()
@@ -33,6 +37,7 @@ namespace Game.Features.Player.Domain
             _time.StopTicking(_playerInstance);
             _playerInstance.Dispose();
             _playerInstance = null;
+            OnPlayerDespawned?.Invoke();
         }
     }
 }

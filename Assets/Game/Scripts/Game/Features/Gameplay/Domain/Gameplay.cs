@@ -5,13 +5,15 @@ namespace Game.Features.Gameplay.Domain
 {
     public class Gameplay : IInitializable
     {
-        public event Action OnGameplayStarted;
+        public event Action OnPrepareGameplayElementsRequested;
+        public event Action OnStartGameplayRequested;
+        public event Action OnGameStarted;
 
         public void Initialize()
         {
-            OnGameplayStarted?.Invoke();
+            OnPrepareGameplayElementsRequested?.Invoke();
+            OnStartGameplayRequested?.Invoke();
+            OnGameStarted?.Invoke();
         }
-        
-        
     }
 }

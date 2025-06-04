@@ -1,0 +1,4 @@
+{
+  "name": "Game.Features.Levels.App",
+  "references":[ "GUID:cc8645a250564cfab03e49dbdc33c95d", "GUID:14f6dd6ee4754b7895daee848e99bfcc" ]
+}

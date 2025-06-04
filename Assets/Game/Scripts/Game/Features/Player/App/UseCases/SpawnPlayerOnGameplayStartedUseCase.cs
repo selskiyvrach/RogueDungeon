@@ -11,7 +11,7 @@ namespace Game.Features.Player.App.UseCases
         {
             _gameplay = gameplay;
             _playerSpawner = playerSpawner;
-            _gameplay.OnGameplayStarted += _playerSpawner.SpawnPlayer;
+            _gameplay.OnStartGameplayRequested += _playerSpawner.SpawnPlayer;
         }
     }
 }

@@ -34,6 +34,11 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
             base.Tick(timeDelta);
             var angle = Mathf.LerpAngle(_from, _to, Animation.Progress);
             _levelTraverser.RealRotation = FromAngle(angle);
+            
+            if(!IsFinished)
+                return;
+            
+            _levelTraverser.GridRotation = _levelTraverser.RealRotation.Round();
         }
 
         private static Vector2 FromAngle(float degrees) =>
