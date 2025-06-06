@@ -1,6 +1,7 @@
 ﻿using Game.Features.Player.App.UseCases;
 using Game.Features.Player.Domain;
 using Game.Features.Player.Domain.Behaviours.CommonMoveset;
+using Game.Features.Player.Domain.Movesets.Movement;
 using Game.Features.Player.Infrastructure.Configs;
 using Game.Features.Player.Infrastructure.Factories;
 using UnityEngine;

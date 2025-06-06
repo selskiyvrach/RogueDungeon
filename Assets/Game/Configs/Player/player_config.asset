@@ -19,21 +19,15 @@ MonoBehaviour:
     <RechargeRate>k__BackingField: 15
     <RechargeDelay>k__BackingField: 0.35
   <PositionOffsetFromTileCenter>k__BackingField: 0.4
-  <DefaultWeapon>k__BackingField: {fileID: 11400000, guid: 4b04777495ac5c145a6022faf79be800,
-    type: 2}
-  <DefaultShield>k__BackingField: {fileID: 11400000, guid: 68b3849591033494c90d41d21ccd4e41,
-    type: 2}
-  <MapItemConfig>k__BackingField: {fileID: 11400000, guid: da2eadcd71e0438448d02a02b86a0e5d,
-    type: 2}
   <Prefab>k__BackingField: {fileID: 519540501769377305, guid: 0b1353be74b298141ba99669d9373a88,
     type: 3}
   <DoubleGripDamageBonus>k__BackingField: 1.2
   <DoubleGripBlockBonus>k__BackingField: 1.2
   <DeathAnimationDuration>k__BackingField: 2
   <DodgeDuration>k__BackingField: 0.5
-  <MovementActionDuration>k__BackingField: 0.75
-  <TurnDuration>k__BackingField: 0.5
-  <TurnAroundDuration>k__BackingField: 0.75
+  <MovementActionDuration>k__BackingField: 1
+  <TurnDuration>k__BackingField: 0.75
+  <TurnAroundDuration>k__BackingField: 1
   <IdleAnimationDuration>k__BackingField: 1.2
   <DodgeStaminaCost>k__BackingField: 5
   <BirthAnimationDuration>k__BackingField: 0.5

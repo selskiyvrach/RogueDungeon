@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Game.Features.Player.Domain.Movesets.Movement;
 using Libs.Animations;
 using Libs.Movesets;
 using Sirenix.OdinInspector;
@@ -7,23 +8,29 @@ using UnityEngine;
 
 namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
 {
+    public class PlayerMoveIdToTypeConverter : IMoveIdToTypeConverter
+    {
+        public Type GetMoveType(string id) =>
+            id switch
+            {
+                MoveNames.IDLE => typeof(IdleMove),
+                MoveNames.BIRTH => typeof(BirthMove),
+                MoveNames.DEATH => typeof(DeathMove),
+                MoveNames.DODGE_LEFT => typeof(DodgeLeftMove),
+                MoveNames.DODGE_RIGHT => typeof(DodgeRightMove),
+                MoveNames.MOVE_FORWARD => typeof(MoveForwardMove),
+                MoveNames.TURN_LEFT => typeof(TurnLeftMove),
+                MoveNames.TURN_RIGHT => typeof(TurnRightMove),
+                MoveNames.TURN_AROUND => typeof(TurnAroundMove),
+                MoveNames.INVENTORY_OPEN => typeof(InventoryOpenMove),
+                MoveNames.INVENTORY_KEEP_OPEN => typeof(InventoryKeepOpenMove),
+                MoveNames.INVENTORY_CLOSE => typeof(InventoryCloseMove),
+                _ => throw new ArgumentException($"Unknown move id: {id}", nameof(id))
+            };
+    }
+
     public class PlayerMoveSetConfig : TransformAnimationsConfig, IMoveSetConfig
     {
-        public static class Names
-        {
-            public const string IDLE = "idle";
-            public const string BIRTH = "birth";
-            public const string DEATH = "death";
-            public const string DODGE_LEFT = "dodge_left";
-            public const string DODGE_RIGHT = "dodge_right";
-            public const string MOVE_FORWARD = "move_forward";
-            public const string TURN_LEFT = "turn_left";
-            public const string TURN_RIGHT = "turn_right";
-            public const string TURN_AROUND = "turn_around";
-            public const string INVENTORY_OPEN = "inventory_open";
-            public const string INVENTORY_KEEP_OPEN = "inventory_keep_open";
-            public const string INVENTORY_CLOSE = "inventory_close";
-        }
         [SerializeField, HideLabel, BoxGroup(nameof(_toIdleAnimation))] private TransformAnimationConfig _toIdleAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_hideHandsAnimation))] private TransformAnimationConfig _hideHandsAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_showHandsAnimation))] private TransformAnimationConfig _showHandsAnimation;
@@ -42,42 +49,42 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
         [SerializeField, HideLabel, BoxGroup(nameof(_openInventoryAnimation))] private TransformAnimationConfig _openInventoryAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_keepInventoryOpenAnimation))] private TransformAnimationConfig _keepInventoryOpenAnimation;
         
-        public string FirstMoveId => Names.BIRTH;
+        public string FirstMoveId => MoveNames.BIRTH;
         public IEnumerable<MoveCreationArgs> MovesCreationArgs => new MoveCreationArgs[]
         {
-            new (Names.BIRTH, typeof(BirthMove), _birthAnimation, new TransitionPicker[] { new(Names.IDLE)}),
-            new (Names.IDLE, typeof(IdleMove), new MultiItemTransformAnimationConfig((null, _idleAnimation), ("hands", _handsIdleAnimation)), new TransitionPicker[]
+            new (MoveNames.BIRTH, _birthAnimation, new TransitionPicker[] { new(MoveNames.IDLE)}),
+            new (MoveNames.IDLE, new MultiItemTransformAnimationConfig((null, _idleAnimation), ("hands", _handsIdleAnimation)), new TransitionPicker[]
             {
-                new(Names.DEATH, canInterrupt: true),
-                new(Names.INVENTORY_OPEN, canInterrupt: true),
-                new(Names.MOVE_FORWARD, canInterrupt: true),
-                new(Names.TURN_LEFT, canInterrupt: true),
-                new(Names.TURN_RIGHT, canInterrupt: true),
-                new(Names.TURN_AROUND, canInterrupt: true),
-                new(Names.DODGE_LEFT, canInterrupt: true),
-                new(Names.DODGE_RIGHT, canInterrupt: true),
+                new(MoveNames.DEATH, canInterrupt: true),
+                new(MoveNames.INVENTORY_OPEN, canInterrupt: true),
+                new(MoveNames.MOVE_FORWARD, canInterrupt: true),
+                new(MoveNames.TURN_LEFT, canInterrupt: true),
+                new(MoveNames.TURN_RIGHT, canInterrupt: true),
+                new(MoveNames.TURN_AROUND, canInterrupt: true),
+                new(MoveNames.DODGE_LEFT, canInterrupt: true),
+                new(MoveNames.DODGE_RIGHT, canInterrupt: true),
             }),
-            new (Names.DEATH, typeof(DeathMove), new MultiItemTransformAnimationConfig((null, _deathAnimation), ("hands", _hideHandsAnimation)), Array.Empty<TransitionPicker>()),
+            new (MoveNames.DEATH, new MultiItemTransformAnimationConfig((null, _deathAnimation), ("hands", _hideHandsAnimation)), Array.Empty<TransitionPicker>()),
             
-            new (Names.DODGE_LEFT, typeof(DodgeLeftMove), new MultiItemTransformAnimationConfig((null, _dodgeLeftAnimation), ("hands", _handsDodgeLeftAnimation)), new TransitionPicker[] { new(Names.IDLE)}),
-            new (Names.DODGE_RIGHT, typeof(DodgeRightMove), new MultiItemTransformAnimationConfig((null, _dodgeRightAnimation), ("hands", _handsDodgeRightAnimation)), new TransitionPicker[] { new(Names.IDLE)}),
+            new (MoveNames.DODGE_LEFT, new MultiItemTransformAnimationConfig((null, _dodgeLeftAnimation), ("hands", _handsDodgeLeftAnimation)), new TransitionPicker[] { new(MoveNames.IDLE)}),
+            new (MoveNames.DODGE_RIGHT, new MultiItemTransformAnimationConfig((null, _dodgeRightAnimation), ("hands", _handsDodgeRightAnimation)), new TransitionPicker[] { new(MoveNames.IDLE)}),
             
-            new (Names.MOVE_FORWARD, typeof(MoveForwardMove), new MultiItemTransformAnimationConfig((null, _walkAnimation), ("hands", _handsWalkAnimation)), MovementTransitions),
-            new (Names.TURN_LEFT, typeof(TurnLeftMove), new MultiItemTransformAnimationConfig((null, _turnAnimation), ("hands", _handsTurnAnimation)), MovementTransitions),
-            new (Names.TURN_RIGHT, typeof(TurnRightMove), new MultiItemTransformAnimationConfig((null, _turnAnimation), ("hands", _handsTurnAnimation)), MovementTransitions),
-            new (Names.TURN_AROUND, typeof(TurnAroundMove), new MultiItemTransformAnimationConfig((null, _walkAnimation), ("hands", _handsWalkAnimation)), MovementTransitions),
+            new (MoveNames.MOVE_FORWARD, new MultiItemTransformAnimationConfig((null, _walkAnimation), ("hands", _handsWalkAnimation)), MovementTransitions),
+            new (MoveNames.TURN_LEFT, new MultiItemTransformAnimationConfig((null, _turnAnimation), ("hands", _handsTurnAnimation)), MovementTransitions),
+            new (MoveNames.TURN_RIGHT, new MultiItemTransformAnimationConfig((null, _turnAnimation), ("hands", _handsTurnAnimation)), MovementTransitions),
+            new (MoveNames.TURN_AROUND, new MultiItemTransformAnimationConfig((null, _walkAnimation), ("hands", _handsWalkAnimation)), MovementTransitions),
             
-            new (Names.INVENTORY_OPEN, typeof(InventoryOpenMove), new MultiItemTransformAnimationConfig((null, _openInventoryAnimation), ("hands", _hideHandsAnimation)), new TransitionPicker[]{new(Names.INVENTORY_KEEP_OPEN)}),
-            new (Names.INVENTORY_KEEP_OPEN, typeof(InventoryKeepOpenMove), _keepInventoryOpenAnimation, new TransitionPicker[]{new(Names.INVENTORY_CLOSE)}),
-            new (Names.INVENTORY_CLOSE, typeof(InventoryCloseMove),  new MultiItemTransformAnimationConfig((null, _toIdleAnimation), ("hands", _showHandsAnimation)), new TransitionPicker[]{new(Names.IDLE)}),
+            new (MoveNames.INVENTORY_OPEN, new MultiItemTransformAnimationConfig((null, _openInventoryAnimation), ("hands", _hideHandsAnimation)), new TransitionPicker[]{new(MoveNames.INVENTORY_KEEP_OPEN)}),
+            new (MoveNames.INVENTORY_KEEP_OPEN, _keepInventoryOpenAnimation, new TransitionPicker[]{new(MoveNames.INVENTORY_CLOSE)}),
+            new (MoveNames.INVENTORY_CLOSE, new MultiItemTransformAnimationConfig((null, _toIdleAnimation), ("hands", _showHandsAnimation)), new TransitionPicker[]{new(MoveNames.IDLE)}),
         };
 
         private static TransitionPicker[] MovementTransitions = {
-            new (Names.TURN_LEFT),
-            new (Names.TURN_RIGHT),
-            new (Names.TURN_AROUND),
-            new (Names.MOVE_FORWARD),
-            new (Names.IDLE),
+            new (MoveNames.TURN_LEFT),
+            new (MoveNames.TURN_RIGHT),
+            new (MoveNames.TURN_AROUND),
+            new (MoveNames.MOVE_FORWARD),
+            new (MoveNames.IDLE),
         };
     }
 }

@@ -6,15 +6,15 @@ using Zenject;
 
 namespace Game.Features.Player.Domain
 {
-    public class PlayerSpawner 
+    public class PlayerSpawner : IPlayerDespawnedEventDispatcher, IPlayerSpawnedEventDispatcher 
     {
         private readonly IFactory<Transform, Player> _factory;
         private readonly IGameTime _time;
         private readonly Transform _parent;
         
         private Player _playerInstance;
-        public event Action OnPlayerSpawned;
-        public event Action OnPlayerDespawned;
+        public event Action<Player> OnPlayerSpawned;
+        public event Action<Player> OnPlayerDespawned;
 
         public PlayerSpawner(IFactory<Transform, Player> factory, IGameTime time, Transform playerParent)
         {
@@ -29,7 +29,7 @@ namespace Game.Features.Player.Domain
             _playerInstance = _factory.Create(_parent);
             _playerInstance.Initialize();
             _time.StartTicking(_playerInstance, TickOrder.Player);
-            OnPlayerSpawned?.Invoke();
+            OnPlayerSpawned?.Invoke(_playerInstance);
         }
 
         public void DespawnPlayer()
@@ -37,7 +37,7 @@ namespace Game.Features.Player.Domain
             _time.StopTicking(_playerInstance);
             _playerInstance.Dispose();
             _playerInstance = null;
-            OnPlayerDespawned?.Invoke();
+            OnPlayerDespawned?.Invoke(_playerInstance);
         }
     }
 }

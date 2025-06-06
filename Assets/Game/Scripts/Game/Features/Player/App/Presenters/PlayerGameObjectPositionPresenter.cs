@@ -1,6 +1,6 @@
 ﻿using Game.Features.Player.App.ViewInterfaces;
 using Game.Features.Player.Domain;
-using Game.Features.Player.Domain.Behaviours.CommonMoveset;
+using Game.Features.Player.Domain.Movesets.Movement;
 
 namespace Game.Features.Player.App.Presenters
 {

@@ -1,5 +1,6 @@
 ﻿using Game.Features.Player.App.Presenters;
 using Game.Features.Player.Domain;
+using Game.Features.Player.Domain.Behaviours.CommonMoveset;
 using Game.Features.Player.Infrastructure.Configs;
 using Game.Features.Player.Infrastructure.View;
 using Libs.Animations;
@@ -22,7 +23,7 @@ namespace Game.Features.Player.Infrastructure.Installers
             Container.BindInstance(_bodyAnimationTarget);
             Container.BindInstance(_handsAnimationTarget).WithId("hands");
 
-            Container.Bind<StateMachine>().FromMethod(() => new MoveSetFactory(Container).Create(Container.Resolve<PlayerConfig>().MoveSetConfig));
+            Container.Bind<StateMachine>().FromMethod(() => new MoveSetFactory(Container).Create(Container.Resolve<PlayerConfig>().MoveSetConfig, new PlayerMoveIdToTypeConverter()));
             Container.BindInterfacesAndSelfTo<Domain.Player>().AsSingle();
             Container.Bind<PlayerControlStateMediator>().AsSingle();
 

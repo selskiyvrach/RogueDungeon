@@ -4,16 +4,16 @@ namespace Game.Libs.Feedback
 {
     public class CombatFeedbackPlayer
     {
-        private readonly IGameCamera _gameCamera;
-        private readonly CombatFeedbackConfig _config;
-        private float _lastTime = float.NegativeInfinity;
-        // private HitSeverity _lastSeverity = HitSeverity.Regular;
-
-        public CombatFeedbackPlayer(IGameCamera gameCamera, CombatFeedbackConfig config)
-        {
-            _gameCamera = gameCamera;
-            _config = config;
-        }
+        // private readonly IGameCamera _gameCamera;
+        // private readonly CombatFeedbackConfig _config;
+        // private float _lastTime = float.NegativeInfinity;
+        // // private HitSeverity _lastSeverity = HitSeverity.Regular;
+        //
+        // public CombatFeedbackPlayer(IGameCamera gameCamera, CombatFeedbackConfig config)
+        // {
+        //     _gameCamera = gameCamera;
+        //     _config = config;
+        // }
 
         // public void OnHit(HitSeverity severity)
         // {

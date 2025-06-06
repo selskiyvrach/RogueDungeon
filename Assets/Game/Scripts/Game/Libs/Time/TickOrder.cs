@@ -7,5 +7,6 @@
         Input,
         Player,
         Enemies,
+        Camera
     }
 }

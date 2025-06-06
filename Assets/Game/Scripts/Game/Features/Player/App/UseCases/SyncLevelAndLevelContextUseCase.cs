@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Game.Features.Levels.Domain;
-using Game.Features.Player.Domain.Behaviours.CommonMoveset;
+using Game.Features.Player.Domain.Movesets.Movement;
 using UnityEngine;
 
 namespace Game.Features.Player.App.UseCases
