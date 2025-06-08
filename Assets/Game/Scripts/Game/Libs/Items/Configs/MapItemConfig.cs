@@ -16,7 +16,7 @@ namespace Game.Libs.Items.Configs
         [field: HideLabel, BoxGroup(nameof(RaiseMapAnimation)), SerializeField] public TransformAnimationConfig RaiseMapAnimation {get; private set;}
         [field: HideLabel, BoxGroup(nameof(HoldMapAnimation)), SerializeField] public TransformAnimationConfig HoldMapAnimation {get; private set;}
 
-        public override Type ItemType => typeof(Map);
+        public override Type Type => typeof(Map);
         protected override IEnumerable<TransitionPicker> TransitionsFromIdle => base.TransitionsFromIdle.Append(new TransitionPicker(MoveNames.MAP_RAISE, canInterrupt: true));
 
         public override IEnumerable<MoveCreationArgs> MovesCreationArgs => base.MovesCreationArgs.Concat(new MoveCreationArgs[]

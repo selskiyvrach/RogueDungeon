@@ -7,13 +7,13 @@ using UnityEngine;
 
 namespace Game.Libs.Items.Configs
 {
-    public abstract class BlockingItemConfig : ItemConfig
+    public abstract class BlockingItemConfig : ItemConfig, IBlockingItemConfig
     {
         [field: BoxGroup("Durations"), SerializeField] public float BlockStaminaCostMultiplier { get; private set; } = 1;
-        [field: BoxGroup("Durations"), SerializeField] public float RaiseBlockDuration { get; private set; } = .25f;
-        [field: BoxGroup("Durations"), SerializeField] public float LowerBlockDuration { get; private set; } = .25f;
+        [field: BoxGroup("Durations"), SerializeField] public float RaiseBlockAnimationDuration { get; private set; } = .25f;
+        [field: BoxGroup("Durations"), SerializeField] public float LowerBlockAnimationDuration { get; private set; } = .25f;
         [field: BoxGroup("Durations"), SerializeField] public float HoldBlockAnimationDuration { get; private set; } = 1;
-        [field: BoxGroup("Durations"), SerializeField] public float BlockImpactAbsorptionDuration { get; private set; } = .25f;
+        [field: BoxGroup("Durations"), SerializeField] public float BlockImpactAbsorptionAnimationDuration { get; private set; } = .25f;
         
         [BoxGroup("Animations"), SerializeField] private BlockAnimationsConfig _blockAnimationsConfig;
 

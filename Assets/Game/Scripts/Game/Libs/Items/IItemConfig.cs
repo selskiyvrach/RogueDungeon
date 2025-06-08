@@ -1,7 +1,10 @@
-﻿namespace Game.Libs.Items
+﻿using System;
+
+namespace Game.Libs.Items
 {
     public interface IItemConfig
     {
-        string ItemTypeId { get; }
+        string Id { get; }
+        Type Type { get; }
     }
 }

@@ -9,5 +9,11 @@ namespace Libs.Utils.DotNet
             foreach (var item in items) 
                 queue.Enqueue(item);
         }
+
+        public static void RequeueTopOne<T>(this Queue<T> queue)
+        {
+            var item = queue.Dequeue();
+            queue.Enqueue(item);
+        }
     }
 }

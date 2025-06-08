@@ -25,7 +25,7 @@ MonoBehaviour:
   <DoubleGripBlockBonus>k__BackingField: 1.2
   <DeathAnimationDuration>k__BackingField: 2
   <DodgeDuration>k__BackingField: 0.5
-  <MovementActionDuration>k__BackingField: 1
+  <MovementActionDuration>k__BackingField: 0.75
   <TurnDuration>k__BackingField: 0.75
   <TurnAroundDuration>k__BackingField: 1
   <IdleAnimationDuration>k__BackingField: 1.2

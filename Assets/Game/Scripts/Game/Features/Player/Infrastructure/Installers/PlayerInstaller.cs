@@ -1,6 +1,5 @@
 ﻿using Game.Features.Player.App.UseCases;
 using Game.Features.Player.Domain;
-using Game.Features.Player.Domain.Behaviours.CommonMoveset;
 using Game.Features.Player.Domain.Movesets.Movement;
 using Game.Features.Player.Infrastructure.Configs;
 using Game.Features.Player.Infrastructure.Factories;
@@ -23,6 +22,7 @@ namespace Game.Features.Player.Infrastructure.Installers
             
             Container.Bind<SpawnPlayerOnGameplayStartedUseCase>().AsSingle().NonLazy();
             Container.Bind<SyncLevelAndLevelContextUseCase>().AsSingle().NonLazy();
+            Container.Bind<EquipDefaultWeaponsUseCase>().AsSingle().NonLazy();
         }
     }
 }

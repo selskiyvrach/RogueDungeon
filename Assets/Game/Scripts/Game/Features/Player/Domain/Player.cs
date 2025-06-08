@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.Features.Player.Domain.Behaviours.Hands;
 using Game.Libs.InGameResources;
+using Game.Libs.Items;
 using Libs.Fsm;
 using Libs.Lifecycle;
 

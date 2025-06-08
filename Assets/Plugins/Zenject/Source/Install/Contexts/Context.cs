@@ -19,7 +19,7 @@ namespace Zenject
 
         [FormerlySerializedAs("Installers")]
         [FormerlySerializedAs("_installers")]
-        [SerializeField]
+        [SerializeField, HideInInspector]
         List<MonoInstaller> _monoInstallers = new List<MonoInstaller>();
 
         [SerializeField]
@@ -27,6 +27,9 @@ namespace Zenject
 
         List<InstallerBase> _normalInstallers = new List<InstallerBase>();
         List<Type> _normalInstallerTypes = new List<Type>();
+
+        private void OnValidate() => 
+            _monoInstallers = GetComponents<MonoInstaller>().ToList();
 
         public IEnumerable<MonoInstaller> Installers
         {

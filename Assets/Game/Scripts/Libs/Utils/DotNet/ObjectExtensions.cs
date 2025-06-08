@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Libs.Utils.DotNet
 {
@@ -10,11 +9,5 @@ namespace Libs.Utils.DotNet
 
         public static string TypeName(this object obj) 
             => obj.GetType().Name;
-    }
-
-    public static class RectExtensions
-    {
-        public static float AspectRatio(this Rect rect) => 
-            rect.width / rect.height;
     }
 }

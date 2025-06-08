@@ -5,7 +5,7 @@
         private readonly IItemConfig _itemConfig;
         private static int _idCounter;
         
-        public string TypeId => _itemConfig.ItemTypeId;
+        public string TypeId => _itemConfig.Id;
         public int InstanceId { get; }
 
         protected Item(IItemConfig itemConfig)

@@ -8,6 +8,6 @@ namespace Game.Libs.Items.Configs
         [SerializeField] private ItemConfig[] _configs;
         
         public IItemConfig GetItemConfig(string itemId) =>
-            _configs.First(n => n.ItemTypeId == itemId);
+            _configs.First(n => n.Id == itemId);
     }
 }

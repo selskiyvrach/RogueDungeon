@@ -11,16 +11,15 @@ namespace Game.Libs.Items.Configs
     {
         [field: SerializeField] public Sprite Sprite { get; private set; }
         [field: SerializeField] public Vector2Int Size { get; private set; } = new(1, 1);
-        [field: SerializeField] public string ItemTypeId { get; private set; }
         [field: BoxGroup("Durations"), SerializeField] public float IdleAnimationDuration { get; private set; } = 1f;
         [field: BoxGroup("Durations"), SerializeField] public float UnsheathDuration { get; private set; } = .5f;
 
         [HideLabel, BoxGroup(nameof(_returnToIdleAnimationConfig)), SerializeField] protected TransformAnimationConfig _returnToIdleAnimationConfig;
         [BoxGroup("Animations"), SerializeField] private BasicAnimationsConfig _basicAnimationsConfig;
 
+        public string Id => name;
         public string FirstMoveId => MoveNames.UNSHEATH;
-
-        public abstract Type ItemType { get; }
+        public abstract Type Type { get; }
 
         protected virtual IEnumerable<TransitionPicker> TransitionsFromIdle => new TransitionPicker[] { new(MoveNames.SHEATH, canInterrupt: true), };
         

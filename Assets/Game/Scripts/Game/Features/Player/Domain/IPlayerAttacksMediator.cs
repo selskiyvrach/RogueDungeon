@@ -1,4 +1,4 @@
-﻿using Game.Features.Player.Domain.Behaviours.Hands;
+﻿using Game.Libs.Items;
 
 namespace Game.Features.Player.Domain
 {

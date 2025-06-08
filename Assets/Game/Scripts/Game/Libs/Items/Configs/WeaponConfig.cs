@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game.Libs.Items.Configs
 {
-    public class WeaponConfig : BlockingItemConfig
+    public class WeaponConfig : BlockingItemConfig, IWeaponItemConfig
     {
         [field: BoxGroup("Stamina"), SerializeField] public float Damage { get; private set; } = 10;
         [field: BoxGroup("Damage"), SerializeField] public float PoiseDamage { get; private set; } = 10;
@@ -19,7 +19,7 @@ namespace Game.Libs.Items.Configs
 
         [BoxGroup("Animations"), SerializeField] private AttackAnimationsConfig _attackAnimations;
 
-        public override Type ItemType => typeof(Weapon);
+        public override Type Type => typeof(Weapon);
         protected override IEnumerable<TransitionPicker> TransitionsFromIdle => base.TransitionsFromIdle.Append(new(MoveNames.FIRST_ATTACK_PREPARE, canInterrupt: true));
 
         public override IEnumerable<MoveCreationArgs> MovesCreationArgs => base.MovesCreationArgs.Concat(new MoveCreationArgs[]

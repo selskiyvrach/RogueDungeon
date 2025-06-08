@@ -10,5 +10,11 @@ namespace Libs.Utils.DotNet
                 dictionary.Add(key, new TValue());
             return dictionary[key];
         }
+
+        public static void AddRangeOfKeys<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, IEnumerable<TKey> keys)
+        {
+            foreach (var key in keys) 
+                dictionary.Add(key, default(TValue));
+        }
     }
 }

@@ -1,28 +1,16 @@
 ﻿using Game.Libs.Input;
+using Game.Libs.Items;
 using UnityEngine.Assertions;
 
 namespace Game.Features.Player.Domain.Behaviours.Hands
 {
     public class PlayerHandsBehaviour 
     {
-        private readonly IInventory _inventory;
-        private readonly IPlayerInput _input;
-        private readonly InputUnit _mapKey;
-        
-        private IItem _previousRightHandItem;
-
         public bool TransitionsLocked { get; private set; }
         public HandBehaviour RightHand { get; private set; }
         public HandBehaviour LeftHand { get; private set; }
         public bool IsDoubleGrip => (RightHand.CurrentItem == null || LeftHand.CurrentItem == null) && (RightHand.CurrentItem ?? LeftHand.CurrentItem) != null;
         public bool IsIdle { get; set; }
-
-        public PlayerHandsBehaviour(IPlayerInput input, IInventory inventory)
-        {
-            _input = input;
-            _inventory = inventory;
-            _mapKey = _input.GetKey(InputKey.OpenMap);
-        }
 
         public void SetBehaviours(HandBehaviour rightHandBehaviour, HandBehaviour leftHandBehaviour)
         {
@@ -40,22 +28,6 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
         {
             RightHand.Tick(deltaTime);
             LeftHand.Tick(deltaTime);
-            
-                     
-            if(!_mapKey.IsDown)
-                return;
-            
-            var map = _inventory.GetMapItem();
-            
-            if (RightHand.CurrentItem != map)
-            {
-                _previousRightHandItem = RightHand.CurrentItem;
-                RightHand.IntendedItem = map;
-            }
-            else if (RightHand.CurrentItem == map) 
-                RightHand.IntendedItem = _previousRightHandItem;
-            
-            _mapKey.Reset();
         }
         
         public void Disable(bool force = false)
