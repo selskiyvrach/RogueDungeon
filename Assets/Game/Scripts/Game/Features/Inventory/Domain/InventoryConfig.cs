@@ -4,7 +4,7 @@ namespace Game.Features.Inventory.Domain
 {
     public class InventoryConfig
     {
-        public IEnumerable<SlotId> Slots => new SlotId[]
+        public IEnumerable<SlotId> Slots => new[]
         {
             SlotId.HANDHELD_L_0, 
             SlotId.HANDHELD_L_1,

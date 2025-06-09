@@ -1,18 +1,24 @@
 ﻿using Game.Libs.Input;
 using Game.Libs.Items;
 using UnityEngine.Assertions;
+using Zenject;
 
 namespace Game.Features.Player.Domain.Behaviours.Hands
 {
-    public class PlayerHandsBehaviour 
+    public class PlayerHandsBehaviour
     {
+        public const string LEFT_HAND_INJECTION_ID = "left_hand";
+        public const string RIGHT_HAND_INJECTION_ID = "right_hand";
+        
         public bool TransitionsLocked { get; private set; }
         public HandBehaviour RightHand { get; private set; }
         public HandBehaviour LeftHand { get; private set; }
         public bool IsDoubleGrip => (RightHand.CurrentItem == null || LeftHand.CurrentItem == null) && (RightHand.CurrentItem ?? LeftHand.CurrentItem) != null;
         public bool IsIdle { get; set; }
 
-        public void SetBehaviours(HandBehaviour rightHandBehaviour, HandBehaviour leftHandBehaviour)
+        public PlayerHandsBehaviour(
+            [Inject(Id = RIGHT_HAND_INJECTION_ID)] HandBehaviour rightHandBehaviour, 
+            [Inject(Id = LEFT_HAND_INJECTION_ID)] HandBehaviour leftHandBehaviour)
         {
             RightHand = rightHandBehaviour;
             LeftHand = leftHandBehaviour;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Features.Player.App.UseCases
+namespace Game.Features.Player.App.UseCases.Instance
 {
     public interface IPlayerPovCameraPoint
     {

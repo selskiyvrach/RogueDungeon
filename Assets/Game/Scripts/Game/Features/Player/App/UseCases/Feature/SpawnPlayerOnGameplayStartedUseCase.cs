@@ -1,6 +1,6 @@
 ﻿using Game.Features.Player.Domain;
 
-namespace Game.Features.Player.App.UseCases
+namespace Game.Features.Player.App.UseCases.Feature
 {
     public class SpawnPlayerOnGameplayStartedUseCase
     {

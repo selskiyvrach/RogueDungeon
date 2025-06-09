@@ -396,6 +396,7 @@ GameObject:
   - component: {fileID: 1662126086}
   - component: {fileID: 1662126087}
   - component: {fileID: 1662126088}
+  - component: {fileID: 1662126089}
   m_Layer: 0
   m_Name: zenject_context
   m_TagString: Untagged
@@ -425,6 +426,7 @@ MonoBehaviour:
   - {fileID: 1662126081}
   - {fileID: 1662126086}
   - {fileID: 1662126087}
+  - {fileID: 1662126088}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -575,6 +577,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _configsRepo: {fileID: 11400000, guid: 5efb9d6a615819347b0e56bad71cadce, type: 2}
+--- !u!114 &1662126089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1662126077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89e46448eb640049039a6b809321316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1761104572
 GameObject:
   m_ObjectHideFlags: 0

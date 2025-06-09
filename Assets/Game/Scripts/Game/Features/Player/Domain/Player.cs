@@ -1,7 +1,6 @@
 ﻿using System;
 using Game.Features.Player.Domain.Behaviours.Hands;
 using Game.Libs.InGameResources;
-using Game.Libs.Items;
 using Libs.Fsm;
 using Libs.Lifecycle;
 
@@ -18,10 +17,6 @@ namespace Game.Features.Player.Domain
         public bool IsReadyToBeDisposed { get; set; }
         public bool IsHoldingBreath { get; set; }
         public bool IsAlive => Health.Current > 0;
-        public float DoubleGripDamageBonus => Config.DoubleGripDamageBonus;
-        public float DoubleGripBlockBonus => Config.DoubleGripBlockBonus;
-        public bool HasUnabsorbedBlockImpact { get; set; }
-        public IBlockingItem BlockingItem { get; set; }
         public float DodgeStaminaCost => Config.DodgeStaminaCost;
 
         public Player(IPlayerConfig config)
@@ -33,17 +28,17 @@ namespace Game.Features.Player.Domain
             Health.Refill();
         }
 
-        public void SetBehaviours(/*PlayerHandsBehaviour handsBehaviour,*/ StateMachine movementBehaviour)
+        public void SetBehaviours(PlayerHandsBehaviour handsBehaviour, StateMachine movementBehaviour)
         {
-            // Hands = handsBehaviour;
+            Hands = handsBehaviour;
             _movementStateMachine = movementBehaviour; 
         }
 
         public void Initialize()
         {
             _movementStateMachine.Initialize();
-            // Hands.Initialize();
-            // Hands.Enable();
+            Hands.Initialize();
+            Hands.Enable();
         }
 
         public void Tick(float deltaTime)
@@ -53,8 +48,8 @@ namespace Game.Features.Player.Domain
             if (!IsAlive)
                 return;
 
-            // Hands.Tick(deltaTime);
-            // Stamina.Tick(deltaTime);
+            Hands.Tick(deltaTime);
+            Stamina.Tick(deltaTime);
         }
 
         public void ShowInventory()

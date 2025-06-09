@@ -12,13 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9be4e27dc40947749878beae91b7d42c, type: 3}
   m_Name: axe
   m_EditorClassIdentifier: 
-  <Size>k__BackingField: {x: 2, y: 3}
-  <ItemPresenterPrefab>k__BackingField: {fileID: 5016818609395961182, guid: 9b45dabc3a429f841b709d55df835362,
-    type: 3}
-  <WorldInventoryPrefab>k__BackingField: {fileID: 4492978322308353209, guid: 9b45dabc3a429f841b709d55df835362,
-    type: 3}
   <Sprite>k__BackingField: {fileID: -1325982165, guid: 94efb4f28a3964746b50b3dbe98c57cc,
     type: 3}
+  <Size>k__BackingField: {x: 2, y: 3}
   <IdleAnimationDuration>k__BackingField: 1
   <UnsheathDuration>k__BackingField: 0.25
   _returnToIdleAnimationConfig:
@@ -31,10 +27,10 @@ MonoBehaviour:
   _basicAnimationsConfig: {fileID: 11400000, guid: d0c2e9d7550a1d24b8e0d531044361dc,
     type: 2}
   <BlockStaminaCostMultiplier>k__BackingField: 2
-  <RaiseBlockDuration>k__BackingField: 0.15
-  <LowerBlockDuration>k__BackingField: 0.25
+  <RaiseBlockAnimationDuration>k__BackingField: 0.25
+  <LowerBlockAnimationDuration>k__BackingField: 0.25
   <HoldBlockAnimationDuration>k__BackingField: 0.1
-  <BlockImpactAbsorptionDuration>k__BackingField: 0.4
+  <BlockImpactAbsorptionAnimationDuration>k__BackingField: 0.25
   _blockAnimationsConfig: {fileID: 11400000, guid: f04b3703d3fe5344082e8607cfa76605,
     type: 2}
   <Damage>k__BackingField: 10

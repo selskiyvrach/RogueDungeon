@@ -2,7 +2,7 @@
 using Game.Libs.Items;
 using Game.Libs.Items.Factory;
 
-namespace Game.Features.Player.App.UseCases
+namespace Game.Features.Player.App.UseCases.Instance
 {
     public class EquipDefaultWeaponsUseCase
     {
@@ -13,8 +13,8 @@ namespace Game.Features.Player.App.UseCases
         {
             _inventory = inventory;
             _itemFactory = itemFactory;
-            _inventory.Equip(_itemFactory.Create("axe"), SlotId.HANDHELD_L_0);
-            _inventory.Equip(_itemFactory.Create("shield"), SlotId.HANDHELD_R_0);
+            _inventory.Equip(_itemFactory.Create(ItemIds.AXE), SlotId.HANDHELD_L_0);
+            _inventory.Equip(_itemFactory.Create(ItemIds.SHIELD), SlotId.HANDHELD_R_0);
         }
     }
 }

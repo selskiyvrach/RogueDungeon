@@ -8,12 +8,18 @@ namespace Libs.Utils.DotNet
     {
         public static T ThrowIfNone<T>(this T target) where T : struct, Enum
         {
-            if (target.ToString() == "None")
+            if (target.IsNone())
                 throw new Exception("Item has value of None");
             return target;
         }
 
         public static IEnumerable<T> GetValues<T>(this T target) where T : struct, Enum => 
             Enum.GetValues(typeof(T)).Cast<T>();
+        
+        public static IEnumerable<T> GetValues<T>() where T : struct, Enum => 
+            Enum.GetValues(typeof(T)).Cast<T>();
+
+        public static bool IsNone<T>(this T target) where T : struct, Enum => 
+            target.ToString() == "None";
     }
 }

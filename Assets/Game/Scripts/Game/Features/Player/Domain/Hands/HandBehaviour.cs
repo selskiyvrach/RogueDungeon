@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Features.Player.Domain.Movesets.Items;
 using Game.Libs.Input;
 using Game.Libs.Items;
 using Libs.Fsm;
@@ -9,21 +10,21 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
 {
     public class HandBehaviour : ITickable, IInitializable
     {
-        private readonly IInventory _inventory;
         private readonly InputUnit _cycleItemsKey;
+        private readonly ItemMovesetFactory _itemMovesetFactory;
 
         private int _currentItemIndex;
-
         private StateMachine _currentItemMoveset;
-        private IItem _currentItem;
-        private IItem _intendedItem;
-        
-        public event Action OnCurrentItemChanged;
+        private IHandheldItem _currentItem;
+        private IHandheldItem _intendedItem;
+
+        public event Action OnCycleItemRequested;
 
         public bool IsRightHand { get; }
         public bool IsLocked { get; set; }
 
-        public IItem CurrentItem
+
+        public IHandheldItem CurrentItem
         {
             get => _currentItem;
             set
@@ -37,11 +38,19 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
                     return;
 
                 _currentItem = value;
-                OnCurrentItemChanged?.Invoke();
+                
+                if (_currentItem == null)
+                {
+                    _currentItemMoveset = null;
+                    return;
+                }
+
+                _currentItemMoveset = _itemMovesetFactory.Create(_currentItem);
+                _currentItemMoveset.Initialize();
             }
         }
 
-        public IItem IntendedItem
+        public IHandheldItem IntendedItem
         {
             get => _intendedItem;
             set
@@ -51,18 +60,16 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
                     _intendedItem = value;
             }
         }
-        
-        public HandBehaviour(IPlayerInput playerInput, bool isRightHand)
+
+        public HandBehaviour(IPlayerInput playerInput, bool isRightHand, ItemMovesetFactory itemMovesetFactory)
         {
             IsRightHand = isRightHand;
+            _itemMovesetFactory = itemMovesetFactory;
             _cycleItemsKey = playerInput.GetKey(IsRightHand ? InputKey.CycleRightArmItems : InputKey.CycleLeftArmItems);
         }
 
-        public void Initialize()
-        {
-            IntendedItem = _inventory.GetEquippedItem(isRightHand: IsRightHand);
+        public void Initialize() => 
             _cycleItemsKey.OnDown += NextItem;
-        }
 
         public void Tick(float deltaTime)
         {
@@ -74,8 +81,7 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
         private void NextItem()
         {
             _cycleItemsKey.Reset();
-            _inventory.CycleEquippedItem(isRightHand: IsRightHand);
-            IntendedItem = _inventory.GetEquippedItem(isRightHand: IsRightHand);
+            OnCycleItemRequested?.Invoke();
         }
     }
 }

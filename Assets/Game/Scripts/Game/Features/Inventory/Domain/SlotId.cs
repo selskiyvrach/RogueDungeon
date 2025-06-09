@@ -14,12 +14,12 @@ namespace Game.Features.Inventory.Domain
     {
         private readonly int _index;
         private readonly SlotType _slotType;
-        private readonly Hand _hand;
+        public readonly Hand Hand;
 
         public SlotId(SlotType slotType, Hand hand, int index)
         {
             _index = index;
-            _hand = hand;
+            Hand = hand;
             _slotType = slotType;
         }
 
@@ -32,14 +32,20 @@ namespace Game.Features.Inventory.Domain
         public static readonly SlotId HANDHELD_L_2 = Handheld(Hand.Left, 2);
 
         public static SlotId Handheld(Hand hand, int index) => new(SlotType.Handheld, hand, index);
+        
+        public static bool operator ==(SlotId a, SlotId b) => 
+            a.Equals(b);
+
+        public static bool operator !=(SlotId a, SlotId b) => 
+            !(a == b);
 
         public bool Equals(SlotId other) => 
-            _index == other._index && _slotType == other._slotType && _hand == other._hand;
+            _index == other._index && _slotType == other._slotType && Hand == other.Hand;
 
         public override bool Equals(object obj) => 
             obj is SlotId other && Equals(other);
 
         public override int GetHashCode() => 
-            HashCode.Combine(_index, (int)_slotType, (int)_hand);
+            HashCode.Combine(_index, (int)_slotType, (int)Hand);
     }
 }

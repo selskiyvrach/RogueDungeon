@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 3733405680008688721}
   - component: {fileID: 2978166127884722620}
   - component: {fileID: 307175014674769343}
-  - component: {fileID: 6350304918856226592}
   - component: {fileID: 9074553005204053543}
   m_Layer: 0
   m_Name: Player
@@ -83,8 +82,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 307175014674769343}
   - {fileID: 2978166127884722620}
+  - {fileID: 307175014674769343}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -113,24 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bff88df6f4647bd8bb67d555878759b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _handsInstaller: {fileID: 6350304918856226592}
   _bodyAnimationTarget: {fileID: 3570815851020885173}
   _handsAnimationTarget: {fileID: 1913945203232716033}
   _worldRootObject: {fileID: 9074553005204053543}
---- !u!114 &6350304918856226592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519540501769377305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bc892ba942c4bfbabed5afc7a064ef8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rightHandAnimationTarget: {fileID: 2591300410410068382}
   _leftHandAnimationTarget: {fileID: 8370036581241725894}
+  _rightHandAnimationTarget: {fileID: 2591300410410068382}
 --- !u!114 &9074553005204053543
 MonoBehaviour:
   m_ObjectHideFlags: 0

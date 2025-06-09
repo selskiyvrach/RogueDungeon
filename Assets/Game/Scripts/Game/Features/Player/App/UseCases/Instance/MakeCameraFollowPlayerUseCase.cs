@@ -3,7 +3,7 @@ using Game.Libs.Time;
 using Libs.Lifecycle;
 using UnityEngine;
 
-namespace Game.Features.Player.App.UseCases
+namespace Game.Features.Player.App.UseCases.Instance
 {
     public class MakeCameraFollowPlayerUseCase : ITickable
     {
