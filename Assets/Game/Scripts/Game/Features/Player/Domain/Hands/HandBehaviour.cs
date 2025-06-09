@@ -19,11 +19,11 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
         private IHandheldItem _intendedItem;
 
         public event Action OnCycleItemRequested;
+        public event Action OnCurrentItemChanged;
 
         public bool IsRightHand { get; }
         public bool IsLocked { get; set; }
-
-
+        
         public IHandheldItem CurrentItem
         {
             get => _currentItem;
@@ -38,15 +38,15 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
                     return;
 
                 _currentItem = value;
-                
-                if (_currentItem == null)
-                {
-                    _currentItemMoveset = null;
-                    return;
-                }
 
-                _currentItemMoveset = _itemMovesetFactory.Create(_currentItem);
-                _currentItemMoveset.Initialize();
+                if (_currentItem == null)
+                    _currentItemMoveset = null;
+                else
+                {
+                    _currentItemMoveset = _itemMovesetFactory.Create(_currentItem);
+                    _currentItemMoveset.Initialize();
+                }
+                OnCurrentItemChanged?.Invoke();
             }
         }
 

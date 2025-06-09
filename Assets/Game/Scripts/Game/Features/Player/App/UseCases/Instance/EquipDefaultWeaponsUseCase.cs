@@ -15,6 +15,9 @@ namespace Game.Features.Player.App.UseCases.Instance
             _itemFactory = itemFactory;
             _inventory.Equip(_itemFactory.Create(ItemIds.AXE), SlotId.HANDHELD_L_0);
             _inventory.Equip(_itemFactory.Create(ItemIds.SHIELD), SlotId.HANDHELD_R_0);
+            
+            _inventory.Equip(_itemFactory.Create(ItemIds.AXE), SlotId.HANDHELD_R_1);
+            _inventory.Equip(_itemFactory.Create(ItemIds.SHIELD), SlotId.HANDHELD_L_1);
         }
     }
 }

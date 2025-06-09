@@ -11,7 +11,6 @@ using Game.Features.Player.Infrastructure.View;
 using Libs.Animations;
 using Libs.Fsm;
 using Libs.Movesets;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 
@@ -24,7 +23,9 @@ namespace Game.Features.Player.Infrastructure.Installers
         [SerializeField] private PlayerGameObjectPositionView _worldRootObject;
         
         [SerializeField] private TransformAnimationTarget _leftHandAnimationTarget; 
-        [SerializeField] private TransformAnimationTarget _rightHandAnimationTarget; 
+        [SerializeField] private TransformAnimationTarget _rightHandAnimationTarget;
+        [SerializeField] private HandheldItemView _leftItemView;
+        [SerializeField] private HandheldItemView _rightItemView;
         
         public override void InstallBindings()
         {
@@ -51,19 +52,24 @@ namespace Game.Features.Player.Infrastructure.Installers
 
         private void BindHand(bool isRightHand)
         {
-            var handContainer = Container.CreateSubContainer();
-            handContainer.Bind<TransformAnimationTarget>().FromInstance(isRightHand ? _rightHandAnimationTarget : _leftHandAnimationTarget).AsSingle();
-            handContainer.Bind<IMoveIdToTypeConverter>().To<ItemMoveIdToTypeConverter>().AsSingle();
-            handContainer.Bind<MoveSetFactory>().AsSingle();
-            handContainer.Bind<ItemMovesetFactory>().AsSingle();
-            handContainer.Bind<HandBehaviour>().AsSingle().WithArguments(new object[]{isRightHand});
-            handContainer.Bind<IItemSwapper>().To<HandToItemSwapperAdapter>().AsSingle();
-            
             Container.Bind<HandBehaviour>().WithId(
                     isRightHand ? 
                         PlayerHandsBehaviour.RIGHT_HAND_INJECTION_ID : 
                         PlayerHandsBehaviour.LEFT_HAND_INJECTION_ID)
-                .FromSubContainerResolve().ByInstance(handContainer).AsCached();
+                .FromSubContainerResolve().ByMethod(CreateHandSubContainer).AsCached();
+            return;
+
+            void CreateHandSubContainer(DiContainer handContainer)
+            {
+                handContainer.Bind<TransformAnimationTarget>().FromInstance(isRightHand ? _rightHandAnimationTarget : _leftHandAnimationTarget).AsSingle();
+                handContainer.Bind<IHandheldItemView>().FromInstance(isRightHand ? _rightItemView : _leftItemView).AsSingle();
+                handContainer.Bind<IMoveIdToTypeConverter>().To<ItemMoveIdToTypeConverter>().AsSingle();
+                handContainer.Bind<MoveSetFactory>().AsSingle();
+                handContainer.Bind<ItemMovesetFactory>().AsSingle();
+                handContainer.Bind<HandBehaviour>().AsSingle().WithArguments(new object[]{isRightHand});
+                handContainer.Bind<IItemSwapper>().To<HandToItemSwapperAdapter>().AsSingle();
+                handContainer.Bind<HandPresenter>().AsSingle().NonLazy();
+            }
         }
     }
 }

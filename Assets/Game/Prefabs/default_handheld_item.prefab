@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7500770109181272652}
-  - component: {fileID: 5016818609395961182}
+  - component: {fileID: 6453261651160821500}
   m_Layer: 0
   m_Name: default_handheld_item
   m_TagString: Untagged
@@ -117,7 +117,7 @@ Transform:
   - {fileID: 6420291817275629641}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5016818609395961182
+--- !u!114 &6453261651160821500
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4492978322308353209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de3adddc481c4e74923a324f07079ec6, type: 3}
+  m_Script: {fileID: 11500000, guid: babb7232f930448e9f26634009b1bbd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 8919973036384768795}

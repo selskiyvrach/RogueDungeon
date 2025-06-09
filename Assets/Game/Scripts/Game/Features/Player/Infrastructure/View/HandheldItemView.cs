@@ -1,20 +1,19 @@
-﻿using UnityEngine;
+﻿using Game.Features.Player.App.Presenters;
+using UnityEngine;
 
-namespace Game.Libs.Items
+namespace Game.Features.Player.Infrastructure.View
 {
-    public class HandHeldItemView : MonoBehaviour
+    public class HandheldItemView : MonoBehaviour, IHandheldItemView
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
-
+        
         public void Show(Sprite sprite)
         {
             gameObject.SetActive(true);
             _spriteRenderer.sprite = sprite;
         }
 
-        public void Hide()
-        {
+        public void Hide() => 
             gameObject.SetActive(false);
-        }
     }
 }

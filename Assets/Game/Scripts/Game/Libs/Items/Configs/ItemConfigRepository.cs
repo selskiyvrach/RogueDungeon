@@ -13,5 +13,8 @@ namespace Game.Libs.Items.Configs
 
         public IMoveSetConfig GetItemMovesetConfig(string itemId) => 
             (IMoveSetConfig)GetItemConfig(itemId);
+
+        public IHandheldItemViewConfig GetHandheldItemViewConfig(string itemTypeId) => 
+            (IHandheldItemViewConfig)GetItemConfig(itemTypeId);
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Game.Libs.Items;
 using Game.Libs.Items.Configs;
 using UnityEngine;
 
-namespace Game.Libs.Items
+namespace Game.Features.Player.Infrastructure.View
 {
-    public class HandheldMapView : HandHeldItemView
+    public class HandheldMapView : HandheldItemView
     {
         private readonly List<SpriteRenderer> _tiles = new();
         

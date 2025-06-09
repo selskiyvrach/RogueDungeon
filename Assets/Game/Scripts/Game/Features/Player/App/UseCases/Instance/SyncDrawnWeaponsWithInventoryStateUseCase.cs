@@ -13,6 +13,8 @@ namespace Game.Features.Player.App.UseCases.Instance
             _inventory = inventory;
             _hands = hands;
             _inventory.OnCurrentHandheldItemChanged += ReflectHandContentChange;
+            _hands.LeftHand.OnCycleItemRequested += () => _inventory.CycleItemsInGroup(CyclableItemsGroup.LeftHand);
+            _hands.RightHand.OnCycleItemRequested += () => _inventory.CycleItemsInGroup(CyclableItemsGroup.RightHand);
             ReflectHandContentChange(Hand.Right);
             ReflectHandContentChange(Hand.Left);
         }

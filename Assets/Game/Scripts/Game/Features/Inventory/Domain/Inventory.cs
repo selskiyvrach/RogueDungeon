@@ -58,10 +58,14 @@ namespace Game.Features.Inventory.Domain
         public void CycleItemsInGroup(CyclableItemsGroup group)
         {
             group.ThrowIfNone();
-            var attemptsCount = _cyclableSlotQueues[group].Count;
+            var prevItem = GetCurrentItemFromGroup(group);
+            var attemptsLeft = _cyclableSlotQueues[group].Count;
             do
                 _cyclableSlotQueues[group].RequeueTopOne();
-            while (--attemptsCount > 0 || GetCurrentItemFromGroup(group) is not null);
+            while (--attemptsLeft > 0 || GetCurrentItemFromGroup(group) is not null);
+            var resultItem = GetCurrentItemFromGroup(group);
+            if(prevItem != resultItem)
+                OnCurrentHandheldItemChanged?.Invoke(group.ToHand());
         }
 
         public IItem GetCurrentItemFromGroup(CyclableItemsGroup group)
