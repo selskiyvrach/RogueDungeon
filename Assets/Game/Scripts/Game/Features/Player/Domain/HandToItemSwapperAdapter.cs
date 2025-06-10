@@ -20,6 +20,8 @@ namespace Game.Features.Player.Domain
             set => _hand.IntendedItem = value;
         }
 
+        public bool CanSheathCurrentItem => !_hand.IsLocked && _hand.IsCurrentItemIdle;
+
         public HandToItemSwapperAdapter(HandBehaviour hand) => 
             _hand = hand;
     }

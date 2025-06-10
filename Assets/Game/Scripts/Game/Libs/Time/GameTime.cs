@@ -31,9 +31,9 @@ namespace Game.Libs.Time
 
         public void StopTicking(ITickable tickable)
         {
-            var adapter = _tickables.First(n => n.TickableEquals(tickable));
+            var adapter = _tickables.First(n => n.Tickable == tickable);
             _time.Unregister(adapter);
-            _time.Unregister(adapter);
+            _tickables.Remove(adapter);
         }
     }
 }

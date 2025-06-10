@@ -5,6 +5,7 @@ namespace Game.Features.Player.Domain.Movesets.Items.Interfaces
     public interface IItemSwapper
     {
         IHandheldItem CurrentItem { get; set; }
-        IHandheldItem IntendedItem { get; set; }        
+        IHandheldItem IntendedItem { get; set; }
+        bool CanSheathCurrentItem { get; }
     }
 }

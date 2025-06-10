@@ -24,6 +24,6 @@ namespace Game.Features.Player.Domain.Movesets.Items
         }
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _swapper.CurrentItem != null && _swapper.CurrentItem != _swapper.IntendedItem;
+            base.CanTransitionTo() && _swapper.CurrentItem != null && _swapper.CurrentItem != _swapper.IntendedItem && _swapper.CanSheathCurrentItem;
     }
 }

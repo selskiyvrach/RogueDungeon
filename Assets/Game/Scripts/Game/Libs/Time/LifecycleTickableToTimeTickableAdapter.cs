@@ -1,24 +1,36 @@
-﻿using ITickable = Libs.Time.ITickable;
+﻿using Libs.Utils.DotNet;
+using ITickable = Libs.Time.ITickable;
 
 namespace Game.Libs.Time
 {
     public class LifecycleTickableToTimeTickableAdapter : ITickable
     {
-        private readonly global::Libs.Lifecycle.ITickable _regularTickable;
         private readonly TickOrder _tickOrder;
 
+        public global::Libs.Lifecycle.ITickable Tickable { get; }
         public int TickOrder => (int)_tickOrder;
 
         public LifecycleTickableToTimeTickableAdapter(global::Libs.Lifecycle.ITickable regularTickable, TickOrder tickOrder)
         {
             _tickOrder = tickOrder;
-            _regularTickable = regularTickable;
+            Tickable = regularTickable.ThrowIfNull();
         }
 
         public void Tick(float deltaTime) => 
-            _regularTickable.Tick(deltaTime);
-        
-        public bool TickableEquals(global::Libs.Lifecycle.ITickable tickable) => 
-            _regularTickable.Equals(tickable);
+            Tickable.Tick(deltaTime);
+
+        protected bool Equals(LifecycleTickableToTimeTickableAdapter other) => 
+            Equals(Tickable, other.Tickable);
+
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != GetType()) return false;
+            return Equals((LifecycleTickableToTimeTickableAdapter)obj);
+        }
+
+        public override int GetHashCode() => 
+            Tickable != null ? Tickable.GetHashCode() : 0;
     }
 }

@@ -59,10 +59,15 @@ namespace Game.Features.Inventory.Domain
         {
             group.ThrowIfNone();
             var prevItem = GetCurrentItemFromGroup(group);
-            var attemptsLeft = _cyclableSlotQueues[group].Count;
+            var attemptsLeft = _cyclableSlotQueues[group].Count - 1;
             do
+            {
                 _cyclableSlotQueues[group].RequeueTopOne();
-            while (--attemptsLeft > 0 || GetCurrentItemFromGroup(group) is not null);
+                if (GetCurrentItemFromGroup(group) is not null)
+                    break;
+            } 
+            while (--attemptsLeft > 0);
+            
             var resultItem = GetCurrentItemFromGroup(group);
             if(prevItem != resultItem)
                 OnCurrentHandheldItemChanged?.Invoke(group.ToHand());

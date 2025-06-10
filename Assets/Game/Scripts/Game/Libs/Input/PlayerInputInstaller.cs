@@ -21,7 +21,7 @@ namespace Game.Libs.Input
                 var input = container.Resolve<IPlayerInput>();
                 container.Resolve<IGameTime>().StartTicking(input, TickOrder.Input);
                 return input;
-            });
+            }).AsSingle();
         }
     }
 }

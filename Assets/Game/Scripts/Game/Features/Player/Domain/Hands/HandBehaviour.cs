@@ -61,6 +61,8 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
             }
         }
 
+        public bool IsCurrentItemIdle => _currentItemMoveset?.CurrentState is ItemIdleMove;
+
         public HandBehaviour(IPlayerInput playerInput, bool isRightHand, ItemMovesetFactory itemMovesetFactory)
         {
             IsRightHand = isRightHand;
@@ -74,7 +76,10 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
         public void Tick(float deltaTime)
         {
             _currentItemMoveset?.Tick(deltaTime);
-            if(CurrentItem == null && IntendedItem != null)
+            if(IntendedItem == CurrentItem)
+                return;
+                
+            if(IntendedItem != null && CurrentItem == null)
                 CurrentItem = IntendedItem; 
         }
 
