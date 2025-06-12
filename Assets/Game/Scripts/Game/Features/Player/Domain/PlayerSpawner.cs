@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Game.Features.Player.Domain
 {
-    public class PlayerSpawner : IPlayerDespawnedEventDispatcher, IPlayerSpawnedEventDispatcher 
+    public class PlayerSpawner : IPlayerDespawnedEventDispatcher, IPlayerSpawnedEventDispatcher
     {
         private readonly IFactory<Transform, Player> _factory;
         private readonly IGameTime _time;
@@ -23,13 +23,14 @@ namespace Game.Features.Player.Domain
             _time = time;
         }
 
-        public void SpawnPlayer()
+        public Player SpawnPlayer()
         {
             Assert.IsNull(_playerInstance, "Player instance is already spawned.");
             _playerInstance = _factory.Create(_parent);
             _playerInstance.Initialize();
             _time.StartTicking(_playerInstance, TickOrder.Player);
             OnPlayerSpawned?.Invoke(_playerInstance);
+            return _playerInstance;
         }
 
         public void DespawnPlayer()

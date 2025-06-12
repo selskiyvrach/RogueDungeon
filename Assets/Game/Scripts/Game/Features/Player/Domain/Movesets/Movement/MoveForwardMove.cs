@@ -16,7 +16,8 @@ namespace Game.Features.Player.Domain.Movesets.Movement
         protected override InputKey RequiredKey => InputKey.MoveForward;
         protected override RequiredState State => RequiredState.DownOrHeld;
 
-        public MoveForwardMove(Player player, ILevelTraverser levelTraverser, IPlayerInput playerInput, IAnimation animation, string id, IRoomsInfoProvider levelRoomsInfoProvider) : base(levelTraverser, id, animation, playerInput)
+        public MoveForwardMove(Player player, ILevelTraverser levelTraverser, IPlayerInput playerInput, IAnimation animation, string id, IRoomsInfoProvider levelRoomsInfoProvider) 
+            : base(player, id, animation, playerInput)
         {
             _player = player;
             _levelTraverser = levelTraverser;

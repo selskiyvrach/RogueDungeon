@@ -1,4 +1,5 @@
-﻿using Game.Features.Combat.Domain.Enemies;
+﻿using System;
+using Game.Features.Combat.Domain.Enemies;
 using Libs.Lifecycle;
 using Libs.Utils.DotNet;
 using UnityEngine;
@@ -11,6 +12,9 @@ namespace Game.Features.Combat.Domain
         private readonly ICombatConfigsRepository _configsRepository;
         private readonly IEnemySpawner _enemySpawner;
         private readonly HiveMind _hiveMind;
+        private bool _isRunning;
+
+        public event Action OnFinished;
 
         public Combat(ICombatConfigsRepository configsRepository, IEnemySpawner enemySpawner, IBattleFieldFactory battleFieldFactory, HiveMind hiveMind)
         {
@@ -29,9 +33,22 @@ namespace Game.Features.Combat.Domain
 
             foreach (var spawnInfo in _configsRepository.Get(id).SpawnInfos)
                 _hiveMind.Add(_enemySpawner.Spawn(spawnInfo.config.Id, spawnInfo.position, battleField));
+            
+            _isRunning = true;
         }
 
-        public void Tick(float timeDelta) => 
-            _hiveMind.Tick(timeDelta);
+        public void Tick(float timeDelta)
+        {
+            if(!_isRunning)
+                return;
+            
+            if (_hiveMind.Enemies.Count > 0)
+            {
+                _hiveMind.Tick(timeDelta);
+                return;
+            }
+            _isRunning = false;
+            OnFinished?.Invoke();
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace Game.Features.Player.Domain.Movesets.Movement
         protected abstract float RotationDegrees { get; }
         protected override RequiredState State => RequiredState.DownOrHeld;
 
-        protected TurnMove(Player player, ILevelTraverser levelTraverser, IPlayerInput playerInput, IAnimation animation, string id) : base(levelTraverser, id, animation, playerInput)
+        protected TurnMove(Player player, ILevelTraverser levelTraverser, IPlayerInput playerInput, IAnimation animation, string id) : base(player, id, animation, playerInput)
         {
             _player = player;
             _levelTraverser = levelTraverser;

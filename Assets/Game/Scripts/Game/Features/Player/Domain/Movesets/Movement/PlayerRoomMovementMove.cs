@@ -6,12 +6,12 @@ namespace Game.Features.Player.Domain.Movesets.Movement
 {
     public abstract class PlayerRoomMovementMove : PlayerInputMove
     {
-        private readonly ICurrentRoomCanLeaveReader _canLeaveReader;
+        private readonly Player _player;
 
-        protected PlayerRoomMovementMove(ICurrentRoomCanLeaveReader level, string id, IAnimation animation, IPlayerInput playerInput) : base(id, animation, playerInput) => 
-            _canLeaveReader = level;
+        protected PlayerRoomMovementMove(Player player, string id, IAnimation animation, IPlayerInput playerInput) : base(id, animation, playerInput) => 
+            _player = player;
 
         protected override bool CanTransitionTo() => 
-            base.CanTransitionTo() && _canLeaveReader.CanLeave;
+            base.CanTransitionTo() && !_player.IsInCombat;
     }
 }

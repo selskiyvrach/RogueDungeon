@@ -18,6 +18,7 @@ namespace Game.Features.Player.Domain
         public bool IsHoldingBreath { get; set; }
         public bool IsAlive => Health.Current > 0;
         public float DodgeStaminaCost => Config.DodgeStaminaCost;
+        public bool IsInCombat { get; set; }
 
         public Player(IPlayerConfig config)
         {

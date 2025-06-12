@@ -1,7 +1,4 @@
-﻿using Game.Features.Player.App.UseCases.Feature;
-using Game.Features.Player.App.UseCases.Instance;
-using Game.Features.Player.Domain;
-using Game.Features.Player.Domain.Behaviours.Hands;
+﻿using Game.Features.Player.Domain;
 using Game.Features.Player.Domain.Movesets.Movement;
 using Game.Features.Player.Infrastructure.Configs;
 using Game.Features.Player.Infrastructure.Factories;
@@ -21,8 +18,7 @@ namespace Game.Features.Player.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<LevelTraverserContext>().FromNew().AsSingle();
             Container.Bind<IFactory<Transform, Domain.Player>>().To<PlayerInstanceFactory>().AsSingle();
             Container.Bind<PlayerSpawner>().AsSingle().WithArguments(new object[]{_parent});
-            
-            Container.Bind<SpawnPlayerOnGameplayStartedUseCase>().AsSingle().NonLazy();
+            Container.Bind<Domain.Player>().FromMethod(() => Container.Resolve<PlayerSpawner>().SpawnPlayer()).AsSingle();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Game.Features.Player.Domain.Movesets.Movement
 {
-    public interface ILevelTraverser : ICurrentRoomCanLeaveReader
+    public interface ILevelTraverser
     {
         Vector2 BlendedGridPosition { get; set; }
         Vector2 RealRotation { get; set; }
