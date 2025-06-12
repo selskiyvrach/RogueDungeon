@@ -152,8 +152,8 @@ MonoBehaviour:
   _handsDodgeLeftAnimation:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
-      <Time>k__BackingField: 0.5
-      <Position>k__BackingField: {x: -0.01, y: 0, z: 0}
+      <Time>k__BackingField: 0.25
+      <Position>k__BackingField: {x: 0.01, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
@@ -174,8 +174,8 @@ MonoBehaviour:
   _handsDodgeRightAnimation:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
-      <Time>k__BackingField: 0.5
-      <Position>k__BackingField: {x: 0.01, y: 0, z: 0}
+      <Time>k__BackingField: 0.25
+      <Position>k__BackingField: {x: -0.01, y: 0, z: 0}
       <Rotation>k__BackingField: {x: 0, y: 0, z: 0}
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1

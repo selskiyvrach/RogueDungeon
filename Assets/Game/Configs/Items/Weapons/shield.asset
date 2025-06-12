@@ -12,15 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4e45619d244910bb7a386194b5f05d, type: 3}
   m_Name: shield
   m_EditorClassIdentifier: RogueDungeon.Items:RogueDungeon.Items:ShieldConfig
-  <Size>k__BackingField: {x: 1, y: 1}
-  <ItemPresenterPrefab>k__BackingField: {fileID: 5016818609395961182, guid: 9b45dabc3a429f841b709d55df835362,
-    type: 3}
-  <WorldInventoryPrefab>k__BackingField: {fileID: 4492978322308353209, guid: 9b45dabc3a429f841b709d55df835362,
-    type: 3}
   <Sprite>k__BackingField: {fileID: 21300000, guid: 6a5153b72b8a9b844b7aa62411bcddf5,
     type: 3}
+  <Size>k__BackingField: {x: 1, y: 1}
   <IdleAnimationDuration>k__BackingField: 1
-  <UnsheathDuration>k__BackingField: 0.5
+  <UnsheathDuration>k__BackingField: 0.35
   _returnToIdleAnimationConfig:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
@@ -31,9 +27,9 @@ MonoBehaviour:
   _basicAnimationsConfig: {fileID: 11400000, guid: ef4c3152f4d444040af1a319fae42667,
     type: 2}
   <BlockStaminaCostMultiplier>k__BackingField: 1
-  <RaiseBlockDuration>k__BackingField: 0.25
-  <LowerBlockDuration>k__BackingField: 0.25
+  <RaiseBlockAnimationDuration>k__BackingField: 0.25
+  <LowerBlockAnimationDuration>k__BackingField: 0.25
   <HoldBlockAnimationDuration>k__BackingField: 1
-  <BlockImpactAbsorptionDuration>k__BackingField: 0.25
+  <BlockImpactAbsorptionAnimationDuration>k__BackingField: 0.25
   _blockAnimationsConfig: {fileID: 11400000, guid: 4be73a321105f634c8b7b95283a6bdd7,
     type: 2}

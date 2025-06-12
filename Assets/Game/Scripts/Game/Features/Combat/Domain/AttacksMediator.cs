@@ -1,8 +1,4 @@
-﻿using System.Linq;
-using Libs.Utils.DotNet;
-using UnityEngine;
-
-namespace Game.Features.Combat.Domain
+﻿namespace Game.Features.Combat.Domain
 {
     public class AttacksMediator
     {
