@@ -1,31 +1,37 @@
 ﻿using Game.Features.Combat.Domain.Enemies;
+using Libs.Lifecycle;
 using Libs.Utils.DotNet;
 using UnityEngine;
 
 namespace Game.Features.Combat.Domain
 {
-    public class Combat
+    public class Combat : ITickable
     {
         private readonly IBattleFieldFactory _battleFieldFactory;
         private readonly ICombatConfigsRepository _configsRepository;
         private readonly IEnemySpawner _enemySpawner;
+        private readonly HiveMind _hiveMind;
 
-        public Combat(ICombatConfigsRepository configsRepository, IEnemySpawner enemySpawner, IBattleFieldFactory battleFieldFactory)
+        public Combat(ICombatConfigsRepository configsRepository, IEnemySpawner enemySpawner, IBattleFieldFactory battleFieldFactory, HiveMind hiveMind)
         {
             _configsRepository = configsRepository;
             _enemySpawner = enemySpawner;
             _battleFieldFactory = battleFieldFactory;
+            _hiveMind = hiveMind;
         }
 
         public void Initiate(string id, Vector2Int position, Vector2Int rotation)
         {
-            if(id.IsNullOrEmpty())
+            if (id.IsNullOrEmpty())
                 return;
-            
+
             var battleField = _battleFieldFactory.CreateBattleField(position, rotation);
-            
-            foreach (var spawnInfo in _configsRepository.Get(id).SpawnInfos) 
-                _enemySpawner.Spawn(spawnInfo.config.Id, spawnInfo.position, battleField);
+
+            foreach (var spawnInfo in _configsRepository.Get(id).SpawnInfos)
+                _hiveMind.Add(_enemySpawner.Spawn(spawnInfo.config.Id, spawnInfo.position, battleField));
         }
+
+        public void Tick(float timeDelta) => 
+            _hiveMind.Tick(timeDelta);
     }
 }

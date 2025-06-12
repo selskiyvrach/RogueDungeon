@@ -37,11 +37,16 @@ namespace Game.Features.Combat.Domain.Enemies
                 MoveNames.BIRTH => GetArgs(moveName, BirthState.Config),
                 MoveNames.DEATH => GetArgs(moveName, DeathState.Config),
                 MoveNames.MOVE => GetArgs(moveName, MoveState.Config),
-                MoveNames.ATTACK_LEFT or MoveNames.ATTACK_RIGHT or MoveNames.ATTACK_MIDDLE => new MoveCreationArgs(
-                    moveName, Attacks.First(n => n.Name == moveName).Animation, Enumerable.Empty<TransitionPicker>()),
+                MoveNames.ATTACK_LEFT or MoveNames.ATTACK_RIGHT or MoveNames.ATTACK_MIDDLE => GetAttackArgs(moveName),
                 _ => throw new ArgumentOutOfRangeException(nameof(moveName), moveName, null)
             };
-        
+
+        private MoveCreationArgs GetAttackArgs(string moveName)
+        {
+            var config = Attacks.First(n => n.Name == moveName);
+            return new MoveCreationArgs(moveName, config.Animation, Enumerable.Empty<TransitionPicker>(), additionalArgs: new object[]{config});
+        }
+
         private static MoveCreationArgs GetArgs(string moveName, AnimationConfig animation) => 
             new(moveName, animation, Enumerable.Empty<TransitionPicker>());
     }

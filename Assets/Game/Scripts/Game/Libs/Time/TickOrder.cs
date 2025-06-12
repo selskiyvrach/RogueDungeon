@@ -6,7 +6,7 @@
         Base,
         Input,
         Player,
-        Enemies,
+        Combat,
         Camera
     }
 }

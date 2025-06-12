@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Libs.Lifecycle;
 
 namespace Game.Features.Combat.Domain.Enemies
 {
-    public class HiveMind
+    public class HiveMind : ITickable
     {
         private readonly HiveMindCombo _combo;
         public List<Enemy> Enemies { get; } = new();
@@ -11,9 +12,12 @@ namespace Game.Features.Combat.Domain.Enemies
         public HiveMind() => 
             _combo = new HiveMindCombo(this);
 
-        public void Add(Enemy enemy) => 
+        public void Add(Enemy enemy)
+        {
             Enemies.Add(enemy);
-        
+            enemy.Initialize();
+        }
+
         public void Tick(float deltaTime)
         {
             PruneDeadAndTickAlive(deltaTime);

@@ -6,6 +6,7 @@ namespace Game.Features.Combat.Infrastructure
 {
     public class EnemyStatesFactory : IFactory<string, EnemyMove>
     {
+        private readonly EnemyMoveIdsToMoveTypesConverter _idsToMoveTypesConverter = new();
         private readonly MoveSetFactory _moveSetFactory;
         private readonly EnemyConfig _config;
 
@@ -16,6 +17,6 @@ namespace Game.Features.Combat.Infrastructure
         }
 
         public EnemyMove Create(string name) =>
-            (EnemyMove)_moveSetFactory.CreateMove(_config.GetMoveArgs(name));
+            (EnemyMove)_moveSetFactory.CreateMove(_config.GetMoveArgs(name), _idsToMoveTypesConverter);
     }
 }

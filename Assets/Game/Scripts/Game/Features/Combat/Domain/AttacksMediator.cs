@@ -1,4 +1,6 @@
-﻿namespace Game.Features.Combat.Domain
+﻿using Game.Features.Combat.Domain.Enemies;
+
+namespace Game.Features.Combat.Domain
 {
     public class AttacksMediator
     {

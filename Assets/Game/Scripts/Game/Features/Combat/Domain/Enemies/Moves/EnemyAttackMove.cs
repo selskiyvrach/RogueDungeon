@@ -7,11 +7,11 @@ namespace Game.Features.Combat.Domain.Enemies
     {
         private readonly Enemy _enemy;
         private readonly EnemyAttackMoveConfig _config;
-        private readonly IEnemyAttacksMediator _mediator;
+        private readonly AttacksMediator _mediator;
         public override Priority Priority => Priority.Attack;
         protected override float Duration => _config.Duration;
         
-        public EnemyAttackMove(EnemyAttackMoveConfig config, Enemy enemy, IAnimation animation, IEnemyAttacksMediator mediator, string id) : base(animation, id)
+        public EnemyAttackMove(EnemyAttackMoveConfig config, Enemy enemy, IAnimation animation, AttacksMediator mediator, string id) : base(animation, id)
         {
             _config = config;
             _enemy = enemy;
