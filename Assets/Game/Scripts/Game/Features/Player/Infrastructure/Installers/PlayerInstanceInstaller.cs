@@ -1,5 +1,4 @@
-﻿using Game.Features.Player.App.Adapters;
-using Game.Features.Player.App.Presenters;
+﻿using Game.Features.Player.App.Presenters;
 using Game.Features.Player.App.UseCases.Instance;
 using Game.Features.Player.Domain;
 using Game.Features.Player.Domain.Behaviours.CommonMoveset;
@@ -32,7 +31,6 @@ namespace Game.Features.Player.Infrastructure.Installers
             Container.BindInstance(_bodyAnimationTarget);
             Container.BindInstance(_handsAnimationTarget).WithId("hands");
 
-            Container.Bind<IPlayerAttacksMediator>().To<AttacksMediatorAdapter>().AsSingle();
             Container.Bind<StateMachine>().FromMethod(() => new MoveSetFactory(Container).Create(Container.Resolve<PlayerConfig>().MoveSetConfig, new PlayerMoveIdToTypeConverter()));
             Container.BindInterfacesAndSelfTo<Domain.Player>().AsSingle();
             Container.Bind<PlayerControlStateMediator>().AsSingle();
@@ -48,6 +46,8 @@ namespace Game.Features.Player.Infrastructure.Installers
             Container.Bind<SyncLevelAndLevelContextUseCase>().AsSingle().NonLazy();
             Container.Bind<EquipDefaultWeaponsUseCase>().AsSingle().NonLazy();
             Container.Bind<SyncDrawnWeaponsWithInventoryStateUseCase>().AsSingle().NonLazy();
+            Container.Bind<MediateAttacksUseCase>().AsSingle().NonLazy();
+            Container.Bind<SetPlayerReferenceToAttacksMediatorUseCase>().AsSingle().NonLazy();
         }
 
         private void BindHand(bool isRightHand)

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game.Features.Combat.Domain.Enemies
+namespace Game.Libs.Combat
 {
     [Flags]
     public enum EnemyPosition

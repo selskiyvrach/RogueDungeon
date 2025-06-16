@@ -1,4 +1,5 @@
 ﻿using Game.Features.Combat.Domain.Enemies;
+using Game.Libs.Combat;
 using UnityEngine;
 using Zenject;
 

@@ -1,4 +1,5 @@
-﻿using Libs.Animations;
+﻿using Game.Libs.Combat;
+using Libs.Animations;
 using UnityEngine;
 
 namespace Game.Features.Combat.Domain.Enemies

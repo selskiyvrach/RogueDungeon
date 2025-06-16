@@ -22,7 +22,7 @@ namespace Game.Features.Combat.Domain.Enemies
         {
             base.OnAnimationEvent(name);
             if (name == AnimationEventNames.HIT)
-                _mediator.MediateEnemyAttack(_config.Damage, _config.Direction);
+                _mediator.MediateEnemyAttack(_enemy.GetAttackInfo(_config));
         }
     }
 }

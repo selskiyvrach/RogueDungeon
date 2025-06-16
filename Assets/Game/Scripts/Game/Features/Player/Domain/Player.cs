@@ -1,12 +1,14 @@
 ﻿using System;
 using Game.Features.Player.Domain.Behaviours.Hands;
+using Game.Libs.Combat;
 using Game.Libs.InGameResources;
+using Game.Libs.Items;
 using Libs.Fsm;
 using Libs.Lifecycle;
 
 namespace Game.Features.Player.Domain
 {
-    public class Player : IInitializable, ITickable, IDisposable
+    public class Player : IInitializable, ITickable, IDisposable, IPlayerDefenderInfoProvider
     {
         private StateMachine _movementStateMachine;
         public IPlayerConfig Config { get; }
@@ -19,6 +21,10 @@ namespace Game.Features.Player.Domain
         public bool IsAlive => Health.Current > 0;
         public float DodgeStaminaCost => Config.DodgeStaminaCost;
         public bool IsInCombat { get; set; }
+        public IBlockingItem BlockingItem { get; set; }
+        public bool HasUnabsorbedBlockImpact { get; set; }
+
+        public event Action<PlayerAttackInfo> OnAttackMediationRequested;
 
         public Player(IPlayerConfig config)
         {
@@ -53,6 +59,19 @@ namespace Game.Features.Player.Domain
             Stamina.Tick(deltaTime);
         }
 
+        public DefenderInfo GetDefenderInfo() =>
+            new(
+                isAlive: IsAlive,
+                dodgingAgainst: DodgeState switch
+                {
+                    DodgeState.DodgingLeft => AttackDirection.Right,
+                    DodgeState.DodgingRight => AttackDirection.Left,
+                    _ => AttackDirection.None
+                },
+                isBlocking: BlockingItem != null,
+                blockingAbsorbtion: 1,
+                blockingStaminaCostFactor: BlockingItem?.BlockStaminaCostMultiplier ?? 1);
+
         public void ShowInventory()
         {
         }
@@ -60,6 +79,27 @@ namespace Game.Features.Player.Domain
         public void Dispose()
         {
             
+        }
+
+        public void PerformAttack(IWeapon weapon) => 
+            OnAttackMediationRequested?.Invoke(new PlayerAttackInfo(weapon.Damage, weapon.PoiseDamage, EnemyPosition.Middle));
+
+        public void SetPlayerAttackResult(PlayerAttackResult result)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetEnemyAttackResult(EnemyAttackResult result)
+        {
+            if (result.IsDodge)
+            {
+                // on dodged
+            }
+            if(result.IsBlock)
+                HasUnabsorbedBlockImpact = true;
+                
+            Health.AddDelta(- result.FinalDamage);
+            Stamina.AddDelta(- result.FinalStaminaDamage);
         }
     }
 }

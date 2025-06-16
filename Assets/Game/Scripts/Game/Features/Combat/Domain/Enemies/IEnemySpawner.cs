@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Libs.Combat;
+using UnityEngine;
 
 namespace Game.Features.Combat.Domain.Enemies
 {

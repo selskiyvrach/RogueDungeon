@@ -1,52 +1,49 @@
-﻿using Game.Features.Combat.Domain.Enemies;
+﻿using System;
+using System.Linq;
+using Game.Features.Combat.Domain.Enemies;
+using Game.Libs.Combat;
+using Libs.Utils.DotNet;
 
 namespace Game.Features.Combat.Domain
 {
-    public class AttacksMediator
+    public class AttacksMediator 
     {
-        // private readonly IEnemiesRegistry _enemiesRegistry;
-        // private readonly IPlayerRegistry _playerRegistry;
-        //
-        // public AttacksMediator(IEnemiesRegistry enemiesRegistry, IPlayerRegistry playerRegistry)
-        // {
-        //     _enemiesRegistry = enemiesRegistry;
-        //     _playerRegistry = playerRegistry;
-        // }
-        
-        public void MediatePlayerAttack()
+        private readonly HiveMind _hiveMind;
+
+        public IPlayerDefenderInfoProvider PlayerDefenderInfoProvider { get; set; }
+        public event Action<PlayerAttackResult> OnPlayerAttackResult;
+        public event Action<EnemyAttackResult> OnEnemyAttackResult;
+
+        public AttacksMediator(HiveMind hiveMind) => 
+            _hiveMind = hiveMind;
+
+        public void MediatePlayerAttack(PlayerAttackInfo playerAttackInfo) => 
+            OnPlayerAttackResult?.Invoke(new PlayerAttackResult(
+                isHit: _hiveMind.Enemies.FirstOrDefault(n => n.TargetablePosition == playerAttackInfo.TargetPosition) is {} enemy, 
+                finalDamage: playerAttackInfo.Damage, 
+                finalPoiseDamage: playerAttackInfo.PoiseDamage));
+
+        public void MediateEnemyAttack(EnemyAttackInfo info)
         {
-            // if (_enemiesRegistry.Enemies.FirstOrDefault(n => n.Position == EnemyPosition.Middle) is not {} enemy)
-            // {
-            //     // miss
-            //     return;
-            // }
-            //
-            // var modifier = _playerRegistry.Player.IsDoubleGrip ? _playerRegistry.Player.DoubleGripDamageBonus : 1f;
-            // enemy.TakeDamage(weapon.Damage * modifier, weapon.PoiseDamage * modifier);
+            info.Direction.ThrowIfNone();
+            OnEnemyAttackResult?.Invoke(GetAttackResult(info, PlayerDefenderInfoProvider.GetDefenderInfo()));
         }
 
-        public void MediateEnemyAttack(float damage, EnemyAttackDirection attackDirection)
+        private EnemyAttackResult GetAttackResult(EnemyAttackInfo info, DefenderInfo defenderInfo)
         {
-            // attackDirection.ThrowIfNone();
-            // if(_playerRegistry.Player is not {} player)
-            //     return;
-            //
-            // if (attackDirection == EnemyAttackDirection.Left && player.IsDodgingRight || attackDirection == EnemyAttackDirection.Right && player.IsDodgingLeft)
-            // {
-            //     player.OnDodged();
-            //     return;
-            // }
-            //
-            // if (player is { IsBlocking: true} blocker)
-            // {
-            //     var staminaCost = damage * blocker.BlockStaminaCostMultiplier;
-            //     damage = Mathf.Max(0, staminaCost - player.Stamina.Current) / blocker.BlockStaminaCostMultiplier; 
-            //     player.Stamina.AddDelta(- staminaCost);
-            //     
-            //     blocker.OnBlocked();
-            // }
-            //
-            // player.Health.AddDelta(- damage);
+            if (!defenderInfo.IsAlive)
+                return EnemyAttackResult.NoResult;
+
+            if (info.Direction == defenderInfo.DodgingAgainst)
+                return info.Direction == AttackDirection.Left
+                    ? EnemyAttackResult.DodgedRight
+                    : EnemyAttackResult.DodgedLeft;
+
+            return defenderInfo.IsBlocking  
+                ? EnemyAttackResult.BlockedHit(
+                    staminaDamage: info.Damage * defenderInfo.BlockingStaminaCostFactor, 
+                    healthDamage: info.Damage * (1- defenderInfo.BlockingAbsorbtion)) 
+                : EnemyAttackResult.NonBlockedHit(info.Damage);
         }
     }
 }

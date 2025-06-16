@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Features.Combat.Domain;
 using Game.Features.Combat.Domain.Enemies;
+using Game.Libs.Combat;
 using UnityEngine;
 
 namespace Game.Features.Combat.Infrastructure

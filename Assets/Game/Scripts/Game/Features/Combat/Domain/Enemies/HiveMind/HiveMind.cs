@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Game.Libs.Combat;
 using Libs.Lifecycle;
 
 namespace Game.Features.Combat.Domain.Enemies

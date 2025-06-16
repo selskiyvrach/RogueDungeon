@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Libs.Combat;
 using Game.Libs.InGameResources;
 using Game.Libs.WorldObjects;
 using Libs.Lifecycle;
@@ -103,5 +104,8 @@ namespace Game.Features.Combat.Domain.Enemies
 
         public void StartMove(string name) => 
             _stateMachine.TryStartState(_statesProvider.GetState(name));
+
+        public EnemyAttackInfo GetAttackInfo(EnemyAttackMoveConfig config) => 
+            new(config.Damage, config.Direction);
     }
 }

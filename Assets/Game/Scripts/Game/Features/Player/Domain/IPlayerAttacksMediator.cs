@@ -1,9 +1,9 @@
-﻿using Game.Libs.Items;
+﻿using Game.Libs.Combat;
 
 namespace Game.Features.Player.Domain
 {
     public interface IPlayerAttacksMediator
     {
-        void MediatePlayerAttack(IItem weapon);
+        void MediatePlayerAttack(PlayerAttackInfo attackInfo);
     }
 }
