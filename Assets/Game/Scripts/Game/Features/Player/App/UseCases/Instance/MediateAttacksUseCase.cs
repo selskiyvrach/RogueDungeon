@@ -7,8 +7,8 @@ namespace Game.Features.Player.App.UseCases.Instance
         public MediateAttacksUseCase(Domain.Player player, AttacksMediator attacksMediator)
         {
             player.OnAttackMediationRequested += attacksMediator.MediatePlayerAttack;
-            attacksMediator.OnPlayerAttackResult += player.SetPlayerAttackResult;
-            attacksMediator.OnEnemyAttackResult += player.SetEnemyAttackResult;
+            attacksMediator.OnPlayerAttackResult += (_, result) => player.SetPlayerAttackResult(result);
+            attacksMediator.OnEnemyAttackResult += (_, result) => player.SetEnemyAttackResult(result);
         }
     }
 }

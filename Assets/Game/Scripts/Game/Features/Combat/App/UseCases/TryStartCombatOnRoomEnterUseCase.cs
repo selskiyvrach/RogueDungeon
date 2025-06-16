@@ -17,13 +17,12 @@ namespace Game.Features.Combat.App
             _levelTraverser = levelTraverser;
             _player = player;
             _level.OnRoomEntered += HandleRoomEntered;
+            
+            _combat.OnStarted += () => _player.IsInCombat = true;
             _combat.OnFinished += () => _player.IsInCombat = false;
         }
 
-        private void HandleRoomEntered(Room obj)
-        {
+        private void HandleRoomEntered(Room obj) => 
             _combat.Initiate(obj.CombatId, obj.Coordinates, _levelTraverser.GridRotation);
-            _player.IsInCombat = true;
-        }
     }
 }

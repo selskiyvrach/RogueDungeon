@@ -11,22 +11,25 @@ namespace Game.Features.Combat.Domain
         private readonly HiveMind _hiveMind;
 
         public IPlayerDefenderInfoProvider PlayerDefenderInfoProvider { get; set; }
-        public event Action<PlayerAttackResult> OnPlayerAttackResult;
-        public event Action<EnemyAttackResult> OnEnemyAttackResult;
+        public event Action<Enemy, PlayerAttackResult> OnPlayerAttackResult;
+        public event Action<Enemy, EnemyAttackResult> OnEnemyAttackResult;
 
         public AttacksMediator(HiveMind hiveMind) => 
             _hiveMind = hiveMind;
 
-        public void MediatePlayerAttack(PlayerAttackInfo playerAttackInfo) => 
-            OnPlayerAttackResult?.Invoke(new PlayerAttackResult(
-                isHit: _hiveMind.Enemies.FirstOrDefault(n => n.TargetablePosition == playerAttackInfo.TargetPosition) is {} enemy, 
-                finalDamage: playerAttackInfo.Damage, 
+        public void MediatePlayerAttack(PlayerAttackInfo playerAttackInfo)
+        {
+            var enemy = _hiveMind.Enemies.FirstOrDefault(n => n.TargetablePosition == playerAttackInfo.TargetPosition);
+            OnPlayerAttackResult?.Invoke(enemy, new PlayerAttackResult(
+                isHit: enemy != null,
+                finalDamage: playerAttackInfo.Damage,
                 finalPoiseDamage: playerAttackInfo.PoiseDamage));
+        }
 
-        public void MediateEnemyAttack(EnemyAttackInfo info)
+        public void MediateEnemyAttack(EnemyAttackInfo info, Enemy enemy)
         {
             info.Direction.ThrowIfNone();
-            OnEnemyAttackResult?.Invoke(GetAttackResult(info, PlayerDefenderInfoProvider.GetDefenderInfo()));
+            OnEnemyAttackResult?.Invoke(enemy, GetAttackResult(info, PlayerDefenderInfoProvider.GetDefenderInfo()));
         }
 
         private EnemyAttackResult GetAttackResult(EnemyAttackInfo info, DefenderInfo defenderInfo)

@@ -15,6 +15,7 @@ namespace Game.Features.Combat.Domain
         private bool _isRunning;
 
         public event Action OnFinished;
+        public event Action OnStarted;
 
         public Combat(ICombatConfigsRepository configsRepository, IEnemySpawner enemySpawner, IBattleFieldFactory battleFieldFactory, HiveMind hiveMind)
         {
@@ -35,6 +36,7 @@ namespace Game.Features.Combat.Domain
                 _hiveMind.Add(_enemySpawner.Spawn(spawnInfo.config.Id, spawnInfo.position, battleField));
             
             _isRunning = true;
+            OnStarted?.Invoke();
         }
 
         public void Tick(float timeDelta)

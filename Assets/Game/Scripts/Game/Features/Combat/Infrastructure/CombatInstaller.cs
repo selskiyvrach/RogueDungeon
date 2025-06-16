@@ -30,6 +30,7 @@ namespace Game.Features.Combat.Infrastructure
             }).AsSingle();
             
             Container.Bind<TryStartCombatOnRoomEnterUseCase>().AsSingle().NonLazy();
+            Container.Bind<MediateAttacksOnEnemiesUseCase>().AsSingle().NonLazy();
         }
     }
 }

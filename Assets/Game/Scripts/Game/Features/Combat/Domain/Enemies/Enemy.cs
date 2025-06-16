@@ -68,30 +68,6 @@ namespace Game.Features.Combat.Domain.Enemies
         public void Destroy() =>
             ((TwoDWorldObject)WorldObject).Destroy();
 
-        public HitSeverity TakeDamage(float damage, float poiseDamage)
-        {
-            var severity = HitSeverity.Regular;
-            if (IsStunned)
-            {
-                _stateMachine.StartState(_statesProvider.GetState(MoveNames.IDLE));
-                damage *= 2;
-                severity = HitSeverity.Critical;
-            }
-            
-            Health.AddDelta(-damage);
-            Poise.AddDelta(-poiseDamage);
-            if (!IsAlive) 
-                _stateMachine.TryStartState(_statesProvider.GetState(MoveNames.DEATH));
-
-            if (Poise.Current == 0) 
-                _stateMachine.TryStartState(_statesProvider.GetState(MoveNames.STAGGER));
-
-            if(damage > 0 || poiseDamage > 0)
-                _impactAnimator.OnHit();
-            
-            return severity;
-        }
-
         public void ChangePosition(EnemyPosition position)
         {
             var state = (EnemyMovementMove)_statesProvider.GetState(MoveNames.MOVE);
@@ -107,5 +83,32 @@ namespace Game.Features.Combat.Domain.Enemies
 
         public EnemyAttackInfo GetAttackInfo(EnemyAttackMoveConfig config) => 
             new(config.Damage, config.Direction);
+
+        public void SetPlayerAttackResult(PlayerAttackResult result) => 
+            TakeDamage(result.FinalDamage, result.FinalPoiseDamage);
+
+        private void TakeDamage(float damage, float poiseDamage)
+        {
+            if (IsStunned)
+            {
+                _stateMachine.StartState(_statesProvider.GetState(MoveNames.IDLE));
+                damage *= 2;
+            }
+            
+            Health.AddDelta(-damage);
+            Poise.AddDelta(-poiseDamage);
+            if (!IsAlive) 
+                _stateMachine.TryStartState(_statesProvider.GetState(MoveNames.DEATH));
+
+            if (Poise.Current == 0) 
+                _stateMachine.TryStartState(_statesProvider.GetState(MoveNames.STAGGER));
+
+            if(damage > 0 || poiseDamage > 0)
+                _impactAnimator.OnHit();
+        }
+
+        public void SetOwnAttackResult(EnemyAttackResult result)
+        {
+        }
     }
 }

@@ -83,10 +83,10 @@ namespace Game.Features.Player.Domain
 
         public void PerformAttack(IWeapon weapon) => 
             OnAttackMediationRequested?.Invoke(new PlayerAttackInfo(weapon.Damage, weapon.PoiseDamage, EnemyPosition.Middle));
-
+        
         public void SetPlayerAttackResult(PlayerAttackResult result)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void SetEnemyAttackResult(EnemyAttackResult result)
@@ -98,6 +98,9 @@ namespace Game.Features.Player.Domain
             if(result.IsBlock)
                 HasUnabsorbedBlockImpact = true;
                 
+            if(!result.IsHit)
+                return;
+            
             Health.AddDelta(- result.FinalDamage);
             Stamina.AddDelta(- result.FinalStaminaDamage);
         }
