@@ -5,24 +5,11 @@ namespace Game.Features.Combat.App
 {
     public class TryStartCombatOnRoomEnterUseCase
     {
-        private readonly Level _level;
-        private readonly Domain.Combat _combat;
-        private readonly ILevelTraverser _levelTraverser;
-        private readonly Player.Domain.Player _player;
-
         public TryStartCombatOnRoomEnterUseCase(Level level, Domain.Combat combat, ILevelTraverser levelTraverser, Player.Domain.Player player)
         {
-            _level = level;
-            _combat = combat;
-            _levelTraverser = levelTraverser;
-            _player = player;
-            _level.OnRoomEntered += HandleRoomEntered;
-            
-            _combat.OnStarted += () => _player.IsInCombat = true;
-            _combat.OnFinished += () => _player.IsInCombat = false;
+            level.OnRoomEntered += obj => combat.Initiate(obj.CombatId, obj.Coordinates, levelTraverser.GridRotation);
+            combat.OnStarted += () => player.IsInCombat = true;
+            combat.OnFinished += () => player.IsInCombat = false;
         }
-
-        private void HandleRoomEntered(Room obj) => 
-            _combat.Initiate(obj.CombatId, obj.Coordinates, _levelTraverser.GridRotation);
     }
 }

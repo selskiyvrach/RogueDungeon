@@ -8,11 +8,11 @@ namespace Game.Features.Combat.App
         {
             attacksMediator.OnPlayerAttackResult += (enemy, result) =>
             {
-                enemy.SetPlayerAttackResult(result);
+                enemy?.SetPlayerAttackResult(result);
             };
             attacksMediator.OnEnemyAttackResult += (enemy, result) =>
             {
-                enemy.SetOwnAttackResult(result);
+                enemy?.SetOwnAttackResult(result);
             };
         }
     }

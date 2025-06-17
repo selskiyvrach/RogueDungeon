@@ -7,9 +7,11 @@ using Game.Features.Player.Domain.Movesets.Items;
 using Game.Features.Player.Domain.Movesets.Items.Interfaces;
 using Game.Features.Player.Infrastructure.Configs;
 using Game.Features.Player.Infrastructure.View;
+using Game.Libs.InGameResources;
 using Libs.Animations;
 using Libs.Fsm;
 using Libs.Movesets;
+using Libs.UI.Bars;
 using UnityEngine;
 using Zenject;
 
@@ -25,6 +27,9 @@ namespace Game.Features.Player.Infrastructure.Installers
         [SerializeField] private TransformAnimationTarget _rightHandAnimationTarget;
         [SerializeField] private HandheldItemView _leftItemView;
         [SerializeField] private HandheldItemView _rightItemView;
+        
+        [SerializeField] private Bar _healthBar;
+        [SerializeField] private Bar _staminaBar;
         
         public override void InstallBindings()
         {
@@ -48,6 +53,12 @@ namespace Game.Features.Player.Infrastructure.Installers
             Container.Bind<SyncDrawnWeaponsWithInventoryStateUseCase>().AsSingle().NonLazy();
             Container.Bind<MediateAttacksUseCase>().AsSingle().NonLazy();
             Container.Bind<SetPlayerReferenceToAttacksMediatorUseCase>().AsSingle().NonLazy();
+            
+            Container.Bind<ResourceBarPresenter>().FromMethod(ctx =>
+                Container.Instantiate<ResourceBarPresenter>(new object[] {ctx.Container.Resolve<Domain.Player>().Health, _healthBar})).AsCached().NonLazy();
+
+            Container.Bind<ResourceBarPresenter>().FromMethod(ctx =>
+                Container.Instantiate<ResourceBarPresenter>(new object[] {ctx.Container.Resolve<Domain.Player>().Stamina, _staminaBar})).AsCached().NonLazy();
         }
 
         private void BindHand(bool isRightHand)

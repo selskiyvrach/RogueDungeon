@@ -17,12 +17,15 @@ namespace Libs.UI.Bars
             get => _valueBar.Value;
             set
             {
-                _deltaValueToCatchFrom = _valueBar.Value;
+                var prevValue = _valueBar.Value;
                 _valueBar.Value = value;
                 if(_deltaBar.Value < _valueBar.Value)
-                    _deltaBar.Value = _valueBar.Value;
-                else
+                    _deltaValueToCatchFrom = _deltaBar.Value = _valueBar.Value;
+                else if(prevValue > _valueBar.Value)
+                {
                     _deltaValueToCatchFrom = _deltaBar.Value;
+                    _timeSinceChange = 0;
+                }
             }
         }
 
@@ -36,7 +39,7 @@ namespace Libs.UI.Bars
             if (_timeSinceChange < _config.Delay)
                 return;
             if(_deltaBar.Value > _valueBar.Value)
-                _deltaBar.Value = Mathf.Lerp(_deltaValueToCatchFrom, _valueBar.Value, _timeSinceChange / _config.CatchDuration);
+                _deltaBar.Value = Mathf.Lerp(_deltaValueToCatchFrom, _valueBar.Value, (_timeSinceChange - _config.Delay) / _config.CatchDuration);
         }
     }
 }
