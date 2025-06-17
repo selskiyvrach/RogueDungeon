@@ -16,10 +16,11 @@ namespace Game.Features.Combat.Infrastructure
         
         public override void InstallBindings()
         {
+            Container.Bind<RoomLocalPositionsConfig>().FromInstance(_roomLocalPositionsConfig).AsSingle();
             Container.Bind<IBattleFieldFactory>().To<BattleFieldFactory>().AsSingle().WithArguments(new object[] {_enemiesParent});
             Container.Bind<IEnemyConfigsRepository>().FromInstance(_enemyConfigsRepository).AsSingle();
             Container.Bind<IFactory<string, Transform, Enemy>>().To<EnemyFactory>().AsSingle();
-            Container.Bind<IEnemySpawner>().To<EnemySpawner>().AsSingle().WithArguments(new object[]{ _roomLocalPositionsConfig});
+            Container.Bind<IEnemySpawner>().To<EnemySpawner>().AsSingle();
             Container.Bind<AttacksMediator>().AsSingle();
             Container.Bind<HiveMind>().AsSingle();
             Container.Bind<Domain.Combat>().FromMethod(() =>
