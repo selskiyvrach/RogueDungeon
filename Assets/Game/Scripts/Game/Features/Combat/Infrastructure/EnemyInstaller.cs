@@ -1,4 +1,5 @@
 ﻿using Game.Features.Combat.Domain.Enemies;
+using Game.Libs.InGameResources;
 using Libs.Animations;
 using Libs.Movesets;
 using Libs.UI.Bars;
@@ -15,7 +16,6 @@ namespace Game.Features.Combat.Infrastructure
         [SerializeField] private SpriteSheetAnimationTarget _spriteSheetAnimationTarget;
         [SerializeField] private TransformAnimationTarget _transformAnimationTarget;
         [SerializeField] private Bar _healthBar;
-        [SerializeField] private Bar _healthBarDelta;
         [SerializeField] private Bar _stunDurationBar;
 
         public override void InstallBindings()
@@ -39,6 +39,12 @@ namespace Game.Features.Combat.Infrastructure
                 .AsSingle().NonLazy();
             
             Container.NewSingle<Enemy>();
+            
+            Container.Bind<ResourceBarPresenter>().FromMethod(ctx =>
+                Container.Instantiate<ResourceBarPresenter>(new object[] {ctx.Container.Resolve<Enemy>().Health, _healthBar})).AsCached().NonLazy();
+            
+            // Container.Bind<ResourceBarPresenter>().FromMethod(ctx =>
+            //     Container.Instantiate<ResourceBarPresenter>(new object[] {ctx.Container.Resolve<Enemy>().StunDuration, _healthBar})).AsCached().NonLazy();
         }
     }
 }

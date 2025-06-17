@@ -450,7 +450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81704d1433e45b799a9e2189cdfffdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showHideHandler: {fileID: 6745392674034592384}
   _elements:
   - {fileID: 4587971946296438467}
   - {fileID: 6241006879774676385}
@@ -538,8 +537,7 @@ MonoBehaviour:
   _hitEffectTarget: {fileID: 7615437388774707213}
   _spriteSheetAnimationTarget: {fileID: 7902273964972670759}
   _transformAnimationTarget: {fileID: 4875433814302603697}
-  _healthBar: {fileID: 5412871427023341029}
-  _healthBarDelta: {fileID: 136673012329259205}
+  _healthBar: {fileID: 630285818824031026}
   _stunDurationBar: {fileID: 1818740459558486296}
 --- !u!1 &5229490228362106779
 GameObject:
@@ -1113,16 +1111,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 122e6e8fe3de05a41b59c673e8212c5b, type: 3}
---- !u!114 &136673012329259205 stripped
+--- !u!114 &630285818824031026 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 465519988743175733, guid: 122e6e8fe3de05a41b59c673e8212c5b,
+  m_CorrespondingSourceObject: {fileID: 1094213128811259330, guid: 122e6e8fe3de05a41b59c673e8212c5b,
     type: 3}
   m_PrefabInstance: {fileID: 545028566499581680}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61afed763248474ab85172a9fa78312f, type: 3}
+  m_Script: {fileID: 11500000, guid: b69436cd461449bbb090264d3eb96900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &1934120371545426999 stripped
@@ -1131,15 +1129,3 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 545028566499581680}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5412871427023341029 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5516405373091928853, guid: 122e6e8fe3de05a41b59c673e8212c5b,
-    type: 3}
-  m_PrefabInstance: {fileID: 545028566499581680}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61afed763248474ab85172a9fa78312f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
