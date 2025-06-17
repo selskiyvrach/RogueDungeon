@@ -1,4 +1,5 @@
-﻿using Game.Features.Combat.Domain.Enemies;
+﻿using Game.Features.Combat.App.Presenters;
+using Game.Features.Combat.Domain.Enemies;
 using Game.Libs.InGameResources;
 using Libs.Animations;
 using Libs.Movesets;
@@ -42,6 +43,9 @@ namespace Game.Features.Combat.Infrastructure
             
             Container.Bind<ResourceBarPresenter>().FromMethod(ctx =>
                 Container.Instantiate<ResourceBarPresenter>(new object[] {ctx.Container.Resolve<Enemy>().Health, _healthBar})).AsCached().NonLazy();
+            
+            Container.Bind<EnemyStunBarPresenter>().FromMethod(_ =>
+                Container.Instantiate<EnemyStunBarPresenter>(new object[] { _stunDurationBar.gameObject })).AsCached().NonLazy();
             
             // Container.Bind<ResourceBarPresenter>().FromMethod(ctx =>
             //     Container.Instantiate<ResourceBarPresenter>(new object[] {ctx.Container.Resolve<Enemy>().StunDuration, _healthBar})).AsCached().NonLazy();

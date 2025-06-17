@@ -14,6 +14,7 @@ namespace Game.Features.Combat.Domain.Enemies
         private readonly IEnemyStatesProvider _statesProvider;
         private readonly EnemyStateMachine _stateMachine;
         private readonly EnemyImpactAnimator _impactAnimator;
+        private bool _isStunnedBackingField;
 
         public EnemyConfig Config { get; }
         public EnemyPosition TargetablePosition { get; set; }
@@ -25,15 +26,19 @@ namespace Game.Features.Combat.Domain.Enemies
         public bool IsReadyToBeDisposed { get; set; }
         public bool IsIdle { get; set; }
         public bool IsMoving { get; set; }
-        public bool IsStunned { get; set; }
-        public EnemyMove CurrentMove => _stateMachine.CurrentMove;
+        public bool IsStunned
+        {
+            get => _isStunnedBackingField;
+            set
+            {
+                _isStunnedBackingField = value;
+                OnStunnedStatusChanged?.Invoke();
+            }
+        }
+
+        public event Action OnStunnedStatusChanged;
         public bool IsStunnedOrDead => !IsAlive || IsStunned;
         public EnemyAttackMoveConfig[] Attacks => Config.Attacks;
-        public event Action<EnemyMove, EnemyMove> OnStateChanged
-        {
-            add => _stateMachine.OnStateChanged += value; 
-            remove => _stateMachine.OnStateChanged -= value;
-        }
         public bool IsAlive => Health.Current > 0;
 
         public Enemy(EnemyConfig config, GameObject gameObject, EnemyStateMachine stateMachine, IEnemyStatesProvider statesProvider, EnemyImpactAnimator impactAnimator)
