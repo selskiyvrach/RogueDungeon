@@ -46,9 +46,6 @@ namespace Game.Features.Combat.Infrastructure
             
             Container.Bind<EnemyStunBarPresenter>().FromMethod(_ =>
                 Container.Instantiate<EnemyStunBarPresenter>(new object[] { _stunDurationBar.gameObject })).AsCached().NonLazy();
-            
-            // Container.Bind<ResourceBarPresenter>().FromMethod(ctx =>
-            //     Container.Instantiate<ResourceBarPresenter>(new object[] {ctx.Container.Resolve<Enemy>().StunDuration, _healthBar})).AsCached().NonLazy();
         }
     }
 }
