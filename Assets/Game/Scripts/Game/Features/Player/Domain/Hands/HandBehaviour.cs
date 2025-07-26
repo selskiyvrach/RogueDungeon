@@ -62,6 +62,8 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
         }
 
         public bool IsCurrentItemIdle => _currentItemMoveset?.CurrentState is ItemIdleMove;
+        
+        public bool IsIdle => _currentItem == null || IsCurrentItemIdle;
 
         public HandBehaviour(IPlayerInput playerInput, bool isRightHand, ItemMovesetFactory itemMovesetFactory)
         {

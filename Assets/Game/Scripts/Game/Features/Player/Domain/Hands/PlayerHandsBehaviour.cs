@@ -9,12 +9,11 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
     {
         public const string LEFT_HAND_INJECTION_ID = "left_hand";
         public const string RIGHT_HAND_INJECTION_ID = "right_hand";
-        
-        public bool TransitionsLocked { get; private set; }
-        public HandBehaviour RightHand { get; private set; }
-        public HandBehaviour LeftHand { get; private set; }
+
+        public HandBehaviour RightHand { get; }
+        public HandBehaviour LeftHand { get; }
         public bool IsDoubleGrip => (RightHand.CurrentItem == null || LeftHand.CurrentItem == null) && (RightHand.CurrentItem ?? LeftHand.CurrentItem) != null;
-        public bool IsIdle { get; set; }
+        public bool IsIdle => RightHand.IsIdle && LeftHand.IsIdle;
 
         public PlayerHandsBehaviour(
             [Inject(Id = RIGHT_HAND_INJECTION_ID)] HandBehaviour rightHandBehaviour, 
@@ -39,11 +38,11 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
         public void Disable(bool force = false)
         {
             Assert.IsTrue(force || IsIdle);
-            TransitionsLocked = LeftHand.IsLocked = RightHand.IsLocked = true;
+            LeftHand.IsLocked = RightHand.IsLocked = true;
         }
 
         public void Enable() => 
-            TransitionsLocked = LeftHand.IsLocked = RightHand.IsLocked = false;
+            LeftHand.IsLocked = RightHand.IsLocked = false;
 
         public HandBehaviour OppositeHand(IItem item) => 
             item == RightHand.CurrentItem 

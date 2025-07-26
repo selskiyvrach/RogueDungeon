@@ -25,6 +25,7 @@ namespace Game.Features.Player.Domain
         public bool HasUnabsorbedBlockImpact { get; set; }
 
         public event Action<PlayerAttackInfo> OnAttackMediationRequested;
+        public event Action OnShowInventoryRequested;
 
         public Player(IPlayerConfig config)
         {
@@ -72,9 +73,8 @@ namespace Game.Features.Player.Domain
                 blockingAbsorbtion: 1,
                 blockingStaminaCostFactor: BlockingItem?.BlockStaminaCostMultiplier ?? 1);
 
-        public void ShowInventory()
-        {
-        }
+        public void ShowInventory() => 
+            OnShowInventoryRequested?.Invoke();
 
         public void Dispose()
         {
