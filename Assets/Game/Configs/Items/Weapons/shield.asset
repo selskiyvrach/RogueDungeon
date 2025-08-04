@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 3}
   <Size>k__BackingField: {x: 1, y: 1}
   <IdleAnimationDuration>k__BackingField: 1
-  <UnsheathDuration>k__BackingField: 0.35
+  <UnsheathDuration>k__BackingField: 0.2
   _returnToIdleAnimationConfig:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
@@ -27,9 +27,9 @@ MonoBehaviour:
   _basicAnimationsConfig: {fileID: 11400000, guid: ef4c3152f4d444040af1a319fae42667,
     type: 2}
   <BlockStaminaCostMultiplier>k__BackingField: 1
-  <RaiseBlockAnimationDuration>k__BackingField: 0.25
-  <LowerBlockAnimationDuration>k__BackingField: 0.25
+  <RaiseBlockAnimationDuration>k__BackingField: 0.15
+  <LowerBlockAnimationDuration>k__BackingField: 0.15
   <HoldBlockAnimationDuration>k__BackingField: 1
-  <BlockImpactAbsorptionAnimationDuration>k__BackingField: 0.25
+  <BlockImpactAbsorptionAnimationDuration>k__BackingField: 0.15
   _blockAnimationsConfig: {fileID: 11400000, guid: 4be73a321105f634c8b7b95283a6bdd7,
     type: 2}

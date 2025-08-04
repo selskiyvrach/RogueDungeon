@@ -13,8 +13,14 @@ namespace Game.Features.Combat.Domain.Enemies
         private readonly List<EnemyAttackMoveConfig> _moves = new();
         private readonly List<EnemyAttackMoveConfig> _movesPool = new();
         private int _currentMoveIndex;
+        private bool _isRunning;
 
-        public bool IsRunning { get; private set; }
+        public bool IsRunning
+        {
+            get => _isRunning && !_enemy.IsStunnedOrDead;
+            private set => _isRunning = value;
+        }
+
         public float TimeChilling { get; private set; }
         
         public EnemyCombo(Enemy enemy) => 

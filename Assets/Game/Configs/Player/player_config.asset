@@ -17,7 +17,7 @@ MonoBehaviour:
   <Stamina>k__BackingField:
     <Max>k__BackingField: 50
     <RechargeRate>k__BackingField: 15
-    <RechargeDelay>k__BackingField: 0.35
+    <RechargeDelay>k__BackingField: 0.45
   <PositionOffsetFromTileCenter>k__BackingField: 0.4
   <Prefab>k__BackingField: {fileID: 519540501769377305, guid: 0b1353be74b298141ba99669d9373a88,
     type: 3}
@@ -29,7 +29,7 @@ MonoBehaviour:
   <TurnDuration>k__BackingField: 0.75
   <TurnAroundDuration>k__BackingField: 1
   <IdleAnimationDuration>k__BackingField: 1.2
-  <DodgeStaminaCost>k__BackingField: 5
+  <DodgeStaminaCost>k__BackingField: 10
   <BirthAnimationDuration>k__BackingField: 0.5
   <OpenInventoryDuration>k__BackingField: 0.75
   <MoveSetConfig>k__BackingField: {fileID: 11400000, guid: 39a0b052f1fec214d9f0f501772db943,

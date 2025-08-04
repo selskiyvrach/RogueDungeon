@@ -94,8 +94,10 @@ namespace Game.Features.Player.Domain
             if (result.IsDodge)
             {
                 // on dodged
+                return;
             }
-            if(result.IsBlock)
+
+            if (result.IsBlock) 
                 HasUnabsorbedBlockImpact = true;
                 
             if(!result.IsHit)

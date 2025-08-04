@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: RoomLocalPositionsConfig
   m_EditorClassIdentifier: 
   <MiddleEnemyPos>k__BackingField: {x: 0, y: -0.15}
-  <LeftEnemyPos>k__BackingField: {x: -0.25, y: 0.113}
-  <RightEnemyPos>k__BackingField: {x: 0.25, y: 0.113}
+  <LeftEnemyPos>k__BackingField: {x: -0.3, y: 0.075}
+  <RightEnemyPos>k__BackingField: {x: 0.3, y: 0.075}
