@@ -46,7 +46,6 @@ namespace Game.Features.Player.Domain
         {
             _movementStateMachine.Initialize();
             Hands.Initialize();
-            Hands.Enable();
         }
 
         public void Tick(float deltaTime)

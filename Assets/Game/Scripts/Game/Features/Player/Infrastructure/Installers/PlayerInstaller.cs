@@ -1,5 +1,4 @@
-﻿using Game.Features.Player.App.UseCases.Instance;
-using Game.Features.Player.Domain;
+﻿using Game.Features.Player.Domain;
 using Game.Features.Player.Domain.Movesets.Movement;
 using Game.Features.Player.Infrastructure.Configs;
 using Game.Features.Player.Infrastructure.Factories;
@@ -20,8 +19,6 @@ namespace Game.Features.Player.Infrastructure.Installers
             Container.Bind<IFactory<Transform, Domain.Player>>().To<PlayerInstanceFactory>().AsSingle();
             Container.Bind<PlayerSpawner>().AsSingle().WithArguments(new object[]{_parent});
             Container.BindInterfacesAndSelfTo<Domain.Player>().FromMethod(_ => Container.Resolve<PlayerSpawner>().SpawnPlayer()).AsSingle();
-            
-            Container.Bind<AddPlayerReferenceToCombatMediatorUseCase>().AsSingle().NonLazy();
         }
     }
 }

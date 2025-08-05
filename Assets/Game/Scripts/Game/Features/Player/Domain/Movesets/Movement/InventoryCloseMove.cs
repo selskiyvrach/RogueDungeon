@@ -34,7 +34,7 @@ namespace Game.Features.Player.Domain.Movesets.Movement
         public override void Exit()
         {
             base.Exit();
-            _player.Hands.Enable();
+            _player.Hands.Show();
         }
 
         protected override bool CanTransitionTo() => 

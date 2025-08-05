@@ -10,7 +10,6 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
     public class PlayerMoveSetConfig : TransformAnimationsConfig, IMoveSetConfig
     {
         [SerializeField, HideLabel, BoxGroup(nameof(_toIdleAnimation))] private TransformAnimationConfig _toIdleAnimation;
-        [SerializeField, HideLabel, BoxGroup(nameof(_hideHandsAnimation))] private TransformAnimationConfig _hideHandsAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_showHandsAnimation))] private TransformAnimationConfig _showHandsAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_birthAnimation))] private TransformAnimationConfig _birthAnimation;
         [SerializeField, HideLabel, BoxGroup(nameof(_deathAnimation))] private TransformAnimationConfig _deathAnimation;
@@ -42,7 +41,7 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
                 new(MoveNames.DODGE_LEFT, canInterrupt: true),
                 new(MoveNames.DODGE_RIGHT, canInterrupt: true),
             }),
-            new (MoveNames.DEATH, new MultiItemTransformAnimationConfig((null, _deathAnimation), ("hands", _hideHandsAnimation)), Array.Empty<TransitionPicker>()),
+            new (MoveNames.DEATH, _deathAnimation, Array.Empty<TransitionPicker>()),
             
             new (MoveNames.DODGE_LEFT, new MultiItemTransformAnimationConfig((null, _dodgeLeftAnimation), ("hands", _handsDodgeLeftAnimation)), new TransitionPicker[] { new(MoveNames.IDLE)}),
             new (MoveNames.DODGE_RIGHT, new MultiItemTransformAnimationConfig((null, _dodgeRightAnimation), ("hands", _handsDodgeRightAnimation)), new TransitionPicker[] { new(MoveNames.IDLE)}),
@@ -52,7 +51,7 @@ namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
             new (MoveNames.TURN_RIGHT, new MultiItemTransformAnimationConfig((null, _turnAnimation), ("hands", _handsTurnAnimation)), MovementTransitions),
             new (MoveNames.TURN_AROUND, new MultiItemTransformAnimationConfig((null, _walkAnimation), ("hands", _handsWalkAnimation)), MovementTransitions),
             
-            new (MoveNames.INVENTORY_OPEN, new MultiItemTransformAnimationConfig((null, _openInventoryAnimation), ("hands", _hideHandsAnimation)), new TransitionPicker[]{new(MoveNames.INVENTORY_KEEP_OPEN)}),
+            new (MoveNames.INVENTORY_OPEN, _openInventoryAnimation, new TransitionPicker[]{new(MoveNames.INVENTORY_KEEP_OPEN)}),
             new (MoveNames.INVENTORY_KEEP_OPEN, _keepInventoryOpenAnimation, new TransitionPicker[]{new(MoveNames.INVENTORY_CLOSE)}),
             new (MoveNames.INVENTORY_CLOSE, new MultiItemTransformAnimationConfig((null, _toIdleAnimation), ("hands", _showHandsAnimation)), new TransitionPicker[]{new(MoveNames.IDLE)}),
         };

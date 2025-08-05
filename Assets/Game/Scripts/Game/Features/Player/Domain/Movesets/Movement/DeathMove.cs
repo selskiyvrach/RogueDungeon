@@ -13,7 +13,7 @@ namespace Game.Features.Player.Domain.Movesets.Movement
         public override void Enter()
         {
             base.Enter();
-            _player.Hands.Disable(force: true);
+            _player.Hands.Hide();
         }
 
         public override void Tick(float timeDelta)

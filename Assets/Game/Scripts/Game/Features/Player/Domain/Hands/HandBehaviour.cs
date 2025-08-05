@@ -22,18 +22,12 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
         public event Action OnCurrentItemChanged;
 
         public bool IsRightHand { get; }
-        public bool IsLocked { get; set; }
         
         public IHandheldItem CurrentItem
         {
             get => _currentItem;
             set
             {
-                Assert.IsFalse(IsLocked);
-                
-                if(IsLocked)
-                    return;
-                
                 if (value == _currentItem)
                     return;
 
@@ -55,15 +49,14 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
             get => _intendedItem;
             set
             {
-                Assert.IsFalse(IsLocked);
-                if(!IsLocked)
-                    _intendedItem = value;
+                Assert.IsFalse(IsHidden);
+                _intendedItem = value;
             }
         }
 
         public bool IsCurrentItemIdle => _currentItemMoveset?.CurrentState is ItemIdleMove;
-        
         public bool IsIdle => _currentItem == null || IsCurrentItemIdle;
+        public bool IsHidden { get; private set; }
 
         public HandBehaviour(IPlayerInput playerInput, bool isRightHand, ItemMovesetFactory itemMovesetFactory)
         {
@@ -78,9 +71,9 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
         public void Tick(float deltaTime)
         {
             _currentItemMoveset?.Tick(deltaTime);
+            
             if(IntendedItem == CurrentItem)
                 return;
-                
             if(IntendedItem != null && CurrentItem == null)
                 CurrentItem = IntendedItem; 
         }

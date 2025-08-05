@@ -1,4 +1,5 @@
-﻿using Game.Libs.Input;
+﻿using System;
+using Game.Libs.Input;
 using Game.Libs.Items;
 using UnityEngine.Assertions;
 using Zenject;
@@ -10,55 +11,79 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
         public const string LEFT_HAND_INJECTION_ID = "left_hand";
         public const string RIGHT_HAND_INJECTION_ID = "right_hand";
 
-        public HandBehaviour RightHand { get; }
-        public HandBehaviour LeftHand { get; }
-        public bool IsDoubleGrip => (RightHand.CurrentItem == null || LeftHand.CurrentItem == null) && (RightHand.CurrentItem ?? LeftHand.CurrentItem) != null;
-        public bool IsIdle => RightHand.IsIdle && LeftHand.IsIdle;
+        private readonly HandBehaviour _rightHand;
+        private readonly HandBehaviour _leftHand;
+        private bool _isHidden;
+
+        public bool IsDoubleGrip => (_rightHand.CurrentItem == null || _leftHand.CurrentItem == null) && (_rightHand.CurrentItem ?? _leftHand.CurrentItem) != null;
+        public bool IsIdle => _rightHand.IsIdle && _leftHand.IsIdle;
+        
+        public IHandheldItem LeftHandIntendedItem
+        {
+            set
+            {
+                Assert.IsFalse(_isHidden);
+                _leftHand.IntendedItem = value;
+            }
+        }
+
+        public IHandheldItem RightHandIntendedItem
+        {
+            set
+            {
+                Assert.IsFalse(_isHidden);
+                _rightHand.IntendedItem = value;
+            }
+        }
+
+        public event Action OnRefreshHandItemsRequested;
+        public event Action OnLeftHandChangeItemRequested
+        {
+            add => _leftHand.OnCycleItemRequested += value;
+            remove => _leftHand.OnCycleItemRequested -= value;
+        }
+
+        public event Action OnRightHandChangeItemRequested
+        {
+            add => _rightHand.OnCycleItemRequested += value;
+            remove => _rightHand.OnCycleItemRequested -= value;
+        }
 
         public PlayerHandsBehaviour(
             [Inject(Id = RIGHT_HAND_INJECTION_ID)] HandBehaviour rightHandBehaviour, 
             [Inject(Id = LEFT_HAND_INJECTION_ID)] HandBehaviour leftHandBehaviour)
         {
-            RightHand = rightHandBehaviour;
-            LeftHand = leftHandBehaviour;
+            _rightHand = rightHandBehaviour;
+            _leftHand = leftHandBehaviour;
         }
 
         public void Initialize()
         {
-            RightHand.Initialize();
-            LeftHand.Initialize();
+            _rightHand.Initialize();
+            _leftHand.Initialize();
         }
 
         public void Tick(float deltaTime)
         {
-            RightHand.Tick(deltaTime);
-            LeftHand.Tick(deltaTime);
+            _rightHand.Tick(deltaTime);
+            _leftHand.Tick(deltaTime);
         }
-        
-        public void Disable(bool force = false)
-        {
-            Assert.IsTrue(force || IsIdle);
-            LeftHand.IsLocked = RightHand.IsLocked = true;
-        }
-
-        public void Enable() => 
-            LeftHand.IsLocked = RightHand.IsLocked = false;
 
         public HandBehaviour OppositeHand(IItem item) => 
-            item == RightHand.CurrentItem 
-                ? LeftHand 
-                : RightHand;
+            item == _rightHand.CurrentItem 
+                ? _leftHand 
+                : _rightHand;
 
         public HandBehaviour ThisHand(IItem item) => 
-            item == RightHand.CurrentItem 
-                ? RightHand 
-                : LeftHand;
+            item == _rightHand.CurrentItem 
+                ? _rightHand 
+                : _leftHand;
 
         public HandBehaviour OppositeHand(HandBehaviour handBehaviour) => 
-            handBehaviour == RightHand ? LeftHand : RightHand;
+            handBehaviour == _rightHand ? _leftHand : _rightHand;
 
         public bool IsInRightHand(IItem item) => 
-            item == RightHand.CurrentItem;
+            item == _rightHand.CurrentItem;
 
         public InputKey UseItemInput(IItem item) =>
             IsInRightHand(item)
@@ -75,9 +100,24 @@ namespace Game.Features.Player.Domain.Behaviours.Hands
             
             var otherPriority = (OppositeHand(item).CurrentItem as IBlockingItem)?.BlockingTier ?? BlockingTier.None;
             if (thisPriority == otherPriority)
-                return ThisHand(item) == LeftHand;
+                return ThisHand(item) == _leftHand;
             
             return thisPriority > otherPriority;
+        }
+
+        public void Hide()
+        {
+            Assert.IsFalse(_isHidden);
+            Assert.IsTrue(IsIdle);
+            _leftHand.IntendedItem = null;
+            _rightHand.IntendedItem = null;
+            _isHidden = true;
+        }
+
+        public void Show()
+        {
+            _isHidden = false;
+            OnRefreshHandItemsRequested?.Invoke();
         }
     }
 }

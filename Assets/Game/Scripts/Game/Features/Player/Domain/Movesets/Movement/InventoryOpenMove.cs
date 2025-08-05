@@ -1,6 +1,4 @@
-﻿using System;
-using Game.Features.Player.Domain.Movesets.Items;
-using Game.Libs.Animations;
+﻿using Game.Features.Player.Domain.Movesets.Items;
 using Game.Libs.Input;
 using Libs.Animations;
 
@@ -19,16 +17,8 @@ namespace Game.Features.Player.Domain.Movesets.Movement
         public override void Enter()
         {
             base.Enter();
-            _player.Hands.Disable();
-        }
-
-        protected override void OnAnimationEvent(string name)
-        {
-            base.OnAnimationEvent(name);
-            if (name == AnimationEventNames.DRAW_INVENTORY)
-                _player.ShowInventory();
-            else
-                throw new ArgumentException();
+            _player.Hands.Hide();
+            _player.ShowInventory();
         }
 
         protected override bool CanTransitionTo() => 

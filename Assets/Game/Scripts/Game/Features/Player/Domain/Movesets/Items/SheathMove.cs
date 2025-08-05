@@ -24,6 +24,8 @@ namespace Game.Features.Player.Domain.Movesets.Items
         }
 
         protected override bool CanTransitionTo() => 
+            // hands hide/show 
+            // on hide - remembers last focused indices, on show - sets inventory items from the indices as intended
             base.CanTransitionTo() && _swapper.CurrentItem != null && _swapper.CurrentItem != _swapper.IntendedItem && _swapper.CanSheathCurrentItem;
     }
 }
