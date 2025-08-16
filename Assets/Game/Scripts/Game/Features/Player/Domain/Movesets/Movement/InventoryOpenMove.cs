@@ -18,7 +18,6 @@ namespace Game.Features.Player.Domain.Movesets.Movement
         {
             base.Enter();
             _player.Hands.Hide();
-            _player.ShowInventory();
         }
 
         protected override bool CanTransitionTo() => 

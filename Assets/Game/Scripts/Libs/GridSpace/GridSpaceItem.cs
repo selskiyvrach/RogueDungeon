@@ -5,7 +5,7 @@ namespace Libs.GridSpace
 {
     public struct GridSpaceItem
     {
-        public int Id { get; }
+        public string Id { get; }
         public Vector2Int Size { get; }
         public Vector2Int Position { get; set; }
 
@@ -19,7 +19,7 @@ namespace Libs.GridSpace
             }
         }
 
-        public GridSpaceItem(int id, Vector2Int size, Vector2Int position) : this()
+        public GridSpaceItem(string id, Vector2Int size, Vector2Int position) : this()
         {
             Id = id;
             Size = size;

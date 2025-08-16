@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Libs.GridSpace
 {
     public class GridSpace
     {
-        private readonly int[,] _occupiedCells;
+        private readonly string[,] _occupiedCells;
         private readonly HashSet<GridSpaceItem> _items = new(17);
         private readonly int _rows;
         private readonly int _columns;
@@ -14,10 +15,10 @@ namespace Libs.GridSpace
         {
             _columns = columns;
             _rows = rows;
-            _occupiedCells = new int[columns, rows];
+            _occupiedCells = new string[columns, rows];
             for (var i = 0; i < _occupiedCells.GetLength(0); i++)
             for (var j = 0; j < _occupiedCells.GetLength(1); j++)
-                _occupiedCells[i, j] = -1;
+                _occupiedCells[i, j] = null;
         }
         
         public bool ContainedInSpace(GridSpaceItem item) => 
@@ -29,21 +30,21 @@ namespace Libs.GridSpace
         public bool HasItem(int column, int row, out GridSpaceItem item)
         {
             item = default;
-            if(_occupiedCells[column, row] == -1)
+            if(_occupiedCells[column, row] == null)
                 return false;
             item = GetItem(_occupiedCells[column, row]);
             return true;
         }
 
-        public bool IntersectsWithOneOrLessItems(GridSpaceItem item, out int intersectedItemId)
+        public bool IntersectsWithOneOrLessItems(GridSpaceItem item, out string intersectedItemId)
         {
-            intersectedItemId = -1;
+            intersectedItemId = null;
             foreach (var cell in item.CoveredCells)
             {
-                if(_occupiedCells[cell.x, cell.y] == -1)
+                if(_occupiedCells[cell.x, cell.y] == null)
                     continue;
 
-                if (intersectedItemId == -1)
+                if (intersectedItemId == null)
                     intersectedItemId = _occupiedCells[cell.x, cell.y];
                 else
                     return false;
@@ -51,24 +52,23 @@ namespace Libs.GridSpace
             return true;
         }
 
-        public bool Insert(GridSpaceItem item)
+        public void Insert(GridSpaceItem item)
         {
             if (!_items.Add(item))
-                return false;
+                throw new InvalidOperationException();
             
             foreach (var cell in item.CoveredCells)
             {
-                if(_occupiedCells[cell.x, cell.y] != -1)
-                    return false;
+                if(_occupiedCells[cell.x, cell.y] != null)
+                    throw new InvalidOperationException();
                 _occupiedCells[cell.x, cell.y] = item.Id;
             }
-            return true;
         }
 
-        public GridSpaceItem GetItem(int id) => 
+        public GridSpaceItem GetItem(string id) => 
             _items.FirstOrDefault(i => i.Id == id);
 
-        public bool Remove(int id)
+        public bool Remove(string id)
         {
             var itemToRemove = (GridSpaceItem)default;
             foreach (var item in _items)
@@ -82,7 +82,7 @@ namespace Libs.GridSpace
                 return false;
             
             foreach (var cell in itemToRemove.CoveredCells) 
-                _occupiedCells[cell.x, cell.y] = -1;
+                _occupiedCells[cell.x, cell.y] = null;
             
             return true;
         }

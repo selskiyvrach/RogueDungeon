@@ -1,13 +1,31 @@
-﻿namespace Game.Libs.Items
+﻿using UnityEngine;
+
+namespace Game.Libs.Items
 {
     public interface IItem
     {
-        int InstanceId { get; }
+        string Id { get; }
         string TypeId { get; }
+        public Vector2Int Size { get; }
+    }
+    
+    public interface ISlotable
+    {
+        public SlotCategory SlotCategory { get; }
     }
 
-    public interface IEquipableItem : IItem
+    public interface ISlotableItem : IItem, ISlotable
     {
-        SlotType SlotType { get; }
+        
+    }
+    
+    public enum SlotCategory
+    {
+        None,
+        Handheld,
+        Armor,
+        Helmet,
+        Boots,
+        Amulet
     }
 }

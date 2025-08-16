@@ -19,19 +19,7 @@ namespace Game.Features.Inventory.Infrastructure.View
         [SerializeField] private SlotType _slotType;
 
         private InventoryItemView _inventoryItem;
-        private IInventoryInfoProvider _inventory;
-
         protected override float CellSize => _cellSize;
-
-        [Inject]
-        private void Construct(IInventoryInfoProvider inventory) => 
-            _inventory = inventory;
-
-        private void Start()
-        {
-            if(_inventory.GetSlotItem(_slotType) is {} item)
-                InsertItem(item);
-        }
 
         protected override InventoryItemView RaycastItem(Vector3 screenPos, out ICommand extractItemCommand)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Game.Libs.Items
 {
-    public class Weapon : BlockingItem, IWeapon
+    public class Weapon : BlockingItem, IWeapon, ISlotableItem
     {
         private readonly IWeaponItemConfig _config;
         public float Damage => _config.Damage;
@@ -10,9 +10,11 @@
         public float PrepareAttackAnimationDuration => _config.PrepareAttackDuration;
         public float AttackRecoveryAnimationDuration => _config.AttackRecoveryDuration;
         public float TransitionBetweenAttacksDuration => _config.TransitionBetweenAttacksDuration;
-        
+        public SlotCategory SlotCategory => SlotCategory.Handheld;
+
         public override BlockingTier BlockingTier => BlockingTier.Second;
         public EquipmentType EquipmentType => EquipmentType.Handheld;
+
 
         public Weapon(IWeaponItemConfig config) : base(config) => 
             _config = config;

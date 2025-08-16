@@ -24,13 +24,6 @@ namespace Game.Features.Player.Domain.Movesets.Movement
             _escKey.Reset();
         }
 
-        public override void Tick(float timeDelta)
-        {
-            base.Tick(timeDelta);
-            // if(Animation.Progress > .3f && _player.WorldInventory.IsOpen)
-            //     _player.WorldInventory.Pack();
-        }
-
         public override void Exit()
         {
             base.Exit();

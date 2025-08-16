@@ -47,7 +47,7 @@ namespace Game.Features.Inventory.Infrastructure.View
             if(!_gridSpace.HasItem(cellColumn, cellRow, out var item))
                 return null;
 
-            var itemView = _items.First(n => n.InstanceId == item.Id);
+            var itemView = _items.First(n => n.Id == item.Id);
             
             _lastExtractItemCommand?.Release();
             _lastExtractItemCommand = ExtractItemCommandsPool.Get();
@@ -84,7 +84,7 @@ namespace Game.Features.Inventory.Infrastructure.View
                 LocalRectPosToCell(corner1LocalPos, out var column1, out var row1) && 
                 LocalRectPosToCell(corner2LocalPos, out var column2, out var row2) && 
                 _gridSpace.IntersectsWithOneOrLessItems(
-                    new GridSpaceItem(inventoryItem.InstanceId, inventoryItem.SizeInCells, new Vector2Int(column1, row1)),
+                    new GridSpaceItem(inventoryItem.Id, inventoryItem.SizeInCells, new Vector2Int(column1, row1)),
                     out var replacedItemId);
 
             if (!isPositionLegal) 
@@ -94,13 +94,13 @@ namespace Game.Features.Inventory.Infrastructure.View
             
             _lastInsertItemCommand?.Release();
             _lastInsertItemCommand = InsertItemCommandsPool.Get();
-            _lastInsertItemCommand.Value.Item.Setup(this, inventoryItem, new GridSpaceItem(inventoryItem.InstanceId, inventoryItem.SizeInCells, new Vector2Int(column1, row1)));
+            _lastInsertItemCommand.Value.Item.Setup(this, inventoryItem, new GridSpaceItem(inventoryItem.Id, inventoryItem.SizeInCells, new Vector2Int(column1, row1)));
             placeItemCommand = _lastInsertItemCommand.Value.Item;
         }
 
         private void ExtractItem(InventoryItemView inventoryItem)
         {
-            if(!_gridSpace.Remove(inventoryItem.InstanceId))
+            if(!_gridSpace.Remove(inventoryItem.Id))
                 throw new InvalidOperationException();
             
             if(!_items.Remove(inventoryItem))

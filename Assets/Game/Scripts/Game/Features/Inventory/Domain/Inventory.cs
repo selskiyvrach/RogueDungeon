@@ -2,96 +2,82 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Libs.Items;
-using Libs.Utils.DotNet;
-using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Game.Features.Inventory.Domain
 {
     public class Inventory
     {
-        private readonly Dictionary<SlotId, IItem> _slots = new();
-        private readonly Dictionary<CyclableItemsGroup, Queue<SlotId>> _cyclableSlotQueues = new();
-        private readonly Dictionary<Vector2Int, IItem> _backpackItems = new();
-        
-        public event Action<Hand> OnCurrentHandheldItemChanged;
-        
-        public Inventory(InventoryConfig config)
+        private readonly List<ItemContainer> _itemContainers = new (){
+            
+            new GridSpaceItemContainer(10, 4, ContainerId.Backpack0),
+            
+            new SlotItemContainer(SlotCategory.Handheld, ContainerId.LeftHand0),
+            new SlotItemContainer(SlotCategory.Handheld, ContainerId.LeftHand1),
+            new SlotItemContainer(SlotCategory.Handheld, ContainerId.LeftHand2),
+            
+            new SlotItemContainer(SlotCategory.Handheld, ContainerId.RightHand0),
+            new SlotItemContainer(SlotCategory.Handheld, ContainerId.RightHand1),
+            new SlotItemContainer(SlotCategory.Handheld, ContainerId.RightHand2),
+        };
+
+        private readonly CyclableSlotGroup[] _cyclableSlotGroups =
         {
-            foreach (var slot in config.Slots)
+            new(CyclableSlotGroupId.LeftHandItems, new [] {ContainerId.LeftHand0, ContainerId.LeftHand1, ContainerId.LeftHand2}, 0),
+            new(CyclableSlotGroupId.RightHandItems, new[] { ContainerId.RightHand0, ContainerId.RightHand1, ContainerId.RightHand2 }, 0)
+        };
+
+        public event Action<ContainerId> OnContentChanged;
+        public event Action<CyclableSlotGroupId> OnCyclableSlotIndexChanged;
+
+        public void Equip(IItem item, ContainerId id)
+        {
+            var container = GetSlot(id);
+            Assert.IsNull(container.PeekItem());
+            container.PlaceItem((ISlotableItem)item);
+            OnContentChanged?.Invoke(id);
+        }
+
+        public void CycleItemsInGroup(CyclableSlotGroupId group)
+        {
+            var slotGroup = _cyclableSlotGroups.First(n => n.SlotGroupId == group);
+            var attemptsCount = slotGroup.ContainerIds.Length;
+            while (attemptsCount-- > 0)
             {
-                _slots.Add(slot, null);
-                
-                var cyclableSlot = slot.Hand.ToCyclableItemsGroup();
-                if(cyclableSlot.IsNone())
+                slotGroup.CurrentIndex++; 
+                slotGroup.CurrentIndex %= slotGroup.ContainerIds.Length;
+                if (GetCurrentItemFromCyclableSlot(group) == null) 
                     continue;
-                _cyclableSlotQueues.TryAdd(cyclableSlot, new Queue<SlotId>());
-                _cyclableSlotQueues[cyclableSlot].Enqueue(slot);
+                
+                OnCyclableSlotIndexChanged?.Invoke(group);
+                break;
             }
         }
 
-        public IEnumerable<KeyValuePair<Vector2Int, IItem>> GetBackpackItems() => 
-            _backpackItems;
+        public IHandheldItem GetCurrentHandheldItem(Hand hand) => 
+            (IHandheldItem)GetCurrentItemFromCyclableSlot(hand.ToCyclableItemsGroup());
 
-        public void AddBackpackItem(Vector2Int position, IItem item) => 
-            _backpackItems.Add(position, item);
-        
-        public void RemoveBackpackItem(Vector2Int position) => 
-            _backpackItems.Remove(position);
-
-        public void Equip(IItem item, SlotId slotId)
+        private IItem GetCurrentItemFromCyclableSlot(CyclableSlotGroupId groupId)
         {
-            Assert.IsNull(_slots[slotId]);
-            _slots[slotId] = item;
-            RaiseEventsOnSlotContentChanged(slotId);
+            var slotGroup = _cyclableSlotGroups.First(n => n.SlotGroupId == groupId);
+            return GetSlot(slotGroup.ContainerIds[slotGroup.CurrentIndex]).PeekItem();
         }
 
-        public IItem Unequip(SlotId slotId)
-        {
-            Assert.IsNotNull(_slots[slotId]);
-            var result = _slots[slotId];
-            _slots[slotId] = null;
-            RaiseEventsOnSlotContentChanged(slotId);
-            return result;
-        }
+        private SlotItemContainer GetSlot(ContainerId id) => 
+            (SlotItemContainer)_itemContainers.First(n => n.Id == id);
 
-        public void CycleItemsInGroup(CyclableItemsGroup group)
+        private class CyclableSlotGroup
         {
-            group.ThrowIfNone();
-            var prevItem = GetCurrentItemFromGroup(group);
-            var attemptsLeft = _cyclableSlotQueues[group].Count - 1;
-            do
+            public CyclableSlotGroupId SlotGroupId { get; }
+            public ContainerId[] ContainerIds { get; }
+            public int CurrentIndex { get; set; }
+
+            public CyclableSlotGroup(CyclableSlotGroupId slotGroupId, ContainerId[] containerIds, int currentIndex)
             {
-                _cyclableSlotQueues[group].RequeueTopOne();
-                if (GetCurrentItemFromGroup(group) is not null)
-                    break;
-            } 
-            while (--attemptsLeft > 0);
-            
-            var resultItem = GetCurrentItemFromGroup(group);
-            if(prevItem != resultItem)
-                OnCurrentHandheldItemChanged?.Invoke(group.ToHand());
+                SlotGroupId = slotGroupId;
+                ContainerIds = containerIds;
+                CurrentIndex = currentIndex;
+            }
         }
-
-        public IItem GetCurrentItemFromGroup(CyclableItemsGroup group)
-        {
-            group.ThrowIfNone();
-            return GetItem(_cyclableSlotQueues[group].Peek());
-        }
-        
-        public IHandheldItem GetCurrentHandheldItem(Hand hand) =>
-            (IHandheldItem)_slots[GetCurrentHandItemSlotId(hand)];
-
-        public IItem GetItem(SlotId slotId) => 
-            _slots.GetValueOrDefault(slotId);
-
-        private void RaiseEventsOnSlotContentChanged(SlotId slotId)
-        {
-            if(!slotId.Hand.IsNone() && GetCurrentHandItemSlotId(slotId.Hand) == slotId)
-                OnCurrentHandheldItemChanged?.Invoke(slotId.Hand);
-        }
-
-        private SlotId GetCurrentHandItemSlotId(Hand hand) => 
-            _cyclableSlotQueues[hand.ToCyclableItemsGroup()].Peek();
     }
 }

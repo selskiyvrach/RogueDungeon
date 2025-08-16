@@ -15,6 +15,7 @@ namespace Libs.Fsm
 
         private static int _instanceCount;
         public IState CurrentState { get; private set; }
+        public event Action<IState> OnStateChanged;
 
         public StateMachine(IStateTransitionStrategy stateTransitionStrategy, string debugName = "", ILogger logger = null)
         {
@@ -43,6 +44,7 @@ namespace Libs.Fsm
             (CurrentState as IExitableState)?.Exit();
             CurrentState = newState;
             (CurrentState as IEnterableState)?.Enter();
+            OnStateChanged?.Invoke(CurrentState);
             TryTransition();
         }
 

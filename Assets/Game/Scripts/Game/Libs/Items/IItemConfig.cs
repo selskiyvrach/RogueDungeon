@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Game.Libs.Items
 {
@@ -6,5 +7,6 @@ namespace Game.Libs.Items
     {
         string Id { get; }
         Type Type { get; }
+        Vector2Int Size { get; }
     }
 }

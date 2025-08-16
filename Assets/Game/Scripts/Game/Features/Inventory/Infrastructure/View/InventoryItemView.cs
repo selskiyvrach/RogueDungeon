@@ -22,6 +22,7 @@ namespace Game.Features.Inventory.Infrastructure.View
         public Vector3 WorldPosition => _itemImage.transform.position - Vector3.up * GetVerticalOffset();
         public int InstanceId => _itemViewInfo.InstanceId;
         public Vector2Int SizeInCells => _itemViewInfo.Size;
+        public string Id { get; }
 
         [Inject]
         private void Construct(IItemViewInfo item)

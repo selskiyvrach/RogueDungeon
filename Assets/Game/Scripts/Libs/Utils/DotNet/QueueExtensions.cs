@@ -10,7 +10,7 @@ namespace Libs.Utils.DotNet
                 queue.Enqueue(item);
         }
 
-        public static void RequeueTopOne<T>(this Queue<T> queue)
+        public static void RequeueOne<T>(this Queue<T> queue)
         {
             var item = queue.Dequeue();
             queue.Enqueue(item);

@@ -13,32 +13,32 @@ namespace Game.Features.Player.App.UseCases.Instance
         {
             _inventory = inventory;
             _hands = hands;
-            _inventory.OnCurrentHandheldItemChanged += ReflectHandContentChange;
-            _hands.OnLeftHandChangeItemRequested += () => _inventory.CycleItemsInGroup(CyclableItemsGroup.LeftHand);
-            _hands.OnRightHandChangeItemRequested += () => _inventory.CycleItemsInGroup(CyclableItemsGroup.RightHand);
+            _inventory.OnCyclableSlotIndexChanged += ReflectHandContentChange;
+            _hands.OnLeftHandChangeItemRequested += () => _inventory.CycleItemsInGroup(CyclableSlotGroupId.LeftHandItems);
+            _hands.OnRightHandChangeItemRequested += () => _inventory.CycleItemsInGroup(CyclableSlotGroupId.RightHandItems);
             _hands.OnRefreshHandItemsRequested += RefreshHandsItems;
             RefreshHandsItems();
         }
 
-        private void ReflectHandContentChange(Hand hand)
+        private void ReflectHandContentChange(CyclableSlotGroupId cyclableSlotGroupId)
         {
-            switch (hand)
+            switch (cyclableSlotGroupId)
             {
-                case Hand.Right:
-                    _hands.RightHandIntendedItem = _inventory.GetCurrentHandheldItem(hand);
+                case CyclableSlotGroupId.RightHandItems:
+                    _hands.RightHandIntendedItem = _inventory.GetCurrentHandheldItem(Hand.Right);
                     break;
-                case Hand.Left:
-                    _hands.LeftHandIntendedItem = _inventory.GetCurrentHandheldItem(hand);
+                case CyclableSlotGroupId.LeftHandItems:
+                    _hands.LeftHandIntendedItem = _inventory.GetCurrentHandheldItem(Hand.Left);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(hand), hand, null);
+                    throw new ArgumentOutOfRangeException(nameof(cyclableSlotGroupId), cyclableSlotGroupId, null);
             }
         }
 
         private void RefreshHandsItems()
         {
-            ReflectHandContentChange(Hand.Right);
-            ReflectHandContentChange(Hand.Left);
+            ReflectHandContentChange(CyclableSlotGroupId.RightHandItems);
+            ReflectHandContentChange(CyclableSlotGroupId.LeftHandItems);
         }
     }
 }

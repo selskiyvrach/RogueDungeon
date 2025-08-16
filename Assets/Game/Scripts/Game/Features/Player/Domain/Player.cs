@@ -11,8 +11,8 @@ namespace Game.Features.Player.Domain
     public class Player : IInitializable, ITickable, IDisposable, IPlayerDefenderInfoProvider
     {
         private StateMachine _movementStateMachine;
-        public IPlayerConfig Config { get; }
         public PlayerHandsBehaviour Hands { get; private set; }
+        public IPlayerConfig Config { get; }
         public Resource Health { get; }
         public RechargeableResource Stamina { get; }
         public DodgeState DodgeState { get; set; }
@@ -23,10 +23,12 @@ namespace Game.Features.Player.Domain
         public bool IsInCombat { get; set; }
         public IBlockingItem BlockingItem { get; set; }
         public bool HasUnabsorbedBlockImpact { get; set; }
-
         public event Action<PlayerAttackInfo> OnAttackMediationRequested;
-        public event Action OnShowInventoryRequested;
-
+        public event Action<IState> OnStateChanged
+        {
+            add => _movementStateMachine.OnStateChanged += value;
+            remove => _movementStateMachine.OnStateChanged -= value;
+        }
         public Player(IPlayerConfig config)
         {
             Config = config;
@@ -72,9 +74,6 @@ namespace Game.Features.Player.Domain
                 blockingAbsorbtion: 1,
                 blockingStaminaCostFactor: BlockingItem?.BlockStaminaCostMultiplier ?? 1);
 
-        public void ShowInventory() => 
-            OnShowInventoryRequested?.Invoke();
-
         public void Dispose()
         {
             
@@ -82,7 +81,7 @@ namespace Game.Features.Player.Domain
 
         public void PerformAttack(IWeapon weapon) => 
             OnAttackMediationRequested?.Invoke(new PlayerAttackInfo(weapon.Damage, weapon.PoiseDamage, EnemyPosition.Middle));
-        
+
         public void SetPlayerAttackResult(PlayerAttackResult result)
         {
             

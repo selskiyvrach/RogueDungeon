@@ -2,19 +2,19 @@
 {
     public static class HandExtensions
     {
-        public static CyclableItemsGroup ToCyclableItemsGroup(this Hand hand) =>
+        public static CyclableSlotGroupId ToCyclableItemsGroup(this Hand hand) =>
             hand switch
             {
-                Hand.Right => CyclableItemsGroup.RightHand,
-                Hand.Left => CyclableItemsGroup.LeftHand,
-                _ => CyclableItemsGroup.None,
+                Hand.Right => CyclableSlotGroupId.RightHandItems,
+                Hand.Left => CyclableSlotGroupId.LeftHandItems,
+                _ => CyclableSlotGroupId.None,
             };
         
-        public static Hand ToHand(this CyclableItemsGroup hand) =>
+        public static Hand ToHand(this CyclableSlotGroupId hand) =>
             hand switch
             {
-                 CyclableItemsGroup.RightHand => Hand.Right,
-                 CyclableItemsGroup.LeftHand=> Hand.Left,
+                 CyclableSlotGroupId.RightHandItems => Hand.Right,
+                 CyclableSlotGroupId.LeftHandItems=> Hand.Left,
                 _ => Hand.None,
             };
     }

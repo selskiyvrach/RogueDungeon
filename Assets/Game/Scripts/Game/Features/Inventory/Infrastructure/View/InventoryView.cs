@@ -1,9 +1,10 @@
-﻿ using UnityEngine;
+﻿ using Game.Features.Inventory.App.Presenters;
+ using UnityEngine;
 using Zenject;
 
 namespace Game.Features.Inventory.Infrastructure.View
 {
-    public class InventoryView : MonoBehaviour
+    public class InventoryView : MonoBehaviour, IInventoryView
     {
         [SerializeField] private Canvas _inventoryCanvas;
         [SerializeField] private RectTransform _inventoryRect;
@@ -11,23 +12,19 @@ namespace Game.Features.Inventory.Infrastructure.View
         
         private InventoryItemView _currentInventoryItem;
         private ItemContainer _lootArea;
-        private IInventoryInfoProvider _inventoryInfo;
         private ItemContainer _currentItemContainer;
 
         [Inject]
-        public void Construct(Camera gameCamera)
-        {
+        public void Construct(Camera gameCamera) => 
             _inventoryCanvas.worldCamera = gameCamera;
-        }
 
         private void OnValidate() => 
             _containers = GetComponentsInChildren<ItemContainer>();
 
-        public void Show(ItemContainer lootArea, IInventoryInfoProvider inventoryInfo)
+        public void Show(ItemContainer lootArea)
         {
             gameObject.SetActive(true);
             _lootArea = lootArea;
-            _inventoryInfo = inventoryInfo;
         }
 
         public void Hide()
@@ -39,5 +36,8 @@ namespace Game.Features.Inventory.Infrastructure.View
         {
          
         }
+
+        public void Dispose() => 
+            Destroy(gameObject);
     }
 }
