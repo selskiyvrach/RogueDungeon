@@ -40,7 +40,7 @@ namespace Game.Features.Inventory.Domain
             throw new Exception($"Item with id {itemId} not found");
         }
 
-        private class ExtractItemCommand : ICommand
+        private class ExtractItemCommand : ItemOperationCommand
         {
             private readonly IExtractedItemCaretaker _caretaker;
             private readonly FreeSpaceItemContainer _container;
@@ -49,17 +49,17 @@ namespace Game.Features.Inventory.Domain
             private Vector2 _itemPosition;
             private IItem _item;
 
-            public ExtractItemCommand(FreeSpaceItemContainer container, string itemId, IExtractedItemCaretaker caretaker)
+            public ExtractItemCommand(FreeSpaceItemContainer container, string itemId, IExtractedItemCaretaker caretaker) : base(container)
             {
                 _container = container;
                 _itemId = itemId;
                 _caretaker = caretaker;
             }
 
-            public void Execute() => 
+            protected override void ExecuteInternal() => 
                 _caretaker.SetItem(_item = _container.ExtractItem(_itemId ,out _itemPosition));
 
-            public void Undo()
+            protected override void UndoInternal()
             {
                 _caretaker.RemoveItem(_item);
                 _container.PlaceItem(_item, _itemPosition);

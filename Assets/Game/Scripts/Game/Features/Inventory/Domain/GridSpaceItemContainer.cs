@@ -2,7 +2,6 @@
 using Game.Libs.Items;
 using Libs.Commands;
 using Libs.GridSpace;
-using PlasticPipe.PlasticProtocol.Messages;
 using UnityEngine;
 
 namespace Game.Features.Inventory.Domain
@@ -31,7 +30,9 @@ namespace Game.Features.Inventory.Domain
                 throw new KeyNotFoundException($"Item with id {itemId} not found");
             
             coords = item.Position;
-            return _items[itemId];
+            var result = _items[itemId];
+            _items.Remove(itemId);
+            return result;
         }
 
         private void PlaceItem(IItem item, Vector2Int coords)
@@ -40,7 +41,7 @@ namespace Game.Features.Inventory.Domain
             _items[item.Id] = item;
         }
 
-        private class ExtractedItemCommand : ICommand
+        private class ExtractedItemCommand : ItemOperationCommand
         {
             private readonly GridSpaceItemContainer _container;
             private readonly string _itemId;
@@ -49,17 +50,17 @@ namespace Game.Features.Inventory.Domain
             private Vector2Int _itemPosition;
             private IItem _item;
 
-            public ExtractedItemCommand(GridSpaceItemContainer container, string itemId, IExtractedItemCaretaker caretaker)
+            public ExtractedItemCommand(GridSpaceItemContainer container, string itemId, IExtractedItemCaretaker caretaker) : base(container)
             {
                 _container = container;
                 _itemId = itemId;
                 _caretaker = caretaker;
             }
 
-            public void Execute() => 
+            protected override void ExecuteInternal() => 
                 _caretaker.SetItem(_item = _container.ExtractItem(_itemId, out _itemPosition));
 
-            public void Undo()
+            protected override void UndoInternal()
             {
                 _caretaker.RemoveItem(_item);
                 _container.PlaceItem(_item, _itemPosition);

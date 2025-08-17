@@ -49,27 +49,27 @@ namespace Game.Features.Inventory.Domain
         public ISlotableItem PeekItem() => 
             _item;
 
-        private class ExtractItemCommand : ICommand
+        private class ExtractItemCommand : ItemOperationCommand
         {
             private readonly IExtractedItemCaretaker _extractedItemCaretaker;
             private readonly SlotItemContainer _container;
             private readonly ISlotableItem _item;
 
-            public ExtractItemCommand(SlotItemContainer container, ISlotableItem item, IExtractedItemCaretaker extractedItemCaretaker)
+            public ExtractItemCommand(SlotItemContainer container, ISlotableItem item, IExtractedItemCaretaker extractedItemCaretaker) : base(container)
             {
                 _container = container;
                 _item = item;
                 _extractedItemCaretaker = extractedItemCaretaker;
             }
 
-            public void Execute()
+            protected override void ExecuteInternal()
             {
                 if(_container.PeekItem().Id != _item.Id)
                     throw new InvalidOperationException("Invalid item");
                 _extractedItemCaretaker.SetItem(_container.ExtractItem());
             }
 
-            public void Undo()
+            protected override void UndoInternal()
             {
                 if(_container.PeekItem() != null)
                     throw new InvalidOperationException("Slot is already occupied");

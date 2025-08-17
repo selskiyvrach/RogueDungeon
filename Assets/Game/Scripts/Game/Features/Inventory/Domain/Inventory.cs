@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Libs.Items;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Game.Features.Inventory.Domain

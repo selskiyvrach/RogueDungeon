@@ -1,15 +1,38 @@
-﻿using Libs.Commands;
+﻿using System;
+using Libs.Commands;
 
 namespace Game.Features.Inventory.Domain
 {
     public abstract class ItemContainer
     {
+        public event Action OnContentChanged;
         public ContainerId Id { get; }
-
         protected ItemContainer(ContainerId id) => 
             Id = id;
 
         public abstract ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker extractedItemCaretaker);
         public abstract void AcceptVisitor(IContainerVisitor visitor);
+        
+        protected abstract class ItemOperationCommand : ICommand
+        {
+            private readonly ItemContainer _container;
+            protected ItemOperationCommand(ItemContainer container) => 
+                _container = container;
+
+            public void Execute()
+            {
+                ExecuteInternal();
+                _container.OnContentChanged?.Invoke();
+            }
+
+            public void Undo()
+            {
+                UndoInternal();
+                _container.OnContentChanged?.Invoke();
+            }
+
+            protected abstract void UndoInternal();
+            protected abstract void ExecuteInternal();
+        }
     }
 }
