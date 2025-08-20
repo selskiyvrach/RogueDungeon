@@ -6,24 +6,20 @@ namespace Game.Features.Inventory.App.Presenters
     public class InventoryPresenter : IDisposable, IInitializable
     {
         private readonly Domain.Inventory _model;
-        private readonly IInventoryView _view;
+        private readonly Mediator _mediator;
 
-        public InventoryPresenter(Domain.Inventory model, IInventoryView view)
+        public InventoryPresenter(Domain.Inventory model, Mediator mediator)
         {
             _model = model;
-            _view = view;
+            _mediator = mediator;
         }
-
-        public void Dispose() => 
-            _view.Dispose();
 
         public void Initialize()
         {
-            // get all model containers
-            // initialize view of the containers with items
-            
-            // when projected
-            // on slot projection 
+
         }
+
+        public void Dispose() => 
+            _mediator.Dispose();
     }
 }

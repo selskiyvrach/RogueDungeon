@@ -1,4 +1,5 @@
 ﻿using System;
+using Libs.Utils.DotNet;
 using UnityEngine;
 
 namespace Game.Libs.Items
@@ -10,10 +11,10 @@ namespace Game.Libs.Items
         public string TypeId => _itemConfig.Id;
         public Vector2Int Size => _itemConfig.Size;
 
-        protected Item(IItemConfig itemConfig)
+        protected Item(IItemConfig itemConfig, string id)
         {
             _itemConfig = itemConfig;
-            Id = $"{TypeId}_{Guid.NewGuid().ToString()}";
+            Id = id;
         }
     }
 }

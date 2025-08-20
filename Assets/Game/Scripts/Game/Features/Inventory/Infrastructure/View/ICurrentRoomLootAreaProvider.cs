@@ -2,6 +2,6 @@
 {
     public interface ICurrentRoomLootAreaProvider
     {
-        ItemContainer GetCurrentRoomLootArea();
+        Container GetCurrentRoomLootArea();
     }
 }

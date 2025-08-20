@@ -16,7 +16,7 @@
         public EquipmentType EquipmentType => EquipmentType.Handheld;
 
 
-        public Weapon(IWeaponItemConfig config) : base(config) => 
+        public Weapon(IWeaponItemConfig config, string id) : base(config, id) => 
             _config = config;
     }
 }

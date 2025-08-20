@@ -1,6 +1,4 @@
-﻿using Game.Features.Inventory.App.Presenters;
-using Game.Features.Inventory.App.UseCases;
-using Game.Features.Inventory.Domain;
+﻿using Game.Features.Inventory.App.UseCases;
 using Game.Features.Inventory.Infrastructure.Factories;
 using Game.Features.Inventory.Infrastructure.View;
 using UnityEngine;
@@ -16,11 +14,9 @@ namespace Game.Features.Inventory.Infrastructure.Installers
         public override void InstallBindings()
         {
             Container.Bind<Domain.Inventory>().AsSingle();
-            Container.Bind<IFactory<Transform, InventoryPresenter>>().To<InventoryPresenterFactory>().AsSingle()
-                .WithArguments(new object[]{_inventoryViewPrefab} );
+            Container.Bind<IFactory<Transform, GameObject>>().To<InventoryWorldScreenFactory>().AsSingle().WithArguments(new object[]{_inventoryViewPrefab} );
             Container.BindInterfacesTo<ShowHideWorldInventoryUseCase>().AsSingle().NonLazy();
-            Container.BindInterfacesTo<InventoryScreenSpawner>().AsSingle()
-                .WithArguments(new object[]{ _inventoryViewParent}).NonLazy();
+            Container.BindInterfacesTo<InventoryScreenSpawner>().AsSingle().WithArguments(new object[]{ _inventoryViewParent}).NonLazy();
         }
     }
 }

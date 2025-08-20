@@ -12,7 +12,7 @@
         public float LowerBlockAnimationDuration => _config.LowerBlockAnimationDuration;
         public float RaiseBlockAnimationDuration => _config.RaiseBlockAnimationDuration;
 
-        protected BlockingItem(IBlockingItemConfig config) : base(config) => 
+        protected BlockingItem(IBlockingItemConfig config, string id) : base(config, id) => 
             _config = config;
     }
 }

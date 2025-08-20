@@ -7,7 +7,7 @@
         private readonly IShieldItemConfig _config;
         public override BlockingTier BlockingTier => BlockingTier.First;
 
-        public Shield(IShieldItemConfig config) : base(config) => 
+        public Shield(IShieldItemConfig config, string id) : base(config, id) => 
             _config = config;
     }
 }

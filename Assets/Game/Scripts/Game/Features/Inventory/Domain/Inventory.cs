@@ -39,6 +39,9 @@ namespace Game.Features.Inventory.Domain
             OnContentChanged?.Invoke(id);
         }
 
+        public ItemContainer GetContainer(ContainerId id) => 
+            _itemContainers.First(container => container.Id == id);
+
         public void CycleItemsInGroup(CyclableSlotGroupId group)
         {
             var slotGroup = _cyclableSlotGroups.First(n => n.SlotGroupId == group);

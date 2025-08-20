@@ -6,7 +6,7 @@
         public float UnsheathDuration => _config.UnsheathDuration;
         public float IdleAnimationDuration => _config.IdleAnimationDuration;
 
-        protected HandheldItem(IHandheldItemConfig config) : base(config) => 
+        protected HandheldItem(IHandheldItemConfig config, string id) : base(config, id) => 
             _config = config;
     }
 }

@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5bcfa9586cb4381a2001a1d29750ad9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _item: {fileID: 1523352450832919681}
+  _itemImage: {fileID: 1523352450832919681}
   _shadow: {fileID: 5191131650719046296}
   _legalPositionShadowColor: {r: 0, g: 0, b: 0, a: 1}
   _illegalPositionShadowColor: {r: 0.6226415, g: 0, b: 0, a: 1}
