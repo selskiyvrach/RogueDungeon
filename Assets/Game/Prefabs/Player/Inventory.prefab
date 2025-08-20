@@ -473,8 +473,10 @@ MonoBehaviour:
   _view: {fileID: 1548085569401456492}
   _projection: {fileID: 7408723445728478934}
   _containerViews:
-  - Id: 10
-    Container: {fileID: 0}
+  - Id: 30
+    Container: {fileID: 1831146338525664903}
+  - Id: 20
+    Container: {fileID: 9105957722350226271}
 --- !u!114 &1548085569401456492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,7 +491,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inventoryCanvas: {fileID: 884065912500494088}
   _inventoryRect: {fileID: 3886684666969447885}
-  _containers: []
+  _containers:
+  - {fileID: 1831146338525664903}
+  - {fileID: 9105957722350226271}
 --- !u!114 &1110730294034850141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,10 +535,9 @@ GameObject:
   - component: {fileID: 5339690447932222129}
   - component: {fileID: 5651052697938117189}
   - component: {fileID: 4431649870141537034}
-  - component: {fileID: 5497411249411373225}
-  - component: {fileID: 4992894109875112159}
+  - component: {fileID: 1831146338525664903}
   m_Layer: 8
-  m_Name: equipment_slot (1)
+  m_Name: slot_right_hand_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -597,30 +600,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
---- !u!223 &5497411249411373225
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4483635779238409109}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &4992894109875112159
+--- !u!114 &1831146338525664903
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -629,14 +609,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4483635779238409109}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 11500000, guid: 59b0ce4d384f466597a3d490a79adf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 503
+  _cellSize: 40
 --- !u!1 &6051596692272869704
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,10 +624,9 @@ GameObject:
   - component: {fileID: 8532614582603355101}
   - component: {fileID: 114547620130355013}
   - component: {fileID: 8767871473855578319}
-  - component: {fileID: 3727874552711014489}
-  - component: {fileID: 3175881306500720826}
+  - component: {fileID: 9105957722350226271}
   m_Layer: 8
-  m_Name: equipment_slot (2)
+  m_Name: slot_left_hand_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -714,30 +689,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
---- !u!223 &3727874552711014489
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6051596692272869704}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &3175881306500720826
+--- !u!114 &9105957722350226271
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -746,14 +698,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6051596692272869704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 11500000, guid: 59b0ce4d384f466597a3d490a79adf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 503
+  _cellSize: 40
 --- !u!1 &7774304557595793663
 GameObject:
   m_ObjectHideFlags: 0

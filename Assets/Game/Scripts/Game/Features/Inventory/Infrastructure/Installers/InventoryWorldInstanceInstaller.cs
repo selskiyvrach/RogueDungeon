@@ -25,13 +25,9 @@ namespace Game.Features.Inventory.Infrastructure.Factories
         {
             Container.BindInterfacesTo<ItemProjection>().FromInstance(_projection).AsSingle();
             
-            foreach (var pair in _containerViews)
-            {
-                var container = Container.CreateSubContainer();
-                container.BindInterfacesTo<Container>().FromInstance(pair.Container).AsSingle();
-                container.BindInterfacesTo<ContainerPresenter>().AsSingle();
-                container.Bind<ItemContainer>().FromMethod(() => container.Resolve<Domain.Inventory>().GetContainer(pair.Id)).AsSingle();
-            }
+            foreach (var pair in _containerViews) 
+                Container.BindInterfacesAndSelfTo<ContainerPresenter>().FromSubContainerResolve().ByMethod(subcontainer => CreateContainer(pair, subcontainer))
+                    .AsCached().NonLazy();
             
             Container.BindInterfacesAndSelfTo<InventoryPresenter>().FromNew().AsSingle();
             Container.BindInterfacesAndSelfTo<Mediator>().AsSingle();
@@ -39,6 +35,13 @@ namespace Game.Features.Inventory.Infrastructure.Factories
             Container.BindInterfacesAndSelfTo<DragItemInput>().AsSingle();
             Container.BindInterfacesAndSelfTo<DragItemState>().AsSingle();
             Container.BindInterfacesAndSelfTo<ScanForItemState>().AsSingle();
+        }
+
+        private void CreateContainer(ContainerIdPair pair, DiContainer subcontainer)
+        {
+            subcontainer.BindInterfacesTo<Container>().FromInstance(pair.Container).AsSingle();
+            subcontainer.Bind<ItemContainer>().FromMethod(() => subcontainer.Resolve<Domain.Inventory>().GetContainer(pair.Id)).AsSingle();
+            subcontainer.BindInterfacesAndSelfTo<ContainerPresenter>().AsSingle();
         }
     }
 }

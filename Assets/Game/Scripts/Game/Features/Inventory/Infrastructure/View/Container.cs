@@ -7,9 +7,8 @@ namespace Game.Features.Inventory.Infrastructure.View
 {
     public abstract class Container : HoverableGraphic, IContainerView
     {
-        protected RectTransform _rectTransform;
+        private RectTransform _rectTransform;
         public string Id { get; }
-
         protected abstract float CellSize { get; }
 
         protected override void OnValidate()

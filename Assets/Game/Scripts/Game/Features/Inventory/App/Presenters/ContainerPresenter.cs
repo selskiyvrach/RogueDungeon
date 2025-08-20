@@ -38,7 +38,6 @@ namespace Game.Features.Inventory.App.Presenters
 
         private void UpdateModelView()
         {
-            throw new NotImplementedException();
         }
 
         public void Dispose()
@@ -55,7 +54,5 @@ namespace Game.Features.Inventory.App.Presenters
             var worldPos = _view.LocalPosNormalizedToWorldPos(localPos);
             return new ProjectionData(placement, worldPos);
         }
-        
-        
     }
 }
