@@ -14,14 +14,30 @@ namespace Game.Features.Inventory.Domain
         public GridSpaceItemContainer(int columns, int rows, ContainerId id) : base(id) => 
             _gridSpace = new GridSpace(columns, rows);
 
-        public GridSpaceItemPlacementEvaluation GetItemPlacementEvaluation(IItem item, Vector2 localPositionNormalized) => 
-            new(isPossible: true, replacedItemId: item.Id, resultLocalPosNormalized: localPositionNormalized);
-
         public override ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker caretaker) => 
             new ExtractedItemCommand(this, itemId, caretaker);
 
-        public override void AcceptVisitor(IContainerVisitor visitor) => 
-            visitor.Visit(this);
+        public override ItemPlacementResult GetItemPlacement(ItemPlacementProposition proposition)
+        {
+            var position = GetPosition(proposition);
+            return new ItemPlacementResult(GetIsPossible(proposition), position.x, position.y, GetReplacement(proposition));
+
+            IItem GetReplacement(ItemPlacementProposition itemPlacementProposition)
+            {
+                throw new System.NotImplementedException();
+            }
+
+            Vector2Int GetPosition(ItemPlacementProposition proposition)
+            {
+                throw new System.NotImplementedException();
+            }
+
+            bool GetIsPossible(ItemPlacementProposition proposition)
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
 
         private IItem ExtractItem(string itemId, out Vector2Int coords)
         {

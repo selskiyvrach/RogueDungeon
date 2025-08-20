@@ -14,7 +14,11 @@ namespace Game.Features.Inventory.Infrastructure.Factories
             _worldInstancePrefab = worldInstancePrefab;
         }
 
-        public GameObject Create(Transform parent) => 
-            _container.InstantiatePrefab(_worldInstancePrefab, parent);
+        public GameObject Create(Transform parent)
+        {
+            var result = _container.InstantiatePrefab(_worldInstancePrefab, parent);
+            result.transform.localPosition = Vector3.zero;
+            return result;
+        }
     }
 }

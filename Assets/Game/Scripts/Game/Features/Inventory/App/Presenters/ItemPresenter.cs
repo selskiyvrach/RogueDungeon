@@ -7,14 +7,15 @@ namespace Game.Features.Inventory.App.Presenters
 {
     public class ItemPresenter : IInitializable, IDisposable
     {
-        private readonly IItem _model;
         private readonly IItemView _view;
         private readonly Mediator _hoverListener;
         private readonly ElementsRegistry _registry;
+        
+        public IItem Model { get; }
 
         public ItemPresenter(IItem model, IItemView view, Mediator hoverListener, ElementsRegistry registry)
         {
-            _model = model;
+            Model = model;
             _view = view;
             _hoverListener = hoverListener;
             _registry = registry;
@@ -23,7 +24,7 @@ namespace Game.Features.Inventory.App.Presenters
         public void Initialize()
         {
             _registry.Register(this);
-            _view.Setup(new ItemInfo(_model.Id, GetSprite(_model.TypeId), _model.Size));
+            _view.Setup(new ItemInfo(Model.Id, GetSprite(Model.TypeId), Model.Size));
             _view.OnHovered += HandleHovered;
             _view.OnUnhovered += HandleUnhovered;
         }

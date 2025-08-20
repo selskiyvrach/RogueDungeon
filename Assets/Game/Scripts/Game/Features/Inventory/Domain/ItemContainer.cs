@@ -11,7 +11,7 @@ namespace Game.Features.Inventory.Domain
             Id = id;
 
         public abstract ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker extractedItemCaretaker);
-        public abstract void AcceptVisitor(IContainerVisitor visitor);
+        public abstract ItemPlacementResult GetItemPlacement(ItemPlacementProposition proposition);
         
         protected abstract class ItemOperationCommand : ICommand
         {

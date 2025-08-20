@@ -2,18 +2,14 @@
 
 namespace Game.Features.Inventory.App.Presenters
 {
-    public class ScanForItemState
+    public class ScanForItemState : MediatorState
     {
         private readonly ElementsRegistry _registry;
-        private readonly Mediator _mediator;
         
         private ItemPresenter _currentItem;
 
-        public ScanForItemState(Mediator mediator, ElementsRegistry registry)
-        {
-            _mediator = mediator;
+        public ScanForItemState(ElementsRegistry registry) => 
             _registry = registry;
-        }
 
         public void Enter()
         {
@@ -45,7 +41,7 @@ namespace Game.Features.Inventory.App.Presenters
             foreach (var item in _registry.Items) 
                 item.DisableRaycasts();
             
-            _mediator.StartCarryingItem(_currentItem);
+            Mediator.StartCarryingItem(_currentItem);
         }
     }
 }

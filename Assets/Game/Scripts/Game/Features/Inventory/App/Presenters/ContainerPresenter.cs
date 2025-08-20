@@ -1,5 +1,7 @@
 ﻿using System;
 using Game.Features.Inventory.Domain;
+using Game.Libs.Items;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Features.Inventory.App.Presenters
@@ -46,9 +48,14 @@ namespace Game.Features.Inventory.App.Presenters
             _mediator.Registry.Unregister(this);
         }
 
-        public void GetProjection()
+        public ProjectionData GetProjection(IItem item, Camera camera, Vector2 pointerScreenPos)
         {
-            _model.AcceptVisitor(new ItemProjectionInquirer());
+            var localPos = _view.ScreenPosToLocalPosNormalized(pointerScreenPos, camera);
+            var placement = _model.GetItemPlacement(new ItemPlacementProposition(localPos.x, localPos.y, item));
+            var worldPos = _view.LocalPosNormalizedToWorldPos(localPos);
+            return new ProjectionData(placement, worldPos);
         }
+        
+        
     }
 }

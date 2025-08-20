@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Features.Inventory.App.Presenters
@@ -12,21 +13,26 @@ namespace Game.Features.Inventory.App.Presenters
         
         public ElementsRegistry Registry { get; }
 
-        public Mediator(ElementsRegistry registry, IDragItemInput input)
+        public Mediator(ElementsRegistry registry, IDragItemInput input, DragItemState dragItemState, ScanForItemState scanForItemState)
         {
             Registry = registry;
             _input = input;
-            _dragItemState = new DragItemState(this);
-            _scanForItemState = new ScanForItemState(this, registry);
+            _dragItemState = dragItemState;
+            _scanForItemState = scanForItemState;
         }
 
         public void Initialize()
         {
+            _scanForItemState.Init(this);
+            _dragItemState.Init(this);
             _input.OnPointerDown += _scanForItemState.OnPointerDown;
             _input.OnPointerUp += _dragItemState.OnPointerUp;
-            _input.OnMoved += _dragItemState.OnCursorMoved;
+            _input.OnMoved += HandleCursorMoved;
             _scanForItemState.Enter();
         }
+
+        private void HandleCursorMoved() => 
+            _dragItemState.OnCursorMoved(_input.ScreenPosition);
 
         public void StartCarryingItem(ItemPresenter itemInQuestion) => 
             _dragItemState.Enter(itemInQuestion);
@@ -50,7 +56,7 @@ namespace Game.Features.Inventory.App.Presenters
         {
             _input.OnPointerDown -= _scanForItemState.OnPointerDown;
             _input.OnPointerUp -= _dragItemState.OnPointerUp;
-            _input.OnMoved -= _dragItemState.OnCursorMoved;
+            _input.OnMoved -= HandleCursorMoved;
         }
     }
 }

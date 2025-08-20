@@ -1,29 +1,41 @@
-﻿using Libs.Utils.DotNet;
+﻿using Game.Libs.Items;
+using Game.Libs.Items.Configs;
+using Libs.Utils.DotNet;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Game.Features.Inventory.App.Presenters
 {
-    public class DragItemState
+    public class DragItemState : MediatorState
     {
-        private readonly Mediator _mediator;
+        private readonly Camera _camera;
+        private readonly IProjectionView _projectionView;
+        private readonly IItemConfigsRepository _itemRepository;
         
         private ContainerPresenter _container;
         private ItemPresenter _item;
         private bool _isPlacementPossible;
 
-        public DragItemState(Mediator mediator) => 
-            _mediator = mediator;
+        public DragItemState(Camera camera, IProjectionView projectionView, IItemConfigsRepository itemRepository)
+        {
+            _camera = camera;
+            _projectionView = projectionView;
+            _itemRepository = itemRepository;
+        }
 
         public void Enter(ItemPresenter carriedItem)
         {
             carriedItem.ThrowIfNull();
             _item = carriedItem;
             _item.DisplayBeingDragged();
+            _projectionView.SetSprite(((ItemConfig)_itemRepository.GetItemConfig(_item.Model.TypeId)).Sprite);
         }
 
-        public void OnCursorMoved()
+        public void OnCursorMoved(Vector2 screenPosition)
         {
-            _container.GetProjection();
+            var projection = _container.GetProjection(_item.Model, _camera, screenPosition);
+            _projectionView.SetPosition(projection.WorldPosition);
+            _projectionView.SetIsValid(projection.Placement.IsPossible);
         }
 
         public void OnContainerHovered(ContainerPresenter container)
@@ -43,7 +55,7 @@ namespace Game.Features.Inventory.App.Presenters
         {
             // execute place item command or undo of the extract one
             _item.DisplayNotBeingDragged();
-            _mediator.StopCarryingItem();
+            Mediator.StopCarryingItem();
         }
     }
 }

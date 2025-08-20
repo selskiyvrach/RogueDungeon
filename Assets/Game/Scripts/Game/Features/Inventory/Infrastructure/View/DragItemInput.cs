@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.Features.Inventory.App.Presenters;
 using Game.Libs.Input;
+using UnityEngine;
 
 namespace Game.Features.Inventory.Infrastructure.View
 {
@@ -11,10 +12,9 @@ namespace Game.Features.Inventory.Infrastructure.View
         public event Action OnPointerDown;
         public event Action OnPointerUp;
         public event Action OnMoved;
+        public Vector2 ScreenPosition => Input.mousePosition;
 
-        public DragItemInput(IPlayerInput playerInput)
-        {
+        public DragItemInput(IPlayerInput playerInput) => 
             _playerInput = playerInput;
-        }
     }
 }

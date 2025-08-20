@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Game.Features.Inventory.App.Presenters
 {
@@ -7,5 +8,6 @@ namespace Game.Features.Inventory.App.Presenters
         event Action OnPointerDown;
         event Action OnPointerUp;
         event Action OnMoved;
+        Vector2 ScreenPosition { get; }
     }
 }

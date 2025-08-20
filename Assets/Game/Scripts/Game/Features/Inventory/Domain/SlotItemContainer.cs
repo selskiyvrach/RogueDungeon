@@ -43,8 +43,10 @@ namespace Game.Features.Inventory.Domain
             return new ExtractItemCommand(this, _item, caretaker);
         }
 
-        public override void AcceptVisitor(IContainerVisitor visitor) => 
-            visitor.Visit(this);
+        public override ItemPlacementResult GetItemPlacement(ItemPlacementProposition proposition)
+        {
+            return null;
+        }
 
         public ISlotableItem PeekItem() => 
             _item;

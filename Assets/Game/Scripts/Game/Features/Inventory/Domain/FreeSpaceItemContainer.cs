@@ -14,17 +14,15 @@ namespace Game.Features.Inventory.Domain
         {
         }
 
-        public void PlaceItem(IItem item, Vector2 localPositionNormalized) => 
+        private void PlaceItem(IItem item, Vector2 localPositionNormalized) => 
             _items.Add((localPositionNormalized, item));
 
-        public FreeSpaceItemPlacementEvaluation GetPlaceItemEvaluation(IItem item, Vector2 localPositionNormalized) => 
-            new(isPossible: true, resultPos: localPositionNormalized);
-
+        
         public override ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker caretaker) => 
             new ExtractItemCommand(this, itemId, caretaker);
 
-        public override void AcceptVisitor(IContainerVisitor visitor) => 
-            visitor.Visit(this);
+        public override ItemPlacementResult GetItemPlacement(ItemPlacementProposition proposition) => 
+            new(IsPossible: true, proposition.XNormalized, proposition.YNormalized, ReplacedItem: null);
 
         private IItem ExtractItem(string itemId, out Vector2 position)
         {
