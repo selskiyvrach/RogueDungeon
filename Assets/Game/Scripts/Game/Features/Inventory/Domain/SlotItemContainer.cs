@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Game.Libs.Items;
 using Libs.Commands;
 using Libs.Utils.DotNet;
@@ -9,6 +10,7 @@ namespace Game.Features.Inventory.Domain
     public class SlotItemContainer : ItemContainer
     {
         private readonly SlotCategory _slotCategory;
+        private readonly (IItem item, Vector2 pos)[] _items = new (IItem item, Vector2 pos)[1];
         private ISlotableItem _item;
 
         public SlotItemContainer(SlotCategory slotCategory, ContainerId id) : base(id) => 
@@ -28,12 +30,10 @@ namespace Game.Features.Inventory.Domain
             return result;
         }
 
-        public SlotContainerItemPlacementEvaluation GetItemPlacementEvaluation(IItem item)
+        public override IEnumerable<(IItem item, Vector2 posNormalized)> GetItems()
         {
-            var isPossible = _slotCategory == _item.SlotCategory;
-            var replacedItem = isPossible ? _item : null;
-            return new SlotContainerItemPlacementEvaluation(isPossible, resultLocalPosNormalized: Vector2.one / 2,
-                replacedItem?.Id);
+            _items[0] = (_item, Vector2.one / 2);
+            return _items;
         }
 
         public override ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker caretaker)
@@ -43,10 +43,8 @@ namespace Game.Features.Inventory.Domain
             return new ExtractItemCommand(this, _item, caretaker);
         }
 
-        public override ItemPlacementResult GetItemPlacement(ItemPlacementProposition proposition)
-        {
-            return null;
-        }
+        public override ItemPlacementResult GetItemPlacement(ItemPlacementProposition proposition) =>
+            new(IsPossible: proposition.Item is ISlotableItem slotable && slotable.SlotCategory == _slotCategory, .5f, .5f, _item);
 
         public ISlotableItem PeekItem() => 
             _item;

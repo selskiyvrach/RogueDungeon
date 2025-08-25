@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using Game.Libs.Items;
 using Libs.Commands;
+using UnityEngine;
 
 namespace Game.Features.Inventory.Domain
 {
@@ -10,6 +13,7 @@ namespace Game.Features.Inventory.Domain
         protected ItemContainer(ContainerId id) => 
             Id = id;
 
+        public abstract IEnumerable<(IItem item, Vector2 posNormalized)> GetItems();
         public abstract ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker extractedItemCaretaker);
         public abstract ItemPlacementResult GetItemPlacement(ItemPlacementProposition proposition);
         
@@ -31,8 +35,8 @@ namespace Game.Features.Inventory.Domain
                 _container.OnContentChanged?.Invoke();
             }
 
-            protected abstract void UndoInternal();
             protected abstract void ExecuteInternal();
+            protected abstract void UndoInternal();
         }
     }
 }

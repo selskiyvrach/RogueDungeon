@@ -17,9 +17,12 @@ namespace Game.Features.Inventory.Infrastructure.Factories
             [HorizontalGroup] public Container Container;
         }
 
+        [SerializeField] private ItemView _itemViewPrefab;
         [SerializeField] private View.Inventory _view;
         [SerializeField] private ItemProjection _projection;
         [SerializeField] private ContainerIdPair[] _containerViews;
+        
+        private Domain.Inventory _inventory;
         
         public override void InstallBindings()
         {
@@ -35,12 +38,13 @@ namespace Game.Features.Inventory.Infrastructure.Factories
             Container.BindInterfacesAndSelfTo<DragItemInput>().AsSingle();
             Container.BindInterfacesAndSelfTo<DragItemState>().AsSingle();
             Container.BindInterfacesAndSelfTo<ScanForItemState>().AsSingle();
+            Container.BindInterfacesTo<ItemFactory>().AsSingle().WithArguments(new object[]{ _itemViewPrefab });
         }
 
         private void CreateContainer(ContainerIdPair pair, DiContainer subcontainer)
         {
             subcontainer.BindInterfacesTo<Container>().FromInstance(pair.Container).AsSingle();
-            subcontainer.Bind<ItemContainer>().FromMethod(() => subcontainer.Resolve<Domain.Inventory>().GetContainer(pair.Id)).AsSingle();
+            subcontainer.Bind<ItemContainer>().FromMethod(() => (_inventory ??= subcontainer.Resolve<Domain.Inventory>()).GetContainer(pair.Id)).AsSingle();
             subcontainer.BindInterfacesAndSelfTo<ContainerPresenter>().AsSingle();
         }
     }

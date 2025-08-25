@@ -26,23 +26,11 @@ namespace Game.Features.Inventory.Infrastructure.View
             UpdateVerticalOffset();
         }
 
-        public void SetPosition(Vector3 value) => 
-            _itemImage.transform.position = value + Vector3.up * GetVerticalOffset();
-
-        public void SetupProjection(Vector3 pos, bool isPositionLegal)
-        {
-            _shadow.transform.position = pos;
-            _shadow.color = isPositionLegal ? _legalPositionShadowColor : _illegalPositionShadowColor;
-        }
-
-        public void SetIsBeingDragged(bool value)
-        {
-            _isBeingDragged = value;
-            UpdateVerticalOffset();
-        }
-
         public void SetParent(Transform parent) => 
-            transform.SetParent(parent, worldPositionStays: true);
+            transform.SetParent(parent, worldPositionStays: false);
+
+        public void SetLocalPosition(Vector2 pos) => 
+            transform.localPosition = pos;
 
         public void SetCellSize(float value)
         {

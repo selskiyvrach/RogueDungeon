@@ -7,16 +7,16 @@ namespace Game.Features.Inventory.App.Presenters
 {
     public class ItemPresenter : IInitializable, IDisposable
     {
-        private readonly IItemView _view;
         private readonly Mediator _hoverListener;
         private readonly ElementsRegistry _registry;
         
         public IItem Model { get; }
+        public IItemView View { get; }
 
         public ItemPresenter(IItem model, IItemView view, Mediator hoverListener, ElementsRegistry registry)
         {
             Model = model;
-            _view = view;
+            View = view;
             _hoverListener = hoverListener;
             _registry = registry;
         }
@@ -24,9 +24,9 @@ namespace Game.Features.Inventory.App.Presenters
         public void Initialize()
         {
             _registry.Register(this);
-            _view.Setup(new ItemInfo(Model.Id, GetSprite(Model.TypeId), Model.Size));
-            _view.OnHovered += HandleHovered;
-            _view.OnUnhovered += HandleUnhovered;
+            View.Setup(new ItemInfo(Model.Id, GetSprite(Model.TypeId), Model.Size));
+            View.OnHovered += HandleHovered;
+            View.OnUnhovered += HandleUnhovered;
         }
 
         private Sprite GetSprite(string modelTypeId)
@@ -42,27 +42,27 @@ namespace Game.Features.Inventory.App.Presenters
 
         public void Dispose()
         {
-            _view.OnHovered -= HandleHovered;
-            _view.OnUnhovered -= HandleUnhovered;
+            View.OnHovered -= HandleHovered;
+            View.OnUnhovered -= HandleUnhovered;
             _registry.Unregister(this);
         }
 
         public void DisableRaycasts() => 
-            _view.Raycastable = false;
+            View.Raycastable = false;
         
         public void EnableRaycasts() =>
-            _view.Raycastable = true;
+            View.Raycastable = true;
 
         public void DisplayHovered() => 
-            _view.DisplayHovered();
+            View.DisplayHovered();
 
         public void DisplayUnhovered() => 
-            _view.DisplayUnhovered();
+            View.DisplayUnhovered();
 
         public void DisplayBeingDragged() => 
-            _view.DisplayBeingDragged();
+            View.DisplayBeingDragged();
 
         public void DisplayNotBeingDragged() => 
-            _view.DisplayNotBeingDragged();
+            View.DisplayNotBeingDragged();
     }
 }

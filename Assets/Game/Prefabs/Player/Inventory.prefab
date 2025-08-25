@@ -470,6 +470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1595a32795142018c676f5c9e568e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemViewPrefab: {fileID: 7840099604648116314, guid: 19aa25cc14d47a94db61781927b12b35,
+    type: 3}
   _view: {fileID: 1548085569401456492}
   _projection: {fileID: 7408723445728478934}
   _containerViews:
@@ -612,7 +614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b0ce4d384f466597a3d490a79adf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellSize: 40
+  <CellSize>k__BackingField: 40
 --- !u!1 &6051596692272869704
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,7 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b0ce4d384f466597a3d490a79adf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellSize: 40
+  <CellSize>k__BackingField: 40
 --- !u!1 &7774304557595793663
 GameObject:
   m_ObjectHideFlags: 0

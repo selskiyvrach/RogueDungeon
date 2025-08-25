@@ -7,7 +7,10 @@ namespace Game.Libs.Items.Configs
     public class ItemConfigsRepository : ScriptableObject, IItemConfigsRepository
     {
         [SerializeField] private ItemConfig[] _configs;
-        
+
+        public Sprite GetItemSprite(string itemId) => 
+            ((ItemConfig)GetItemConfig(itemId)).Sprite;
+
         public IItemConfig GetItemConfig(string itemId) =>
             _configs.First(n => n.Id == itemId);
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Game.Libs.Items;
 using Libs.Commands;
 using Libs.GridSpace;
@@ -13,6 +14,18 @@ namespace Game.Features.Inventory.Domain
 
         public GridSpaceItemContainer(int columns, int rows, ContainerId id) : base(id) => 
             _gridSpace = new GridSpace(columns, rows);
+
+        public override IEnumerable<(IItem item, Vector2 posNormalized)> GetItems() => 
+            _items.Select(n => (n.Value, GetItemPositionNormalized(n.Key)));
+
+        private Vector2 GetItemPositionNormalized(string id)
+        {
+            var item = _gridSpace.GetItem(id);
+            return GridPositionToNormalized(item.Size, item.Position, _gridSpace.Size);
+        }
+
+        private Vector2 GridPositionToNormalized(Vector2Int itemSize, Vector2Int gridPosition, Vector2Int gridSize) => 
+            (Vector2)gridPosition / gridSize + (Vector2)itemSize / 2;
 
         public override ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker caretaker) => 
             new ExtractedItemCommand(this, itemId, caretaker);

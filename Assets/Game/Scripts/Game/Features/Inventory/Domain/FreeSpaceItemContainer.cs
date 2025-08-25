@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Libs.Items;
 using Libs.Commands;
 using UnityEngine;
@@ -8,16 +9,18 @@ namespace Game.Features.Inventory.Domain
 {
     public class FreeSpaceItemContainer : ItemContainer
     {
-        private readonly List<(Vector2 position, IItem item)> _items = new();
+        private readonly List<(IItem item, Vector2 position)> _items = new();
 
         public FreeSpaceItemContainer(ContainerId id) : base(id)
         {
         }
 
         private void PlaceItem(IItem item, Vector2 localPositionNormalized) => 
-            _items.Add((localPositionNormalized, item));
+            _items.Add((item, localPositionNormalized));
 
-        
+        public override IEnumerable<(IItem item, Vector2 posNormalized)> GetItems() => 
+            _items;
+
         public override ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker caretaker) => 
             new ExtractItemCommand(this, itemId, caretaker);
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Game.Features.Inventory.Domain;
 using Game.Libs.Items;
 using UnityEngine;
@@ -11,20 +12,22 @@ namespace Game.Features.Inventory.App.Presenters
         private readonly Mediator _mediator;
         private readonly IContainerView _view;
         private readonly ItemContainer _model;
+        private readonly IFactory<IItem, IItemView> _itemFactory;
 
-        public ContainerPresenter(IContainerView view, ItemContainer model, Mediator mediator)
+        public ContainerPresenter(IContainerView view, ItemContainer model, Mediator mediator, IFactory<IItem, IItemView> itemFactory)
         {
             _view = view;
             _model = model;
             _mediator = mediator;
+            _itemFactory = itemFactory;
         }
 
         public void Initialize()
         {
             _mediator.Registry.Register(this);
             
-            _model.OnContentChanged += UpdateModelView;
-            UpdateModelView();
+            _model.OnContentChanged += UpdateView;
+            UpdateView();
 
             _view.OnHovered += ReportHovered;
             _view.OnUnhovered += ReportUnhovered;
@@ -36,8 +39,11 @@ namespace Game.Features.Inventory.App.Presenters
         private void ReportHovered() => 
             _mediator.OnContainerHovered(this);
 
-        private void UpdateModelView()
+        private void UpdateView()
         {
+            _view.Reset();
+            foreach (var item in _model.GetItems()) 
+                _view.PlaceItem(_itemFactory.Create(item.item), item.posNormalized);
         }
 
         public void Dispose()

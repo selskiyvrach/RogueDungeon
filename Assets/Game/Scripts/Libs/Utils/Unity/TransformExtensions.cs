@@ -5,7 +5,7 @@ namespace Libs.Utils.Unity
 {
     public static class TransformExtensions
     {
-        public static IEnumerable<T> GetDirectChildren<T>(this Transform transform) where T : Component
+        public static IEnumerable<T> GetDirectChildren<T>(this Transform transform)
         {
             for (var i = 0; i < transform.childCount; i++)
             {
@@ -15,7 +15,7 @@ namespace Libs.Utils.Unity
             }
         }
 
-        private static T GetComponentOrLogError<T>(this Transform transform) where T : Component
+        private static T GetComponentOrLogError<T>(this Transform transform)
         {
             var item = transform.GetComponent<T>();
             if (item == null) 

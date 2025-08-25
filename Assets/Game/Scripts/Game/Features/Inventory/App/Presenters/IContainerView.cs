@@ -1,12 +1,12 @@
 ﻿using Game.Libs.UI;
+using Libs.Lifecycle;
 using UnityEngine;
 
 namespace Game.Features.Inventory.App.Presenters
 {
-    public interface IContainerView : IHoverable, IIDable
+    public interface IContainerView : IHoverable, IResettable
     {
-        // set item (item, local position normalized)
-        // get local pointer position normalized
+        void PlaceItem(IItemView item, Vector2 posNormalized);
         Vector2 ScreenPosToLocalPosNormalized(Vector2 point, Camera cam);
         Vector3 LocalPosNormalizedToWorldPos(Vector2 normalizedPoint);
     }

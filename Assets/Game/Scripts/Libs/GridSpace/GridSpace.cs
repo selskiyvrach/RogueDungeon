@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Libs.GridSpace
 {
@@ -11,6 +12,8 @@ namespace Libs.GridSpace
         private readonly int _rows;
         private readonly int _columns;
 
+        public Vector2Int Size => new(_rows, _columns);
+
         public GridSpace(int columns, int rows)
         {
             _columns = columns;
@@ -20,7 +23,7 @@ namespace Libs.GridSpace
             for (var j = 0; j < _occupiedCells.GetLength(1); j++)
                 _occupiedCells[i, j] = null;
         }
-        
+
         public bool ContainedInSpace(GridSpaceItem item) => 
             item.Position.x + item.Size.x <= _columns && item.Position.y + item.Size.y <= _rows;
         
