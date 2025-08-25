@@ -12,7 +12,7 @@ namespace Libs.GridSpace
         private readonly int _rows;
         private readonly int _columns;
 
-        public Vector2Int Size => new(_rows, _columns);
+        public Vector2Int Size => new(_columns, _rows);
 
         public GridSpace(int columns, int rows)
         {

@@ -21,6 +21,9 @@ namespace Game.Features.Inventory.Domain
         public override IEnumerable<(IItem item, Vector2 posNormalized)> GetItems() => 
             _items;
 
+        public override void PlaceItem(ItemPlacement placement) => 
+            PlaceItem(placement.Item, ((FreeSpaceItemPlacement)placement).Position);
+
         public override ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker caretaker) => 
             new ExtractItemCommand(this, itemId, caretaker);
 

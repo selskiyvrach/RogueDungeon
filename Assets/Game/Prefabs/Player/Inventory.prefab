@@ -237,10 +237,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1835462677088615282}
   - component: {fileID: 3201969777706602514}
-  - component: {fileID: 7863730609914402514}
-  - component: {fileID: 8044765992166591980}
+  - component: {fileID: 4050753906029504222}
   m_Layer: 0
-  m_Name: ivnentory_space
+  m_Name: backpack_container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,30 +273,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949300806022903527}
   m_CullTransparentMesh: 1
---- !u!223 &7863730609914402514
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1949300806022903527}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &8044765992166591980
+--- !u!114 &4050753906029504222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -306,14 +282,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1949300806022903527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 11500000, guid: 22d97901e2ce43ffaf26a93a46fd405c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 503
+  _rectTransform: {fileID: 1835462677088615282}
+  <CellSize>k__BackingField: 25
 --- !u!1 &2591994226047662633
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,6 +452,8 @@ MonoBehaviour:
     Container: {fileID: 1831146338525664903}
   - Id: 20
     Container: {fileID: 9105957722350226271}
+  - Id: 10
+    Container: {fileID: 4050753906029504222}
 --- !u!114 &1548085569401456492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,6 +471,7 @@ MonoBehaviour:
   _containers:
   - {fileID: 1831146338525664903}
   - {fileID: 9105957722350226271}
+  - {fileID: 4050753906029504222}
 --- !u!114 &1110730294034850141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,7 +590,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b0ce4d384f466597a3d490a79adf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CellSize>k__BackingField: 40
+  _rectTransform: {fileID: 5339690447932222129}
+  <CellSize>k__BackingField: 25
 --- !u!1 &6051596692272869704
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,7 +680,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b0ce4d384f466597a3d490a79adf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CellSize>k__BackingField: 40
+  _rectTransform: {fileID: 8532614582603355101}
+  <CellSize>k__BackingField: 25
 --- !u!1 &7774304557595793663
 GameObject:
   m_ObjectHideFlags: 0

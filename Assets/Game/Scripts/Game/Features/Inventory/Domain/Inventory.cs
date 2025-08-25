@@ -28,16 +28,7 @@ namespace Game.Features.Inventory.Domain
             new(CyclableSlotGroupId.RightHandItems, new[] { ContainerId.RightHand0, ContainerId.RightHand1, ContainerId.RightHand2 }, 0)
         };
 
-        public event Action<ContainerId> OnContentChanged;
         public event Action<CyclableSlotGroupId> OnCyclableSlotIndexChanged;
-
-        public void Equip(IItem item, ContainerId id)
-        {
-            var container = GetSlot(id);
-            Assert.IsNull(container.PeekItem());
-            container.PlaceItem((ISlotableItem)item);
-            OnContentChanged?.Invoke(id);
-        }
 
         public ItemContainer GetContainer(ContainerId id) => 
             _itemContainers.First(container => container.Id == id);
@@ -65,10 +56,11 @@ namespace Game.Features.Inventory.Domain
         {
             var slotGroup = _cyclableSlotGroups.First(n => n.SlotGroupId == groupId);
             return GetSlot(slotGroup.ContainerIds[slotGroup.CurrentIndex]).PeekItem();
+            
+            SlotItemContainer GetSlot(ContainerId id) => 
+                (SlotItemContainer)_itemContainers.First(n => n.Id == id);
         }
 
-        private SlotItemContainer GetSlot(ContainerId id) => 
-            (SlotItemContainer)_itemContainers.First(n => n.Id == id);
 
         private class CyclableSlotGroup
         {

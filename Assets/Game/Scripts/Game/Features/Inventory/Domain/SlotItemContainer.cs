@@ -16,11 +16,9 @@ namespace Game.Features.Inventory.Domain
         public SlotItemContainer(SlotCategory slotCategory, ContainerId id) : base(id) => 
             _slotCategory = slotCategory;
 
-        public void PlaceItem(ISlotableItem item)
+        private void PlaceItem(ISlotableItem item)
         {
-            if(_item != null)
-                throw new InvalidOperationException("Slot is already occupied");
-            _item = item ?? throw new ArgumentNullException(nameof(item));
+
         }
 
         private ISlotableItem ExtractItem()
@@ -34,6 +32,13 @@ namespace Game.Features.Inventory.Domain
         {
             _items[0] = (_item, Vector2.one / 2);
             return _items;
+        }
+
+        public override void PlaceItem(ItemPlacement placement)
+        {
+            if(_item != null)
+                throw new InvalidOperationException("Slot is already occupied");
+            _item = (ISlotableItem)placement.Item ?? throw new ArgumentNullException(nameof(placement.Item));
         }
 
         public override ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker caretaker)

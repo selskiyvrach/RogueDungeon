@@ -14,6 +14,7 @@ namespace Game.Features.Inventory.Domain
             Id = id;
 
         public abstract IEnumerable<(IItem item, Vector2 posNormalized)> GetItems();
+        public abstract void PlaceItem(ItemPlacement placement);
         public abstract ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker extractedItemCaretaker);
         public abstract ItemPlacementResult GetItemPlacement(ItemPlacementProposition proposition);
         

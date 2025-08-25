@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: RogueDungeon.Items:RogueDungeon.Items:ShieldConfig
   <Sprite>k__BackingField: {fileID: 21300000, guid: 6a5153b72b8a9b844b7aa62411bcddf5,
     type: 3}
-  <Size>k__BackingField: {x: 1, y: 1}
+  <Size>k__BackingField: {x: 2, y: 2}
   <IdleAnimationDuration>k__BackingField: 1
   <UnsheathDuration>k__BackingField: 0.2
   _returnToIdleAnimationConfig:

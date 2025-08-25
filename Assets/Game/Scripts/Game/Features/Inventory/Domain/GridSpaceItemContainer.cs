@@ -18,6 +18,9 @@ namespace Game.Features.Inventory.Domain
         public override IEnumerable<(IItem item, Vector2 posNormalized)> GetItems() => 
             _items.Select(n => (n.Value, GetItemPositionNormalized(n.Key)));
 
+        public override void PlaceItem(ItemPlacement placement) => 
+            PlaceItem(placement.Item, ((GridSpaceItemPlacement)placement).Position);
+
         private Vector2 GetItemPositionNormalized(string id)
         {
             var item = _gridSpace.GetItem(id);
@@ -25,7 +28,7 @@ namespace Game.Features.Inventory.Domain
         }
 
         private Vector2 GridPositionToNormalized(Vector2Int itemSize, Vector2Int gridPosition, Vector2Int gridSize) => 
-            (Vector2)gridPosition / gridSize + (Vector2)itemSize / 2;
+            (Vector2)gridPosition / gridSize + ((Vector2)itemSize / 2) / gridSize;
 
         public override ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker caretaker) => 
             new ExtractedItemCommand(this, itemId, caretaker);
@@ -50,8 +53,7 @@ namespace Game.Features.Inventory.Domain
                 throw new System.NotImplementedException();
             }
         }
-
-
+        
         private IItem ExtractItem(string itemId, out Vector2Int coords)
         {
             var item = _gridSpace.GetItem(itemId);
