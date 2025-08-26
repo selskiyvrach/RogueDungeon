@@ -7,11 +7,13 @@ using UnityEngine.Assertions;
 
 namespace Game.Features.Inventory.Domain
 {
+    // add items' canvases sorting or prevent overlaps
+    
     public class Inventory
     {
         private readonly List<ItemContainer> _itemContainers = new (){
             
-            new GridSpaceItemContainer(10, 4, ContainerId.Backpack0),
+            new GridSpaceItemContainer(12, 6, ContainerId.Backpack0),
             
             new SlotItemContainer(SlotCategory.Handheld, ContainerId.LeftHand0),
             new SlotItemContainer(SlotCategory.Handheld, ContainerId.LeftHand1),
@@ -62,18 +64,11 @@ namespace Game.Features.Inventory.Domain
         }
 
 
-        private class CyclableSlotGroup
+        private record CyclableSlotGroup(CyclableSlotGroupId SlotGroupId, ContainerId[] ContainerIds, int CurrentIndex)
         {
-            public CyclableSlotGroupId SlotGroupId { get; }
-            public ContainerId[] ContainerIds { get; }
-            public int CurrentIndex { get; set; }
-
-            public CyclableSlotGroup(CyclableSlotGroupId slotGroupId, ContainerId[] containerIds, int currentIndex)
-            {
-                SlotGroupId = slotGroupId;
-                ContainerIds = containerIds;
-                CurrentIndex = currentIndex;
-            }
+            public CyclableSlotGroupId SlotGroupId { get; } = SlotGroupId;
+            public ContainerId[] ContainerIds { get; } = ContainerIds;
+            public int CurrentIndex { get; set; } = CurrentIndex;
         }
     }
 }

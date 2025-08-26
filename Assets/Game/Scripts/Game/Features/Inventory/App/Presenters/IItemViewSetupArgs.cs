@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Features.Inventory.App.Presenters
 {
-    public interface IItemInfo : IIDable
+    public interface IItemViewSetupArgs : IIDable
     {
         Sprite Sprite { get; }
         Vector2Int Size { get; }

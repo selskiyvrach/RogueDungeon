@@ -24,34 +24,23 @@ namespace Game.Features.Inventory.App.Presenters
 
         public void Initialize()
         {
-            _mediator.Registry.Register(this);
-            
             _model.OnContentChanged += UpdateView;
             UpdateView();
-
-            _view.OnHovered += ReportHovered;
-            _view.OnUnhovered += ReportUnhovered;
+            
+            _mediator.Registry.Register(this);
         }
-
-        private void ReportUnhovered() => 
-            _mediator.OnContainerUnhovered(this);
-
-        private void ReportHovered() => 
-            _mediator.OnContainerHovered(this);
 
         private void UpdateView()
         {
             _view.Reset();
+            // register items
+            // unregister items
             foreach (var item in _model.GetItems()) 
                 _view.PlaceItem(_itemFactory.Create(item.item), item.posNormalized);
         }
 
-        public void Dispose()
-        {
-            _view.OnHovered -= ReportHovered;
-            _view.OnUnhovered -= ReportUnhovered;
+        public void Dispose() => 
             _mediator.Registry.Unregister(this);
-        }
 
         public ProjectionData GetProjection(IItem item, Camera camera, Vector2 pointerScreenPos)
         {

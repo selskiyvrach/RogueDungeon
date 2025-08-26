@@ -6,23 +6,24 @@ using UnityEngine.UI;
 
 namespace Game.Features.Inventory.Infrastructure.View
 {
-    public class ItemView : HoverableGraphic, IItemView
+    public class ItemView : RaycastableGraphic, IItemView
     {
         [SerializeField] private Image _itemImage;
         [SerializeField] private Image _shadow;
         [SerializeField] private Color _legalPositionShadowColor;
         [SerializeField] private Color _illegalPositionShadowColor;
 
-        private bool _isBeingPointedAt;
         private bool _isBeingDragged;
-        
-        private IItemInfo _itemInfo;
-        public string Id => _itemInfo.Id;
-        public void Setup(IItemInfo itemInfo)
+
+        private IItemViewSetupArgs _itemViewSetupArgs;
+        public string Id => _itemViewSetupArgs.Id;
+        public bool IsHovered { get; private set; }
+
+        public void Setup(IItemViewSetupArgs itemViewSetupArgs)
         {
-            _itemInfo = itemInfo;
-            _itemImage.sprite = _itemInfo.Sprite;
-            _shadow.sprite = _itemInfo.Sprite;
+            _itemViewSetupArgs = itemViewSetupArgs;
+            _itemImage.sprite = _itemViewSetupArgs.Sprite;
+            _shadow.sprite = _itemViewSetupArgs.Sprite;
             UpdateVerticalOffset();
         }
 
@@ -32,9 +33,12 @@ namespace Game.Features.Inventory.Infrastructure.View
         public void SetLocalPosition(Vector2 pos) => 
             transform.localPosition = pos;
 
+        public Vector2 GetScreenPosition(Camera camera) => 
+            camera.WorldToScreenPoint(transform.position);
+
         public void SetCellSize(float value)
         {
-            var containerSize = (Vector2)_itemInfo.Size * value;
+            var containerSize = (Vector2)_itemViewSetupArgs.Size * value;
             ((RectTransform)transform).sizeDelta = containerSize;
             
             var spriteAspect = _itemImage.sprite.rect.AspectRatio();
@@ -47,39 +51,24 @@ namespace Game.Features.Inventory.Infrastructure.View
             _shadow.rectTransform.sizeDelta = finalSize;
         }
 
-        private void UpdateVerticalOffset() => 
-            _itemImage.transform.localPosition = Vector3.back * GetVerticalOffset() / transform.lossyScale.y;
+        public void DisplayHovered(bool hovered)
+        {
+            IsHovered = hovered;
+            UpdateVerticalOffset();
+        }
 
-        private float GetVerticalOffset()
+        public void DisplayBeingDragged(bool beingDragged)
+        {
+            _isBeingDragged = beingDragged;
+            UpdateVerticalOffset();
+        }
+
+        private void UpdateVerticalOffset()
         {
             var offset = .0035f;
-            if (_isBeingPointedAt || _isBeingDragged)
+            if (IsHovered || _isBeingDragged)
                 offset += .0065f;
-            return offset;
-        }
-
-        public void DisplayHovered()
-        {
-            _isBeingPointedAt = true;
-            UpdateVerticalOffset();
-        }
-
-        public void DisplayUnhovered()
-        {
-            _isBeingPointedAt = false;
-            UpdateVerticalOffset();
-        }
-
-        public void DisplayBeingDragged()
-        {
-            _isBeingDragged = true;
-            UpdateVerticalOffset();
-        }
-
-        public void DisplayNotBeingDragged()
-        {
-            _isBeingDragged = false;
-            UpdateVerticalOffset();
+            _itemImage.transform.localPosition = Vector3.back * offset / transform.lossyScale.y;
         }
     }
 }

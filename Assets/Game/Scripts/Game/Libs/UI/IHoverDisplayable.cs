@@ -2,13 +2,7 @@
 {
     public interface IHoverDisplayable
     {
-        void DisplayHovered();
-        void DisplayUnhovered();
-    }
-
-    public interface IBeingDraggedDisplayable
-    {
-        void DisplayBeingDragged();
-        void DisplayNotBeingDragged();
+        bool IsHovered { get; }
+        void DisplayHovered(bool hovered);
     }
 }

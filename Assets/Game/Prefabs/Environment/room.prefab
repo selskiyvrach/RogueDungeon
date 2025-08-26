@@ -187,7 +187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3343689439788088427
 RectTransform:
   m_ObjectHideFlags: 0
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 8849006507180107249}
   - component: {fileID: 817614065614486079}
   - component: {fileID: 8755993767720486654}
-  - component: {fileID: 9073473785633447948}
+  - component: {fileID: 506562138611114323}
   m_Layer: 0
   m_Name: loot_area
   m_TagString: Untagged
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 503
---- !u!114 &9073473785633447948
+--- !u!114 &506562138611114323
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -375,11 +375,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4166756450717676944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cbdbeda88d84a4a9723cca1d69103b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 677bbe58905f467d8225b1a283ecb18a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellSize: 30
-  _raycaster: {fileID: 8755993767720486654}
+  _rectTransform: {fileID: 2292844798266832915}
+  <CellSize>k__BackingField: 25
 --- !u!1 &6361638052367383442
 GameObject:
   m_ObjectHideFlags: 0

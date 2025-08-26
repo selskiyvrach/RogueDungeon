@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 
 namespace Game.Features.Inventory.App.Presenters
 {
-    public class ElementsRegistry
+    public class PresentersRegistry : IPresentersRegistry
     {
         private readonly HashSet<ContainerPresenter> _containers = new();
         private readonly HashSet<ItemPresenter> _items = new();

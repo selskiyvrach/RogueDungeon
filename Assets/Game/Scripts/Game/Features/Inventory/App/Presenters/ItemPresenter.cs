@@ -5,64 +5,57 @@ using Zenject;
 
 namespace Game.Features.Inventory.App.Presenters
 {
-    public class ItemPresenter : IInitializable, IDisposable
+    public sealed class ItemPresenter : IInitializable, IDisposable
     {
-        private readonly Mediator _hoverListener;
-        private readonly ElementsRegistry _registry;
-        
+        private readonly Mediator _mediator;
+        private readonly IPresentersRegistry _registry;
+
+        private bool _isInitialized;
+        private bool _isDragging;
+
         public IItem Model { get; }
         public IItemView View { get; }
 
-        public ItemPresenter(IItem model, IItemView view, Mediator hoverListener, ElementsRegistry registry)
+        public ItemPresenter(IItem model, IItemView view, Mediator mediator, IPresentersRegistry registry)
         {
             Model = model;
             View = view;
-            _hoverListener = hoverListener;
+            _mediator = mediator;
             _registry = registry;
         }
 
         public void Initialize()
         {
+            if (_isInitialized) 
+                throw new InvalidOperationException();
             _registry.Register(this);
-            View.Setup(new ItemInfo(Model.Id, GetSprite(Model.TypeId), Model.Size));
-            View.OnHovered += HandleHovered;
-            View.OnUnhovered += HandleUnhovered;
+            _isInitialized = true;
         }
-
-        private Sprite GetSprite(string modelTypeId)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void HandleHovered() => 
-            _hoverListener.OnItemHovered(this);
-
-        private void HandleUnhovered() => 
-            _hoverListener.OnItemUnhovered(this);
 
         public void Dispose()
         {
-            View.OnHovered -= HandleHovered;
-            View.OnUnhovered -= HandleUnhovered;
+            if (!_isInitialized) 
+                throw new InvalidOperationException();
+
             _registry.Unregister(this);
+            _isInitialized = false;
         }
 
-        public void DisableRaycasts() => 
-            View.Raycastable = false;
-        
-        public void EnableRaycasts() =>
-            View.Raycastable = true;
+        public void SetHovered(bool value)
+        {
+            if (_isDragging)
+                throw new InvalidOperationException();
+            
+            if (View.IsHovered == value)
+                throw new InvalidOperationException();
+            
+            View.DisplayHovered(value);
+        }
 
-        public void DisplayHovered() => 
-            View.DisplayHovered();
-
-        public void DisplayUnhovered() => 
-            View.DisplayUnhovered();
-
-        public void DisplayBeingDragged() => 
-            View.DisplayBeingDragged();
-
-        public void DisplayNotBeingDragged() => 
-            View.DisplayNotBeingDragged();
+        public void EnableRaycasts(bool value)
+        {
+            if(View.Raycastable != value)
+                View.Raycastable = value;
+        }
     }
 }

@@ -21,21 +21,26 @@ namespace Game.Features.Inventory.Infrastructure.Factories
         [SerializeField] private View.Inventory _view;
         [SerializeField] private ItemProjection _projection;
         [SerializeField] private ContainerIdPair[] _containerViews;
+        [SerializeField] private DraggedItemParent _draggedItemParent;
+        [SerializeField] private DraggableArea _draggableArea;
         
         private Domain.Inventory _inventory;
         
         public override void InstallBindings()
         {
+            Container.BindInterfacesAndSelfTo<View.Inventory>().FromInstance(_view).AsSingle();
             Container.BindInterfacesTo<ItemProjection>().FromInstance(_projection).AsSingle();
             
             foreach (var pair in _containerViews) 
                 Container.BindInterfacesAndSelfTo<ContainerPresenter>().FromSubContainerResolve().ByMethod(subcontainer => CreateContainer(pair, subcontainer))
                     .AsCached().NonLazy();
-            
-            Container.BindInterfacesAndSelfTo<InventoryPresenter>().FromNew().AsSingle();
-            Container.BindInterfacesAndSelfTo<Mediator>().AsSingle();
-            Container.BindInterfacesAndSelfTo<ElementsRegistry>().AsSingle();
-            Container.BindInterfacesAndSelfTo<DragItemInput>().AsSingle();
+
+            Container.BindInterfacesTo<DraggableArea>().FromInstance(_draggableArea).AsSingle();
+            Container.BindInterfacesTo<DraggedItemParent>().FromInstance(_draggedItemParent).AsSingle();
+            Container.BindInterfacesTo<GraphicRaycaster>().AsSingle();
+            Container.BindInterfacesAndSelfTo<Mediator>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<PresentersRegistry>().AsSingle();
+            Container.BindInterfacesAndSelfTo<InventoryInput>().AsSingle();
             Container.BindInterfacesAndSelfTo<DragItemState>().AsSingle();
             Container.BindInterfacesAndSelfTo<ScanForItemState>().AsSingle();
             Container.BindInterfacesTo<ItemFactory>().AsSingle().WithArguments(new object[]{ _itemViewPrefab });

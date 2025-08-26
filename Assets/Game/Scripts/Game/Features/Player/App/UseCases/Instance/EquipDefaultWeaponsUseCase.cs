@@ -21,5 +21,4 @@ namespace Game.Features.Player.App.UseCases.Instance
             _inventory.GetContainer(ContainerId.Backpack0).PlaceItem(new GridSpaceItemPlacement(_itemFactory.Create(ItemIds.AXE), new Vector2Int(8, 1)));
         }
     }
-    
 }

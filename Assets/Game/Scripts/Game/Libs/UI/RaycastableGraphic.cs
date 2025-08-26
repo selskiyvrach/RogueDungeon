@@ -1,19 +1,20 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.Libs.UI
 {
     public class RaycastableGraphic : MonoBehaviour, IRaycastable
     {
-        private Graphic _graphic;
+        [SerializeField, ReadOnly] private Graphic _raycastGraphic;
 
         public bool Raycastable
         {
-            get => _graphic.raycastTarget;
-            set => _graphic.raycastTarget = value;
+            get => _raycastGraphic.raycastTarget;
+            set => _raycastGraphic.raycastTarget = value;
         }
 
         protected virtual void OnValidate() => 
-            _graphic ??= GetComponent<Graphic>();
+            _raycastGraphic ??= GetComponent<Graphic>();
     }
 }

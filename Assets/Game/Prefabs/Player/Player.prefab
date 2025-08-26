@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 307175014674769343}
   - component: {fileID: 9074553005204053543}
   - component: {fileID: 2542345034395542204}
+  - component: {fileID: 3326611342276831118}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -86,6 +87,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 307175014674769343}
   - {fileID: 2542345034395542204}
+  - {fileID: 3326611342276831118}
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
@@ -137,6 +139,19 @@ MonoBehaviour:
   _inventoryViewParent: {fileID: 6378210576753388697}
   _inventoryViewPrefab: {fileID: 845404053093650705, guid: 40bcc1111b8f5a3469ab37360a8ef839,
     type: 3}
+--- !u!114 &3326611342276831118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519540501769377305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6282f749f1481393becd401ff16bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 8815241360408768680}
 --- !u!1 &763680708661238317
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,6 +903,12 @@ PrefabInstance:
 --- !u!4 &697848290537088100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6055843529890439919, guid: 3505bfda12e0dcc45a76b5ec65954a2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6748059961611519627}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &8815241360408768680 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2878903554802382371, guid: 3505bfda12e0dcc45a76b5ec65954a2d,
     type: 3}
   m_PrefabInstance: {fileID: 6748059961611519627}
   m_PrefabAsset: {fileID: 0}

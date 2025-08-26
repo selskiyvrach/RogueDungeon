@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Features.Inventory.App.Presenters
 {
-    public interface IDragItemInput
+    public interface IInventoryInput
     {
         event Action OnPointerDown;
         event Action OnPointerUp;
