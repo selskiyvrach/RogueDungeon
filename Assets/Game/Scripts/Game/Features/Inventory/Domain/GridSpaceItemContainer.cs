@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Game.Libs.Items;
-using Libs.Commands;
 using Libs.GridSpace;
 using UnityEngine;
 
@@ -18,8 +18,11 @@ namespace Game.Features.Inventory.Domain
         public override IEnumerable<(IItem item, Vector2 posNormalized)> GetItems() => 
             _items.Select(n => (n.Value, GetItemPositionNormalized(n.Key)));
 
-        public override void PlaceItem(ItemPlacement placement) => 
+        protected override void PlaceItemInternal(ItemPlacement placement) => 
             PlaceItem(placement.Item, ((GridSpaceItemPlacement)placement).Position);
+
+        protected override ItemPlacement GetItemPlacementFromProjection(IItem item, ItemPlacementInquiryResult placementInquiry) => 
+            new GridSpaceItemPlacement(item, NormalizedToGridPosition(new Vector2(placementInquiry.XNormalized, placementInquiry.YNormalized), item.Size, _gridSpace.Size));
 
         private Vector2 GetItemPositionNormalized(string id)
         {
@@ -28,74 +31,47 @@ namespace Game.Features.Inventory.Domain
         }
 
         private Vector2 GridPositionToNormalized(Vector2Int itemSize, Vector2Int gridPosition, Vector2Int gridSize) => 
-            (Vector2)gridPosition / gridSize + ((Vector2)itemSize / 2) / gridSize;
+            (Vector2)gridPosition / gridSize + (Vector2)itemSize / 2 / gridSize;
 
-        public override ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker caretaker) => 
-            new ExtractedItemCommand(this, itemId, caretaker);
+        private Vector2Int NormalizedToGridPosition(Vector2 normalizedPosition, Vector2Int itemSize, Vector2Int gridSize)
+        {
+            var pos = normalizedPosition * gridSize - itemSize / 2;
+            return new Vector2Int(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
+        }
 
-        public override ItemPlacementResult GetItemPlacement(ItemPlacementProposition proposition)
+        protected override IItem ExtractItemInternal(string itemId)
+        {
+            var item = _items[itemId];
+            if (!_gridSpace.Remove(itemId) || !_items.Remove(itemId))
+                throw new InvalidOperationException();
+            return item;
+        }
+
+        public override ItemPlacementInquiryResult GetItemPlacementInquiry(ItemPlacementProposition proposition)
         {
             var position = GetPosition(proposition);
-            return new ItemPlacementResult(GetIsPossible(proposition), position.x, position.y, GetReplacement(proposition));
+            return new ItemPlacementInquiryResult(GetIsPossible(proposition), position.x, position.y, GetReplacement(proposition));
 
             IItem GetReplacement(ItemPlacementProposition itemPlacementProposition)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             Vector2Int GetPosition(ItemPlacementProposition proposition)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
 
             bool GetIsPossible(ItemPlacementProposition proposition)
             {
-                throw new System.NotImplementedException();
+                throw new NotImplementedException();
             }
         }
         
-        private IItem ExtractItem(string itemId, out Vector2Int coords)
-        {
-            var item = _gridSpace.GetItem(itemId);
-            if(item.Equals(default(GridSpaceItem)))
-                throw new KeyNotFoundException($"Item with id {itemId} not found");
-            
-            coords = item.Position;
-            var result = _items[itemId];
-            _items.Remove(itemId);
-            return result;
-        }
-
         private void PlaceItem(IItem item, Vector2Int coords)
         {
             _gridSpace.Insert(new GridSpaceItem(item.Id, item.Size, coords));
             _items[item.Id] = item;
-        }
-
-        private class ExtractedItemCommand : ItemOperationCommand
-        {
-            private readonly GridSpaceItemContainer _container;
-            private readonly string _itemId;
-            private readonly IExtractedItemCaretaker _caretaker;
-            
-            private Vector2Int _itemPosition;
-            private IItem _item;
-
-            public ExtractedItemCommand(GridSpaceItemContainer container, string itemId, IExtractedItemCaretaker caretaker) : base(container)
-            {
-                _container = container;
-                _itemId = itemId;
-                _caretaker = caretaker;
-            }
-
-            protected override void ExecuteInternal() => 
-                _caretaker.SetItem(_item = _container.ExtractItem(_itemId, out _itemPosition));
-
-            protected override void UndoInternal()
-            {
-                _caretaker.RemoveItem(_item);
-                _container.PlaceItem(_item, _itemPosition);
-            }
         }
     }
 }

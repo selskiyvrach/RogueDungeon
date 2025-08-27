@@ -56,5 +56,10 @@ namespace Game.Features.Inventory.App.Presenters
             if(View.Raycastable != value)
                 View.Raycastable = value;
         }
+
+        public void OnPlacementDenied()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Game.Features.Inventory.Domain
 {
-    public record ItemPlacementResult(bool IsPossible, float XNormalized, float YNormalized, IItem ReplacedItem)
+    public record ItemPlacementInquiryResult(bool IsPossible, float XNormalized, float YNormalized, IItem ReplacedItem)
     {
         public bool IsPossible { get; } = IsPossible;
         public float XNormalized { get; } = XNormalized;

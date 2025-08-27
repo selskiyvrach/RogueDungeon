@@ -34,7 +34,12 @@ namespace Game.Features.Inventory.App.Presenters
             _draggedItemParent.SetItem(_item.View);
             _input.OnMoved += OnCursorMoved;
             _input.OnPointerUp += OnPointerUp;
-            OnCursorMoved();
+            
+            ScanForContainer();
+            Assert.IsNotNull(_container);
+            UpdateItemPositionAndProjection();
+            
+            _container.ExtractItem(carriedItem);
         }
 
         private void Exit()
@@ -46,6 +51,11 @@ namespace Game.Features.Inventory.App.Presenters
         private void OnCursorMoved()
         {
             ScanForContainer();
+            UpdateItemPositionAndProjection();
+        }
+
+        private void UpdateItemPositionAndProjection()
+        {
             _draggedItemParent.SetScreenPosition(_input.ScreenPosition);
             if (_container == null)
             {
@@ -56,7 +66,7 @@ namespace Game.Features.Inventory.App.Presenters
             {
                 _projection = _container.GetProjection(_item.Model, _camera, _input.ScreenPosition);
                 _item.Projection.SetPosition(_projection.WorldPosition);
-                _item.Projection.SetIsValid(_projection.Placement.IsPossible);
+                _item.Projection.SetIsValid(_projection.PlacementInquiry.IsPossible);
             }
         }
 
@@ -70,14 +80,22 @@ namespace Game.Features.Inventory.App.Presenters
 
         private void OnPointerUp()
         {
-            if (_container != null && _projection.Placement.IsPossible)
+            if (_container == null)
             {
-                // _container.
+                // drop to the loot area
+                Exit();
+                Mediator.StopCarryingItem();
             }
-
-            // execute place item command or undo of the extract one
-            Exit();
-            Mediator.StopCarryingItem();
+            else if (_projection.PlacementInquiry.IsPossible)
+            {
+                _container.PlaceItem(_item, _projection.PlacementInquiry);
+                _draggedItemParent.RemoveItem();
+                Exit();
+                if(_projection.PlacementInquiry.ReplacedItem != null)
+                    Mediator.StartCarryingItem(_registry.Items.First(n => n.Model == _projection.PlacementInquiry.ReplacedItem));
+            }
+            else
+                _item.OnPlacementDenied();
         }
 
         public override void Dispose() => 

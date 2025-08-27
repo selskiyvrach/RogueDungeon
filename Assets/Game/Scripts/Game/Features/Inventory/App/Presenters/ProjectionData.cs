@@ -5,12 +5,12 @@ namespace Game.Features.Inventory.App.Presenters
 {
     public struct ProjectionData
     {
-        public ItemPlacementResult Placement { get; }
+        public ItemPlacementInquiryResult PlacementInquiry { get; }
         public Vector3 WorldPosition { get; }
 
-        public ProjectionData(ItemPlacementResult placement, Vector3 worldPosition)
+        public ProjectionData(ItemPlacementInquiryResult placementInquiry, Vector3 worldPosition)
         {
-            Placement = placement;
+            PlacementInquiry = placementInquiry;
             WorldPosition = worldPosition;
         }
     }

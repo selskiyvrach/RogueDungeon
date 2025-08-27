@@ -8,7 +8,7 @@ namespace Libs.GridSpace
     public class GridSpace
     {
         private readonly string[,] _occupiedCells;
-        private readonly HashSet<GridSpaceItem> _items = new(17);
+        private readonly HashSet<GridSpaceItem> _items = new(20);
         private readonly int _rows;
         private readonly int _columns;
 

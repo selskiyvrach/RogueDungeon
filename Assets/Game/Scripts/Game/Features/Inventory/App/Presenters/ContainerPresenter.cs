@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Game.Features.Inventory.Domain;
 using Game.Libs.Items;
 using UnityEngine;
@@ -37,7 +36,7 @@ namespace Game.Features.Inventory.App.Presenters
         public ProjectionData GetProjection(IItem item, Camera camera, Vector2 pointerScreenPos)
         {
             var localPos = View.ScreenPosToLocalPosNormalized(pointerScreenPos, camera);
-            var placement = Model.GetItemPlacement(new ItemPlacementProposition(localPos.x, localPos.y, item));
+            var placement = Model.GetItemPlacementInquiry(new ItemPlacementProposition(localPos.x, localPos.y, item));
             var worldPos = View.LocalPosNormalizedToWorldPos(localPos);
             return new ProjectionData(placement, worldPos);
         }
@@ -48,5 +47,11 @@ namespace Game.Features.Inventory.App.Presenters
             foreach (var item in Model.GetItems()) 
                 View.PlaceItem(_itemFactory.Create(item.item), item.posNormalized);
         }
+
+        public void PlaceItem(ItemPresenter item, ItemPlacementInquiryResult placementInquiryResult) => 
+            Model.PlaceItem(item.Model, placementInquiryResult);
+
+        public void ExtractItem(ItemPresenter itemPresenter) => 
+            Model.ExtractItem(itemPresenter.Model.Id);
     }
 }

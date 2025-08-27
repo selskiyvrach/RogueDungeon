@@ -14,30 +14,26 @@ namespace Game.Features.Inventory.Domain
             Id = id;
 
         public abstract IEnumerable<(IItem item, Vector2 posNormalized)> GetItems();
-        public abstract void PlaceItem(ItemPlacement placement);
-        public abstract ICommand GetExtractItemCommand(string itemId, IExtractedItemCaretaker extractedItemCaretaker);
-        public abstract ItemPlacementResult GetItemPlacement(ItemPlacementProposition proposition);
-        
-        protected abstract class ItemOperationCommand : ICommand
+
+        public void PlaceItem(ItemPlacement placement)
         {
-            private readonly ItemContainer _container;
-            protected ItemOperationCommand(ItemContainer container) => 
-                _container = container;
-
-            public void Execute()
-            {
-                ExecuteInternal();
-                _container.OnContentChanged?.Invoke();
-            }
-
-            public void Undo()
-            {
-                UndoInternal();
-                _container.OnContentChanged?.Invoke();
-            }
-
-            protected abstract void ExecuteInternal();
-            protected abstract void UndoInternal();
+            PlaceItemInternal(placement);
+            OnContentChanged?.Invoke();
         }
+
+        public void PlaceItem(IItem item, ItemPlacementInquiryResult placementInquiry) => 
+            PlaceItem(GetItemPlacementFromProjection(item, placementInquiry));
+
+        public IItem ExtractItem(string itemId)
+        {
+            var item = ExtractItemInternal(itemId);
+            OnContentChanged?.Invoke();
+            return item;
+        }
+
+        public abstract ItemPlacementInquiryResult GetItemPlacementInquiry(ItemPlacementProposition proposition);
+        protected abstract IItem ExtractItemInternal(string itemId);
+        protected abstract void PlaceItemInternal(ItemPlacement placement);
+        protected abstract ItemPlacement GetItemPlacementFromProjection(IItem item, ItemPlacementInquiryResult placementInquiry);
     }
 }
