@@ -7,7 +7,6 @@ namespace Game.Features.Inventory.App.Presenters
 {
     public sealed class ItemPresenter : IInitializable, IDisposable
     {
-        private readonly Mediator _mediator;
         private readonly IPresentersRegistry _registry;
 
         private bool _isInitialized;
@@ -15,12 +14,12 @@ namespace Game.Features.Inventory.App.Presenters
 
         public IItem Model { get; }
         public IItemView View { get; }
+        public IProjectionView Projection => View.ProjectionView;
 
-        public ItemPresenter(IItem model, IItemView view, Mediator mediator, IPresentersRegistry registry)
+        public ItemPresenter(IItem model, IItemView view, IPresentersRegistry registry)
         {
             Model = model;
             View = view;
-            _mediator = mediator;
             _registry = registry;
         }
 

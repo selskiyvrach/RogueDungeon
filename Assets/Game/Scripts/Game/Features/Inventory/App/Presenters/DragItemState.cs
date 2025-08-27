@@ -1,36 +1,37 @@
-﻿using Game.Libs.Items;
+﻿using System.Linq;
+using Game.Libs.Items;
 using Libs.Utils.DotNet;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Game.Features.Inventory.App.Presenters
 {
     public class DragItemState : MediatorState
     {
         private readonly IInventoryInput _input;
-        private readonly IDraggedItemParent _parent;
+        private readonly IDraggedItemParent _draggedItemParent;
+        private readonly IGraphicRaycaster _raycaster;
+        private readonly IPresentersRegistry _registry;
         private readonly Camera _camera;
-        private readonly IProjectionView _projectionView;
-        private readonly IItemConfigsRepository _itemRepository;
         
         private ContainerPresenter _container;
         private ItemPresenter _item;
-        private ProjectionData _lastProjection;
+        private ProjectionData _projection;
 
-        public DragItemState(Camera camera, IProjectionView projectionView, IItemConfigsRepository itemRepository, IInventoryInput input, IDraggedItemParent parent)
+        public DragItemState(Camera camera, IInventoryInput input, IDraggedItemParent draggedItemParent, IGraphicRaycaster raycaster, IPresentersRegistry registry)
         {
             _camera = camera;
-            _projectionView = projectionView;
-            _itemRepository = itemRepository;
             _input = input;
-            _parent = parent;
+            _draggedItemParent = draggedItemParent;
+            _raycaster = raycaster;
+            _registry = registry;
         }
 
         public void Enter(ItemPresenter carriedItem)
         {
             carriedItem.ThrowIfNull();
             _item = carriedItem;
-            _parent.SetItem(_item.View);
-            _projectionView.SetSprite(_itemRepository.GetItemSprite(_item.Model.TypeId));
+            _draggedItemParent.SetItem(_item.View);
             _input.OnMoved += OnCursorMoved;
             _input.OnPointerUp += OnPointerUp;
             OnCursorMoved();
@@ -44,17 +45,32 @@ namespace Game.Features.Inventory.App.Presenters
 
         private void OnCursorMoved()
         {
-            // scan for container
-            
-            _parent.SetScreenPosition(_input.ScreenPosition);
-            _lastProjection = _container.GetProjection(_item.Model, _camera, _input.ScreenPosition);
-            _projectionView.SetPosition(_lastProjection.WorldPosition);
-            _projectionView.SetIsValid(_lastProjection.Placement.IsPossible);
+            ScanForContainer();
+            _draggedItemParent.SetScreenPosition(_input.ScreenPosition);
+            if (_container == null)
+            {
+                _item.Projection.SetPosition(_draggedItemParent.WorldPosition);
+                _item.Projection.SetIsValid(false);
+            }
+            else
+            {
+                _projection = _container.GetProjection(_item.Model, _camera, _input.ScreenPosition);
+                _item.Projection.SetPosition(_projection.WorldPosition);
+                _item.Projection.SetIsValid(_projection.Placement.IsPossible);
+            }
+        }
+
+        private void ScanForContainer()
+        {
+            var containers = _raycaster.RaycastAll<IContainerView>(_input.ScreenPosition);
+            Assert.IsFalse(containers.Count() > 1);
+            var container = containers.FirstOrDefault();
+            _container = container == null ? null : _registry.Containers.First(n => n.View == container);
         }
 
         private void OnPointerUp()
         {
-            if (_container != null && _lastProjection.Placement.IsPossible)
+            if (_container != null && _projection.Placement.IsPossible)
             {
                 // _container.
             }

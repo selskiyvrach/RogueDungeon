@@ -9,45 +9,44 @@ namespace Game.Features.Inventory.App.Presenters
 {
     public class ContainerPresenter : IInitializable, IDisposable
     {
-        private readonly Mediator _mediator;
-        private readonly IContainerView _view;
-        private readonly ItemContainer _model;
+        public IContainerView View {get;}
+        public ItemContainer Model {get;}
+        
         private readonly IFactory<IItem, IItemView> _itemFactory;
+        private readonly IPresentersRegistry _registry;
 
-        public ContainerPresenter(IContainerView view, ItemContainer model, Mediator mediator, IFactory<IItem, IItemView> itemFactory)
+        public ContainerPresenter(IContainerView view, ItemContainer model, IFactory<IItem, IItemView> itemFactory, IPresentersRegistry registry)
         {
-            _view = view;
-            _model = model;
-            _mediator = mediator;
+            View = view;
+            Model = model;
             _itemFactory = itemFactory;
+            _registry = registry;
         }
 
         public void Initialize()
         {
-            _model.OnContentChanged += UpdateView;
+            Model.OnContentChanged += UpdateView;
             UpdateView();
             
-            _mediator.Registry.Register(this);
+            _registry.Register(this);
+        }
+
+        public void Dispose() => 
+            _registry.Unregister(this);
+
+        public ProjectionData GetProjection(IItem item, Camera camera, Vector2 pointerScreenPos)
+        {
+            var localPos = View.ScreenPosToLocalPosNormalized(pointerScreenPos, camera);
+            var placement = Model.GetItemPlacement(new ItemPlacementProposition(localPos.x, localPos.y, item));
+            var worldPos = View.LocalPosNormalizedToWorldPos(localPos);
+            return new ProjectionData(placement, worldPos);
         }
 
         private void UpdateView()
         {
-            _view.Reset();
-            // register items
-            // unregister items
-            foreach (var item in _model.GetItems()) 
-                _view.PlaceItem(_itemFactory.Create(item.item), item.posNormalized);
-        }
-
-        public void Dispose() => 
-            _mediator.Registry.Unregister(this);
-
-        public ProjectionData GetProjection(IItem item, Camera camera, Vector2 pointerScreenPos)
-        {
-            var localPos = _view.ScreenPosToLocalPosNormalized(pointerScreenPos, camera);
-            var placement = _model.GetItemPlacement(new ItemPlacementProposition(localPos.x, localPos.y, item));
-            var worldPos = _view.LocalPosNormalizedToWorldPos(localPos);
-            return new ProjectionData(placement, worldPos);
+            View.Reset();
+            foreach (var item in Model.GetItems()) 
+                View.PlaceItem(_itemFactory.Create(item.item), item.posNormalized);
         }
     }
 }

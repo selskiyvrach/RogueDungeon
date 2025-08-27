@@ -9,7 +9,9 @@ namespace Game.Features.Inventory.Infrastructure.View
     {
         private IDraggableArea _draggableArea;
         private IItemView _item;
-
+        
+        public Vector3 WorldPosition => transform.position;
+        
         [Inject]
         public void Construct(IDraggableArea draggableArea) => 
             _draggableArea = draggableArea;

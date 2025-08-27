@@ -19,7 +19,6 @@ namespace Game.Features.Inventory.Infrastructure.Factories
 
         [SerializeField] private ItemView _itemViewPrefab;
         [SerializeField] private View.Inventory _view;
-        [SerializeField] private ItemProjection _projection;
         [SerializeField] private ContainerIdPair[] _containerViews;
         [SerializeField] private DraggedItemParent _draggedItemParent;
         [SerializeField] private DraggableArea _draggableArea;
@@ -29,7 +28,6 @@ namespace Game.Features.Inventory.Infrastructure.Factories
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<View.Inventory>().FromInstance(_view).AsSingle();
-            Container.BindInterfacesTo<ItemProjection>().FromInstance(_projection).AsSingle();
             
             foreach (var pair in _containerViews) 
                 Container.BindInterfacesAndSelfTo<ContainerPresenter>().FromSubContainerResolve().ByMethod(subcontainer => CreateContainer(pair, subcontainer))

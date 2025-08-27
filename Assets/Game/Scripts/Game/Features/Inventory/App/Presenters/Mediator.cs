@@ -8,11 +8,8 @@ namespace Game.Features.Inventory.App.Presenters
         private readonly DragItemState _dragItemState;
         private readonly ScanForItemState _scanForItemState;
         
-        public PresentersRegistry Registry { get; }
-
-        public Mediator(PresentersRegistry registry, DragItemState dragItemState, ScanForItemState scanForItemState)
+        public Mediator(DragItemState dragItemState, ScanForItemState scanForItemState)
         {
-            Registry = registry;
             _dragItemState = dragItemState;
             _scanForItemState = scanForItemState;
         }

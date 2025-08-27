@@ -5,6 +5,7 @@ namespace Game.Features.Inventory.App.Presenters
 {
     public interface IItemView : IIDable, IHoverDisplayable, IBeingDraggedDisplayable, IRaycastable
     {
+        IProjectionView ProjectionView { get; }
         void Setup(IItemViewSetupArgs viewSetupArgs);
         void SetCellSize(float cellSize);
         void SetParent(Transform parent);

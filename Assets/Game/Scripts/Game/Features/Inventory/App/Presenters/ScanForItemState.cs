@@ -84,7 +84,6 @@ namespace Game.Features.Inventory.App.Presenters
             else
             {
                 Assert.IsNotNull(_currentItem);
-                Assert.AreEqual(_currentItem, item);
                 _currentItem.SetHovered(false);
                 _currentItem = null;
             }

@@ -13,6 +13,9 @@ namespace Game.Features.Inventory.Infrastructure.View
 
         public void SetPosition(Vector3 worldPosition) => 
             transform.position = worldPosition;
+        
+        public void SetSize(Vector2 size) =>
+            _image.rectTransform.sizeDelta = size;
 
         public void SetIsValid(bool isValid) => 
             _image.color = isValid ? Color.black : Color.red;
