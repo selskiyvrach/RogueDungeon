@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Game.Libs.Items;
 using Libs.Utils.DotNet;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace Game.Features.Inventory.App.Presenters
     public class DragItemState : MediatorState
     {
         private readonly IInventoryInput _input;
-        private readonly IDraggedItemParent _draggedItemParent;
+        private readonly IDraggableArea _draggableArea;
         private readonly IGraphicRaycaster _raycaster;
         private readonly IPresentersRegistry _registry;
         private readonly Camera _camera;
@@ -18,11 +19,11 @@ namespace Game.Features.Inventory.App.Presenters
         private ItemPresenter _item;
         private ProjectionData _projection;
 
-        public DragItemState(Camera camera, IInventoryInput input, IDraggedItemParent draggedItemParent, IGraphicRaycaster raycaster, IPresentersRegistry registry)
+        public DragItemState(Camera camera, IInventoryInput input, IDraggableArea draggableArea, IGraphicRaycaster raycaster, IPresentersRegistry registry)
         {
             _camera = camera;
             _input = input;
-            _draggedItemParent = draggedItemParent;
+            _draggableArea = draggableArea;
             _raycaster = raycaster;
             _registry = registry;
         }
@@ -31,7 +32,6 @@ namespace Game.Features.Inventory.App.Presenters
         {
             carriedItem.ThrowIfNull();
             _item = carriedItem;
-            _draggedItemParent.SetItem(_item.View);
             _input.OnMoved += OnCursorMoved;
             _input.OnPointerUp += OnPointerUp;
             
@@ -40,6 +40,7 @@ namespace Game.Features.Inventory.App.Presenters
             UpdateItemPositionAndProjection();
             
             _container.ExtractItem(carriedItem);
+            _item.DisplaySelected(true);
         }
 
         private void Exit()
@@ -56,11 +57,12 @@ namespace Game.Features.Inventory.App.Presenters
 
         private void UpdateItemPositionAndProjection()
         {
-            _draggedItemParent.SetScreenPosition(_input.ScreenPosition);
+            var itemPos = _draggableArea.ScreenToWorldPoint(_input.ScreenPosition);
+            _item.View.SetPosition(itemPos);
             if (_container == null)
             {
-                _item.Projection.SetPosition(_draggedItemParent.WorldPosition);
-                _item.Projection.SetIsValid(false);
+                _item.Projection.SetPosition(itemPos);
+                _item.Projection.SetIsValid(true);
             }
             else
             {
@@ -82,17 +84,19 @@ namespace Game.Features.Inventory.App.Presenters
         {
             if (_container == null)
             {
-                // drop to the loot area
+                throw new NotImplementedException();
                 Exit();
                 Mediator.StopCarryingItem();
             }
             else if (_projection.PlacementInquiry.IsPossible)
             {
                 _container.PlaceItem(_item, _projection.PlacementInquiry);
-                _draggedItemParent.RemoveItem();
+                _item.DisplaySelected(false);
                 Exit();
                 if(_projection.PlacementInquiry.ReplacedItem != null)
                     Mediator.StartCarryingItem(_registry.Items.First(n => n.Model == _projection.PlacementInquiry.ReplacedItem));
+                else
+                    Mediator.StopCarryingItem();
             }
             else
                 _item.OnPlacementDenied();

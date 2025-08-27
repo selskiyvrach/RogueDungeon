@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Features.Inventory.App.Presenters;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Features.Inventory.Infrastructure.View

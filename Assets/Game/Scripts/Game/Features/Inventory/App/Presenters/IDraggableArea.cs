@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.Features.Inventory.Infrastructure.View
+namespace Game.Features.Inventory.App.Presenters
 {
     public interface IDraggableArea
     {

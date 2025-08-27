@@ -7,24 +7,26 @@ using Zenject;
 
 namespace Game.Features.Inventory.Infrastructure.Factories
 {
-    public class ItemFactory : IFactory<IItem, IItemView>
+    public class ItemViewFactory : IFactory<IItem, IItemView>
     {
+        private readonly Transform _parent;
         private readonly DiContainer _container;
         private readonly ItemView _prefab;
         private readonly IItemConfigsRepository _configsRepository;
 
-        public ItemFactory(DiContainer container, ItemView prefab, IItemConfigsRepository configsRepository)
+        public ItemViewFactory(DiContainer container, ItemView prefab, IItemConfigsRepository configsRepository, Transform parent)
         {
             _container = container;
             _prefab = prefab;
             _configsRepository = configsRepository;
+            _parent = parent;
         }
 
         public IItemView Create(IItem param1)
         {
             param1.ThrowIfNull();
             _container.Bind<IItem>().FromInstance(param1).AsCached();
-            var view = _container.InstantiatePrefabForComponent<ItemView>(_prefab);
+            var view = _container.InstantiatePrefabForComponent<ItemView>(_prefab, _parent);
             _container.Unbind<IItem>();
             view.Setup(new ItemViewSetupArgs(param1.Id, _configsRepository.GetItemSprite(param1.TypeId), param1.Size));
             return view;

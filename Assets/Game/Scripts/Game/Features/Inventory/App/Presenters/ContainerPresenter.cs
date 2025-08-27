@@ -11,14 +11,14 @@ namespace Game.Features.Inventory.App.Presenters
         public IContainerView View {get;}
         public ItemContainer Model {get;}
         
-        private readonly IFactory<IItem, IItemView> _itemFactory;
+        private readonly IItemsViewProvider _itemsViewProvider;
         private readonly IPresentersRegistry _registry;
 
-        public ContainerPresenter(IContainerView view, ItemContainer model, IFactory<IItem, IItemView> itemFactory, IPresentersRegistry registry)
+        public ContainerPresenter(IContainerView view, ItemContainer model, IItemsViewProvider itemsViewProvider, IPresentersRegistry registry)
         {
             View = view;
             Model = model;
-            _itemFactory = itemFactory;
+            _itemsViewProvider = itemsViewProvider;
             _registry = registry;
         }
 
@@ -37,15 +37,14 @@ namespace Game.Features.Inventory.App.Presenters
         {
             var localPos = View.ScreenPosToLocalPosNormalized(pointerScreenPos, camera);
             var placement = Model.GetItemPlacementInquiry(new ItemPlacementProposition(localPos.x, localPos.y, item));
-            var worldPos = View.LocalPosNormalizedToWorldPos(localPos);
+            var worldPos = View.LocalPosNormalizedToWorldPos(new Vector2(placement.XNormalized, placement.YNormalized));
             return new ProjectionData(placement, worldPos);
         }
 
         private void UpdateView()
         {
-            View.Reset();
             foreach (var item in Model.GetItems()) 
-                View.PlaceItem(_itemFactory.Create(item.item), item.posNormalized);
+                View.PlaceItem(_itemsViewProvider.GetView(item.item), item.posNormalized);
         }
 
         public void PlaceItem(ItemPresenter item, ItemPlacementInquiryResult placementInquiryResult) => 

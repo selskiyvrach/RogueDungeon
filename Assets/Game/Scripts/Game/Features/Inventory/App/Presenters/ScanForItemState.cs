@@ -23,8 +23,6 @@ namespace Game.Features.Inventory.App.Presenters
 
         public void Enter()
         {
-            foreach (var item in _registry.Items) 
-                item.EnableRaycasts(true);
             _input.OnMoved += OnCursorMoved;
             _input.OnPointerDown += OnPointerDown;
             OnCursorMoved();
@@ -79,12 +77,12 @@ namespace Game.Features.Inventory.App.Presenters
                 Assert.IsNull(_currentItem);
                 Assert.IsNotNull(item);
                 _currentItem = item;
-                _currentItem.SetHovered(true);
+                _currentItem.DisplaySelected(true);
             }
             else
             {
                 Assert.IsNotNull(_currentItem);
-                _currentItem.SetHovered(false);
+                _currentItem.DisplaySelected(false);
                 _currentItem = null;
             }
         }
@@ -93,9 +91,6 @@ namespace Game.Features.Inventory.App.Presenters
         {
             if (_currentItem == null)
                 return;
-            
-            foreach (var item in _registry.Items) 
-                item.EnableRaycasts(false);
 
             Exit();
             Mediator.StartCarryingItem(_currentItem);

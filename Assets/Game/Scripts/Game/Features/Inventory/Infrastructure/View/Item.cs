@@ -9,8 +9,6 @@ namespace Game.Features.Inventory.Infrastructure.View
     public class ItemView : RaycastableGraphic, IItemView
     {
         [SerializeField] private Image _itemImage;
-        [SerializeField] private Color _legalPositionShadowColor;
-        [SerializeField] private Color _illegalPositionShadowColor;
         [SerializeField] private ItemProjection _projection;
 
         private bool _isBeingDragged;
@@ -29,19 +27,14 @@ namespace Game.Features.Inventory.Infrastructure.View
             UpdateVerticalOffset();
         }
 
-        public void SetParent(Transform parent)
-        {
-            transform.SetParent(parent, worldPositionStays: false);
-            // parent scale will affect the offset
-            UpdateVerticalOffset();
-        }
-
-        public void SetLocalPosition(Vector2 pos) => 
-            // because the canvas is rotated 90 degrees
-            transform.localPosition = new Vector3(pos.x, 0, pos.y);
+        public void SetPosition(Vector3 pos) => 
+            transform.position = pos;
 
         public Vector2 GetScreenPosition(Camera camera) => 
             camera.WorldToScreenPoint(transform.position);
+
+        public void RenderLast() => 
+            transform.SetAsLastSibling();
 
         public void SetCellSize(float value)
         {
@@ -61,20 +54,17 @@ namespace Game.Features.Inventory.Infrastructure.View
         public void DisplayHovered(bool hovered)
         {
             IsHovered = hovered;
-            UpdateVerticalOffset();
-        }
-
-        public void DisplayBeingDragged(bool beingDragged)
-        {
-            _isBeingDragged = beingDragged;
+            if(IsHovered)
+                RenderLast();
             UpdateVerticalOffset();
         }
 
         private void UpdateVerticalOffset()
         {
             var offset = .0035f;
-            if (IsHovered || _isBeingDragged)
+            if (IsHovered) 
                 offset += .0065f;
+
             _itemImage.transform.localPosition = Vector3.back * offset / transform.lossyScale.y;
         }
     }

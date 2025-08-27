@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using UnityEngine;
+using Zenject;
 
 namespace Game.Features.Inventory.App.Presenters
 {
@@ -21,10 +22,16 @@ namespace Game.Features.Inventory.App.Presenters
             _scanForItemState.Enter();
         }
 
-        public void StartCarryingItem(ItemPresenter itemInQuestion) => 
+        public void StartCarryingItem(ItemPresenter itemInQuestion)
+        {
             _dragItemState.Enter(itemInQuestion);
+            Debug.Log("Entered carrying item");
+        }
 
-        public void StopCarryingItem() =>
+        public void StopCarryingItem()
+        {
             _scanForItemState.Enter();
+            Debug.Log("Entered scan for item");
+        }
     }
 }

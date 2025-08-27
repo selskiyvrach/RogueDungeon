@@ -18,6 +18,8 @@ namespace Game.Features.Inventory.Domain
 
         public override IEnumerable<(IItem item, Vector2 posNormalized)> GetItems()
         {
+            if(_item == null)
+                return Array.Empty<(IItem item, Vector2 posNormalized)>();
             _items[0] = (_item, Vector2.one / 2);
             return _items;
         }

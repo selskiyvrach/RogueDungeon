@@ -1,6 +1,7 @@
 ﻿using System;
 using Game.Libs.Items;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Zenject;
 
 namespace Game.Features.Inventory.App.Presenters
@@ -40,22 +41,8 @@ namespace Game.Features.Inventory.App.Presenters
             _isInitialized = false;
         }
 
-        public void SetHovered(bool value)
-        {
-            if (_isDragging)
-                throw new InvalidOperationException();
-            
-            if (View.IsHovered == value)
-                throw new InvalidOperationException();
-            
+        public void DisplaySelected(bool value) => 
             View.DisplayHovered(value);
-        }
-
-        public void EnableRaycasts(bool value)
-        {
-            if(View.Raycastable != value)
-                View.Raycastable = value;
-        }
 
         public void OnPlacementDenied()
         {

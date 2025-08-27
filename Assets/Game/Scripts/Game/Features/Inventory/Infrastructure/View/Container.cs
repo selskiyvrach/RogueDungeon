@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using Game.Features.Inventory.App.Presenters;
+﻿using Game.Features.Inventory.App.Presenters;
 using Game.Libs.UI;
 using Libs.Utils.DotNet;
-using Libs.Utils.Unity;
 using UnityEngine;
 
 namespace Game.Features.Inventory.Infrastructure.View
@@ -11,7 +9,7 @@ namespace Game.Features.Inventory.Infrastructure.View
     {
         [SerializeField, HideInInspector] private RectTransform _rectTransform;
         [field: SerializeField] public float CellSize { get; private set; } = 40;
-
+        
         protected override void OnValidate()
         {
             base.OnValidate();
@@ -20,16 +18,11 @@ namespace Game.Features.Inventory.Infrastructure.View
 
         public void PlaceItem(IItemView item, Vector2 posNormalized)
         {
-            item.SetParent(_rectTransform);
+            var localPos = (posNormalized - Vector2.one * .5f) * _rectTransform.sizeDelta;
+            var itemPos = transform.position + new Vector3(localPos.x, 0, localPos.y);
+            item.SetPosition(itemPos);
+            item.ProjectionView.SetPosition(itemPos);
             item.SetCellSize(CellSize);
-            item.SetLocalPosition((posNormalized - Vector2.one * .5f) * _rectTransform.sizeDelta);
-        }
-
-        public IItemView RemoveItem(string id)
-        {
-            var item = _rectTransform.GetDirectChildren<IItemView>().First(n => n.Id == id);
-            item.SetParent(null);
-            return item;
         }
 
         public Vector2 ScreenPosToLocalPosNormalized(Vector2 point, Camera cam)
@@ -46,12 +39,6 @@ namespace Game.Features.Inventory.Infrastructure.View
                 Mathf.Lerp(rect.yMin, rect.yMax, normalized.y)
             );
             return _rectTransform.TransformPoint(localPos);
-        }
-
-        public void Reset()
-        {
-            for (var i = _rectTransform.childCount - 1; i >= 0; i--) 
-                Destroy(_rectTransform.GetChild(i).gameObject);
         }
     }
 }

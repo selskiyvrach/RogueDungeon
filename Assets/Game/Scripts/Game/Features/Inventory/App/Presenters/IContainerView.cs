@@ -1,9 +1,8 @@
-﻿using Libs.Lifecycle;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.Features.Inventory.App.Presenters
 {
-    public interface IContainerView : IResettable
+    public interface IContainerView 
     {
         void PlaceItem(IItemView item, Vector2 posNormalized);
         Vector2 ScreenPosToLocalPosNormalized(Vector2 point, Camera cam);

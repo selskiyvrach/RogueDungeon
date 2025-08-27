@@ -117,9 +117,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _raycastGraphic: {fileID: 111966491014755214}
   _itemImage: {fileID: 1523352450832919681}
-  _shadow: {fileID: 5191131650719046296}
-  _legalPositionShadowColor: {r: 0, g: 0, b: 0, a: 1}
-  _illegalPositionShadowColor: {r: 0.6226415, g: 0, b: 0, a: 1}
   _projection: {fileID: 2283657874523881365}
 --- !u!222 &1155226063684189043
 CanvasRenderer:
@@ -263,7 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.78431374}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -293,3 +290,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 5191131650719046296}
+  _normalColor: {r: 0, g: 0, b: 0, a: 0.78431374}
+  _invalidColor: {r: 0.254717, g: 0, b: 0, a: 0.78431374}
