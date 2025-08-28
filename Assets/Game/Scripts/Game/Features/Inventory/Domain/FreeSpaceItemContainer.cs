@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Game.Libs.Items;
 using UnityEngine;
@@ -13,26 +14,23 @@ namespace Game.Features.Inventory.Domain
         {
         }
 
-        private void PlaceItem(IItem item, Vector2 localPositionNormalized) => 
-            _items.Add((item, localPositionNormalized));
-
         public override IEnumerable<(IItem item, Vector2 posNormalized)> GetItems() => 
             _items;
 
-        protected override void PlaceItemInternal(ItemPlacement placement) => 
-            PlaceItem(placement.Item, ((FreeSpaceItemPlacement)placement).Position);
+        public override bool ContainsItem(IItem item) => 
+            _items.Any(n => n.item == item);
 
-        protected override ItemPlacement GetItemPlacementFromProjection(IItem item, ItemPlacementInquiryResult placementInquiry) => 
-            new FreeSpaceItemPlacement(item, new Vector2(placementInquiry.XNormalized, placementInquiry.YNormalized));
+        public override ItemPlacementProspect GetItemPlacementProspect(IItem item, Vector2 posNormalized) =>
+            new(IsPossible: true, posNormalized, ReplacedItem: null);
 
-        protected override IItem ExtractItemInternal(string itemId)
+        protected override void PlaceItemInternal(IItem item, Vector2 localPositionNormalized) => 
+            _items.Add((item, localPositionNormalized));
+
+        protected override void RemoveItemInternal(IItem item)
         {
-            var item = _items.First(n => n.item.Id == itemId);
-            _items.Remove(item);
-            return item.item;
+            var itemToRemove = _items.First(n => n.item == item);
+            if (!_items.Remove(itemToRemove))
+                throw new InvalidOperationException();
         }
-
-        public override ItemPlacementInquiryResult GetItemPlacementInquiry(ItemPlacementProposition proposition) => 
-            new(IsPossible: true, proposition.XNormalized, proposition.YNormalized, ReplacedItem: null);
     }
 }

@@ -14,11 +14,11 @@ namespace Game.Features.Player.App.UseCases.Instance
         {
             _inventory = inventory;
             _itemFactory = itemFactory;
-            _inventory.GetContainer(ContainerId.LeftHand0).PlaceItem(new SlotItemPlacement(_itemFactory.Create(ItemIds.AXE)));
-            _inventory.GetContainer(ContainerId.RightHand0).PlaceItem(new SlotItemPlacement(_itemFactory.Create(ItemIds.SHIELD)));
-            _inventory.GetContainer(ContainerId.RightHand1).PlaceItem(new SlotItemPlacement(_itemFactory.Create(ItemIds.AXE)));
-            _inventory.GetContainer(ContainerId.LeftHand1).PlaceItem(new SlotItemPlacement(_itemFactory.Create(ItemIds.SHIELD)));
-            _inventory.GetContainer(ContainerId.Backpack0).PlaceItem(new GridSpaceItemPlacement(_itemFactory.Create(ItemIds.AXE), new Vector2Int(8, 1)));
+            _inventory.GetContainer(ContainerId.LeftHand0).PlaceItem(_itemFactory.Create(ItemIds.AXE), Vector2.one / 2);
+            _inventory.GetContainer(ContainerId.RightHand0).PlaceItem(_itemFactory.Create(ItemIds.SHIELD), Vector2.one / 2);
+            _inventory.GetContainer(ContainerId.RightHand1).PlaceItem(_itemFactory.Create(ItemIds.AXE), Vector2.one / 2);
+            _inventory.GetContainer(ContainerId.LeftHand1).PlaceItem(_itemFactory.Create(ItemIds.SHIELD), Vector2.one / 2);
+            _inventory.GetContainer(ContainerId.Backpack0).PlaceItem(_itemFactory.Create(ItemIds.AXE), Vector2.one / 2);
         }
     }
 }

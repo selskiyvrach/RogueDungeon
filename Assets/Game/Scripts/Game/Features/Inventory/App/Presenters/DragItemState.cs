@@ -1,6 +1,5 @@
-﻿using System;
-using System.Linq;
-using Game.Libs.Items;
+﻿using System.Linq;
+using Game.Features.Inventory.Domain;
 using Libs.Utils.DotNet;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -15,9 +14,12 @@ namespace Game.Features.Inventory.App.Presenters
         private readonly IPresentersRegistry _registry;
         private readonly Camera _camera;
         
-        private ContainerPresenter _container;
-        private ItemPresenter _item;
+        private ContainerPresenter _currentContainer;
+        private ItemPresenter _currentItem;
         private ProjectionData _projection;
+        
+        private ContainerPresenter _originContainer;
+        private Vector2 _originPlacement;
 
         public DragItemState(Camera camera, IInventoryInput input, IDraggableArea draggableArea, IGraphicRaycaster raycaster, IPresentersRegistry registry)
         {
@@ -31,16 +33,16 @@ namespace Game.Features.Inventory.App.Presenters
         public void Enter(ItemPresenter carriedItem)
         {
             carriedItem.ThrowIfNull();
-            _item = carriedItem;
+            _currentItem = carriedItem;
             _input.OnMoved += OnCursorMoved;
             _input.OnPointerUp += OnPointerUp;
             
             ScanForContainer();
-            Assert.IsNotNull(_container);
             UpdateItemPositionAndProjection();
             
-            _container.ExtractItem(carriedItem);
-            _item.DisplaySelected(true);
+            _originContainer = _registry.Containers.First(n => n.Model.ContainsItem(carriedItem.Model));
+            _originContainer.ExtractItem(carriedItem, out _originPlacement);
+            _currentItem.DisplaySelected(true);
         }
 
         private void Exit()
@@ -58,17 +60,17 @@ namespace Game.Features.Inventory.App.Presenters
         private void UpdateItemPositionAndProjection()
         {
             var itemPos = _draggableArea.ScreenToWorldPoint(_input.ScreenPosition);
-            _item.View.SetPosition(itemPos);
-            if (_container == null)
+            _currentItem.View.SetPosition(itemPos);
+            if (_currentContainer == null)
             {
-                _item.Projection.SetPosition(itemPos);
-                _item.Projection.SetIsValid(true);
+                _currentItem.Projection.SetPosition(itemPos);
+                _currentItem.Projection.SetIsValid(true);
             }
             else
             {
-                _projection = _container.GetProjection(_item.Model, _camera, _input.ScreenPosition);
-                _item.Projection.SetPosition(_projection.WorldPosition);
-                _item.Projection.SetIsValid(_projection.PlacementInquiry.IsPossible);
+                _projection = _currentContainer.GetProjection(_currentItem.Model, _camera, _input.ScreenPosition);
+                _currentItem.Projection.SetPosition(_projection.WorldPosition);
+                _currentItem.Projection.SetIsValid(_projection.PlacementInquiry.IsPossible);
             }
         }
 
@@ -77,29 +79,30 @@ namespace Game.Features.Inventory.App.Presenters
             var containers = _raycaster.RaycastAll<IContainerView>(_input.ScreenPosition);
             Assert.IsFalse(containers.Count() > 1);
             var container = containers.FirstOrDefault();
-            _container = container == null ? null : _registry.Containers.First(n => n.View == container);
+            _currentContainer = container == null ? null : _registry.Containers.First(n => n.View == container);
         }
 
         private void OnPointerUp()
         {
-            if (_container == null)
+            if (_currentContainer == null || !_projection.PlacementInquiry.IsPossible)
             {
-                throw new NotImplementedException();
-                Exit();
-                Mediator.StopCarryingItem();
-            }
-            else if (_projection.PlacementInquiry.IsPossible)
-            {
-                _container.PlaceItem(_item, _projection.PlacementInquiry);
-                _item.DisplaySelected(false);
-                Exit();
-                if(_projection.PlacementInquiry.ReplacedItem != null)
-                    Mediator.StartCarryingItem(_registry.Items.First(n => n.Model == _projection.PlacementInquiry.ReplacedItem));
-                else
-                    Mediator.StopCarryingItem();
+                _originContainer.Model.PlaceItem(_currentItem.Model, _originPlacement);
             }
             else
-                _item.OnPlacementDenied();
+            {
+                if (_projection.PlacementInquiry.ReplacedItem is { } replaced
+                    && _originContainer.Model.GetItemPlacementProspect(replaced, _originPlacement).IsPossible)
+                {
+                    _currentContainer.RemoveItem(replaced);
+                    _originContainer.Model.PlaceItem(replaced, _originPlacement);
+                }
+                
+                _currentContainer.Model.PlaceItem(_currentItem.Model, _projection.PlacementInquiry.PosNormalized);
+            }
+            
+            _currentItem.DisplaySelected(false);
+            Exit();
+            Mediator.StopCarryingItem();
         }
 
         public override void Dispose() => 

@@ -24,27 +24,26 @@ namespace Game.Features.Inventory.Domain
             return _items;
         }
 
-        protected override ItemPlacement GetItemPlacementFromProjection(IItem item, ItemPlacementInquiryResult placementInquiry) => 
-            new SlotItemPlacement(item);
-
-        protected override void PlaceItemInternal(ItemPlacement placement)
+        protected override void PlaceItemInternal(IItem item, Vector2 posNormalized)
         {
             if(_item != null)
                 throw new InvalidOperationException("Slot is already occupied");
-            _item = (ISlotableItem)placement.Item ?? throw new ArgumentNullException(nameof(placement.Item));
+            
+            _item = (ISlotableItem)item ?? throw new ArgumentNullException(nameof(item));
         }
 
-        protected override IItem ExtractItemInternal(string itemId)
+        public override bool ContainsItem(IItem item) => 
+            item == _item;
+
+        protected override void RemoveItemInternal(IItem item)
         {
-            if(itemId.IsNullOrEmpty() || itemId != _item.Id)
-                throw new ArgumentNullException(nameof(itemId));
-            var result = _item;
+            if(item == null || item != _item)
+                throw new ArgumentException(nameof(item));
             _item = null;
-            return result;
         }
 
-        public override ItemPlacementInquiryResult GetItemPlacementInquiry(ItemPlacementProposition proposition) =>
-            new(IsPossible: proposition.Item is ISlotableItem slotable && slotable.SlotCategory == _slotCategory, .5f, .5f, _item);
+        public override ItemPlacementProspect GetItemPlacementProspect(IItem item, Vector2 posNormalized) =>
+            new(IsPossible: item is ISlotableItem slotable && slotable.SlotCategory == _slotCategory, Vector2.one / 2, _item);
 
         public ISlotableItem PeekItem() => 
             _item;

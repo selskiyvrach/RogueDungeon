@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Game.Features.Inventory.Domain;
 using Game.Libs.Items;
 using UnityEngine;
@@ -36,9 +37,9 @@ namespace Game.Features.Inventory.App.Presenters
         public ProjectionData GetProjection(IItem item, Camera camera, Vector2 pointerScreenPos)
         {
             var localPos = View.ScreenPosToLocalPosNormalized(pointerScreenPos, camera);
-            var placement = Model.GetItemPlacementInquiry(new ItemPlacementProposition(localPos.x, localPos.y, item));
-            var worldPos = View.LocalPosNormalizedToWorldPos(new Vector2(placement.XNormalized, placement.YNormalized));
-            return new ProjectionData(placement, worldPos);
+            var prospect = Model.GetItemPlacementProspect(item, localPos);
+            var worldPos = View.LocalPosNormalizedToWorldPos(prospect.PosNormalized);
+            return new ProjectionData(prospect, worldPos);
         }
 
         private void UpdateView()
@@ -47,10 +48,13 @@ namespace Game.Features.Inventory.App.Presenters
                 View.PlaceItem(_itemsViewProvider.GetView(item.item), item.posNormalized);
         }
 
-        public void PlaceItem(ItemPresenter item, ItemPlacementInquiryResult placementInquiryResult) => 
-            Model.PlaceItem(item.Model, placementInquiryResult);
-
-        public void ExtractItem(ItemPresenter itemPresenter) => 
-            Model.ExtractItem(itemPresenter.Model.Id);
+        public void ExtractItem(ItemPresenter itemPresenter, out Vector2 placement)
+        {
+            placement = Model.GetItems().First(n => n.item == itemPresenter.Model).posNormalized;
+            Model.RemoveItem(itemPresenter.Model);
+        }
+        
+        public void RemoveItem(IItem item) => 
+            Model.RemoveItem(item);
     }
 }
