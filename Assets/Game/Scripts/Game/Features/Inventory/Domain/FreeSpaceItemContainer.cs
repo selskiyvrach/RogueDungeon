@@ -8,23 +8,23 @@ namespace Game.Features.Inventory.Domain
 {
     public class FreeSpaceItemContainer : ItemContainer
     {
-        private readonly List<(IItem item, Vector2 position)> _items = new();
+        private readonly List<(IItem item, PositionNormalized position)> _items = new();
 
         public FreeSpaceItemContainer(ContainerId id) : base(id)
         {
         }
 
-        public override IEnumerable<(IItem item, Vector2 posNormalized)> GetItems() => 
+        public override IEnumerable<(IItem item, PositionNormalized position)> GetItems() => 
             _items;
 
         public override bool ContainsItem(IItem item) => 
             _items.Any(n => n.item == item);
 
-        public override ItemPlacementProspect GetItemPlacementProspect(IItem item, Vector2 posNormalized) =>
-            new(IsPossible: true, posNormalized, ReplacedItem: null);
+        public override ItemPlacementProspect GetItemPlacementProspect(IItem item, PositionNormalized pos) =>
+            new(IsPossible: true, pos, ReplacedItem: null);
 
-        protected override void PlaceItemInternal(IItem item, Vector2 localPositionNormalized) => 
-            _items.Add((item, localPositionNormalized));
+        protected override void PlaceItemInternal(IItem item, PositionNormalized position) => 
+            _items.Add((item, position));
 
         protected override void RemoveItemInternal(IItem item)
         {

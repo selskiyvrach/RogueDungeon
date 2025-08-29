@@ -24,12 +24,6 @@ namespace Libs.GridSpace
                 _occupiedCells[i, j] = null;
         }
 
-        public bool ContainedInSpace(GridSpaceItem item) => 
-            item.Position.x + item.Size.x <= _columns && item.Position.y + item.Size.y <= _rows;
-        
-        public bool ContainedInSpace(int column, int row) => 
-            column < _columns && row < _rows;
-
         public bool HasItem(int column, int row, out GridSpaceItem item)
         {
             item = default;
@@ -89,5 +83,11 @@ namespace Libs.GridSpace
             
             return true;
         }
+        
+        public Vector2 Normalize(Vector2Int coordinates) =>
+            new((float)coordinates.x / (_columns -1), (float)coordinates.y / (_rows - 1));
+
+        public bool ContainsPoint(Vector2Int gridPos) => 
+            gridPos.x >= 0 && gridPos.x < _columns && gridPos.y >= 0 && gridPos.y < _rows;
     }
 }

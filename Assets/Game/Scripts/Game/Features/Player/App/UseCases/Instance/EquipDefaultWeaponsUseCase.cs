@@ -14,11 +14,11 @@ namespace Game.Features.Player.App.UseCases.Instance
         {
             _inventory = inventory;
             _itemFactory = itemFactory;
-            _inventory.GetContainer(ContainerId.LeftHand0).PlaceItem(_itemFactory.Create(ItemIds.AXE), Vector2.one / 2);
-            _inventory.GetContainer(ContainerId.RightHand0).PlaceItem(_itemFactory.Create(ItemIds.SHIELD), Vector2.one / 2);
-            _inventory.GetContainer(ContainerId.RightHand1).PlaceItem(_itemFactory.Create(ItemIds.AXE), Vector2.one / 2);
-            _inventory.GetContainer(ContainerId.LeftHand1).PlaceItem(_itemFactory.Create(ItemIds.SHIELD), Vector2.one / 2);
-            _inventory.GetContainer(ContainerId.Backpack0).PlaceItem(_itemFactory.Create(ItemIds.AXE), Vector2.one / 2);
+            _inventory.GetContainer(ContainerId.LeftHand0).PlaceItem(_itemFactory.Create(ItemIds.AXE), PositionNormalized.Center);
+            _inventory.GetContainer(ContainerId.RightHand0).PlaceItem(_itemFactory.Create(ItemIds.SHIELD), PositionNormalized.Center);
+            _inventory.GetContainer(ContainerId.RightHand1).PlaceItem(_itemFactory.Create(ItemIds.AXE), PositionNormalized.Center);
+            _inventory.GetContainer(ContainerId.LeftHand1).PlaceItem(_itemFactory.Create(ItemIds.SHIELD), PositionNormalized.Center);
+            _inventory.GetContainer(ContainerId.Backpack0).PlaceItem(_itemFactory.Create(ItemIds.AXE), PositionNormalized.Zero);
         }
     }
 }

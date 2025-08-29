@@ -5,6 +5,7 @@ using Game.Libs.Items;
 using Libs.GridSpace;
 using Libs.Utils.DotNet;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Game.Features.Inventory.Domain
 {
@@ -16,35 +17,33 @@ namespace Game.Features.Inventory.Domain
         public GridSpaceItemContainer(int columns, int rows, ContainerId id) : base(id) => 
             _gridSpace = new GridSpace(columns, rows);
 
-        public override IEnumerable<(IItem item, Vector2 posNormalized)> GetItems() => 
+        public override IEnumerable<(IItem item, PositionNormalized position)> GetItems() => 
             _items.Select(n => (n.Value, GetItemPositionNormalized(n.Key)));
 
         public override bool ContainsItem(IItem item) => 
             _items.ContainsKey(item.Id);
 
-        protected override void PlaceItemInternal(IItem item, Vector2 posNormalized)
+        protected override void PlaceItemInternal(IItem item, PositionNormalized position)
         {
-            _gridSpace.Insert(new GridSpaceItem(item.Id, item.Size, NormalizedToGridPosition(posNormalized)));
+            _gridSpace.Insert(new GridSpaceItem(item.Id, item.Size, NormalizedToGridPosition(position)));
             _items[item.Id] = item;
         }
 
-        private Vector2 GetItemPositionNormalized(string id)
+        private PositionNormalized GetItemPositionNormalized(string id)
         {
             var item = _gridSpace.GetItem(id);
             return GridPositionToNormalized(item.Size, item.Position);
         }
 
-        private Vector2 GridPositionToNormalized(Vector2Int itemSize, Vector2Int gridPosition) => 
-            (Vector2)gridPosition / _gridSpace.Size + (Vector2)itemSize / 2 / _gridSpace.Size;
-
-        private Vector2Int ItemNormalizedToGridPosition(Vector2 normalizedPosition, Vector2Int itemSize)
+        private PositionNormalized GridPositionToNormalized(Vector2Int itemSize, Vector2Int gridPosition)
         {
-            var pos = normalizedPosition * _gridSpace.Size - itemSize / 2;
-            return new Vector2Int(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
+            var vector = (Vector2)gridPosition / _gridSpace.Size + (Vector2)itemSize / 2 / _gridSpace.Size +
+                   Vector2.one / 2 / _gridSpace.Size;
+            return PositionNormalized.FromVector2(vector);
         }
 
-        private Vector2Int NormalizedToGridPosition(Vector2 normalizedPosition) => 
-            new(Mathf.RoundToInt(normalizedPosition.x * _gridSpace.Size.x), Mathf.RoundToInt(normalizedPosition.y * _gridSpace.Size.y));
+        private Vector2Int NormalizedToGridPosition(PositionNormalized position) => 
+            new(Mathf.RoundToInt(position.X * _gridSpace.Size.x), Mathf.RoundToInt(position.Y * _gridSpace.Size.y));
 
         protected override void RemoveItemInternal(IItem item)
         {
@@ -52,18 +51,25 @@ namespace Game.Features.Inventory.Domain
                 throw new InvalidOperationException();
         }
 
-        public override ItemPlacementProspect GetItemPlacementProspect(IItem item, Vector2 posNormalized)
+        public override ItemPlacementProspect GetItemPlacementProspect(IItem item, PositionNormalized pos)
         {
-            var gridPos = ItemNormalizedToGridPosition(posNormalized, item.Size);
-            var curatedNormPos = ItemGridToNormalizedPosition(gridPos, item.Size);
-            var isPossible = _gridSpace.IntersectsWithOneOrLessItems(new GridSpaceItem(item.Id, item.Size,gridPos), out var intersection);
-            return new ItemPlacementProspect(isPossible, curatedNormPos, intersection.IsNullOrEmpty() ? null : _items[intersection]);
-        }
+            // find center cell pos
+            var gridCenterPos = Vector2Int.FloorToInt(pos.ToVector2() * _gridSpace.Size);
+            // find corners
+            var corner1 = Vector2Int.FloorToInt(gridCenterPos - (Vector2)item.Size / 2 + Vector2.one / 2);
+            var corner3 = Vector2Int.FloorToInt(gridCenterPos + (Vector2)item.Size / 2 - Vector2.one / 2);
 
-        private Vector2 ItemGridToNormalizedPosition(Vector2Int itemPos, Vector2Int itemSize)
-        {
-            var itemCenterPos = itemPos + (Vector2)itemSize / 2 - Vector2.one * .5f;
-            return itemCenterPos / _gridSpace.Size;
+            // move an item inside the container if one of its corners sticks out
+            var offsetX = Mathf.Min(corner1.x, 0) + Mathf.Max(corner3.x - (_gridSpace.Size.x - 1), 0);
+            var offsetY = Mathf.Min(corner1.y, 0) + Mathf.Max(corner3.y - (_gridSpace.Size.y - 1), 0);
+            corner1 -= new Vector2Int(offsetX, offsetY);
+            corner3 -= new Vector2Int(offsetX, offsetY);
+            
+            var centerPosNormalized = Vector2.Lerp((Vector2)corner1 / _gridSpace.Size, (Vector2)corner3 / _gridSpace.Size, 0.5f);
+            var position = PositionNormalized.FromVector2(centerPosNormalized + Vector2.one / 2 / _gridSpace.Size);
+            
+            var isPossible = _gridSpace.IntersectsWithOneOrLessItems(new GridSpaceItem(item.Id, item.Size, corner1), out var intersection);
+            return new ItemPlacementProspect(isPossible, position, intersection.IsNullOrEmpty() ? null : _items[intersection]);
         }
     }
 }

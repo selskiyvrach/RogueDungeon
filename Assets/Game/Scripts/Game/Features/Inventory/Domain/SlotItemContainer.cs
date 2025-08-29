@@ -10,21 +10,21 @@ namespace Game.Features.Inventory.Domain
     public class SlotItemContainer : ItemContainer
     {
         private readonly SlotCategory _slotCategory;
-        private readonly (IItem item, Vector2 pos)[] _items = new (IItem item, Vector2 pos)[1];
+        private readonly (IItem item, PositionNormalized pos)[] _items = new (IItem item, PositionNormalized pos)[1];
         private ISlotableItem _item;
 
         public SlotItemContainer(SlotCategory slotCategory, ContainerId id) : base(id) => 
             _slotCategory = slotCategory;
 
-        public override IEnumerable<(IItem item, Vector2 posNormalized)> GetItems()
+        public override IEnumerable<(IItem item, PositionNormalized position)> GetItems()
         {
             if(_item == null)
-                return Array.Empty<(IItem item, Vector2 posNormalized)>();
-            _items[0] = (_item, Vector2.one / 2);
+                return Array.Empty<(IItem item, PositionNormalized posNormalized)>();
+            _items[0] = (_item, PositionNormalized.Center);
             return _items;
         }
 
-        protected override void PlaceItemInternal(IItem item, Vector2 posNormalized)
+        protected override void PlaceItemInternal(IItem item, PositionNormalized position)
         {
             if(_item != null)
                 throw new InvalidOperationException("Slot is already occupied");
@@ -42,8 +42,8 @@ namespace Game.Features.Inventory.Domain
             _item = null;
         }
 
-        public override ItemPlacementProspect GetItemPlacementProspect(IItem item, Vector2 posNormalized) =>
-            new(IsPossible: item is ISlotableItem slotable && slotable.SlotCategory == _slotCategory, Vector2.one / 2, _item);
+        public override ItemPlacementProspect GetItemPlacementProspect(IItem item, PositionNormalized posNormalized) =>
+            new(IsPossible: item is ISlotableItem slotable && slotable.SlotCategory == _slotCategory, PositionNormalized.Center, _item);
 
         public ISlotableItem PeekItem() => 
             _item;

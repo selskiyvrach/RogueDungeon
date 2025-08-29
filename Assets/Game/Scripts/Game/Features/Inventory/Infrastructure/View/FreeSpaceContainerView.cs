@@ -1,6 +1,6 @@
 ﻿namespace Game.Features.Inventory.Infrastructure.View
 {
-    public class SlotContainer : Container
+    public class FreeSpaceContainerView : ContainerView
     {
     }
 }

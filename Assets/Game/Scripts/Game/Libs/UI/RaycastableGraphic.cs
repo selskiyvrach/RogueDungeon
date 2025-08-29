@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,6 @@ namespace Game.Libs.UI
         }
 
         protected virtual void OnValidate() => 
-            _raycastGraphic ??= GetComponent<Graphic>();
+            _raycastGraphic ??= GetComponent<Graphic>() ?? throw new Exception(name);
     }
 }

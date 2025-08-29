@@ -7,10 +7,10 @@ namespace Game.Features.Inventory.Infrastructure.View
     {
         [SerializeField] private Canvas _inventoryCanvas;
         [SerializeField] private RectTransform _inventoryRect;
-        [SerializeField, HideInInspector] private Container[] _containers;
+        [SerializeField, HideInInspector] private ContainerView[] _containers;
 
         private void OnValidate() => 
-            _containers = GetComponentsInChildren<Container>(true);
+            _containers = GetComponentsInChildren<ContainerView>(true);
 
         [Inject]
         public void Construct(Camera gameCamera) => 

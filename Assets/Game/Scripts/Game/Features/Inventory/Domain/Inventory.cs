@@ -7,13 +7,11 @@ using UnityEngine.Assertions;
 
 namespace Game.Features.Inventory.Domain
 {
-    // add items' canvases sorting or prevent overlaps
-    
     public class Inventory
     {
         private readonly List<ItemContainer> _itemContainers = new (){
             
-            new GridSpaceItemContainer(12, 6, ContainerId.Backpack0),
+            new GridSpaceItemContainer(10, 5, ContainerId.Backpack0),
             
             new SlotItemContainer(SlotCategory.Handheld, ContainerId.LeftHand0),
             new SlotItemContainer(SlotCategory.Handheld, ContainerId.LeftHand1),

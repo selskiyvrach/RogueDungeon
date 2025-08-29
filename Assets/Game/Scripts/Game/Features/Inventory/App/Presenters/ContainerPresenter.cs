@@ -31,30 +31,30 @@ namespace Game.Features.Inventory.App.Presenters
             _registry.Register(this);
         }
 
-        public void Dispose() => 
+        public void Dispose()
+        {
+            Model.OnContentChanged -= UpdateView;
             _registry.Unregister(this);
+        }
 
         public ProjectionData GetProjection(IItem item, Camera camera, Vector2 pointerScreenPos)
         {
             var localPos = View.ScreenPosToLocalPosNormalized(pointerScreenPos, camera);
-            var prospect = Model.GetItemPlacementProspect(item, localPos);
-            var worldPos = View.LocalPosNormalizedToWorldPos(prospect.PosNormalized);
+            var prospect = Model.GetItemPlacementProspect(item, PositionNormalized.FromVector2(localPos));
+            var worldPos = View.LocalPosNormalizedToWorldPos(prospect.Position.ToVector2());
             return new ProjectionData(prospect, worldPos);
         }
 
         private void UpdateView()
         {
             foreach (var item in Model.GetItems()) 
-                View.PlaceItem(_itemsViewProvider.GetView(item.item), item.posNormalized);
+                View.PlaceItem(_itemsViewProvider.GetView(item.item), item.position.ToVector2());
         }
 
-        public void ExtractItem(ItemPresenter itemPresenter, out Vector2 placement)
+        public void ExtractItem(ItemPresenter itemPresenter, out PositionNormalized placement)
         {
-            placement = Model.GetItems().First(n => n.item == itemPresenter.Model).posNormalized;
+            placement = Model.GetItems().First(n => n.item == itemPresenter.Model).position;
             Model.RemoveItem(itemPresenter.Model);
         }
-        
-        public void RemoveItem(IItem item) => 
-            Model.RemoveItem(item);
     }
 }

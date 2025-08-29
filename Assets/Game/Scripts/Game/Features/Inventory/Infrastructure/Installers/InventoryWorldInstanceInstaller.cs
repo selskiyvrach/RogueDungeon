@@ -4,6 +4,7 @@ using Game.Features.Inventory.Domain;
 using Game.Features.Inventory.Infrastructure.View;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Game.Features.Inventory.Infrastructure.Factories
@@ -14,7 +15,7 @@ namespace Game.Features.Inventory.Infrastructure.Factories
         private struct ContainerIdPair
         {
             [HorizontalGroup] public ContainerId Id;
-            [HorizontalGroup] public Container Container;
+            [FormerlySerializedAs("Container")] [HorizontalGroup] public ContainerView containerView;
         }
 
         [SerializeField] private ItemView _itemViewPrefab;
@@ -46,7 +47,7 @@ namespace Game.Features.Inventory.Infrastructure.Factories
 
         private void CreateContainer(ContainerIdPair pair, DiContainer subcontainer)
         {
-            subcontainer.BindInterfacesTo<Container>().FromInstance(pair.Container).AsSingle();
+            subcontainer.BindInterfacesTo<ContainerView>().FromInstance(pair.containerView).AsSingle();
             subcontainer.Bind<ItemContainer>().FromMethod(() => (_inventory ??= subcontainer.Resolve<Domain.Inventory>()).GetContainer(pair.Id)).AsSingle();
             subcontainer.BindInterfacesAndSelfTo<ContainerPresenter>().AsSingle();
         }

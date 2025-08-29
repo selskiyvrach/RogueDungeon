@@ -19,7 +19,7 @@ namespace Game.Features.Inventory.App.Presenters
         private ProjectionData _projection;
         
         private ContainerPresenter _originContainer;
-        private Vector2 _originPlacement;
+        private PositionNormalized _originPlacement;
 
         public DragItemState(Camera camera, IInventoryInput input, IDraggableArea draggableArea, IGraphicRaycaster raycaster, IPresentersRegistry registry)
         {
@@ -70,7 +70,7 @@ namespace Game.Features.Inventory.App.Presenters
             {
                 _projection = _currentContainer.GetProjection(_currentItem.Model, _camera, _input.ScreenPosition);
                 _currentItem.Projection.SetPosition(_projection.WorldPosition);
-                _currentItem.Projection.SetIsValid(_projection.PlacementInquiry.IsPossible);
+                _currentItem.Projection.SetIsValid(_projection.PlacementProspect.IsPossible);
             }
         }
 
@@ -84,20 +84,20 @@ namespace Game.Features.Inventory.App.Presenters
 
         private void OnPointerUp()
         {
-            if (_currentContainer == null || !_projection.PlacementInquiry.IsPossible)
+            if (_currentContainer == null || !_projection.PlacementProspect.IsPossible)
             {
                 _originContainer.Model.PlaceItem(_currentItem.Model, _originPlacement);
             }
             else
             {
-                if (_projection.PlacementInquiry.ReplacedItem is { } replaced
-                    && _originContainer.Model.GetItemPlacementProspect(replaced, _originPlacement).IsPossible)
+                if (_projection.PlacementProspect.ReplacedItem is { } replaced && 
+                    _originContainer.Model.GetItemPlacementProspect(replaced, _originPlacement) is { IsPossible : true } placement)
                 {
-                    _currentContainer.RemoveItem(replaced);
-                    _originContainer.Model.PlaceItem(replaced, _originPlacement);
+                    _currentContainer.Model.RemoveItem(replaced);
+                    _originContainer.Model.PlaceItem(replaced, placement.Position);
                 }
                 
-                _currentContainer.Model.PlaceItem(_currentItem.Model, _projection.PlacementInquiry.PosNormalized);
+                _currentContainer.Model.PlaceItem(_currentItem.Model, _projection.PlacementProspect.Position);
             }
             
             _currentItem.DisplaySelected(false);

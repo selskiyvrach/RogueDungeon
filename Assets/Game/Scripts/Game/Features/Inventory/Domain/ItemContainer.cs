@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Game.Libs.Items;
-using UnityEngine;
 
 namespace Game.Features.Inventory.Domain
 {
@@ -12,11 +11,11 @@ namespace Game.Features.Inventory.Domain
         protected ItemContainer(ContainerId id) => 
             Id = id;
 
-        public abstract IEnumerable<(IItem item, Vector2 posNormalized)> GetItems();
+        public abstract IEnumerable<(IItem item, PositionNormalized position)> GetItems();
 
-        public void PlaceItem(IItem item, Vector2 posNormalized)
+        public void PlaceItem(IItem item, PositionNormalized position)
         {
-            PlaceItemInternal(item, posNormalized);
+            PlaceItemInternal(item, position);
             OnContentChanged?.Invoke();
         }
 
@@ -27,8 +26,8 @@ namespace Game.Features.Inventory.Domain
         }
 
         public abstract bool ContainsItem(IItem item);
-        public abstract ItemPlacementProspect GetItemPlacementProspect(IItem item, Vector2 posNormalized);
+        public abstract ItemPlacementProspect GetItemPlacementProspect(IItem item, PositionNormalized pos);
         protected abstract void RemoveItemInternal(IItem item);
-        protected abstract void PlaceItemInternal(IItem item, Vector2 posNormalized);
+        protected abstract void PlaceItemInternal(IItem item, PositionNormalized position);
     }
 }

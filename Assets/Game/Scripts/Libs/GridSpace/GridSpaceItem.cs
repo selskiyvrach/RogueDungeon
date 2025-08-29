@@ -7,7 +7,7 @@ namespace Libs.GridSpace
     {
         public string Id { get; }
         public Vector2Int Size { get; }
-        public Vector2Int Position { get; set; }
+        public Vector2Int Position { get; }
 
         public IEnumerable<Vector2Int> CoveredCells
         {

@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace Game.Features.Inventory.Domain
 {
-    public record ItemPlacementProspect(bool IsPossible, Vector2 PosNormalized, IItem ReplacedItem)
+    public record ItemPlacementProspect(bool IsPossible, PositionNormalized Position, IItem ReplacedItem)
     {
         public bool IsPossible { get; } = IsPossible;
-        public Vector2 PosNormalized { get; } = PosNormalized;
         public IItem ReplacedItem { get; } = ReplacedItem;
+        public PositionNormalized Position { get; } = Position;
     }
 }

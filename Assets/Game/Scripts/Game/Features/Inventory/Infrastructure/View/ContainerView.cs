@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Features.Inventory.Infrastructure.View
 {
-    public abstract class Container : HoverableGraphic, IContainerView
+    public abstract class ContainerView : HoverableGraphic, IContainerView
     {
         [SerializeField, HideInInspector] private RectTransform _rectTransform;
         [field: SerializeField] public float CellSize { get; private set; } = 40;
@@ -28,7 +28,8 @@ namespace Game.Features.Inventory.Infrastructure.View
         public Vector2 ScreenPosToLocalPosNormalized(Vector2 point, Camera cam)
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, point, cam, out var position);
-            return (position + _rectTransform.sizeDelta / 2) / _rectTransform.sizeDelta;
+            var result = (position + _rectTransform.sizeDelta / 2) / _rectTransform.sizeDelta;
+            return result;
         }
 
         public Vector3 LocalPosNormalizedToWorldPos(Vector2 normalized)
