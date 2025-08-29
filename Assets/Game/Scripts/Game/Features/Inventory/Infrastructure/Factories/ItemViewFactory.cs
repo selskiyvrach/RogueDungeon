@@ -28,6 +28,7 @@ namespace Game.Features.Inventory.Infrastructure.Factories
             _container.Bind<IItem>().FromInstance(param1).AsCached();
             var view = _container.InstantiatePrefabForComponent<ItemView>(_prefab, _parent);
             _container.Unbind<IItem>();
+            view.gameObject.name = $"item_{param1.Id}";
             view.Setup(new ItemViewSetupArgs(param1.Id, _configsRepository.GetItemSprite(param1.TypeId), param1.Size));
             return view;
         }

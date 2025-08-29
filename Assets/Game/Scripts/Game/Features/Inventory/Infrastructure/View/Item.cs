@@ -33,9 +33,6 @@ namespace Game.Features.Inventory.Infrastructure.View
         public Vector2 GetScreenPosition(Camera camera) => 
             camera.WorldToScreenPoint(transform.position);
 
-        public void RenderLast() => 
-            transform.SetAsLastSibling();
-
         public void SetCellSize(float value)
         {
             var containerSize = (Vector2)_itemViewSetupArgs.Size * value;
@@ -58,6 +55,9 @@ namespace Game.Features.Inventory.Infrastructure.View
                 RenderLast();
             UpdateVerticalOffset();
         }
+
+        private void RenderLast() => 
+            transform.SetAsLastSibling();
 
         private void UpdateVerticalOffset()
         {
