@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Libs.GridSpace
 {
@@ -8,16 +7,6 @@ namespace Libs.GridSpace
         public string Id { get; }
         public Vector2Int Size { get; }
         public Vector2Int Position { get; }
-
-        public IEnumerable<Vector2Int> CoveredCells
-        {
-            get
-            {
-                for (var x = 0; x < Size.x; x++)
-                for (var y = 0; y < Size.y; y++)
-                    yield return new Vector2Int(Position.x + x, Position.y + y);
-            }
-        }
 
         public GridSpaceItem(string id, Vector2Int size, Vector2Int position) : this()
         {

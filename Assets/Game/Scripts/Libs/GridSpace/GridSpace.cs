@@ -19,24 +19,12 @@ namespace Libs.GridSpace
             _columns = columns;
             _rows = rows;
             _occupiedCells = new string[columns, rows];
-            for (var i = 0; i < _occupiedCells.GetLength(0); i++)
-            for (var j = 0; j < _occupiedCells.GetLength(1); j++)
-                _occupiedCells[i, j] = null;
-        }
-
-        public bool HasItem(int column, int row, out GridSpaceItem item)
-        {
-            item = default;
-            if(_occupiedCells[column, row] == null)
-                return false;
-            item = GetItem(_occupiedCells[column, row]);
-            return true;
         }
 
         public bool IntersectsWithOneOrLessItems(GridSpaceItem item, out string intersectedItemId)
         {
             intersectedItemId = null;
-            foreach (var cell in item.CoveredCells)
+            foreach (var cell in GetOccupiedCells(item))
             {
                 if(_occupiedCells[cell.x, cell.y] == null)
                     continue;
@@ -49,12 +37,19 @@ namespace Libs.GridSpace
             return true;
         }
 
+        private IEnumerable<Vector2Int> GetOccupiedCells(GridSpaceItem item)
+        {
+            for (var i = 0; i < item.Size.x; i++)
+            for (var j = 0; j < item.Size.y; j++)
+                yield return new Vector2Int(item.Position.x + i, item.Position.y + j);
+        }
+
         public void Insert(GridSpaceItem item)
         {
             if (!_items.Add(item))
                 throw new InvalidOperationException();
             
-            foreach (var cell in item.CoveredCells)
+            foreach (var cell in GetOccupiedCells(item))
             {
                 if(_occupiedCells[cell.x, cell.y] != null)
                     throw new InvalidOperationException();
@@ -78,16 +73,10 @@ namespace Libs.GridSpace
             if(!_items.Remove(itemToRemove))
                 return false;
             
-            foreach (var cell in itemToRemove.CoveredCells) 
+            foreach (var cell in GetOccupiedCells(itemToRemove)) 
                 _occupiedCells[cell.x, cell.y] = null;
             
             return true;
         }
-        
-        public Vector2 Normalize(Vector2Int coordinates) =>
-            new((float)coordinates.x / (_columns -1), (float)coordinates.y / (_rows - 1));
-
-        public bool ContainsPoint(Vector2Int gridPos) => 
-            gridPos.x >= 0 && gridPos.x < _columns && gridPos.y >= 0 && gridPos.y < _rows;
     }
 }

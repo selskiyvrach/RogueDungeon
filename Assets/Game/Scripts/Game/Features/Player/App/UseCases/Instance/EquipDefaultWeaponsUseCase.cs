@@ -19,7 +19,7 @@ namespace Game.Features.Player.App.UseCases.Instance
             _inventory.GetContainer(ContainerId.RightHand1).PlaceItem(_itemFactory.Create(ItemIds.AXE), PositionNormalized.Center);
             _inventory.GetContainer(ContainerId.LeftHand1).PlaceItem(_itemFactory.Create(ItemIds.SHIELD), PositionNormalized.Center);
             
-            _inventory.GetContainer(ContainerId.Backpack0).PlaceItem(_itemFactory.Create(ItemIds.AXE), PositionNormalized.Zero);
+            _inventory.GetContainer(ContainerId.Backpack0).PlaceItem(_itemFactory.Create(ItemIds.AXE), new PositionNormalized(.5f, .3f));
         }
     }
 }

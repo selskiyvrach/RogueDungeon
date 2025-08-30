@@ -79,15 +79,23 @@ namespace Game.Features.Inventory.App.Presenters
             var containers = _raycaster.RaycastAll<IContainerView>(_input.ScreenPosition);
             Assert.IsFalse(containers.Count() > 1);
             var container = containers.FirstOrDefault();
-            _currentContainer = container == null ? null : _registry.Containers.First(n => n.View == container);
+            if (container == null)
+            {
+                _currentContainer = null;
+                return;
+            }
+            var newContainer = _registry.Containers.First(n => n.View == container);
+            if(newContainer == _currentContainer)
+                return;
+            _currentContainer = newContainer;
+            _currentItem.View.SetCellSize(_currentContainer.View.CellSize);
         }
 
         private void OnPointerUp()
         {
+            _currentItem.View.ProjectionView.SetIsValid(true);
             if (_currentContainer == null || !_projection.PlacementProspect.IsPossible)
-            {
                 _originContainer.Model.PlaceItem(_currentItem.Model, _originPlacement);
-            }
             else
             {
                 if (_projection.PlacementProspect.ReplacedItem is { } replaced && 
@@ -96,7 +104,6 @@ namespace Game.Features.Inventory.App.Presenters
                     _currentContainer.Model.RemoveItem(replaced);
                     _originContainer.Model.PlaceItem(replaced, placement.Position);
                 }
-                
                 _currentContainer.Model.PlaceItem(_currentItem.Model, _projection.PlacementProspect.Position);
             }
             

@@ -43,10 +43,5 @@ namespace Game.Features.Inventory.App.Presenters
 
         public void DisplaySelected(bool value) => 
             View.DisplayHovered(value);
-
-        public void OnPlacementDenied()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

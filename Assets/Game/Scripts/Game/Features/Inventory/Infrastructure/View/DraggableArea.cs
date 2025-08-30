@@ -7,6 +7,7 @@ namespace Game.Features.Inventory.Infrastructure.View
     public class DraggableArea : MonoBehaviour, IDraggableArea
     {
         [SerializeField] private RectTransform _rectTransform;
+        [field: SerializeField] public float CellSize { get; private set; } = 25f;
         private Camera _camera;
 
         private void OnValidate() => 
