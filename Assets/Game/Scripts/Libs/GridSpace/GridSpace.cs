@@ -31,7 +31,7 @@ namespace Libs.GridSpace
 
                 if (intersectedItemId == null)
                     intersectedItemId = _occupiedCells[cell.x, cell.y];
-                else
+                else if(intersectedItemId != _occupiedCells[cell.x, cell.y])
                     return false;
             }
             return true;
@@ -62,14 +62,7 @@ namespace Libs.GridSpace
 
         public bool Remove(string id)
         {
-            var itemToRemove = (GridSpaceItem)default;
-            foreach (var item in _items)
-            {
-                if(item.Id != id)
-                    continue;
-                itemToRemove = item;
-                break;
-            }
+            var itemToRemove = _items.FirstOrDefault(n => n.Id == id);
             if(!_items.Remove(itemToRemove))
                 return false;
             
