@@ -17,8 +17,10 @@ using Zenject;
 
 namespace Game.Features.Player.Infrastructure.Installers
 {
-    public class PlayerInstanceInstaller : MonoInstaller
+    public class PlayerInstanceInstaller : MonoInstaller, IInitializable
     {
+        [SerializeField] private Transform _cameraParent;
+        
         [SerializeField] private TransformAnimationTarget _bodyAnimationTarget;
         [SerializeField] private TransformAnimationTarget _handsAnimationTarget;
         [SerializeField] private PlayerGameObjectPositionView _worldRootObject;
@@ -59,6 +61,8 @@ namespace Game.Features.Player.Infrastructure.Installers
 
             Container.Bind<ResourceBarPresenter>().FromMethod(ctx =>
                 Container.Instantiate<ResourceBarPresenter>(new object[] {ctx.Container.Resolve<Domain.Player>().Stamina, _staminaBar})).AsCached().NonLazy();
+            
+            Container.BindInterfacesTo<PlayerInstanceInstaller>().FromInstance(this).AsCached().NonLazy();
         }
 
         private void BindHand(bool isRightHand)
@@ -82,5 +86,8 @@ namespace Game.Features.Player.Infrastructure.Installers
                 handContainer.Bind<HandPresenter>().AsSingle().NonLazy();
             }
         }
+
+        public void Initialize() => 
+            Container.Resolve<Camera>().transform.SetParent(_cameraParent, worldPositionStays: false);
     }
 }

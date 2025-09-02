@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Libs.Utils.DotNet;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Libs.Camera
@@ -7,9 +8,7 @@ namespace Game.Libs.Camera
     {
         [SerializeField] private UnityEngine.Camera _camera;
 
-        public override void InstallBindings()
-        {
-            Container.Bind<UnityEngine.Camera>().FromInstance(_camera).AsSingle();
-        }
+        public override void InstallBindings() => 
+            Container.Bind<UnityEngine.Camera>().FromInstance(_camera.ThrowIfNull()).AsSingle();
     }
 }

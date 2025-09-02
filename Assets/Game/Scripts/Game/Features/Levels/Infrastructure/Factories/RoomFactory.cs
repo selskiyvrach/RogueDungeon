@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Game.Features.Levels.Infrastructure.Factories
 {
-    public class RoomFactory : IRoomFactory
+    public class RoomFactory : IFactory<IRoomConfig, Room>
     {
         private readonly DiContainer _container;
         private readonly Transform _parent;
@@ -18,7 +18,9 @@ namespace Game.Features.Levels.Infrastructure.Factories
 
         public Room Create(IRoomConfig param1)
         {
+            _container.Bind<Vector2Int>().FromInstance(param1.Coordinates).AsCached();
             var view = _container.InstantiatePrefab(((RoomConfig)param1).Prefab, _parent);
+            _container.Unbind<Vector2Int>();
             view.transform.position = new Vector3(param1.Coordinates.x, 0, param1.Coordinates.y);
             
             var model = _container.Instantiate<Room>(new object[]{ param1 });

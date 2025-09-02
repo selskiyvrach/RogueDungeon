@@ -10,6 +10,7 @@ namespace Game.Features.Inventory.Infrastructure.Installers
     {
         [SerializeField] private Transform _inventoryViewParent;
         [SerializeField] private InventoryWorldInstanceInstaller _inventoryViewPrefab;
+
         
         public override void InstallBindings()
         {

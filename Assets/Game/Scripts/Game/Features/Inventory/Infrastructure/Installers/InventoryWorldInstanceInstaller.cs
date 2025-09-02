@@ -18,11 +18,9 @@ namespace Game.Features.Inventory.Infrastructure.Factories
             [FormerlySerializedAs("Container")] [HorizontalGroup] public ContainerView containerView;
         }
 
-        [SerializeField] private ItemView _itemViewPrefab;
         [SerializeField] private View.Inventory _view;
         [SerializeField] private ContainerIdPair[] _containerViews;
         [SerializeField] private DraggableArea _draggableArea;
-        [SerializeField] private Transform _itemsParentTransform;
         
         private Domain.Inventory _inventory;
 
@@ -34,15 +32,12 @@ namespace Game.Features.Inventory.Infrastructure.Factories
                 Container.BindInterfacesAndSelfTo<ContainerPresenter>().FromSubContainerResolve().ByMethod(subcontainer => CreateContainer(pair, subcontainer))
                     .AsCached().NonLazy();
 
-            Container.BindInterfacesTo<ItemsViewCachedProvider>().AsSingle();
             Container.BindInterfacesTo<DraggableArea>().FromInstance(_draggableArea).AsSingle();
             Container.BindInterfacesTo<GraphicRaycaster>().AsSingle();
             Container.BindInterfacesAndSelfTo<Mediator>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<PresentersRegistry>().AsSingle();
             Container.BindInterfacesAndSelfTo<InventoryInput>().AsSingle();
             Container.BindInterfacesAndSelfTo<DragItemState>().AsSingle();
             Container.BindInterfacesAndSelfTo<ScanForItemState>().AsSingle();
-            Container.BindInterfacesTo<ItemViewFactory>().AsSingle().WithArguments(new object[]{ _itemViewPrefab, _itemsParentTransform });
         }
 
         private void CreateContainer(ContainerIdPair pair, DiContainer subcontainer)

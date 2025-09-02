@@ -9,11 +9,11 @@ namespace Game.Features.Inventory.App.Presenters
         private readonly Camera _camera;
         private readonly IInventoryInput _input;
         private readonly IGraphicRaycaster _raycaster;
-        private readonly PresentersRegistry _registry;
+        private readonly IPresentersRegistry _registry;
         
         private ItemPresenter _currentItem;
 
-        public ScanForItemState(PresentersRegistry registry, IGraphicRaycaster raycaster, Camera camera, IInventoryInput input)
+        public ScanForItemState(IPresentersRegistry registry, IGraphicRaycaster raycaster, Camera camera, IInventoryInput input)
         {
             _registry = registry;
             _raycaster = raycaster;

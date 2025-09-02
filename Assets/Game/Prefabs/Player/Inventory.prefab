@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rectTransform: {fileID: 3886684666969447885}
+  <CellSize>k__BackingField: 25
 --- !u!222 &5820033032180074753
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -567,8 +568,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1595a32795142018c676f5c9e568e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _itemViewPrefab: {fileID: 7840099604648116314, guid: 19aa25cc14d47a94db61781927b12b35,
-    type: 3}
   _view: {fileID: 1548085569401456492}
   _containerViews:
   - Id: 30
@@ -582,7 +581,6 @@ MonoBehaviour:
   - Id: 31
     containerView: {fileID: 7376614682063198359}
   _draggableArea: {fileID: 1808990489740790933}
-  _itemsParentTransform: {fileID: 6485455800712877520}
 --- !u!114 &1548085569401456492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1255,7 +1253,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!222 &2473894170400924783
 CanvasRenderer:

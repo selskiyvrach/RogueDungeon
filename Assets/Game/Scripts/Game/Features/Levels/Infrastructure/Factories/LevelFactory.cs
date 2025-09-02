@@ -7,9 +7,9 @@ namespace Game.Features.Levels.Infrastructure.Factories
 {
     public class LevelFactory : IFactory<ILevelConfig, Level>
     {
-        private readonly IRoomFactory _roomFactory;
+        private readonly IFactory<IRoomConfig, Room> _roomFactory;
 
-        public LevelFactory(IRoomFactory roomFactory) => 
+        public LevelFactory(IFactory<IRoomConfig, Room> roomFactory) => 
             _roomFactory = roomFactory;
 
         public Level Create(ILevelConfig param1)

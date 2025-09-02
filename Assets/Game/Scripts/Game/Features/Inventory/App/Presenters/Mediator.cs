@@ -1,11 +1,9 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using Zenject;
 
 namespace Game.Features.Inventory.App.Presenters
 {
     public class Mediator : IInitializable
     {
-        private readonly PresentersRegistry _registry;
         private readonly DragItemState _dragItemState;
         private readonly ScanForItemState _scanForItemState;
         
