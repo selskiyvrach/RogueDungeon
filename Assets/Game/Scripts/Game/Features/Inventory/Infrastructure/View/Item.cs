@@ -67,5 +67,8 @@ namespace Game.Features.Inventory.Infrastructure.View
 
             _itemImage.transform.localPosition = Vector3.back * offset / transform.lossyScale.y;
         }
+
+        public void Dispose() => 
+            Destroy(gameObject);
     }
 }

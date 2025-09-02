@@ -11,6 +11,7 @@ namespace Game.Features.Inventory.App.Presenters
         private readonly IPresentersRegistry _registry;
 
         private bool _isInitialized;
+        private bool _isDisposed;
         private bool _isDragging;
 
         public IItem Model { get; }
@@ -34,11 +35,12 @@ namespace Game.Features.Inventory.App.Presenters
 
         public void Dispose()
         {
-            if (!_isInitialized) 
-                throw new InvalidOperationException();
+            if(_isDisposed)
+                return;
 
             _registry.Unregister(this);
-            _isInitialized = false;
+            View.Dispose();
+            _isDisposed = true;
         }
 
         public void DisplaySelected(bool value) => 

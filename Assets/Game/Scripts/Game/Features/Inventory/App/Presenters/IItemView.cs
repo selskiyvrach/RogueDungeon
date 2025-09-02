@@ -1,9 +1,10 @@
-﻿using Game.Libs.UI;
+﻿using System;
+using Game.Libs.UI;
 using UnityEngine;
 
 namespace Game.Features.Inventory.App.Presenters
 {
-    public interface IItemView : IIDable, IHoverDisplayable, IRaycastable
+    public interface IItemView : IIDable, IHoverDisplayable, IRaycastable, IDisposable
     {
         IProjectionView ProjectionView { get; }
         void Setup(IItemViewSetupArgs viewSetupArgs);

@@ -34,6 +34,12 @@ namespace Game.Features.Inventory.App.Presenters
         public void Dispose()
         {
             Model.OnContentChanged -= UpdateView;
+
+            // manually destroying bound items in case they changed context and dispose is not called as a result
+            var presenters = _registry.Items.Where(n => Model.ContainsItem(n.Model)).ToArray();
+            foreach (var presenter in presenters) 
+                presenter.Dispose();
+            
             _registry.Unregister(this);
         }
 
