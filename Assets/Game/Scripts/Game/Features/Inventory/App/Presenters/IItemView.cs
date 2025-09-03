@@ -11,5 +11,6 @@ namespace Game.Features.Inventory.App.Presenters
         void SetCellSize(float cellSize);
         void SetPosition(Vector3 pos);
         Vector2 GetScreenPosition(Camera camera);
+        void SetParent(Transform rectTransform);
     }
 }

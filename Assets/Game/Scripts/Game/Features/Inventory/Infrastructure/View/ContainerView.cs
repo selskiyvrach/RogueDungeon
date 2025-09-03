@@ -25,6 +25,7 @@ namespace Game.Features.Inventory.Infrastructure.View
             var localPos = new Vector3((posNormalized.x - rt.pivot.x) * rect.width, (posNormalized.y - rt.pivot.y) * rect.height, 0f);
             var worldPos = rt.TransformPoint(localPos);
             
+            item.SetParent(_rectTransform);
             item.SetCellSize(CellSize);
             item.SetPosition(worldPos);
             item.ProjectionView.SetPosition(worldPos);

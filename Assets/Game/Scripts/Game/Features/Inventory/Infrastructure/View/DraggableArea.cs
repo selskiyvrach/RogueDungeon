@@ -1,4 +1,5 @@
-﻿using Game.Features.Inventory.App.Presenters;
+﻿using System;
+using Game.Features.Inventory.App.Presenters;
 using UnityEngine;
 using Zenject;
 
@@ -7,11 +8,10 @@ namespace Game.Features.Inventory.Infrastructure.View
     public class DraggableArea : MonoBehaviour, IDraggableArea
     {
         [SerializeField] private RectTransform _rectTransform;
-        [field: SerializeField] public float CellSize { get; private set; } = 25f;
         private Camera _camera;
 
         private void OnValidate() => 
-            _rectTransform = GetComponent<RectTransform>();
+            _rectTransform = GetComponent<RectTransform>() ?? throw new Exception();
 
         [Inject]
         public void Construct(Camera gameCamera) => 
@@ -22,5 +22,8 @@ namespace Game.Features.Inventory.Infrastructure.View
             RectTransformUtility.ScreenPointToWorldPointInRectangle(_rectTransform, screenPoint, _camera, out var point);
             return point;
         }
+
+        public void PlaceItemAsChild(ItemPresenter item) => 
+            item.View.SetParent(transform);
     }
 }

@@ -18,7 +18,7 @@ namespace Game.Features.Inventory.Infrastructure.Installers
             Container.BindInterfacesTo<ItemsViewCachedProvider>().AsSingle();
             Container.BindInterfacesTo<LootManager>().AsSingle();
             Container.BindInterfacesTo<PresentersRegistry>().AsSingle();
-            Container.BindInterfacesTo<ItemViewFactory>().AsSingle().WithArguments(new object[]{ _itemViewPrefab, _itemsParent.transform });
+            Container.BindInterfacesTo<ItemViewFactory>().AsSingle().WithArguments(new object[]{ _itemViewPrefab });
             Container.BindInterfacesTo<InventoryFeatureInstaller>().FromInstance(this).AsCached().NonLazy();
         }
 

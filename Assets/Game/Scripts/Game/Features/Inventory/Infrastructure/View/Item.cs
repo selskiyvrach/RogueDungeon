@@ -2,6 +2,7 @@
 using Game.Libs.UI;
 using Libs.Utils.Unity;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Game.Features.Inventory.Infrastructure.View
@@ -10,6 +11,7 @@ namespace Game.Features.Inventory.Infrastructure.View
     {
         [SerializeField] private Image _itemImage;
         [SerializeField] private ItemProjection _projection;
+        [SerializeField] private Canvas _canvas;
 
         private bool _isBeingDragged;
 
@@ -22,7 +24,7 @@ namespace Game.Features.Inventory.Infrastructure.View
         public void Setup(IItemViewSetupArgs itemViewSetupArgs)
         {
             _itemViewSetupArgs = itemViewSetupArgs;
-            _itemImage.sprite = _itemViewSetupArgs.Sprite;
+            _itemImage.sprite = itemViewSetupArgs.Sprite;
             _projection.SetSprite(itemViewSetupArgs.Sprite);
             UpdateVerticalOffset();
         }
@@ -32,6 +34,12 @@ namespace Game.Features.Inventory.Infrastructure.View
 
         public Vector2 GetScreenPosition(Camera camera) => 
             camera.WorldToScreenPoint(transform.position);
+
+        public void SetParent(Transform parent)
+        {
+            transform.SetParent(parent, worldPositionStays: false);
+            UpdateVerticalOffset();
+        }
 
         public void SetCellSize(float value)
         {
@@ -51,13 +59,9 @@ namespace Game.Features.Inventory.Infrastructure.View
         public void DisplayHovered(bool hovered)
         {
             IsHovered = hovered;
-            if(IsHovered)
-                RenderLast();
+            _canvas.overrideSorting = hovered;
             UpdateVerticalOffset();
         }
-
-        private void RenderLast() => 
-            transform.SetAsLastSibling();
 
         private void UpdateVerticalOffset()
         {
