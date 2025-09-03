@@ -63,14 +63,8 @@ namespace Game.Features.Inventory.Infrastructure.View
             UpdateVerticalOffset();
         }
 
-        private void UpdateVerticalOffset()
-        {
-            var offset = .0035f;
-            if (IsHovered) 
-                offset += .0065f;
-
-            _itemImage.transform.localPosition = Vector3.back * offset / transform.lossyScale.y;
-        }
+        private void UpdateVerticalOffset() => 
+            _itemImage.transform.localPosition = Vector3.back * (IsHovered ? .01f : 0.0035f) / transform.lossyScale.y;
 
         public void Dispose() => 
             Destroy(gameObject);
