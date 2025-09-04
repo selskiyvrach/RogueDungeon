@@ -1,69 +1,36 @@
-﻿using UnityEngine;
-using UnityEngine.Assertions;
+﻿using System;
+using UnityEngine;
 
 namespace Game.Features.Inventory.Infrastructure.View
 {
     public class WorldInventoryAnimator : MonoBehaviour
     {
-        [SerializeField] private GameObject _animationRootObject;
-        [SerializeField] private WorldInventoryConfig _config;
-
-        public enum AnimatorState
-        {
-            None,
-            Closed,
-            Opening,
-            Open,
-            Closing,
-        }
+        private static readonly int PACK_HASH = Animator.StringToHash("pack");
+        private static readonly int UNPACK_HASH = Animator.StringToHash("unpack");
         
-        private AnimatorState _stateBackingField;
-        private float _animationPlayTime;
+        [SerializeField] private Animator _animator;
+        private Action _callback;
 
-        public AnimatorState State
+        public void PlayUnpack()
         {
-            get => _stateBackingField;
-            set
-            {
-                Assert.IsTrue(value != _stateBackingField);
-                
-                _stateBackingField = value;
-                _animationPlayTime = 0;
-            }
-        }
-        
-        private void Awake()
-        {
-            State = AnimatorState.Closed;
-            // _config.OpenAnimation.SampleAnimation(_animationRootObject, 0);
+            // is gonna be called on both pack and unpack animations since they are the same animation played in reverse
+            // so nullifying the callback in play unpack is crucial
+            _callback = null;
+            _animator.SetTrigger(UNPACK_HASH);
         }
 
-        public void Unpack()
+        public void PlayPack(Action callback)
         {
-            Assert.IsTrue(State == AnimatorState.Closed);
-            gameObject.SetActive(true);
-            State = AnimatorState.Open;
+            _callback = callback;
+            _animator.SetTrigger(PACK_HASH);
         }
 
-        public void Pack()
+        // is gonna be called on both pack and unpack animations since they are the same animation played in reverse
+        // so nullifying the callback in play unpack is crucial
+        private void OnPackFinishedKeyframe()
         {
-            Assert.IsTrue(State == AnimatorState.Open);
-            State = AnimatorState.Closed;
-        }
-
-        public void Tick(float timeDelta)
-        {
-            // if (State is AnimatorState.Closed or AnimatorState.Open)
-            //     return;
-            //
-            // var animationPosition = Mathf.Clamp01(_animationPlayTime / _config.OpenAnimationDuration);
-            // if(State is AnimatorState.Closing)
-            //     animationPosition = 1 - animationPosition;
-            // _config.OpenAnimation.SampleAnimation(_animationRootObject, animationPosition);
-            // _animationPlayTime += timeDelta;
-            //
-            // if(_animationPlayTime >= _config.OpenAnimationDuration)
-            //     State = State == AnimatorState.Opening ? AnimatorState.Open : AnimatorState.Closed;
+            _callback?.Invoke();
+            _callback = null;
         }
     }
 }

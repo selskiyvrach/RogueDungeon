@@ -1,6 +1,4 @@
-﻿using Game.Features.Player.Domain.Movesets.Movement;
-using Game.Libs.UI;
-using Libs.Fsm;
+﻿using Game.Libs.UI;
 using UnityEngine.Assertions;
 using Zenject;
 
@@ -19,23 +17,16 @@ namespace Game.Features.Inventory.App.UseCases
         }
 
         public void Initialize() => 
-            _player.OnStateChanged += HandleStateChanged;
+            _player.OnShowInventoryRequested += HandleStateChanged;
 
-        private void HandleStateChanged(IState state)
+        private void HandleStateChanged(bool show)
         {
-            switch (state)
-            {
-                case InventoryKeepOpenMove:
-                    Assert.IsFalse(_isOpen);
-                    _screensService.Show(new ShowInventoryRequest());
-                    _isOpen = true;
-                    break;
-                case InventoryCloseMove:
-                    Assert.IsTrue(_isOpen);
-                    _screensService.Hide(new HideInventoryRequest());
-                    _isOpen = false;
-                    break;
-            }
+            Assert.AreNotEqual(show, _isOpen);
+            if (show)
+                _screensService.Show(new ShowInventoryRequest());
+            else
+                _screensService.Hide(new HideInventoryRequest());
+            _isOpen = show;
         }
     }
 }

@@ -8,13 +8,13 @@ namespace Game.Features.Inventory.Infrastructure.View
 {
     public class InventoryScreenSpawner : IScreen, IInitializable
     {
-        private readonly IFactory<Transform, GameObject> _inventoryViewFactory;
+        private readonly IFactory<Transform, InventoryView> _inventoryViewFactory;
         private readonly Transform _parent;
         private readonly IScreensRegistry _screensRegistry;
 
-        private GameObject _screen;
+        private InventoryView _screen;
         
-        public InventoryScreenSpawner(IFactory<Transform, GameObject> inventoryViewFactory, Transform parent, IScreensRegistry screensRegistry)
+        public InventoryScreenSpawner(IFactory<Transform, InventoryView> inventoryViewFactory, Transform parent, IScreensRegistry screensRegistry)
         {
             _inventoryViewFactory = inventoryViewFactory;
             _parent = parent;
@@ -34,13 +34,17 @@ namespace Game.Features.Inventory.Infrastructure.View
         {
             Assert.IsNull(_screen);
             _screen = _inventoryViewFactory.Create(_parent);
+            _screen.Show();
         }
 
         public void Hide(IHideRequest request)
         {
             Assert.IsNotNull(_screen);
-            Object.Destroy(_screen);
-            _screen = null;
+            _screen.Hide(() =>
+            {
+                _screen.Destroy();
+                _screen = null;
+            });
         }
     }
 }

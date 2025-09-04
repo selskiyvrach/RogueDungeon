@@ -22,6 +22,7 @@ namespace Game.Features.Player.Domain.Movesets.Movement
             base.Enter();
             _inventoryKey.Reset();
             _escKey.Reset();
+            _player.RaiseShowInventoryRequested(show: false);
         }
 
         public override void Exit()

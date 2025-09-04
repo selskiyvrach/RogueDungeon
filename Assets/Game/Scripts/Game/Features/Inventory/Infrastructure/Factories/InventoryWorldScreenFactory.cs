@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Game.Features.Inventory.Infrastructure.View;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Features.Inventory.Infrastructure.Factories
 {
-    public class InventoryWorldScreenFactory : IFactory<Transform, GameObject>
+    public class InventoryWorldScreenFactory : IFactory<Transform, InventoryView>
     {
         private readonly InventoryWorldInstanceInstaller _worldInstancePrefab;
         private readonly DiContainer _container;
@@ -14,9 +15,9 @@ namespace Game.Features.Inventory.Infrastructure.Factories
             _worldInstancePrefab = worldInstancePrefab;
         }
 
-        public GameObject Create(Transform parent)
+        public InventoryView Create(Transform parent)
         {
-            var result = _container.InstantiatePrefab(_worldInstancePrefab, parent);
+            var result = _container.InstantiatePrefabForComponent<InventoryView>(_worldInstancePrefab, parent);
             result.transform.localPosition = Vector3.zero;
             return result;
         }

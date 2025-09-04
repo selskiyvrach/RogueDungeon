@@ -24,11 +24,8 @@ namespace Game.Features.Player.Domain
         public IBlockingItem BlockingItem { get; set; }
         public bool HasUnabsorbedBlockImpact { get; set; }
         public event Action<PlayerAttackInfo> OnAttackMediationRequested;
-        public event Action<IState> OnStateChanged
-        {
-            add => _movementStateMachine.OnStateChanged += value;
-            remove => _movementStateMachine.OnStateChanged -= value;
-        }
+        public event Action<bool> OnShowInventoryRequested;
+
         public Player(IPlayerConfig config)
         {
             Config = config;
@@ -86,6 +83,9 @@ namespace Game.Features.Player.Domain
         {
             
         }
+
+        public void RaiseShowInventoryRequested(bool show) => 
+            OnShowInventoryRequested?.Invoke(show);
 
         public void SetEnemyAttackResult(EnemyAttackResult result)
         {

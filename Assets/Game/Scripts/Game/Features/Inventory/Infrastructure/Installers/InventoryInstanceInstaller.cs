@@ -15,7 +15,7 @@ namespace Game.Features.Inventory.Infrastructure.Installers
         public override void InstallBindings()
         {
             Container.Bind<Domain.Inventory>().AsSingle();
-            Container.Bind<IFactory<Transform, GameObject>>().To<InventoryWorldScreenFactory>().AsSingle().WithArguments(new object[]{_inventoryViewPrefab} );
+            Container.Bind<IFactory<Transform, InventoryView>>().To<InventoryWorldScreenFactory>().AsSingle().WithArguments(new object[]{_inventoryViewPrefab} );
             Container.BindInterfacesTo<ShowHideWorldInventoryUseCase>().AsSingle().NonLazy();
             Container.BindInterfacesTo<InventoryScreenSpawner>().AsSingle().WithArguments(new object[]{ _inventoryViewParent}).NonLazy();
         }

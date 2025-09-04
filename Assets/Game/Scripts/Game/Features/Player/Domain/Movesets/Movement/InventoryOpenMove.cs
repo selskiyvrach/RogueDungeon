@@ -7,6 +7,7 @@ namespace Game.Features.Player.Domain.Movesets.Movement
     public class InventoryOpenMove : PlayerInputMove
     {
         private readonly Player _player;
+        private bool _eventRaised;
         protected override float Duration => _player.Config.OpenInventoryDuration; 
         protected override InputKey RequiredKey => InputKey.Inventory;
         protected override RequiredState State => RequiredState.Down;
@@ -18,6 +19,24 @@ namespace Game.Features.Player.Domain.Movesets.Movement
         {
             base.Enter();
             _player.Hands.Hide();
+            _eventRaised = false;
+        }
+
+        public override void Tick(float timeDelta)
+        {
+            base.Tick(timeDelta);
+            if (_eventRaised || Animation.Progress < .6f) 
+                return;
+            
+            _eventRaised = true;
+            _player.RaiseShowInventoryRequested(show: true);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            if(!_eventRaised)
+                _player.RaiseShowInventoryRequested(show: true);
         }
 
         protected override bool CanTransitionTo() => 
