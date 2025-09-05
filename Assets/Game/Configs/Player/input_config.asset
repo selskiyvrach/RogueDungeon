@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52bcafde5dcb45e1acbc9202368534c7, type: 3}
-  m_Name: InputMapConfig
+  m_Name: input_config
   m_EditorClassIdentifier: 
   <Units>k__BackingField:
   - <Key>k__BackingField: 100
