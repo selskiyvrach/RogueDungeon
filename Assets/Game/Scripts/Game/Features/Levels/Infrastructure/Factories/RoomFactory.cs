@@ -22,6 +22,7 @@ namespace Game.Features.Levels.Infrastructure.Factories
         {
             _container.Bind<Vector2Int>().FromInstance(param1.Coordinates).AsCached();
             var view = _container.InstantiatePrefab(((RoomConfig)param1).Prefab, _parent);
+            view.name = "room_" + param1.Coordinates;
             _container.Unbind<Vector2Int>();
             
             view.transform.position = new Vector3(param1.Coordinates.x, 0, param1.Coordinates.y);

@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4180b03dfb0f4b3694bfa868e6ed0326, type: 3}
-  m_Name: room_-1-2
+  m_Name: room_2;1
   m_EditorClassIdentifier: 
-  <CombatId>k__BackingField: one_skeleton
-  <Coordinates>k__BackingField: {x: -1, y: 2}
+  <Coordinates>k__BackingField: {x: 5, y: 3}
   <Prefab>k__BackingField: {fileID: 6621873733563358463, guid: f73c48686ccaafb4bbc9c77411d884e7,
     type: 3}
