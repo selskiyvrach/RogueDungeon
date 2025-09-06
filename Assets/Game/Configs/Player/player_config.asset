@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: player_config
   m_EditorClassIdentifier: 
   <Health>k__BackingField:
-    <Max>k__BackingField: 35
+    <Max>k__BackingField: 1000
   <Stamina>k__BackingField:
-    <Max>k__BackingField: 50
+    <Max>k__BackingField: 1000
     <RechargeRate>k__BackingField: 15
     <RechargeDelay>k__BackingField: 0.25
   <PositionOffsetFromTileCenter>k__BackingField: 0.4
@@ -26,7 +26,7 @@ MonoBehaviour:
   <DeathAnimationDuration>k__BackingField: 2
   <DodgeDuration>k__BackingField: 0.65
   <MovementActionDuration>k__BackingField: 0.75
-  <TurnDuration>k__BackingField: 0.75
+  <TurnDuration>k__BackingField: 0.5
   <TurnAroundDuration>k__BackingField: 1
   <IdleAnimationDuration>k__BackingField: 1.2
   <DodgeStaminaCost>k__BackingField: 5

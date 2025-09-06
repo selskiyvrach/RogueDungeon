@@ -217,6 +217,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: gameplay_camera
       objectReference: {fileID: 0}
+    - target: {fileID: 7510150702532994879, guid: 64b5d0864ef0bb04594b837d7eea3c34,
+        type: 3}
+      propertyPath: field of view
+      value: 65
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -515,6 +520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelConfig: {fileID: 11400000, guid: 86f7670d01634b14698f234e984f0253, type: 2}
   _roomsParent: {fileID: 1994701580}
+  _roomSpritesConfig: {fileID: 11400000, guid: b61cd74bb9e25fb4ebbd5461702e0ec7, type: 2}
 --- !u!114 &1662126085
 MonoBehaviour:
   m_ObjectHideFlags: 0

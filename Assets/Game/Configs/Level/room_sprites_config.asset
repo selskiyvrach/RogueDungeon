@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57fb388e53844c899d74d7c110f32d0, type: 3}
+  m_Name: room_sprites_config
+  m_EditorClassIdentifier: 
+  _sprites:
+  - Adjacency: 10
+    Sprite: {fileID: 1102414479, guid: 7c0c2a93f990b854e92a6406faf8a2c0, type: 3}
+  - Adjacency: 20
+    Sprite: {fileID: -1525871122, guid: 7c0c2a93f990b854e92a6406faf8a2c0, type: 3}
+  - Adjacency: 30
+    Sprite: {fileID: 261752456, guid: 7c0c2a93f990b854e92a6406faf8a2c0, type: 3}
+  - Adjacency: 40
+    Sprite: {fileID: 1374045386, guid: 7c0c2a93f990b854e92a6406faf8a2c0, type: 3}
+  - Adjacency: 50
+    Sprite: {fileID: 998523288, guid: 7c0c2a93f990b854e92a6406faf8a2c0, type: 3}

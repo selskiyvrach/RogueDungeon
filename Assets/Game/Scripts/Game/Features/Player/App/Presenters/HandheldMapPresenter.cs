@@ -1,9 +1,15 @@
-﻿namespace Game.Features.Player.App.Presenters
+﻿using System;
+using System.Collections.Generic;
+using Game.Features.Levels.Domain;
+using Game.Libs.Items;
+using UnityEngine;
+
+namespace Game.Features.Player.App.Presenters
 {
     // public class HandheldMapPresenter : IMapInfoProvider
     // {
     //     private readonly Level _level;
-    //     private readonly HandheldMapView _mapView;
+    //     // private readonly HandheldMapView _mapView;
     //     Vector2Int IMapInfoProvider.CurrentPlayerPosition => _level.CurrentRoom.Coordinates;
     //
     //     event Action IMapInfoProvider.OnPlayerPositionChanged

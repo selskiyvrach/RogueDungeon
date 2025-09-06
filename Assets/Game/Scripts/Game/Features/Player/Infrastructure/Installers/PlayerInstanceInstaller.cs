@@ -50,7 +50,7 @@ namespace Game.Features.Player.Infrastructure.Installers
             Container.BindInterfacesAndSelfTo<PlayerGameObjectPositionView>().FromInstance(_worldRootObject).AsSingle();
             Container.Bind<PlayerGameObjectPositionPresenter>().AsSingle().NonLazy();
             
-            Container.Bind<SyncLevelAndLevelContextUseCase>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<SyncLevelAndLevelContextUseCase>().AsSingle().NonLazy();
             Container.Bind<EquipDefaultWeaponsUseCase>().AsSingle().NonLazy();
             Container.Bind<SyncDrawnWeaponsWithInventoryStateUseCase>().AsSingle().NonLazy();
             Container.Bind<MediateAttacksUseCase>().AsSingle().NonLazy();

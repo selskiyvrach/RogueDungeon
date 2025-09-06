@@ -15,34 +15,34 @@ MonoBehaviour:
   <DefaultIdlePosition>k__BackingField:
     <KeyframeType>k__BackingField: 0
     <Time>k__BackingField: 1
-    <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
+    <Position>k__BackingField: {x: -0.07, y: 0.0075, z: -0.05}
     <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
   <RaiseBlockAnimation>k__BackingField:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
+      <Position>k__BackingField: {x: -0.07, y: 0.0075, z: -0.05}
       <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
     <Events>k__BackingField: []
   <HoldBlockAnimation>k__BackingField:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
+      <Position>k__BackingField: {x: -0.07, y: 0.0075, z: -0.05}
       <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
     <Events>k__BackingField: []
   <AbsorbBlockImpactAnimation>k__BackingField:
     <KeyFrames>k__BackingField:
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 0
-      <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
+      <Position>k__BackingField: {x: -0.07, y: 0.0075, z: -0.05}
       <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 0.2
-      <Position>k__BackingField: {x: -0.07, y: 0.01, z: -0.06}
+      <Position>k__BackingField: {x: -0.07, y: -0.01, z: -0.06}
       <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
     - <KeyframeType>k__BackingField: 0
       <Time>k__BackingField: 1
-      <Position>k__BackingField: {x: -0.07, y: 0.015, z: -0.05}
+      <Position>k__BackingField: {x: -0.07, y: 0.0075, z: -0.05}
       <Rotation>k__BackingField: {x: 0, y: 5, z: 0}
     <Events>k__BackingField: []
