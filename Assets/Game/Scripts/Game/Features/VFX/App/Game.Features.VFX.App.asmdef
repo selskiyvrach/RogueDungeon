@@ -1,5 +1,5 @@
 {
-    "name": "Game.Features.GameplayCamera.App",
+    "name": "Game.Features.VFX.App",
     "rootNamespace": "",
     "references": [
         "GUID:73e29e3d71f24a8196988aa361a75165",

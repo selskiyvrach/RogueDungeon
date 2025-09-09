@@ -1,4 +1,4 @@
-﻿namespace Game.Features.GameplayCamera.Domain
+﻿namespace Game.Features.VFX.App
 {
     public interface ICameraShakerConfig
     {

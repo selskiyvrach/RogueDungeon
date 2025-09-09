@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79415624f48a4799be8761124252c906, type: 3}
   m_Name: camera_shake_config
   m_EditorClassIdentifier: 
-  _mildDuration: 0.1
-  _mildStrength: 0.1
-  _strongDuration: 0.1
-  _strongStrength: 0.1
-  _extremeDuration: 0.1
-  _extremeStrength: 0.1
+  _mildDuration: 0.35
+  _mildStrength: 0.005
+  _strongDuration: 0.35
+  _strongStrength: 0.0075
+  _extremeDuration: 0.5
+  _extremeStrength: 0.015

@@ -1,9 +1,9 @@
 ﻿using System;
-using Game.Features.GameplayCamera.Domain;
+using Game.Features.VFX.App;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Features.GameplayCamera.Infrastructure
+namespace Game.Features.VFX.Infrastructure
 {
     public class CameraShakerConfig : ScriptableObject, ICameraShakerConfig
     {

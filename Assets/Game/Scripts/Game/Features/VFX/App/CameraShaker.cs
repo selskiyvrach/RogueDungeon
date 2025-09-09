@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace Game.Features.GameplayCamera.Domain
+namespace Game.Features.VFX.App
 {
     public class CameraShaker : ICameraShaker
     {
