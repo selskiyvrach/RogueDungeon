@@ -6,7 +6,7 @@ using Libs.Fsm;
 using Libs.Lifecycle;
 using UnityEngine.Assertions;
 
-namespace Game.Features.Player.Domain.Behaviours.Hands
+namespace Game.Features.Player.Domain.Hands
 {
     public class HandBehaviour : ITickable, IInitializable
     {

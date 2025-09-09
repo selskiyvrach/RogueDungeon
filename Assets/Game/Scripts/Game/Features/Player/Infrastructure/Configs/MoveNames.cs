@@ -1,4 +1,4 @@
-﻿namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
+﻿namespace Game.Features.Player.Infrastructure.Configs
 {
     public static class MoveNames
     {

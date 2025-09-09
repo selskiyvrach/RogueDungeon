@@ -1,5 +1,4 @@
 ﻿using Game.Features.Player.Domain;
-using Game.Features.Player.Domain.Behaviours.CommonMoveset;
 using Game.Libs.InGameResources;
 using Sirenix.OdinInspector;
 using UnityEngine;

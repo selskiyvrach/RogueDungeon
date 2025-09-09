@@ -1,4 +1,5 @@
 ﻿using Game.Features.Combat.Domain.Enemies;
+using Game.Features.Combat.Domain.Enemies.HiveMind;
 using Libs.Utils.Zenject;
 using UnityEngine;
 using Zenject;

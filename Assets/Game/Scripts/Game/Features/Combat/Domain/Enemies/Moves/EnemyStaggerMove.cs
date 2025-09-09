@@ -1,7 +1,7 @@
 ﻿using System;
 using Libs.Animations;
 
-namespace Game.Features.Combat.Domain.Enemies
+namespace Game.Features.Combat.Domain.Enemies.Moves
 {
     public class EnemyStaggerMove : EnemyMove
     {

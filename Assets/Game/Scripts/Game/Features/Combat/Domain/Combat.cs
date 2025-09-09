@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Features.Combat.Domain.Enemies;
+using Game.Features.Combat.Domain.Enemies.HiveMind;
 using Libs.Lifecycle;
 using Libs.Utils.DotNet;
 using UnityEngine;

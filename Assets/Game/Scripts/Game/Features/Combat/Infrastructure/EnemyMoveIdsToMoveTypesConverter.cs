@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Features.Combat.Domain.Enemies;
+using Game.Features.Combat.Domain.Enemies.Moves;
 using Libs.Movesets;
 
 namespace Game.Features.Combat.Infrastructure

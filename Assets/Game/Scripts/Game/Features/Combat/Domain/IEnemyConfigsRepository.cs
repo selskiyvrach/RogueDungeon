@@ -1,6 +1,6 @@
 ﻿using Game.Features.Combat.Domain.Enemies;
 
-namespace Game.Features.Combat.Infrastructure
+namespace Game.Features.Combat.Domain
 {
     public interface IEnemyConfigsRepository
     {

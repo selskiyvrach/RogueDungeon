@@ -1,4 +1,4 @@
-﻿using Game.Features.Player.Domain.Behaviours.Hands;
+﻿using Game.Features.Player.Domain.Hands;
 using Game.Features.Player.Domain.Movesets.Items.Interfaces;
 using Game.Libs.Items;
 

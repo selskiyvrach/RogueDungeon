@@ -1,5 +1,5 @@
 ﻿using System;
-using Game.Features.Player.Domain.Behaviours.Hands;
+using Game.Features.Player.Domain.Hands;
 using Game.Libs.Combat;
 using Game.Libs.InGameResources;
 using Game.Libs.Items;

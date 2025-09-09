@@ -3,7 +3,7 @@ using Game.Features.Inventory.Infrastructure.View;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Features.Inventory.Infrastructure.Factories
+namespace Game.Features.Inventory.Infrastructure.Installers
 {
     public class ItemViewInstaller : MonoInstaller
     {

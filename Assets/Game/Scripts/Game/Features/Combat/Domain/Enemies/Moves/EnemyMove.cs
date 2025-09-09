@@ -1,7 +1,7 @@
 ﻿using Libs.Animations;
 using Libs.Movesets;
 
-namespace Game.Features.Combat.Domain.Enemies
+namespace Game.Features.Combat.Domain.Enemies.Moves
 {
     public abstract class EnemyMove : Move
     {

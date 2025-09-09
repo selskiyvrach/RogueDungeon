@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using Game.Features.Combat.Domain.Enemies;
+using Game.Features.Combat.Domain.Enemies.HiveMind;
 using Game.Libs.Combat;
 using Libs.Utils.DotNet;
 
 namespace Game.Features.Combat.Domain
 {
-    public class AttacksMediator 
+    public class AttacksMediator : ICombatEvents
     {
         private readonly HiveMind _hiveMind;
 

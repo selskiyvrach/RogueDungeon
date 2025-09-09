@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Features.Combat.Domain.Enemies.Moves;
 using Libs.Fsm;
 using Libs.Lifecycle;
 

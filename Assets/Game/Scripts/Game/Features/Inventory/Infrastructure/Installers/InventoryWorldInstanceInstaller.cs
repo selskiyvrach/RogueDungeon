@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
 
-namespace Game.Features.Inventory.Infrastructure.Factories
+namespace Game.Features.Inventory.Infrastructure.Installers
 {
     public class InventoryWorldInstanceInstaller : MonoInstaller
     {

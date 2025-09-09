@@ -2,7 +2,7 @@
 using Game.Features.Player.Domain.Movesets.Movement;
 using Libs.Movesets;
 
-namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
+namespace Game.Features.Player.Infrastructure.Configs
 {
     public class PlayerMoveIdToTypeConverter : IMoveIdToTypeConverter
     {

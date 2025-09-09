@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Features.Combat.Domain.Enemies.Moves;
 using Game.Libs.Combat;
 using Game.Libs.InGameResources;
 using Game.Libs.WorldObjects;

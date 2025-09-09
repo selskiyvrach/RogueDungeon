@@ -1,0 +1,18 @@
+{
+    "name": "Game.Features.GameplayCamera.App",
+    "rootNamespace": "",
+    "references": [
+        "GUID:73e29e3d71f24a8196988aa361a75165",
+        "GUID:7761ce9d22744c49934dd39ac0388277",
+        "GUID:042410c29e1f45559bcec52ec34f3b09"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

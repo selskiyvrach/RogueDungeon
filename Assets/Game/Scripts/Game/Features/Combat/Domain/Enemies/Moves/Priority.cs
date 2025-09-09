@@ -1,4 +1,4 @@
-﻿namespace Game.Features.Combat.Domain.Enemies
+﻿namespace Game.Features.Combat.Domain.Enemies.Moves
 {
     public enum Priority
     {

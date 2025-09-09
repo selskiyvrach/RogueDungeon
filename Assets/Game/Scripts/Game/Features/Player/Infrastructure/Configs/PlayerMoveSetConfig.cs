@@ -5,7 +5,7 @@ using Libs.Movesets;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Features.Player.Domain.Behaviours.CommonMoveset
+namespace Game.Features.Player.Infrastructure.Configs
 {
     public class PlayerMoveSetConfig : TransformAnimationsConfig, IMoveSetConfig
     {

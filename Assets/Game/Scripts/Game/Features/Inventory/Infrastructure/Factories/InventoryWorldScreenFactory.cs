@@ -1,4 +1,5 @@
-﻿using Game.Features.Inventory.Infrastructure.View;
+﻿using Game.Features.Inventory.Infrastructure.Installers;
+using Game.Features.Inventory.Infrastructure.View;
 using UnityEngine;
 using Zenject;
 

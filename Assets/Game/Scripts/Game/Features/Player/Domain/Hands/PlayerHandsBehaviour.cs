@@ -4,7 +4,7 @@ using Game.Libs.Items;
 using UnityEngine.Assertions;
 using Zenject;
 
-namespace Game.Features.Player.Domain.Behaviours.Hands
+namespace Game.Features.Player.Domain.Hands
 {
     public class PlayerHandsBehaviour
     {

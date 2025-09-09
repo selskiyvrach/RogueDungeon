@@ -1,6 +1,6 @@
 ﻿using System;
 using Game.Features.Inventory.Domain;
-using Game.Features.Player.Domain.Behaviours.Hands;
+using Game.Features.Player.Domain.Hands;
 
 namespace Game.Features.Player.App.UseCases.Instance
 {

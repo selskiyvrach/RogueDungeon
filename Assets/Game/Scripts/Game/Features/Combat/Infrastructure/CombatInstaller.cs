@@ -1,6 +1,8 @@
 ﻿using Game.Features.Combat.App;
+using Game.Features.Combat.App.UseCases;
 using Game.Features.Combat.Domain;
 using Game.Features.Combat.Domain.Enemies;
+using Game.Features.Combat.Domain.Enemies.HiveMind;
 using Game.Libs.Time;
 using UnityEngine;
 using Zenject;
@@ -21,7 +23,7 @@ namespace Game.Features.Combat.Infrastructure
             Container.Bind<IEnemyConfigsRepository>().FromInstance(_enemyConfigsRepository).AsSingle();
             Container.Bind<IFactory<string, Transform, Enemy>>().To<EnemyFactory>().AsSingle();
             Container.Bind<IEnemySpawner>().To<EnemySpawner>().AsSingle();
-            Container.Bind<AttacksMediator>().AsSingle();
+            Container.BindInterfacesAndSelfTo<AttacksMediator>().AsSingle();
             Container.Bind<HiveMind>().AsSingle();
             Container.Bind<Domain.Combat>().FromMethod(() =>
             {

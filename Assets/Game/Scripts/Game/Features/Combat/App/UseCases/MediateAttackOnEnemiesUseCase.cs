@@ -1,6 +1,6 @@
 ﻿using Game.Features.Combat.Domain;
 
-namespace Game.Features.Combat.App
+namespace Game.Features.Combat.App.UseCases
 {
     public class MediateAttacksOnEnemiesUseCase
     {

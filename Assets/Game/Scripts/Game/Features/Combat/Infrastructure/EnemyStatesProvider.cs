@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Game.Features.Combat.Domain.Enemies;
+using Game.Features.Combat.Domain.Enemies.Moves;
 using Zenject;
 
 namespace Game.Features.Combat.Infrastructure

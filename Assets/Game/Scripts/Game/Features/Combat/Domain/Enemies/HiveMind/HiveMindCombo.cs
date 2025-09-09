@@ -3,7 +3,7 @@ using System.Linq;
 using Libs.Lifecycle;
 using Libs.Utils.DotNet;
 
-namespace Game.Features.Combat.Domain.Enemies
+namespace Game.Features.Combat.Domain.Enemies.HiveMind
 {
     public class HiveMindCombo : ITickable
     {

@@ -1,7 +1,7 @@
 ﻿using Game.Features.Levels.Domain;
 using Game.Features.Player.Domain.Movesets.Movement;
 
-namespace Game.Features.Combat.App
+namespace Game.Features.Combat.App.UseCases
 {
     public class TryStartCombatOnRoomEnterUseCase
     {

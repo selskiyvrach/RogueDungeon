@@ -1,8 +1,7 @@
 ﻿using Game.Features.Player.App.Presenters;
 using Game.Features.Player.App.UseCases.Instance;
 using Game.Features.Player.Domain;
-using Game.Features.Player.Domain.Behaviours.CommonMoveset;
-using Game.Features.Player.Domain.Behaviours.Hands;
+using Game.Features.Player.Domain.Hands;
 using Game.Features.Player.Domain.Movesets.Items;
 using Game.Features.Player.Domain.Movesets.Items.Interfaces;
 using Game.Features.Player.Infrastructure.Configs;

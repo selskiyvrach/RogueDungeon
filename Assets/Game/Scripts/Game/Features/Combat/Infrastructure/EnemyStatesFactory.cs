@@ -1,4 +1,5 @@
 ﻿using Game.Features.Combat.Domain.Enemies;
+using Game.Features.Combat.Domain.Enemies.Moves;
 using Libs.Movesets;
 using Zenject;
 

@@ -1,4 +1,4 @@
-﻿using Game.Features.Player.Domain.Behaviours.Hands;
+﻿using Game.Features.Player.Domain.Hands;
 using Game.Features.Player.Infrastructure.Configs;
 using Libs.Fsm;
 using UnityEngine;

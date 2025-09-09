@@ -4,7 +4,7 @@ using Libs.Animations;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Game.Features.Combat.Domain.Enemies
+namespace Game.Features.Combat.Domain.Enemies.Moves
 {
     [Serializable]
     public class EnemyAttackMoveConfig

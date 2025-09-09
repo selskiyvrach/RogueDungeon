@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Game.Features.Combat.Domain.Enemies.Moves;
 using Game.Libs.Combat;
 using Libs.Lifecycle;
 using Libs.Utils.DotNet;
