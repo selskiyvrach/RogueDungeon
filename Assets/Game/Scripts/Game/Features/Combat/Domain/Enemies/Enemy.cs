@@ -88,7 +88,7 @@ namespace Game.Features.Combat.Domain.Enemies
             _stateMachine.TryStartState(_statesProvider.GetState(name));
 
         public EnemyAttackInfo GetAttackInfo(EnemyAttackMoveConfig config) => 
-            new(config.Damage, config.Direction);
+            new(config.Damage, config.Direction, OccupiedPosition);
 
         public void SetPlayerAttackResult(PlayerAttackResult result) => 
             TakeDamage(result.FinalDamage, result.FinalPoiseDamage);

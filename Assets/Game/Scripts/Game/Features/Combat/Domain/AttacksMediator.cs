@@ -24,7 +24,8 @@ namespace Game.Features.Combat.Domain
             OnPlayerAttackResult?.Invoke(enemy, new PlayerAttackResult(
                 isHit: enemy != null,
                 finalDamage: playerAttackInfo.Damage,
-                finalPoiseDamage: playerAttackInfo.PoiseDamage));
+                finalPoiseDamage: playerAttackInfo.PoiseDamage, 
+                attackInfo: playerAttackInfo));
         }
 
         public void MediateEnemyAttack(EnemyAttackInfo info, Enemy enemy)
@@ -36,18 +37,18 @@ namespace Game.Features.Combat.Domain
         private EnemyAttackResult GetAttackResult(EnemyAttackInfo info, DefenderInfo defenderInfo)
         {
             if (!defenderInfo.IsAlive)
-                return EnemyAttackResult.NoResult;
+                return EnemyAttackResult.NoResult(info);
 
             if (info.Direction == defenderInfo.DodgingAgainst)
                 return info.Direction == AttackDirection.Left
-                    ? EnemyAttackResult.DodgedRight
-                    : EnemyAttackResult.DodgedLeft;
+                    ? EnemyAttackResult.DodgedRight(info)
+                    : EnemyAttackResult.DodgedLeft(info);
 
             return defenderInfo.IsBlocking  
                 ? EnemyAttackResult.BlockedHit(
                     staminaDamage: info.Damage * defenderInfo.BlockingStaminaCostFactor, 
-                    healthDamage: info.Damage * (1- defenderInfo.BlockingAbsorbtion)) 
-                : EnemyAttackResult.NonBlockedHit(info.Damage);
+                    healthDamage: info.Damage * (1- defenderInfo.BlockingAbsorbtion), info) 
+                : EnemyAttackResult.NonBlockedHit(info.Damage, info);
         }
     }
 }
