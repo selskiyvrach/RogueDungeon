@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ecbff98db947bfb7b1a41d81ae6a29, type: 3}
   m_Name: hit_flasher_config
   m_EditorClassIdentifier: 
-  _frontSize: 175
-  _backSize: 175
+  _frontSize: 300
+  _backSize: 300
   _backTravelDistance: 0.0005
   _frontTravelDistance: 0.0005
   _frontRightPos: {x: 0.075, y: 0, z: -0.17}
-  _frontLeftPos: {x: -0.12, y: 0, z: -0.17}
-  _backRightPos: {x: 0, y: 0, z: -0.17}
-  _backLeftPos: {x: 0, y: 0, z: -0.17}
-  <FlashInDuration>k__BackingField: 0.05
-  <FlashOutDuration>k__BackingField: 0.15
+  _frontLeftPos: {x: -0.13, y: 0, z: -0.17}
+  _backRightPos: {x: 0.31, y: 0, z: 0}
+  _backLeftPos: {x: -0.34, y: 0, z: 0}
+  <FlashInDuration>k__BackingField: 0.025
+  <FlashOutDuration>k__BackingField: 0.075

@@ -17,9 +17,9 @@ MonoBehaviour:
   <Health>k__BackingField:
     <Max>k__BackingField: 65
   <Poise>k__BackingField:
-    <Max>k__BackingField: 50
+    <Max>k__BackingField: 5
     <RechargeRate>k__BackingField: 1
-    <RechargeDelay>k__BackingField: 1
+    <RechargeDelay>k__BackingField: 0
   <HitImpactAnimation>k__BackingField:
     _animationType: 0
     _animationClipConfig:
@@ -31,7 +31,7 @@ MonoBehaviour:
     _transformAnimationConfig:
       <KeyFrames>k__BackingField: []
       <Events>k__BackingField: []
-  <ChillTime>k__BackingField: 2
+  <ChillTime>k__BackingField: 0.5
   <FrontLineComboLength>k__BackingField: {x: 2, y: 2}
   <IdleState>k__BackingField:
     _animationType: 1
@@ -142,7 +142,7 @@ MonoBehaviour:
       - <Frame>k__BackingField: 1
         <Name>k__BackingField: hit
   <IdleAnimationDuration>k__BackingField: 1
-  <StaggerDuration>k__BackingField: 2
-  <BirthAnimationDuration>k__BackingField: 0.25
-  <ChangePositionDuration>k__BackingField: 0.5
-  <DeathAnimationDuration>k__BackingField: 0.25
+  <StaggerDuration>k__BackingField: 0.75
+  <BirthAnimationDuration>k__BackingField: 0.35
+  <ChangePositionDuration>k__BackingField: 0.45
+  <DeathAnimationDuration>k__BackingField: 0.35

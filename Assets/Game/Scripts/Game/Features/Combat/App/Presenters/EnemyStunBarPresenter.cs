@@ -7,8 +7,8 @@ namespace Game.Features.Combat.App.Presenters
     {
         public EnemyStunBarPresenter(Enemy enemy, GameObject stunBar)
         {
-            enemy.OnStunnedStatusChanged += () => stunBar.SetActive(enemy.IsStunned);
-            stunBar.SetActive(enemy.IsStunned);
+            // enemy.OnStunnedStatusChanged += () => stunBar.SetActive(enemy.IsStunned);
+            // stunBar.SetActive(enemy.IsStunned);
         }
     }
 }
