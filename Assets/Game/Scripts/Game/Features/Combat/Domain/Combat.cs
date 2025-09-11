@@ -2,12 +2,11 @@
 using Game.Features.Combat.Domain.Enemies;
 using Game.Features.Combat.Domain.Enemies.HiveMind;
 using Libs.Lifecycle;
-using Libs.Utils.DotNet;
 using UnityEngine;
 
 namespace Game.Features.Combat.Domain
 {
-    public class Combat : ITickable
+    public class Combat : ITickable, ICombat
     {
         private readonly IBattleFieldFactory _battleFieldFactory;
         private readonly ICombatConfigsRepository _configsRepository;
@@ -17,6 +16,8 @@ namespace Game.Features.Combat.Domain
 
         public event Action OnFinished;
         public event Action OnStarted;
+
+        public string Id { get; private set; }
 
         public Combat(ICombatConfigsRepository configsRepository, IEnemySpawner enemySpawner, IBattleFieldFactory battleFieldFactory, HiveMind hiveMind)
         {
@@ -28,9 +29,7 @@ namespace Game.Features.Combat.Domain
 
         public void Initiate(string id, Vector2Int position, Vector2Int rotation)
         {
-            if (id.IsNullOrEmpty())
-                return;
-
+            Id = id;
             var battleField = _battleFieldFactory.CreateBattleField(position, rotation);
 
             foreach (var spawnInfo in _configsRepository.Get(id).SpawnInfos)

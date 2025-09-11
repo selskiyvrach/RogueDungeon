@@ -25,14 +25,14 @@ namespace Game.Features.Combat.Infrastructure
             Container.Bind<IEnemySpawner>().To<EnemySpawner>().AsSingle();
             Container.BindInterfacesAndSelfTo<AttacksMediator>().AsSingle();
             Container.Bind<HiveMind>().AsSingle();
-            Container.Bind<Domain.Combat>().FromMethod(() =>
+            Container.BindInterfacesTo<Domain.Combat>().FromMethod(_ =>
             {
                 var combat = Container.Instantiate<Domain.Combat>(new object[] { _combatConfigsRepository });
                 Container.Resolve<IGameTime>().StartTicking(combat, TickOrder.Combat);
                 return combat;
             }).AsSingle();
             
-            Container.Bind<TryStartCombatOnRoomEnterUseCase>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<TryStartCombatOnRoomEnterUseCase>().AsSingle().NonLazy();
             Container.Bind<MediateAttacksOnEnemiesUseCase>().AsSingle().NonLazy();
         }
     }

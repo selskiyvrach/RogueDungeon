@@ -6,6 +6,7 @@ namespace Game.Features.Combat.Domain
 {
     public interface ICombatConfig
     {
+        string LootId { get; }
         IEnumerable<(EnemyConfig config, EnemyPosition position)> SpawnInfos { get; }
     }
 }
