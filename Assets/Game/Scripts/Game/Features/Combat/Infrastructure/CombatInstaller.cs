@@ -25,6 +25,7 @@ namespace Game.Features.Combat.Infrastructure
             Container.Bind<IEnemySpawner>().To<EnemySpawner>().AsSingle();
             Container.BindInterfacesAndSelfTo<AttacksMediator>().AsSingle();
             Container.Bind<HiveMind>().AsSingle();
+            Container.BindInterfacesTo<CombatConfigsRepository>().FromInstance(_combatConfigsRepository).AsSingle();
             Container.BindInterfacesTo<Domain.Combat>().FromMethod(_ =>
             {
                 var combat = Container.Instantiate<Domain.Combat>(new object[] { _combatConfigsRepository });

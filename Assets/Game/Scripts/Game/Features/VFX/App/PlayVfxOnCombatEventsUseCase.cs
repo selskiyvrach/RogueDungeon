@@ -1,7 +1,6 @@
 ﻿using System;
 using Game.Features.Combat.Domain;
 using Game.Features.Combat.Domain.Enemies;
-using Game.Features.VFX.Infrastructure;
 using Game.Libs.Combat;
 using Zenject;
 

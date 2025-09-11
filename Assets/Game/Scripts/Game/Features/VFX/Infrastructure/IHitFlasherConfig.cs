@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Features.VFX.App;
+using UnityEngine;
 
 namespace Game.Features.VFX.Infrastructure
 {

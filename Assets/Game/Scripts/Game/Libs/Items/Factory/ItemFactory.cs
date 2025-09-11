@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Game.Libs.Items.Factory
 {
-    public class ItemFactory : IFactory<string, IItem>
+    public class ItemFactory : IItemFactory
     {
         private readonly IItemConfigsRepository _configsRepository;
         private readonly DiContainer _container;

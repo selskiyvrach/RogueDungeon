@@ -17,6 +17,7 @@ namespace Game.Features.Combat.Domain
         public event Action OnFinished;
         public event Action OnStarted;
 
+        public Vector2Int Coordinates { get; private set; }
         public string Id { get; private set; }
 
         public Combat(ICombatConfigsRepository configsRepository, IEnemySpawner enemySpawner, IBattleFieldFactory battleFieldFactory, HiveMind hiveMind)
@@ -30,6 +31,7 @@ namespace Game.Features.Combat.Domain
         public void Initiate(string id, Vector2Int position, Vector2Int rotation)
         {
             Id = id;
+            Coordinates = position;
             var battleField = _battleFieldFactory.CreateBattleField(position, rotation);
 
             foreach (var spawnInfo in _configsRepository.Get(id).SpawnInfos)

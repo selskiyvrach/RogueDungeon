@@ -2,15 +2,16 @@
 using Game.Libs.Items;
 using Game.Libs.Items.Factory;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Features.Player.App.UseCases.Instance
 {
     public class EquipDefaultWeaponsUseCase
     {
         private readonly Inventory.Domain.Inventory _inventory;
-        private readonly ItemFactory _itemFactory;
+        private readonly IItemFactory _itemFactory;
 
-        public EquipDefaultWeaponsUseCase(Inventory.Domain.Inventory inventory, ItemFactory itemFactory)
+        public EquipDefaultWeaponsUseCase(Inventory.Domain.Inventory inventory, IItemFactory itemFactory)
         {
             _inventory = inventory;
             _itemFactory = itemFactory;

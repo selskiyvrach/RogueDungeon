@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Features.VFX.App;
 using UnityEngine;
 using UnityEngine.Serialization;
 

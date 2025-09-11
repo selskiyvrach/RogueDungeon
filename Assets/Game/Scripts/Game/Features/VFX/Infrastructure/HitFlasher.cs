@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Game.Features.VFX.App;
 using Libs.Utils.Unity;
 using UnityEngine;
 using UnityEngine.UI;

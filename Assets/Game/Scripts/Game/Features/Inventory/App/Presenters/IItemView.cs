@@ -12,5 +12,6 @@ namespace Game.Features.Inventory.App.Presenters
         void SetPosition(Vector3 pos);
         Vector2 GetScreenPosition(Camera camera);
         void SetParent(Transform rectTransform);
+        void RefreshSubElementsPositions();
     }
 }

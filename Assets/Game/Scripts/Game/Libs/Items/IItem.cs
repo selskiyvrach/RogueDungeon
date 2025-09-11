@@ -8,24 +8,4 @@ namespace Game.Libs.Items
         string TypeId { get; }
         public Vector2Int Size { get; }
     }
-    
-    public interface ISlotable
-    {
-        public SlotCategory SlotCategory { get; }
-    }
-
-    public interface ISlotableItem : IItem, ISlotable
-    {
-        
-    }
-    
-    public enum SlotCategory
-    {
-        None,
-        Handheld,
-        Armor,
-        Helmet,
-        Boots,
-        Amulet
-    }
 }

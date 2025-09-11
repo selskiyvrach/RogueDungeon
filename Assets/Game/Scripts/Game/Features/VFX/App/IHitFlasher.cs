@@ -1,4 +1,4 @@
-﻿namespace Game.Features.VFX.Infrastructure
+﻿namespace Game.Features.VFX.App
 {
     public interface IHitFlasher
     {

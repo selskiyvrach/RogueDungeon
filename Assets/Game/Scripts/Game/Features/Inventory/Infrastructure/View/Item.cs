@@ -26,7 +26,7 @@ namespace Game.Features.Inventory.Infrastructure.View
             _itemViewSetupArgs = itemViewSetupArgs;
             _itemImage.sprite = itemViewSetupArgs.Sprite;
             _projection.SetSprite(itemViewSetupArgs.Sprite);
-            UpdateVerticalOffset();
+            RefreshSubElementsPositions();
         }
 
         public void SetPosition(Vector3 pos) => 
@@ -38,7 +38,7 @@ namespace Game.Features.Inventory.Infrastructure.View
         public void SetParent(Transform parent)
         {
             transform.SetParent(parent, worldPositionStays: false);
-            UpdateVerticalOffset();
+            RefreshSubElementsPositions();
         }
 
         public void SetCellSize(float value)
@@ -60,10 +60,10 @@ namespace Game.Features.Inventory.Infrastructure.View
         {
             IsHovered = hovered;
             _canvas.overrideSorting = hovered;
-            UpdateVerticalOffset();
+            RefreshSubElementsPositions();
         }
 
-        private void UpdateVerticalOffset() => 
+        public void RefreshSubElementsPositions() => 
             _itemImage.transform.localPosition = Vector3.back * (IsHovered ? .01f : 0.0035f) / transform.lossyScale.y;
 
         public void Dispose() => 

@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
-  m_FogDensity: 1
+  m_FogDensity: 0.9
   m_LinearFogStart: 0
   m_LinearFogEnd: 2.5
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -840,6 +840,7 @@ MonoBehaviour:
   _itemsParent: {fileID: 1764636175}
   _itemViewPrefab: {fileID: 7840099604648116314, guid: 19aa25cc14d47a94db61781927b12b35,
     type: 3}
+  _configsRepository: {fileID: 11400000, guid: c16eb13f6c3b2234d8fd4cd831a0bd3b, type: 2}
 --- !u!114 &1662126093
 MonoBehaviour:
   m_ObjectHideFlags: 0

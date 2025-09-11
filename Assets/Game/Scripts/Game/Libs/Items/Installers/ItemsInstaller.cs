@@ -11,8 +11,8 @@ namespace Game.Libs.Items.Installers
 
         public override void InstallBindings()
         {
-            Container.Bind<IItemConfigsRepository>().To<ItemConfigsRepository>().FromInstance(_configsRepo).AsSingle();
-            Container.Bind<ItemFactory>().AsSingle();
+            Container.BindInterfacesTo<ItemConfigsRepository>().FromInstance(_configsRepo).AsSingle();
+            Container.BindInterfacesTo<ItemFactory>().AsSingle();
         }
     }
 }

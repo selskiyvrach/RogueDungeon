@@ -16,7 +16,7 @@ namespace Game.Features.Inventory.Infrastructure.Installers
             Container.BindInterfacesTo<ContainerView>().FromInstance(_lootArea).AsCached();
             Container.BindInterfacesTo<ContainerPresenter>().AsCached();
             Container.BindInterfacesAndSelfTo<ItemContainer>().FromMethod(
-                _ => Container.Resolve<ILootManager>().GetRoomLootContainer(Container.Resolve<Vector2Int>())).AsCached();
+                _ => Container.Resolve<ILootContainersLocator>().GetRoomLootContainer(Container.Resolve<Vector2Int>())).AsCached();
             
             Container.BindInterfacesTo<LootAreaInstanceInstaller>().FromInstance(this).AsCached().NonLazy();
         }

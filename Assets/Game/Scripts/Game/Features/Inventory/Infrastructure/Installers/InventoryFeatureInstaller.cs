@@ -1,5 +1,7 @@
 ﻿using Game.Features.Inventory.App.Presenters;
+using Game.Features.Inventory.App.UseCases;
 using Game.Features.Inventory.Domain;
+using Game.Features.Inventory.Infrastructure.Configs;
 using Game.Features.Inventory.Infrastructure.Factories;
 using Game.Features.Inventory.Infrastructure.View;
 using Libs.Utils.DotNet;
@@ -12,14 +14,20 @@ namespace Game.Features.Inventory.Infrastructure.Installers
     {
         [SerializeField] private Canvas _itemsParent;
         [SerializeField] private ItemView _itemViewPrefab;
+        [SerializeField] private LootConfigsRepository _configsRepository;
         
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<ItemsViewCachedProvider>().AsSingle();
-            Container.BindInterfacesTo<LootManager>().AsSingle();
             Container.BindInterfacesTo<PresentersRegistry>().AsSingle();
             Container.BindInterfacesTo<ItemViewFactory>().AsSingle().WithArguments(new object[]{ _itemViewPrefab });
+            
+            Container.BindInterfacesTo<LootConfigsRepository>().FromInstance(_configsRepository).AsSingle();
+            Container.BindInterfacesTo<LootManager>().AsSingle();
+            
             Container.BindInterfacesTo<InventoryFeatureInstaller>().FromInstance(this).AsCached().NonLazy();
+            Container.BindInterfacesTo<DropLootOnCombatFinishedUseCase>().AsSingle().NonLazy();
+            Container.BindInterfacesTo<PlayDroppedAnimationsOnDroppedItemsUseCase>().AsSingle().NonLazy();
         }
 
         public void Initialize() => 

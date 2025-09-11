@@ -7,6 +7,7 @@ namespace Game.Features.Inventory.Domain
     {
         public float X {get; private set;}
         public float Y {get; private set;}
+        public static PositionNormalized Random => new(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
         public static PositionNormalized Center { get; } = new(0.5f, 0.5f);
         public static PositionNormalized Zero { get; } = new(0f, 0f);
         public static PositionNormalized One { get; } = new(1f, 1f);
