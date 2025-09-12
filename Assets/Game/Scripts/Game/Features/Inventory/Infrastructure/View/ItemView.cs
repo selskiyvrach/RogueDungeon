@@ -2,7 +2,6 @@
 using Game.Libs.UI;
 using Libs.Utils.Unity;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Game.Features.Inventory.Infrastructure.View
@@ -20,7 +19,7 @@ namespace Game.Features.Inventory.Infrastructure.View
         public bool IsHovered { get; private set; }
 
         public IProjectionView ProjectionView => _projection;
-        
+
         public void Setup(IItemViewSetupArgs itemViewSetupArgs)
         {
             _itemViewSetupArgs = itemViewSetupArgs;
