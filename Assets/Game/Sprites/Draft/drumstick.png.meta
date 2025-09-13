@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 94efb4f28a3964746b50b3dbe98c57cc
+guid: ff67cc06ee8029047b2bebaf97ac205a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,39 +119,26 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Axe_0
+      name: drumstick_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 0
-        width: 22
-        height: 32
+        x: 0
+        y: 9
+        width: 32
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 068c6ea233d491b498b05d26d877e22d
-      internalID: -1325982165
+      spriteID: c66ff94528a80b648b70f4936de8afb0
+      internalID: 38637072
       vertices: []
       indices: 
       edges: []
@@ -167,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Axe_0: -1325982165
+      drumstick_0: 38637072
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

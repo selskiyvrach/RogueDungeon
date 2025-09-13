@@ -20,6 +20,13 @@ namespace Game.Features.Inventory.Domain
             new SlotItemContainer(SlotCategory.Handheld, ContainerId.RightHand0),
             new SlotItemContainer(SlotCategory.Handheld, ContainerId.RightHand1),
             new SlotItemContainer(SlotCategory.Handheld, ContainerId.RightHand2),
+            
+            new SlotItemContainer(SlotCategory.Consumable, ContainerId.Consumable0),
+            new SlotItemContainer(SlotCategory.Consumable, ContainerId.Consumable1),
+            new SlotItemContainer(SlotCategory.Consumable, ContainerId.Consumable2),
+            new SlotItemContainer(SlotCategory.Consumable, ContainerId.Consumable3),
+            
+            new SlotItemContainer(SlotCategory.Armor, ContainerId.Armor0),
         };
 
         private readonly CyclableSlotGroup[] _cyclableSlotGroups =

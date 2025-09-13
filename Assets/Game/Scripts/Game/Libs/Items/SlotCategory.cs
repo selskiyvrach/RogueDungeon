@@ -7,6 +7,7 @@
         Armor,
         Helmet,
         Boots,
-        Amulet
+        Amulet,
+        Consumable,
     }
 }

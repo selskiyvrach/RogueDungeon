@@ -13,6 +13,13 @@
         RightHand1 = 31,
         RightHand2 = 32,
         
+        Armor0 = 40,
+        
+        Consumable0 = 50,
+        Consumable1 = 51,
+        Consumable2 = 52,
+        Consumable3 = 53,
+        
         Ground0 = 1000,
     }
 }

@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be4e27dc40947749878beae91b7d42c, type: 3}
+  m_Name: pickaxe
+  m_EditorClassIdentifier: 
+  <Sprite>k__BackingField: {fileID: -1670641219, guid: 3144abf9cbb6c684db604e48bade1acf,
+    type: 3}
+  <Size>k__BackingField: {x: 2, y: 3}
+  <IdleAnimationDuration>k__BackingField: 1
+  <UnsheathDuration>k__BackingField: 0.2
+  _returnToIdleAnimationConfig:
+    <KeyFrames>k__BackingField:
+    - <KeyframeType>k__BackingField: 0
+      <Time>k__BackingField: 1
+      <Position>k__BackingField: {x: 0, y: 0, z: 0}
+      <Rotation>k__BackingField: {x: 0, y: 90, z: 0}
+    <Events>k__BackingField: []
+  _basicAnimationsConfig: {fileID: 11400000, guid: d0c2e9d7550a1d24b8e0d531044361dc,
+    type: 2}
+  <BlockStaminaCostMultiplier>k__BackingField: 2
+  <RaiseBlockAnimationDuration>k__BackingField: 0.15
+  <LowerBlockAnimationDuration>k__BackingField: 0.15
+  <HoldBlockAnimationDuration>k__BackingField: 0.1
+  <BlockImpactAbsorptionAnimationDuration>k__BackingField: 0.15
+  _blockAnimationsConfig: {fileID: 11400000, guid: f04b3703d3fe5344082e8607cfa76605,
+    type: 2}
+  <Damage>k__BackingField: 10
+  <PoiseDamage>k__BackingField: 20
+  <AttackStaminaCost>k__BackingField: 12
+  <PrepareAttackDuration>k__BackingField: 0.25
+  <AttackExecuteDuration>k__BackingField: 0.2
+  <AttackRecoveryDuration>k__BackingField: 0.25
+  <TransitionBetweenAttacksDuration>k__BackingField: 0.35
+  _attackAnimations: {fileID: 11400000, guid: bbaba336350afb14f9433945c7224ef7, type: 2}

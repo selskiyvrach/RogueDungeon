@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 94efb4f28a3964746b50b3dbe98c57cc
+guid: 3144abf9cbb6c684db604e48bade1acf
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,7 +49,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 200
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 5, y: 0, z: 3, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -119,39 +119,26 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Axe_0
+      name: pickaxe_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 5
         y: 0
-        width: 22
+        width: 24
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 068c6ea233d491b498b05d26d877e22d
-      internalID: -1325982165
+      spriteID: 65e881d5734a1a74aa259c5ae46f20ca
+      internalID: -1670641219
       vertices: []
       indices: 
       edges: []
@@ -167,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Axe_0: -1325982165
+      pickaxe_0: -1670641219
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

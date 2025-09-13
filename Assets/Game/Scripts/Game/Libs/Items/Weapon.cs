@@ -13,8 +13,6 @@
         public SlotCategory SlotCategory => SlotCategory.Handheld;
 
         public override BlockingTier BlockingTier => BlockingTier.Second;
-        public EquipmentType EquipmentType => EquipmentType.Handheld;
-
 
         public Weapon(IWeaponItemConfig config, string id) : base(config, id) => 
             _config = config;

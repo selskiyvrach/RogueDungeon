@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49da2e93d9fd437ba24f5a754c22857c, type: 3}
+  m_Name: armor
+  m_EditorClassIdentifier: 
+  <Sprite>k__BackingField: {fileID: 21300000, guid: 88433ccc810972b4097a5e75679e9ed0,
+    type: 3}
+  <Size>k__BackingField: {x: 2, y: 3}
+  <IdleAnimationDuration>k__BackingField: 1
+  <UnsheathDuration>k__BackingField: 0.5
+  _returnToIdleAnimationConfig:
+    <KeyFrames>k__BackingField: []
+    <Events>k__BackingField: []
+  _basicAnimationsConfig: {fileID: 0}

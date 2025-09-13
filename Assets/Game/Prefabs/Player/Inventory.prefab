@@ -203,10 +203,9 @@ GameObject:
   - component: {fileID: 6166977684083846377}
   - component: {fileID: 7602939683944046745}
   - component: {fileID: 4599451069831125014}
-  - component: {fileID: 8821392619838420581}
-  - component: {fileID: 194977168201402715}
+  - component: {fileID: 2522196321780224593}
   m_Layer: 8
-  m_Name: equipment_slot (7)
+  m_Name: slot_consumable_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,30 +268,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
---- !u!223 &8821392619838420581
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1300938601130798289}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &194977168201402715
+--- !u!114 &2522196321780224593
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -301,14 +277,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1300938601130798289}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 11500000, guid: 59b0ce4d384f466597a3d490a79adf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 503
+  _raycastGraphic: {fileID: 4599451069831125014}
+  _rectTransform: {fileID: 6166977684083846377}
+  <CellSize>k__BackingField: 13
 --- !u!1 &1363592141712471097
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,10 +628,9 @@ GameObject:
   - component: {fileID: 5720981639567025371}
   - component: {fileID: 7562841664486637918}
   - component: {fileID: 9174270879310686092}
-  - component: {fileID: 3341055526477721128}
-  - component: {fileID: 5033856418964454606}
+  - component: {fileID: 4231801927701015888}
   m_Layer: 8
-  m_Name: equipment_slot (8)
+  m_Name: slot_consumable_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -720,30 +693,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
---- !u!223 &3341055526477721128
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3797827055893288184}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &5033856418964454606
+--- !u!114 &4231801927701015888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -752,14 +702,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3797827055893288184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 11500000, guid: 59b0ce4d384f466597a3d490a79adf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 503
+  _raycastGraphic: {fileID: 9174270879310686092}
+  _rectTransform: {fileID: 5720981639567025371}
+  <CellSize>k__BackingField: 13
 --- !u!1 &3914587214649344737
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,6 +787,16 @@ MonoBehaviour:
     containerView: {fileID: 8038060163367418748}
   - Id: 31
     containerView: {fileID: 7376614682063198359}
+  - Id: 40
+    containerView: {fileID: 2901301823924735285}
+  - Id: 50
+    containerView: {fileID: 209897594543013270}
+  - Id: 51
+    containerView: {fileID: 4231801927701015888}
+  - Id: 52
+    containerView: {fileID: 6106167755143496168}
+  - Id: 53
+    containerView: {fileID: 2522196321780224593}
   _draggableArea: {fileID: 1808990489740790933}
 --- !u!114 &1548085569401456492
 MonoBehaviour:
@@ -1082,10 +1040,9 @@ GameObject:
   - component: {fileID: 41561348525571907}
   - component: {fileID: 4314162839850229585}
   - component: {fileID: 5279933124363289599}
-  - component: {fileID: 544136907477594645}
-  - component: {fileID: 2226975337139230621}
+  - component: {fileID: 209897594543013270}
   m_Layer: 8
-  m_Name: equipment_slot (9)
+  m_Name: slot_consumable_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1148,30 +1105,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
---- !u!223 &544136907477594645
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6245738298390518583}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &2226975337139230621
+--- !u!114 &209897594543013270
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1180,14 +1114,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6245738298390518583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 11500000, guid: 59b0ce4d384f466597a3d490a79adf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 503
+  _raycastGraphic: {fileID: 5279933124363289599}
+  _rectTransform: {fileID: 41561348525571907}
+  <CellSize>k__BackingField: 13
 --- !u!1 &7151193659417970864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1290,10 +1222,9 @@ GameObject:
   - component: {fileID: 1442010594510225306}
   - component: {fileID: 5408804402643501174}
   - component: {fileID: 2663086032182999731}
-  - component: {fileID: 7535148806141280850}
-  - component: {fileID: 8377783066295557652}
+  - component: {fileID: 2901301823924735285}
   m_Layer: 8
-  m_Name: equipment_slot (3)
+  m_Name: slot_armor_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1356,30 +1287,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
---- !u!223 &7535148806141280850
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7774304557595793663}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &8377783066295557652
+--- !u!114 &2901301823924735285
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1388,14 +1296,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7774304557595793663}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 11500000, guid: 59b0ce4d384f466597a3d490a79adf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 503
+  _raycastGraphic: {fileID: 2663086032182999731}
+  _rectTransform: {fileID: 1442010594510225306}
+  <CellSize>k__BackingField: 20
 --- !u!1 &8037829661689235424
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,10 +1313,9 @@ GameObject:
   - component: {fileID: 4502795768624016900}
   - component: {fileID: 265654190261216838}
   - component: {fileID: 5481008137305629460}
-  - component: {fileID: 480249155360885130}
-  - component: {fileID: 4266749823739274794}
+  - component: {fileID: 6106167755143496168}
   m_Layer: 8
-  m_Name: equipment_slot (6)
+  m_Name: slot_consumable_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1473,30 +1378,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2
---- !u!223 &480249155360885130
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8037829661689235424}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!114 &4266749823739274794
+--- !u!114 &6106167755143496168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1505,14 +1387,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8037829661689235424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 11500000, guid: 59b0ce4d384f466597a3d490a79adf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 503
+  _raycastGraphic: {fileID: 5481008137305629460}
+  _rectTransform: {fileID: 4502795768624016900}
+  <CellSize>k__BackingField: 13
 --- !u!1 &8114194268172694952
 GameObject:
   m_ObjectHideFlags: 0

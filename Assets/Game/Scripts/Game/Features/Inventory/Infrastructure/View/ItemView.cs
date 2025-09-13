@@ -42,17 +42,9 @@ namespace Game.Features.Inventory.Infrastructure.View
 
         public void SetCellSize(float value)
         {
-            var containerSize = (Vector2)_itemViewSetupArgs.Size * value;
-            ((RectTransform)transform).sizeDelta = containerSize;
-            
-            var spriteAspect = _itemImage.sprite.rect.AspectRatio();
-
-            var finalSize = spriteAspect > containerSize.AspectRatio()
-                ? new Vector2(containerSize.x, containerSize.x / spriteAspect) 
-                : new Vector2(containerSize.y * spriteAspect, containerSize.y);
-            
-            _itemImage.rectTransform.sizeDelta = finalSize;
-            _projection.SetSize(finalSize);
+            var size = (Vector2)_itemViewSetupArgs.Size * value;
+            _itemImage.rectTransform.sizeDelta = size;
+            _projection.SetSize(size);
         }
 
         public void DisplayHovered(bool hovered)
