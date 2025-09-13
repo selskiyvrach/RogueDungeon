@@ -96,7 +96,11 @@ namespace Game.Features.Inventory.App.Presenters
         {
             _currentItem.View.ProjectionView.SetIsValid(true);
             if (_currentContainer == null || !_projection.PlacementProspect.IsPossible)
+            {
                 _originContainer.Model.PlaceItem(_currentItem.Model, _originPlacement);
+                if(_originContainer.Model.Id == ContainerId.Ground0)
+                    _currentItem.PlayDroppedAnimation();
+            }
             else
             {
                 if (_projection.PlacementProspect.ReplacedItem is { } replaced && 
@@ -104,8 +108,12 @@ namespace Game.Features.Inventory.App.Presenters
                 {
                     _currentContainer.Model.RemoveItem(replaced);
                     _originContainer.Model.PlaceItem(replaced, placement.Position);
+                    if(_originContainer.Model.Id == ContainerId.Ground0)
+                        _registry.Items.First(n => n.Model == replaced).PlayDroppedAnimation();
                 }
                 _currentContainer.Model.PlaceItem(_currentItem.Model, _projection.PlacementProspect.Position);
+                if(_currentContainer.Model.Id == ContainerId.Ground0)
+                    _currentItem.PlayDroppedAnimation();
             }
             
             _currentItem.DisplaySelected(false);
