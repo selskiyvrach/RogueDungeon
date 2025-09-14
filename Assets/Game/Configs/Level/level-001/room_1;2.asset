@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: room_1;2
   m_EditorClassIdentifier: 
   <Coordinates>k__BackingField: {x: 1, y: 2}
+  <CombatId>k__BackingField: one_skeleton_2
   <Prefab>k__BackingField: {fileID: 6621873733563358463, guid: f73c48686ccaafb4bbc9c77411d884e7,
     type: 3}

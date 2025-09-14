@@ -13,13 +13,18 @@ MonoBehaviour:
   m_Name: combat_configs_repository
   m_EditorClassIdentifier: 
   _configs:
-  - Name: one_skeleton
+  - Name: one_skeleton_1
     Left: {fileID: 0}
     Middle: {fileID: 11400000, guid: 654f9d831b7e2ee44b73859d84082555, type: 2}
     Right: {fileID: 0}
-    <LootId>k__BackingField: axe
+    <LootId>k__BackingField: shield_and_drumstick
   - Name: three_skeletons
     Left: {fileID: 11400000, guid: 654f9d831b7e2ee44b73859d84082555, type: 2}
     Middle: {fileID: 11400000, guid: 654f9d831b7e2ee44b73859d84082555, type: 2}
     Right: {fileID: 11400000, guid: 654f9d831b7e2ee44b73859d84082555, type: 2}
-    <LootId>k__BackingField: armor_and_shield
+    <LootId>k__BackingField: armor_and_pickaxe
+  - Name: one_skeleton_2
+    Left: {fileID: 0}
+    Middle: {fileID: 11400000, guid: 654f9d831b7e2ee44b73859d84082555, type: 2}
+    Right: {fileID: 0}
+    <LootId>k__BackingField: armor_and_pickaxe

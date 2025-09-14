@@ -33,7 +33,7 @@ MonoBehaviour:
   <BlockImpactAbsorptionAnimationDuration>k__BackingField: 0.15
   _blockAnimationsConfig: {fileID: 11400000, guid: f04b3703d3fe5344082e8607cfa76605,
     type: 2}
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 30
   <PoiseDamage>k__BackingField: 20
   <AttackStaminaCost>k__BackingField: 12
   <PrepareAttackDuration>k__BackingField: 0.25

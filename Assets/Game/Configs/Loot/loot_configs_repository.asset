@@ -16,7 +16,11 @@ MonoBehaviour:
   - Id: axe
     <Items>k__BackingField:
     - axe
-  - Id: armor_and_shield
+  - Id: armor_and_pickaxe
     <Items>k__BackingField:
     - armor
+    - pickaxe
+  - Id: shield_and_drumstick
+    <Items>k__BackingField:
     - shield
+    - drumstick

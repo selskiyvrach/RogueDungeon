@@ -95,12 +95,6 @@ namespace Game.Features.Combat.Domain.Enemies
 
         private void TakeDamage(float damage, float poiseDamage)
         {
-            if (IsStunned)
-            {
-                _stateMachine.StartState(_statesProvider.GetState(MoveNames.IDLE));
-                damage *= 2;
-            }
-            
             Health.AddDelta(-damage);
             Poise.AddDelta(-poiseDamage);
             if (!IsAlive) 
