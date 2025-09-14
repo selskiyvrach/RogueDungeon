@@ -2,6 +2,7 @@
 using Game.Features.Combat.Domain;
 using Game.Features.Inventory.Domain;
 using Game.Features.Player.Domain.Movesets.Movement;
+using Libs.Utils.DotNet;
 using Zenject;
 
 namespace Game.Features.Inventory.App.UseCases
@@ -25,7 +26,11 @@ namespace Game.Features.Inventory.App.UseCases
         public void Dispose() => 
             _combat.OnFinished -= DropLoot;
 
-        private void DropLoot() => 
-            _lootDropper.DropLoot(_combatConfigsRepository.Get(_combat.Id).LootId, _combat.Coordinates);
+        private void DropLoot()
+        {
+            var lootId = _combatConfigsRepository.Get(_combat.Id).LootId;
+            if(!lootId.IsNullOrEmpty())
+                _lootDropper.DropLoot(lootId, _combat.Coordinates);
+        }
     }
 }

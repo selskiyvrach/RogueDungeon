@@ -17,7 +17,7 @@ namespace Game.Features.Combat.Infrastructure
             public EnemyConfig Left;
             public EnemyConfig Middle;
             public EnemyConfig Right;
-            public string LootId => "default";
+            [field: SerializeField] public string LootId { get; private set; }
 
             public IEnumerable<(EnemyConfig config, EnemyPosition position)> SpawnInfos => new[]
             {

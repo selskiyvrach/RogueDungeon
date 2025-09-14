@@ -39,7 +39,7 @@ namespace Game.Features.Inventory.Domain
             {
                 var created = _itemsFactory.Create(item);
                 _lastDroppedItems.Add(created);
-                lootArea.PlaceItem(created, PositionNormalized.Center);
+                lootArea.PlaceItem(created, PositionNormalized.Random);
             }
 
             OnItemsDropped?.Invoke(roomId, _lastDroppedItems);

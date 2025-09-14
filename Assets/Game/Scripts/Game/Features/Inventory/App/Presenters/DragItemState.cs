@@ -38,11 +38,11 @@ namespace Game.Features.Inventory.App.Presenters
             _input.OnPointerUp += OnPointerUp;
             
             ScanForContainer();
-            UpdateItemPositionAndProjection();
-            
             _originContainer = _registry.Containers.First(n => n.Model.ContainsItem(carriedItem.Model));
             _originContainer.ExtractItem(carriedItem, out _originPlacement);
             _draggableArea.PlaceItemAsChild(_currentItem);
+            
+            UpdateItemPositionAndProjection();
             _currentItem.DisplaySelected(true);
         }
 
